@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="https://dream-yt.github.io/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="dockerコンテナ内でstraceを使う"/>
+  <meta name="twitter:description" content="docker runに起動オブションをつけないとstraceは実行できない これはセキュリティの見地からdocker内では呼んで良いシステムコールが制限さ"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@site_author"/>
+  
+
+
+
+		
+		<meta name="author" content="site_author">
+		<meta name="description" content="Site Description">
+		<meta name="generator" content="Hugo 0.49" />
+		<title>dockerコンテナ内でstraceを使う &middot; sacre</title>
+		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/font-awesome.min.css">
+		
+
+		
+		<link href="https://dream-yt.github.io/index.xml" rel="alternate" type="application/rss+xml" title="sacre" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='https://dream-yt.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://dream-yt.github.io/posts'>Archive</a>
+	<a href='https://dream-yt.github.io/tags'>Tags</a>
+	<a href='https://dream-yt.github.io/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="https://dream-yt.github.io/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        dockerコンテナ内でstraceを使う
+                    </h1>
+                    <h2 class="headline">
+                    Oct 24, 2018 23:36
+                    · 365 words
+                    · 1 minute read
+                      <span class="tags">
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#cap-add">cap-add</a></li>
+<li><a href="#security-opt">security-opt</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    
+
+<p>docker runに起動オブションをつけないとstraceは実行できない
+これはセキュリティの見地からdocker内では呼んで良いシステムコールが制限されているため</p>
+
+<p>以下のページで起動オプションについてのメモが記載されている</p>
+
+<ul>
+<li><a href="http://blog.johngoulah.com/2016/03/running-strace-in-docker/">» Running Strace in Docker</a></li>
+</ul>
+
+<h4 id="cap-add">cap-add</h4>
+
+<p><code>SYS_PTRACE</code> を使って良い状態にするにはこちらを指定する</p>
+
+<blockquote>
+<p>If you are using secconf, there are a couple of things you can pass to docker run to loosen up this security policy. To allow strace specifically, you enable the system call that it relies upon to get its information (ptrace):</p>
+</blockquote>
+
+<pre><code>--cap-add SYS_PTRACE
+</code></pre>
+
+<h4 id="security-opt">security-opt</h4>
+
+<p>ほかにもシステムコールを制御する仕組みがあるようだ
+オルタナティブとして以下のようなオブションの渡し方があるようだ</p>
+
+<blockquote>
+<p>This whole paradigm is in fact documented but none of my original searches turned up these pages. In addition to disabling ptrace, there are a slew of other system level commands that you may (or may not) need that aren’t on the docker whitelist of allowed system calls. The list of calls can be adjusted very granularly by feeding docker a json file defining your security options. Or if you are feeling up for it, you can re-enable all of them in one fell swoop with this option to docker run:</p>
+</blockquote>
+
+<pre><code>--security-opt seccomp:unconfined
+</code></pre>
+
+<p>このオプションをつけなくても動くかどうかは確認しておいた方がよさそう</p>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fstrace-in-docker-container%2f - docker%e3%82%b3%e3%83%b3%e3%83%86%e3%83%8a%e5%86%85%e3%81%a7strace%e3%82%92%e4%bd%bf%e3%81%86 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'your_disqus_short_name'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/dream-yt/sacre">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://twitter.com/FUTABA_SACRE">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2018 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="https://dream-yt.github.io/js/jquery-3.3.1.min.js"></script>
+<script src="https://dream-yt.github.io/js/main.js"></script>
+<script src="https://dream-yt.github.io/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+
+
+
+
+    </body>
+</html>
