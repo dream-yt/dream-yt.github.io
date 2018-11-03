@@ -6,10 +6,19 @@
     <description>Recent content in Posts on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sun, 28 Oct 2018 18:14:17 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 03 Nov 2018 17:24:38 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>GoogleSpreadsheetのデータ(csv)をパパッとjsonにしてスクリプトから使う</title>
+      <link>https://dream-yt.github.io/post/googlespreadsheet-csv-json-perl/</link>
+      <pubDate>Sat, 03 Nov 2018 17:24:38 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/googlespreadsheet-csv-json-perl/</guid>
+      <description>csvjsonを使うとcsv =&amp;gt; json が簡単に変換できる csvjsonはcsvkitをインストールすると入ってくる $ brew install csvkit ... $ which csvjson /usr/local/bin/csvjson csvでダウン</description>
+    </item>
     
     <item>
       <title>起業の科学の読書メモ</title>
