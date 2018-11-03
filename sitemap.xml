@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://dream-yt.github.io/post/gettingstarted-athenacli/</loc>
+    <lastmod>2018-11-03T18:11:44+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://dream-yt.github.io/post/jq-sample-keys-obj-children/</loc>
     <lastmod>2018-11-03T17:45:49+09:00</lastmod>
   </url>
@@ -34,7 +39,7 @@
   
   <url>
     <loc>https://dream-yt.github.io/post/</loc>
-    <lastmod>2018-11-03T17:45:49+09:00</lastmod>
+    <lastmod>2018-11-03T18:11:44+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -45,7 +50,7 @@
   
   <url>
     <loc>https://dream-yt.github.io/</loc>
-    <lastmod>2018-11-03T17:45:49+09:00</lastmod>
+    <lastmod>2018-11-03T18:11:44+09:00</lastmod>
     <priority>0</priority>
   </url>
   

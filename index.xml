@@ -6,10 +6,19 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sat, 03 Nov 2018 17:45:49 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 03 Nov 2018 18:11:44 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>athenacliを使う</title>
+      <link>https://dream-yt.github.io/post/gettingstarted-athenacli/</link>
+      <pubDate>Sat, 03 Nov 2018 18:11:44 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/gettingstarted-athenacli/</guid>
+      <description>awscliにはathenaサブコマンドが用意されているが、gcpのbqコマンドのように便利な雰囲気ではない athena — AWS CLI 1.16.47 Command Reference シェルスクリプトに</description>
+    </item>
     
     <item>
       <title>jq での変形例 (keys[]でのオブジェクト=&gt;オブジェクト編) </title>
