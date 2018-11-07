@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="https://dream-yt.github.io/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="GoogleSpreadsheetのデータ(csv)をパパッとjsonにしてスクリプトから使う"/>
+  <meta name="twitter:description" content="csvjsonを使うとcsv =&gt; json が簡単に変換できる csvjsonはcsvkitをインストールすると入ってくる $ brew install csvkit ... $ which csvjson /usr/local/bin/csvjson csvでダウン"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@site_author"/>
+  
+
+
+
+		
+		<meta name="author" content="site_author">
+		<meta name="description" content="Site Description">
+		<meta name="generator" content="Hugo 0.48" />
+		<title>GoogleSpreadsheetのデータ(csv)をパパッとjsonにしてスクリプトから使う &middot; sacre</title>
+		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/font-awesome.min.css">
+		
+
+		
+		<link href="https://dream-yt.github.io/index.xml" rel="alternate" type="application/rss+xml" title="sacre" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='https://dream-yt.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://dream-yt.github.io/posts'>Archive</a>
+	<a href='https://dream-yt.github.io/tags'>Tags</a>
+	<a href='https://dream-yt.github.io/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="https://dream-yt.github.io/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        GoogleSpreadsheetのデータ(csv)をパパッとjsonにしてスクリプトから使う
+                    </h1>
+                    <h2 class="headline">
+                    Nov 3, 2018 17:24
+                    · 466 words
+                    · 1 minute read
+                      <span class="tags">
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#csvでダウンロード">csvでダウンロード</a></li>
+<li><a href="#スクリプト">スクリプト</a>
+<ul>
+<li>
+<ul>
+<li><a href="#h"><code>-H</code></a></li>
+</ul></li>
+</ul></li>
+<li><a href="#もうちょっとインタラクティブに">もうちょっとインタラクティブに</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    
+
+<p>csvjsonを使うとcsv =&gt; json が簡単に変換できる
+csvjsonはcsvkitをインストールすると入ってくる</p>
+
+<pre><code class="language-console">$ brew install csvkit
+...
+$ which csvjson
+/usr/local/bin/csvjson
+</code></pre>
+
+<h3 id="csvでダウンロード">csvでダウンロード</h3>
+
+<p>Google SpreadSheetからcsv形式でダウンロード</p>
+
+<ul>
+<li>ファイル
+
+<ul>
+<li>形式を指定してダウンロード
+
+<ul>
+<li>カンマ区切りの値</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<p><img src="https://user-images.githubusercontent.com/5309672/47705130-f7fc0b80-dc68-11e8-90c9-1a92ea1b3a1f.png" alt="image" /></p>
+
+<p>csvjsonはデフォルトだとa, b といったキー名のオブジェクトを配列で作ってくれる</p>
+
+<pre><code class="language-console">$ cat ~/Downloads/テストのデータ\ -\ シート1\ \(1\).csv | csvjson -H | jq .
+[
+  {
+    &quot;a&quot;: null,
+    &quot;b&quot;: &quot;TOKIO&quot;,
+    &quot;c&quot;: 1
+  },
+  {
+    &quot;a&quot;: null,
+    &quot;b&quot;: &quot;SMAP&quot;,
+    &quot;c&quot;: 2
+  },
+  {
+    &quot;a&quot;: null,
+    &quot;b&quot;: &quot;嵐&quot;,
+    &quot;c&quot;: 0
+  }
+]
+</code></pre>
+
+<h3 id="スクリプト">スクリプト</h3>
+
+<p>あとはjsonをスクリプトで使う<br />
+perlだとjsonのdecodeはこんな感じ</p>
+
+<pre><code>#!/usr/bin/perl
+use JSON qw'decode_json';
+my $input = decode_json join(&quot;&quot;, &lt;STDIN&gt;);
+print &quot;group arrested counts: &quot; map {$_-&gt;{c}} @$input;
+</code></pre>
+
+<p>パイプで繋げばスプレッドシートのデータをスクリプトで操作できる</p>
+
+<pre><code class="language-bash">$ cat ~/Downloads/テストのデータシート1.csv | csvjson -H | ./myscript.pl
+</code></pre>
+
+<h5 id="h"><code>-H</code></h5>
+
+<pre><code class="language-console">$ csvjson --help | grep '\-H'
+  -H, --no-header-row   Specify that the input CSV file has no header row.
+</code></pre>
+
+<h3 id="もうちょっとインタラクティブに">もうちょっとインタラクティブに</h3>
+
+<p>スプレッドシートの権限をゆるくすればcurlでcsvを取ったりも出来る</p>
+
+<ul>
+<li><a href="https://productforums.google.com/forum/#!topic/docs/An-nZtjaupU">publish to web in csv in google sheets - Google プロダクト フォーラム</a></li>
+</ul>
+
+<pre><code class="language-bash">$ curl -s https://docs.google.com/spreadsheets/d/xxxxxxx/export?format=csv \
+    | csvjson -H | ./myscript.pl
+</code></pre>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fgooglespreadsheet-csv-json-perl%2f - GoogleSpreadsheet%e3%81%ae%e3%83%87%e3%83%bc%e3%82%bf%28csv%29%e3%82%92%e3%83%91%e3%83%91%e3%83%83%e3%81%a8json%e3%81%ab%e3%81%97%e3%81%a6%e3%82%b9%e3%82%af%e3%83%aa%e3%83%97%e3%83%88%e3%81%8b%e3%82%89%e4%bd%bf%e3%81%86 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'your_disqus_short_name'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/dream-yt/sacre">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://twitter.com/FUTABA_SACRE">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2018 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="https://dream-yt.github.io/js/jquery-3.3.1.min.js"></script>
+<script src="https://dream-yt.github.io/js/main.js"></script>
+<script src="https://dream-yt.github.io/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+
+
+
+
+    </body>
+</html>
