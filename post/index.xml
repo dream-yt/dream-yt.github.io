@@ -6,17 +6,12 @@
     <description>Recent content in Posts on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-<<<<<<< HEAD
     <lastBuildDate>Wed, 07 Nov 2018 12:51:45 +0900</lastBuildDate>
-=======
-    <lastBuildDate>Sat, 03 Nov 2018 18:11:44 +0900</lastBuildDate>
->>>>>>> 3ebb7e80fabda1f50836ff8d4a8652295b8c66ed
     
 	<atom:link href="https://dream-yt.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-<<<<<<< HEAD
       <title>【ロゴ作成】RGBとCMYKの色マニュアルを作った時の備忘録</title>
       <link>https://dream-yt.github.io/post/logo-colormode/</link>
       <pubDate>Wed, 07 Nov 2018 12:51:45 +0900</pubDate>
@@ -26,8 +21,6 @@
     </item>
     
     <item>
-=======
->>>>>>> 3ebb7e80fabda1f50836ff8d4a8652295b8c66ed
       <title>athenacliを使う</title>
       <link>https://dream-yt.github.io/post/gettingstarted-athenacli/</link>
       <pubDate>Sat, 03 Nov 2018 18:11:44 +0900</pubDate>
