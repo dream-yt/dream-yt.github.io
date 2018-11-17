@@ -6,10 +6,19 @@
     <description>Recent content in Posts on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sat, 17 Nov 2018 11:41:24 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 17 Nov 2018 22:30:32 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>aws-cdkを使い始めるまでメモ</title>
+      <link>https://dream-yt.github.io/post/aws-cdk-101/</link>
+      <pubDate>Sat, 17 Nov 2018 22:30:32 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/aws-cdk-101/</guid>
+      <description>プロジェクトを作成する app ってのはサブコマンドで、「アプリ開発者として使う」という意味 (libってのがあって、それはcdkのライブラリ作者が使</description>
+    </item>
     
     <item>
       <title>年末調整で毎回調べる諸々</title>
