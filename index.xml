@@ -6,10 +6,19 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sat, 17 Nov 2018 22:30:32 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 20 Nov 2018 23:59:56 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>的外れな言葉に傷つく前に読む雑記</title>
+      <link>https://dream-yt.github.io/post/zakki-181120-dream/</link>
+      <pubDate>Tue, 20 Nov 2018 23:59:56 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/zakki-181120-dream/</guid>
+      <description>これは一体 文章を書く練習の一貫で、最近思ったことを書く。 箇条書きと文章を使い分けられるいいかんじの人を目指して。 雑記です。もう。 身の回りでも</description>
+    </item>
     
     <item>
       <title>aws-cdkを使い始めるまでメモ</title>
