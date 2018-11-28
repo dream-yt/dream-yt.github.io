@@ -13,8 +13,8 @@
     
   
   
-  <meta name="twitter:title" content="GoogleSpreadsheetのデータ(csv)をパパッとjsonにしてスクリプトから使う"/>
-  <meta name="twitter:description" content="csvjsonを使うとcsv =&gt; json が簡単に変換できる csvjsonはcsvkitをインストールすると入ってくる $ brew install csvkit ... $ which csvjson /usr/local/bin/csvjson csvでダウン"/>
+  <meta name="twitter:title" content="macosでパイプで翻訳してくれるtransコマンドを使う"/>
+  <meta name="twitter:description" content="soimort/translate-shell: Command-line translator using Google Translate, Bing Translator, Yandex.Translate, DeepL Translator, etc. インストール brew install gawk # 依存してるのでmacosの場合必要 sudo wget git.io/trans -O /usr/local/bin/trans sudo chmod &#43;x /usr/local/bin/trans 使い方 $ trans --help | head -1 Usage: trans [OPTIONS] [SOURCE]:[TARGETS] [TEXT]... 例えば 日本語(j"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -30,7 +30,7 @@
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
 		<meta name="generator" content="Hugo 0.42.1" />
-		<title>GoogleSpreadsheetのデータ(csv)をパパッとjsonにしてスクリプトから使う &middot; sacre</title>
+		<title>macosでパイプで翻訳してくれるtransコマンドを使う &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
@@ -68,11 +68,11 @@
             <article>
                 <header>
                     <h1>
-                        GoogleSpreadsheetのデータ(csv)をパパッとjsonにしてスクリプトから使う
+                        macosでパイプで翻訳してくれるtransコマンドを使う
                     </h1>
                     <h2 class="headline">
-                    Nov 3, 2018 17:24
-                    · 466 words
+                    Nov 23, 2018 14:18
+                    · 152 words
                     · 1 minute read
                       <span class="tags">
                       
@@ -88,15 +88,14 @@
 <ul>
 <li>
 <ul>
-<li><a href="#csvでダウンロード">csvでダウンロード</a></li>
-<li><a href="#スクリプト">スクリプト</a>
+<li><a href="#インストール">インストール</a></li>
+<li><a href="#使い方">使い方</a>
 <ul>
 <li>
 <ul>
-<li><a href="#h"><code>-H</code></a></li>
+<li><a href="#例えば">例えば</a></li>
 </ul></li>
 </ul></li>
-<li><a href="#もうちょっとインタラクティブに">もうちょっとインタラクティブに</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -107,94 +106,45 @@
                 <section id="post-body">
                     
 
-<p>csvjsonを使うとcsv =&gt; json が簡単に変換できる
-csvjsonはcsvkitをインストールすると入ってくる</p>
-
-<pre><code class="language-console">$ brew install csvkit
-...
-$ which csvjson
-/usr/local/bin/csvjson
-</code></pre>
-
-<h3 id="csvでダウンロード">csvでダウンロード</h3>
-
-<p>Google SpreadSheetからcsv形式でダウンロード</p>
-
 <ul>
-<li>ファイル
-
-<ul>
-<li>形式を指定してダウンロード
-
-<ul>
-<li>カンマ区切りの値</li>
-</ul></li>
-</ul></li>
+<li><a href="https://github.com/soimort/translate-shell">soimort/translate-shell: Command-line translator using Google Translate, Bing Translator, Yandex.Translate, DeepL Translator, etc.</a></li>
 </ul>
 
-<p><img src="https://user-images.githubusercontent.com/5309672/47705130-f7fc0b80-dc68-11e8-90c9-1a92ea1b3a1f.png" alt="image" /></p>
+<h3 id="インストール">インストール</h3>
 
-<p>csvjsonはデフォルトだとa, b といったキー名のオブジェクトを配列で作ってくれる</p>
-
-<pre><code class="language-console">$ cat ~/Downloads/テストのデータ\ -\ シート1\ \(1\).csv | csvjson -H | jq .
-[
-  {
-    &quot;a&quot;: null,
-    &quot;b&quot;: &quot;TOKIO&quot;,
-    &quot;c&quot;: 1
-  },
-  {
-    &quot;a&quot;: null,
-    &quot;b&quot;: &quot;SMAP&quot;,
-    &quot;c&quot;: 2
-  },
-  {
-    &quot;a&quot;: null,
-    &quot;b&quot;: &quot;嵐&quot;,
-    &quot;c&quot;: 0
-  }
-]
+<pre><code class="language-bash">brew install gawk  # 依存してるのでmacosの場合必要
+sudo wget git.io/trans -O /usr/local/bin/trans
+sudo chmod +x /usr/local/bin/trans
 </code></pre>
 
-<h3 id="スクリプト">スクリプト</h3>
+<h3 id="使い方">使い方</h3>
 
-<p>あとはjsonをスクリプトで使う<br />
-perlだとjsonのdecodeはこんな感じ</p>
-
-<pre><code>#!/usr/bin/perl
-use JSON qw'decode_json';
-my $input = decode_json join(&quot;&quot;, &lt;STDIN&gt;);
-print &quot;group arrested counts: &quot; map {$_-&gt;{c}} @$input;
+<pre><code>$ trans --help | head -1
+Usage:  trans [OPTIONS] [SOURCE]:[TARGETS] [TEXT]...
 </code></pre>
 
-<p>パイプで繋げばスプレッドシートのデータをスクリプトで操作できる</p>
+<h5 id="例えば">例えば</h5>
 
-<pre><code class="language-bash">$ cat ~/Downloads/テストのデータシート1.csv | csvjson -H | ./myscript.pl
-</code></pre>
+<p>日本語(<code>ja</code>)から英語(<code>en</code>)ならこんな感じ</p>
 
-<h5 id="h"><code>-H</code></h5>
+<pre><code class="language-console">$ echo 最新に更新する | trans ja:en
+最新に更新する
+(Saishin ni kōshin suru)
 
-<pre><code class="language-console">$ csvjson --help | grep '\-H'
-  -H, --no-header-row   Specify that the input CSV file has no header row.
-</code></pre>
+Update to latest
 
-<h3 id="もうちょっとインタラクティブに">もうちょっとインタラクティブに</h3>
+「最新に更新する」の翻訳
+[ 日本語 -&gt; English ]
 
-<p>スプレッドシートの権限をゆるくすればcurlでcsvを取ったりも出来る</p>
-
-<ul>
-<li><a href="https://productforums.google.com/forum/#!topic/docs/An-nZtjaupU">publish to web in csv in google sheets - Google プロダクト フォーラム</a></li>
-</ul>
-
-<pre><code class="language-bash">$ curl -s https://docs.google.com/spreadsheets/d/xxxxxxx/export?format=csv \
-    | csvjson -H | ./myscript.pl
+最新に更新する
+    Update to latest, To update to the latest
 </code></pre>
 
                 </section>
             </article>
 
             
-                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fgooglespreadsheet-csv-json-perl%2f - GoogleSpreadsheet%e3%81%ae%e3%83%87%e3%83%bc%e3%82%bf%28csv%29%e3%82%92%e3%83%91%e3%83%91%e3%83%83%e3%81%a8json%e3%81%ab%e3%81%97%e3%81%a6%e3%82%b9%e3%82%af%e3%83%aa%e3%83%97%e3%83%88%e3%81%8b%e3%82%89%e4%bd%bf%e3%81%86 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2ftrans-command-on-macos%2f - macos%e3%81%a7%e3%83%91%e3%82%a4%e3%83%97%e3%81%a7%e7%bf%bb%e8%a8%b3%e3%81%97%e3%81%a6%e3%81%8f%e3%82%8c%e3%82%8btrans%e3%82%b3%e3%83%9e%e3%83%b3%e3%83%89%e3%82%92%e4%bd%bf%e3%81%86 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
 
 <a class="facebook" href="#" onclick="
     window.open(

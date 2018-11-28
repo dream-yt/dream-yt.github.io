@@ -13,8 +13,8 @@
     
   
   
-  <meta name="twitter:title" content="GoogleSpreadsheetのデータ(csv)をパパッとjsonにしてスクリプトから使う"/>
-  <meta name="twitter:description" content="csvjsonを使うとcsv =&gt; json が簡単に変換できる csvjsonはcsvkitをインストールすると入ってくる $ brew install csvkit ... $ which csvjson /usr/local/bin/csvjson csvでダウン"/>
+  <meta name="twitter:title" content="LambdaのエラーをコーディングなしでSlack通知までしてもらう設定"/>
+  <meta name="twitter:description" content="serverlessを使っている前提 slackの bring emails into slack を使う slack通知用のメールアドレスを取得 このアドレスにメールを送ると、内容がsl"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -30,7 +30,7 @@
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
 		<meta name="generator" content="Hugo 0.42.1" />
-		<title>GoogleSpreadsheetのデータ(csv)をパパッとjsonにしてスクリプトから使う &middot; sacre</title>
+		<title>LambdaのエラーをコーディングなしでSlack通知までしてもらう設定 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
@@ -68,11 +68,11 @@
             <article>
                 <header>
                     <h1>
-                        GoogleSpreadsheetのデータ(csv)をパパッとjsonにしてスクリプトから使う
+                        LambdaのエラーをコーディングなしでSlack通知までしてもらう設定
                     </h1>
                     <h2 class="headline">
-                    Nov 3, 2018 17:24
-                    · 466 words
+                    Nov 23, 2018 14:04
+                    · 287 words
                     · 1 minute read
                       <span class="tags">
                       
@@ -88,15 +88,14 @@
 <ul>
 <li>
 <ul>
-<li><a href="#csvでダウンロード">csvでダウンロード</a></li>
-<li><a href="#スクリプト">スクリプト</a>
+<li>
 <ul>
 <li>
 <ul>
-<li><a href="#h"><code>-H</code></a></li>
+<li><a href="#メモ">メモ</a></li>
 </ul></li>
 </ul></li>
-<li><a href="#もうちょっとインタラクティブに">もうちょっとインタラクティブに</a></li>
+<li><a href="#参考">参考</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -107,94 +106,47 @@
                 <section id="post-body">
                     
 
-<p>csvjsonを使うとcsv =&gt; json が簡単に変換できる
-csvjsonはcsvkitをインストールすると入ってくる</p>
-
-<pre><code class="language-console">$ brew install csvkit
-...
-$ which csvjson
-/usr/local/bin/csvjson
-</code></pre>
-
-<h3 id="csvでダウンロード">csvでダウンロード</h3>
-
-<p>Google SpreadSheetからcsv形式でダウンロード</p>
+<p>serverlessを使っている前提</p>
 
 <ul>
-<li>ファイル
+<li>slackの <code>bring emails into slack</code> を使う
 
 <ul>
-<li>形式を指定してダウンロード
-
-<ul>
-<li>カンマ区切りの値</li>
+<li>slack通知用のメールアドレスを取得</li>
+<li>このアドレスにメールを送ると、内容がslack(自分とslackbotのDirectMessage)に投稿される</li>
 </ul></li>
+<li>slsプラグイン <code>serverless-plugin-aws-alerts</code> を使う
+
+<ul>
+<li>AWS::CloudWatch::Alarm でエラーを検知</li>
+<li>AWS::SNS::Topic でエラー内容をメール送信</li>
+<li>送信先にslackから払い出されたメールアドレスを入れる</li>
 </ul></li>
 </ul>
 
-<p><img src="https://user-images.githubusercontent.com/5309672/47705130-f7fc0b80-dc68-11e8-90c9-1a92ea1b3a1f.png" alt="image" /></p>
-
-<p>csvjsonはデフォルトだとa, b といったキー名のオブジェクトを配列で作ってくれる</p>
-
-<pre><code class="language-console">$ cat ~/Downloads/テストのデータ\ -\ シート1\ \(1\).csv | csvjson -H | jq .
-[
-  {
-    &quot;a&quot;: null,
-    &quot;b&quot;: &quot;TOKIO&quot;,
-    &quot;c&quot;: 1
-  },
-  {
-    &quot;a&quot;: null,
-    &quot;b&quot;: &quot;SMAP&quot;,
-    &quot;c&quot;: 2
-  },
-  {
-    &quot;a&quot;: null,
-    &quot;b&quot;: &quot;嵐&quot;,
-    &quot;c&quot;: 0
-  }
-]
-</code></pre>
-
-<h3 id="スクリプト">スクリプト</h3>
-
-<p>あとはjsonをスクリプトで使う<br />
-perlだとjsonのdecodeはこんな感じ</p>
-
-<pre><code>#!/usr/bin/perl
-use JSON qw'decode_json';
-my $input = decode_json join(&quot;&quot;, &lt;STDIN&gt;);
-print &quot;group arrested counts: &quot; map {$_-&gt;{c}} @$input;
-</code></pre>
-
-<p>パイプで繋げばスプレッドシートのデータをスクリプトで操作できる</p>
-
-<pre><code class="language-bash">$ cat ~/Downloads/テストのデータシート1.csv | csvjson -H | ./myscript.pl
-</code></pre>
-
-<h5 id="h"><code>-H</code></h5>
-
-<pre><code class="language-console">$ csvjson --help | grep '\-H'
-  -H, --no-header-row   Specify that the input CSV file has no header row.
-</code></pre>
-
-<h3 id="もうちょっとインタラクティブに">もうちょっとインタラクティブに</h3>
-
-<p>スプレッドシートの権限をゆるくすればcurlでcsvを取ったりも出来る</p>
+<h5 id="メモ">メモ</h5>
 
 <ul>
-<li><a href="https://productforums.google.com/forum/#!topic/docs/An-nZtjaupU">publish to web in csv in google sheets - Google プロダクト フォーラム</a></li>
+<li>SNSにメアドを設定した時、確認メールがくるのでメール内のconfirmリンクを踏んでおく</li>
+<li>SNSからのメールの履歴を残したい場合は{ Gmail =&gt; slackメール }で転送する
+
+<ul>
+<li>Gmailの転送設定が必要</li>
+</ul></li>
 </ul>
 
-<pre><code class="language-bash">$ curl -s https://docs.google.com/spreadsheets/d/xxxxxxx/export?format=csv \
-    | csvjson -H | ./myscript.pl
-</code></pre>
+<h3 id="参考">参考</h3>
+
+<ul>
+<li><a href="https://get.slack.help/hc/ja/articles/206819278-Slack-%E3%81%A7%E3%83%A1%E3%83%BC%E3%83%AB%E3%82%92%E5%8F%97%E4%BF%A1%E3%81%99%E3%82%8B">Slack でメールを受信する – Slack</a></li>
+<li><a href="https://github.com/ACloudGuru/serverless-plugin-aws-alerts">serverless-plugin-aws-alerts: A plugin that creates CloudWatch alarms for functions.</a></li>
+</ul>
 
                 </section>
             </article>
 
             
-                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fgooglespreadsheet-csv-json-perl%2f - GoogleSpreadsheet%e3%81%ae%e3%83%87%e3%83%bc%e3%82%bf%28csv%29%e3%82%92%e3%83%91%e3%83%91%e3%83%83%e3%81%a8json%e3%81%ab%e3%81%97%e3%81%a6%e3%82%b9%e3%82%af%e3%83%aa%e3%83%97%e3%83%88%e3%81%8b%e3%82%89%e4%bd%bf%e3%81%86 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fcodeless-lambda-error-slack-notify%2f - Lambda%e3%81%ae%e3%82%a8%e3%83%a9%e3%83%bc%e3%82%92%e3%82%b3%e3%83%bc%e3%83%87%e3%82%a3%e3%83%b3%e3%82%b0%e3%81%aa%e3%81%97%e3%81%a7Slack%e9%80%9a%e7%9f%a5%e3%81%be%e3%81%a7%e3%81%97%e3%81%a6%e3%82%82%e3%82%89%e3%81%86%e8%a8%ad%e5%ae%9a by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
 
 <a class="facebook" href="#" onclick="
     window.open(
