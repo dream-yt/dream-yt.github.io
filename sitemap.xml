@@ -3,15 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-<<<<<<< HEAD
     <loc>https://dream-yt.github.io/post/git-cherry-pick/</loc>
     <lastmod>2018-11-28T22:27:25+09:00</lastmod>
   </url>
   
   <url>
-    <loc>https://dream-yt.github.io/post/tag-test/</loc>
-    <lastmod>2018-11-22T13:08:28+09:00</lastmod>
-=======
     <loc>https://dream-yt.github.io/post/lambda-callbackwaitsforemptyeventloop/</loc>
     <lastmod>2018-11-24T12:47:49+09:00</lastmod>
   </url>
@@ -24,7 +20,11 @@
   <url>
     <loc>https://dream-yt.github.io/post/codeless-lambda-error-slack-notify/</loc>
     <lastmod>2018-11-23T14:04:09+09:00</lastmod>
->>>>>>> c6b6f5fd796982e708e0e1b9abf79db2f891bb47
+  </url>
+  
+  <url>
+    <loc>https://dream-yt.github.io/post/tag-test/</loc>
+    <lastmod>2018-11-22T13:08:28+09:00</lastmod>
   </url>
   
   <url>
@@ -114,11 +114,7 @@
   
   <url>
     <loc>https://dream-yt.github.io/post/</loc>
-<<<<<<< HEAD
     <lastmod>2018-11-28T22:27:25+09:00</lastmod>
-=======
-    <lastmod>2018-11-24T12:47:49+09:00</lastmod>
->>>>>>> c6b6f5fd796982e708e0e1b9abf79db2f891bb47
     <priority>0</priority>
   </url>
   
@@ -130,11 +126,7 @@
   
   <url>
     <loc>https://dream-yt.github.io/</loc>
-<<<<<<< HEAD
     <lastmod>2018-11-28T22:27:25+09:00</lastmod>
-=======
-    <lastmod>2018-11-24T12:47:49+09:00</lastmod>
->>>>>>> c6b6f5fd796982e708e0e1b9abf79db2f891bb47
     <priority>0</priority>
   </url>
   

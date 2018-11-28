@@ -6,17 +6,12 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-<<<<<<< HEAD
     <lastBuildDate>Wed, 28 Nov 2018 22:27:25 +0900</lastBuildDate>
-=======
-    <lastBuildDate>Sat, 24 Nov 2018 12:47:49 +0900</lastBuildDate>
->>>>>>> c6b6f5fd796982e708e0e1b9abf79db2f891bb47
     
 	<atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-<<<<<<< HEAD
       <title>commitを別の作業branchへ移動する方法</title>
       <link>https://dream-yt.github.io/post/git-cherry-pick/</link>
       <pubDate>Wed, 28 Nov 2018 22:27:25 +0900</pubDate>
@@ -26,13 +21,6 @@
     </item>
     
     <item>
-      <title>Tag Test</title>
-      <link>https://dream-yt.github.io/post/tag-test/</link>
-      <pubDate>Thu, 22 Nov 2018 13:08:28 +0900</pubDate>
-      
-      <guid>https://dream-yt.github.io/post/tag-test/</guid>
-      <description>けせらせら</description>
-=======
       <title>Lambdaでcallbackを呼んでるのにタイムアウト扱いになる場合</title>
       <link>https://dream-yt.github.io/post/lambda-callbackwaitsforemptyeventloop/</link>
       <pubDate>Sat, 24 Nov 2018 12:47:49 +0900</pubDate>
@@ -57,7 +45,15 @@
       
       <guid>https://dream-yt.github.io/post/codeless-lambda-error-slack-notify/</guid>
       <description>serverlessを使っている前提 slackの bring emails into slack を使う slack通知用のメールアドレスを取得 このアドレスにメールを送ると、内容がsl</description>
->>>>>>> c6b6f5fd796982e708e0e1b9abf79db2f891bb47
+    </item>
+    
+    <item>
+      <title>Tag Test</title>
+      <link>https://dream-yt.github.io/post/tag-test/</link>
+      <pubDate>Thu, 22 Nov 2018 13:08:28 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/tag-test/</guid>
+      <description>けせらせら</description>
     </item>
     
     <item>
