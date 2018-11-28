@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="https://dream-yt.github.io/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="commitを別の作業branchへ移動する方法"/>
+  <meta name="twitter:description" content="これは一体 Gitで何度も陥ってしまう過ちにまたハマってしまう日が来ても、乗り越えられる自分でありたい。 そのための備忘録です。 状況 新しい作業の"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@site_author"/>
+  
+
+
+
+		
+		<meta name="author" content="site_author">
+		<meta name="description" content="Site Description">
+		<meta name="generator" content="Hugo 0.48" />
+		<title>commitを別の作業branchへ移動する方法 &middot; sacre</title>
+		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/font-awesome.min.css">
+		
+
+		
+		<link href="https://dream-yt.github.io/index.xml" rel="alternate" type="application/rss+xml" title="sacre" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='https://dream-yt.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://dream-yt.github.io/posts'>Archive</a>
+	<a href='https://dream-yt.github.io/tags'>Tags</a>
+	<a href='https://dream-yt.github.io/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="https://dream-yt.github.io/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        commitを別の作業branchへ移動する方法
+                    </h1>
+                    <h2 class="headline">
+                    Nov 28, 2018 22:27
+                    · 645 words
+                    · 2 minute read
+                      <span class="tags">
+                      
+                      
+                          
+                              <a href="https://dream-yt.github.io/tags/git">git</a>
+                          
+                      
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+<ul>
+<li><a href="#これは一体">これは一体</a></li>
+<li><a href="#状況">状況</a></li>
+<li><a href="#やること">やること</a></li>
+<li><a href="#他のやりかた">他のやりかた</a></li>
+</ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    
+
+<p><img src="/images/post/dream/GitCherryPick01.png" alt="This is a image" /></p>
+
+<h1 id="これは一体">これは一体</h1>
+
+<p>Gitで何度も陥ってしまう過ちにまたハマってしまう日が来ても、乗り越えられる自分でありたい。
+そのための備忘録です。</p>
+
+<h1 id="状況">状況</h1>
+
+<p>新しい作業の開始時に、branchの切り替えを忘れてしまう。</br>
+前回まで作業してたbranchやmasterで作業を開始してしまった時に、正しいbranchに作業したcommitを移動する。</p>
+
+<p>&hellip;&hellip;これ、自分的にはあるあるすぎる。何回やってんだ。</p>
+
+<h1 id="やること">やること</h1>
+
+<p><strong>[start地点]</strong> </br>
+正しくないbranch Aで作業を開始してしまった。移したいcommitは3つ。</p>
+
+<p><strong>1. 移動先branchがない場合は作成</strong> (branch B)</p>
+
+<p><strong>2. branch Aで下記コマンドを叩いて、移動するcommitのIDを確認</strong></p>
+
+<ul>
+<li>末尾に <code>-10</code>などいれると最新のcommitを上から10個表示するなど指定できる</li>
+</ul>
+
+<pre><code class="language-bash">$ git log --oneline 
+</code></pre>
+
+<p><img src="/images/post/dream/GitCherryPick02.png" alt="This is a image" /></p>
+
+<p><strong>3. branch Bに移動して移したいcommitをcherry pick する</strong></p>
+
+<ul>
+<li>コマンドの後にcommit IDを入力</li>
+<li>古い順に入力すること</li>
+</ul>
+
+<pre><code class="language-bash">$ git cherry-pick xxxxxxx yyyyyyy zzzzzzz
+</code></pre>
+
+<p><strong>4. commitがbranch Bに移動できているかlogで確認</strong></p>
+
+<pre><code class="language-bash">$ git log --oneline 
+</code></pre>
+
+<p><strong>5. 必要があればbranchAのcommitを消去</strong></p>
+
+<ul>
+<li>下記のコマンドでできるらしい</li>
+<li>HEAD~xは任意の数値に変更</li>
+</ul>
+
+<pre><code class="language-bash">$ git reset --hard HEAD~3
+</code></pre>
+
+<h1 id="他のやりかた">他のやりかた</h1>
+
+<p>branch Bがまっさら状態だった場合、</p>
+
+<p><strong>1. branch Aで作業をstashにしまう</strong></p>
+
+<pre><code class="language-bash">git stash
+</code></pre>
+
+<p><strong>2. branch Bでstashを開ける</strong></p>
+
+<pre><code class="language-bash">git stash pop
+</code></pre>
+
+<p>というやり方もあるらしい。</br>
+この場合、branch AとBの作業箇所が被らないことが前提となる。（コンフリクトするため）</p>
+
+<p>備忘のために書いたとはいえ、同じことを繰り返さない自分であってほしい。</p>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fgit-cherry-pick%2f - commit%e3%82%92%e5%88%a5%e3%81%ae%e4%bd%9c%e6%a5%adbranch%e3%81%b8%e7%a7%bb%e5%8b%95%e3%81%99%e3%82%8b%e6%96%b9%e6%b3%95 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'your_disqus_short_name'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/dream-yt/sacre">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://twitter.com/FUTABA_SACRE">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2018 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="https://dream-yt.github.io/js/jquery-3.3.1.min.js"></script>
+<script src="https://dream-yt.github.io/js/main.js"></script>
+<script src="https://dream-yt.github.io/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+
+
+
+
+    </body>
+</html>
