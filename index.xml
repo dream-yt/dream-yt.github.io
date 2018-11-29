@@ -21,6 +21,15 @@
     </item>
     
     <item>
+      <title>pythonの__del__</title>
+      <link>https://dream-yt.github.io/post/python-__del__/</link>
+      <pubDate>Mon, 26 Nov 2018 12:21:22 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/python-__del__/</guid>
+      <description>軽くドキュメントを読んでメモ 次のような雰囲気のメソッドのようだ デストラクタとして使わない やむおえない時だけ使う 変な使い方はしない ドキュメント</description>
+    </item>
+    
+    <item>
       <title>Lambdaでcallbackを呼んでるのにタイムアウト扱いになる場合</title>
       <link>https://dream-yt.github.io/post/lambda-callbackwaitsforemptyeventloop/</link>
       <pubDate>Sat, 24 Nov 2018 12:47:49 +0900</pubDate>

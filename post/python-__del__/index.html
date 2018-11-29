@@ -13,8 +13,8 @@
     
   
   
-  <meta name="twitter:title" content="Lambdaでcallbackを呼んでるのにタイムアウト扱いになる場合"/>
-  <meta name="twitter:description" content="lambdaはcallbackが呼ばれても、イベントループが残っていたらプロセスを待機させてしまう。使用しているライブラリがコネクションをポ"/>
+  <meta name="twitter:title" content="pythonの__del__"/>
+  <meta name="twitter:description" content="軽くドキュメントを読んでメモ 次のような雰囲気のメソッドのようだ デストラクタとして使わない やむおえない時だけ使う 変な使い方はしない ドキュメント"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -30,7 +30,7 @@
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
 		<meta name="generator" content="Hugo 0.42.1" />
-		<title>Lambdaでcallbackを呼んでるのにタイムアウト扱いになる場合 &middot; sacre</title>
+		<title>pythonの__del__ &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
@@ -68,12 +68,12 @@
             <article>
                 <header>
                     <h1>
-                        Lambdaでcallbackを呼んでるのにタイムアウト扱いになる場合
+                        pythonの__del__
                     </h1>
                     <h2 class="headline">
-                    Nov 24, 2018 12:47
-                    · 430 words
-                    · 1 minute read
+                    Nov 26, 2018 12:21
+                    · 562 words
+                    · 2 minute read
                       <span class="tags">
                       
                       </span>
@@ -88,7 +88,8 @@
 <ul>
 <li>
 <ul>
-<li><a href="#参考">参考</a></li>
+<li><a href="#ドキュメントの記載">ドキュメントの記載</a></li>
+<li><a href="#リファレンスカウント">リファレンスカウント</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -99,36 +100,59 @@
                 <section id="post-body">
                     
 
-<p>lambdaはcallbackが呼ばれても、イベントループが残っていたらプロセスを待機させてしまう。使用しているライブラリがコネクションをポーリングしていたりすると、そのイベントループが延々残ってしまってプロセスが終了せず、その結果callbackを時間内に呼んでるのにタイムアウトエラーになってしまう状態が発生する</p>
+<p>軽くドキュメントを読んでメモ</p>
 
-<p>そういう場合は<code>callbackWaitsForEmptyEventLoop</code>を<code>false</code>にすればよい</p>
-
-<pre><code class="language-ts">async function f (
-  event: APIGatewayEvent,
-  context: Context,
-  callback: Callback,
-) =&gt; {
-  context.callbackWaitsForEmptyEventLoop = false;
-  callback(null, { statusCode: 200, body: response });
-}
-</code></pre>
-
-<blockquote>
-<p>callbackWaitsForEmptyEventLoop
-デフォルト値は True です。このプロパティはコールバックメソッドのデフォルト動作を変更する場合にのみ使用できます。デフォルトでは、コールバックはイベントループが空になるまで待機してから処理を停止し、呼び出し元に結果を返します。このプロパティを false に設定して、イベントループにイベントがある場合でも、callback が呼び出されたすぐ後に処理を停止するように AWS Lambda にリクエストできます。</p>
-</blockquote>
-
-<h3 id="参考">参考</h3>
+<p>次のような雰囲気のメソッドのようだ</p>
 
 <ul>
-<li><a href="https://docs.aws.amazon.com/lambda/latest/dg/nodejs-prog-model-context.html">AWS Lambda Context Object in Node.js - AWS Lambda</a></li>
+<li>デストラクタとして使わない</li>
+<li>やむおえない時だけ使う</li>
+<li>変な使い方はしない</li>
 </ul>
+
+<h3 id="ドキュメントの記載">ドキュメントの記載</h3>
+
+<ul>
+<li><a href="https://docs.python.org/ja/3/reference/datamodel.html#object.__del__">3. データモデル — Python 3.7.1 ドキュメント</a></li>
+</ul>
+
+<p>デストラクタ的に<code>__del__</code>が定義できる</p>
+
+<blockquote>
+<p>インスタンスが破棄されるときに呼び出されます。 これはファイナライザや (適切ではありませんが) デストラクタとも呼ばれます。</p>
+</blockquote>
+
+<p>ただしインタプリタ終了時に呼ばれるとは限らない</p>
+
+<blockquote>
+<p>インタプリタが終了したときに、残存しているオブジェクトの <strong>del</strong>() メソッドが呼び出される保証はありません。</p>
+</blockquote>
+
+<p>辺な使い方が出来るが推奨されていない</p>
+
+<blockquote>
+<p><strong>del</strong>() メソッドが破棄しようとしているインスタンスへの新しい参照を作り、破棄を送らせることは (推奨されないものの) 可能です。</p>
+</blockquote>
+
+<h3 id="リファレンスカウント">リファレンスカウント</h3>
+
+<p>こちらの資料だとリファレンスカウントが0になったときに呼ばれると書いてある</p>
+
+<ul>
+<li><a href="https://emptypage.jp/notes/py-__del__-and-refcycle.html"><strong>del</strong>, gc, 循環参照, weakref</a></li>
+</ul>
+
+<blockquote>
+<p>オブジェクトの参照カウントが 0 になったとき、そのオブジェクトの <strong>del</strong> メソッドが（もし定義されていれば）呼ばれる。その意味で、<strong>del</strong> メソッドはデストラクタとも呼ばれる。このメソッドで、ファイルハンドルをクローズするとか、メンバ変数として保持していたリソースを解放するといった処理を行うことが想定されている。</p>
+</blockquote>
+
+<p>ただし、この資料は2010年のもので今(python3)は違うのかもしれない</p>
 
                 </section>
             </article>
 
             
-                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2flambda-callbackwaitsforemptyeventloop%2f - Lambda%e3%81%a7callback%e3%82%92%e5%91%bc%e3%82%93%e3%81%a7%e3%82%8b%e3%81%ae%e3%81%ab%e3%82%bf%e3%82%a4%e3%83%a0%e3%82%a2%e3%82%a6%e3%83%88%e6%89%b1%e3%81%84%e3%81%ab%e3%81%aa%e3%82%8b%e5%a0%b4%e5%90%88 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fpython-__del__%2f - python%e3%81%ae__del__ by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
 
 <a class="facebook" href="#" onclick="
     window.open(
