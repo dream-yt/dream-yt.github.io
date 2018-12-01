@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="https://dream-yt.github.io/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="サービスアカウントで認証してGoogleSpreadsheetからデータを取得"/>
+  <meta name="twitter:description" content="spreadsheetのデータを取ってくるやり方をググったらいいのが見つからなかった 認証周りをガバガバでやってそう 古い認証方式(oauth"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@site_author"/>
+  
+
+
+
+		
+		<meta name="author" content="site_author">
+		<meta name="description" content="Site Description">
+		<meta name="generator" content="Hugo 0.51" />
+		<title>サービスアカウントで認証してGoogleSpreadsheetからデータを取得 &middot; sacre</title>
+		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/font-awesome.min.css">
+		
+
+		
+		<link href="https://dream-yt.github.io/index.xml" rel="alternate" type="application/rss+xml" title="sacre" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='https://dream-yt.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://dream-yt.github.io/posts'>Archive</a>
+	<a href='https://dream-yt.github.io/tags'>Tags</a>
+	<a href='https://dream-yt.github.io/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="https://dream-yt.github.io/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        サービスアカウントで認証してGoogleSpreadsheetからデータを取得
+                    </h1>
+                    <h2 class="headline">
+                    Dec 1, 2018 16:30
+                    · 525 words
+                    · 2 minute read
+                      <span class="tags">
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#apiライブラリのページでsheetsapiを有効化">APIライブラリのページでSheetsAPIを有効化</a></li>
+<li><a href="#apiとサービス-認証情報のページへ">APIとサービス/認証情報のページへ</a>
+<ul>
+<li><a href="#サービスアカウントを作成">サービスアカウントを作成</a></li>
+</ul></li>
+<li><a href="#サービスアカウントにスプレッドシートの権限を入れる">サービスアカウントにスプレッドシートの権限を入れる</a>
+<ul>
+<li><a href="#sheetid-とは">sheetId とは</a></li>
+</ul></li>
+<li><a href="#叩いてみる">叩いてみる</a></li>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    
+
+<p>spreadsheetのデータを取ってくるやり方をググったらいいのが見つからなかった</p>
+
+<ul>
+<li>認証周りをガバガバでやってそう</li>
+<li>古い認証方式(oauth)の紹介になってそう</li>
+</ul>
+
+<p>spreadsheetはpublicにしてcsvで取得するのが一番楽だが、
+もっと権限をちゃんとしないといけない場合のフローをメモしておく</p>
+
+<ul>
+<li>gcpのプロジェクトがある前提からスタート</li>
+<li>そこにサービスアカウントを作る</li>
+<li>サービスアカウントがspreadsheetにアクセスできるようにする</li>
+</ul>
+
+<h3 id="apiライブラリのページでsheetsapiを有効化">APIライブラリのページでSheetsAPIを有効化</h3>
+
+<ul>
+<li><a href="https://console.developers.google.com/apis/library/drive.googleapis.com">https://console.developers.google.com/apis/library/drive.googleapis.com</a></li>
+</ul>
+
+<p><img src="https://user-images.githubusercontent.com/5309672/49325337-08fbad80-f584-11e8-8c55-739cd1b75b28.png" alt="image" /></p>
+
+<h3 id="apiとサービス-認証情報のページへ">APIとサービス/認証情報のページへ</h3>
+
+<ul>
+<li><a href="https://console.developers.google.com/apis/credentials">https://console.developers.google.com/apis/credentials</a></li>
+</ul>
+
+<p><img src="https://user-images.githubusercontent.com/5309672/49324955-d39f9180-f57c-11e8-878f-832c5924299a.png" alt="image" /></p>
+
+<h4 id="サービスアカウントを作成">サービスアカウントを作成</h4>
+
+<p><code>Select a role</code> は空でつくってよい (通知出るけどwithoutでよい)</p>
+
+<p><img src="https://user-images.githubusercontent.com/5309672/49325434-a60b1600-f585-11e8-94ed-bc57ab9f85ef.png" alt="image" /></p>
+
+<h3 id="サービスアカウントにスプレッドシートの権限を入れる">サービスアカウントにスプレッドシートの権限を入れる</h3>
+
+<p>右上の<code>共有</code>ボタンから</p>
+
+<ul>
+<li><a href="https://console.developers.google.com/iam-admin/serviceaccounts">https://console.developers.google.com/iam-admin/serviceaccounts</a></li>
+</ul>
+
+<p><img src="https://user-images.githubusercontent.com/5309672/49325424-7cea8580-f585-11e8-8a0f-67eb5b3f9a9f.png" alt="image" /></p>
+
+<h4 id="sheetid-とは">sheetId とは</h4>
+
+<ul>
+<li>こんなURLの場合は
+
+<ul>
+<li><a href="https://docs.google.com/spreadsheets/d/1HucDy33jZYDSGmXvIGDL5SOu4mv9B2mJui3Bi512345/edit#gid=0">https://docs.google.com/spreadsheets/d/1HucDy33jZYDSGmXvIGDL5SOu4mv9B2mJui3Bi512345/edit#gid=0</a></li>
+</ul></li>
+<li>この部分
+
+<ul>
+<li><code>1HucDy33jZYDSGmXvIGDL5SOu4mv9B2mJui3Bi512345</code></li>
+</ul></li>
+</ul>
+
+<h3 id="叩いてみる">叩いてみる</h3>
+
+<ul>
+<li><a href="https://qiita.com/howdy39/items/22068b3f768f0f9a757d">こちら</a>のコピペ</li>
+</ul>
+
+<p><code>yarn add googleapis</code> などしてから以下のコードでoneシートの右上4マスが取ってこれる</p>
+
+<pre><code class="language-js">const { google } = require('googleapis');
+const sheets = google.sheets('v4');
+const path = require('path');
+
+execAPI('1HucDy33jZYDSGmXvIGDL5SOu4mv9B2mJui3Bi512345', 'one!A1:B2');
+
+async function execAPI(spreadsheetId, range) {
+  const auth = await google.auth.getClient({
+    keyFile: path.join('/Users/jibun/Documents/jibunno-612344e1408a.json'),
+    scopes: ['https://www.googleapis.com/auth/spreadsheets'],
+  });
+
+  const apiOptions = {
+    auth,
+    spreadsheetId,
+    range,
+  };
+
+  sheets.spreadsheets.values.get(apiOptions, (err, res) =&gt; {
+    console.log(err);
+    console.log(res.data.values);
+  });
+}
+</code></pre>
+
+<h3 id="参考">参考</h3>
+
+<p>サービスアカウントとG-Suiteの権限についてはこちらが分かりやすかった</p>
+
+<ul>
+<li><a href="https://qiita.com/howdy39/items/22068b3f768f0f9a757d">スプレッドシートをWebAPI化するサービスの作り方 - Qiita</a></li>
+</ul>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fspreadsheet-via-service-account%2f - %e3%82%b5%e3%83%bc%e3%83%93%e3%82%b9%e3%82%a2%e3%82%ab%e3%82%a6%e3%83%b3%e3%83%88%e3%81%a7%e8%aa%8d%e8%a8%bc%e3%81%97%e3%81%a6GoogleSpreadsheet%e3%81%8b%e3%82%89%e3%83%87%e3%83%bc%e3%82%bf%e3%82%92%e5%8f%96%e5%be%97 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'your_disqus_short_name'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/dream-yt/sacre">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://twitter.com/FUTABA_SACRE">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2018 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="https://dream-yt.github.io/js/jquery-3.3.1.min.js"></script>
+<script src="https://dream-yt.github.io/js/main.js"></script>
+<script src="https://dream-yt.github.io/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+
+
+
+
+    </body>
+</html>
