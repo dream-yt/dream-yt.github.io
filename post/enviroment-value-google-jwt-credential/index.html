@@ -121,7 +121,7 @@ async function getSpreadsheetData (spreadsheetId: string, range: string) {
     auth.scopes = ['https://www.googleapis.com/auth/spreadsheets'];
 
     return new Promise((resolve, reject) =&gt; {
-        this.spreadsheetValue.get(
+        sheets.spreadsheets.values.get(
             { auth, spreadsheetId, range }
             (err, resp) =&gt; (err ? reject(err) : resolve(resp.data.values)),
         );
