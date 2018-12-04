@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="https://dream-yt.github.io/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="環境変数にセットしてあるGoogleのJWTを使って認証する"/>
+  <meta name="twitter:description" content="GoogleのAPIを叩く際に、GOOGLE_APPLICATION_CREDENTIALSを使ってファイルから認証情報を読み取る例は書いて"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@site_author"/>
+  
+
+
+
+		
+		<meta name="author" content="site_author">
+		<meta name="description" content="Site Description">
+		<meta name="generator" content="Hugo 0.51" />
+		<title>環境変数にセットしてあるGoogleのJWTを使って認証する &middot; sacre</title>
+		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/font-awesome.min.css">
+		
+
+		
+		<link href="https://dream-yt.github.io/index.xml" rel="alternate" type="application/rss+xml" title="sacre" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='https://dream-yt.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://dream-yt.github.io/posts'>Archive</a>
+	<a href='https://dream-yt.github.io/tags'>Tags</a>
+	<a href='https://dream-yt.github.io/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="https://dream-yt.github.io/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        環境変数にセットしてあるGoogleのJWTを使って認証する
+                    </h1>
+                    <h2 class="headline">
+                    Dec 4, 2018 10:05
+                    · 296 words
+                    · 1 minute read
+                      <span class="tags">
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#googleapis-と-google-auth-library"><code>googleapis</code> と <code>google-auth-library</code></a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    
+
+<p>GoogleのAPIを叩く際に、<code>GOOGLE_APPLICATION_CREDENTIALS</code>を使ってファイルから認証情報を読み取る例は書いてあったが、lambdaなどで環境変数に入ってる認証情報を使う方法が見つからなかったのでメモ</p>
+
+<p>こちらに書いてある<code>fromJSON</code> を使う方法を試したら通った</p>
+
+<ul>
+<li><a href="https://github.com/googleapis/google-auth-library-nodejs#loading-credentials-from-environment-variables">google-auth-library-nodejs#Loading credentials from environment variables</a></li>
+</ul>
+
+<blockquote>
+<p>Instead of loading credentials from a key file, you can also provide them using an environment variable and the GoogleAuth.fromJSON() method. This is particularly convenient for systems that deploy directly from source control (Heroku, App Engine, etc).</p>
+</blockquote>
+
+<pre><code class="language-js">const { google } = require('googleapis');
+const sheets = google.sheets('v4');
+
+async function getSpreadsheetData (spreadsheetId: string, range: string) {
+    // `CREDJSON` 環境変数にJWTが入ってるとして
+    const cred = JSON.parse(process.env.CREDJSON);
+    const auth = google.auth.fromJSON(cred);
+    auth.scopes = ['https://www.googleapis.com/auth/spreadsheets'];
+
+    return new Promise((resolve, reject) =&gt; {
+        this.spreadsheetValue.get(
+            { auth, spreadsheetId, range }
+            (err, resp) =&gt; (err ? reject(err) : resolve(resp.data.values)),
+        );
+    });
+}
+</code></pre>
+
+<h3 id="googleapis-と-google-auth-library"><code>googleapis</code> と <code>google-auth-library</code></h3>
+
+<p>以下のオブジェクトは同じ実装なんだろうか 🤔</p>
+
+<ul>
+<li><code>require('googleapis').google.auth</code>
+
+<ul>
+<li><a href="https://github.com/googleapis/google-api-nodejs-client">googleapis/google-api-nodejs-client: Google&rsquo;s officially supported Node.js client</a></li>
+</ul></li>
+<li><code>require('google-auth-library')</code>
+
+<ul>
+<li><a href="https://github.com/googleapis/google-auth-library-nodejs">googleapis/google-auth-library-nodejs: 🔑 Google Auth Library for Node.js</a></li>
+</ul></li>
+</ul>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fenviroment-value-google-jwt-credential%2f - %e7%92%b0%e5%a2%83%e5%a4%89%e6%95%b0%e3%81%ab%e3%82%bb%e3%83%83%e3%83%88%e3%81%97%e3%81%a6%e3%81%82%e3%82%8bGoogle%e3%81%aeJWT%e3%82%92%e4%bd%bf%e3%81%a3%e3%81%a6%e8%aa%8d%e8%a8%bc%e3%81%99%e3%82%8b by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'your_disqus_short_name'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/dream-yt/sacre">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://twitter.com/FUTABA_SACRE">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2018 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="https://dream-yt.github.io/js/jquery-3.3.1.min.js"></script>
+<script src="https://dream-yt.github.io/js/main.js"></script>
+<script src="https://dream-yt.github.io/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+
+
+
+
+    </body>
+</html>
