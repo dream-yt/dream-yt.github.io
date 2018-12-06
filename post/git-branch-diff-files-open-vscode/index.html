@@ -13,8 +13,8 @@
     
   
   
-  <meta name="twitter:title" content="Lambdaでcallbackを呼んでるのにタイムアウト扱いになる場合"/>
-  <meta name="twitter:description" content="lambdaはcallbackが呼ばれても、イベントループが残っていたらプロセスを待機させてしまう。使用しているライブラリがコネクションをポ"/>
+  <meta name="twitter:title" content="いまのブランチでいじってるファイルをいっぺんにvscodeで開く"/>
+  <meta name="twitter:description" content="なお、ブランチはmasterから派生させている前提 コマンド全体 最初にmasterから分岐した箇所のコミットハッシュを取得している BASE=$(git show-branch --merge-base master HEAD); git"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -30,7 +30,7 @@
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
 		<meta name="generator" content="Hugo 0.42.1" />
-		<title>Lambdaでcallbackを呼んでるのにタイムアウト扱いになる場合 &middot; sacre</title>
+		<title>いまのブランチでいじってるファイルをいっぺんにvscodeで開く &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
@@ -68,11 +68,11 @@
             <article>
                 <header>
                     <h1>
-                        Lambdaでcallbackを呼んでるのにタイムアウト扱いになる場合
+                        いまのブランチでいじってるファイルをいっぺんにvscodeで開く
                     </h1>
                     <h2 class="headline">
-                    Nov 24, 2018 12:47
-                    · 430 words
+                    Dec 6, 2018 14:25
+                    · 173 words
                     · 1 minute read
                       <span class="tags">
                       
@@ -86,8 +86,14 @@
 <ul>
 <li>
 <ul>
+<li><a href="#コマンド全体">コマンド全体</a>
+<ul>
 <li>
 <ul>
+<li><a href="#いまいるブランチはどこでmasterから分岐しているか">いまいるブランチはどこでmasterから分岐しているか</a></li>
+<li><a href="#いじったファイルの一覧">いじったファイルの一覧</a></li>
+<li><a href="#ファイル一覧をそれぞれvscodeで開く">ファイル一覧をそれぞれvscodeで開く</a></li>
+</ul></li>
 <li><a href="#参考">参考</a></li>
 </ul></li>
 </ul></li>
@@ -99,36 +105,41 @@
                 <section id="post-body">
                     
 
-<p>lambdaはcallbackが呼ばれても、イベントループが残っていたらプロセスを待機させてしまう。使用しているライブラリがコネクションをポーリングしていたりすると、そのイベントループが延々残ってしまってプロセスが終了せず、その結果callbackを時間内に呼んでるのにタイムアウトエラーになってしまう状態が発生する</p>
+<p>なお、ブランチはmasterから派生させている前提</p>
 
-<p>そういう場合は<code>callbackWaitsForEmptyEventLoop</code>を<code>false</code>にすればよい</p>
+<h2 id="コマンド全体">コマンド全体</h2>
 
-<pre><code class="language-ts">async function f (
-  event: APIGatewayEvent,
-  context: Context,
-  callback: Callback,
-) =&gt; {
-  context.callbackWaitsForEmptyEventLoop = false;
-  callback(null, { statusCode: 200, body: response });
-}
+<p>最初にmasterから分岐した箇所のコミットハッシュを取得している</p>
+
+<pre><code class="language-bash">BASE=$(git show-branch --merge-base master HEAD); git diff $BASE HEAD --name-only | xargs code
 </code></pre>
 
-<blockquote>
-<p>callbackWaitsForEmptyEventLoop
-デフォルト値は True です。このプロパティはコールバックメソッドのデフォルト動作を変更する場合にのみ使用できます。デフォルトでは、コールバックはイベントループが空になるまで待機してから処理を停止し、呼び出し元に結果を返します。このプロパティを false に設定して、イベントループにイベントがある場合でも、callback が呼び出されたすぐ後に処理を停止するように AWS Lambda にリクエストできます。</p>
-</blockquote>
+<h4 id="いまいるブランチはどこでmasterから分岐しているか">いまいるブランチはどこでmasterから分岐しているか</h4>
+
+<pre><code class="language-bash">git show-branch --merge-base master HEAD
+</code></pre>
+
+<h4 id="いじったファイルの一覧">いじったファイルの一覧</h4>
+
+<pre><code class="language-bash">git diff $BASE HEAD --name-only
+</code></pre>
+
+<h4 id="ファイル一覧をそれぞれvscodeで開く">ファイル一覧をそれぞれvscodeで開く</h4>
+
+<pre><code class="language-bash">| xargs code
+</code></pre>
 
 <h3 id="参考">参考</h3>
 
 <ul>
-<li><a href="https://docs.aws.amazon.com/lambda/latest/dg/nodejs-prog-model-context.html">AWS Lambda Context Object in Node.js - AWS Lambda</a></li>
+<li><a href="https://qiita.com/awakia/items/ed53f4aada688f7f19a9">2つのブランチの分岐点をみつけるgit show-branch &ndash;merge-base - Qiita</a></li>
 </ul>
 
                 </section>
             </article>
 
             
-                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2flambda-callbackwaitsforemptyeventloop%2f - Lambda%e3%81%a7callback%e3%82%92%e5%91%bc%e3%82%93%e3%81%a7%e3%82%8b%e3%81%ae%e3%81%ab%e3%82%bf%e3%82%a4%e3%83%a0%e3%82%a2%e3%82%a6%e3%83%88%e6%89%b1%e3%81%84%e3%81%ab%e3%81%aa%e3%82%8b%e5%a0%b4%e5%90%88 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fgit-branch-diff-files-open-vscode%2f - %e3%81%84%e3%81%be%e3%81%ae%e3%83%96%e3%83%a9%e3%83%b3%e3%83%81%e3%81%a7%e3%81%84%e3%81%98%e3%81%a3%e3%81%a6%e3%82%8b%e3%83%95%e3%82%a1%e3%82%a4%e3%83%ab%e3%82%92%e3%81%84%e3%81%a3%e3%81%ba%e3%82%93%e3%81%abvscode%e3%81%a7%e9%96%8b%e3%81%8f by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
 
 <a class="facebook" href="#" onclick="
     window.open(
