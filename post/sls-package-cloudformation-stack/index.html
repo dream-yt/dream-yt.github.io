@@ -13,8 +13,8 @@
     
   
   
-  <meta name="twitter:title" content="【ロゴ作成】RGBとCMYKの色マニュアルを作った時の備忘録"/>
-  <meta name="twitter:description" content="状況 新ロゴができたので、RGBとCMYKで色のマニュアルを作る。 が。 RGBで作成したAiデータをCMYKに変換しただけでは、色が変わってしま"/>
+  <meta name="twitter:title" content="serverless deploy で生成されるリソースを事前に確認する"/>
+  <meta name="twitter:description" content="serverlessのプラグインを使うと色々なリソースを勝手に作ってくれたりして便利だが、実行するまでプラグインのyaml設定が思い通りにな"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -30,7 +30,7 @@
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
 		<meta name="generator" content="Hugo 0.51" />
-		<title>【ロゴ作成】RGBとCMYKの色マニュアルを作った時の備忘録 &middot; sacre</title>
+		<title>serverless deploy で生成されるリソースを事前に確認する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
@@ -68,11 +68,11 @@
             <article>
                 <header>
                     <h1>
-                        【ロゴ作成】RGBとCMYKの色マニュアルを作った時の備忘録
+                        serverless deploy で生成されるリソースを事前に確認する
                     </h1>
                     <h2 class="headline">
-                    Nov 7, 2018 12:51
-                    · 414 words
+                    Dec 8, 2018 23:48
+                    · 265 words
                     · 1 minute read
                       <span class="tags">
                       
@@ -86,14 +86,10 @@
 <ul>
 <li>
 <ul>
-<li><a href="#状況">状況</a></li>
-<li><a href="#手順">手順</a>
+<li>
 <ul>
-<li><a href="#色調整">色調整</a></li>
-<li><a href="#cmykの数値チェック">CMYKの数値チェック</a></li>
-<li><a href="#濃度オーバーに注意">濃度オーバーに注意</a></li>
+<li><a href="#参考">参考</a></li>
 </ul></li>
-<li><a href="#複数タイプのロゴがある場合">複数タイプのロゴがある場合</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -103,67 +99,27 @@
                 <section id="post-body">
                     
 
-<p><img src="/images/post/dream/LogoColorMode01.png" alt="This is a image" /></p>
+<p>serverlessのプラグインを使うと色々なリソースを勝手に作ってくれたりして便利だが、実行するまでプラグインのyaml設定が思い通りになっているか分からなくて、dryrunみたいなことがしたい場合がある。が、slsコマンドにdryrunオプションはない</p>
 
-<h2 id="状況">状況</h2>
+<p>代わりに<code>serverless package</code>コマンドがあるので、これを使うと生成されるcloudformationのjsonを見ることが出来るのでこれを使う</p>
 
-<p>新ロゴができたので、RGBとCMYKで色のマニュアルを作る。
-が。
-RGBで作成したAiデータをCMYKに変換しただけでは、色が変わってしまうよね。</p>
+<pre><code class="language-bash">$ serverless package --package ~/Desktop &amp;&amp; \
+    cat ~/Desktop/cloudformation-template-update-stack.json \
+    | yq -y . | pbcopy  # jsonは見にくいのでyamlに整形する
+</code></pre>
 
-<h2 id="手順">手順</h2>
-
-<h3 id="色調整">色調整</h3>
-
-<ul>
-<li>メインとなるデータ（今回はこっちがRGB）を複製して、別のカラーモードで保存</li>
-</ul>
-
-<p><img src="/images/post/dream/LogoColorMode02.png" alt="This is a image" /></p>
+<h3 id="参考">参考</h3>
 
 <ul>
-<li>RGBの見え方に似るようにCMYKの色を設定し直す</li>
-<li>両方とも開いて並べるとやりやすい</li>
+<li><a href="https://github.com/serverless/serverless/pull/1808">WIP: Add DRYrun support by johncmckim · Pull Request #1808 · serverless/serverless</a></li>
+<li><a href="https://github.com/serverless/serverless/issues/1884">&ndash;noDeploy -&gt; serverless package · Issue #1884 · serverless/serverless</a></li>
 </ul>
-
-<p><img src="/images/post/dream/LogoColorMode03.png" alt="This is a image" /></p>
-
-<h3 id="cmykの数値チェック">CMYKの数値チェック</h3>
-
-<ul>
-<li>カラーウィンドウで確認してみると、大抵数値が細かい。端数はトル。</li>
-</ul>
-
-<p><img src="/images/post/dream/LogoColorMode04.png" alt="This is a image" /></p>
-
-<h3 id="濃度オーバーに注意">濃度オーバーに注意</h3>
-
-<p>例えばこんな数値だった場合。</p>
-
-<p><img src="/images/post/dream/LogoColorMode05.png" alt="This is a image" /></p>
-
-<ul>
-<li>パレットの合計値を確認すると「310」</li>
-<li>300を超えると裏写りが発生するため、狙いの色を300以下で再現できるように調整。（ビビりなので250で攻めたい）</li>
-<li>ロゴは印刷物に使われることも頻繁なので注意する</li>
-</ul>
-
-<h2 id="複数タイプのロゴがある場合">複数タイプのロゴがある場合</h2>
-
-<p>RGBとCMYKの数値が固まったので、小さいサイズ用など、複数パターンのロゴカラーも一気に変換したい。
-「オブジェクトを再配色」で色を一気に置き換え。</p>
-
-<p><img src="/images/post/dream/LogoColorMode06.png" alt="This is a image" />
-<img src="/images/post/dream/LogoColorMode07.png" alt="This is a image" />
-<img src="/images/post/dream/LogoColorMode08.png" alt="This is a image" /></p>
-
-<p>できた！</p>
 
                 </section>
             </article>
 
             
-                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2flogo-colormode%2f - %e3%80%90%e3%83%ad%e3%82%b4%e4%bd%9c%e6%88%90%e3%80%91RGB%e3%81%a8CMYK%e3%81%ae%e8%89%b2%e3%83%9e%e3%83%8b%e3%83%a5%e3%82%a2%e3%83%ab%e3%82%92%e4%bd%9c%e3%81%a3%e3%81%9f%e6%99%82%e3%81%ae%e5%82%99%e5%bf%98%e9%8c%b2 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fsls-package-cloudformation-stack%2f - serverless%20deploy%20%e3%81%a7%e7%94%9f%e6%88%90%e3%81%95%e3%82%8c%e3%82%8b%e3%83%aa%e3%82%bd%e3%83%bc%e3%82%b9%e3%82%92%e4%ba%8b%e5%89%8d%e3%81%ab%e7%a2%ba%e8%aa%8d%e3%81%99%e3%82%8b by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
 
 <a class="facebook" href="#" onclick="
     window.open(
