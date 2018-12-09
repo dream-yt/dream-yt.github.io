@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="https://dream-yt.github.io/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="cloudwatch、アラームの設定 (period, treatMissingData)"/>
+  <meta name="twitter:description" content="serverless-plugin-aws-alerts を使うとアラームの設定/適用まで簡単に出来る ACloudGuru/serverless-plugin-aws-alerts: A Serverless Framework plugin that creates CloudWatch alarms for functions. 以下の設定項目はパッと見で分からなかったのでメモ period treatMissingData period メトリクスの数値を"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@site_author"/>
+  
+
+
+
+		
+		<meta name="author" content="site_author">
+		<meta name="description" content="Site Description">
+		<meta name="generator" content="Hugo 0.51" />
+		<title>cloudwatch、アラームの設定 (period, treatMissingData) &middot; sacre</title>
+		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/font-awesome.min.css">
+		
+
+		
+		<link href="https://dream-yt.github.io/index.xml" rel="alternate" type="application/rss+xml" title="sacre" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='https://dream-yt.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://dream-yt.github.io/posts'>Archive</a>
+	<a href='https://dream-yt.github.io/tags'>Tags</a>
+	<a href='https://dream-yt.github.io/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="https://dream-yt.github.io/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        cloudwatch、アラームの設定 (period, treatMissingData)
+                    </h1>
+                    <h2 class="headline">
+                    Dec 9, 2018 14:07
+                    · 518 words
+                    · 2 minute read
+                      <span class="tags">
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#period">period</a></li>
+<li><a href="#treatmissingdata">treatMissingData</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    
+
+<p><code>serverless-plugin-aws-alerts</code> を使うとアラームの設定/適用まで簡単に出来る</p>
+
+<ul>
+<li><a href="https://github.com/ACloudGuru/serverless-plugin-aws-alerts">ACloudGuru/serverless-plugin-aws-alerts: A Serverless Framework plugin that creates CloudWatch alarms for functions.</a></li>
+</ul>
+
+<p>以下の設定項目はパッと見で分からなかったのでメモ</p>
+
+<ul>
+<li>period</li>
+<li>treatMissingData</li>
+</ul>
+
+<h4 id="period">period</h4>
+
+<p>メトリクスの数値を監視するインターバル
+単位は秒なので<code>600</code>とか設定すると10分に一回メトリクスの数値をチェックする挙動になる</p>
+
+<h4 id="treatmissingdata">treatMissingData</h4>
+
+<p>メトリクスの数値が取得できなかったなかった場合にどうするかの設定。
+例えばperiodを600に設定した場合に、10分間lambdaが呼ばれなかったらDuration(実行時間)などのメトリクスは発生しないので数値が取得できない状態になる。</p>
+
+<p>メトリクスの数値が取得できなかった場合は<code>INSUFFICIENT_DATA</code>としてアラーム状態になるのがデフォルトの設定。</p>
+
+<p>treatMissingDataには以下の4つが設定できる</p>
+
+<ul>
+<li>breaching (欠落は問題アリとみなす)</li>
+<li>notBreaching (欠落を問題無しとみなす)</li>
+<li>ignore (欠落してるときは、その時のアラーム状態を維持する)</li>
+<li>missing (欠落してるときは、過去のデータを見に行く)</li>
+</ul>
+
+<p>こちらの説明が詳しい</p>
+
+<ul>
+<li><a href="https://docs.aws.amazon.com/ja_jp/AmazonCloudWatch/latest/monitoring/AlarmThatSendsEmail.html#alarms-and-missing-data">CloudWatch アラームの欠落データの処理の設定 - Amazon CloudWatch</a></li>
+</ul>
+
+<p>breaching, notBreachingの使い分けはわかるが、missingとignoreの使い分けが分かりにくい。アラームの通知を送るかどうかなどが関係あるのだろうか 🤔</p>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fcloudwatch-alarm-treatmissingdata%2f - cloudwatch%e3%80%81%e3%82%a2%e3%83%a9%e3%83%bc%e3%83%a0%e3%81%ae%e8%a8%ad%e5%ae%9a%20%28period%2c%20treatMissingData%29 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'your_disqus_short_name'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/dream-yt/sacre">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://twitter.com/FUTABA_SACRE">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2018 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="https://dream-yt.github.io/js/jquery-3.3.1.min.js"></script>
+<script src="https://dream-yt.github.io/js/main.js"></script>
+<script src="https://dream-yt.github.io/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+
+
+
+
+    </body>
+</html>
