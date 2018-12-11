@@ -6,10 +6,19 @@
     <description>Recent content in Posts on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sun, 09 Dec 2018 14:07:39 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 12 Dec 2018 08:12:58 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>vscodeからdockerコンテナ内でperl -wcして文法チェック</title>
+      <link>https://dream-yt.github.io/post/vscode-perl-docker-linter/</link>
+      <pubDate>Wed, 12 Dec 2018 08:12:58 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/vscode-perl-docker-linter/</guid>
+      <description>こちらを使うと簡単に出来た henriiik/vscode-docker-linter: Lint the things in your docker containers 設定 設定項目もこれくらいで済む &amp;quot;docker-linter.perl.enable&amp;quot;: true, &amp;quot;docker-linter.perl.machine&amp;quot;: &amp;quot;&amp;quot;, // &amp;quot;default&amp;quot;だとdocker-m</description>
+    </item>
     
     <item>
       <title>cloudwatch、アラームの設定 (period, treatMissingData)</title>
