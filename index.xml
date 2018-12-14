@@ -6,10 +6,19 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 12 Dec 2018 08:12:58 +0900</lastBuildDate>
+    <lastBuildDate>Fri, 14 Dec 2018 13:11:58 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>mongodump/mongoexportのやりかた</title>
+      <link>https://dream-yt.github.io/post/mongodump-101/</link>
+      <pubDate>Fri, 14 Dec 2018 13:11:58 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/mongodump-101/</guid>
+      <description>mongoexport ってのでjson形式で吐き出せる (jqを使って作業がしやすい) mongoexport \ --host=aws-singapore-free-shard-00-01-xxxx.mongodb.net \ --port=27017 \ --username=app \ --authenticationDatabase=admin \ --password=xxxxxx \ --ssl \ --db=abcd \ --collection=profiles \ --out /tmp/profiles.json</description>
+    </item>
     
     <item>
       <title>vscodeからdockerコンテナ内でperl -wcして文法チェック</title>
