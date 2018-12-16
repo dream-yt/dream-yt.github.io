@@ -6,10 +6,19 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Fri, 14 Dec 2018 13:11:58 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 16 Dec 2018 12:05:36 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>JavaScript heap out of memory になんとなくで対処する場合とchromeでデバッグする場合</title>
+      <link>https://dream-yt.github.io/post/javascript-heap-out-of-memory/</link>
+      <pubDate>Sun, 16 Dec 2018 12:05:36 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/javascript-heap-out-of-memory/</guid>
+      <description>例えばwebpackの処理で以下のエラーが出た場合の話 $ serverless deploy --function App --stage prod Serverless: Bundling with Webpack... ...中略... FATAL ERROR: CALL_AND_RETRY_LAST Allocation failed - JavaScript heap out of memory 1: node::Abort() [~/.nodebrew/node/v8.10.0/bin/node] 2: node::FatalException(v8::Isolate*, v8::Local&amp;lt;v8::Value&amp;gt;, v8::Local&amp;lt;v8::Message&amp;gt;) [~/.nodebrew/node/v8.10.0/bin/node] ...中略</description>
+    </item>
     
     <item>
       <title>mongodump/mongoexportのやりかた</title>
