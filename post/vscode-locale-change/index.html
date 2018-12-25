@@ -13,8 +13,8 @@
     
   
   
-  <meta name="twitter:title" content="Lambdaでcallbackを呼んでるのにタイムアウト扱いになる場合"/>
-  <meta name="twitter:description" content="lambdaはcallbackが呼ばれても、イベントループが残っていたらプロセスを待機させてしまう。使用しているライブラリがコネクションをポ"/>
+  <meta name="twitter:title" content="vscodeでエラーメッセージを英語にする"/>
+  <meta name="twitter:description" content="表示言語の設定は設定ファイルとは別ファイル管理になっている 以下のファイルで設定されている ~/Library/Application\ Support/Code/User/locale.json localeの値をよしなに変更すれば良い { // VS Code"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -30,7 +30,7 @@
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
 		<meta name="generator" content="Hugo 0.42.1" />
-		<title>Lambdaでcallbackを呼んでるのにタイムアウト扱いになる場合 &middot; sacre</title>
+		<title>vscodeでエラーメッセージを英語にする &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
@@ -68,11 +68,11 @@
             <article>
                 <header>
                     <h1>
-                        Lambdaでcallbackを呼んでるのにタイムアウト扱いになる場合
+                        vscodeでエラーメッセージを英語にする
                     </h1>
                     <h2 class="headline">
-                    Nov 24, 2018 12:47
-                    · 430 words
+                    Dec 25, 2018 14:59
+                    · 190 words
                     · 1 minute read
                       <span class="tags">
                       
@@ -99,36 +99,34 @@
                 <section id="post-body">
                     
 
-<p>lambdaはcallbackが呼ばれても、イベントループが残っていたらプロセスを待機させてしまう。使用しているライブラリがコネクションをポーリングしていたりすると、そのイベントループが延々残ってしまってプロセスが終了せず、その結果callbackを時間内に呼んでるのにタイムアウトエラーになってしまう状態が発生する</p>
+<p>表示言語の設定は設定ファイルとは別ファイル管理になっている</p>
 
-<p>そういう場合は<code>callbackWaitsForEmptyEventLoop</code>を<code>false</code>にすればよい</p>
+<p>以下のファイルで設定されている</p>
 
-<pre><code class="language-ts">async function f (
-  event: APIGatewayEvent,
-  context: Context,
-  callback: Callback,
-) =&gt; {
-  context.callbackWaitsForEmptyEventLoop = false;
-  callback(null, { statusCode: 200, body: response });
-}
+<pre><code>~/Library/Application\ Support/Code/User/locale.json
 </code></pre>
 
-<blockquote>
-<p>callbackWaitsForEmptyEventLoop
-デフォルト値は True です。このプロパティはコールバックメソッドのデフォルト動作を変更する場合にのみ使用できます。デフォルトでは、コールバックはイベントループが空になるまで待機してから処理を停止し、呼び出し元に結果を返します。このプロパティを false に設定して、イベントループにイベントがある場合でも、callback が呼び出されたすぐ後に処理を停止するように AWS Lambda にリクエストできます。</p>
-</blockquote>
+<p>localeの値をよしなに変更すれば良い</p>
+
+<pre><code class="language-js">{
+	// VS Code の表示言語を定義します。
+	// サポートされている言語の一覧については、https://go.microsoft.com/fwlink/?LinkId=761051 をご覧ください。
+
+	&quot;locale&quot;:&quot;en&quot; // VS Code を再起動するまで変更は有効になりません。
+}
+</code></pre>
 
 <h3 id="参考">参考</h3>
 
 <ul>
-<li><a href="https://docs.aws.amazon.com/lambda/latest/dg/nodejs-prog-model-context.html">AWS Lambda Context Object in Node.js - AWS Lambda</a></li>
+<li><a href="https://code.visualstudio.com/docs/getstarted/locales">Visual Studio Code Display Language (Locale)</a></li>
 </ul>
 
                 </section>
             </article>
 
             
-                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2flambda-callbackwaitsforemptyeventloop%2f - Lambda%e3%81%a7callback%e3%82%92%e5%91%bc%e3%82%93%e3%81%a7%e3%82%8b%e3%81%ae%e3%81%ab%e3%82%bf%e3%82%a4%e3%83%a0%e3%82%a2%e3%82%a6%e3%83%88%e6%89%b1%e3%81%84%e3%81%ab%e3%81%aa%e3%82%8b%e5%a0%b4%e5%90%88 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fvscode-locale-change%2f - vscode%e3%81%a7%e3%82%a8%e3%83%a9%e3%83%bc%e3%83%a1%e3%83%83%e3%82%bb%e3%83%bc%e3%82%b8%e3%82%92%e8%8b%b1%e8%aa%9e%e3%81%ab%e3%81%99%e3%82%8b by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
 
 <a class="facebook" href="#" onclick="
     window.open(
