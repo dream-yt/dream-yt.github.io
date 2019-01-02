@@ -6,10 +6,19 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Tue, 25 Dec 2018 14:59:41 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 02 Jan 2019 12:29:19 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>最近払い出した Slackの Incoming Webhooks で通知チャンネルを変更する</title>
+      <link>https://dream-yt.github.io/post/slack-webhook-deprecated/</link>
+      <pubDate>Wed, 02 Jan 2019 12:29:19 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/slack-webhook-deprecated/</guid>
+      <description>残念 変更できないので調べたところ、 もうIncoming Webhooksでは通知チャンネルが変更できなくなっている Deprecated ドキュメントを見に行ったら</description>
+    </item>
     
     <item>
       <title>vscodeでエラーメッセージを英語にする</title>

@@ -13,8 +13,8 @@
     
   
   
-  <meta name="twitter:title" content="commitを別の作業branchへ移動する方法"/>
-  <meta name="twitter:description" content="これは一体 Gitで何度も陥ってしまう過ちにまたハマってしまう日が来ても、乗り越えられる自分でありたい。 そのための備忘録です。 状況 新しい作業の"/>
+  <meta name="twitter:title" content="最近払い出した Slackの Incoming Webhooks で通知チャンネルを変更する"/>
+  <meta name="twitter:description" content="残念 変更できないので調べたところ、 もうIncoming Webhooksでは通知チャンネルが変更できなくなっている Deprecated ドキュメントを見に行ったら"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -30,7 +30,7 @@
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
 		<meta name="generator" content="Hugo 0.51" />
-		<title>commitを別の作業branchへ移動する方法 &middot; sacre</title>
+		<title>最近払い出した Slackの Incoming Webhooks で通知チャンネルを変更する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
@@ -68,19 +68,13 @@
             <article>
                 <header>
                     <h1>
-                        commitを別の作業branchへ移動する方法
+                        最近払い出した Slackの Incoming Webhooks で通知チャンネルを変更する
                     </h1>
                     <h2 class="headline">
-                    Nov 28, 2018 22:27
-                    · 645 words
-                    · 2 minute read
+                    Jan 2, 2019 12:29
+                    · 314 words
+                    · 1 minute read
                       <span class="tags">
-                      
-                      
-                          
-                              <a href="https://dream-yt.github.io/tags/git">git</a>
-                          
-                      
                       
                       </span>
                     </h2>
@@ -90,10 +84,16 @@
                     <div id="toc">
                       <nav id="TableOfContents">
 <ul>
-<li><a href="#これは一体">これは一体</a></li>
-<li><a href="#状況">状況</a></li>
-<li><a href="#やること">やること</a></li>
-<li><a href="#他のやりかた">他のやりかた</a></li>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#残念">残念</a></li>
+<li><a href="#deprecated">Deprecated</a></li>
+<li><a href="#どうすればいいの">どうすればいいの</a></li>
+<li><a href="#その他">その他</a></li>
+</ul></li>
+</ul></li>
 </ul>
 </nav>
                     </div>
@@ -102,87 +102,57 @@
                 <section id="post-body">
                     
 
-<p><img src="/images/post/dream/GitCherryPick01.png" alt="This is a image" /></p>
+<h3 id="残念">残念</h3>
 
-<h1 id="これは一体">これは一体</h1>
+<p>変更できないので調べたところ、
+もうIncoming Webhooksでは通知チャンネルが変更できなくなっている</p>
 
-<p>Gitで何度も陥ってしまう過ちにまたハマってしまう日が来ても、乗り越えられる自分でありたい。
-そのための備忘録です。</p>
+<h3 id="deprecated">Deprecated</h3>
 
-<h1 id="状況">状況</h1>
+<p>ドキュメントを見に行ったらそういうことが書いてあった</p>
 
-<p>新しい作業の開始時に、branchの切り替えを忘れてしまう。</br>
-前回まで作業してたbranchやmasterで作業を開始してしまった時に、正しいbranchに作業したcommitを移動する。</p>
-
-<p>&hellip;&hellip;これ、自分的にはあるあるすぎる。何回やってんだ。</p>
-
-<h1 id="やること">やること</h1>
-
-<p><strong>[start地点]</strong> </br>
-正しくないbranch Aで作業を開始してしまった。移したいcommitは3つ。</p>
-
-<p><strong>1. 移動先branchがない場合は作成</strong> (branch B)</p>
-
-<p><strong>2. branch Aで下記コマンドを叩いて、移動するcommitのIDを確認</strong></p>
+<blockquote>
+<p>You&rsquo;re reading this because you&rsquo;re looking for info on legacy custom integrations - an outdated way for teams to integrate with Slack. These integrations lack newer features and they will be deprecated and possibly removed in the future. We do not recommend their use.</p>
+</blockquote>
 
 <ul>
-<li>末尾に <code>-10</code>などいれると最新のcommitを上から10個表示するなど指定できる</li>
+<li><a href="https://api.slack.com/custom-integrations/incoming-webhooks#legacy-info">https://api.slack.com/custom-integrations/incoming-webhooks#legacy-info</a></li>
 </ul>
 
-<pre><code class="language-bash">$ git log --oneline 
-</code></pre>
+<h3 id="どうすればいいの">どうすればいいの</h3>
 
-<p><img src="/images/post/dream/GitCherryPick02.png" alt="This is a image" /></p>
-
-<p><strong>3. branch Bに移動して移したいcommitをcherry pick する</strong></p>
+<p><code>Slack apps</code> を使ってくださいということ</p>
 
 <ul>
-<li>コマンドの後にcommit IDを入力</li>
-<li>古い順に入力すること</li>
+<li><a href="https://api.slack.com/slack-apps">Building Slack apps | Slack</a></li>
 </ul>
 
-<pre><code class="language-bash">$ git cherry-pick xxxxxxx yyyyyyy zzzzzzz
-</code></pre>
+<blockquote>
+<p>Instead, we suggest that you read about their replacement - Slack apps. Slack apps can be built just for your own workspace or distributed through the App Directory, and they can use the latest and greatest APIs and UI features.</p>
+</blockquote>
 
-<p><strong>4. commitがbranch Bに移動できているかlogで確認</strong></p>
-
-<pre><code class="language-bash">$ git log --oneline 
-</code></pre>
-
-<p><strong>5. 必要があればbranchAのcommitを消去</strong></p>
+<p>とは言ってもIncoming Webhooks対応してないライブラリあるしなぁ&hellip;</p>
 
 <ul>
-<li>下記のコマンドでできるらしい</li>
-<li>HEAD~xは任意の数値に変更</li>
+<li><a href="https://pypi.org/project/notifiers/">notifiers · PyPI</a></li>
 </ul>
 
-<pre><code class="language-bash">$ git reset --hard HEAD~3
+<h3 id="その他">その他</h3>
+
+<p>もう使えないパラメータをわたしてたら、
+レスポンスのボディになんらか警告を出して欲しいですよね</p>
+
+<pre><code>$ curl -X POST -H 'Content-type: application/json' --data '
+    {&quot;channel&quot;: &quot;alert&quot;, &quot;icon_emoji&quot;: &quot;:t-rex:&quot;, &quot;username&quot;: &quot;mossan&quot;, &quot;text&quot;: &quot;test&quot;}
+' https://hooks.slack.com/services/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
+ok
 </code></pre>
-
-<h1 id="他のやりかた">他のやりかた</h1>
-
-<p>branch Bがまっさら状態だった場合、</p>
-
-<p><strong>1. branch Aで作業をstashにしまう</strong></p>
-
-<pre><code class="language-bash">git stash
-</code></pre>
-
-<p><strong>2. branch Bでstashを開ける</strong></p>
-
-<pre><code class="language-bash">git stash pop
-</code></pre>
-
-<p>というやり方もあるらしい。</br>
-この場合、branch AとBの作業箇所が被らないことが前提となる。（コンフリクトするため）</p>
-
-<p>備忘のために書いたとはいえ、同じことを繰り返さない自分であってほしい。</p>
 
                 </section>
             </article>
 
             
-                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fgit-cherry-pick%2f - commit%e3%82%92%e5%88%a5%e3%81%ae%e4%bd%9c%e6%a5%adbranch%e3%81%b8%e7%a7%bb%e5%8b%95%e3%81%99%e3%82%8b%e6%96%b9%e6%b3%95 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fslack-webhook-deprecated%2f - %e6%9c%80%e8%bf%91%e6%89%95%e3%81%84%e5%87%ba%e3%81%97%e3%81%9f%20Slack%e3%81%ae%20Incoming%20Webhooks%20%e3%81%a7%e9%80%9a%e7%9f%a5%e3%83%81%e3%83%a3%e3%83%b3%e3%83%8d%e3%83%ab%e3%82%92%e5%a4%89%e6%9b%b4%e3%81%99%e3%82%8b by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
 
 <a class="facebook" href="#" onclick="
     window.open(
