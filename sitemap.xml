@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://dream-yt.github.io/post/loguru-notifiers/</loc>
+    <lastmod>2019-01-02T12:55:49+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://dream-yt.github.io/post/slack-webhook-deprecated/</loc>
     <lastmod>2019-01-02T12:29:19+09:00</lastmod>
   </url>
@@ -146,7 +151,7 @@
   
   <url>
     <loc>https://dream-yt.github.io/post/</loc>
-    <lastmod>2019-01-02T12:29:19+09:00</lastmod>
+    <lastmod>2019-01-02T12:55:49+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -158,7 +163,7 @@
   
   <url>
     <loc>https://dream-yt.github.io/</loc>
-    <lastmod>2019-01-02T12:29:19+09:00</lastmod>
+    <lastmod>2019-01-02T12:55:49+09:00</lastmod>
     <priority>0</priority>
   </url>
   

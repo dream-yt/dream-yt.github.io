@@ -6,10 +6,19 @@
     <description>Recent content in Posts on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 02 Jan 2019 12:29:19 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 02 Jan 2019 12:55:49 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>loguruとnotifiersを使ってslack通知をする</title>
+      <link>https://dream-yt.github.io/post/loguru-notifiers/</link>
+      <pubDate>Wed, 02 Jan 2019 12:55:49 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/loguru-notifiers/</guid>
+      <description>前提 slackはincomming webhookをdeprecateとしている notifiersはincomming webhookにしか対応</description>
+    </item>
     
     <item>
       <title>最近払い出した Slackの Incoming Webhooks で通知チャンネルを変更する</title>
