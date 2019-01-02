@@ -6,10 +6,19 @@
     <description>Recent content in Posts on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 02 Jan 2019 12:55:49 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 02 Jan 2019 16:15:20 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>bigqueryで200MBまでしか探索(課金)させないbqコマンドのオプション</title>
+      <link>https://dream-yt.github.io/post/bigquery-bq-maximum_bytes_billed/</link>
+      <pubDate>Wed, 02 Jan 2019 16:15:20 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/bigquery-bq-maximum_bytes_billed/</guid>
+      <description>2つオプションがあって、それらを使うとそれ以上課金されそうなコマンドはエラーで終了してくれる --maximum_billing_tier これは 単価 という単位を渡せるオプション 例えば1</description>
+    </item>
     
     <item>
       <title>loguruとnotifiersを使ってslack通知をする</title>
