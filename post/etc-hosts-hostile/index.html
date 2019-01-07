@@ -13,8 +13,8 @@
     
   
   
-  <meta name="twitter:title" content="vscodeからdockerコンテナ内でperl -wcして文法チェック"/>
-  <meta name="twitter:description" content="こちらを使うと簡単に出来た henriiik/vscode-docker-linter: Lint the things in your docker containers 設定 設定項目もこれくらいで済む &quot;docker-linter.perl.enable&quot;: true, &quot;docker-linter.perl.machine&quot;: &quot;&quot;, // &quot;default&quot;だとdocker-m"/>
+  <meta name="twitter:title" content="hostileで/etc/hostsをテキスト管理する"/>
+  <meta name="twitter:description" content="feross/hostile: Simple, programmatic /etc/hosts manipulation (in node.js) install インストールはyarnで入る (brewとかは用意されてなさそう) $ yarn global add hostile load hostile load コマンドで引数に渡した定義が/etc/hos"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -30,7 +30,7 @@
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
 		<meta name="generator" content="Hugo 0.42.1" />
-		<title>vscodeからdockerコンテナ内でperl -wcして文法チェック &middot; sacre</title>
+		<title>hostileで/etc/hostsをテキスト管理する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
@@ -68,11 +68,11 @@
             <article>
                 <header>
                     <h1>
-                        vscodeからdockerコンテナ内でperl -wcして文法チェック
+                        hostileで/etc/hostsをテキスト管理する
                     </h1>
                     <h2 class="headline">
-                    Dec 12, 2018 08:12
-                    · 224 words
+                    Jan 7, 2019 17:24
+                    · 160 words
                     · 1 minute read
                       <span class="tags">
                       
@@ -86,13 +86,11 @@
 <ul>
 <li>
 <ul>
-<li><a href="#設定">設定</a>
-<ul>
 <li>
 <ul>
-<li><a href="#docker-linter-perl-container"><code>docker-linter.perl.container</code></a></li>
-<li><a href="#docker-linter-perl-command"><code>docker-linter.perl.command</code></a></li>
-</ul></li>
+<li><a href="#install">install</a></li>
+<li><a href="#load">load</a></li>
+<li><a href="#unload">unload</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -103,52 +101,46 @@
                 <section id="post-body">
                     
 
-<p>こちらを使うと簡単に出来た</p>
-
 <ul>
-<li><a href="https://github.com/henriiik/vscode-docker-linter">henriiik/vscode-docker-linter: Lint the things in your docker containers</a></li>
+<li><a href="https://github.com/feross/hostile">feross/hostile: Simple, programmatic <code>/etc/hosts</code> manipulation (in node.js)</a></li>
 </ul>
 
-<h2 id="設定">設定</h2>
+<h3 id="install">install</h3>
 
-<p>設定項目もこれくらいで済む</p>
+<p>インストールはyarnで入る (brewとかは用意されてなさそう)</p>
 
-<pre><code class="language-json">&quot;docker-linter.perl.enable&quot;: true,
-&quot;docker-linter.perl.machine&quot;: &quot;&quot;,  // &quot;default&quot;だとdocker-machineを使おうとする
-&quot;docker-linter.perl.container&quot;: &quot;app_app_1&quot;,
-&quot;docker-linter.perl.command&quot;: &quot;carton exec perl -wc -Ilib -It/lib &quot;
+<pre><code class="language-bash">$ yarn global add hostile
 </code></pre>
 
-<h4 id="docker-linter-perl-container"><code>docker-linter.perl.container</code></h4>
+<h3 id="load">load</h3>
 
-<p><code>docker ps</code> した、端っこの <code>NAMES</code> カラムを指定する</p>
+<p><code>hostile load</code> コマンドで引数に渡した定義が/etc/hostsに入ってくれる</p>
 
-<pre><code>$ docker ps | perl -aF'\s+' -nlE 'say $F[-1]'
+<pre><code>sudo hostile load local-dns-records.hostile
 </code></pre>
 
-<h4 id="docker-linter-perl-command"><code>docker-linter.perl.command</code></h4>
+<p><code>local-dns-records.hostile</code> の中身はこんな感じ</p>
 
-<p>lint用のコマンドを渡す
-プロジェクトごとに依存先などは違うはずなので個別で設定するもの</p>
-
-<p><code>docker exec</code> に渡してlintする場合と同じようなものを渡せば良い</p>
-
-<pre><code>$ carton exec perl -wc -Ilib -It/lib
+<pre><code class="language-bash"># コメントが書ける
+127.0.0.1 localhost localunixsocket localunixsocket.local
+255.255.255.255 broadcasthost
+::1 localhost
 </code></pre>
 
-<hr />
+<h3 id="unload">unload</h3>
 
-<p>サンプルの設定があって、参考になった</p>
+<p>使っていないがloadの逆のunloadも出来るようだ
+(複数ファイルに分けて環境ごとに使えそう)</p>
 
 <ul>
-<li><a href="https://github.com/henriiik/vscode-docker-linter/blob/master/playground-perl/.vscode/settings.json">vscode-docker-linter/settings.json at master · henriiik/vscode-docker-linter</a></li>
+<li><a href="https://github.com/feross/hostile#unload-remove-a-set-of-hosts-from-a-file">unload</a></li>
 </ul>
 
                 </section>
             </article>
 
             
-                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fvscode-perl-docker-linter%2f - vscode%e3%81%8b%e3%82%89docker%e3%82%b3%e3%83%b3%e3%83%86%e3%83%8a%e5%86%85%e3%81%a7perl%20-wc%e3%81%97%e3%81%a6%e6%96%87%e6%b3%95%e3%83%81%e3%82%a7%e3%83%83%e3%82%af by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fetc-hosts-hostile%2f - hostile%e3%81%a7%2fetc%2fhosts%e3%82%92%e3%83%86%e3%82%ad%e3%82%b9%e3%83%88%e7%ae%a1%e7%90%86%e3%81%99%e3%82%8b by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
 
 <a class="facebook" href="#" onclick="
     window.open(
