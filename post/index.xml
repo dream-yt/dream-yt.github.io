@@ -17,7 +17,7 @@
       <pubDate>Sat, 12 Jan 2019 23:42:03 +0900</pubDate>
       
       <guid>https://dream-yt.github.io/post/python-jst-timezone-aware-datetime/</guid>
-      <description>ググっても簡単なのが出てこなかったのでメモ 環境は python 3.6.7 こんな定義で引数に渡した日付時間がJSTのdatetimeになる def jst_datetime(*args): rest = [0] * (7 - len(args)) return datetime(*args, *rest,</description>
+      <description>ググっても簡単なのが出てこなかったのでメモ 環境は python 3.6.7 こんな定義で引数に渡した日付時間がJSTのdatetimeになる from pytz import timezone def jst_datetime(*args): rest = [0] * (7 -</description>
     </item>
     
     <item>

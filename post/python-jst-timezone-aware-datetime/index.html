@@ -14,7 +14,7 @@
   
   
   <meta name="twitter:title" content="PythonでTimezone Aware(Jst)なdatetimeを作る"/>
-  <meta name="twitter:description" content="ググっても簡単なのが出てこなかったのでメモ 環境は python 3.6.7 こんな定義で引数に渡した日付時間がJSTのdatetimeになる def jst_datetime(*args): rest = [0] * (7 - len(args)) return datetime(*args, *rest,"/>
+  <meta name="twitter:description" content="ググっても簡単なのが出てこなかったのでメモ 環境は python 3.6.7 こんな定義で引数に渡した日付時間がJSTのdatetimeになる from pytz import timezone def jst_datetime(*args): rest = [0] * (7 -"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -72,7 +72,7 @@
                     </h1>
                     <h2 class="headline">
                     Jan 12, 2019 23:42
-                    · 143 words
+                    · 147 words
                     · 1 minute read
                       <span class="tags">
                       
@@ -109,7 +109,9 @@
 
 <p>こんな定義で引数に渡した日付時間がJSTのdatetimeになる</p>
 
-<pre><code class="language-python">def jst_datetime(*args):
+<pre><code class="language-python">from pytz import timezone
+
+def jst_datetime(*args):
     rest = [0] * (7 - len(args))
     return datetime(*args, *rest, timezone('Asia/Tokyo'))
 </code></pre>
