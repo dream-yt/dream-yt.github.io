@@ -6,10 +6,19 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Mon, 07 Jan 2019 17:24:25 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 12 Jan 2019 23:42:03 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>PythonでTimezone Aware(Jst)なdatetimeを作る</title>
+      <link>https://dream-yt.github.io/post/python-jst-timezone-aware-datetime/</link>
+      <pubDate>Sat, 12 Jan 2019 23:42:03 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/python-jst-timezone-aware-datetime/</guid>
+      <description>ググっても簡単なのが出てこなかったのでメモ 環境は python 3.6.7 こんな定義で引数に渡した日付時間がJSTのdatetimeになる def jst_datetime(*args): rest = [0] * (7 - len(args)) return datetime(*args, *rest,</description>
+    </item>
     
     <item>
       <title>hostileで/etc/hostsをテキスト管理する</title>
