@@ -6,10 +6,19 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sun, 20 Jan 2019 14:57:42 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 20 Jan 2019 15:05:24 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>ALBの直近1時間のリクエスト数をawscliで取得する</title>
+      <link>https://dream-yt.github.io/post/alb-request-count-by-awscli/</link>
+      <pubDate>Sun, 20 Jan 2019 15:05:24 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/alb-request-count-by-awscli/</guid>
+      <description>以下のコマンドで取得できる aws cloudwatch --profile mossan get-metric-statistics \ --namespace &#39;AWS/ApplicationELB&#39; \ --metric-name &#39;RequestCount&#39; \ --dimensions &#39;Name=LoadBalancer,Value=app/sakamoto-alb/xxxxxxxxx&#39; \ --statistics &#39;Sum&#39; \ --start-time $(date -v -1H -u +&amp;quot;%Y-%m-%dT%H:%M&amp;quot;) \ --end-time $(date -u +&amp;quot;%Y-%m-%dT%H:%M&amp;quot;) \ --period 3600 --dimensions RequestCountのSumをどの軸でGro</description>
+    </item>
     
     <item>
       <title>AWSでプロジェクトに存在するALBを一覧する</title>

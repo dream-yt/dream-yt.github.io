@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://dream-yt.github.io/post/alb-request-count-by-awscli/</loc>
+    <lastmod>2019-01-20T15:05:24+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://dream-yt.github.io/post/list-alb-names/</loc>
     <lastmod>2019-01-20T14:57:42+09:00</lastmod>
   </url>
@@ -167,20 +172,20 @@
   </url>
   
   <url>
-    <loc>https://dream-yt.github.io/tags/git/</loc>
-    <lastmod>2018-11-28T22:27:25+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://dream-yt.github.io/categories/git/</loc>
     <lastmod>2018-11-28T22:27:25+09:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
+    <loc>https://dream-yt.github.io/tags/git/</loc>
+    <lastmod>2018-11-28T22:27:25+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://dream-yt.github.io/post/</loc>
-    <lastmod>2019-01-20T14:57:42+09:00</lastmod>
+    <lastmod>2019-01-20T15:05:24+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -192,7 +197,7 @@
   
   <url>
     <loc>https://dream-yt.github.io/</loc>
-    <lastmod>2019-01-20T14:57:42+09:00</lastmod>
+    <lastmod>2019-01-20T15:05:24+09:00</lastmod>
     <priority>0</priority>
   </url>
   
