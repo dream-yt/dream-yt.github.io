@@ -6,10 +6,19 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sat, 12 Jan 2019 23:42:03 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 20 Jan 2019 12:25:05 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>athenaのUNIXタイムスタンプなカラムをJSTで一昨日から昨日の範囲でとる場合</title>
+      <link>https://dream-yt.github.io/post/athena-before-yesterday-utc-jst/</link>
+      <pubDate>Sun, 20 Jan 2019 12:25:05 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/athena-before-yesterday-utc-jst/</guid>
+      <description>下記の図でJSTでの18日〜19日のデータが欲しい場合のこと 前提 日本で使いたいデータなので「日本時間での一昨日から昨日」 カラムにはunixタ</description>
+    </item>
     
     <item>
       <title>PythonでTimezone Aware(Jst)なdatetimeを作る</title>

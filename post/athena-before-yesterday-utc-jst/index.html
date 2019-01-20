@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="https://dream-yt.github.io/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="athenaのUNIXタイムスタンプなカラムをJSTで一昨日から昨日の範囲でとる場合"/>
+  <meta name="twitter:description" content="下記の図でJSTでの18日〜19日のデータが欲しい場合のこと 前提 日本で使いたいデータなので「日本時間での一昨日から昨日」 カラムにはunixタ"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@site_author"/>
+  
+
+
+
+		
+		<meta name="author" content="site_author">
+		<meta name="description" content="Site Description">
+		<meta name="generator" content="Hugo 0.51" />
+		<title>athenaのUNIXタイムスタンプなカラムをJSTで一昨日から昨日の範囲でとる場合 &middot; sacre</title>
+		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/font-awesome.min.css">
+		
+
+		
+		<link href="https://dream-yt.github.io/index.xml" rel="alternate" type="application/rss+xml" title="sacre" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='https://dream-yt.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://dream-yt.github.io/posts'>Archive</a>
+	<a href='https://dream-yt.github.io/tags'>Tags</a>
+	<a href='https://dream-yt.github.io/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="https://dream-yt.github.io/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        athenaのUNIXタイムスタンプなカラムをJSTで一昨日から昨日の範囲でとる場合
+                    </h1>
+                    <h2 class="headline">
+                    Jan 20, 2019 12:25
+                    · 974 words
+                    · 2 minute read
+                      <span class="tags">
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#前提">前提</a></li>
+<li><a href="#utcは先かあとか">UTCは先かあとか</a>
+<ul>
+<li><a href="#指定するパーティション">指定するパーティション</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#諸々の範囲の指定の仕方">諸々の範囲の指定の仕方</a>
+<ul>
+<li>
+<ul>
+<li><a href="#何日前を指定するか">何日前を指定するか</a></li>
+<li><a href="#どの範囲を指定するか">どの範囲を指定するか</a></li>
+<li><a href="#指定の仕方">指定の仕方</a></li>
+</ul></li>
+<li><a href="#緑の範囲から黄色の範囲に絞る">緑の範囲から黄色の範囲に絞る</a></li>
+<li><a href="#例">例</a></li>
+</ul></li>
+</ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    
+
+<p>下記の図でJSTでの18日〜19日のデータが欲しい場合のこと</p>
+
+<p><img src="https://user-images.githubusercontent.com/5309672/51434631-ce231580-1ca8-11e9-88ba-886d6df79bbd.png" alt="img_0333" /></p>
+
+<h2 id="前提">前提</h2>
+
+<ul>
+<li>日本で使いたいデータなので「日本時間での一昨日から昨日」</li>
+<li>カラムにはunixタイムスタンプが入っている</li>
+<li>クエリをかける際には探索範囲の節約のためにパーティションの指定が必要
+
+<ul>
+<li>athenaでの作業</li>
+</ul></li>
+<li>DBのパーティションはUTCでの日付で切られている</li>
+<li>パーティションの指定は「現時刻から何日前のdayか」をINTでしか指定できない
+
+<ul>
+<li>こんな指定: <code>day = day(current_date - interval '1' day)</code></li>
+</ul></li>
+</ul>
+
+<h2 id="utcは先かあとか">UTCは先かあとか</h2>
+
+<p>JSTは極東の時間帯 (世界地図では一番右) なので時間が進んでいるところにいる</p>
+
+<p><img src="https://user-images.githubusercontent.com/5309672/51434644-6d480d00-1ca9-11e9-9172-7a367d9c7880.png" alt="image" /></p>
+
+<ul>
+<li>JSTの方が先に20日になる</li>
+<li>JSTの <code>20日01:00</code> の時点ではUTCは <code>19日16:00</code></li>
+</ul>
+
+<h3 id="指定するパーティション">指定するパーティション</h3>
+
+<p>JSTの18~19を取得したい場合、
+探索範囲とするパーティション(UTC)は17~19</p>
+
+<h1 id="諸々の範囲の指定の仕方">諸々の範囲の指定の仕方</h1>
+
+<p><img src="https://user-images.githubusercontent.com/5309672/51434858-b13d1100-1cad-11e9-9ce9-e12ef28af200.png" alt="img_0333 2" /></p>
+
+<h3 id="何日前を指定するか">何日前を指定するか</h3>
+
+<p>パーティションは時間ではなく日付で指定するので
+今から何日前のパーティションを範囲とするかを整数で指定する</p>
+
+<p>例えば冒頭の図のNOWの時点で -1(1日前) を指定すると
+UTCの軸で19日0:00から19日23:59の範囲を取得することになる</p>
+
+<h3 id="どの範囲を指定するか">どの範囲を指定するか</h3>
+
+<ul>
+<li>最終的に欲しいのは JSTの18の範囲(黄色)の部分</li>
+<li>パーティション(UTC)は(17, 18)を指定できればよい</li>
+</ul>
+
+<h3 id="指定の仕方">指定の仕方</h3>
+
+<p>パーティションで17, 18(緑の部分)を指定するには
+日付をまたぐことを考えると以下のように指定する必要がある</p>
+
+<ul>
+<li>ピンクの時間帯では (-2, -1)</li>
+<li>黒の時間帯では (-3, -2)</li>
+</ul>
+
+<p>(-3, -1) のパーティションを取得するようにすれば、
+かならず黄色の部分の時間帯はカバー出来ることになる</p>
+
+<h2 id="緑の範囲から黄色の範囲に絞る">緑の範囲から黄色の範囲に絞る</h2>
+
+<p>JSTに変換してdayでtranc(切り詰める)ことをすればよい
+athena/prestoだと下記の通りになる</p>
+
+<pre><code class="language-sql">BETWEEN
+    date_trunc('day', current_timestamp AT TIME ZONE 'Asia/Tokyo' - interval '1' day) AND
+    date_trunc('day', current_timestamp AT TIME ZONE 'Asia/Tokyo' - interval '2' day)
+</code></pre>
+
+<p>日本時間の20日にクエリをかけたとして、
+日本時間での日付を指定して範囲を切り出しているので黄色い部分だけが取れる</p>
+
+<h2 id="例">例</h2>
+
+<pre><code class="language-sql">SELECT
+    *
+FROM
+    mydb.mytable
+WHERE
+    -- UTCでのパーティションの指定の部分
+    (
+        (
+            year = year(current_date - interval '1' day)
+            AND month = month(current_date - interval '1' day)
+            AND day = day(current_date - interval '1' day)
+        )
+        OR (
+            year = year(current_date - interval '2' day)
+            AND month = month(current_date - interval '2' day)
+            AND day = day(current_date - interval '2' day)
+        )
+        OR (
+            year = year(current_date - interval '3' day)
+            AND month = month(current_date - interval '3' day)
+            AND day = day(current_date - interval '3' day)
+        )
+    )
+    -- JSTで望んだ時間だけに絞る部分
+    AND from_unixtime(check_result.timestamp / 1000) BETWEEN date_trunc(
+        'day',
+        current_timestamp AT TIME ZONE 'Asia/Tokyo' - interval '2' day
+    )
+    AND date_trunc(
+        'day',
+        current_timestamp AT TIME ZONE 'Asia/Tokyo' - interval '1' day
+    )
+</code></pre>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fathena-before-yesterday-utc-jst%2f - athena%e3%81%aeUNIX%e3%82%bf%e3%82%a4%e3%83%a0%e3%82%b9%e3%82%bf%e3%83%b3%e3%83%97%e3%81%aa%e3%82%ab%e3%83%a9%e3%83%a0%e3%82%92JST%e3%81%a7%e4%b8%80%e6%98%a8%e6%97%a5%e3%81%8b%e3%82%89%e6%98%a8%e6%97%a5%e3%81%ae%e7%af%84%e5%9b%b2%e3%81%a7%e3%81%a8%e3%82%8b%e5%a0%b4%e5%90%88 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'your_disqus_short_name'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/dream-yt/sacre">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://twitter.com/FUTABA_SACRE">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2019 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="https://dream-yt.github.io/js/jquery-3.3.1.min.js"></script>
+<script src="https://dream-yt.github.io/js/main.js"></script>
+<script src="https://dream-yt.github.io/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+
+
+
+
+    </body>
+</html>
