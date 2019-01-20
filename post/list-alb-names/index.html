@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="https://dream-yt.github.io/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="AWSでプロジェクトに存在するALBを一覧する"/>
+  <meta name="twitter:description" content="aws cloudwatch list-metrics \ --namespace AWS/ApplicationELB \ --metric-name RequestCount \ | jq -r &#39;.Metrics[].Dimensions[] | select(.Name | test(&quot;LoadBalancer&quot;)) | .Value&#39; \ | sort \ | uniq jq の部分はjsonから必要な部分を抜き出すためのもの 配列を Name=LoadBalancer なオブジェクトにフィルタして"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@site_author"/>
+  
+
+
+
+		
+		<meta name="author" content="site_author">
+		<meta name="description" content="Site Description">
+		<meta name="generator" content="Hugo 0.51" />
+		<title>AWSでプロジェクトに存在するALBを一覧する &middot; sacre</title>
+		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/font-awesome.min.css">
+		
+
+		
+		<link href="https://dream-yt.github.io/index.xml" rel="alternate" type="application/rss+xml" title="sacre" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='https://dream-yt.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://dream-yt.github.io/posts'>Archive</a>
+	<a href='https://dream-yt.github.io/tags'>Tags</a>
+	<a href='https://dream-yt.github.io/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="https://dream-yt.github.io/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        AWSでプロジェクトに存在するALBを一覧する
+                    </h1>
+                    <h2 class="headline">
+                    Jan 20, 2019 14:57
+                    · 107 words
+                    · 1 minute read
+                      <span class="tags">
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                
+                <section id="post-body">
+                    <pre><code class="language-bash">aws cloudwatch list-metrics \
+    --namespace AWS/ApplicationELB \
+    --metric-name RequestCount \
+    | jq -r '.Metrics[].Dimensions[] | select(.Name | test(&quot;LoadBalancer&quot;)) | .Value' \
+    | sort \
+    | uniq
+</code></pre>
+
+<p>jq の部分はjsonから必要な部分を抜き出すためのもの</p>
+
+<ul>
+<li>配列を <code>Name=LoadBalancer</code> なオブジェクトにフィルタして</li>
+<li>そのオブジェクトの <code>Value</code> 属性を取り出す</li>
+</ul>
+
+<pre><code class="language-json">[
+    {
+        &quot;Name&quot;: &quot;TargetGroup&quot;,
+        &quot;Value&quot;: &quot;targetgroup/stg-api/xxxxxx&quot;
+    },
+    {
+        &quot;Name&quot;: &quot;LoadBalancer&quot;,
+        &quot;Value&quot;: &quot;app/stg-private/ggggggg&quot;
+    },
+    {
+        &quot;Name&quot;: &quot;AvailabilityZone&quot;,
+        &quot;Value&quot;: &quot;ap-northeast-1c&quot;
+    }
+]
+</code></pre>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2flist-alb-names%2f - AWS%e3%81%a7%e3%83%97%e3%83%ad%e3%82%b8%e3%82%a7%e3%82%af%e3%83%88%e3%81%ab%e5%ad%98%e5%9c%a8%e3%81%99%e3%82%8bALB%e3%82%92%e4%b8%80%e8%a6%a7%e3%81%99%e3%82%8b by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'your_disqus_short_name'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/dream-yt/sacre">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://twitter.com/FUTABA_SACRE">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2019 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="https://dream-yt.github.io/js/jquery-3.3.1.min.js"></script>
+<script src="https://dream-yt.github.io/js/main.js"></script>
+<script src="https://dream-yt.github.io/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+
+
+
+
+    </body>
+</html>
