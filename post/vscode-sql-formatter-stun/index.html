@@ -13,8 +13,8 @@
     
   
   
-  <meta name="twitter:title" content="vscodeからdockerコンテナ内でperl -wcして文法チェック"/>
-  <meta name="twitter:description" content="こちらを使うと簡単に出来た henriiik/vscode-docker-linter: Lint the things in your docker containers 設定 設定項目もこれくらいで済む &quot;docker-linter.perl.enable&quot;: true, &quot;docker-linter.perl.machine&quot;: &quot;&quot;, // &quot;default&quot;だとdocker-m"/>
+  <meta name="twitter:title" content="There is no document formatter for &#39;sql&#39;-files installed"/>
+  <meta name="twitter:description" content="vscodeを使っている。SQLファイルは保存時にフォーマットされるようしているが、 ある日突然保存時フォーマットが聞かなくなった vscode"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -30,7 +30,7 @@
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
 		<meta name="generator" content="Hugo 0.42.1" />
-		<title>vscodeからdockerコンテナ内でperl -wcして文法チェック &middot; sacre</title>
+		<title>There is no document formatter for &#39;sql&#39;-files installed &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
@@ -68,11 +68,11 @@
             <article>
                 <header>
                     <h1>
-                        vscodeからdockerコンテナ内でperl -wcして文法チェック
+                        There is no document formatter for &#39;sql&#39;-files installed
                     </h1>
                     <h2 class="headline">
-                    Dec 12, 2018 08:12
-                    · 224 words
+                    Jan 22, 2019 12:52
+                    · 217 words
                     · 1 minute read
                       <span class="tags">
                       
@@ -86,14 +86,7 @@
 <ul>
 <li>
 <ul>
-<li><a href="#設定">設定</a>
-<ul>
-<li>
-<ul>
-<li><a href="#docker-linter-perl-container"><code>docker-linter.perl.container</code></a></li>
-<li><a href="#docker-linter-perl-command"><code>docker-linter.perl.command</code></a></li>
-</ul></li>
-</ul></li>
+<li><a href="#解決">解決</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -103,52 +96,35 @@
                 <section id="post-body">
                     
 
-<p>こちらを使うと簡単に出来た</p>
+<p>vscodeを使っている。SQLファイルは保存時にフォーマットされるようしているが、
+ある日突然保存時フォーマットが聞かなくなった</p>
 
-<ul>
-<li><a href="https://github.com/henriiik/vscode-docker-linter">henriiik/vscode-docker-linter: Lint the things in your docker containers</a></li>
-</ul>
+<p>vscodeのコマンドパレットから <code>Document Format</code> を選択しても以下のエラーでフォーマットされない</p>
 
-<h2 id="設定">設定</h2>
+<blockquote>
+<p>There is no document formatter for &lsquo;sql&rsquo;-files installed</p>
+</blockquote>
 
-<p>設定項目もこれくらいで済む</p>
+<p>vscodeのsettings.jsonには以下のように設定していて、瑕疵はなさそうに思えた</p>
 
-<pre><code class="language-json">&quot;docker-linter.perl.enable&quot;: true,
-&quot;docker-linter.perl.machine&quot;: &quot;&quot;,  // &quot;default&quot;だとdocker-machineを使おうとする
-&quot;docker-linter.perl.container&quot;: &quot;app_app_1&quot;,
-&quot;docker-linter.perl.command&quot;: &quot;carton exec perl -wc -Ilib -It/lib &quot;
+<pre><code class="language-json">&quot;[sql]&quot;: {
+    &quot;editor.formatOnSave&quot;: true,
+    &quot;editor.formatOnPaste&quot;: true
+},
 </code></pre>
 
-<h4 id="docker-linter-perl-container"><code>docker-linter.perl.container</code></h4>
+<h2 id="解決">解決</h2>
 
-<p><code>docker ps</code> した、端っこの <code>NAMES</code> カラムを指定する</p>
+<p><code>&quot;editor.formatOnSave&quot;</code> を1回trueにして、すぐにfalseに戻したら
+件のエラーは出なくなった</p>
 
-<pre><code>$ docker ps | perl -aF'\s+' -nlE 'say $F[-1]'
-</code></pre>
-
-<h4 id="docker-linter-perl-command"><code>docker-linter.perl.command</code></h4>
-
-<p>lint用のコマンドを渡す
-プロジェクトごとに依存先などは違うはずなので個別で設定するもの</p>
-
-<p><code>docker exec</code> に渡してlintする場合と同じようなものを渡せば良い</p>
-
-<pre><code>$ carton exec perl -wc -Ilib -It/lib
-</code></pre>
-
-<hr />
-
-<p>サンプルの設定があって、参考になった</p>
-
-<ul>
-<li><a href="https://github.com/henriiik/vscode-docker-linter/blob/master/playground-perl/.vscode/settings.json">vscode-docker-linter/settings.json at master · henriiik/vscode-docker-linter</a></li>
-</ul>
+<p>ちょっとよく分からない</p>
 
                 </section>
             </article>
 
             
-                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fvscode-perl-docker-linter%2f - vscode%e3%81%8b%e3%82%89docker%e3%82%b3%e3%83%b3%e3%83%86%e3%83%8a%e5%86%85%e3%81%a7perl%20-wc%e3%81%97%e3%81%a6%e6%96%87%e6%b3%95%e3%83%81%e3%82%a7%e3%83%83%e3%82%af by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fvscode-sql-formatter-stun%2f - There%20is%20no%20document%20formatter%20for%20%27sql%27-files%20installed by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
 
 <a class="facebook" href="#" onclick="
     window.open(
