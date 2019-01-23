@@ -6,10 +6,19 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Tue, 22 Jan 2019 12:52:05 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 23 Jan 2019 09:40:35 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>VLOOKUPの使い方をメモ</title>
+      <link>https://dream-yt.github.io/post/spreadsheet-vlookup/</link>
+      <pubDate>Wed, 23 Jan 2019 09:40:35 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/spreadsheet-vlookup/</guid>
+      <description>自分で使ったことがなかったので勉強 概要 指定した表のなかから条件にマッチした行の、指定したカラムの値を返してくれる VLOOKUP(検索キー, 範</description>
+    </item>
     
     <item>
       <title>There is no document formatter for &#39;sql&#39;-files installed</title>
