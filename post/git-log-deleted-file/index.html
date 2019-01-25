@@ -13,8 +13,8 @@
     
   
   
-  <meta name="twitter:title" content="vscodeからdockerコンテナ内でperl -wcして文法チェック"/>
-  <meta name="twitter:description" content="こちらを使うと簡単に出来た henriiik/vscode-docker-linter: Lint the things in your docker containers 設定 設定項目もこれくらいで済む &quot;docker-linter.perl.enable&quot;: true, &quot;docker-linter.perl.machine&quot;: &quot;&quot;, // &quot;default&quot;だとdocker-m"/>
+  <meta name="twitter:title" content="特定のファイルを消したコミットを確認する"/>
+  <meta name="twitter:description" content="以下のコマンドで確認できる $ git log --diff-filter=D -- path/to/targetfile.pl -- 以降にファイル名を渡すとそのファイルの履歴だけ見ることが出来る [--] &lt;path&gt;... Show only commits that are enough to explain how the files that match the specified paths came"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -30,7 +30,7 @@
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
 		<meta name="generator" content="Hugo 0.42.1" />
-		<title>vscodeからdockerコンテナ内でperl -wcして文法チェック &middot; sacre</title>
+		<title>特定のファイルを消したコミットを確認する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
@@ -68,11 +68,11 @@
             <article>
                 <header>
                     <h1>
-                        vscodeからdockerコンテナ内でperl -wcして文法チェック
+                        特定のファイルを消したコミットを確認する
                     </h1>
                     <h2 class="headline">
-                    Dec 12, 2018 08:12
-                    · 224 words
+                    Jan 25, 2019 13:49
+                    · 295 words
                     · 1 minute read
                       <span class="tags">
                       
@@ -81,74 +81,54 @@
                 </header>
                 
                   
-                    <div id="toc">
-                      <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#設定">設定</a>
-<ul>
-<li>
-<ul>
-<li><a href="#docker-linter-perl-container"><code>docker-linter.perl.container</code></a></li>
-<li><a href="#docker-linter-perl-command"><code>docker-linter.perl.command</code></a></li>
-</ul></li>
-</ul></li>
-</ul></li>
-</ul>
-</nav>
-                    </div>
-                  
                 
                 <section id="post-body">
-                    
+                    <p>以下のコマンドで確認できる</p>
 
-<p>こちらを使うと簡単に出来た</p>
-
-<ul>
-<li><a href="https://github.com/henriiik/vscode-docker-linter">henriiik/vscode-docker-linter: Lint the things in your docker containers</a></li>
-</ul>
-
-<h2 id="設定">設定</h2>
-
-<p>設定項目もこれくらいで済む</p>
-
-<pre><code class="language-json">&quot;docker-linter.perl.enable&quot;: true,
-&quot;docker-linter.perl.machine&quot;: &quot;&quot;,  // &quot;default&quot;だとdocker-machineを使おうとする
-&quot;docker-linter.perl.container&quot;: &quot;app_app_1&quot;,
-&quot;docker-linter.perl.command&quot;: &quot;carton exec perl -wc -Ilib -It/lib &quot;
+<pre><code>$ git log --diff-filter=D -- path/to/targetfile.pl
 </code></pre>
 
-<h4 id="docker-linter-perl-container"><code>docker-linter.perl.container</code></h4>
+<p><code>--</code> 以降にファイル名を渡すとそのファイルの履歴だけ見ることが出来る</p>
 
-<p><code>docker ps</code> した、端っこの <code>NAMES</code> カラムを指定する</p>
+<pre><code>        [--] &lt;path&gt;...
+            Show only commits that are enough to explain how the files that
+            match the specified paths came to be. See History Simplification
+            below for details and other simplification modes.
 
-<pre><code>$ docker ps | perl -aF'\s+' -nlE 'say $F[-1]'
+            Paths may need to be prefixed with -- to separate them from options
+            or the revision range, when confusion arises.
 </code></pre>
 
-<h4 id="docker-linter-perl-command"><code>docker-linter.perl.command</code></h4>
+<p><code>--diff-filter</code> オプションはファイル操作ごとのフィルタを提供している</p>
 
-<p>lint用のコマンドを渡す
-プロジェクトごとに依存先などは違うはずなので個別で設定するもの</p>
+<pre><code>$ git log --help | grep -A20 diff-filter
+       --diff-filter=[(A|C|D|M|R|T|U|X|B)...[*]]
+            Select only files that are Added (A), Copied (C), Deleted (D),
+            Modified (M), Renamed (R), have their type (i.e. regular file,
+            symlink, submodule, ...) changed (T), are Unmerged (U), are Unknown
+            (X), or have had their pairing Broken (B). Any combination of the
+            filter characters (including none) can be used. When *
+            (All-or-none) is added to the combination, all paths are selected
+            if there is any file that matches other criteria in the comparison;
+            if there is no file that matches other criteria, nothing is
+            selected.
 
-<p><code>docker exec</code> に渡してlintする場合と同じようなものを渡せば良い</p>
+            Also, these upper-case letters can be downcased to exclude. E.g.
+            --diff-filter=ad excludes added and deleted paths.
 
-<pre><code>$ carton exec perl -wc -Ilib -It/lib
+            Note that not all diffs can feature all types. For instance, diffs
+            from the index to the working tree can never have Added entries
+            (because the set of paths included in the diff is limited by what
+            is in the index). Similarly, copied and renamed entries cannot
+            appear if detection for those types is disabled.
+
 </code></pre>
-
-<hr />
-
-<p>サンプルの設定があって、参考になった</p>
-
-<ul>
-<li><a href="https://github.com/henriiik/vscode-docker-linter/blob/master/playground-perl/.vscode/settings.json">vscode-docker-linter/settings.json at master · henriiik/vscode-docker-linter</a></li>
-</ul>
 
                 </section>
             </article>
 
             
-                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fvscode-perl-docker-linter%2f - vscode%e3%81%8b%e3%82%89docker%e3%82%b3%e3%83%b3%e3%83%86%e3%83%8a%e5%86%85%e3%81%a7perl%20-wc%e3%81%97%e3%81%a6%e6%96%87%e6%b3%95%e3%83%81%e3%82%a7%e3%83%83%e3%82%af by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fgit-log-deleted-file%2f - %e7%89%b9%e5%ae%9a%e3%81%ae%e3%83%95%e3%82%a1%e3%82%a4%e3%83%ab%e3%82%92%e6%b6%88%e3%81%97%e3%81%9f%e3%82%b3%e3%83%9f%e3%83%83%e3%83%88%e3%82%92%e7%a2%ba%e8%aa%8d%e3%81%99%e3%82%8b by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
 
 <a class="facebook" href="#" onclick="
     window.open(
