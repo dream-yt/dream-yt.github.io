@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://dream-yt.github.io/post/bigquery-data-transfer-service/</loc>
+    <lastmod>2019-01-29T08:43:23+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://dream-yt.github.io/post/git-log-deleted-file/</loc>
     <lastmod>2019-01-25T13:49:58+09:00</lastmod>
   </url>
@@ -210,7 +215,7 @@
   
   <url>
     <loc>https://dream-yt.github.io/post/</loc>
-    <lastmod>2019-01-25T13:49:58+09:00</lastmod>
+    <lastmod>2019-01-29T08:43:23+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -222,7 +227,7 @@
   
   <url>
     <loc>https://dream-yt.github.io/</loc>
-    <lastmod>2019-01-25T13:49:58+09:00</lastmod>
+    <lastmod>2019-01-29T08:43:23+09:00</lastmod>
     <priority>0</priority>
   </url>
   

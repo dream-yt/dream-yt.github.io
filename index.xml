@@ -6,10 +6,19 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Fri, 25 Jan 2019 13:49:58 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 29 Jan 2019 08:43:23 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Bigquery Data Transfer Service について</title>
+      <link>https://dream-yt.github.io/post/bigquery-data-transfer-service/</link>
+      <pubDate>Tue, 29 Jan 2019 08:43:23 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/bigquery-data-transfer-service/</guid>
+      <description>$ bq mk --table --help で今まで知らなかったオプションを見つけた --[no]transfer_config: Create transfer config. --[no]transfer_run: Creates transfer runs for a time range. アドタグやGAのデータを自動的にBigQueryに取り込める設定の</description>
+    </item>
     
     <item>
       <title>特定のファイルを消したコミットを確認する</title>
