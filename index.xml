@@ -6,10 +6,19 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Tue, 29 Jan 2019 08:43:23 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 29 Jan 2019 22:32:51 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>BigQueryのtransfer_configを表示する</title>
+      <link>https://dream-yt.github.io/post/bigquery-show-data-transfer-service/</link>
+      <pubDate>Tue, 29 Jan 2019 22:32:51 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/bigquery-show-data-transfer-service/</guid>
+      <description>以下の要領で表示できる $ bq --format=json ls --transfer_config --transfer_location=&#39;us&#39; $ bq show --transfer_config projects/123456789/locations/us/transferConfigs/xxxxxx 出力される設定はこんな感じ ( --format=json ) bq mk にこの形式のjsonを食わせると設定できるのだろうか? 🤔 $ bq</description>
+    </item>
     
     <item>
       <title>Bigquery Data Transfer Service について</title>
