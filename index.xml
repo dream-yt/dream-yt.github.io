@@ -6,10 +6,19 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Tue, 29 Jan 2019 22:32:51 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 13 Feb 2019 15:20:54 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>macで動画のビットレートを変更したい</title>
+      <link>https://dream-yt.github.io/post/ffmpeg-for-bitrate/</link>
+      <pubDate>Wed, 13 Feb 2019 15:20:54 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/ffmpeg-for-bitrate/</guid>
+      <description>ffmpegを使う $ brew install ffmpeg こんな感じで使う $ ffmpeg -i ./inputfile.mp4 -b:v 2M -bufsize 10M ./outfile.mp4 -b:v 2M 指定したいbitrate。KBで指定したい場合は 320K のようにKを使う -bufsize 10M どれく</description>
+    </item>
     
     <item>
       <title>BigQueryのtransfer_configを表示する</title>
