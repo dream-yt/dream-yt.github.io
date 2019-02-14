@@ -6,10 +6,19 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 13 Feb 2019 15:20:54 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 14 Feb 2019 17:11:00 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>テキストに不可視な文字が入っている場合の対処</title>
+      <link>https://dream-yt.github.io/post/invisible-char-in-textfile/</link>
+      <pubDate>Thu, 14 Feb 2019 17:11:00 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/invisible-char-in-textfile/</guid>
+      <description>不可視文字には \t (タブ) や \f (改ページ)など色々ある 環境によってトーフが表示されたりする 例 エディタでは大丈夫なのにGitHubに投稿するとト</description>
+    </item>
     
     <item>
       <title>macで動画のビットレートを変更したい</title>
