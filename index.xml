@@ -6,10 +6,19 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sat, 23 Feb 2019 12:02:54 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 23 Feb 2019 19:57:57 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>typescriptで特定ファイルのコンパイルエラーだけdisableする</title>
+      <link>https://dream-yt.github.io/post/typescript-ts-ignore/</link>
+      <pubDate>Sat, 23 Feb 2019 19:57:57 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/typescript-ts-ignore/</guid>
+      <description>typescriptのコンパイラオプションは一般的にはtsconfig.jsonでプロジェクト全体のコンパイルの設定を定義することになる。た</description>
+    </item>
     
     <item>
       <title>lambda/typescriptでexpressを使う</title>
