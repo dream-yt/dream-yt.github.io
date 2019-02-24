@@ -6,10 +6,19 @@
     <description>Recent content in Posts on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sat, 23 Feb 2019 19:57:57 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 24 Feb 2019 10:50:59 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>bigqueryのtransfer_configの実行履歴の確認の仕方</title>
+      <link>https://dream-yt.github.io/post/bigquery-transfer-log/</link>
+      <pubDate>Sun, 24 Feb 2019 10:50:59 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/bigquery-transfer-log/</guid>
+      <description>transfer_config 設定されているtransfer_configを一覧 $ bq --format=json ls --transfer_config --transfer_location=&#39;us&#39; | jq . transfer_run name を引数に渡してtransfer_runを一覧 $ bq --format=json ls --transfer_run --transfer_location=&#39;us&#39; \ projects/987573330809/locations/us/transferConfigs/5c5aff8c-0000-285b-bf15-089e08324cf4 summary 実行</description>
+    </item>
     
     <item>
       <title>typescriptで特定ファイルのコンパイルエラーだけdisableする</title>
