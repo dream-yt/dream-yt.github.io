@@ -14,7 +14,7 @@
   
   
   <meta name="twitter:title" content="GoogleSpreadSheetへBigQueryからクエリできるようにする"/>
-  <meta name="twitter:description" content="こんなコマンドでspreadsheetをbigqueryのテーブルのように使うことができる $ bq mk --external_table_definition=[SCHEMA]@[SOURCE_FORMAT]=[GOOGLE_DRIVE_URL] \ [DATASET_ID].[TABLE_NAME] 実際の値をいれるとこんな感じ $ export GOOGLE_SHEETS=&#39;https://docs.google.com/spreadsheets/d/1r--MIJGEuZSgx9KMQx4ak59wfwclyAOL9S80cZaV8BM/edit#gid=1436148405&#39; $ export"/>
+  <meta name="twitter:description" content="こんなコマンドでspreadsheetをbigqueryのテーブルのように使うことができる $ bq mk --external_table_definition=[SCHEMA]@[SOURCE_FORMAT]=[GOOGLE_DRIVE_URL] \ [DATASET_ID].[TABLE_NAME] 実際の値をいれるとこんな感じ $ export GOOGLE_SHEETS=&#39;https://docs.google.com/spreadsheets/d/1r--MIJGEuZSgx9KMQxyAOL9S80cZaV8BM/edit#gid=1436148405&#39; $ export"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -109,7 +109,7 @@
 
 <p>実際の値をいれるとこんな感じ</p>
 
-<pre><code class="language-bash">$ export GOOGLE_SHEETS='https://docs.google.com/spreadsheets/d/1r--MIJGEuZSgx9KMQx4ak59wfwclyAOL9S80cZaV8BM/edit#gid=1436148405'
+<pre><code class="language-bash">$ export GOOGLE_SHEETS='https://docs.google.com/spreadsheets/d/1r--MIJGEuZSgx9KMQxyAOL9S80cZaV8BM/edit#gid=1436148405'
 $ export TABLE_DEF='shop_id:string,shop_name:string,area:string,business:string,genre:string'
 $ bq mk --external_table_definition=&quot;$TABLE_DEF&quot;@GOOGLE_SHEETS=&quot;$GOOGLE_SHEETS&quot; \
     log.test_shops2

@@ -17,7 +17,7 @@
       <pubDate>Sun, 24 Feb 2019 17:28:42 +0900</pubDate>
       
       <guid>https://dream-yt.github.io/post/query-google-spreadsheet-with-bigquery/</guid>
-      <description>こんなコマンドでspreadsheetをbigqueryのテーブルのように使うことができる $ bq mk --external_table_definition=[SCHEMA]@[SOURCE_FORMAT]=[GOOGLE_DRIVE_URL] \ [DATASET_ID].[TABLE_NAME] 実際の値をいれるとこんな感じ $ export GOOGLE_SHEETS=&#39;https://docs.google.com/spreadsheets/d/1r--MIJGEuZSgx9KMQx4ak59wfwclyAOL9S80cZaV8BM/edit#gid=1436148405&#39; $ export</description>
+      <description>こんなコマンドでspreadsheetをbigqueryのテーブルのように使うことができる $ bq mk --external_table_definition=[SCHEMA]@[SOURCE_FORMAT]=[GOOGLE_DRIVE_URL] \ [DATASET_ID].[TABLE_NAME] 実際の値をいれるとこんな感じ $ export GOOGLE_SHEETS=&#39;https://docs.google.com/spreadsheets/d/1r--MIJGEuZSgx9KMQxyAOL9S80cZaV8BM/edit#gid=1436148405&#39; $ export</description>
     </item>
     
     <item>
