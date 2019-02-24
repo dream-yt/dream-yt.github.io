@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="https://dream-yt.github.io/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="GoogleSpreadSheetへBigQueryからクエリできるようにする"/>
+  <meta name="twitter:description" content="こんなコマンドでspreadsheetをbigqueryのテーブルのように使うことができる $ bq mk --external_table_definition=[SCHEMA]@[SOURCE_FORMAT]=[GOOGLE_DRIVE_URL] \ [DATASET_ID].[TABLE_NAME] 実際の値をいれるとこんな感じ $ export GOOGLE_SHEETS=&#39;https://docs.google.com/spreadsheets/d/1r--MIJGEuZSgx9KMQx4ak59wfwclyAOL9S80cZaV8BM/edit#gid=1436148405&#39; $ export"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@site_author"/>
+  
+
+
+
+		
+		<meta name="author" content="site_author">
+		<meta name="description" content="Site Description">
+		<meta name="generator" content="Hugo 0.51" />
+		<title>GoogleSpreadSheetへBigQueryからクエリできるようにする &middot; sacre</title>
+		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/font-awesome.min.css">
+		
+
+		
+		<link href="https://dream-yt.github.io/index.xml" rel="alternate" type="application/rss+xml" title="sacre" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='https://dream-yt.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://dream-yt.github.io/posts'>Archive</a>
+	<a href='https://dream-yt.github.io/tags'>Tags</a>
+	<a href='https://dream-yt.github.io/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="https://dream-yt.github.io/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        GoogleSpreadSheetへBigQueryからクエリできるようにする
+                    </h1>
+                    <h2 class="headline">
+                    Feb 24, 2019 17:28
+                    · 568 words
+                    · 2 minute read
+                      <span class="tags">
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#ドキュメント">ドキュメント</a></li>
+</ul></li>
+<li><a href="#認証">認証?</a></li>
+<li><a href="#カラム">カラム</a></li>
+</ul></li>
+</ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    
+
+<p>こんなコマンドでspreadsheetをbigqueryのテーブルのように使うことができる</p>
+
+<pre><code>$ bq mk --external_table_definition=[SCHEMA]@[SOURCE_FORMAT]=[GOOGLE_DRIVE_URL] \
+    [DATASET_ID].[TABLE_NAME]
+</code></pre>
+
+<p>実際の値をいれるとこんな感じ</p>
+
+<pre><code class="language-bash">$ export GOOGLE_SHEETS='https://docs.google.com/spreadsheets/d/1r--MIJGEuZSgx9KMQx4ak59wfwclyAOL9S80cZaV8BM/edit#gid=1436148405'
+$ export TABLE_DEF='shop_id:string,shop_name:string,area:string,business:string,genre:string'
+$ bq mk --external_table_definition=&quot;$TABLE_DEF&quot;@GOOGLE_SHEETS=&quot;$GOOGLE_SHEETS&quot; \
+    log.test_shops2
+</code></pre>
+
+<p>これだけでgoogle spreadsheetへbigqueryからクエリできるようになる</p>
+
+<pre><code class="language-console">$ bq query &quot;select shop_id from log.test_shops2 limit 3&quot;
+Waiting on bqjob_r31a9b91bc4ce40b1_000001691e9a3eba_1 ... (1s) Current status: DONE
++----------------+
+|    shop_id     |
++----------------+
+| toh-n          |
+| qqqqkin-aoerei |
+| tog-n          |
++----------------+
+</code></pre>
+
+<h3 id="ドキュメント">ドキュメント</h3>
+
+<ul>
+<li><a href="https://cloud.google.com/bigquery/federated-data-sources?hl=ja#creating_a_federated_table_using_google_drive">フェデレーション データソースの作成とクエリ  |  BigQuery  |  Google Cloud</a></li>
+<li><a href="https://cloud.google.com/bigquery/docs/reference/bq-cli-reference?authuser=0&amp;hl=ja#bq_mk">bq コマンドライン ツール リファレンス  |  BigQuery  |  Google Cloud</a></li>
+</ul>
+
+<h2 id="認証">認証?</h2>
+
+<p><code>gcloud auth login</code> 経由で取得したcredentialだとうまく動作しなかった</p>
+
+<pre><code class="language-console">$ bq mk --external_table_definition=GOOGLE_SHEETS=&quot;$GOOGLE_SHEETS&quot; log.test_shops
+BigQuery error in mk operation: Access Denied: BigQuery BigQuery: No OAuth token with Google Drive scope was found.
+</code></pre>
+
+<p>service-accountの権限を使ってbqコマンドを叩くと期待通り動作した</p>
+
+<pre><code>$ gcloud auth activate-service-account mossan@project-926112.iam.gserviceaccount.com \
+    --key-file=./gcp/mossan-key.json
+</code></pre>
+
+<p>原因が公式ドキュメントから読み解けなかったが、
+こんなことが書いてあるページを見つけた</p>
+
+<blockquote>
+<p>The bq tools does NOT request GDRIVE scope using the default authentication mode, and the &ndash;enable_gdrive flag is ignored unless you also provide explicit authentication parameters like an explicit service account</p>
+</blockquote>
+
+<ul>
+<li><a href="https://github.com/GlobalFishingWatch/pipe-tools/wiki/Bigquery-and-Google-Sheets">Bigquery and Google Sheets · GlobalFishingWatch/pipe-tools Wiki · GitHub</a></li>
+</ul>
+
+<p>わからん</p>
+
+<ul>
+<li>service-account経由じゃないとGoogleDriveのscopeが手に入らないのだろうか</li>
+<li>そうすると <code>--enable_gdrive</code> とは一体なにに使うのだろう</li>
+</ul>
+
+<h2 id="カラム">カラム</h2>
+
+<p>カラム情報を渡さずに <code>bq mk</code> するとカラム名が適当な感じになってしまうので、
+なるべくテーブル定義はちゃんとやる必要がある</p>
+
+<pre><code class="language-console">$ bq show log.test_shops
+Table project-926112:log.test_shops
+
+   Last modified             Schema               Type     Total URIs   Expiration   Labels
+ ----------------- --------------------------- ---------- ------------ ------------ --------
+  24 Feb 17:05:53   |- string_field_0: string   EXTERNAL   1
+                    |- string_field_1: string
+                    |- string_field_2: string
+                    |- string_field_3: string
+                    |- string_field_4: string
+</code></pre>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fquery-google-spreadsheet-with-bigquery%2f - GoogleSpreadSheet%e3%81%b8BigQuery%e3%81%8b%e3%82%89%e3%82%af%e3%82%a8%e3%83%aa%e3%81%a7%e3%81%8d%e3%82%8b%e3%82%88%e3%81%86%e3%81%ab%e3%81%99%e3%82%8b by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'your_disqus_short_name'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/dream-yt/sacre">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://twitter.com/FUTABA_SACRE">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2019 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="https://dream-yt.github.io/js/jquery-3.3.1.min.js"></script>
+<script src="https://dream-yt.github.io/js/main.js"></script>
+<script src="https://dream-yt.github.io/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+
+
+
+
+    </body>
+</html>
