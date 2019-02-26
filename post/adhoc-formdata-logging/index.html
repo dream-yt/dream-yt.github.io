@@ -13,8 +13,8 @@
     
   
   
-  <meta name="twitter:title" content="テキストに不可視な文字が入っている場合の対処"/>
-  <meta name="twitter:description" content="不可視文字には \t (タブ) や \f (改ページ)など色々ある 環境によってトーフが表示されたりする 例 エディタでは大丈夫なのにGitHubに投稿するとト"/>
+  <meta name="twitter:title" content="htmlで、雑にformから送信される値を見たい"/>
+  <meta name="twitter:description" content="submitイベントを途中で止める FormDataクラスをつかう こんなコードを仕込めば値が一覧できる const form = document.querySelector(&#39;form&#39;); form.addEventListener(&#39;submit&#39;, (event) =&gt; { const formData = new FormData(form); for (let i of formData.entries()) { console.log(i.join(&quot;\t&quot;));"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -30,7 +30,7 @@
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
 		<meta name="generator" content="Hugo 0.42.1" />
-		<title>テキストに不可視な文字が入っている場合の対処 &middot; sacre</title>
+		<title>htmlで、雑にformから送信される値を見たい &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
@@ -68,11 +68,11 @@
             <article>
                 <header>
                     <h1>
-                        テキストに不可視な文字が入っている場合の対処
+                        htmlで、雑にformから送信される値を見たい
                     </h1>
                     <h2 class="headline">
-                    Feb 14, 2019 17:11
-                    · 274 words
+                    Feb 26, 2019 12:47
+                    · 107 words
                     · 1 minute read
                       <span class="tags">
                       
@@ -81,50 +81,51 @@
                 </header>
                 
                   
-                
-                <section id="post-body">
-                    <p>不可視文字には <code>\t</code> (タブ) や <code>\f</code> (改ページ)など色々ある</p>
-
-<p>環境によってトーフが表示されたりする</p>
-
+                    <div id="toc">
+                      <nav id="TableOfContents">
 <ul>
-<li>例
-
+<li>
 <ul>
-<li>エディタでは大丈夫なのにGitHubに投稿するとトーフが表示される</li>
+<li><a href="#参考">参考</a></li>
 </ul></li>
 </ul>
-
-<p>こういう場合はテキストをodコマンドにかけると隠れてる文字がわかる</p>
-
-<pre><code class="language-console">$ cat /tmp/_
-え信じられない
-# catだと見えないが \b が隠れてることがわかる
-$ cat /tmp/_ | od -c
-0000000   え  **  **  っ  **  **  \b  信  **  **  じ  **  **  ら  **  **
-0000020   れ  **  **  な  **  **  い  **  **  \n
-0000032
-</code></pre>
-
-<p>odコマンドは<code>-c</code>オプションをつけると分かりやすい</p>
-
-<blockquote>
-<p>-c Output C-style escaped characters.  Equivalent to -t c.</p>
-</blockquote>
-
-<p>エスケープ文字の一覧はこちらでみられる</p>
-
-<p><code>\n</code>, <code>\t</code> はなじみがあるがバックスペースとかはパッと思い出せないので便利</p>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    
 
 <ul>
-<li><a href="https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B9%E3%82%B1%E3%83%BC%E3%83%97%E6%96%87%E5%AD%97">エスケープ文字 - Wikipedia</a></li>
+<li>submitイベントを途中で止める</li>
+<li>FormDataクラスをつかう</li>
+</ul>
+
+<p>こんなコードを仕込めば値が一覧できる</p>
+
+<pre><code class="language-js">const form = document.querySelector('form');
+form.addEventListener('submit', (event) =&gt; {
+    const formData = new FormData(form);
+    for (let i of formData.entries()) {
+        console.log(i.join(&quot;\t&quot;));
+    }
+    console.log('---');
+    event.preventDefault();
+});
+</code></pre>
+
+<h2 id="参考">参考</h2>
+
+<ul>
+<li><a href="https://developer.mozilla.org/ja/docs/Web/Guide/Using_FormData_Objects">FormData オブジェクトの利用 - ウェブデベロッパーガイド | MDN</a></li>
+<li><a href="https://developer.mozilla.org/ja/docs/Web/API/Event/preventDefault">Event.preventDefault() - Web API | MDN</a></li>
 </ul>
 
                 </section>
             </article>
 
             
-                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2finvisible-char-in-textfile%2f - %e3%83%86%e3%82%ad%e3%82%b9%e3%83%88%e3%81%ab%e4%b8%8d%e5%8f%af%e8%a6%96%e3%81%aa%e6%96%87%e5%ad%97%e3%81%8c%e5%85%a5%e3%81%a3%e3%81%a6%e3%81%84%e3%82%8b%e5%a0%b4%e5%90%88%e3%81%ae%e5%af%be%e5%87%a6 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fadhoc-formdata-logging%2f - html%e3%81%a7%e3%80%81%e9%9b%91%e3%81%abform%e3%81%8b%e3%82%89%e9%80%81%e4%bf%a1%e3%81%95%e3%82%8c%e3%82%8b%e5%80%a4%e3%82%92%e8%a6%8b%e3%81%9f%e3%81%84 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
 
 <a class="facebook" href="#" onclick="
     window.open(
