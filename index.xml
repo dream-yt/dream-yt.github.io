@@ -6,10 +6,19 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Tue, 26 Feb 2019 12:47:49 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 28 Feb 2019 08:36:33 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>200が返ってこないURLを見つけるワンライナー</title>
+      <link>https://dream-yt.github.io/post/find-non-200pk-url-oneliner/</link>
+      <pubDate>Thu, 28 Feb 2019 08:36:33 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/find-non-200pk-url-oneliner/</guid>
+      <description>./urllist.txt にはURLのリストが入ってるとして そのなかから404とかになってるURLを見つけたい場合 以下のコマンドでダメなURLだけ表示してくれる $ cat</description>
+    </item>
     
     <item>
       <title>htmlで、雑にformから送信される値を見たい</title>
