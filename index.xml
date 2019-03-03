@@ -6,10 +6,19 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sun, 03 Mar 2019 12:16:26 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 03 Mar 2019 19:13:14 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>jsでローカルのタイムゾーンに関係なく、日付っぽい文字列をUTCで評価したい</title>
+      <link>https://dream-yt.github.io/post/js-date-utc/</link>
+      <pubDate>Sun, 03 Mar 2019 19:13:14 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/js-date-utc/</guid>
+      <description>jsのDateオブジェクトはデフォルトで色々な日付っぽい文字列を受け取るが、受け取った日付っぽい文字列をローカルのタイムゾーンとして評価して</description>
+    </item>
     
     <item>
       <title>lodashのchain/wrapperオブジェクトをjsxで使う</title>
