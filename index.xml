@@ -6,10 +6,19 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sun, 03 Mar 2019 19:13:14 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 05 Mar 2019 15:20:05 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>envsubstを使って環境変数だけでサクッとテンプレート出力する</title>
+      <link>https://dream-yt.github.io/post/envsubst-101/</link>
+      <pubDate>Tue, 05 Mar 2019 15:20:05 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/envsubst-101/</guid>
+      <description>gettextパッケージに入っているenvsubstコマンドを使うと、テンプレートファイルから環境変数を埋めて出力することができる GNU gettext utilities: envsubst Invocation</description>
+    </item>
     
     <item>
       <title>jsでローカルのタイムゾーンに関係なく、日付っぽい文字列をUTCで評価したい</title>

@@ -13,8 +13,8 @@
     
   
   
-  <meta name="twitter:title" content="テキストに不可視な文字が入っている場合の対処"/>
-  <meta name="twitter:description" content="不可視文字には \t (タブ) や \f (改ページ)など色々ある 環境によってトーフが表示されたりする 例 エディタでは大丈夫なのにGitHubに投稿するとト"/>
+  <meta name="twitter:title" content="envsubstを使って環境変数だけでサクッとテンプレート出力する"/>
+  <meta name="twitter:description" content="gettextパッケージに入っているenvsubstコマンドを使うと、テンプレートファイルから環境変数を埋めて出力することができる GNU gettext utilities: envsubst Invocation"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -30,7 +30,7 @@
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
 		<meta name="generator" content="Hugo 0.42.1" />
-		<title>テキストに不可視な文字が入っている場合の対処 &middot; sacre</title>
+		<title>envsubstを使って環境変数だけでサクッとテンプレート出力する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
@@ -68,11 +68,11 @@
             <article>
                 <header>
                     <h1>
-                        テキストに不可視な文字が入っている場合の対処
+                        envsubstを使って環境変数だけでサクッとテンプレート出力する
                     </h1>
                     <h2 class="headline">
-                    Feb 14, 2019 17:11
-                    · 274 words
+                    Mar 5, 2019 15:20
+                    · 338 words
                     · 1 minute read
                       <span class="tags">
                       
@@ -81,50 +81,74 @@
                 </header>
                 
                   
-                
-                <section id="post-body">
-                    <p>不可視文字には <code>\t</code> (タブ) や <code>\f</code> (改ページ)など色々ある</p>
-
-<p>環境によってトーフが表示されたりする</p>
-
+                    <div id="toc">
+                      <nav id="TableOfContents">
 <ul>
-<li>例
-
+<li>
 <ul>
-<li>エディタでは大丈夫なのにGitHubに投稿するとトーフが表示される</li>
+<li>
+<ul>
+<li><a href="#インストール">インストール</a></li>
+</ul></li>
+<li><a href="#例">例</a></li>
 </ul></li>
 </ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    
 
-<p>こういう場合はテキストをodコマンドにかけると隠れてる文字がわかる</p>
-
-<pre><code class="language-console">$ cat /tmp/_
-え信じられない
-# catだと見えないが \b が隠れてることがわかる
-$ cat /tmp/_ | od -c
-0000000   え  **  **  っ  **  **  \b  信  **  **  じ  **  **  ら  **  **
-0000020   れ  **  **  な  **  **  い  **  **  \n
-0000032
-</code></pre>
-
-<p>odコマンドは<code>-c</code>オプションをつけると分かりやすい</p>
-
-<blockquote>
-<p>-c Output C-style escaped characters.  Equivalent to -t c.</p>
-</blockquote>
-
-<p>エスケープ文字の一覧はこちらでみられる</p>
-
-<p><code>\n</code>, <code>\t</code> はなじみがあるがバックスペースとかはパッと思い出せないので便利</p>
+<p>gettextパッケージに入っているenvsubstコマンドを使うと、テンプレートファイルから環境変数を埋めて出力することができる</p>
 
 <ul>
-<li><a href="https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B9%E3%82%B1%E3%83%BC%E3%83%97%E6%96%87%E5%AD%97">エスケープ文字 - Wikipedia</a></li>
+<li><a href="https://www.gnu.org/software/gettext/manual/html_node/envsubst-Invocation.html">GNU gettext utilities: envsubst Invocation</a></li>
 </ul>
+
+<h3 id="インストール">インストール</h3>
+
+<p>macの場合は brew で入る</p>
+
+<pre><code>$ brew install gettext
+$ brew link --force gettext
+</code></pre>
+
+<h2 id="例">例</h2>
+
+<p>例えば以下のようなテンプレートファイルがあるとして</p>
+
+<pre><code class="language-yaml:_.tmpl">${ASSET}_status:
+    not_null:
+        ja: ${ASSET_JA}のステータスを入力してください
+        en: Please enter the ${ASSET_EN} status
+    uint:
+        ja: ${ASSET_JA}のステータスが不正です
+        en: Invalid ${ASSET_EN} status
+    in:
+        ja: ${ASSET_JA}のステータスが不正です
+</code></pre>
+
+<p>こんな感じでenvsubstに流し込むと <code>${...}</code> の部分を環境変数で埋めた出力が得られる</p>
+
+<pre><code class="language-console">$ ASSET=title ASSET_JA=タイトル ASSET_EN=Title envsubst &lt; /tmp/_.tmpl
+title_status:
+    not_null:
+        ja: タイトルのステータスを入力してください
+        en: Please enter the Title status
+    uint:
+        ja: タイトルのステータスが不正です
+        en: Invalid Title status
+    in:
+        ja: タイトルのステータスが不正です
+        en: Invalid Title status
+</code></pre>
 
                 </section>
             </article>
 
             
-                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2finvisible-char-in-textfile%2f - %e3%83%86%e3%82%ad%e3%82%b9%e3%83%88%e3%81%ab%e4%b8%8d%e5%8f%af%e8%a6%96%e3%81%aa%e6%96%87%e5%ad%97%e3%81%8c%e5%85%a5%e3%81%a3%e3%81%a6%e3%81%84%e3%82%8b%e5%a0%b4%e5%90%88%e3%81%ae%e5%af%be%e5%87%a6 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fenvsubst-101%2f - envsubst%e3%82%92%e4%bd%bf%e3%81%a3%e3%81%a6%e7%92%b0%e5%a2%83%e5%a4%89%e6%95%b0%e3%81%a0%e3%81%91%e3%81%a7%e3%82%b5%e3%82%af%e3%83%83%e3%81%a8%e3%83%86%e3%83%b3%e3%83%97%e3%83%ac%e3%83%bc%e3%83%88%e5%87%ba%e5%8a%9b%e3%81%99%e3%82%8b by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
 
 <a class="facebook" href="#" onclick="
     window.open(
