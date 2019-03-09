@@ -6,10 +6,19 @@
     <description>Recent content in Posts on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Tue, 05 Mar 2019 15:20:05 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 09 Mar 2019 19:11:52 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>serverlessのcors対応</title>
+      <link>https://dream-yt.github.io/post/serverless-cors-101/</link>
+      <pubDate>Sat, 09 Mar 2019 19:11:52 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/serverless-cors-101/</guid>
+      <description>s3に静的htmlをホスティングしてlambda/apigatewayからデータを取得する形でやろうとすると、当然s3とlambda / api</description>
+    </item>
     
     <item>
       <title>envsubstを使って環境変数だけでサクッとテンプレート出力する</title>

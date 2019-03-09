@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://dream-yt.github.io/post/serverless-cors-101/</loc>
+    <lastmod>2019-03-09T19:11:52+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://dream-yt.github.io/post/envsubst-101/</loc>
     <lastmod>2019-03-05T15:20:05+09:00</lastmod>
   </url>
@@ -280,7 +285,7 @@
   
   <url>
     <loc>https://dream-yt.github.io/post/</loc>
-    <lastmod>2019-03-05T15:20:05+09:00</lastmod>
+    <lastmod>2019-03-09T19:11:52+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -292,7 +297,7 @@
   
   <url>
     <loc>https://dream-yt.github.io/</loc>
-    <lastmod>2019-03-05T15:20:05+09:00</lastmod>
+    <lastmod>2019-03-09T19:11:52+09:00</lastmod>
     <priority>0</priority>
   </url>
   
