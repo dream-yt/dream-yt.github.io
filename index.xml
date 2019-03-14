@@ -6,10 +6,28 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sat, 09 Mar 2019 19:11:52 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 14 Mar 2019 12:43:20 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>UIにおけるToastとは</title>
+      <link>https://dream-yt.github.io/post/ui-toast/</link>
+      <pubDate>Thu, 14 Mar 2019 12:43:20 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/ui-toast/</guid>
+      <description>下からピョコッと出てくるやつのことだった いくつか確認を求める系のインタラクションがまとまっていた ons-toast - Onsen UI</description>
+    </item>
+    
+    <item>
+      <title>税抜き5000円で宴会のコースが取れる六本木のお店</title>
+      <link>https://dream-yt.github.io/post/roppongi-under5000yen/</link>
+      <pubDate>Sun, 10 Mar 2019 16:35:58 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/roppongi-under5000yen/</guid>
+      <description>チームメンバーの飲み会、一人頭5000円まで会社の制度で補助してもらえる 六本木にて予算内で飲み会ができてそこそこ人数が入るところのリスト Cafe Rouge</description>
+    </item>
     
     <item>
       <title>serverlessのcors対応</title>
@@ -162,15 +180,6 @@
       
       <guid>https://dream-yt.github.io/post/spreadsheet-cell-copy/</guid>
       <description>同じ関数を相対参照で一番下の行までコピペしたいとき ＋マークをダブルクリックすると下まで行く その他 コピペと呼んでいるものにも2種類ある セルのコ</description>
-    </item>
-    
-    <item>
-      <title>税抜き5000円で宴会のコースが取れる六本木のお店</title>
-      <link>https://dream-yt.github.io/post/roppongi-under5000yen/</link>
-      <pubDate>Wed, 23 Jan 2019 16:35:58 +0900</pubDate>
-      
-      <guid>https://dream-yt.github.io/post/roppongi-under5000yen/</guid>
-      <description>チームメンバーの飲み会、一人頭5000円まで会社の制度で補助してもらえる 六本木にて予算内で飲み会ができてそこそこ人数が入るところのリスト Cafe Rouge</description>
     </item>
     
     <item>
