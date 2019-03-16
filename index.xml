@@ -6,10 +6,28 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sat, 16 Mar 2019 13:01:39 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 16 Mar 2019 17:32:35 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Testpost</title>
+      <link>https://dream-yt.github.io/post/testpost/</link>
+      <pubDate>Sat, 16 Mar 2019 17:32:35 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/testpost/</guid>
+      <description>テスト</description>
+    </item>
+    
+    <item>
+      <title>PostgreSQLで特定期間の日数/時間数などを数える</title>
+      <link>https://dream-yt.github.io/post/psql-day-count/</link>
+      <pubDate>Sat, 16 Mar 2019 17:00:00 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/psql-day-count/</guid>
+      <description>PostgreSQLで特定期間の日数や時間数などを計算したいときの、計算方法メモ date型の場合 そのまま引き算すると整数で日数が出る 例 select cast(&#39;2019-01-01&#39; as</description>
+    </item>
     
     <item>
       <title>swiftのメソッドに出てくる _ と #</title>

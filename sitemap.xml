@@ -3,6 +3,16 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://dream-yt.github.io/post/testpost/</loc>
+    <lastmod>2019-03-16T17:32:35+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://dream-yt.github.io/post/psql-day-count/</loc>
+    <lastmod>2019-03-16T17:00:00+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://dream-yt.github.io/post/swift-function-_sharp/</loc>
     <lastmod>2019-03-16T13:01:39+09:00</lastmod>
   </url>
@@ -297,20 +307,32 @@
   </url>
   
   <url>
-    <loc>https://dream-yt.github.io/categories/git/</loc>
-    <lastmod>2018-11-28T22:27:25+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://dream-yt.github.io/tags/git/</loc>
     <lastmod>2018-11-28T22:27:25+09:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
+    <loc>https://dream-yt.github.io/categories/git/</loc>
+    <lastmod>2018-11-28T22:27:25+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://dream-yt.github.io/tags/posgresql/</loc>
+    <lastmod>2019-03-16T17:00:00+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://dream-yt.github.io/categories/posgresql/</loc>
+    <lastmod>2019-03-16T17:00:00+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://dream-yt.github.io/post/</loc>
-    <lastmod>2019-03-16T13:01:39+09:00</lastmod>
+    <lastmod>2019-03-16T17:32:35+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -322,7 +344,7 @@
   
   <url>
     <loc>https://dream-yt.github.io/</loc>
-    <lastmod>2019-03-16T13:01:39+09:00</lastmod>
+    <lastmod>2019-03-16T17:32:35+09:00</lastmod>
     <priority>0</priority>
   </url>
   
