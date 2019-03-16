@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://dream-yt.github.io/post/swift-memo-selector/</loc>
+    <lastmod>2019-03-16T12:19:07+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://dream-yt.github.io/post/modify-auto-increment/</loc>
     <lastmod>2019-03-15T17:33:58+09:00</lastmod>
   </url>
@@ -300,7 +305,7 @@
   
   <url>
     <loc>https://dream-yt.github.io/post/</loc>
-    <lastmod>2019-03-15T17:33:58+09:00</lastmod>
+    <lastmod>2019-03-16T12:19:07+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -312,7 +317,7 @@
   
   <url>
     <loc>https://dream-yt.github.io/</loc>
-    <lastmod>2019-03-15T17:33:58+09:00</lastmod>
+    <lastmod>2019-03-16T12:19:07+09:00</lastmod>
     <priority>0</priority>
   </url>
   

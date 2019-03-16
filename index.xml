@@ -6,10 +6,19 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Fri, 15 Mar 2019 17:33:58 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 16 Mar 2019 12:19:07 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>swiftのselectorについて</title>
+      <link>https://dream-yt.github.io/post/swift-memo-selector/</link>
+      <pubDate>Sat, 16 Mar 2019 12:19:07 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/swift-memo-selector/</guid>
+      <description>コールバックを渡すための仕組みのようなもの? たとえばメソッドを渡してイベントが発生した時の実行するような場合につかう? var button = UIButton() button.addTarget(self, action: &amp;quot;tappedButton:&amp;quot;, forControlEvents: .TouchUpInside) 今度</description>
+    </item>
     
     <item>
       <title>MySQL、 auto incrementの確認と変更</title>
