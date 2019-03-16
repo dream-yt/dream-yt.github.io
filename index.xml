@@ -6,19 +6,10 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sat, 16 Mar 2019 17:52:30 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 16 Mar 2019 17:00:00 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>Testtest</title>
-      <link>https://dream-yt.github.io/post/testtest/</link>
-      <pubDate>Sat, 16 Mar 2019 17:52:30 +0900</pubDate>
-      
-      <guid>https://dream-yt.github.io/post/testtest/</guid>
-      <description>test1</description>
-    </item>
     
     <item>
       <title>PostgreSQLで特定期間の日数/時間数などを数える</title>
