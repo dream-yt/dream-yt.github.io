@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="https://dream-yt.github.io/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="swiftのメソッドに出てくる _ と #"/>
+  <meta name="twitter:description" content="以下のバージョンのreplで動かした $ swift -v Apple Swift version 4.2.1 (swiftlang-1000.11.42 clang-1000.11.45.1) 前提 ラベル名が必要 もともとswiftではメソッド/関数には呼ぶときに引数と一緒にラベル"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@site_author"/>
+  
+
+
+
+		
+		<meta name="author" content="site_author">
+		<meta name="description" content="Site Description">
+		<meta name="generator" content="Hugo 0.51" />
+		<title>swiftのメソッドに出てくる _ と # &middot; sacre</title>
+		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/font-awesome.min.css">
+		
+
+		
+		<link href="https://dream-yt.github.io/index.xml" rel="alternate" type="application/rss+xml" title="sacre" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='https://dream-yt.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://dream-yt.github.io/posts'>Archive</a>
+	<a href='https://dream-yt.github.io/tags'>Tags</a>
+	<a href='https://dream-yt.github.io/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="https://dream-yt.github.io/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        swiftのメソッドに出てくる _ と #
+                    </h1>
+                    <h2 class="headline">
+                    Mar 16, 2019 13:01
+                    · 658 words
+                    · 2 minute read
+                      <span class="tags">
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#前提">前提</a>
+<ul>
+<li><a href="#ラベル名が必要">ラベル名が必要</a></li>
+<li><a href="#外部参照用のラベルと-内部参照のラベルが設定できる">外部参照用のラベルと、内部参照のラベルが設定できる</a></li>
+</ul></li>
+<li><a href="#toc_3">_</a></li>
+<li><a href="#所感">所感</a></li>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    
+
+<p>以下のバージョンのreplで動かした</p>
+
+<pre><code class="language-console">$ swift -v
+Apple Swift version 4.2.1 (swiftlang-1000.11.42 clang-1000.11.45.1)
+</code></pre>
+
+<h2 id="前提">前提</h2>
+
+<h3 id="ラベル名が必要">ラベル名が必要</h3>
+
+<ul>
+<li>もともとswiftではメソッド/関数には呼ぶときに引数と一緒にラベル名も渡す必要がある</li>
+<li>渡さないとコンパイルエラーになる</li>
+</ul>
+
+<pre><code class="language-swift">func add(a: Int8, b: Int8, c: Int8) -&gt; Int8 {
+  return a + b + c;
+}
+add(1, 2, 3)  // コンパイルエラー
+add(a:1, b: 2, c: 3)  // OK
+</code></pre>
+
+<h3 id="外部参照用のラベルと-内部参照のラベルが設定できる">外部参照用のラベルと、内部参照のラベルが設定できる</h3>
+
+<ul>
+<li>引数ラベルの前にさらにラベルを置ける</li>
+<li>関数を呼ぶ時にはこっちのラベル(外部参照用のラベル)をわたす</li>
+<li>関数の内部では内部参照のラベル(というか変数名)で処理を書く</li>
+</ul>
+
+<pre><code class="language-swift">func add(oa a: Int8, ob b: Int8) -&gt; Int8 {
+  return a + b;
+}
+add(oa: 1, ob: 2)  // OK
+add(a: 1, ob: 2)   // コンパイルエラー
+</code></pre>
+
+<h2 id="toc_3">_</h2>
+
+<ul>
+<li><code>_</code> をつけると呼ぶときにラベル名がいらなくなる</li>
+<li><code>_</code> は引数名の前につける</li>
+</ul>
+
+<pre><code class="language-swift">func add(_ a: Int8, _ b: Int8, c: Int8) -&gt; Int8 {
+  return a + b + c;
+}
+add(1, 2, c: 3)  // OK
+add(a: 1, b: 2, c: 3)  // 明示的にラベルをつけてもよい
+add(1, 2, 3)  // 引数cは_つけてないから、これはコンパイルエラー
+</code></pre>
+
+<p>外部参照用のラベルと内部参照用のラベルが同じでいいときにつける&hellip;</p>
+
+<pre><code class="language-swift">func add(#a: Int8, #b: Int8) -&gt; Int8 {
+  return a + b;
+}
+</code></pre>
+
+<p>&hellip;らしいのだがswift4だとコンパイルエラーである</p>
+
+<pre><code class="language-swift">  5&gt; func add(#a: Int8, #b: Int8) -&gt; Int8 {
+  6.   return a + b;
+  7. }
+error: repl.swift:5:10: error: expected parameter name followed by ':'
+func add(#a: Int8, #b: Int8) -&gt; Int8 {
+         ^
+
+error: repl.swift:5:20: error: expected parameter name followed by ':'
+func add(#a: Int8, #b: Int8) -&gt; Int8 {
+</code></pre>
+
+<p>swift5のドキュメントには引数周りの <code>#</code> についてもう書いてないみたいだ</p>
+
+<ul>
+<li><a href="https://docs.swift.org/swift-book/LanguageGuide/Functions.html">Functions — The Swift Programming Language (Swift 5)</a></li>
+</ul>
+
+<h2 id="所感">所感</h2>
+
+<ul>
+<li><code>#selector</code> の記述が気になって調べたけど、そこはとくに納得できず</li>
+<li>検索するときは <code>site:docs.swift.org</code> つけると公式から読める</li>
+</ul>
+
+<h2 id="参考">参考</h2>
+
+<ul>
+<li><a href="https://docs.swift.org/swift-book/ReferenceManual/Expressions.html#ID547">Expressions — The Swift Programming Language (Swift 5)</a></li>
+<li><a href="https://shoken.hatenablog.com/entry/2014/06/18/151548">Swiftのfuncの引数に出てくるアンダースコアやシャープの意味について調べた - Shoken Startup Blog</a></li>
+</ul>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fswift-function-_sharp%2f - swift%e3%81%ae%e3%83%a1%e3%82%bd%e3%83%83%e3%83%89%e3%81%ab%e5%87%ba%e3%81%a6%e3%81%8f%e3%82%8b%20_%20%e3%81%a8%20%23 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'your_disqus_short_name'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/dream-yt/sacre">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://twitter.com/FUTABA_SACRE">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2019 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="https://dream-yt.github.io/js/jquery-3.3.1.min.js"></script>
+<script src="https://dream-yt.github.io/js/main.js"></script>
+<script src="https://dream-yt.github.io/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+
+
+
+
+    </body>
+</html>
