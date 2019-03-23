@@ -72,7 +72,7 @@
                     </h1>
                     <h2 class="headline">
                     Mar 23, 2019 11:54
-                    · 510 words
+                    · 597 words
                     · 2 minute read
                       <span class="tags">
                       
@@ -144,19 +144,27 @@
 
 <h2 id="lambda上での処理の書き方">lambda上での処理の書き方</h2>
 
-<p>autoConfirmUserにtrueを入れればOKとすることができる
-(拒否したい場合は明示的にfalseを入れる)</p>
+<ul>
+<li>承認する場合は引数で受け取ったeventをcontext.doneに渡す</li>
+<li>否認したい場合はnullを渡す
 
-<pre><code class="language-js">event.response.autoConfirmUser = true;
-</code></pre>
+<ul>
+<li>これで合ってるのかは微妙&hellip;</li>
+<li><a href="https://forums.aws.amazon.com/thread.jspa?threadID=246732">AWS Developer Forums: presignup_signup response - how to deny &hellip;</a></li>
+</ul></li>
+</ul>
 
-<p>emailで特定のドメインのみ許可したいという場合は以下のようになる</p>
+<p>たとえばemailで特定のドメインのみ許可したいという場合は以下のようになる</p>
 
 <pre><code class="language-ts">import { CognitoUserPoolTriggerEvent, Context } from 'aws-lambda';
 
 export default (event: CognitoUserPoolTriggerEvent, context: Context) =&gt; {
-  event.response.autoConfirmUser = /@mydomain.jp$/.test(event.request.userAttributes.email);
-  context.done(undefined, event);
+  const { email } = event.request.userAttributes;
+  if (email) {
+    const domain = email.split('@')[1];
+    // 認証しない場合は空のオブジェクトを返してinvalid-lambda-responseとする
+    context.done(undefined, domain === 'mydomain.jp' ? event : null);
+  }
 };
 </code></pre>
 
