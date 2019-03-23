@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="https://dream-yt.github.io/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="cognitoで特定ドメインのGoogleアカウントだけsignUpさせる"/>
+  <meta name="twitter:description" content="lambda trigger を設定できるのでこの関数の中で可否を判定する Pre Sign-up Lambda Trigger - Amazon Cognito やり方 serverless framework を使うとこんな設定ができる trigger: PreSignUp の設定で、ユーザの新規登録前にチェック"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@site_author"/>
+  
+
+
+
+		
+		<meta name="author" content="site_author">
+		<meta name="description" content="Site Description">
+		<meta name="generator" content="Hugo 0.51" />
+		<title>cognitoで特定ドメインのGoogleアカウントだけsignUpさせる &middot; sacre</title>
+		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/font-awesome.min.css">
+		
+
+		
+		<link href="https://dream-yt.github.io/index.xml" rel="alternate" type="application/rss+xml" title="sacre" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='https://dream-yt.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://dream-yt.github.io/posts'>Archive</a>
+	<a href='https://dream-yt.github.io/tags'>Tags</a>
+	<a href='https://dream-yt.github.io/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="https://dream-yt.github.io/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        cognitoで特定ドメインのGoogleアカウントだけsignUpさせる
+                    </h1>
+                    <h2 class="headline">
+                    Mar 23, 2019 11:54
+                    · 500 words
+                    · 1 minute read
+                      <span class="tags">
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#やり方">やり方</a>
+<ul>
+<li><a href="#注意">注意</a></li>
+</ul></li>
+<li><a href="#eventオブジェクト">eventオブジェクト</a></li>
+<li><a href="#lambda上での処理の書き方">lambda上での処理の書き方</a></li>
+</ul></li>
+</ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    
+
+<p>lambda trigger を設定できるのでこの関数の中で可否を判定する</p>
+
+<ul>
+<li><a href="https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-pre-sign-up.html">Pre Sign-up Lambda Trigger - Amazon Cognito</a></li>
+</ul>
+
+<h2 id="やり方">やり方</h2>
+
+<p>serverless framework を使うとこんな設定ができる
+<code>trigger: PreSignUp</code> の設定で、ユーザの新規登録前にチェックができる</p>
+
+<pre><code class="language-yaml">  SignUpValidation:
+    handler: handler.signUpValidation
+    memorySize: 128
+    events:
+      - cognitoUserPool:
+          pool: MyPoolId
+          trigger: PreSignUp
+</code></pre>
+
+<p>設定できるトリガーは他にも色々ある</p>
+
+<ul>
+<li><a href="https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html">Customizing User Pool Workflows with Lambda Triggers - Amazon Cognito</a></li>
+</ul>
+
+<h3 id="注意">注意</h3>
+
+<ul>
+<li>serverless frameworkでは既存のUserPoolをpoolに設定できない</li>
+<li>すでにPoolを作ってしまっている場合は関数だけ作ってUIから手動で紐付けとなる</li>
+</ul>
+
+<p>新規作成する場合も最低限の設定で作られてしまうので適宜上書きする必要がありそう</p>
+
+<ul>
+<li><a href="https://serverless.com/framework/docs/providers/aws/events/cognito-user-pool/#overriding-a-generated-user-pool">Serverless Framework - AWS Lambda Events - Cognito User Pool</a></li>
+</ul>
+
+<h2 id="eventオブジェクト">eventオブジェクト</h2>
+
+<p>lambda関数に渡される <code>[event, context]</code> はこんな感じ</p>
+
+<pre><code class="language-json">[
+  {
+    &quot;version&quot;: &quot;1&quot;,
+    &quot;region&quot;: &quot;ap-northeast-1&quot;,
+    &quot;userPoolId&quot;: &quot;ap-northeast-1_asdfjhf9m&quot;,
+    &quot;userName&quot;: &quot;Google_103571795941234567890&quot;,
+    &quot;callerContext&quot;: {
+      &quot;awsSdkVersion&quot;: &quot;aws-sdk-unknown-unknown&quot;,
+      &quot;clientId&quot;: &quot;123456789i9mrulbr36pasdfa5&quot;
+    },
+    &quot;triggerSource&quot;: &quot;PreSignUp_ExternalProvider&quot;,
+    &quot;request&quot;: {
+      &quot;userAttributes&quot;: {
+        &quot;cognito:email_alias&quot;: &quot;&quot;,
+        &quot;cognito:phone_number_alias&quot;: &quot;&quot;,
+        &quot;email&quot;: &quot;forspammymail@gmail.com&quot;
+      },
+      &quot;validationData&quot;: {}
+    },
+    &quot;response&quot;: {
+      &quot;autoConfirmUser&quot;: false,
+      &quot;autoVerifyEmail&quot;: false,
+      &quot;autoVerifyPhone&quot;: false
+    }
+  },
+  {
+    &quot;callbackWaitsForEmptyEventLoop&quot;: true,
+    &quot;logGroupName&quot;: &quot;/aws/lambda/SignUpValidation&quot;,
+    &quot;logStreamName&quot;: &quot;2019/03/23/[$LATEST]&quot;,
+    &quot;functionName&quot;: &quot;SignUpValidation&quot;,
+    &quot;memoryLimitInMB&quot;: &quot;128&quot;,
+    &quot;functionVersion&quot;: &quot;$LATEST&quot;
+  }
+]
+
+</code></pre>
+
+<h2 id="lambda上での処理の書き方">lambda上での処理の書き方</h2>
+
+<p>autoConfirmUserにtrueを入れればOKとすることができる
+(拒否したい場合は明示的にfalseを入れる)</p>
+
+<pre><code class="language-js">event.response.autoConfirmUser = true;
+</code></pre>
+
+<p>emailで特定のドメインのみ許可したいという場合は以下のようになる</p>
+
+<pre><code class="language-ts">import { CognitoUserPoolTriggerEvent, Context } from 'aws-lambda';
+
+export default (event: CognitoUserPoolTriggerEvent, context: Context) =&gt; {
+  event.response.autoConfirmUser = /@mydomain.jp$/.test(event.request.userAttributes.email);
+  context.done(undefined, event);
+};
+</code></pre>
+
+<p>cognito側に認証可否を伝達するために <code>context.done(undefined, event)</code> を呼ぶ必要がある</p>
+
+<ul>
+<li><a href="https://forums.aws.amazon.com/thread.jspa?threadID=237677">AWS Developer Forums: Pre authorization Trigger: &ldquo;Invalid &hellip;</a></li>
+</ul>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fcognito-presignup-lambda-trigger%2f - cognito%e3%81%a7%e7%89%b9%e5%ae%9a%e3%83%89%e3%83%a1%e3%82%a4%e3%83%b3%e3%81%aeGoogle%e3%82%a2%e3%82%ab%e3%82%a6%e3%83%b3%e3%83%88%e3%81%a0%e3%81%91signUp%e3%81%95%e3%81%9b%e3%82%8b by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'your_disqus_short_name'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/dream-yt/sacre">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://twitter.com/FUTABA_SACRE">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2019 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="https://dream-yt.github.io/js/jquery-3.3.1.min.js"></script>
+<script src="https://dream-yt.github.io/js/main.js"></script>
+<script src="https://dream-yt.github.io/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+
+
+
+
+    </body>
+</html>
