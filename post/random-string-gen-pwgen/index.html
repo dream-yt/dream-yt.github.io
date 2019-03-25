@@ -13,8 +13,8 @@
     
   
   
-  <meta name="twitter:title" content="テキストに不可視な文字が入っている場合の対処"/>
-  <meta name="twitter:description" content="不可視文字には \t (タブ) や \f (改ページ)など色々ある 環境によってトーフが表示されたりする 例 エディタでは大丈夫なのにGitHubに投稿するとト"/>
+  <meta name="twitter:title" content="覚えにくくてもいいようなランダム文字列を生成する"/>
+  <meta name="twitter:description" content="pwgenを使うのが便利 $ pwgen --symbols --secure 12 1 `lJ&#43;b9$&quot;J}Cv pwgenはデフォルトだと覚えやすい感じで生成してくれるので、その辺をオプションでさらにランダムにして"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -30,7 +30,7 @@
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
 		<meta name="generator" content="Hugo 0.42.1" />
-		<title>テキストに不可視な文字が入っている場合の対処 &middot; sacre</title>
+		<title>覚えにくくてもいいようなランダム文字列を生成する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
@@ -68,11 +68,11 @@
             <article>
                 <header>
                     <h1>
-                        テキストに不可視な文字が入っている場合の対処
+                        覚えにくくてもいいようなランダム文字列を生成する
                     </h1>
                     <h2 class="headline">
-                    Feb 14, 2019 17:11
-                    · 274 words
+                    Mar 25, 2019 16:56
+                    · 226 words
                     · 1 minute read
                       <span class="tags">
                       
@@ -81,50 +81,71 @@
                 </header>
                 
                   
-                
-                <section id="post-body">
-                    <p>不可視文字には <code>\t</code> (タブ) や <code>\f</code> (改ページ)など色々ある</p>
-
-<p>環境によってトーフが表示されたりする</p>
-
+                    <div id="toc">
+                      <nav id="TableOfContents">
 <ul>
-<li>例
-
+<li>
 <ul>
-<li>エディタでは大丈夫なのにGitHubに投稿するとトーフが表示される</li>
+<li>
+<ul>
+<li><a href="#options">options</a></li>
+<li><a href="#参考">参考</a></li>
+</ul></li>
 </ul></li>
 </ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    
 
-<p>こういう場合はテキストをodコマンドにかけると隠れてる文字がわかる</p>
+<p>pwgenを使うのが便利</p>
 
-<pre><code class="language-console">$ cat /tmp/_
-え信じられない
-# catだと見えないが \b が隠れてることがわかる
-$ cat /tmp/_ | od -c
-0000000   え  **  **  っ  **  **  \b  信  **  **  じ  **  **  ら  **  **
-0000020   れ  **  **  な  **  **  い  **  **  \n
-0000032
+<pre><code class="language-console">$ pwgen --symbols --secure 12 1
+`lJ+b9$&quot;J}Cv
 </code></pre>
 
-<p>odコマンドは<code>-c</code>オプションをつけると分かりやすい</p>
+<p>pwgenはデフォルトだと覚えやすい感じで生成してくれるので、その辺をオプションでさらにランダムにしてみる</p>
 
-<blockquote>
-<p>-c Output C-style escaped characters.  Equivalent to -t c.</p>
-</blockquote>
-
-<p>エスケープ文字の一覧はこちらでみられる</p>
-
-<p><code>\n</code>, <code>\t</code> はなじみがあるがバックスペースとかはパッと思い出せないので便利</p>
+<h3 id="options">options</h3>
 
 <ul>
-<li><a href="https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B9%E3%82%B1%E3%83%BC%E3%83%97%E6%96%87%E5%AD%97">エスケープ文字 - Wikipedia</a></li>
+<li>pw_length 生成する文字列の長さ</li>
+<li>num_pw 生成する個数</li>
+</ul>
+
+<blockquote>
+<p>Usage: pwgen [ OPTIONS ] [ pw_length ] [ num_pw ]</p>
+</blockquote>
+
+<p>デフォルトだとpwgenは紛らわしい文字や連続した文字などを生成しない
+<code>--secure</code> オプションで完全にランダムにできる</p>
+
+<blockquote>
+<p>-s or &ndash;secure
+  Generate completely random passwords</p>
+</blockquote>
+
+<p>デフォルトだとpwgenは <code>;</code> <code>&amp;</code> などの記号を含めない
+記号が含まれてもいいので <code>--symbols</code> をつける</p>
+
+<blockquote>
+<p>-y or &ndash;symbols
+  Include at least one special symbol in the password</p>
+</blockquote>
+
+<h3 id="参考">参考</h3>
+
+<ul>
+<li><a href="https://linux.die.net/man/1/pwgen">pwgen(1): make pronounceable passwords - Linux man page</a></li>
 </ul>
 
                 </section>
             </article>
 
             
-                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2finvisible-char-in-textfile%2f - %e3%83%86%e3%82%ad%e3%82%b9%e3%83%88%e3%81%ab%e4%b8%8d%e5%8f%af%e8%a6%96%e3%81%aa%e6%96%87%e5%ad%97%e3%81%8c%e5%85%a5%e3%81%a3%e3%81%a6%e3%81%84%e3%82%8b%e5%a0%b4%e5%90%88%e3%81%ae%e5%af%be%e5%87%a6 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2frandom-string-gen-pwgen%2f - %e8%a6%9a%e3%81%88%e3%81%ab%e3%81%8f%e3%81%8f%e3%81%a6%e3%82%82%e3%81%84%e3%81%84%e3%82%88%e3%81%86%e3%81%aa%e3%83%a9%e3%83%b3%e3%83%80%e3%83%a0%e6%96%87%e5%ad%97%e5%88%97%e3%82%92%e7%94%9f%e6%88%90%e3%81%99%e3%82%8b by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
 
 <a class="facebook" href="#" onclick="
     window.open(
