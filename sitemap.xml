@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://dream-yt.github.io/post/bigquery-create-scheduled-query/</loc>
+    <lastmod>2019-04-07T13:48:43+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://dream-yt.github.io/post/install-old-package-with-brew/</loc>
     <lastmod>2019-04-04T15:22:47+09:00</lastmod>
   </url>
@@ -352,7 +357,7 @@
   
   <url>
     <loc>https://dream-yt.github.io/post/</loc>
-    <lastmod>2019-04-04T15:22:47+09:00</lastmod>
+    <lastmod>2019-04-07T13:48:43+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -364,7 +369,7 @@
   
   <url>
     <loc>https://dream-yt.github.io/</loc>
-    <lastmod>2019-04-04T15:22:47+09:00</lastmod>
+    <lastmod>2019-04-07T13:48:43+09:00</lastmod>
     <priority>0</priority>
   </url>
   
