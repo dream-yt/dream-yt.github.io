@@ -6,10 +6,19 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sun, 07 Apr 2019 13:48:43 +0900</lastBuildDate>
+    <lastBuildDate>Mon, 08 Apr 2019 18:43:30 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>perlのDBIx::Class::ResultSetでちょい手の込んだSELECTの例1</title>
+      <link>https://dream-yt.github.io/post/dbix-class-resultset-search1/</link>
+      <pubDate>Mon, 08 Apr 2019 18:43:30 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/dbix-class-resultset-search1/</guid>
+      <description>searchメソッドはすごい色々できるので覚えきれない 特に第二引数のハッシュに渡せるものがすごい色々できる $tab1_resultset-&amp;gt;search( { # 1つ目の引数は検索条件 &#39;tab1.id&#39; =&amp;gt; $id,</description>
+    </item>
     
     <item>
       <title>BigQuery の Scheduled Query を設定する方法</title>
