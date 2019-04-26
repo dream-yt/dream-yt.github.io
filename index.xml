@@ -6,10 +6,19 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Mon, 08 Apr 2019 18:43:30 +0900</lastBuildDate>
+    <lastBuildDate>Fri, 26 Apr 2019 15:14:18 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Spreadsheetで日付を文字列フォーマットして表示する</title>
+      <link>https://dream-yt.github.io/post/spreadsheet-date-format/</link>
+      <pubDate>Fri, 26 Apr 2019 15:14:18 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/spreadsheet-date-format/</guid>
+      <description>TEXT関数を使えばよい =TEXT(G11, &amp;quot;m月d日（ddd）&amp;quot;) こんな感じで表示される 4月22日（月） ↑ G11 に日付文字列が入っている場合</description>
+    </item>
     
     <item>
       <title>perlのDBIx::Class::ResultSetでちょい手の込んだSELECTの例1</title>
