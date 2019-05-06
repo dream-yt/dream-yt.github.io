@@ -6,10 +6,19 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Mon, 06 May 2019 20:57:43 +0900</lastBuildDate>
+    <lastBuildDate>Mon, 06 May 2019 22:12:51 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>raspberry-piに固定IPを設定する</title>
+      <link>https://dream-yt.github.io/post/raspberry-pi-static-ip/</link>
+      <pubDate>Mon, 06 May 2019 22:12:51 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/raspberry-pi-static-ip/</guid>
+      <description>結論としてはこんなコマンドでとりあえず固定IPを払い出せる echo &#39;interface eth0&#39; | tee -a /etc/dhcpcd.conf echo &#39;static ip_address=192.168.111.90/24&#39; | tee -a /etc/dhcpcd.conf echo &#39;static routers=192.168.111.1&#39; | tee -a /etc/dhcpcd.conf echo &#39;staitc domain_name_servers=192.168.111.1&#39; | tee -a /etc/dhcpcd.conf 以下、それぞれの項目につい</description>
+    </item>
     
     <item>
       <title>Raspberry-Piのヘッドレスセットアップsshまで</title>

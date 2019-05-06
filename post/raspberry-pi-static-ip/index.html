@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="https://dream-yt.github.io/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="raspberry-piに固定IPを設定する"/>
+  <meta name="twitter:description" content="結論としてはこんなコマンドでとりあえず固定IPを払い出せる echo &#39;interface eth0&#39; | tee -a /etc/dhcpcd.conf echo &#39;static ip_address=192.168.111.90/24&#39; | tee -a /etc/dhcpcd.conf echo &#39;static routers=192.168.111.1&#39; | tee -a /etc/dhcpcd.conf echo &#39;staitc domain_name_servers=192.168.111.1&#39; | tee -a /etc/dhcpcd.conf 以下、それぞれの項目につい"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@site_author"/>
+  
+
+
+
+		
+		<meta name="author" content="site_author">
+		<meta name="description" content="Site Description">
+		<meta name="generator" content="Hugo 0.51" />
+		<title>raspberry-piに固定IPを設定する &middot; sacre</title>
+		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/font-awesome.min.css">
+		
+
+		
+		<link href="https://dream-yt.github.io/index.xml" rel="alternate" type="application/rss+xml" title="sacre" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='https://dream-yt.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://dream-yt.github.io/posts'>Archive</a>
+	<a href='https://dream-yt.github.io/tags'>Tags</a>
+	<a href='https://dream-yt.github.io/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="https://dream-yt.github.io/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        raspberry-piに固定IPを設定する
+                    </h1>
+                    <h2 class="headline">
+                    May 6, 2019 22:12
+                    · 450 words
+                    · 1 minute read
+                      <span class="tags">
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#設定するinterfaceの宣言">設定するinterfaceの宣言</a></li>
+<li><a href="#払い出す固定ipアドレスの設定">払い出す固定IPアドレスの設定</a></li>
+<li><a href="#ルータのipの設定">ルータのIPの設定</a></li>
+<li><a href="#dnsサーバの設定">DNSサーバの設定</a></li>
+</ul></li>
+<li><a href="#解決済み-dnsの設定が変">[解決済み] DNSの設定が変?</a></li>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    
+
+<p>結論としてはこんなコマンドでとりあえず固定IPを払い出せる</p>
+
+<pre><code class="language-bash">echo 'interface eth0' | tee -a /etc/dhcpcd.conf
+echo 'static ip_address=192.168.111.90/24' | tee -a /etc/dhcpcd.conf
+echo 'static routers=192.168.111.1' | tee -a /etc/dhcpcd.conf
+echo 'staitc domain_name_servers=192.168.111.1' | tee -a /etc/dhcpcd.conf
+</code></pre>
+
+<p>以下、それぞれの項目についてメモ</p>
+
+<h3 id="設定するinterfaceの宣言">設定するinterfaceの宣言</h3>
+
+<p>デフォルトの設定を参考にしている</p>
+
+<pre><code class="language-console">pi@raspberrypi:~ $ grep -A7 Example /etc/dhcpcd.conf
+# Example static IP configuration:
+#interface eth0
+#static ip_address=192.168.0.10/24
+#static ip6_address=fd51:42f8:caae:d92e::ff/64
+#static routers=192.168.0.1
+#static domain_name_servers=192.168.0.1 8.8.8.8 fd51:42f8:caae:d92e::1
+
+# It is possible to fall back to a static IP if DHCP fails:
+</code></pre>
+
+<blockquote>
+<p>interface eth0</p>
+</blockquote>
+
+<h3 id="払い出す固定ipアドレスの設定">払い出す固定IPアドレスの設定</h3>
+
+<ul>
+<li>DHCPに使われない範囲のIPアドレスを使う</li>
+<li>ルータの設定を見たりする必要あるかも</li>
+</ul>
+
+<blockquote>
+<p>static ip_address=192.168.111.<sup>90</sup>&frasl;<sub>24</sub></p>
+</blockquote>
+
+<h3 id="ルータのipの設定">ルータのIPの設定</h3>
+
+<ul>
+<li>ipコマンドで確認</li>
+<li><code>default via 192.168.111.1</code> の部分がルータのIP</li>
+</ul>
+
+<pre><code class="language-console">pi@raspberrypi:~ $ ip route
+default via 192.168.111.1 dev eth0 src 192.168.111.116 metric 202
+192.168.111.0/24 dev eth0 proto kernel scope link src 192.168.111.116 metric 202
+</code></pre>
+
+<blockquote>
+<p>static routers=192.168.111.1</p>
+</blockquote>
+
+<h3 id="dnsサーバの設定">DNSサーバの設定</h3>
+
+<p>routersと同じIPを使う</p>
+
+<blockquote>
+<p>staitc domain_name_servers=192.168.111.1</p>
+</blockquote>
+
+<h2 id="解決済み-dnsの設定が変">[解決済み] DNSの設定が変?</h2>
+
+<p>最初、<code>staitc domain_name_servers=8.8.8.8</code> という設定をしたところ、名前解決がうまくいかなくなっていた</p>
+
+<pre><code>pi@raspberrypi:~ $ curl google.com
+curl: (6) Could not resolve host: google.com
+</code></pre>
+
+<ul>
+<li>domain_name_serversの設定がよくなくて <code>/etc/resolv.conf</code> がダメになったのかもしれない</li>
+<li>以下のトラブルシュートでなんとかなった
+
+<ul>
+<li><a href="https://stackoverflow.com/questions/24967855/curl-6-could-not-resolve-host-google-com-name-or-service-not-known">linux - curl: (6) Could not resolve host: google.com; Name or service not known - Stack Overflow</a></li>
+</ul></li>
+</ul>
+
+<h2 id="参考">参考</h2>
+
+<ul>
+<li><a href="https://qiita.com/testnin2/items/7490ff01a4fe1c7ad61f">ip routeコマンドの出力結果の意味 - Qiita</a></li>
+</ul>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fraspberry-pi-static-ip%2f - raspberry-pi%e3%81%ab%e5%9b%ba%e5%ae%9aIP%e3%82%92%e8%a8%ad%e5%ae%9a%e3%81%99%e3%82%8b by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'your_disqus_short_name'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/dream-yt/sacre">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://twitter.com/FUTABA_SACRE">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2019 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="https://dream-yt.github.io/js/jquery-3.3.1.min.js"></script>
+<script src="https://dream-yt.github.io/js/main.js"></script>
+<script src="https://dream-yt.github.io/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+
+
+
+
+    </body>
+</html>

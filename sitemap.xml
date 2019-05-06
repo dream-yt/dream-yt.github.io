@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://dream-yt.github.io/post/raspberry-pi-static-ip/</loc>
+    <lastmod>2019-05-06T22:12:51+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://dream-yt.github.io/post/raspbian-stretch-setup/</loc>
     <lastmod>2019-05-06T20:57:43+09:00</lastmod>
   </url>
@@ -377,7 +382,7 @@
   
   <url>
     <loc>https://dream-yt.github.io/post/</loc>
-    <lastmod>2019-05-06T20:57:43+09:00</lastmod>
+    <lastmod>2019-05-06T22:12:51+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -389,7 +394,7 @@
   
   <url>
     <loc>https://dream-yt.github.io/</loc>
-    <lastmod>2019-05-06T20:57:43+09:00</lastmod>
+    <lastmod>2019-05-06T22:12:51+09:00</lastmod>
     <priority>0</priority>
   </url>
   
