@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://dream-yt.github.io/post/raspbian-stretch-setup/</loc>
+    <lastmod>2019-05-06T20:57:43+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://dream-yt.github.io/post/jest-watchplugins-circleci-error/</loc>
     <lastmod>2019-04-27T12:38:51+09:00</lastmod>
   </url>
@@ -347,20 +352,14 @@
   </url>
   
   <url>
-    <loc>https://dream-yt.github.io/tags/git/</loc>
-    <lastmod>2018-11-28T22:27:25+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://dream-yt.github.io/categories/git/</loc>
     <lastmod>2018-11-28T22:27:25+09:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://dream-yt.github.io/tags/posgresql/</loc>
-    <lastmod>2019-03-16T17:00:00+09:00</lastmod>
+    <loc>https://dream-yt.github.io/tags/git/</loc>
+    <lastmod>2018-11-28T22:27:25+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -371,8 +370,14 @@
   </url>
   
   <url>
+    <loc>https://dream-yt.github.io/tags/posgresql/</loc>
+    <lastmod>2019-03-16T17:00:00+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://dream-yt.github.io/post/</loc>
-    <lastmod>2019-04-27T12:38:51+09:00</lastmod>
+    <lastmod>2019-05-06T20:57:43+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -384,7 +389,7 @@
   
   <url>
     <loc>https://dream-yt.github.io/</loc>
-    <lastmod>2019-04-27T12:38:51+09:00</lastmod>
+    <lastmod>2019-05-06T20:57:43+09:00</lastmod>
     <priority>0</priority>
   </url>
   

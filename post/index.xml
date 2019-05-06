@@ -6,10 +6,19 @@
     <description>Recent content in Posts on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sat, 27 Apr 2019 12:38:51 +0900</lastBuildDate>
+    <lastBuildDate>Mon, 06 May 2019 20:57:43 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Raspberry-Piのヘッドレスセットアップsshまで</title>
+      <link>https://dream-yt.github.io/post/raspbian-stretch-setup/</link>
+      <pubDate>Mon, 06 May 2019 20:57:43 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/raspbian-stretch-setup/</guid>
+      <description>OSのイメージをダウンロード こちらから (Raspbianはどの機種のraspberry-piでも動くのかな) Download Raspbian for Raspberry Pi SDカードを初期化 Disk Utility.app</description>
+    </item>
     
     <item>
       <title>circleci上でjest-watch-typeaheadがロードできずエラーになる場合</title>
