@@ -6,10 +6,19 @@
     <description>Recent content in Posts on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Mon, 06 May 2019 22:12:51 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 18 May 2019 12:31:40 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>typescriptのプロジェクトで開発中VSCodeでエラーメッセージが出た</title>
+      <link>https://dream-yt.github.io/post/vscode-typescript-allowjs-error/</link>
+      <pubDate>Sat, 18 May 2019 12:31:40 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/vscode-typescript-allowjs-error/</guid>
+      <description>Error &amp;ldquo;Cannot write file &amp;hellip; because it would overwrite input file.&amp;rdquo; ファイルがすでに存在しているので書き出せないとのこと 確かにコンパイルし直そうとすると同じエラーが出る $ $(npm bin)/tsc error TS5055: Cannot write file &#39;..../handler.js&#39;</description>
+    </item>
     
     <item>
       <title>raspberry-piに固定IPを設定する</title>
