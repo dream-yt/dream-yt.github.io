@@ -13,8 +13,8 @@
     
   
   
-  <meta name="twitter:title" content="テキストに不可視な文字が入っている場合の対処"/>
-  <meta name="twitter:description" content="不可視文字には \t (タブ) や \f (改ページ)など色々ある 環境によってトーフが表示されたりする 例 エディタでは大丈夫なのにGitHubに投稿するとト"/>
+  <meta name="twitter:title" content="csvsqlを使ってサクッとスプレッドシートからmysqlにデータを入れる"/>
+  <meta name="twitter:description" content="スプレッドシートに入れたいデータを書いてcsv形式でダウンロード csvをcsvsqlをつかってDBに入れる csvsql csvsqlはcsvkitをイン"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -30,7 +30,7 @@
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
 		<meta name="generator" content="Hugo 0.42.1" />
-		<title>テキストに不可視な文字が入っている場合の対処 &middot; sacre</title>
+		<title>csvsqlを使ってサクッとスプレッドシートからmysqlにデータを入れる &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
@@ -68,11 +68,11 @@
             <article>
                 <header>
                     <h1>
-                        テキストに不可視な文字が入っている場合の対処
+                        csvsqlを使ってサクッとスプレッドシートからmysqlにデータを入れる
                     </h1>
                     <h2 class="headline">
-                    Feb 14, 2019 17:11
-                    · 274 words
+                    May 22, 2019 12:57
+                    · 172 words
                     · 1 minute read
                       <span class="tags">
                       
@@ -81,50 +81,61 @@
                 </header>
                 
                   
-                
-                <section id="post-body">
-                    <p>不可視文字には <code>\t</code> (タブ) や <code>\f</code> (改ページ)など色々ある</p>
-
-<p>環境によってトーフが表示されたりする</p>
-
+                    <div id="toc">
+                      <nav id="TableOfContents">
 <ul>
-<li>例
-
+<li>
 <ul>
-<li>エディタでは大丈夫なのにGitHubに投稿するとトーフが表示される</li>
+<li>
+<ul>
+<li><a href="#csvsql">csvsql</a></li>
+<li><a href="#コマンド例">コマンド例</a></li>
+<li><a href="#参考">参考</a></li>
+</ul></li>
 </ul></li>
 </ul>
-
-<p>こういう場合はテキストをodコマンドにかけると隠れてる文字がわかる</p>
-
-<pre><code class="language-console">$ cat /tmp/_
-え信じられない
-# catだと見えないが \b が隠れてることがわかる
-$ cat /tmp/_ | od -c
-0000000   え  **  **  っ  **  **  \b  信  **  **  じ  **  **  ら  **  **
-0000020   れ  **  **  な  **  **  い  **  **  \n
-0000032
-</code></pre>
-
-<p>odコマンドは<code>-c</code>オプションをつけると分かりやすい</p>
-
-<blockquote>
-<p>-c Output C-style escaped characters.  Equivalent to -t c.</p>
-</blockquote>
-
-<p>エスケープ文字の一覧はこちらでみられる</p>
-
-<p><code>\n</code>, <code>\t</code> はなじみがあるがバックスペースとかはパッと思い出せないので便利</p>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    
 
 <ul>
-<li><a href="https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B9%E3%82%B1%E3%83%BC%E3%83%97%E6%96%87%E5%AD%97">エスケープ文字 - Wikipedia</a></li>
+<li>スプレッドシートに入れたいデータを書いてcsv形式でダウンロード</li>
+<li>csvをcsvsqlをつかってDBに入れる</li>
+</ul>
+
+<h3 id="csvsql">csvsql</h3>
+
+<p>csvsqlはcsvkitをインストールするとついてくる</p>
+
+<pre><code class="language-bash">$ pip install csvkit
+</code></pre>
+
+<h3 id="コマンド例">コマンド例</h3>
+
+<pre><code class="language-bash">$ cat ~/Downloads/無題のスプレッドシート\ -\ シート1.csv \
+  | csvsql --db mysql://root:@127.0.0.1:3306/mydb --insert --no-create --tables my_table
+</code></pre>
+
+<p>オプションなどの説明はこのへん</p>
+
+<ul>
+<li><a href="https://csvkit.readthedocs.io/en/1.0.2/scripts/csvsql.html">csvsql — csvkit 1.0.2 documentation</a></li>
+</ul>
+
+<h3 id="参考">参考</h3>
+
+<ul>
+<li><a href="https://stackoverflow.com/questions/36449406/how-to-let-csvkit-csvsql-generate-insert-statements-for-csv-file">sql - How to let csvkit/csvsql generate insert statements for csv file? - Stack Overflow</a></li>
 </ul>
 
                 </section>
             </article>
 
             
-                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2finvisible-char-in-textfile%2f - %e3%83%86%e3%82%ad%e3%82%b9%e3%83%88%e3%81%ab%e4%b8%8d%e5%8f%af%e8%a6%96%e3%81%aa%e6%96%87%e5%ad%97%e3%81%8c%e5%85%a5%e3%81%a3%e3%81%a6%e3%81%84%e3%82%8b%e5%a0%b4%e5%90%88%e3%81%ae%e5%af%be%e5%87%a6 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fspreadsheet-csvsql%2f - csvsql%e3%82%92%e4%bd%bf%e3%81%a3%e3%81%a6%e3%82%b5%e3%82%af%e3%83%83%e3%81%a8%e3%82%b9%e3%83%97%e3%83%ac%e3%83%83%e3%83%89%e3%82%b7%e3%83%bc%e3%83%88%e3%81%8b%e3%82%89mysql%e3%81%ab%e3%83%87%e3%83%bc%e3%82%bf%e3%82%92%e5%85%a5%e3%82%8c%e3%82%8b by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
 
 <a class="facebook" href="#" onclick="
     window.open(
