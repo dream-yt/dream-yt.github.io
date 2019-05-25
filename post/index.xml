@@ -6,10 +6,19 @@
     <description>Recent content in Posts on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 22 May 2019 12:57:56 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 25 May 2019 13:44:24 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>csvからsqliteのdbファイルを作成/操作</title>
+      <link>https://dream-yt.github.io/post/csv2sqlite-with-csvsql/</link>
+      <pubDate>Sat, 25 May 2019 13:44:24 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/csv2sqlite-with-csvsql/</guid>
+      <description>例えばathenaのクエリ結果のcsvをさらにこねたいときなど sqliteファイルを生成 $ csvsql \ --db sqlite:////tmp/_.db \ --tables t \ --insert ~/Downloads/3a032f51-1111-411b-8e6a-d19b2beba27e.csv $ sqlite3 /tmp/_.db &#39;.schema&#39; 出力 markdown形</description>
+    </item>
     
     <item>
       <title>csvsqlを使ってサクッとスプレッドシートからmysqlにデータを入れる</title>

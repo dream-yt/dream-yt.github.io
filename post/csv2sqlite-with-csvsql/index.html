@@ -13,8 +13,8 @@
     
   
   
-  <meta name="twitter:title" content="commitを別の作業branchへ移動する方法"/>
-  <meta name="twitter:description" content="これは一体 Gitで何度も陥ってしまう過ちにまたハマってしまう日が来ても、乗り越えられる自分でありたい。 そのための備忘録です。 状況 新しい作業の"/>
+  <meta name="twitter:title" content="csvからsqliteのdbファイルを作成/操作"/>
+  <meta name="twitter:description" content="例えばathenaのクエリ結果のcsvをさらにこねたいときなど sqliteファイルを生成 $ csvsql \ --db sqlite:////tmp/_.db \ --tables t \ --insert ~/Downloads/3a032f51-1111-411b-8e6a-d19b2beba27e.csv $ sqlite3 /tmp/_.db &#39;.schema&#39; 出力 markdown形"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -30,7 +30,7 @@
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
 		<meta name="generator" content="Hugo 0.51" />
-		<title>commitを別の作業branchへ移動する方法 &middot; sacre</title>
+		<title>csvからsqliteのdbファイルを作成/操作 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
@@ -68,19 +68,13 @@
             <article>
                 <header>
                     <h1>
-                        commitを別の作業branchへ移動する方法
+                        csvからsqliteのdbファイルを作成/操作
                     </h1>
                     <h2 class="headline">
-                    Nov 28, 2018 22:27
-                    · 645 words
-                    · 2 minute read
+                    May 25, 2019 13:44
+                    · 174 words
+                    · 1 minute read
                       <span class="tags">
-                      
-                      
-                          
-                              <a href="https://dream-yt.github.io/tags/git">git</a>
-                          
-                      
                       
                       </span>
                     </h2>
@@ -90,10 +84,15 @@
                     <div id="toc">
                       <nav id="TableOfContents">
 <ul>
-<li><a href="#これは一体">これは一体</a></li>
-<li><a href="#状況">状況</a></li>
-<li><a href="#やること">やること</a></li>
-<li><a href="#他のやりかた">他のやりかた</a></li>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#sqliteファイルを生成">sqliteファイルを生成</a></li>
+<li><a href="#出力">出力</a></li>
+<li><a href="#その他">その他</a></li>
+</ul></li>
+</ul></li>
 </ul>
 </nav>
                     </div>
@@ -102,87 +101,43 @@
                 <section id="post-body">
                     
 
-<p><img src="/images/post/dream/GitCherryPick01.png" alt="This is a image" /></p>
+<p>例えばathenaのクエリ結果のcsvをさらにこねたいときなど</p>
 
-<h1 id="これは一体">これは一体</h1>
+<h3 id="sqliteファイルを生成">sqliteファイルを生成</h3>
 
-<p>Gitで何度も陥ってしまう過ちにまたハマってしまう日が来ても、乗り越えられる自分でありたい。
-そのための備忘録です。</p>
+<pre><code class="language-bash">$ csvsql \
+    --db sqlite:////tmp/_.db \
+    --tables t \
+    --insert ~/Downloads/3a032f51-1111-411b-8e6a-d19b2beba27e.csv
+$ sqlite3 /tmp/_.db '.schema'
+</code></pre>
 
-<h1 id="状況">状況</h1>
+<h3 id="出力">出力</h3>
 
-<p>新しい作業の開始時に、branchの切り替えを忘れてしまう。</br>
-前回まで作業してたbranchやmasterで作業を開始してしまった時に、正しいbranchに作業したcommitを移動する。</p>
+<p>markdown形式で出したりとかなら csvlook をかませるとよい</p>
 
-<p>&hellip;&hellip;これ、自分的にはあるあるすぎる。何回やってんだ。</p>
+<pre><code class="language-bash">$ sqlite3 /tmp/_.db -header -csv \
+    'select user_id, SUM(_col4) from t group by user_id;' | csvlook
+</code></pre>
 
-<h1 id="やること">やること</h1>
+<h3 id="その他">その他</h3>
 
-<p><strong>[start地点]</strong> </br>
-正しくないbranch Aで作業を開始してしまった。移したいcommitは3つ。</p>
+<p>macOSの場合だとsqliteをいじるときは <code>db-browser-for-sqlite</code> が便利だった
+データの更新とか表形式でいじれた方がラク</p>
 
-<p><strong>1. 移動先branchがない場合は作成</strong> (branch B)</p>
-
-<p><strong>2. branch Aで下記コマンドを叩いて、移動するcommitのIDを確認</strong></p>
+<pre><code class="language-bash">$ brew cask install db-browser-for-sqlite
+$ open -a'/Applications/DB Browser for SQLite.app' /tmp/_.db
+</code></pre>
 
 <ul>
-<li>末尾に <code>-10</code>などいれると最新のcommitを上から10個表示するなど指定できる</li>
+<li><a href="https://sqlitebrowser.org/">DB Browser for SQLite</a></li>
 </ul>
-
-<pre><code class="language-bash">$ git log --oneline 
-</code></pre>
-
-<p><img src="/images/post/dream/GitCherryPick02.png" alt="This is a image" /></p>
-
-<p><strong>3. branch Bに移動して移したいcommitをcherry pick する</strong></p>
-
-<ul>
-<li>コマンドの後にcommit IDを入力</li>
-<li>古い順に入力すること</li>
-</ul>
-
-<pre><code class="language-bash">$ git cherry-pick xxxxxxx yyyyyyy zzzzzzz
-</code></pre>
-
-<p><strong>4. commitがbranch Bに移動できているかlogで確認</strong></p>
-
-<pre><code class="language-bash">$ git log --oneline 
-</code></pre>
-
-<p><strong>5. 必要があればbranchAのcommitを消去</strong></p>
-
-<ul>
-<li>下記のコマンドでできるらしい</li>
-<li>HEAD~xは任意の数値に変更</li>
-</ul>
-
-<pre><code class="language-bash">$ git reset --hard HEAD~3
-</code></pre>
-
-<h1 id="他のやりかた">他のやりかた</h1>
-
-<p>branch Bがまっさら状態だった場合、</p>
-
-<p><strong>1. branch Aで作業をstashにしまう</strong></p>
-
-<pre><code class="language-bash">git stash
-</code></pre>
-
-<p><strong>2. branch Bでstashを開ける</strong></p>
-
-<pre><code class="language-bash">git stash pop
-</code></pre>
-
-<p>というやり方もあるらしい。</br>
-この場合、branch AとBの作業箇所が被らないことが前提となる。（コンフリクトするため）</p>
-
-<p>備忘のために書いたとはいえ、同じことを繰り返さない自分であってほしい。</p>
 
                 </section>
             </article>
 
             
-                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fgit-cherry-pick%2f - commit%e3%82%92%e5%88%a5%e3%81%ae%e4%bd%9c%e6%a5%adbranch%e3%81%b8%e7%a7%bb%e5%8b%95%e3%81%99%e3%82%8b%e6%96%b9%e6%b3%95 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fcsv2sqlite-with-csvsql%2f - csv%e3%81%8b%e3%82%89sqlite%e3%81%aedb%e3%83%95%e3%82%a1%e3%82%a4%e3%83%ab%e3%82%92%e4%bd%9c%e6%88%90%2f%e6%93%8d%e4%bd%9c by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
 
 <a class="facebook" href="#" onclick="
     window.open(
