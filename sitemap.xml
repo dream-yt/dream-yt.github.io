@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://dream-yt.github.io/post/vscode-extention-by-vsix/</loc>
+    <lastmod>2019-06-02T16:42:13+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://dream-yt.github.io/post/csv2sqlite-with-csvsql/</loc>
     <lastmod>2019-05-25T13:44:24+09:00</lastmod>
   </url>
@@ -402,7 +407,7 @@
   
   <url>
     <loc>https://dream-yt.github.io/post/</loc>
-    <lastmod>2019-05-25T13:44:24+09:00</lastmod>
+    <lastmod>2019-06-02T16:42:13+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -414,7 +419,7 @@
   
   <url>
     <loc>https://dream-yt.github.io/</loc>
-    <lastmod>2019-05-25T13:44:24+09:00</lastmod>
+    <lastmod>2019-06-02T16:42:13+09:00</lastmod>
     <priority>0</priority>
   </url>
   
