@@ -14,7 +14,7 @@
   
   
   <meta name="twitter:title" content="直近1週間の日付をdate形式で取得する"/>
-  <meta name="twitter:description" content="seqとdate(mac上で作業しているのでgnu-date)を使う $ seq -7 0 | xargs -I{} gdate -d&#43;{}days &#43;&#39;%Y-%m-%d&#39; 2019-05-27 2019-05-28 2019-05-29 2019-05-30 2019-05-31 2019-06-01 2019-06-02 2019-06-03 bashのfor文とかで回す時に便利"/>
+  <meta name="twitter:description" content="seqとdate(mac上で作業しているのでgnu-date)を使う $ seq -7 0 | xargs -I{} gdate -d&#43;{}days &#43;&#39;%Y-%m-%d&#39; 2019-05-27 2019-05-28 2019-05-29 2019-05-30 2019-05-31 2019-06-01 2019-06-02 2019-06-03 こんな感じで mycommand --date 2019-05-27 mycommand --date 2019-05-28 mycommand --date 2019-05-29 mycommand --date 2019-05-30"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.42.1" />
 		<title>直近1週間の日付をdate形式で取得する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -72,7 +72,7 @@
                     </h1>
                     <h2 class="headline">
                     Jun 3, 2019 18:01
-                    · 172 words
+                    · 139 words
                     · 1 minute read
                       <span class="tags">
                       
@@ -112,12 +112,9 @@
 2019-06-03
 </code></pre>
 
-<p>bashのfor文とかで回す時に便利</p>
+<p>こんな感じで</p>
 
-<pre><code class="language-bash">$ for d in $(seq -7 0 | xargs -I{} gdate -d+{}days +'%Y-%m-%d'); do
-&gt;   echo mycommand --date $d
-&gt; done
-mycommand --date 2019-05-27
+<pre><code class="language-bash">mycommand --date 2019-05-27
 mycommand --date 2019-05-28
 mycommand --date 2019-05-29
 mycommand --date 2019-05-30
