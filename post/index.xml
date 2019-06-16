@@ -6,10 +6,19 @@
     <description>Recent content in Posts on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 12 Jun 2019 16:15:50 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 16 Jun 2019 10:23:17 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>redux-form (handleSubmit) 入門</title>
+      <link>https://dream-yt.github.io/post/redux-form-101-handlesubmit/</link>
+      <pubDate>Sun, 16 Jun 2019 10:23:17 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/redux-form-101-handlesubmit/</guid>
+      <description>redux-form (handleSubmit) 入門 MyFormコンポーネントを定義 自前で実装するフォーム const MyForm = ({ handleSubmit }) =&amp;gt; ( &amp;lt;form onSubmit={handleSubmit}&amp;gt; &amp;lt;div&amp;gt; &amp;lt;label htmlFor=&amp;quot;firstName&amp;quot;&amp;gt;First Name&amp;lt;/label&amp;gt; &amp;lt;Field component={renderTextField} name=&amp;quot;firstName&amp;quot; type=&amp;quot;text&amp;quot; /&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;button type=&amp;quot;submit&amp;quot;&amp;gt;Submit&amp;lt;/button&amp;gt; &amp;lt;/form&amp;gt; ); ({ handleSubmit }) =&amp;gt; ( reduxFormか</description>
+    </item>
     
     <item>
       <title>redashで数値カラムからカンマを取り除く</title>

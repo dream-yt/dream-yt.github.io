@@ -13,8 +13,8 @@
     
   
   
-  <meta name="twitter:title" content="commitを別の作業branchへ移動する方法"/>
-  <meta name="twitter:description" content="これは一体 Gitで何度も陥ってしまう過ちにまたハマってしまう日が来ても、乗り越えられる自分でありたい。 そのための備忘録です。 状況 新しい作業の"/>
+  <meta name="twitter:title" content="redux-form (handleSubmit) 入門"/>
+  <meta name="twitter:description" content="redux-form (handleSubmit) 入門 MyFormコンポーネントを定義 自前で実装するフォーム const MyForm = ({ handleSubmit }) =&gt; ( &lt;form onSubmit={handleSubmit}&gt; &lt;div&gt; &lt;label htmlFor=&quot;firstName&quot;&gt;First Name&lt;/label&gt; &lt;Field component={renderTextField} name=&quot;firstName&quot; type=&quot;text&quot; /&gt; &lt;/div&gt; &lt;button type=&quot;submit&quot;&gt;Submit&lt;/button&gt; &lt;/form&gt; ); ({ handleSubmit }) =&gt; ( reduxFormか"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -30,7 +30,7 @@
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
 		<meta name="generator" content="Hugo 0.51" />
-		<title>commitを別の作業branchへ移動する方法 &middot; sacre</title>
+		<title>redux-form (handleSubmit) 入門 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
@@ -68,19 +68,13 @@
             <article>
                 <header>
                     <h1>
-                        commitを別の作業branchへ移動する方法
+                        redux-form (handleSubmit) 入門
                     </h1>
                     <h2 class="headline">
-                    Nov 28, 2018 22:27
-                    · 645 words
-                    · 2 minute read
+                    Jun 16, 2019 10:23
+                    · 479 words
+                    · 1 minute read
                       <span class="tags">
-                      
-                      
-                          
-                              <a href="https://dream-yt.github.io/tags/git">git</a>
-                          
-                      
                       
                       </span>
                     </h2>
@@ -90,10 +84,13 @@
                     <div id="toc">
                       <nav id="TableOfContents">
 <ul>
-<li><a href="#これは一体">これは一体</a></li>
-<li><a href="#状況">状況</a></li>
-<li><a href="#やること">やること</a></li>
-<li><a href="#他のやりかた">他のやりかた</a></li>
+<li><a href="#redux-form-handlesubmit-入門">redux-form (handleSubmit) 入門</a>
+<ul>
+<li><a href="#myformコンポーネントを定義">MyFormコンポーネントを定義</a></li>
+<li><a href="#reduxform">reduxForm</a></li>
+<li><a href="#使うところ">使うところ</a></li>
+<li><a href="#参考">参考</a></li>
+</ul></li>
 </ul>
 </nav>
                     </div>
@@ -102,87 +99,85 @@
                 <section id="post-body">
                     
 
-<p><img src="/images/post/dream/GitCherryPick01.png" alt="This is a image" /></p>
+<h1 id="redux-form-handlesubmit-入門">redux-form (handleSubmit) 入門</h1>
 
-<h1 id="これは一体">これは一体</h1>
+<h2 id="myformコンポーネントを定義">MyFormコンポーネントを定義</h2>
 
-<p>Gitで何度も陥ってしまう過ちにまたハマってしまう日が来ても、乗り越えられる自分でありたい。
-そのための備忘録です。</p>
+<p>自前で実装するフォーム</p>
 
-<h1 id="状況">状況</h1>
+<pre><code class="language-tsx">const MyForm = ({ handleSubmit }) =&gt; (
+  &lt;form onSubmit={handleSubmit}&gt;
+    &lt;div&gt;
+      &lt;label htmlFor=&quot;firstName&quot;&gt;First Name&lt;/label&gt;
+      &lt;Field component={renderTextField} name=&quot;firstName&quot; type=&quot;text&quot; /&gt;
+    &lt;/div&gt;
+    &lt;button type=&quot;submit&quot;&gt;Submit&lt;/button&gt;
+  &lt;/form&gt;
+);
+</code></pre>
 
-<p>新しい作業の開始時に、branchの切り替えを忘れてしまう。</br>
-前回まで作業してたbranchやmasterで作業を開始してしまった時に、正しいbranchに作業したcommitを移動する。</p>
-
-<p>&hellip;&hellip;これ、自分的にはあるあるすぎる。何回やってんだ。</p>
-
-<h1 id="やること">やること</h1>
-
-<p><strong>[start地点]</strong> </br>
-正しくないbranch Aで作業を開始してしまった。移したいcommitは3つ。</p>
-
-<p><strong>1. 移動先branchがない場合は作成</strong> (branch B)</p>
-
-<p><strong>2. branch Aで下記コマンドを叩いて、移動するcommitのIDを確認</strong></p>
+<blockquote>
+<p>({ handleSubmit }) =&gt; (</p>
+</blockquote>
 
 <ul>
-<li>末尾に <code>-10</code>などいれると最新のcommitを上から10個表示するなど指定できる</li>
-</ul>
-
-<pre><code class="language-bash">$ git log --oneline 
-</code></pre>
-
-<p><img src="/images/post/dream/GitCherryPick02.png" alt="This is a image" /></p>
-
-<p><strong>3. branch Bに移動して移したいcommitをcherry pick する</strong></p>
+<li>reduxFormからhandleSubmitというpropsが渡される
 
 <ul>
-<li>コマンドの後にcommit IDを入力</li>
-<li>古い順に入力すること</li>
+<li>formがsubmitされたときに実行されるべき関数 (後述)</li>
+</ul></li>
 </ul>
 
-<pre><code class="language-bash">$ git cherry-pick xxxxxxx yyyyyyy zzzzzzz
-</code></pre>
+<blockquote>
+<p>component={renderTextField}</p>
+</blockquote>
 
-<p><strong>4. commitがbranch Bに移動できているかlogで確認</strong></p>
+<p>自前のカスタムコンポーネントを渡すことができる
+<code>component=&quot;input&quot;</code> などと文字列で渡すと普通のデフォルトのinput要素で描画される</p>
 
-<pre><code class="language-bash">$ git log --oneline 
-</code></pre>
-
-<p><strong>5. 必要があればbranchAのcommitを消去</strong></p>
+<h2 id="reduxform">reduxForm</h2>
 
 <ul>
-<li>下記のコマンドでできるらしい</li>
-<li>HEAD~xは任意の数値に変更</li>
+<li>reduxFormでMyFormをデコレートする
+
+<ul>
+<li>これをすることでredux-formの便利関数がMyFormにpropsとして使えるように</li>
+<li>handleSubmitもこれ経由でpropsに渡ってきている</li>
+</ul></li>
+<li><code>sampleIt</code> はredux-form内でこのフォームを管理するときの名前
+
+<ul>
+<li>複数フォームにまたがった処理を書くときとかに使うのだろうか</li>
+</ul></li>
 </ul>
 
-<pre><code class="language-bash">$ git reset --hard HEAD~3
+<pre><code class="language-ts">const RDForm = reduxForm({ form: 'sampleIt' })(MyForm);
 </code></pre>
 
-<h1 id="他のやりかた">他のやりかた</h1>
+<h2 id="使うところ">使うところ</h2>
 
-<p>branch Bがまっさら状態だった場合、</p>
+<p>onSubmit属性に好きな関数を渡して使う
+(多くの場合はサーバ側にPOSTしたりとか)</p>
 
-<p><strong>1. branch Aで作業をstashにしまう</strong></p>
-
-<pre><code class="language-bash">git stash
+<pre><code class="language-tsx">&lt;RDForm onSubmit={console.log} /&gt;
 </code></pre>
 
-<p><strong>2. branch Bでstashを開ける</strong></p>
+<p>ここの <code>RDForm#onSubmit</code> propsとして渡した関数は
+<code>MyForm#handleSubmit</code> propsとして渡ってくることになる</p>
 
-<pre><code class="language-bash">git stash pop
-</code></pre>
+<p>例だと単純に <code>組み込みform#onSubmit</code> に渡している</p>
 
-<p>というやり方もあるらしい。</br>
-この場合、branch AとBの作業箇所が被らないことが前提となる。（コンフリクトするため）</p>
+<h2 id="参考">参考</h2>
 
-<p>備忘のために書いたとはいえ、同じことを繰り返さない自分であってほしい。</p>
+<ul>
+<li><a href="https://qiita.com/yhosok/items/ab8e990403749690d846">Redux Form入門 - Qiita</a></li>
+</ul>
 
                 </section>
             </article>
 
             
-                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fgit-cherry-pick%2f - commit%e3%82%92%e5%88%a5%e3%81%ae%e4%bd%9c%e6%a5%adbranch%e3%81%b8%e7%a7%bb%e5%8b%95%e3%81%99%e3%82%8b%e6%96%b9%e6%b3%95 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fredux-form-101-handlesubmit%2f - redux-form%20%28handleSubmit%29%20%e5%85%a5%e9%96%80 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
 
 <a class="facebook" href="#" onclick="
     window.open(
