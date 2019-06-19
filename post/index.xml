@@ -6,10 +6,19 @@
     <description>Recent content in Posts on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sun, 16 Jun 2019 10:23:17 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 19 Jun 2019 17:09:44 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>recodeコマンドでファイルの文字/改行コードを変更する</title>
+      <link>https://dream-yt.github.io/post/recode-file-charactor-encoding/</link>
+      <pubDate>Wed, 19 Jun 2019 17:09:44 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/recode-file-charactor-encoding/</guid>
+      <description>文字コードの変換をするときはiconvを使うことが多かったが、recodeコマンドのほうが便利なことが多い 既存ファイルに置き換え(inpla</description>
+    </item>
     
     <item>
       <title>redux-form (handleSubmit) 入門</title>

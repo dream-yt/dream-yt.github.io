@@ -13,8 +13,8 @@
     
   
   
-  <meta name="twitter:title" content="テキストに不可視な文字が入っている場合の対処"/>
-  <meta name="twitter:description" content="不可視文字には \t (タブ) や \f (改ページ)など色々ある 環境によってトーフが表示されたりする 例 エディタでは大丈夫なのにGitHubに投稿するとト"/>
+  <meta name="twitter:title" content="recodeコマンドでファイルの文字/改行コードを変更する"/>
+  <meta name="twitter:description" content="文字コードの変換をするときはiconvを使うことが多かったが、recodeコマンドのほうが便利なことが多い 既存ファイルに置き換え(inpla"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -30,7 +30,7 @@
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
 		<meta name="generator" content="Hugo 0.42.1" />
-		<title>テキストに不可視な文字が入っている場合の対処 &middot; sacre</title>
+		<title>recodeコマンドでファイルの文字/改行コードを変更する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
@@ -68,11 +68,11 @@
             <article>
                 <header>
                     <h1>
-                        テキストに不可視な文字が入っている場合の対処
+                        recodeコマンドでファイルの文字/改行コードを変更する
                     </h1>
                     <h2 class="headline">
-                    Feb 14, 2019 17:11
-                    · 274 words
+                    Jun 19, 2019 17:09
+                    · 271 words
                     · 1 minute read
                       <span class="tags">
                       
@@ -81,50 +81,68 @@
                 </header>
                 
                   
-                
-                <section id="post-body">
-                    <p>不可視文字には <code>\t</code> (タブ) や <code>\f</code> (改ページ)など色々ある</p>
-
-<p>環境によってトーフが表示されたりする</p>
-
+                    <div id="toc">
+                      <nav id="TableOfContents">
 <ul>
-<li>例
-
+<li>
 <ul>
-<li>エディタでは大丈夫なのにGitHubに投稿するとトーフが表示される</li>
+<li><a href="#対応している変換方式">対応している変換方式</a>
+<ul>
+<li><a href="#bash">bash</a></li>
+</ul></li>
 </ul></li>
 </ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    
 
-<p>こういう場合はテキストをodコマンドにかけると隠れてる文字がわかる</p>
-
-<pre><code class="language-console">$ cat /tmp/_
-え信じられない
-# catだと見えないが \b が隠れてることがわかる
-$ cat /tmp/_ | od -c
-0000000   え  **  **  っ  **  **  \b  信  **  **  じ  **  **  ら  **  **
-0000020   れ  **  **  な  **  **  い  **  **  \n
-0000032
-</code></pre>
-
-<p>odコマンドは<code>-c</code>オプションをつけると分かりやすい</p>
-
-<blockquote>
-<p>-c Output C-style escaped characters.  Equivalent to -t c.</p>
-</blockquote>
-
-<p>エスケープ文字の一覧はこちらでみられる</p>
-
-<p><code>\n</code>, <code>\t</code> はなじみがあるがバックスペースとかはパッと思い出せないので便利</p>
+<p>文字コードの変換をするときはiconvを使うことが多かったが、recodeコマンドのほうが便利なことが多い</p>
 
 <ul>
-<li><a href="https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B9%E3%82%B1%E3%83%BC%E3%83%97%E6%96%87%E5%AD%97">エスケープ文字 - Wikipedia</a></li>
+<li>既存ファイルに置き換え(inplace)で文字コードが変更できる</li>
+<li>改行コード(CR-LFなど)の変換も対応している</li>
+<li>複数ファイルを引数に取ることができる</li>
 </ul>
+
+<p>たとえばディレクトリ配下のcsvファイルをすべて {UTF16 =&gt; UTF-8} と変更したい場合は下記の1行で済む</p>
+
+<pre><code class="language-bash">$ recode UTF-16..UTF-8 &quot;$f&quot; $(ls -1 ./*.csv)
+</code></pre>
+
+<h2 id="対応している変換方式">対応している変換方式</h2>
+
+<p>対応している変換方式は <code>--list</code> で出てくる</p>
+
+<p>base64なども変換できるようだ</p>
+
+<pre><code>$ recode --list | head
+/21-Permutation swabytes
+/4321-Permutation
+/Base64 64 b64
+/CR
+/CR-LF cl
+/Decimal-1 d d1
+/Decimal-2 d2
+/Decimal-4 d4
+/Hexadecimal-1 x x1
+/Hexadecimal-2 x2
+</code></pre>
+
+<h3 id="bash">bash</h3>
+
+<p>インストールはmacならbrewで入る</p>
+
+<pre><code class="language-bash">brew install recode
+</code></pre>
 
                 </section>
             </article>
 
             
-                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2finvisible-char-in-textfile%2f - %e3%83%86%e3%82%ad%e3%82%b9%e3%83%88%e3%81%ab%e4%b8%8d%e5%8f%af%e8%a6%96%e3%81%aa%e6%96%87%e5%ad%97%e3%81%8c%e5%85%a5%e3%81%a3%e3%81%a6%e3%81%84%e3%82%8b%e5%a0%b4%e5%90%88%e3%81%ae%e5%af%be%e5%87%a6 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2frecode-file-charactor-encoding%2f - recode%e3%82%b3%e3%83%9e%e3%83%b3%e3%83%89%e3%81%a7%e3%83%95%e3%82%a1%e3%82%a4%e3%83%ab%e3%81%ae%e6%96%87%e5%ad%97%2f%e6%94%b9%e8%a1%8c%e3%82%b3%e3%83%bc%e3%83%89%e3%82%92%e5%a4%89%e6%9b%b4%e3%81%99%e3%82%8b by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
 
 <a class="facebook" href="#" onclick="
     window.open(
