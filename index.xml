@@ -6,10 +6,19 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sat, 22 Jun 2019 13:00:03 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 26 Jun 2019 17:40:01 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>BigQueryで UNNEST のやりかた</title>
+      <link>https://dream-yt.github.io/post/bigquery-unnest/</link>
+      <pubDate>Wed, 26 Jun 2019 17:40:01 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/bigquery-unnest/</guid>
+      <description>UNNEST は配列をフラットなレコードに直すための関数 こんなログデーブルがあったとして、post_arrayの配列をほぐしてフラットなレコードにしたい</description>
+    </item>
     
     <item>
       <title>node-canvasをlambdaで動かす</title>
