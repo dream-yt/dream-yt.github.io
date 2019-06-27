@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="https://dream-yt.github.io/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="ads.txt入門"/>
+  <meta name="twitter:description" content="ads.txtという仕様がIABから出されている ads.txt - Authorized Digital Sellers - IAB Tech Lab 概要 ads.txtはメディアのドメイン配下に置かれるtxtファイル 枠を買い"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@site_author"/>
+  
+
+
+
+		
+		<meta name="author" content="site_author">
+		<meta name="description" content="Site Description">
+		<meta name="generator" content="Hugo 0.42.1" />
+		<title>ads.txt入門 &middot; sacre</title>
+		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/font-awesome.min.css">
+		
+
+		
+		<link href="https://dream-yt.github.io/index.xml" rel="alternate" type="application/rss+xml" title="sacre" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='https://dream-yt.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://dream-yt.github.io/posts'>Archive</a>
+	<a href='https://dream-yt.github.io/tags'>Tags</a>
+	<a href='https://dream-yt.github.io/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="https://dream-yt.github.io/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        ads.txt入門
+                    </h1>
+                    <h2 class="headline">
+                    Jun 27, 2019 17:17
+                    · 953 words
+                    · 2 minute read
+                      <span class="tags">
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#概要">概要</a>
+<ul>
+<li><a href="#利用しているsspを明示">利用しているSSPを明示?</a></li>
+<li><a href="#リセラー">リセラー?</a></li>
+</ul></li>
+<li><a href="#仕様">仕様</a>
+<ul>
+<li>
+<ul>
+<li><a href="#場所">場所</a></li>
+<li><a href="#内容">内容</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#その他">その他</a></li>
+</ul></li>
+</ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    
+
+<p>ads.txtという仕様がIABから出されている</p>
+
+<ul>
+<li><a href="https://iabtechlab.com/ads-txt/">ads.txt - Authorized Digital Sellers - IAB Tech Lab</a></li>
+</ul>
+
+<h2 id="概要">概要</h2>
+
+<ul>
+<li>ads.txtはメディアのドメイン配下に置かれるtxtファイル</li>
+<li>枠を買い付ける側が参照するもの</li>
+<li>広告配信システムとの関係を記述するためのもの
+
+<ul>
+<li>そのメディアが利用しているSSPを明示する</li>
+<li>リセラーがいる場合それをはっきりとさせる</li>
+</ul></li>
+</ul>
+
+<h3 id="利用しているsspを明示">利用しているSSPを明示?</h3>
+
+<p>悪意のあるサイトが、メディア名を騙ってadリクエストをする場合がある</p>
+
+<ol>
+<li>訪問がないのにSSPにadリクエストを送る</li>
+<li>SSPとDSPでオークション</li>
+<li>adレスポンスをつかって悪意あるサイトが広告を表示/クリック</li>
+<li>落札金額が悪意あるサイトに支払われる</li>
+</ol>
+
+<p>メディアとSSPの関係性がはっきりとしていればこういった詐欺はできなくなる</p>
+
+<p>具体的には、ads.txtではSSP内のメディアIDを載せることになっていて、
+DSPがそのメディアIDへと支払いを行うようにすれば悪意あるサイトにはお金が流れない</p>
+
+<h3 id="リセラー">リセラー?</h3>
+
+<p>メディアとDSPの間に複数の広告事業者(リセラー)が入ってくる場合がある</p>
+
+<ol>
+<li>メディアが枠をSSPに売る
+
+<ul>
+<li>枠のタグからSSPにadリクエストが投げられる</li>
+</ul></li>
+<li>SSPがその枠をリセラーに売る
+
+<ul>
+<li>SSPがs2sでリセラーに bidリクエストを投げる</li>
+</ul></li>
+<li>DSPはリセラーから枠を買うことになる
+
+<ul>
+<li>リセラーがbidリクエストを横流ししてDSPからbidレスポンスを受け取る</li>
+</ul></li>
+</ol>
+
+<p>リセラーが産む付加価値は小さいので多くの場合こういった構造は歓迎されない
+知らないうちにリセラーが入り込んでいるという状況が発生しないようにメディアはads.txtを設置して、
+リセラーがいない、ないしは自らが認めているリセラーをはっきりとさせておくことができる</p>
+
+<h2 id="仕様">仕様</h2>
+
+<h4 id="場所">場所</h4>
+
+<p>配置するのはメディアのトップレベルドメイン直下のパス <code>/ads.txt</code>
+たとえば <code>https://www.facebook.com</code> というURLのメディアに置くなら以下の場所になる</p>
+
+<blockquote>
+<p><a href="https://facebook.com/ads.txt">https://facebook.com/ads.txt</a></p>
+</blockquote>
+
+<h4 id="内容">内容</h4>
+
+<p>カンマ区切りの4カラムで1レコード</p>
+
+<ul>
+<li>SSPのドメイン</li>
+<li>SSPがそのメディアに払い出したID</li>
+<li>管理タイプ ( <code>DIRECT</code> or <code>RESELLER</code> )</li>
+<li>(任意) TAGという認証団体からSSPがもらっているID</li>
+</ul>
+
+<p>このレコードは使っているSSPごとに必要
+たとえばgoogleとopenxを使っているなら以下のような2レコードとなる</p>
+
+<pre><code>google.com, pub-3004679189235742, DIRECT, f08c47fec0942fa0
+openx.com, 537149074, DIRECT, 6a698e2ec38604c6
+</code></pre>
+
+<p>必須ではないものとしては以下のふたつ</p>
+
+<h2 id="その他">その他</h2>
+
+<p>形式があっているかをチェックしてくれるサービス</p>
+
+<ul>
+<li><a href="https://fe.datasign.co/adstxt/">Ads.txt Manager | DataSign FE</a></li>
+</ul>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fads-txt-101%2f - ads.txt%e5%85%a5%e9%96%80 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'your_disqus_short_name'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/dream-yt/sacre">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://twitter.com/FUTABA_SACRE">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2019 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="https://dream-yt.github.io/js/jquery-3.3.1.min.js"></script>
+<script src="https://dream-yt.github.io/js/main.js"></script>
+<script src="https://dream-yt.github.io/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+
+
+
+
+    </body>
+</html>
