@@ -13,8 +13,8 @@
     
   
   
-  <meta name="twitter:title" content="commitを別の作業branchへ移動する方法"/>
-  <meta name="twitter:description" content="これは一体 Gitで何度も陥ってしまう過ちにまたハマってしまう日が来ても、乗り越えられる自分でありたい。 そのための備忘録です。 状況 新しい作業の"/>
+  <meta name="twitter:title" content="typescriptでのnullチェック"/>
+  <meta name="twitter:description" content="基本的にはイコール2つの演算子でチェックすれば undefinedとnullのどちらかであればtrueになる == null 例 $ ts-node &gt; const v = {a: 1, c: null} undefined イコー"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -30,7 +30,7 @@
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
 		<meta name="generator" content="Hugo 0.51" />
-		<title>commitを別の作業branchへ移動する方法 &middot; sacre</title>
+		<title>typescriptでのnullチェック &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
@@ -68,19 +68,13 @@
             <article>
                 <header>
                     <h1>
-                        commitを別の作業branchへ移動する方法
+                        typescriptでのnullチェック
                     </h1>
                     <h2 class="headline">
-                    Nov 28, 2018 22:27
-                    · 645 words
-                    · 2 minute read
+                    Jun 30, 2019 13:59
+                    · 206 words
+                    · 1 minute read
                       <span class="tags">
-                      
-                      
-                          
-                              <a href="https://dream-yt.github.io/tags/git">git</a>
-                          
-                      
                       
                       </span>
                     </h2>
@@ -90,10 +84,15 @@
                     <div id="toc">
                       <nav id="TableOfContents">
 <ul>
-<li><a href="#これは一体">これは一体</a></li>
-<li><a href="#状況">状況</a></li>
-<li><a href="#やること">やること</a></li>
-<li><a href="#他のやりかた">他のやりかた</a></li>
+<li>
+<ul>
+<li><a href="#例">例</a>
+<ul>
+<li><a href="#イコールふたつ">イコールふたつ</a></li>
+<li><a href="#イコールみっつだと厳格">イコールみっつだと厳格</a></li>
+</ul></li>
+<li><a href="#その他">その他</a></li>
+</ul></li>
 </ul>
 </nav>
                     </div>
@@ -102,87 +101,52 @@
                 <section id="post-body">
                     
 
-<p><img src="/images/post/dream/GitCherryPick01.png" alt="This is a image" /></p>
+<p>基本的にはイコール2つの演算子でチェックすれば
+undefinedとnullのどちらかであればtrueになる</p>
 
-<h1 id="これは一体">これは一体</h1>
+<blockquote>
+<p><code>== null</code></p>
+</blockquote>
 
-<p>Gitで何度も陥ってしまう過ちにまたハマってしまう日が来ても、乗り越えられる自分でありたい。
-そのための備忘録です。</p>
+<h2 id="例">例</h2>
 
-<h1 id="状況">状況</h1>
+<pre><code class="language-ts">$ ts-node
+&gt; const v = {a: 1, c: null}
+undefined
+</code></pre>
 
-<p>新しい作業の開始時に、branchの切り替えを忘れてしまう。</br>
-前回まで作業してたbranchやmasterで作業を開始してしまった時に、正しいbranchに作業したcommitを移動する。</p>
+<h3 id="イコールふたつ">イコールふたつ</h3>
 
-<p>&hellip;&hellip;これ、自分的にはあるあるすぎる。何回やってんだ。</p>
+<p>nullとundefinedを区別しなくて楽</p>
 
-<h1 id="やること">やること</h1>
+<pre><code class="language-ts">&gt; v['b'] == null
+true
+&gt; v['c'] == null
+true
+</code></pre>
 
-<p><strong>[start地点]</strong> </br>
-正しくないbranch Aで作業を開始してしまった。移したいcommitは3つ。</p>
+<h3 id="イコールみっつだと厳格">イコールみっつだと厳格</h3>
 
-<p><strong>1. 移動先branchがない場合は作成</strong> (branch B)</p>
+<pre><code class="language-ts">&gt; v['c'] === null
+true
+&gt; v['b'] === null
+false
+</code></pre>
 
-<p><strong>2. branch Aで下記コマンドを叩いて、移動するcommitのIDを確認</strong></p>
+<h2 id="その他">その他</h2>
+
+<p>宣言していない変数についても書いてあるが、これは特殊なコードになってる場合
+普通のコードではイコール2つの演算子でチェックすればよい</p>
 
 <ul>
-<li>末尾に <code>-10</code>などいれると最新のcommitを上から10個表示するなど指定できる</li>
+<li><a href="https://typescript-jp.gitbook.io/deep-dive/recap/null-undefined">Null vs. Undefined - TypeScript Deep Dive 日本語版</a></li>
 </ul>
-
-<pre><code class="language-bash">$ git log --oneline 
-</code></pre>
-
-<p><img src="/images/post/dream/GitCherryPick02.png" alt="This is a image" /></p>
-
-<p><strong>3. branch Bに移動して移したいcommitをcherry pick する</strong></p>
-
-<ul>
-<li>コマンドの後にcommit IDを入力</li>
-<li>古い順に入力すること</li>
-</ul>
-
-<pre><code class="language-bash">$ git cherry-pick xxxxxxx yyyyyyy zzzzzzz
-</code></pre>
-
-<p><strong>4. commitがbranch Bに移動できているかlogで確認</strong></p>
-
-<pre><code class="language-bash">$ git log --oneline 
-</code></pre>
-
-<p><strong>5. 必要があればbranchAのcommitを消去</strong></p>
-
-<ul>
-<li>下記のコマンドでできるらしい</li>
-<li>HEAD~xは任意の数値に変更</li>
-</ul>
-
-<pre><code class="language-bash">$ git reset --hard HEAD~3
-</code></pre>
-
-<h1 id="他のやりかた">他のやりかた</h1>
-
-<p>branch Bがまっさら状態だった場合、</p>
-
-<p><strong>1. branch Aで作業をstashにしまう</strong></p>
-
-<pre><code class="language-bash">git stash
-</code></pre>
-
-<p><strong>2. branch Bでstashを開ける</strong></p>
-
-<pre><code class="language-bash">git stash pop
-</code></pre>
-
-<p>というやり方もあるらしい。</br>
-この場合、branch AとBの作業箇所が被らないことが前提となる。（コンフリクトするため）</p>
-
-<p>備忘のために書いたとはいえ、同じことを繰り返さない自分であってほしい。</p>
 
                 </section>
             </article>
 
             
-                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fgit-cherry-pick%2f - commit%e3%82%92%e5%88%a5%e3%81%ae%e4%bd%9c%e6%a5%adbranch%e3%81%b8%e7%a7%bb%e5%8b%95%e3%81%99%e3%82%8b%e6%96%b9%e6%b3%95 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2ftypescript-null-check-operator%2f - typescript%e3%81%a7%e3%81%aenull%e3%83%81%e3%82%a7%e3%83%83%e3%82%af by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
 
 <a class="facebook" href="#" onclick="
     window.open(

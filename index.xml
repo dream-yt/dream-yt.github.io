@@ -6,10 +6,19 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Thu, 27 Jun 2019 17:17:06 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 30 Jun 2019 13:59:54 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>typescriptでのnullチェック</title>
+      <link>https://dream-yt.github.io/post/typescript-null-check-operator/</link>
+      <pubDate>Sun, 30 Jun 2019 13:59:54 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/typescript-null-check-operator/</guid>
+      <description>基本的にはイコール2つの演算子でチェックすれば undefinedとnullのどちらかであればtrueになる == null 例 $ ts-node &amp;gt; const v = {a: 1, c: null} undefined イコー</description>
+    </item>
     
     <item>
       <title>ads.txt入門</title>
