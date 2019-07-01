@@ -6,10 +6,19 @@
     <description>Recent content in Posts on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sun, 30 Jun 2019 13:59:54 +0900</lastBuildDate>
+    <lastBuildDate>Mon, 01 Jul 2019 09:34:06 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>React の Synthetic Event</title>
+      <link>https://dream-yt.github.io/post/react-synthetic-event/</link>
+      <pubDate>Mon, 01 Jul 2019 09:34:06 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/react-synthetic-event/</guid>
+      <description>Reactに標準でついてくるEventオブジェクト Syntheticは合成という意味 ブラウザごとの差異を吸収してくれている SyntheticEvent – React event pooling なお、R</description>
+    </item>
     
     <item>
       <title>typescriptでのnullチェック</title>
