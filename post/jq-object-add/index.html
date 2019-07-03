@@ -13,8 +13,8 @@
     
   
   
-  <meta name="twitter:title" content="recodeコマンドでファイルの文字/改行コードを変更する"/>
-  <meta name="twitter:description" content="文字コードの変換をするときはiconvを使うことが多かったが、recodeコマンドのほうが便利なことが多い 既存ファイルに置き換え(inpla"/>
+  <meta name="twitter:title" content="jq変形 {配列 =&gt; IDをキーとするオブジェクト}"/>
+  <meta name="twitter:description" content="こんな配列を [ {&quot;id&quot;: &quot;123&quot;, &quot;name&quot;: &quot;abc&quot;}, {&quot;id&quot;: &quot;456&quot;, &quot;name&quot;: &quot;qwe&quot;} ] こうしたい { &quot;123&quot;: {&quot;id&quot;: &quot;123&quot;, &quot;name&quot;: &quot;abc&quot;}, &quot;456&quot;: {&quot;id&quot;: &quot;456&quot;, &quot;name&quot;: &quot;qwe&quot;} } add を使うとできる $ pbpaste | jq &#39;{ (.id): . } | [ . ] | add&#39; { &quot;123&quot;: { &quot;id&quot;: &quot;123&quot;, &quot;name&quot;: &quot;abc&quot; }, &quot;456&quot;: { &quot;id&quot;: &quot;456&quot;, &quot;name&quot;: &quot;qwe&quot; }"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -30,7 +30,7 @@
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
 		<meta name="generator" content="Hugo 0.42.1" />
-		<title>recodeコマンドでファイルの文字/改行コードを変更する &middot; sacre</title>
+		<title>jq変形 {配列 =&gt; IDをキーとするオブジェクト} &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
@@ -68,11 +68,11 @@
             <article>
                 <header>
                     <h1>
-                        recodeコマンドでファイルの文字/改行コードを変更する
+                        jq変形 {配列 =&gt; IDをキーとするオブジェクト}
                     </h1>
                     <h2 class="headline">
-                    Jun 19, 2019 17:09
-                    · 271 words
+                    Jul 3, 2019 15:30
+                    · 181 words
                     · 1 minute read
                       <span class="tags">
                       
@@ -86,9 +86,9 @@
 <ul>
 <li>
 <ul>
-<li><a href="#対応している変換方式">対応している変換方式</a>
+<li>
 <ul>
-<li><a href="#bash">bash</a></li>
+<li><a href="#add">add</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -99,50 +99,65 @@
                 <section id="post-body">
                     
 
-<p>文字コードの変換をするときはiconvを使うことが多かったが、recodeコマンドのほうが便利なことが多い</p>
+<p>こんな配列を</p>
+
+<pre><code class="language-json">[
+  {&quot;id&quot;: &quot;123&quot;, &quot;name&quot;: &quot;abc&quot;},
+  {&quot;id&quot;: &quot;456&quot;, &quot;name&quot;: &quot;qwe&quot;}
+]
+</code></pre>
+
+<p>こうしたい</p>
+
+<pre><code class="language-json">{
+  &quot;123&quot;: {&quot;id&quot;: &quot;123&quot;, &quot;name&quot;: &quot;abc&quot;},
+  &quot;456&quot;: {&quot;id&quot;: &quot;456&quot;, &quot;name&quot;: &quot;qwe&quot;}
+}
+</code></pre>
+
+<p><code>add</code> を使うとできる</p>
+
+<pre><code>$ pbpaste | jq '{ (.id): . } | [ . ] | add'
+{
+  &quot;123&quot;: {
+    &quot;id&quot;: &quot;123&quot;,
+    &quot;name&quot;: &quot;abc&quot;
+  },
+  &quot;456&quot;: {
+    &quot;id&quot;: &quot;456&quot;,
+    &quot;name&quot;: &quot;qwe&quot;
+  }
+}
+</code></pre>
+
+<h3 id="add">add</h3>
+
+<p>通常は足し算や文字列結合に使われるが、
+オブジェクトの配列に適用すると、それぞれの要素をマージしたオブジェクトができる</p>
 
 <ul>
-<li>既存ファイルに置き換え(inplace)で文字コードが変更できる</li>
-<li>改行コード(CR-LFなど)の変換も対応している</li>
-<li>複数ファイルを引数に取ることができる</li>
+<li><a href="https://github.com/stedolan/jq/issues/70">QUESTION: A way to concatenate input objects into one · Issue #70 · stedolan/jq</a></li>
 </ul>
 
-<p>たとえばディレクトリ配下のcsvファイルをすべて {UTF16 =&gt; UTF-8} と変更したい場合は下記の1行で済む</p>
-
-<pre><code class="language-bash">$ recode UTF-16..UTF-8 &quot;$f&quot; $(ls -1 ./*.csv)
+<pre><code class="language-json">[
+  { &quot;123&quot;: {&quot;id&quot;: &quot;123&quot;, &quot;name&quot;: &quot;abc&quot;} }
+  { &quot;456&quot;: {&quot;id&quot;: &quot;456&quot;, &quot;name&quot;: &quot;qwe&quot;} }
+]
 </code></pre>
 
-<h2 id="対応している変換方式">対応している変換方式</h2>
+<p>↓ こうなるイメージ</p>
 
-<p>対応している変換方式は <code>--list</code> で出てくる</p>
-
-<p>base64なども変換できるようだ</p>
-
-<pre><code>$ recode --list | head
-/21-Permutation swabytes
-/4321-Permutation
-/Base64 64 b64
-/CR
-/CR-LF cl
-/Decimal-1 d d1
-/Decimal-2 d2
-/Decimal-4 d4
-/Hexadecimal-1 x x1
-/Hexadecimal-2 x2
-</code></pre>
-
-<h3 id="bash">bash</h3>
-
-<p>インストールはmacならbrewで入る</p>
-
-<pre><code class="language-bash">brew install recode
+<pre><code class="language-json">{
+  &quot;123&quot;: {&quot;id&quot;: &quot;123&quot;, &quot;name&quot;: &quot;abc&quot;},
+  &quot;456&quot;: {&quot;id&quot;: &quot;456&quot;, &quot;name&quot;: &quot;qwe&quot;}
+}
 </code></pre>
 
                 </section>
             </article>
 
             
-                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2frecode-file-charactor-encoding%2f - recode%e3%82%b3%e3%83%9e%e3%83%b3%e3%83%89%e3%81%a7%e3%83%95%e3%82%a1%e3%82%a4%e3%83%ab%e3%81%ae%e6%96%87%e5%ad%97%2f%e6%94%b9%e8%a1%8c%e3%82%b3%e3%83%bc%e3%83%89%e3%82%92%e5%a4%89%e6%9b%b4%e3%81%99%e3%82%8b by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fjq-object-add%2f - jq%e5%a4%89%e5%bd%a2%20%7b%e9%85%8d%e5%88%97%20%3d%3e%20ID%e3%82%92%e3%82%ad%e3%83%bc%e3%81%a8%e3%81%99%e3%82%8b%e3%82%aa%e3%83%96%e3%82%b8%e3%82%a7%e3%82%af%e3%83%88%7d by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
 
 <a class="facebook" href="#" onclick="
     window.open(

@@ -6,10 +6,19 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Mon, 01 Jul 2019 09:34:06 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 03 Jul 2019 15:30:19 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>jq変形 {配列 =&gt; IDをキーとするオブジェクト}</title>
+      <link>https://dream-yt.github.io/post/jq-object-add/</link>
+      <pubDate>Wed, 03 Jul 2019 15:30:19 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/jq-object-add/</guid>
+      <description>こんな配列を [ {&amp;quot;id&amp;quot;: &amp;quot;123&amp;quot;, &amp;quot;name&amp;quot;: &amp;quot;abc&amp;quot;}, {&amp;quot;id&amp;quot;: &amp;quot;456&amp;quot;, &amp;quot;name&amp;quot;: &amp;quot;qwe&amp;quot;} ] こうしたい { &amp;quot;123&amp;quot;: {&amp;quot;id&amp;quot;: &amp;quot;123&amp;quot;, &amp;quot;name&amp;quot;: &amp;quot;abc&amp;quot;}, &amp;quot;456&amp;quot;: {&amp;quot;id&amp;quot;: &amp;quot;456&amp;quot;, &amp;quot;name&amp;quot;: &amp;quot;qwe&amp;quot;} } add を使うとできる $ pbpaste | jq &#39;{ (.id): . } | [ . ] | add&#39; { &amp;quot;123&amp;quot;: { &amp;quot;id&amp;quot;: &amp;quot;123&amp;quot;, &amp;quot;name&amp;quot;: &amp;quot;abc&amp;quot; }, &amp;quot;456&amp;quot;: { &amp;quot;id&amp;quot;: &amp;quot;456&amp;quot;, &amp;quot;name&amp;quot;: &amp;quot;qwe&amp;quot; }</description>
+    </item>
     
     <item>
       <title>React の Synthetic Event</title>
