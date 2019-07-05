@@ -6,10 +6,19 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 03 Jul 2019 15:30:19 +0900</lastBuildDate>
+    <lastBuildDate>Fri, 05 Jul 2019 12:52:40 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>dockerイメージの、レイヤーとサイズの関係をみる</title>
+      <link>https://dream-yt.github.io/post/docker-image-history/</link>
+      <pubDate>Fri, 05 Jul 2019 12:52:40 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/docker-image-history/</guid>
+      <description>docker history を使うとみられる 例 $ docker history --no-trunc --format=&amp;quot;{{.Size}}\t{{.CreatedBy}}&amp;quot; perl:5.20.0 0B /bin/sh -c #(nop) CMD [perl5.20.0 -de0] 0B /bin/sh -c #(nop) WORKDIR /root 6.55MB /bin/sh -c curl -LO https://raw.githubusercontent.com/miyagawa/cpanminus/master/cpanm &amp;amp;&amp;amp; chmod +x cpanm &amp;amp;&amp;amp; ./cpanm App::cpanminus &amp;amp;&amp;amp; rm ./cpanm 0B /bin/sh -c #(nop) WORKDIR /usr/src 55MB /bin/sh -c ./Configure -Duse64bitall -des &amp;amp;&amp;amp; make -j$(nproc) &amp;amp;&amp;amp; TEST_JOBS=$(nproc) make test_harness &amp;amp;&amp;amp; make install &amp;amp;&amp;amp; make</description>
+    </item>
     
     <item>
       <title>jq変形 {配列 =&gt; IDをキーとするオブジェクト}</title>
