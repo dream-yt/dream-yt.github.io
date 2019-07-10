@@ -6,10 +6,19 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Fri, 05 Jul 2019 12:52:40 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 10 Jul 2019 18:26:22 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>SSL越しにローカルの静的ファイルを閲覧したい (開発用)</title>
+      <link>https://dream-yt.github.io/post/devserver-ssl-static/</link>
+      <pubDate>Wed, 10 Jul 2019 18:26:22 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/devserver-ssl-static/</guid>
+      <description>SSLさせてくれるhttpサーバのコード こちらから拝借 simple-https-server.py import http.server import ssl server_address = (&#39;127.0.0.1&#39;, 443) httpd = http.server.HTTPServer(server_address, http.server.SimpleHTTPRequestHandler) httpd.socket = ssl.wrap_socket(httpd.socket, server_side=True, certfile=&amp;quot;server.pem&amp;quot;, keyfile=&amp;quot;key.pem&amp;quot;, ssl_version=ssl.PROTOCOL_TLS) httpd.serve_forever() 証明書を作ってserver start $ mkdir /tmp/$(pwgen) &amp;amp;&amp;amp; cd $_ $ pbpaste</description>
+    </item>
     
     <item>
       <title>dockerイメージの、レイヤーとサイズの関係をみる</title>
