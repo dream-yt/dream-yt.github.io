@@ -6,10 +6,19 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 10 Jul 2019 18:26:22 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 11 Jul 2019 12:25:34 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>SameSite Cookie とは</title>
+      <link>https://dream-yt.github.io/post/samesite-cookie/</link>
+      <pubDate>Thu, 11 Jul 2019 12:25:34 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/samesite-cookie/</guid>
+      <description>こういう機能 今開いているページのドメインから、別のドメインにリクエストを送る際に、 クッキーを送るかどうかを設定できる機能 別のドメインにリクエ</description>
+    </item>
     
     <item>
       <title>SSL越しにローカルの静的ファイルを閲覧したい (開発用)</title>

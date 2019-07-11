@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="https://dream-yt.github.io/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="SameSite Cookie とは"/>
+  <meta name="twitter:description" content="こういう機能 今開いているページのドメインから、別のドメインにリクエストを送る際に、 クッキーを送るかどうかを設定できる機能 別のドメインにリクエ"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@site_author"/>
+  
+
+
+
+		
+		<meta name="author" content="site_author">
+		<meta name="description" content="Site Description">
+		<meta name="generator" content="Hugo 0.42.1" />
+		<title>SameSite Cookie とは &middot; sacre</title>
+		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/font-awesome.min.css">
+		
+
+		
+		<link href="https://dream-yt.github.io/index.xml" rel="alternate" type="application/rss+xml" title="sacre" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='https://dream-yt.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://dream-yt.github.io/posts'>Archive</a>
+	<a href='https://dream-yt.github.io/tags'>Tags</a>
+	<a href='https://dream-yt.github.io/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="https://dream-yt.github.io/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        SameSite Cookie とは
+                    </h1>
+                    <h2 class="headline">
+                    Jul 11, 2019 12:25
+                    · 452 words
+                    · 1 minute read
+                      <span class="tags">
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#例">例</a></li>
+<li><a href="#設定のしかた">設定のしかた</a>
+<ul>
+<li><a href="#laxとstrictの違い">laxとstrictの違い</a></li>
+</ul></li>
+<li><a href="#用途">用途</a></li>
+<li><a href="#対応ブラウザ">対応ブラウザ</a></li>
+</ul></li>
+</ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    
+
+<p>こういう機能</p>
+
+<blockquote>
+<p>今開いているページのドメインから、別のドメインにリクエストを送る際に、
+クッキーを送るかどうかを設定できる機能</p>
+</blockquote>
+
+<p><code>別のドメインにリクエストを送る</code> とは以下の例がある</p>
+
+<ul>
+<li>広告タグで広告サーバへリクエスト</li>
+<li>トラッキングタグでGoogleAnalyticsなどでリクエスト</li>
+<li>リンク(aタグ)で別ドメインへ遷移</li>
+</ul>
+
+<p>個人的にはリンクで遷移した場合も <code>別のドメインへのリクエスト</code> として扱うのが新しい感じ</p>
+
+<h2 id="例">例</h2>
+
+<ul>
+<li>dmm.jp が SameSiteがついたSet-Cookie しておくと</li>
+<li>ユーザが twitter.com のアクセスしているときに</li>
+<li>dmm.jp の広告にあたって、アドリクエストが発生した時</li>
+<li>dmm.jp へのリクエストにはCookieが送信されなくなる</li>
+</ul>
+
+<h2 id="設定のしかた">設定のしかた</h2>
+
+<p>Set-Cookie するときに <code>samesite={strict,lax}</code> を付与するだけ</p>
+
+<pre><code>Set-Cookie: test=1; path=/; samesite=strict
+</code></pre>
+
+<h3 id="laxとstrictの違い">laxとstrictの違い</h3>
+
+<p>こちらが分かりやすかった</p>
+
+<ul>
+<li><a href="https://laboradian.com/same-site-cookies/">HTTP クッキーをより安全にする SameSite 属性について (Same-site Cookies) | ラボラジアン</a></li>
+</ul>
+
+<h2 id="用途">用途</h2>
+
+<p>CSRF対策になる</p>
+
+<p>銀行などのガッチリ守りたいところでは
+samesite=strictとしておくと防御力があがる</p>
+
+<h2 id="対応ブラウザ">対応ブラウザ</h2>
+
+<p>だいたい主要なブラウザでは対応済み</p>
+
+<ul>
+<li><a href="https://caniuse.com/#feat=same-site-cookie-attribute">Can I use&hellip; Support tables for HTML5, CSS3, etc</a></li>
+</ul>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fsamesite-cookie%2f - SameSite%20Cookie%20%e3%81%a8%e3%81%af by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'your_disqus_short_name'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/dream-yt/sacre">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://twitter.com/FUTABA_SACRE">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2019 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="https://dream-yt.github.io/js/jquery-3.3.1.min.js"></script>
+<script src="https://dream-yt.github.io/js/main.js"></script>
+<script src="https://dream-yt.github.io/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+
+
+
+
+    </body>
+</html>
