@@ -6,10 +6,19 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Mon, 15 Jul 2019 18:50:46 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 16 Jul 2019 11:23:13 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>bashでファイルの拡張子を一括変更する</title>
+      <link>https://dream-yt.github.io/post/change-file-extention-with-bash/</link>
+      <pubDate>Tue, 16 Jul 2019 11:23:13 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/change-file-extention-with-bash/</guid>
+      <description>たとえばsrc配下のjsファイルをぜんぶtsファイルに変更したい場合は以下のように書ける $ find ./src -name &#39;*.js&#39; -type f \ | perl -wnlE &#39;/(\S+).js/ and say &amp;quot;$1.js $1.ts&amp;quot;&#39; \ | xargs -n2 mv 動作 find ./src -name</description>
+    </item>
     
     <item>
       <title>package.jsonの古いファイルをいっぺんに更新する</title>
