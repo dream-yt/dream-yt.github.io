@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="https://dream-yt.github.io/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="firebase上でtypescriptで書かれたnextjsを動かす"/>
+  <meta name="twitter:description" content="こちらのexampleを動かしながらデプロイまでの流れをみる next.js/examples/with-firebase-hosting at master · zeit/next.js できればtypescriptで開発したいので、それでどのへんをいじれば"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@site_author"/>
+  
+
+
+
+		
+		<meta name="author" content="site_author">
+		<meta name="description" content="Site Description">
+		<meta name="generator" content="Hugo 0.51" />
+		<title>firebase上でtypescriptで書かれたnextjsを動かす &middot; sacre</title>
+		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/font-awesome.min.css">
+		
+
+		
+		<link href="https://dream-yt.github.io/index.xml" rel="alternate" type="application/rss+xml" title="sacre" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='https://dream-yt.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://dream-yt.github.io/posts'>Archive</a>
+	<a href='https://dream-yt.github.io/tags'>Tags</a>
+	<a href='https://dream-yt.github.io/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="https://dream-yt.github.io/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        firebase上でtypescriptで書かれたnextjsを動かす
+                    </h1>
+                    <h2 class="headline">
+                    Jul 18, 2019 09:21
+                    · 1238 words
+                    · 3 minute read
+                      <span class="tags">
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#deploy">deploy</a>
+<ul>
+<li><a href="#deployがやっていること">deployがやっていること</a></li>
+<li><a href="#nextとcloudfunction関数のつなぎこみ">nextとcloudfunction関数のつなぎこみ</a></li>
+<li><a href="#cpx">cpx</a></li>
+<li><a href="#rimraf">rimraf</a></li>
+</ul></li>
+<li><a href="#firebaserc">.firebaserc</a></li>
+</ul></li>
+<li><a href="#typescript-に書き換える">TypeScript に書き換える</a>
+<ul>
+<li><a href="#必要だったpackage">必要だったpackage</a></li>
+<li><a href="#ファイルのリネーム">ファイルのリネーム</a></li>
+<li><a href="#tsconfig-json">tsconfig.json</a></li>
+</ul></li>
+</ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    
+
+<p>こちらのexampleを動かしながらデプロイまでの流れをみる</p>
+
+<ul>
+<li><a href="https://github.com/zeit/next.js/tree/master/examples/with-firebase-hosting">next.js/examples/with-firebase-hosting at master · zeit/next.js</a></li>
+</ul>
+
+<p>できればtypescriptで開発したいので、それでどのへんをいじればいいのかも確認する</p>
+
+<h2 id="deploy">deploy</h2>
+
+<p>predeployで以下のコマンドが走る</p>
+
+<pre><code class="language-bash">npm run build-public
+npm run build-funcs
+npm run build-app
+npm run copy-deps
+</code></pre>
+
+<p>これはそれぞれpackage.jsonでの定義がこうなっている</p>
+
+<pre><code class="language-bash"># publicディレクトリには画像などの静的ファイルを置く
+cpx &quot;src/public/**/*.*&quot; &quot;dist/public&quot; -C
+# cloud function のエントリポイントになる処理をbuild
+babel &quot;src/functions&quot; --out-dir &quot;dist/functions&quot;
+# next.config.jsによればbuild先はdist/functions/next
+# exports.next している index.js はここのビルド結果を使っている
+next build &quot;src/app/&quot;
+# cloud function のデプロイに必要なファイルをdist配下へ
+cpx &quot;*{package.json,package-lock.json,yarn.lock}&quot; &quot;dist/functions&quot; -C
+</code></pre>
+
+<h3 id="deployがやっていること">deployがやっていること</h3>
+
+<p><code>next build</code> と <code>babel</code> の2つのビルドコマンドを発行してるのが斬新</p>
+
+<ul>
+<li><code>dist/</code> 配下にcloudfunctionへアップロードするコードを集約
+
+<ul>
+<li>firebase.json</li>
+<li>hosting: <code>dist/public</code></li>
+<li>functions: <code>dist/functions</code></li>
+</ul></li>
+<li><code>npm run deploy</code> で <code>firebase deploy</code> を実行
+
+<ul>
+<li>public (静的ファイル) と functions (WebAPI) の両方をアップロード</li>
+</ul></li>
+</ul>
+
+<h3 id="nextとcloudfunction関数のつなぎこみ">nextとcloudfunction関数のつなぎこみ</h3>
+
+<ul>
+<li><code>dist/functions/index.js</code> が cloud function から参照されるファイル</li>
+<li><code>dist/functions/index.js</code> が <code>dist/functions/next</code> 配下をloadしている</li>
+</ul>
+
+<pre><code class="language-js:dist/index.js">var app = next({
+  dev,
+  conf: { distDir: `${path.relative(process.cwd(), __dirname)}/next` }
+})
+</code></pre>
+
+<h3 id="cpx">cpx</h3>
+
+<p>cpxはrsync的なことをしてくれるコマンド
+package.jsonで使われている</p>
+
+<pre><code class="language-bash">cpx &quot;src/public/**/*.*&quot; &quot;dist/public&quot; -C
+</code></pre>
+
+<p><code>-C</code> オプションはコピーする前に<code>dist/public</code>の中身を空にするもの</p>
+
+<blockquote>
+<p>-C, &ndash;clean               Clean files that matches <source> like pattern in
+                             <dest> directory before the first copying.</p>
+</blockquote>
+
+<h3 id="rimraf">rimraf</h3>
+
+<p><code>rm -rf</code> と同じことをしてくれる</p>
+
+<p>この辺が便利なようだ</p>
+
+<ul>
+<li>windowsでも動く</li>
+<li>対象ファイルがなくてもエラーにならない</li>
+</ul>
+
+<h2 id="firebaserc">.firebaserc</h2>
+
+<p><code>project-name</code>って書いてあるけど入れるのはprojectId</p>
+
+<blockquote>
+<p>&ldquo;default&rdquo;: &ldquo;<project-name-here>&ldquo;</p>
+</blockquote>
+
+<pre><code class="language-bash">$ firebase list
+┌─────────┬───────────────────────┬─────────────┐
+│ Name    │ Project ID / Instance │ Permissions │
+├─────────┼───────────────────────┼─────────────┤
+│ testpjt │ testpjt-534512        │ Owner       │
+└─────────┴───────────────────────┴─────────────┘
+</code></pre>
+
+<h1 id="typescript-に書き換える">TypeScript に書き換える</h1>
+
+<p><del>このあたりを書き換えたらよさそう</del></p>
+
+<blockquote>
+<p>&ldquo;build-funcs&rdquo;: &ldquo;babel \&ldquo;src/functions\&rdquo; &ndash;out-dir \&ldquo;dist/functions\&ldquo;&rdquo;,</p>
+</blockquote>
+
+<p>nextがbabelを使う設定になってるようなので、ここはそのままにしてbabelでtypescriptをコンパイルする方式にした。babelの設定を書き換えている</p>
+
+<pre><code class="language-json">{
+  &quot;presets&quot;: [
+    &quot;next/babel&quot;,
+    &quot;@babel/preset-typescript&quot;
+  ]
+}
+</code></pre>
+
+<p>babelでtypescriptをコンパイルしているので、ビルド時の型チェックなどは提供されない</p>
+
+<h2 id="必要だったpackage">必要だったpackage</h2>
+
+<p>この辺のインストールが必要だった</p>
+
+<pre><code>yarn add @types/react @babel/preset-typescript --dev
+</code></pre>
+
+<ul>
+<li><code>@types/react</code> はreactの型定義</li>
+<li><code>@babel/preset-typescript</code> はbabelでtsをコンパイルするためのpreset
+
+<ul>
+<li>ビルド時に型チェックとかはしてくれる</li>
+</ul></li>
+</ul>
+
+<h2 id="ファイルのリネーム">ファイルのリネーム</h2>
+
+<p>こんな感じで一括リネーム</p>
+
+<pre><code class="language-bash">$ find ./src -name '*.js' -type f \
+    | perl -wnlE '/(\S+).js/ and say &quot;$1.js $1.tsx&quot;' \
+    | xargs -n2 mv
+</code></pre>
+
+<h2 id="tsconfig-json">tsconfig.json</h2>
+
+<p>babel越しにビルドするとtsconfigが自動で書き換えられる</p>
+
+<blockquote>
+<p>The following changes are being made to your tsconfig.json file:
+ - compilerOptions.strict to be suggested value: false (this can be changed)
+ - compilerOptions.esModuleInterop must be true (requirement for babel)
+ - compilerOptions.resolveJsonModule must be true</p>
+</blockquote>
+
+<p>babelに都合がよいような設定になる</p>
+
+<hr />
+
+<p>ここまでで</p>
+
+<ul>
+<li>firebase cloud function 上で</li>
+<li>typescript で書かれた</li>
+<li>nextjs を動かす</li>
+</ul>
+
+<p>が出来た</p>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2ffirebase-next-typescript%2f - firebase%e4%b8%8a%e3%81%a7typescript%e3%81%a7%e6%9b%b8%e3%81%8b%e3%82%8c%e3%81%9fnextjs%e3%82%92%e5%8b%95%e3%81%8b%e3%81%99 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'your_disqus_short_name'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/dream-yt/sacre">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://twitter.com/FUTABA_SACRE">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2019 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="https://dream-yt.github.io/js/jquery-3.3.1.min.js"></script>
+<script src="https://dream-yt.github.io/js/main.js"></script>
+<script src="https://dream-yt.github.io/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+
+
+
+
+    </body>
+</html>
