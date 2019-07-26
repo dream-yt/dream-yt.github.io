@@ -14,7 +14,7 @@
   
   
   <meta name="twitter:title" content="rsyncでディレクトリをコピーする"/>
-  <meta name="twitter:description" content="送信元ディレクトリと送信先ディレクトリを同じ状態にしたいときは下記のような指定をする $ rsync \ -e &quot;ssh -i ~/.ssh/id_rsa&quot; \ -ahv --compress --delete ./webui/public/ skmt@n-t.jp:/www/data/decks ssh鍵が指定が必要な場合は-"/>
+  <meta name="twitter:description" content="送信元ディレクトリと送信先ディレクトリを同じ状態にしたいときは下記のような指定をする $ rsync \ -e &quot;ssh -i ~/.ssh/id_rsa&quot; \ -ahv --compress --delete ./webui/public/ admin@test.jp:/www/data/ ssh鍵が指定が必要な場合は-"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -106,7 +106,7 @@
 
 <pre><code class="language-bash">$ rsync \
     -e &quot;ssh -i ~/.ssh/id_rsa&quot; \
-    -ahv --compress --delete ./webui/public/ skmt@n-t.jp:/www/data/decks
+    -ahv --compress --delete ./webui/public/ admin@test.jp:/www/data/
 </code></pre>
 
 <ul>
