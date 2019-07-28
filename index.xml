@@ -6,10 +6,19 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Fri, 26 Jul 2019 09:34:34 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 28 Jul 2019 09:54:35 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>AWS、LambdaまわりのIAM入門</title>
+      <link>https://dream-yt.github.io/post/aws-iam-101/</link>
+      <pubDate>Sun, 28 Jul 2019 09:54:35 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/aws-iam-101/</guid>
+      <description>lambda を使っていて、権限周りが分からなかったのでメモ 用語 IAM IAMロール ポリシー IAMポリシー リソースポリシー IAM 権限周りを管理しているエンティティ</description>
+    </item>
     
     <item>
       <title>rsyncでディレクトリをコピーする</title>

@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="https://dream-yt.github.io/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="AWS、LambdaまわりのIAM入門"/>
+  <meta name="twitter:description" content="lambda を使っていて、権限周りが分からなかったのでメモ 用語 IAM IAMロール ポリシー IAMポリシー リソースポリシー IAM 権限周りを管理しているエンティティ"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@site_author"/>
+  
+
+
+
+		
+		<meta name="author" content="site_author">
+		<meta name="description" content="Site Description">
+		<meta name="generator" content="Hugo 0.51" />
+		<title>AWS、LambdaまわりのIAM入門 &middot; sacre</title>
+		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/font-awesome.min.css">
+		
+
+		
+		<link href="https://dream-yt.github.io/index.xml" rel="alternate" type="application/rss+xml" title="sacre" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='https://dream-yt.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://dream-yt.github.io/posts'>Archive</a>
+	<a href='https://dream-yt.github.io/tags'>Tags</a>
+	<a href='https://dream-yt.github.io/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="https://dream-yt.github.io/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        AWS、LambdaまわりのIAM入門
+                    </h1>
+                    <h2 class="headline">
+                    Jul 28, 2019 09:54
+                    · 640 words
+                    · 2 minute read
+                      <span class="tags">
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+<ul>
+<li><a href="#用語">用語</a></li>
+<li><a href="#iam">IAM</a></li>
+<li><a href="#iamロール">IAMロール</a>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li><a href="#ポリシー">ポリシー</a>
+<ul>
+<li><a href="#iamポリシー">IAMポリシー</a></li>
+<li><a href="#リソースポリシー">リソースポリシー</a>
+<ul>
+<li>
+<ul>
+<li><a href="#例">例</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    
+
+<p>lambda を使っていて、権限周りが分からなかったのでメモ</p>
+
+<h1 id="用語">用語</h1>
+
+<ul>
+<li>IAM</li>
+<li>IAMロール</li>
+<li>ポリシー
+
+<ul>
+<li>IAMポリシー</li>
+<li>リソースポリシー</li>
+</ul></li>
+</ul>
+
+<h1 id="iam">IAM</h1>
+
+<p>権限周りを管理しているエンティティ</p>
+
+<ul>
+<li>どのAPI呼び出しを</li>
+<li>どのリソースに</li>
+<li>許可/不許可するか</li>
+</ul>
+
+<p>という定義がある</p>
+
+<h1 id="iamロール">IAMロール</h1>
+
+<p>IAMユーザに近い概念だが、同じ権限をサービス/idPなどにも移譲できる点で汎用的
+たとえばこんなことができる</p>
+
+<ul>
+<li>Lambda や EC2インスタンス に紐づけて、そこからのAWSリソースAPI呼び出しを許可する
+
+<ul>
+<li>AWS サービスロール</li>
+</ul></li>
+<li>他のAWSアカウントのIAMロールと紐づけて、アカウントをまたいで権限を渡す
+
+<ul>
+<li>クロスアカウントアクセスのロール</li>
+</ul></li>
+<li>シングルサインオンしたアカウントと紐づけて、AWSの操作権限を渡す
+
+<ul>
+<li>ID プロバイダアクセス用のロール</li>
+</ul></li>
+</ul>
+
+<h4 id="参考">参考</h4>
+
+<ul>
+<li><a href="https://dev.classmethod.jp/cloud/aws/cm-advent-calendar-2015-getting-started-again-aws-iam/">AWS再入門 AWS IAM (Identity and Access Management) 編 ｜ DevelopersIO</a></li>
+</ul>
+
+<h1 id="ポリシー">ポリシー</h1>
+
+<p>IAMの定義。JSON形式になっている</p>
+
+<ul>
+<li>Action
+
+<ul>
+<li>何を許可するか (eg: <code>ec2:StartInstances</code> )</li>
+</ul></li>
+<li>Resource
+
+<ul>
+<li>どのリソースに許可するか</li>
+<li>たとえば特定のs3バケットのみに操作を絞りたいときはここを使う</li>
+<li>eg: <code>*</code>
+
+<ul>
+<li>全部許可。<code>ec2:StartInstances</code> ならどこででもできるようになる</li>
+</ul></li>
+<li>eg: <code>arn:aws:dynamodb:us-east-2:0000000000:table/${aws:username}</code>
+
+<ul>
+<li>自分のユーザ名と同じテーブルへの操作を許可する</li>
+</ul></li>
+</ul></li>
+<li>Effect
+
+<ul>
+<li>許可( <code>Allow</code> )か不許可( <code>Deny</code> )かの二択</li>
+</ul></li>
+</ul>
+
+<h2 id="iamポリシー">IAMポリシー</h2>
+
+<p>Lambda はかならず実行ロールと呼ばれるIAMロールをつけて生成される
+このIAMロールについているポリシーがIAMポリシー</p>
+
+<h2 id="リソースポリシー">リソースポリシー</h2>
+
+<p>逆に Lambda をキックできる権限を渡すもの
+たとえば SNS から Lambda を呼び出す時は SNS にリソースポリシーが必要</p>
+
+<h4 id="例">例</h4>
+
+<p><code>aws lambda add-permission</code> コマンドで作成できる</p>
+
+<pre><code class="language-bash">aws lambda add-permission --function-name MyFunc \
+  --statement-id testtest \
+  --action lambda:InvokeFunction \
+  --principal sns.amazonaws.com \
+  --source-arn arn:aws:sns:ap-northeast-1:000000:MySNS
+</code></pre>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2faws-iam-101%2f - AWS%e3%80%81Lambda%e3%81%be%e3%82%8f%e3%82%8a%e3%81%aeIAM%e5%85%a5%e9%96%80 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'your_disqus_short_name'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/dream-yt/sacre">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://twitter.com/FUTABA_SACRE">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2019 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="https://dream-yt.github.io/js/jquery-3.3.1.min.js"></script>
+<script src="https://dream-yt.github.io/js/main.js"></script>
+<script src="https://dream-yt.github.io/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+
+
+
+
+    </body>
+</html>
