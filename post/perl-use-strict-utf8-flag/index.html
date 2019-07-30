@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="https://dream-yt.github.io/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="perlのstrict/utf8フラグについて"/>
+  <meta name="twitter:description" content="なんとなく知識では知っていたけど試したことがなかったのでメモ perlにはstrictフラグというものがあって、 構文エラーにならないけど変な式"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@site_author"/>
+  
+
+
+
+		
+		<meta name="author" content="site_author">
+		<meta name="description" content="Site Description">
+		<meta name="generator" content="Hugo 0.42.1" />
+		<title>perlのstrict/utf8フラグについて &middot; sacre</title>
+		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/font-awesome.min.css">
+		
+
+		
+		<link href="https://dream-yt.github.io/index.xml" rel="alternate" type="application/rss+xml" title="sacre" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='https://dream-yt.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://dream-yt.github.io/posts'>Archive</a>
+	<a href='https://dream-yt.github.io/tags'>Tags</a>
+	<a href='https://dream-yt.github.io/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="https://dream-yt.github.io/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        perlのstrict/utf8フラグについて
+                    </h1>
+                    <h2 class="headline">
+                    Jul 30, 2019 14:42
+                    · 985 words
+                    · 2 minute read
+                      <span class="tags">
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#strict">strict</a>
+<ul>
+<li><a href="#use-strict">use strict</a></li>
+<li><a href="#no-strict-vars">no strict &ldquo;vars&rdquo;</a></li>
+<li><a href="#blockの中だけ-no-strict">blockの中だけ no strict</a></li>
+<li><a href="#use-strict-してる別ファイルのモジュールをuseしたとき"><code>use strict</code> してる別ファイルのモジュールをuseしたとき</a></li>
+</ul></li>
+<li><a href="#utf8">utf8</a>
+<ul>
+<li><a href="#no-utf8">no utf8</a></li>
+<li><a href="#no-utf8-とブロック">no utf8 とブロック</a></li>
+<li><a href="#別ファイル">別ファイル</a></li>
+</ul></li>
+<li><a href="#その他">その他</a></li>
+<li><a href="#まとめ">まとめ</a></li>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    
+
+<p>なんとなく知識では知っていたけど試したことがなかったのでメモ</p>
+
+<p>perlにはstrictフラグというものがあって、
+構文エラーにならないけど変な式を書いてるとエラーにしてくれる仕組みがある</p>
+
+<pre><code class="language-perl">#!/usr/bin/env perl
+use strict;
+</code></pre>
+
+<ul>
+<li><a href="https://perldoc.jp/docs/perl/strict.pod">strict - 安全ではない構文を制限する Perl プラグマ - perldoc.jp</a></li>
+</ul>
+
+<h2 id="strict">strict</h2>
+
+<h3 id="use-strict">use strict</h3>
+
+<pre><code class="language-perl">use strict;
+$r = 1;
+</code></pre>
+
+<p><code>my</code> をつけないで変数宣言をしているのでstrictモードだとエラーになる</p>
+
+<pre><code class="language-console">$ carton exec perl -Ilib -It/lib ,/checkstrict.pl
+Global symbol &quot;$r&quot; requires explicit package name at ,/checkstrict.pl line 7.
+Execution of ,/checkstrict.pl aborted due to compilation errors.
+</code></pre>
+
+<h3 id="no-strict-vars">no strict &ldquo;vars&rdquo;</h3>
+
+<ul>
+<li><code>no strict</code> でフラグは無効化できる</li>
+<li>これはブロック内のみの無効化となる</li>
+</ul>
+
+<pre><code class="language-perl">use strict;
+no strict &quot;vars&quot;;
+$r = 1;
+</code></pre>
+
+<p>strictフラグが降りてるのでこれはOK</p>
+
+<h3 id="blockの中だけ-no-strict">blockの中だけ no strict</h3>
+
+<p>ドキュメントに書いてある通りの挙動</p>
+
+<pre><code class="language-perl">use strict;
+
+{
+  no strict &quot;vars&quot;;
+  $s = 0;
+}
+</code></pre>
+
+<p>ブロックの外は引き続きダメ</p>
+
+<pre><code class="language-perl">use strict;
+
+{
+  no strict &quot;vars&quot;;
+  $s = 0;
+}
+
+$r = 1;
+</code></pre>
+
+<pre><code class="language-console">$ carton exec perl -Ilib -It/lib ,/checkstrict.pl
+Global symbol &quot;$r&quot; requires explicit package name at ,/checkstrict.pl line 13.
+Execution of ,/checkstrict.pl aborted due to compilation errors.
+</code></pre>
+
+<h3 id="use-strict-してる別ファイルのモジュールをuseしたとき"><code>use strict</code> してる別ファイルのモジュールをuseしたとき</h3>
+
+<p><code>t/Utils.pm</code> という以下のようなファイルを作って、それをuseした場合</p>
+
+<pre><code class="language-perl">package t::Utils;
+use strict;
+1
+</code></pre>
+
+<pre><code class="language-perl">use t::Utils;
+$r = 1;
+</code></pre>
+
+<p>これはstrictフラグがたっておらず、エラーにならない
+(ただし、同じファイルでパッケージ違いの場合はエラーになる)</p>
+
+<h2 id="utf8">utf8</h2>
+
+<p>utf8も同様の挙動</p>
+
+<p>次のように書くと <code>utf8 flag on</code> が表示される
+(utf8フラグがオンだと全角スペースが <code>\s</code> 正規表現でひっかかる)</p>
+
+<pre><code class="language-perl">use utf8;
+my $zenkaku_space = &quot;　&quot;;
+print &quot;utf8 flag on\n&quot; if $zenkaku_space =~ /\s/;
+</code></pre>
+
+<pre><code class="language-console">utf8 flag on
+</code></pre>
+
+<h3 id="no-utf8">no utf8</h3>
+
+<p><code>no utf8</code> すると表示されない (フラグがオフになる)</p>
+
+<pre><code class="language-perl">use utf8;
+no utf8;
+
+my $zenkaku_space = &quot;　&quot;;
+print &quot;utf8 flag on\n&quot; if $zenkaku_space =~ /\s/;
+</code></pre>
+
+<h3 id="no-utf8-とブロック">no utf8 とブロック</h3>
+
+<p><code>no utf8</code> はstrict同様ブロック内だけ</p>
+
+<p>ちょっとはまったが、代入した行でフラグがどうなってるかが大事
+(フラグが立ってるところで代入された全角スペースは <code>\s</code> がひっかかる)</p>
+
+<pre><code class="language-perl">use utf8;
+my $zenkaku_space;
+{
+  no utf8;
+  print &quot;utf8 flag on\n&quot; if &quot;　&quot; =~ /\s/;
+}
+print &quot;still utf8 flag on\n&quot; if &quot;　&quot; =~ /\s/;
+</code></pre>
+
+<pre><code class="language-console">$ carton exec perl ,/checkstrict.pl
+still utf8 flag on
+</code></pre>
+
+<h3 id="別ファイル">別ファイル</h3>
+
+<p>strictと同様
+<code>use utf8</code> している別ファイルをuseしてもフラグはたたない</p>
+
+<pre><code class="language-perl">use t::Utils;
+print &quot;utf8 flag on\n&quot; if &quot;　&quot; =~ /\s/;
+</code></pre>
+
+<h2 id="その他">その他</h2>
+
+<p>ちなみに、ライブラリを書いていて、useされたときにuseした側にフラグを立てたい場合はこんな風に書く</p>
+
+<pre><code class="language-perl">use strict;
+use utf8;
+
+sub import {
+    strict-&gt;import;
+    utf8-&gt;import;
+}
+</code></pre>
+
+<h2 id="まとめ">まとめ</h2>
+
+<ul>
+<li>プラグマモジュールの挙動としてstrictもutf8も同じ</li>
+<li><code>no 〜</code> でフラグが降ろせるのはブロック内だけ</li>
+<li>フラグは別ファイルには伝播しない</li>
+<li>ただし伝播させる方法もある</li>
+</ul>
+
+<h2 id="参考">参考</h2>
+
+<ul>
+<li><a href="http://perldoc.jp/docs/perl/warnings.pod">warnings - 選択的な警告を調整する Perl プラグマ - perldoc.jp</a></li>
+<li><a href="https://perldoc.jp/docs/perl/5.10.1/perlmodlib.pod#Pragmatic32Modules">perlmodlib - 新たな Perl モジュールを作ったり、既にあるものを検索する - perldoc.jp</a></li>
+<li><a href="https://foosin.hatenablog.com/entry/20090326/1238078061">毎回use strict/warnings書くのがめどい - 新だるろぐ跡地</a></li>
+</ul>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fperl-use-strict-utf8-flag%2f - perl%e3%81%aestrict%2futf8%e3%83%95%e3%83%a9%e3%82%b0%e3%81%ab%e3%81%a4%e3%81%84%e3%81%a6 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'your_disqus_short_name'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/dream-yt/sacre">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://twitter.com/FUTABA_SACRE">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2019 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="https://dream-yt.github.io/js/jquery-3.3.1.min.js"></script>
+<script src="https://dream-yt.github.io/js/main.js"></script>
+<script src="https://dream-yt.github.io/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+
+
+
+
+    </body>
+</html>
