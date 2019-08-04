@@ -6,10 +6,19 @@
     <description>Recent content in Posts on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sun, 04 Aug 2019 13:16:56 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 04 Aug 2019 13:25:09 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>nodejs/typescriptでSNSイベントからgetMetricWidgetImage(画像)を取得する</title>
+      <link>https://dream-yt.github.io/post/node-getmetricwidgetimagewithsnsevent/</link>
+      <pubDate>Sun, 04 Aug 2019 13:25:09 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/node-getmetricwidgetimagewithsnsevent/</guid>
+      <description>こんな感じのコードでできた MetricWidget の型定義はaws-sdkにはなかった ドキュメントにはなっていた GetMetricWidgetImage: Metric Widget Structure and Syntax - Amazon CloudWatch SNSEvent の型定義は↓ DefinitelyTyped/index.d.ts at master · DefinitelyTyped/DefinitelyTyped import { SNSEvent }</description>
+    </item>
     
     <item>
       <title>TypescriptでLambdaのハンドラーを書いてbashでアップロードする</title>

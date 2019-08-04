@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="https://dream-yt.github.io/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="nodejs/typescriptでSNSイベントからgetMetricWidgetImage(画像)を取得する"/>
+  <meta name="twitter:description" content="こんな感じのコードでできた MetricWidget の型定義はaws-sdkにはなかった ドキュメントにはなっていた GetMetricWidgetImage: Metric Widget Structure and Syntax - Amazon CloudWatch SNSEvent の型定義は↓ DefinitelyTyped/index.d.ts at master · DefinitelyTyped/DefinitelyTyped import { SNSEvent }"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@site_author"/>
+  
+
+
+
+		
+		<meta name="author" content="site_author">
+		<meta name="description" content="Site Description">
+		<meta name="generator" content="Hugo 0.51" />
+		<title>nodejs/typescriptでSNSイベントからgetMetricWidgetImage(画像)を取得する &middot; sacre</title>
+		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/font-awesome.min.css">
+		
+
+		
+		<link href="https://dream-yt.github.io/index.xml" rel="alternate" type="application/rss+xml" title="sacre" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='https://dream-yt.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://dream-yt.github.io/posts'>Archive</a>
+	<a href='https://dream-yt.github.io/tags'>Tags</a>
+	<a href='https://dream-yt.github.io/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="https://dream-yt.github.io/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        nodejs/typescriptでSNSイベントからgetMetricWidgetImage(画像)を取得する
+                    </h1>
+                    <h2 class="headline">
+                    Aug 4, 2019 13:25
+                    · 260 words
+                    · 1 minute read
+                      <span class="tags">
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                
+                <section id="post-body">
+                    <p>こんな感じのコードでできた</p>
+
+<ul>
+<li><code>MetricWidget</code> の型定義はaws-sdkにはなかった
+
+<ul>
+<li>ドキュメントにはなっていた</li>
+<li><a href="https://docs.aws.amazon.com/ja_jp/AmazonCloudWatch/latest/APIReference/CloudWatch-Metric-Widget-Structure.html">GetMetricWidgetImage: Metric Widget Structure and Syntax - Amazon CloudWatch</a></li>
+</ul></li>
+<li><code>SNSEvent</code> の型定義は↓
+
+<ul>
+<li><a href="https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/aws-lambda/index.d.ts#L206">DefinitelyTyped/index.d.ts at master · DefinitelyTyped/DefinitelyTyped</a></li>
+</ul></li>
+</ul>
+
+<pre><code class="language-ts">import { SNSEvent } from 'aws-lambda';
+import { CloudWatch } from 'aws-sdk';
+import { isBuffer } from 'util';
+
+type MetricWidget = {
+  width: number;
+  height: number;
+  start: string;
+  end: string;
+  timezone: '+0900';
+  view: 'timeSeries';
+  stacked: boolean;
+  stat: 'SampleCount' | 'Average' | 'Sum' | 'Minimum' | 'Maximum' | 'p99';
+  title: string;
+  // [Namespace, MetricName, Dimension1Name, Dimension1Value, Dimension2Name, Dimension2Value... {Options Object}]
+  metrics: string[][];
+  period: 300;
+};
+
+export const getMetricWidgetImageWithSNSEvent = async (
+  event: SNSEvent,
+  options = {}
+) =&gt; {
+  const cloudWatch = new CloudWatch({ region: 'ap-northeast-1' });
+  const snsMessage = JSON.parse(event.Records[0].Sns.Message);
+  const { Namespace, MetricName } = snsMessage.Trigger;
+  const MetricWidget = JSON.stringify({
+    title: `${Namespace}: ${MetricName}`,
+    width: 1200,
+    height: 500,
+    metrics: [[Namespace, MetricName]],
+    start: '-PT3H',
+    end: 'PT0H',
+    timezone: '+0900',
+    view: 'timeSeries',
+    period: 300,
+    stacked: false,
+    stat: 'Sum',
+    ...options
+  } as MetricWidget);
+  const response = await cloudWatch
+    .getMetricWidgetImage({ MetricWidget })
+    .promise();
+  if (isBuffer(response.MetricWidgetImage)) {
+    return response.MetricWidgetImage;
+  } else {
+    throw Error(JSON.stringify({ response, event, options }));
+  }
+};
+</code></pre>
+
+<p>metricsの型がperlみたいで(酷くて)ちょっと面白かった</p>
+
+<blockquote>
+<p>[Namespace, MetricName, Dimension1Name, Dimension1Value, Dimension2Name, Dimension2Value&hellip; {Options Object}]</p>
+</blockquote>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fnode-getmetricwidgetimagewithsnsevent%2f - nodejs%2ftypescript%e3%81%a7SNS%e3%82%a4%e3%83%99%e3%83%b3%e3%83%88%e3%81%8b%e3%82%89getMetricWidgetImage%28%e7%94%bb%e5%83%8f%29%e3%82%92%e5%8f%96%e5%be%97%e3%81%99%e3%82%8b by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'your_disqus_short_name'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/dream-yt/sacre">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://twitter.com/FUTABA_SACRE">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2019 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="https://dream-yt.github.io/js/jquery-3.3.1.min.js"></script>
+<script src="https://dream-yt.github.io/js/main.js"></script>
+<script src="https://dream-yt.github.io/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+
+
+
+
+    </body>
+</html>
