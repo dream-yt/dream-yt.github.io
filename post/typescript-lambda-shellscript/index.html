@@ -13,8 +13,8 @@
     
   
   
-  <meta name="twitter:title" content="package.jsonの古いファイルをいっぺんに更新する"/>
-  <meta name="twitter:description" content="古いパッケージの一覧 $ npm outdated こんな感じの出力が得られる $ npm outdated Package Current Wanted Latest Location firebase-functions 2.3.1 2.3.1 3.1.0 project_name firebase-tools 6.12.0 6.12.0 7.1.0 project_name いっぺんに更新する 以下のようなワンライナーで全部最新"/>
+  <meta name="twitter:title" content="TypescriptでLambdaのハンドラーを書いてbashでアップロードする"/>
+  <meta name="twitter:description" content="普通だとlambdaのアップロードはserverlessなどフレームワークを使うが、package.jsonを別に作りたくない場合があり、デ"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -30,7 +30,7 @@
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
 		<meta name="generator" content="Hugo 0.51" />
-		<title>package.jsonの古いファイルをいっぺんに更新する &middot; sacre</title>
+		<title>TypescriptでLambdaのハンドラーを書いてbashでアップロードする &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
@@ -68,11 +68,11 @@
             <article>
                 <header>
                     <h1>
-                        package.jsonの古いファイルをいっぺんに更新する
+                        TypescriptでLambdaのハンドラーを書いてbashでアップロードする
                     </h1>
                     <h2 class="headline">
-                    Jul 15, 2019 18:50
-                    · 218 words
+                    Aug 4, 2019 13:16
+                    · 222 words
                     · 1 minute read
                       <span class="tags">
                       
@@ -81,57 +81,40 @@
                 </header>
                 
                   
-                    <div id="toc">
-                      <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#古いパッケージの一覧">古いパッケージの一覧</a></li>
-<li><a href="#いっぺんに更新する">いっぺんに更新する</a></li>
-<li><a href="#その他">その他</a></li>
-</ul></li>
-</ul>
-</nav>
-                    </div>
-                  
                 
                 <section id="post-body">
-                    
+                    <p>普通だとlambdaのアップロードはserverlessなどフレームワークを使うが、package.jsonを別に作りたくない場合があり、デプロイをシェルスクリプトでやったのでメモ</p>
 
-<h2 id="古いパッケージの一覧">古いパッケージの一覧</h2>
+<pre><code class="language-bash">#!/bin/bash
+set -eu
+cd $(dirname $0)
 
-<pre><code class="language-bash">$ npm outdated
+$(npm bin)/tsc --build --clean &amp;&amp; $(npm bin)/tsc --build
+
+zip -qr ~/Desktop/lambda.zip \
+  ./index.js \
+  $(find ./src -name '*.js' -o -name '*.js.map' -type f) \
+  ./node_modules
+
+aws lambda update-function-code \
+  --function-name MyLambda \
+  --zip-file fileb://~/Desktop/lambda.zip
 </code></pre>
-
-<p>こんな感じの出力が得られる</p>
-
-<pre><code>$ npm outdated
-Package             Current  Wanted  Latest  Location
-firebase-functions    2.3.1   2.3.1   3.1.0  project_name
-firebase-tools       6.12.0  6.12.0   7.1.0  project_name
-</code></pre>
-
-<h2 id="いっぺんに更新する">いっぺんに更新する</h2>
-
-<p>以下のようなワンライナーで全部最新のに更新できる</p>
-
-<pre><code>$ npm outdated | grep -v ^Package | awk '{print $1}' | xargs -I{} yarn add {}@latest
-</code></pre>
-
-<h2 id="その他">その他</h2>
-
-<p><code>npm-check-updates</code> というコマンドをインストールすると
-この辺りをよしなにやってくれるようだ (けどインストールするのも手間なのでワンライナーでなんとかしてしまった)</p>
 
 <ul>
-<li><a href="https://dackdive.hateblo.jp/entry/2016/10/10/095800">npm installしたパッケージの更新確認とアップデート(npm-check-updates) - dackdive&rsquo;s blog</a></li>
+<li><code>./node_modules</code> 配下のdevDepsがzipに入り込んでしまうのが微妙</li>
+<li>zipファイルが10MB以上の場合はs3デプロイが推奨されている
+
+<ul>
+<li>ロールバックとかを考えると、本当はs3デプロイのほうがよいようだ</li>
+</ul></li>
 </ul>
 
                 </section>
             </article>
 
             
-                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fupdate-npm-outdated%2f - package.json%e3%81%ae%e5%8f%a4%e3%81%84%e3%83%95%e3%82%a1%e3%82%a4%e3%83%ab%e3%82%92%e3%81%84%e3%81%a3%e3%81%ba%e3%82%93%e3%81%ab%e6%9b%b4%e6%96%b0%e3%81%99%e3%82%8b by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2ftypescript-lambda-shellscript%2f - Typescript%e3%81%a7Lambda%e3%81%ae%e3%83%8f%e3%83%b3%e3%83%89%e3%83%a9%e3%83%bc%e3%82%92%e6%9b%b8%e3%81%84%e3%81%a6bash%e3%81%a7%e3%82%a2%e3%83%83%e3%83%97%e3%83%ad%e3%83%bc%e3%83%89%e3%81%99%e3%82%8b by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
 
 <a class="facebook" href="#" onclick="
     window.open(
