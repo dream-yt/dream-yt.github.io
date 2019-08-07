@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="https://dream-yt.github.io/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="serverless deploy を amazonlinuxイメージで行う"/>
+  <meta name="twitter:description" content="lambdaとnodeのネイティブモジュール周りで辛いことになった時用 Dockerfile FROM amazonlinux:latest RUN curl --silent --location https://dl.yarnpkg.com/rpm/yarn.repo &gt; /etc/yum.repos.d/yarn.repo RUN curl --silent --location https://rpm.nodesource.com/setup_10.x | bash RUN yum install -y nodejs gcc-c&#43;&#43; make git yarn RUN yarn global add serverless --silent --no-progress RUN mkdir"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@site_author"/>
+  
+
+
+
+		
+		<meta name="author" content="site_author">
+		<meta name="description" content="Site Description">
+		<meta name="generator" content="Hugo 0.51" />
+		<title>serverless deploy を amazonlinuxイメージで行う &middot; sacre</title>
+		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/font-awesome.min.css">
+		
+
+		
+		<link href="https://dream-yt.github.io/index.xml" rel="alternate" type="application/rss+xml" title="sacre" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='https://dream-yt.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://dream-yt.github.io/posts'>Archive</a>
+	<a href='https://dream-yt.github.io/tags'>Tags</a>
+	<a href='https://dream-yt.github.io/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="https://dream-yt.github.io/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        serverless deploy を amazonlinuxイメージで行う
+                    </h1>
+                    <h2 class="headline">
+                    Aug 5, 2019 11:32
+                    · 166 words
+                    · 1 minute read
+                      <span class="tags">
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#dockerfile">Dockerfile</a></li>
+<li><a href="#dockerignore">.dockerignore</a></li>
+<li><a href="#slsw-sh">slsw.sh</a>
+<ul>
+<li>
+<ul>
+<li><a href="#eg">eg</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    
+
+<p>lambdaとnodeのネイティブモジュール周りで辛いことになった時用</p>
+
+<h2 id="dockerfile">Dockerfile</h2>
+
+<pre><code class="language-dockerfile">FROM amazonlinux:latest
+
+RUN curl --silent --location https://dl.yarnpkg.com/rpm/yarn.repo &gt; /etc/yum.repos.d/yarn.repo
+RUN curl --silent --location https://rpm.nodesource.com/setup_10.x | bash
+RUN yum install -y nodejs gcc-c++ make git yarn
+RUN yarn global add serverless --silent --no-progress
+
+RUN mkdir /app
+WORKDIR /app
+
+ADD package.json /app/package.json
+ADD yarn.lock /app/yarn.lock
+# build用なのでdevDepsも必要
+RUN yarn install --silent --no-progress --frozen-lockfile
+
+ADD . /app
+CMD [&quot;/bin/bash&quot;, &quot;-c&quot;, &quot;node --version; yarn --version; serverless --version&quot;]
+</code></pre>
+
+<h2 id="dockerignore">.dockerignore</h2>
+
+<pre><code class="language-bash">node_modules
+.webpack
+# AWSトークンなどの管理用
+.envrc
+</code></pre>
+
+<h2 id="slsw-sh">slsw.sh</h2>
+
+<pre><code class="language-bash">#!/bin/bash
+
+docker build -t sls-amzn-build .
+docker run -it \
+  --env AWS_ACCESS_KEY_ID=&quot;$AWS_ACCESS_KEY_ID&quot; \
+  --env AWS_SECRET_ACCESS_KEY=&quot;$AWS_SECRET_ACCESS_KEY&quot; \
+  sls-amzn-build:latest serverless $@
+</code></pre>
+
+<h4 id="eg">eg</h4>
+
+<pre><code>slsw.sh logs --function MyFunc --stage dev
+slsw.sh deploy --stage dev
+</code></pre>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fserverless-deploy-from-docker-container%2f - serverless%20deploy%20%e3%82%92%20amazonlinux%e3%82%a4%e3%83%a1%e3%83%bc%e3%82%b8%e3%81%a7%e8%a1%8c%e3%81%86 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'your_disqus_short_name'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/dream-yt/sacre">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://twitter.com/FUTABA_SACRE">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2019 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="https://dream-yt.github.io/js/jquery-3.3.1.min.js"></script>
+<script src="https://dream-yt.github.io/js/main.js"></script>
+<script src="https://dream-yt.github.io/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+
+
+
+
+    </body>
+</html>
