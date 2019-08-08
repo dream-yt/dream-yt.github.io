@@ -13,8 +13,8 @@
     
   
   
-  <meta name="twitter:title" content="Bq Bigqueryrc in Project"/>
-  <meta name="twitter:description" content=""/>
+  <meta name="twitter:title" content="プロジェクトの.bigqueryrcの設定"/>
+  <meta name="twitter:description" content="bqコマンド、--maximum_bytes_billed とか、デフォルトで設定しておきたいオプションはある .bigqueryrc というファイルを使うとbqコマ"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -30,7 +30,7 @@
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
 		<meta name="generator" content="Hugo 0.42.1" />
-		<title>Bq Bigqueryrc in Project &middot; sacre</title>
+		<title>プロジェクトの.bigqueryrcの設定 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
@@ -68,12 +68,12 @@
             <article>
                 <header>
                     <h1>
-                        Bq Bigqueryrc in Project
+                        プロジェクトの.bigqueryrcの設定
                     </h1>
                     <h2 class="headline">
                     Aug 8, 2019 12:14
-                    · 0 word
-                    · 0 minute read
+                    · 326 words
+                    · 1 minute read
                       <span class="tags">
                       
                       </span>
@@ -81,14 +81,67 @@
                 </header>
                 
                   
+                    <div id="toc">
+                      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#どのパスの-bigqueryrc-ファイルが使われるか">どのパスの .bigqueryrc ファイルが使われるか</a></li>
+<li><a href="#プロジェクト-bigqueryrc-ファイルを設定をする">プロジェクト .bigqueryrc ファイルを設定をする</a></li>
+<li><a href="#bigqueryrc-ファイルの例">.bigqueryrc ファイルの例</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+                    </div>
+                  
                 
                 <section id="post-body">
                     
+
+<ul>
+<li>bqコマンド、<code>--maximum_bytes_billed</code> とか、デフォルトで設定しておきたいオプションはある</li>
+<li>.bigqueryrc というファイルを使うとbqコマンドのデフォルトオプションを設定できる</li>
+</ul>
+
+<h3 id="どのパスの-bigqueryrc-ファイルが使われるか">どのパスの .bigqueryrc ファイルが使われるか</h3>
+
+<p>デフォルトだと <code>$HOME/.bigqueryrc</code> なので、そこは工夫が必要</p>
+
+<blockquote>
+<p>&ndash;bigqueryrc フラグが指定されていない場合は、BIGQUERYRC 環境変数が使用されます。これが指定されていない場合、パス ~/.bigqueryrc が使用されます。デフォルトのパスは $HOME/.bigqueryrc です。</p>
+</blockquote>
+
+<ul>
+<li><a href="https://cloud.google.com/bigquery/docs/bq-command-line-tool?hl=ja#setting_default_values_for_command-line_flags">bq コマンドライン ツールの使用  |  BigQuery  |  Google Cloud</a></li>
+</ul>
+
+<h3 id="プロジェクト-bigqueryrc-ファイルを設定をする">プロジェクト .bigqueryrc ファイルを設定をする</h3>
+
+<p>direnvをつかって BIGQUERYRC 環境変数を設定する</p>
+
+<pre><code class="language-bash">export BIGQUERYRC=$(git rev-parse --show-toplevel)/.bigqueryrc
+</code></pre>
+
+<p><code>git rev-parse --show-toplevel</code> で リポジトリのトップレベルのパスが取得できる</p>
+
+<h3 id="bigqueryrc-ファイルの例">.bigqueryrc ファイルの例</h3>
+
+<p>サブコマンドごとに <code>[サブコマンド名]</code> で区切って記述する</p>
+
+<pre><code>[query]
+--max_rows=2147483647
+--maximum_bytes_billed=200000000
+--use_legacy_sql=false
+</code></pre>
+
                 </section>
             </article>
 
             
-                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fbq-bigqueryrc-in-project%2f - Bq%20Bigqueryrc%20in%20Project by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fbq-bigqueryrc-in-project%2f - %e3%83%97%e3%83%ad%e3%82%b8%e3%82%a7%e3%82%af%e3%83%88%e3%81%ae.bigqueryrc%e3%81%ae%e8%a8%ad%e5%ae%9a by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
 
 <a class="facebook" href="#" onclick="
     window.open(
