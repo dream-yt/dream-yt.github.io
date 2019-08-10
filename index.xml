@@ -6,10 +6,19 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Thu, 08 Aug 2019 12:14:56 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 10 Aug 2019 16:24:49 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>bigqueryのクエリ結果をgcsに出力するスクリプト</title>
+      <link>https://dream-yt.github.io/post/bigquery-export-gcs-script-py/</link>
+      <pubDate>Sat, 10 Aug 2019 16:24:49 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/bigquery-export-gcs-script-py/</guid>
+      <description>こんな段取りで行う テンポラリなテーブルを作って、そこにクエリの結果を入れる そのテンポラリなテーブルを、データエクスポート機能を使ってgcsに</description>
+    </item>
     
     <item>
       <title>プロジェクトの.bigqueryrcの設定</title>
