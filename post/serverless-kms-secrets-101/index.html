@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="https://dream-yt.github.io/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="serverless-kms-secrets を導入する手順"/>
+  <meta name="twitter:description" content="こちらの使い方 nordcloud/serverless-kms-secrets: 🔑🔐☁️ Serverless plugin to encrypt variables with KMS インストール $ npm install --save-dev serverless-kms-secrets CMKを生成 kmsでCMKを作成 s$ aws kms create-key --description &#39;for_some&#39; { &quot;KeyMetadata&quot;: { &quot;AWSAccountId&quot;: &quot;00000000&quot;, &quot;KeyId&quot;: &quot;xxxxxxxx-f24e-4dc0-b639-2eee249d5be8&quot;, &quot;Arn&quot;: &quot;arn:aws:kms:ap-northeast-1:00000000:key/xxxxxxxx-f24e-4dc0-b639-2eee249d5be8&quot;, &quot;CreationDate&quot;: 1566028483.619, &quot;Enabled&quot;: true, &quot;Description&quot;: &quot;for_some&quot;, &quot;KeyUsage&quot;: &quot;ENCRYPT_DECRYPT&quot;, &quot;KeyState&quot;:"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@site_author"/>
+  
+
+
+
+		
+		<meta name="author" content="site_author">
+		<meta name="description" content="Site Description">
+		<meta name="generator" content="Hugo 0.51" />
+		<title>serverless-kms-secrets を導入する手順 &middot; sacre</title>
+		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/font-awesome.min.css">
+		
+
+		
+		<link href="https://dream-yt.github.io/index.xml" rel="alternate" type="application/rss+xml" title="sacre" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='https://dream-yt.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://dream-yt.github.io/posts'>Archive</a>
+	<a href='https://dream-yt.github.io/tags'>Tags</a>
+	<a href='https://dream-yt.github.io/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="https://dream-yt.github.io/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        serverless-kms-secrets を導入する手順
+                    </h1>
+                    <h2 class="headline">
+                    Aug 17, 2019 18:28
+                    · 454 words
+                    · 1 minute read
+                      <span class="tags">
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#インストール">インストール</a></li>
+<li><a href="#cmkを生成">CMKを生成</a></li>
+<li><a href="#serverless-yml-に組み込み">serverless.yml に組み込み</a></li>
+<li><a href="#データを暗号化">データを暗号化</a>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#例">例</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li><a href="#環境変数に暗号化されたデータを組み込み">環境変数に暗号化されたデータを組み込み</a></li>
+<li><a href="#コードに組み込み">コードに組み込み</a></li>
+</ul></li>
+</ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    
+
+<p>こちらの使い方</p>
+
+<ul>
+<li><a href="https://github.com/nordcloud/serverless-kms-secrets">nordcloud/serverless-kms-secrets: 🔑🔐☁️ Serverless plugin to encrypt variables with KMS</a></li>
+</ul>
+
+<h2 id="インストール">インストール</h2>
+
+<pre><code class="language-console">$ npm install --save-dev serverless-kms-secrets
+</code></pre>
+
+<h2 id="cmkを生成">CMKを生成</h2>
+
+<p>kmsでCMKを作成</p>
+
+<pre><code class="language-console">s$ aws kms create-key --description 'for_some'
+{
+    &quot;KeyMetadata&quot;: {
+        &quot;AWSAccountId&quot;: &quot;00000000&quot;,
+        &quot;KeyId&quot;: &quot;xxxxxxxx-f24e-4dc0-b639-2eee249d5be8&quot;,
+        &quot;Arn&quot;: &quot;arn:aws:kms:ap-northeast-1:00000000:key/xxxxxxxx-f24e-4dc0-b639-2eee249d5be8&quot;,
+        &quot;CreationDate&quot;: 1566028483.619,
+        &quot;Enabled&quot;: true,
+        &quot;Description&quot;: &quot;for_some&quot;,
+        &quot;KeyUsage&quot;: &quot;ENCRYPT_DECRYPT&quot;,
+        &quot;KeyState&quot;: &quot;Enabled&quot;,
+        &quot;Origin&quot;: &quot;AWS_KMS&quot;,
+        &quot;KeyManager&quot;: &quot;CUSTOMER&quot;
+    }
+}
+</code></pre>
+
+<p>CMKでは4KB以上のデータが暗号化できないはず(データキーを使う)だが、それ以上長いものがどうなるかは確認していない</p>
+
+<h2 id="serverless-yml-に組み込み">serverless.yml に組み込み</h2>
+
+<ul>
+<li>プラグインのロード</li>
+<li>lambdaに復号の権限</li>
+<li>暗号化に必要なkeyArn</li>
+</ul>
+
+<pre><code class="language-diff">plugins:
+   - serverless-prune-plugin
+   - serverless-plugin-tracing
+   - serverless-dotenv-plugin
++  - serverless-kms-secrets
+
+ provider:
+   name: aws
+@@ -21,7 +22,13 @@ provider:
+         - xray:PutTraceSegments
+         - xray:PutTelemetryRecords
+       Resource: &quot;*&quot;
++    - Effect: Allow
++      Action:
++      - KMS:Decrypt
++      Resource: ${self:custom.kmsSecrets.keyArn}
+ custom:
++  kmsSecrets:
++    file: ${file(kms-secrets.${opt:stage, self:provider.stage}.${opt:region, self:provider.region}.yml)}
++    keyArn: 'arn:aws:kms:ap-northeast-1:00000000:key/xxxxxxxx-f24e-4dc0-b639-2eee249d5be8'
+</code></pre>
+
+<h2 id="データを暗号化">データを暗号化</h2>
+
+<p>コマンドはこんな感じ</p>
+
+<pre><code class="language-console">$ serverless encrypt --help
+Plugin: kmsSecretsPlugin
+encrypt ....................... Encrypt variables to file
+    --name / -n (required) ............. Name of variable
+    --value / -v (required) ............ Value of variable
+    --keyid / -k ....................... KMS key Id
+</code></pre>
+
+<h5 id="例">例</h5>
+
+<pre><code class="language-bash">serverless encrypt --stage dev \
+  --name SLACK_WEBHOOKURL \
+  --value 'https://hooks.slack.com/services/xxxxxxxx' \
+  --keyid 'xxxxxxxx-f24e-4dc0-b639-2eee249d5be8'
+</code></pre>
+
+<p>デフォルトの設定だと <code>kms-secrets.dev.ap-northeast-1.yml</code> という名前のファイルにBASE64形式で保管された</p>
+
+<h2 id="環境変数に暗号化されたデータを組み込み">環境変数に暗号化されたデータを組み込み</h2>
+
+<pre><code class="language-diff">functions:
+           # UTC
+           rate: cron(10 * * * ? *)
+           enabled: true
++    environment:
++      SLACK_WEBHOOKURL: ${self:custom.kmsSecrets.file.secrets.SLACK_WEBHOOKURL}
+</code></pre>
+
+<h2 id="コードに組み込み">コードに組み込み</h2>
+
+<p>こんな感じで使うようにした</p>
+
+<pre><code class="language-ts">const aws = require('aws-sdk');
+
+export async function getSecretFromKms(key: string) {
+  // TODO invoke local 経由の実行時用にローカル環境では環境変数を読むようにする
+  const kms = new aws.KMS({
+    apiVersion: '2014-11-01',
+    region: 'ap-northeast-1',
+  });
+  const data = await kms
+    .decrypt({
+      CiphertextBlob: new Buffer(process.env[key], 'base64'),
+    })
+    .promise();
+  return String(data.Plaintext);
+}
+</code></pre>
+
+<pre><code class="language-ts">    let url = await getSecretFromKms('SLACK_WEBHOOKURL');
+</code></pre>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fserverless-kms-secrets-101%2f - serverless-kms-secrets%20%e3%82%92%e5%b0%8e%e5%85%a5%e3%81%99%e3%82%8b%e6%89%8b%e9%a0%86 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'your_disqus_short_name'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/dream-yt/sacre">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://twitter.com/FUTABA_SACRE">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2019 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="https://dream-yt.github.io/js/jquery-3.3.1.min.js"></script>
+<script src="https://dream-yt.github.io/js/main.js"></script>
+<script src="https://dream-yt.github.io/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+
+
+
+
+    </body>
+</html>

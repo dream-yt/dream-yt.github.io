@@ -6,10 +6,19 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sat, 17 Aug 2019 16:43:19 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 17 Aug 2019 18:28:17 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>serverless-kms-secrets を導入する手順</title>
+      <link>https://dream-yt.github.io/post/serverless-kms-secrets-101/</link>
+      <pubDate>Sat, 17 Aug 2019 18:28:17 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/serverless-kms-secrets-101/</guid>
+      <description>こちらの使い方 nordcloud/serverless-kms-secrets: 🔑🔐☁️ Serverless plugin to encrypt variables with KMS インストール $ npm install --save-dev serverless-kms-secrets CMKを生成 kmsでCMKを作成 s$ aws kms create-key --description &#39;for_some&#39; { &amp;quot;KeyMetadata&amp;quot;: { &amp;quot;AWSAccountId&amp;quot;: &amp;quot;00000000&amp;quot;, &amp;quot;KeyId&amp;quot;: &amp;quot;xxxxxxxx-f24e-4dc0-b639-2eee249d5be8&amp;quot;, &amp;quot;Arn&amp;quot;: &amp;quot;arn:aws:kms:ap-northeast-1:00000000:key/xxxxxxxx-f24e-4dc0-b639-2eee249d5be8&amp;quot;, &amp;quot;CreationDate&amp;quot;: 1566028483.619, &amp;quot;Enabled&amp;quot;: true, &amp;quot;Description&amp;quot;: &amp;quot;for_some&amp;quot;, &amp;quot;KeyUsage&amp;quot;: &amp;quot;ENCRYPT_DECRYPT&amp;quot;, &amp;quot;KeyState&amp;quot;:</description>
+    </item>
     
     <item>
       <title>AWS Key Management Service (KMS) 入門</title>
