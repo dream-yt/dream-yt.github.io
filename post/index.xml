@@ -6,10 +6,19 @@
     <description>Recent content in Posts on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sat, 17 Aug 2019 18:28:17 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 24 Aug 2019 16:00:57 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>athena(presto)で、dateとtimeからJSTを得る</title>
+      <link>https://dream-yt.github.io/post/cloudfront-access-log-jst-datetime/</link>
+      <pubDate>Sat, 24 Aug 2019 16:00:57 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/cloudfront-access-log-jst-datetime/</guid>
+      <description>CloudFrontのログファイルをathenaでテーブルにすると、dateカラムとtimeカラムで別カラムになっている Amazon CloudFront ログのクエリ - Amazon</description>
+    </item>
     
     <item>
       <title>serverless-kms-secrets を導入する手順</title>
