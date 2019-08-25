@@ -6,10 +6,19 @@
     <description>Recent content in Posts on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sun, 25 Aug 2019 15:06:15 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 25 Aug 2019 15:44:56 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>webpackで、プロジェクトのファイルを@ディレクトリ配下でimportできるような設定</title>
+      <link>https://dream-yt.github.io/post/import-withmark-in-typescript-vscode-jest/</link>
+      <pubDate>Sun, 25 Aug 2019 15:44:56 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/import-withmark-in-typescript-vscode-jest/</guid>
+      <description>webpackだとsymlink貼ったり NODE_PATH をいじったりする必要はない 差分 webpack.config.js を変更しないとビルドできない resolve: { + alias: { &#39;@&#39;: path.resolve(__dirname, &#39;./src/&#39;) }, extensions: [&#39;.ts&#39;, &#39;.tsx&#39;, &#39;.js&#39;] }, 正常にビル</description>
+    </item>
     
     <item>
       <title>serverless-webpack のプロジェクトで serverless-offline 実行時に NODE_ENV を設定する</title>
