@@ -6,10 +6,28 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sun, 25 Aug 2019 15:44:56 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 12 Sep 2019 12:29:58 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>macosでデフォルトで開くアプリをコマンドライン(duti)で変更する</title>
+      <link>https://dream-yt.github.io/post/macos-duti/</link>
+      <pubDate>Thu, 12 Sep 2019 12:29:58 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/macos-duti/</guid>
+      <description>macosでは各拡張子ごとにデフォルトで開くアプリが決まっている Finderから変更はできるが、扱う拡張子はけっこうたくさんあるのでいちいち</description>
+    </item>
+    
+    <item>
+      <title>serverless-kms-secrets を導入する手順2</title>
+      <link>https://dream-yt.github.io/post/serverless-kms-secrets-102/</link>
+      <pubDate>Sat, 07 Sep 2019 18:28:17 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/serverless-kms-secrets-102/</guid>
+      <description>こちらの使い方 nordcloud/serverless-kms-secrets: 🔑🔐☁️ Serverless plugin to encrypt variables with KMS インストール $ npm install --save-dev serverless-kms-secrets CMKを生成 kmsでCMK(マスターキーのようなもの)を作成 ポリシーの設定など細</description>
+    </item>
     
     <item>
       <title>webpackで、プロジェクトのファイルを@ディレクトリ配下でimportできるような設定</title>

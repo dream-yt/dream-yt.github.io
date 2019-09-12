@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.57.2" />
 		<title>perlのstrict/utf8フラグについて &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -143,13 +143,14 @@ Execution of ,/checkstrict.pl aborted due to compilation errors.
 
 <ul>
 <li><code>no strict</code> でフラグは無効化できる</li>
-<li>これはブロック内のみの無効化となる</li>
-</ul>
+
+<li><p>これはブロック内のみの無効化となる</p>
 
 <pre><code class="language-perl">use strict;
 no strict &quot;vars&quot;;
 $r = 1;
-</code></pre>
+</code></pre></li>
+</ul>
 
 <p>strictフラグが降りてるのでこれはOK</p>
 

@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.57.2" />
 		<title>commitを別の作業branchへ移動する方法 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -126,11 +126,11 @@
 <p><strong>2. branch Aで下記コマンドを叩いて、移動するcommitのIDを確認</strong></p>
 
 <ul>
-<li>末尾に <code>-10</code>などいれると最新のcommitを上から10個表示するなど指定できる</li>
-</ul>
+<li><p>末尾に <code>-10</code>などいれると最新のcommitを上から10個表示するなど指定できる</p>
 
 <pre><code class="language-bash">$ git log --oneline 
-</code></pre>
+</code></pre></li>
+</ul>
 
 <p><img src="/images/post/dream/GitCherryPick02.png" alt="This is a image" /></p>
 
@@ -138,11 +138,12 @@
 
 <ul>
 <li>コマンドの後にcommit IDを入力</li>
-<li>古い順に入力すること</li>
-</ul>
+
+<li><p>古い順に入力すること</p>
 
 <pre><code class="language-bash">$ git cherry-pick xxxxxxx yyyyyyy zzzzzzz
-</code></pre>
+</code></pre></li>
+</ul>
 
 <p><strong>4. commitがbranch Bに移動できているかlogで確認</strong></p>
 
@@ -153,11 +154,12 @@
 
 <ul>
 <li>下記のコマンドでできるらしい</li>
-<li>HEAD~xは任意の数値に変更</li>
-</ul>
+
+<li><p>HEAD~xは任意の数値に変更</p>
 
 <pre><code class="language-bash">$ git reset --hard HEAD~3
-</code></pre>
+</code></pre></li>
+</ul>
 
 <h1 id="他のやりかた">他のやりかた</h1>
 

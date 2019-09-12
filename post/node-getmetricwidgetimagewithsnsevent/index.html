@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.57.2" />
 		<title>nodejs/typescriptでSNSイベントからgetMetricWidgetImage(画像)を取得する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -92,63 +92,64 @@
 <li>ドキュメントにはなっていた</li>
 <li><a href="https://docs.aws.amazon.com/ja_jp/AmazonCloudWatch/latest/APIReference/CloudWatch-Metric-Widget-Structure.html">GetMetricWidgetImage: Metric Widget Structure and Syntax - Amazon CloudWatch</a></li>
 </ul></li>
-<li><code>SNSEvent</code> の型定義は↓
+
+<li><p><code>SNSEvent</code> の型定義は↓</p>
 
 <ul>
-<li><a href="https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/aws-lambda/index.d.ts#L206">DefinitelyTyped/index.d.ts at master · DefinitelyTyped/DefinitelyTyped</a></li>
-</ul></li>
-</ul>
+<li><p><a href="https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/aws-lambda/index.d.ts#L206">DefinitelyTyped/index.d.ts at master · DefinitelyTyped/DefinitelyTyped</a></p>
 
 <pre><code class="language-ts">import { SNSEvent } from 'aws-lambda';
 import { CloudWatch } from 'aws-sdk';
 import { isBuffer } from 'util';
 
 type MetricWidget = {
-  width: number;
-  height: number;
-  start: string;
-  end: string;
-  timezone: '+0900';
-  view: 'timeSeries';
-  stacked: boolean;
-  stat: 'SampleCount' | 'Average' | 'Sum' | 'Minimum' | 'Maximum' | 'p99';
-  title: string;
-  // [Namespace, MetricName, Dimension1Name, Dimension1Value, Dimension2Name, Dimension2Value... {Options Object}]
-  metrics: string[][];
-  period: 300;
+width: number;
+height: number;
+start: string;
+end: string;
+timezone: '+0900';
+view: 'timeSeries';
+stacked: boolean;
+stat: 'SampleCount' | 'Average' | 'Sum' | 'Minimum' | 'Maximum' | 'p99';
+title: string;
+// [Namespace, MetricName, Dimension1Name, Dimension1Value, Dimension2Name, Dimension2Value... {Options Object}]
+metrics: string[][];
+period: 300;
 };
 
 export const getMetricWidgetImageWithSNSEvent = async (
-  event: SNSEvent,
-  options = {}
+event: SNSEvent,
+options = {}
 ) =&gt; {
-  const cloudWatch = new CloudWatch({ region: 'ap-northeast-1' });
-  const snsMessage = JSON.parse(event.Records[0].Sns.Message);
-  const { Namespace, MetricName } = snsMessage.Trigger;
-  const MetricWidget = JSON.stringify({
-    title: `${Namespace}: ${MetricName}`,
-    width: 1200,
-    height: 500,
-    metrics: [[Namespace, MetricName]],
-    start: '-PT3H',
-    end: 'PT0H',
-    timezone: '+0900',
-    view: 'timeSeries',
-    period: 300,
-    stacked: false,
-    stat: 'Sum',
-    ...options
-  } as MetricWidget);
-  const response = await cloudWatch
-    .getMetricWidgetImage({ MetricWidget })
-    .promise();
-  if (isBuffer(response.MetricWidgetImage)) {
-    return response.MetricWidgetImage;
-  } else {
-    throw Error(JSON.stringify({ response, event, options }));
-  }
+const cloudWatch = new CloudWatch({ region: 'ap-northeast-1' });
+const snsMessage = JSON.parse(event.Records[0].Sns.Message);
+const { Namespace, MetricName } = snsMessage.Trigger;
+const MetricWidget = JSON.stringify({
+title: `${Namespace}: ${MetricName}`,
+width: 1200,
+height: 500,
+metrics: [[Namespace, MetricName]],
+start: '-PT3H',
+end: 'PT0H',
+timezone: '+0900',
+view: 'timeSeries',
+period: 300,
+stacked: false,
+stat: 'Sum',
+...options
+} as MetricWidget);
+const response = await cloudWatch
+.getMetricWidgetImage({ MetricWidget })
+.promise();
+if (isBuffer(response.MetricWidgetImage)) {
+return response.MetricWidgetImage;
+} else {
+throw Error(JSON.stringify({ response, event, options }));
+}
 };
-</code></pre>
+</code></pre></li>
+</ul></li>
+</ul>
 
 <p>metricsの型がperlみたいで(酷くて)ちょっと面白かった</p>
 

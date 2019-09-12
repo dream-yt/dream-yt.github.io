@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.57.2" />
 		<title>node-canvasをlambdaで動かす &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -123,8 +123,7 @@
 <p>こちらから拝借</p>
 
 <ul>
-<li><a href="https://gist.github.com/jakelazaroff/29e3e6d81c6cba1c6a8a10c09324c888">node-canvas error | gist.github.com/jakelazaroff</a></li>
-</ul>
+<li><p><a href="https://gist.github.com/jakelazaroff/29e3e6d81c6cba1c6a8a10c09324c888">node-canvas error | gist.github.com/jakelazaroff</a></p>
 
 <pre><code class="language-dockerfile">FROM amazonlinux:latest
 
@@ -140,7 +139,8 @@ WORKDIR /build
 
 ENTRYPOINT [&quot;yarn&quot;]
 CMD [&quot;install&quot;]
-</code></pre>
+</code></pre></li>
+</ul>
 
 <p>なお、nodeのversionを10系にするとuuidがstatic linkされてないとのことで動かなかった</p>
 

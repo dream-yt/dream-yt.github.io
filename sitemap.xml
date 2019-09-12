@@ -3,6 +3,26 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://dream-yt.github.io/post/macos-duti/</loc>
+    <lastmod>2019-09-12T12:29:58+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://dream-yt.github.io/post/</loc>
+    <lastmod>2019-09-12T12:29:58+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://dream-yt.github.io/</loc>
+    <lastmod>2019-09-12T12:29:58+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://dream-yt.github.io/post/serverless-kms-secrets-102/</loc>
+    <lastmod>2019-09-07T18:28:17+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://dream-yt.github.io/post/import-withmark-in-typescript-vscode-jest/</loc>
     <lastmod>2019-08-25T15:44:56+09:00</lastmod>
   </url>
@@ -233,7 +253,27 @@
   </url>
   
   <url>
+    <loc>https://dream-yt.github.io/categories/</loc>
+    <lastmod>2019-03-16T17:00:00+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://dream-yt.github.io/tags/posgresql/</loc>
+    <lastmod>2019-03-16T17:00:00+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://dream-yt.github.io/categories/posgresql/</loc>
+    <lastmod>2019-03-16T17:00:00+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://dream-yt.github.io/post/psql-day-count/</loc>
+    <lastmod>2019-03-16T17:00:00+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://dream-yt.github.io/tags/</loc>
     <lastmod>2019-03-16T17:00:00+09:00</lastmod>
   </url>
   
@@ -453,6 +493,16 @@
   </url>
   
   <url>
+    <loc>https://dream-yt.github.io/tags/git/</loc>
+    <lastmod>2018-11-28T22:27:25+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://dream-yt.github.io/categories/git/</loc>
+    <lastmod>2018-11-28T22:27:25+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://dream-yt.github.io/post/python-__del__/</loc>
     <lastmod>2018-11-26T12:21:22+09:00</lastmod>
   </url>
@@ -524,52 +574,6 @@
   
   <url>
     <loc>https://dream-yt.github.io/post/bigquery-bq-maximum_bytes_billed/</loc>
-  </url>
-  
-  <url>
-    <loc>https://dream-yt.github.io/categories/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://dream-yt.github.io/tags/git/</loc>
-    <lastmod>2018-11-28T22:27:25+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://dream-yt.github.io/categories/git/</loc>
-    <lastmod>2018-11-28T22:27:25+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://dream-yt.github.io/tags/posgresql/</loc>
-    <lastmod>2019-03-16T17:00:00+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://dream-yt.github.io/categories/posgresql/</loc>
-    <lastmod>2019-03-16T17:00:00+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://dream-yt.github.io/post/</loc>
-    <lastmod>2019-08-25T15:44:56+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://dream-yt.github.io/tags/</loc>
-    <lastmod>2018-11-28T22:27:25+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://dream-yt.github.io/</loc>
-    <lastmod>2019-08-25T15:44:56+09:00</lastmod>
     <priority>0</priority>
   </url>
   

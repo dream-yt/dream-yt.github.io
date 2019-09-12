@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.57.2" />
 		<title>bigqueryのクエリ結果をgcsに出力するスクリプト &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -87,8 +87,8 @@
 
 <ul>
 <li>テンポラリなテーブルを作って、そこにクエリの結果を入れる</li>
-<li>そのテンポラリなテーブルを、データエクスポート機能を使ってgcsに送る</li>
-</ul>
+
+<li><p>そのテンポラリなテーブルを、データエクスポート機能を使ってgcsに送る</p>
 
 <pre><code class="language-python">import os
 import datetime
@@ -98,32 +98,32 @@ from google.cloud import bigquery
 DATASET_ID = os.getenv(&quot;BQ_DATASET_ID&quot;)
 
 def export_to_gcs(query: str, destination_uri: str):
-    client = bigquery.Client()
-    temp_table_name = 'temp_to_gcs_' + datetime.datetime.now().strftime(&quot;%Y%m%d_%H%M&quot;)
-    temp_table_ref = client.dataset(DATASET_ID).table(temp_table_name)
+client = bigquery.Client()
+temp_table_name = 'temp_to_gcs_' + datetime.datetime.now().strftime(&quot;%Y%m%d_%H%M&quot;)
+temp_table_ref = client.dataset(DATASET_ID).table(temp_table_name)
 
-    # query configuration
-    job_config = bigquery.QueryJobConfig()
-    job_config.destination = temp_table_ref
-    job_config.write_disposition = 'WRITE_TRUNCATE'
-    query_job = client.query(query, job_config=job_config)
+# query configuration
+job_config = bigquery.QueryJobConfig()
+job_config.destination = temp_table_ref
+job_config.write_disposition = 'WRITE_TRUNCATE'
+query_job = client.query(query, job_config=job_config)
 
-    try:
-        query_job.result()  # waiting
-        # transport to gcs
-        client.extract_table(temp_table_ref, destination_uri)
-    finally:
-        client.delete_table(temp_table_ref)
+try:
+    query_job.result()  # waiting
+    # transport to gcs
+    client.extract_table(temp_table_ref, destination_uri)
+finally:
+    client.delete_table(temp_table_ref)
 
 
 if __name__ == '__main__':
-    query = &quot;SELECT * FROM testds20180123.testable&quot;
-    export_to_gcs(query, 'gs://xxxx-bq-output/public/test/test2.csv')
-</code></pre>
+query = &quot;SELECT * FROM testds20180123.testable&quot;
+export_to_gcs(query, 'gs://xxxx-bq-output/public/test/test2.csv')
+</code></pre></li>
 
-<ul>
-<li><a href="https://cloud.google.com/bigquery/docs/exporting-data?hl=ja">テーブルデータのエクスポート  |  BigQuery  |  Google Cloud</a></li>
-<li><a href="https://google-cloud.readthedocs.io/en/latest/bigquery/generated/google.cloud.bigquery.client.Client.extract_table.html">google.cloud.bigquery.client.Client.extract_table — google-cloud 0.28.1 documentation</a></li>
+<li><p><a href="https://cloud.google.com/bigquery/docs/exporting-data?hl=ja">テーブルデータのエクスポート  |  BigQuery  |  Google Cloud</a></p></li>
+
+<li><p><a href="https://google-cloud.readthedocs.io/en/latest/bigquery/generated/google.cloud.bigquery.client.Client.extract_table.html">google.cloud.bigquery.client.Client.extract_table — google-cloud 0.28.1 documentation</a></p></li>
 </ul>
 
                 </section>

@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.57.2" />
 		<title>perlのDBIx::Class::ResultSetでちょい手の込んだSELECTの例1 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -101,39 +101,40 @@
 
 <ul>
 <li>searchメソッドはすごい色々できるので覚えきれない</li>
-<li>特に第二引数のハッシュに渡せるものがすごい色々できる</li>
-</ul>
+
+<li><p>特に第二引数のハッシュに渡せるものがすごい色々できる</p>
 
 <pre><code class="language-perl">$tab1_resultset-&gt;search(
-    {
-        # 1つ目の引数は検索条件
-        'tab1.id' =&gt; $id,
-        'okok.status' =&gt; STATUS_NOTYET
-    },
-    {
-        # SQLでいう射影部分 (カラム名とalias)
-        '+select' =&gt; [
-            'tab1.name',
-            \'COUNT(1)',
-            \'MIN(okok.created)'
-        ],
-        '+as' =&gt; [qw/
-            tab_name
-            count
-            earliest_created
-        /],
-        # resultsetクラスで定義したrelationの名前を書く (テーブル名そのままではない)
-        join =&gt; ['okok', 'qr'],
-        # 自resultsetクラスはmeで表す
-        group_by =&gt; ['me.id'],
-        order_by =&gt; [
-            # 集計など、文字列をそのまま埋めたい場合はstringのrefをとる (injection注意)
-            { -desc =&gt; \'MIN(DATE(qr.created))' },
-            { -desc =&gt; \'COUNT(1)' }
-        ]
-    }
+{
+    # 1つ目の引数は検索条件
+    'tab1.id' =&gt; $id,
+    'okok.status' =&gt; STATUS_NOTYET
+},
+{
+    # SQLでいう射影部分 (カラム名とalias)
+    '+select' =&gt; [
+        'tab1.name',
+        \'COUNT(1)',
+        \'MIN(okok.created)'
+    ],
+    '+as' =&gt; [qw/
+        tab_name
+        count
+        earliest_created
+    /],
+    # resultsetクラスで定義したrelationの名前を書く (テーブル名そのままではない)
+    join =&gt; ['okok', 'qr'],
+    # 自resultsetクラスはmeで表す
+    group_by =&gt; ['me.id'],
+    order_by =&gt; [
+        # 集計など、文字列をそのまま埋めたい場合はstringのrefをとる (injection注意)
+        { -desc =&gt; \'MIN(DATE(qr.created))' },
+        { -desc =&gt; \'COUNT(1)' }
+    ]
+}
 );
-</code></pre>
+</code></pre></li>
+</ul>
 
 <h3 id="参考">参考</h3>
 
