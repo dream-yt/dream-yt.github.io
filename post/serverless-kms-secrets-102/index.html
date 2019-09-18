@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.57.2" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>serverless-kms-secrets を導入する手順2 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -141,34 +141,33 @@
 <li>プラグインのロード</li>
 <li>暗号化したCMKのkey-id/暗号化された変数を書いておくymlファイルの所在の設定</li>
 <li>lambdaに復号の権限をつける</li>
-
-<li><p>環境変数に暗号化された変数を注入するように</p>
+<li>環境変数に暗号化された変数を注入するように</li>
+</ul>
 
 <pre><code class="language-diff">plugins:
-- serverless-prune-plugin
-- serverless-plugin-tracing
+   - serverless-prune-plugin
+   - serverless-plugin-tracing
 +  - serverless-kms-secrets
 
-provider:
-name: aws
+ provider:
+   name: aws
 @@ -21,7 +22,13 @@ provider:
-     - xray:PutTraceSegments
-     - xray:PutTelemetryRecords
-   Resource: &quot;*&quot;
+         - xray:PutTraceSegments
+         - xray:PutTelemetryRecords
+       Resource: &quot;*&quot;
 +    - Effect: Allow
 +      Action:
 +      - kms:Decrypt
 +      Resource: ${self:custom.kmsSecrets.keyArn}
-custom:
+ custom:
 +  kmsSecrets: ${file(kms-secrets.${opt:stage, self:provider.stage}.${opt:region, self:provider.region}.yml)}
 
 @@ -68,4 +68,5 @@ functions:
-       # UTC
-       rate: cron(10 * * * ? *)
-       enabled: true
+           # UTC
+           rate: cron(10 * * * ? *)
+           enabled: true
 +     environment: ${self:custom.kmsSecrets.secrets}
-</code></pre></li>
-</ul>
+</code></pre>
 
 <h2 id="データを暗号化">データを暗号化</h2>
 

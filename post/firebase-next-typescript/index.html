@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.57.2" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>firebase上でtypescriptで書かれたnextjsを動かす &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -163,15 +163,14 @@ cpx &quot;*{package.json,package-lock.json,yarn.lock}&quot; &quot;dist/functions
 
 <ul>
 <li><code>dist/functions/index.js</code> が cloud function から参照されるファイル</li>
-
-<li><p><code>dist/functions/index.js</code> が <code>dist/functions/next</code> 配下をloadしている</p>
+<li><code>dist/functions/index.js</code> が <code>dist/functions/next</code> 配下をloadしている</li>
+</ul>
 
 <pre><code class="language-js:dist/index.js">var app = next({
-dev,
-conf: { distDir: `${path.relative(process.cwd(), __dirname)}/next` }
+  dev,
+  conf: { distDir: `${path.relative(process.cwd(), __dirname)}/next` }
 })
-</code></pre></li>
-</ul>
+</code></pre>
 
 <h3 id="cpx">cpx</h3>
 

@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.57.2" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>GoogleSpreadsheetのデータ(csv)をパパッとjsonにしてスクリプトから使う &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -183,12 +183,12 @@ print &quot;group arrested counts: &quot; map {$_-&gt;{c}} @$input;
 <p>スプレッドシートの権限をゆるくすればcurlでcsvを取ったりも出来る</p>
 
 <ul>
-<li><p><a href="https://productforums.google.com/forum/#!topic/docs/An-nZtjaupU">publish to web in csv in google sheets - Google プロダクト フォーラム</a></p>
+<li><a href="https://productforums.google.com/forum/#!topic/docs/An-nZtjaupU">publish to web in csv in google sheets - Google プロダクト フォーラム</a></li>
+</ul>
 
 <pre><code class="language-bash">$ curl -s https://docs.google.com/spreadsheets/d/xxxxxxx/export?format=csv \
-| csvjson -H | ./myscript.pl
-</code></pre></li>
-</ul>
+    | csvjson -H | ./myscript.pl
+</code></pre>
 
                 </section>
             </article>

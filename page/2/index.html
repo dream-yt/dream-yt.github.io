@@ -24,7 +24,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.57.2" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -72,6 +72,21 @@
 
     <section id="wrapper" class="home">
         <ul id="post-list">
+    
+    
+        
+            <li>
+                <aside class="dates">Aug 4</aside>
+                <a href='https://dream-yt.github.io/post/node-getmetricwidgetimagewithsnsevent/'>
+                    nodejs/typescriptでSNSイベントからgetMetricWidgetImage(画像)を取得する
+                    
+                        
+                            <h2>こんな感じのコードでできた MetricWidget の型定義はaws-sdkにはなかった ドキュメントにはなっていた GetMetricWidgetImage: Metric Widget Structure and Syntax - Amazon CloudWatch SNSEvent の型定義は↓ DefinitelyTyped/index.d.ts at master · DefinitelyTyped/DefinitelyTyped import { SNSEvent }</h2>
+                        
+                    
+                </a>
+            </li>
+        
     
     
         
@@ -202,21 +217,6 @@
                     
                         
                             <h2>こういう機能 今開いているページのドメインから、別のドメインにリクエストを送る際に、 クッキーを送るかどうかを設定できる機能 別のドメインにリクエ</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jul 10</aside>
-                <a href='https://dream-yt.github.io/post/devserver-ssl-static/'>
-                    SSL越しにローカルの静的ファイルを閲覧したい (開発用)
-                    
-                        
-                            <h2>SSLさせてくれるhttpサーバのコード こちらから拝借 simple-https-server.py import http.server import ssl server_address = (&#39;127.0.0.1&#39;, 443) httpd = http.server.HTTPServer(server_address, http.server.SimpleHTTPRequestHandler) httpd.socket = ssl.wrap_socket(httpd.socket, server_side=True, certfile=&#34;server.pem&#34;, keyfile=&#34;key.pem&#34;, ssl_version=ssl.PROTOCOL_TLS) httpd.serve_forever() 証明書を作ってserver start $ mkdir /tmp/$(pwgen) &amp;&amp; cd $_ $ pbpaste</h2>
                         
                     
                 </a>

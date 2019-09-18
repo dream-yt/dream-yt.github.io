@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.57.2" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>athena(presto)で、dateとtimeからJSTを得る &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -121,25 +121,25 @@
 <p>文字列結合でiso8601フォーマットを作っている</p>
 
 <ul>
-<li><p>eg: <code>2019-08-21T18:04:04Z</code></p>
+<li>eg: <code>2019-08-21T18:04:04Z</code></li>
+</ul>
 
 <pre><code class="language-sql">WITH t AS (
-SELECT
-cdn_access_log.*,
-from_iso8601_timestamp(date_format(date, '%Y-%m-%dT') || time || 'Z') AT TIME ZONE 'Asia/Tokyo' jst_datetime
-FROM
-myproj.cdn_access_log
+  SELECT
+    cdn_access_log.*,
+    from_iso8601_timestamp(date_format(date, '%Y-%m-%dT') || time || 'Z') AT TIME ZONE 'Asia/Tokyo' jst_datetime
+  FROM
+    myproj.cdn_access_log
 )
 SELECT
-date,
-time,
-jst_datetime
+  date,
+  time,
+  jst_datetime
 FROM
-t
+  t
 LIMIT
-3
-</code></pre></li>
-</ul>
+  3
+</code></pre>
 
 <table>
 <thead>

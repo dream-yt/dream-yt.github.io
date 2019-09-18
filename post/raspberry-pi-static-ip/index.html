@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.57.2" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>raspberry-piに固定IPを設定する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -148,14 +148,13 @@ echo 'staitc domain_name_servers=192.168.111.1' | tee -a /etc/dhcpcd.conf
 
 <ul>
 <li>ipコマンドで確認</li>
-
-<li><p><code>default via 192.168.111.1</code> の部分がルータのIP</p>
+<li><code>default via 192.168.111.1</code> の部分がルータのIP</li>
+</ul>
 
 <pre><code class="language-console">pi@raspberrypi:~ $ ip route
 default via 192.168.111.1 dev eth0 src 192.168.111.116 metric 202
 192.168.111.0/24 dev eth0 proto kernel scope link src 192.168.111.116 metric 202
-</code></pre></li>
-</ul>
+</code></pre>
 
 <blockquote>
 <p>static routers=192.168.111.1</p>

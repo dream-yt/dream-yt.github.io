@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.57.2" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>redux-form (handleSubmit) 入門 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -144,16 +144,15 @@
 <li>これをすることでredux-formの便利関数がMyFormにpropsとして使えるように</li>
 <li>handleSubmitもこれ経由でpropsに渡ってきている</li>
 </ul></li>
-
-<li><p><code>sampleIt</code> はredux-form内でこのフォームを管理するときの名前</p>
+<li><code>sampleIt</code> はredux-form内でこのフォームを管理するときの名前
 
 <ul>
-<li><p>複数フォームにまたがった処理を書くときとかに使うのだろうか</p>
-
-<pre><code class="language-ts">const RDForm = reduxForm({ form: 'sampleIt' })(MyForm);
-</code></pre></li>
+<li>複数フォームにまたがった処理を書くときとかに使うのだろうか</li>
 </ul></li>
 </ul>
+
+<pre><code class="language-ts">const RDForm = reduxForm({ form: 'sampleIt' })(MyForm);
+</code></pre>
 
 <h2 id="使うところ">使うところ</h2>
 

@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.57.2" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>SSL越しにローカルの静的ファイルを閲覧したい (開発用) &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -107,7 +107,8 @@
 <p>こちらから拝借</p>
 
 <ul>
-<li><p><a href="https://gist.github.com/DannyHinshaw/a3ac5991d66a2fe6d97a569c6cdac534">simple-https-server.py</a></p>
+<li><a href="https://gist.github.com/DannyHinshaw/a3ac5991d66a2fe6d97a569c6cdac534">simple-https-server.py</a></li>
+</ul>
 
 <pre><code class="language-python">import http.server
 import ssl
@@ -115,13 +116,12 @@ import ssl
 server_address = ('127.0.0.1', 443)
 httpd = http.server.HTTPServer(server_address, http.server.SimpleHTTPRequestHandler)
 httpd.socket = ssl.wrap_socket(httpd.socket,
-                           server_side=True,
-                           certfile=&quot;server.pem&quot;,
-                           keyfile=&quot;key.pem&quot;,
-                           ssl_version=ssl.PROTOCOL_TLS)
+                               server_side=True,
+                               certfile=&quot;server.pem&quot;,
+                               keyfile=&quot;key.pem&quot;,
+                               ssl_version=ssl.PROTOCOL_TLS)
 httpd.serve_forever()
-</code></pre></li>
-</ul>
+</code></pre>
 
 <h3 id="証明書を作ってserver-start">証明書を作ってserver start</h3>
 

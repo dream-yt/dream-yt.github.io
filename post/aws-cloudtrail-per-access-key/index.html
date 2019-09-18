@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.57.2" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>AWSのアクセストークンが昨日どんなAPIコールを行なったか確認する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -111,22 +111,21 @@
 
 <ul>
 <li>EventSourceやEventNameなどでどのAPIが叩かれたかわかる</li>
-
-<li><p>EventTimeで時間もわかる</p>
+<li>EventTimeで時間もわかる</li>
+</ul>
 
 <pre><code>{
-&quot;EventId&quot;: &quot;7615c6ad-xxxx-4f42-baa4-d4f14d240d96&quot;,
-&quot;EventName&quot;: &quot;GetQueryExecution&quot;,
-&quot;ReadOnly&quot;: &quot;true&quot;,
-&quot;AccessKeyId&quot;: &quot;xxxxxx&quot;,
-&quot;EventTime&quot;: 1560042666,
-&quot;EventSource&quot;: &quot;athena.amazonaws.com&quot;,
-&quot;Username&quot;: &quot;xxxx&quot;,
-&quot;Resources&quot;: [],
-&quot;CloudTrailEvent&quot;: {...}
+  &quot;EventId&quot;: &quot;7615c6ad-xxxx-4f42-baa4-d4f14d240d96&quot;,
+  &quot;EventName&quot;: &quot;GetQueryExecution&quot;,
+  &quot;ReadOnly&quot;: &quot;true&quot;,
+  &quot;AccessKeyId&quot;: &quot;xxxxxx&quot;,
+  &quot;EventTime&quot;: 1560042666,
+  &quot;EventSource&quot;: &quot;athena.amazonaws.com&quot;,
+  &quot;Username&quot;: &quot;xxxx&quot;,
+  &quot;Resources&quot;: [],
+  &quot;CloudTrailEvent&quot;: {...}
 }
-</code></pre></li>
-</ul>
+</code></pre>
 
 <h2 id="cloudtrailevent">CloudTrailEvent</h2>
 

@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.57.2" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>jq変形 {配列 =&gt; IDをキーとするオブジェクト} &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -136,14 +136,14 @@
 オブジェクトの配列に適用すると、それぞれの要素をマージしたオブジェクトができる</p>
 
 <ul>
-<li><p><a href="https://github.com/stedolan/jq/issues/70">QUESTION: A way to concatenate input objects into one · Issue #70 · stedolan/jq</a></p>
+<li><a href="https://github.com/stedolan/jq/issues/70">QUESTION: A way to concatenate input objects into one · Issue #70 · stedolan/jq</a></li>
+</ul>
 
 <pre><code class="language-json">[
-{ &quot;123&quot;: {&quot;id&quot;: &quot;123&quot;, &quot;name&quot;: &quot;abc&quot;} }
-{ &quot;456&quot;: {&quot;id&quot;: &quot;456&quot;, &quot;name&quot;: &quot;qwe&quot;} }
+  { &quot;123&quot;: {&quot;id&quot;: &quot;123&quot;, &quot;name&quot;: &quot;abc&quot;} }
+  { &quot;456&quot;: {&quot;id&quot;: &quot;456&quot;, &quot;name&quot;: &quot;qwe&quot;} }
 ]
-</code></pre></li>
-</ul>
+</code></pre>
 
 <p>↓ こうなるイメージ</p>
 

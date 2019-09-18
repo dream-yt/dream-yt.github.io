@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.57.2" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>swiftのselectorについて &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -98,13 +98,12 @@
 
 <ul>
 <li>コールバックを渡すための仕組みのようなもの?</li>
-
-<li><p>たとえばメソッドを渡してイベントが発生した時の実行するような場合につかう?</p>
+<li>たとえばメソッドを渡してイベントが発生した時の実行するような場合につかう?</li>
+</ul>
 
 <pre><code class="language-swift">var button = UIButton()
 button.addTarget(self, action: &quot;tappedButton:&quot;, forControlEvents: .TouchUpInside)
-</code></pre></li>
-</ul>
+</code></pre>
 
 <blockquote>
 <p>今度はSwiftの例ですが、上記のコードではボタンが押されたらselfに定義してあるtappedButtonというメソッドが実行されます。</p>
