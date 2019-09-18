@@ -6,10 +6,19 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 18 Sep 2019 16:25:00 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 18 Sep 2019 22:47:34 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>jqで改行区切りなど連続したjsonを配列にする</title>
+      <link>https://dream-yt.github.io/post/jq-list-json-into-array/</link>
+      <pubDate>Wed, 18 Sep 2019 22:47:34 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/jq-list-json-into-array/</guid>
+      <description>jq でselectとかで色々やったあと配列に戻したいときがある jq -s をパイプすると改行区切りのjsonを1つの配列にしてくれる cat ./src/resources/test/ranking-latest.json \ | jq &#39;.[] | select(.shopId |</description>
+    </item>
     
     <item>
       <title>vscodeのMarkdownPreviewにカスタムCSSをあてる</title>
