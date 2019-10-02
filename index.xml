@@ -6,10 +6,19 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 02 Oct 2019 14:04:08 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 03 Oct 2019 07:38:18 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title> .athenaclirc の使い方</title>
+      <link>https://dream-yt.github.io/post/athenacli-rcfile/</link>
+      <pubDate>Thu, 03 Oct 2019 07:38:18 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/athenacli-rcfile/</guid>
+      <description>athenacli というCLIからathenaにクエリできるツールがある これのathenaclircファイルの記法がドキュメントになかったのでメモ 結論 こんな</description>
+    </item>
     
     <item>
       <title>SSLエラー(dh key too small)が発生した時の調査/と対応</title>
