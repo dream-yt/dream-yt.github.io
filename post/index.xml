@@ -6,10 +6,19 @@
     <description>Recent content in Posts on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sat, 28 Sep 2019 12:26:35 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 02 Oct 2019 14:04:08 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>SSLエラー(dh key too small)が発生した時の調査/と対応</title>
+      <link>https://dream-yt.github.io/post/ssl-error-handling/</link>
+      <pubDate>Wed, 02 Oct 2019 14:04:08 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/ssl-error-handling/</guid>
+      <description>たとえばこんなエラーが出た時 content:Cannot create SSL connection: SSL connect attempt failed error:141A318A:SSL routines:tls_process_ske_dhe:dh key too small 見たところ先方が使っている DH鍵 が短くてconnectionが取れないということのよう</description>
+    </item>
     
     <item>
       <title>jq で parseInt</title>

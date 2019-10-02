@@ -13,8 +13,8 @@
     
   
   
-  <meta name="twitter:title" content="recodeコマンドでファイルの文字/改行コードを変更する"/>
-  <meta name="twitter:description" content="文字コードの変換をするときはiconvを使うことが多かったが、recodeコマンドのほうが便利なことが多い 既存ファイルに置き換え(inpla"/>
+  <meta name="twitter:title" content="SSLエラー(dh key too small)が発生した時の調査/と対応"/>
+  <meta name="twitter:description" content="たとえばこんなエラーが出た時 content:Cannot create SSL connection: SSL connect attempt failed error:141A318A:SSL routines:tls_process_ske_dhe:dh key too small 見たところ先方が使っている DH鍵 が短くてconnectionが取れないということのよう"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -30,7 +30,7 @@
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
 		<meta name="generator" content="Hugo 0.42.1" />
-		<title>recodeコマンドでファイルの文字/改行コードを変更する &middot; sacre</title>
+		<title>SSLエラー(dh key too small)が発生した時の調査/と対応 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
@@ -68,11 +68,11 @@
             <article>
                 <header>
                     <h1>
-                        recodeコマンドでファイルの文字/改行コードを変更する
+                        SSLエラー(dh key too small)が発生した時の調査/と対応
                     </h1>
                     <h2 class="headline">
-                    Jun 19, 2019 17:09
-                    · 271 words
+                    Oct 2, 2019 14:04
+                    · 244 words
                     · 1 minute read
                       <span class="tags">
                       
@@ -86,9 +86,9 @@
 <ul>
 <li>
 <ul>
-<li><a href="#対応している変換方式">対応している変換方式</a>
+<li>
 <ul>
-<li><a href="#bash">bash</a></li>
+<li><a href="#perl">perl</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -99,50 +99,48 @@
                 <section id="post-body">
                     
 
-<p>文字コードの変換をするときはiconvを使うことが多かったが、recodeコマンドのほうが便利なことが多い</p>
+<p>たとえばこんなエラーが出た時</p>
+
+<blockquote>
+<p>content:Cannot create SSL connection: SSL connect attempt failed error:141A318A:SSL routines:tls_process_ske_dhe:dh key too small</p>
+</blockquote>
+
+<p>見たところ先方が使っている DH鍵 が短くてconnectionが取れないということのようだ</p>
+
+<p>リクエスト先のホストをこのサイトでチェック</p>
 
 <ul>
-<li>既存ファイルに置き換え(inplace)で文字コードが変更できる</li>
-<li>改行コード(CR-LFなど)の変換も対応している</li>
-<li>複数ファイルを引数に取ることができる</li>
+<li><a href="https://www.ssllabs.com/ssltest/analyze.html">SSL Server Test (Powered by Qualys SSL Labs)</a></li>
 </ul>
 
-<p>たとえばディレクトリ配下のcsvファイルをすべて {UTF16 =&gt; UTF-8} と変更したい場合は下記の1行で済む</p>
+<p>結果をこんな感じで返してくれる</p>
 
-<pre><code class="language-bash">$ recode UTF-16..UTF-8 &quot;$f&quot; $(ls -1 ./*.csv)
-</code></pre>
+<ul>
+<li><a href="https://www.ssllabs.com/ssltest/analyze.html?d=publisher%2dapi.spotxchange.com&amp;s=198.54.12.118">SSL Server Test: publisher-api.spotxchange.com (Powered by Qualys SSL Labs)</a></li>
+</ul>
 
-<h2 id="対応している変換方式">対応している変換方式</h2>
+<p>cipher suite の欄を見ると <code>DH 1024 bits</code> ということで鍵が短いようだ
+(現行のOpenSSLではデフォルトで2048bitが使われる)</p>
 
-<p>対応している変換方式は <code>--list</code> で出てくる</p>
+<blockquote>
+<p>TLS_DHE_RSA_WITH_AES_256_GCM_SHA384 (0x9f)   DH 1024 bits   FS   WEAK</p>
+</blockquote>
 
-<p>base64なども変換できるようだ</p>
+<h3 id="perl">perl</h3>
 
-<pre><code>$ recode --list | head
-/21-Permutation swabytes
-/4321-Permutation
-/Base64 64 b64
-/CR
-/CR-LF cl
-/Decimal-1 d d1
-/Decimal-2 d2
-/Decimal-4 d4
-/Hexadecimal-1 x x1
-/Hexadecimal-2 x2
-</code></pre>
+<p>DHを使わないようにするにはhttpsクライアントの設定おこなう</p>
 
-<h3 id="bash">bash</h3>
+<p>perlのFurlモジュールだとこんな感じ</p>
 
-<p>インストールはmacならbrewで入る</p>
-
-<pre><code class="language-bash">brew install recode
-</code></pre>
+<blockquote>
+<p>SSL_cipher_list =&gt; &lsquo;DEFAULT:!DH&rsquo;,</p>
+</blockquote>
 
                 </section>
             </article>
 
             
-                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2frecode-file-charactor-encoding%2f - recode%e3%82%b3%e3%83%9e%e3%83%b3%e3%83%89%e3%81%a7%e3%83%95%e3%82%a1%e3%82%a4%e3%83%ab%e3%81%ae%e6%96%87%e5%ad%97%2f%e6%94%b9%e8%a1%8c%e3%82%b3%e3%83%bc%e3%83%89%e3%82%92%e5%a4%89%e6%9b%b4%e3%81%99%e3%82%8b by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fssl-error-handling%2f - SSL%e3%82%a8%e3%83%a9%e3%83%bc%28dh%20key%20too%20small%29%e3%81%8c%e7%99%ba%e7%94%9f%e3%81%97%e3%81%9f%e6%99%82%e3%81%ae%e8%aa%bf%e6%9f%bb%2f%e3%81%a8%e5%af%be%e5%bf%9c by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
 
 <a class="facebook" href="#" onclick="
     window.open(
