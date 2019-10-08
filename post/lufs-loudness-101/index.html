@@ -13,8 +13,8 @@
     
   
   
-  <meta name="twitter:title" content="recodeコマンドでファイルの文字/改行コードを変更する"/>
-  <meta name="twitter:description" content="文字コードの変換をするときはiconvを使うことが多かったが、recodeコマンドのほうが便利なことが多い 既存ファイルに置き換え(inpla"/>
+  <meta name="twitter:title" content="動画のラウドネスについて"/>
+  <meta name="twitter:description" content="動画のエンコードをする場合の用語の整理 映像系の人が出してくる仕様で知らない用語があったのでメモ 参考にしたもの このドキュメントが(比較的)平易"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -30,7 +30,7 @@
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
 		<meta name="generator" content="Hugo 0.42.1" />
-		<title>recodeコマンドでファイルの文字/改行コードを変更する &middot; sacre</title>
+		<title>動画のラウドネスについて &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
@@ -68,12 +68,12 @@
             <article>
                 <header>
                     <h1>
-                        recodeコマンドでファイルの文字/改行コードを変更する
+                        動画のラウドネスについて
                     </h1>
                     <h2 class="headline">
-                    Jun 19, 2019 17:09
-                    · 271 words
-                    · 1 minute read
+                    Oct 8, 2019 13:08
+                    · 609 words
+                    · 2 minute read
                       <span class="tags">
                       
                       </span>
@@ -86,9 +86,20 @@
 <ul>
 <li>
 <ul>
-<li><a href="#対応している変換方式">対応している変換方式</a>
+<li>
 <ul>
-<li><a href="#bash">bash</a></li>
+<li><a href="#参考にしたもの">参考にしたもの</a></li>
+</ul></li>
+<li><a href="#ラウドネス">ラウドネス</a>
+<ul>
+<li><a href="#lufs-lkfs">LUFS (LKFS)</a></li>
+<li><a href="#dbtp">dBTP</a>
+<ul>
+<li>
+<ul>
+<li><a href="#ダイナミックレンジ">ダイナミックレンジ</a></li>
+</ul></li>
+</ul></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -99,50 +110,64 @@
                 <section id="post-body">
                     
 
-<p>文字コードの変換をするときはiconvを使うことが多かったが、recodeコマンドのほうが便利なことが多い</p>
+<p>動画のエンコードをする場合の用語の整理<br />
+映像系の人が出してくる仕様で知らない用語があったのでメモ</p>
+
+<h3 id="参考にしたもの">参考にしたもの</h3>
+
+<p>このドキュメントが(比較的)平易だった</p>
 
 <ul>
-<li>既存ファイルに置き換え(inplace)で文字コードが変更できる</li>
-<li>改行コード(CR-LFなど)の変換も対応している</li>
-<li>複数ファイルを引数に取ることができる</li>
+<li><a href="https://developer.amazon.com/ja/docs/flashbriefing/normalizing-the-loudness-of-audio-content.html">オーディオコンテンツのラウドネス値の正規化 | Alexa Skills Kit</a></li>
 </ul>
 
-<p>たとえばディレクトリ配下のcsvファイルをすべて {UTF16 =&gt; UTF-8} と変更したい場合は下記の1行で済む</p>
+<h2 id="ラウドネス">ラウドネス</h2>
 
-<pre><code class="language-bash">$ recode UTF-16..UTF-8 &quot;$f&quot; $(ls -1 ./*.csv)
-</code></pre>
+<blockquote>
+<p>ラウドネスメーターと呼ばれるツールを使用して、音声のラウドネスを正規化します。ラウドネスメーターは、音声をラウドネス単位（LU）で測定します。ラウドネスメーターはピークメーターや波形メーターとは異なり、音声の電圧レベルを測定するのではなく、人間が耳で聞いた音をどのように感じるかを測定します。</p>
+</blockquote>
 
-<h2 id="対応している変換方式">対応している変換方式</h2>
+<p>ラウドネスの中でも2つ一般的な指標がある</p>
 
-<p>対応している変換方式は <code>--list</code> で出てくる</p>
+<h3 id="lufs-lkfs">LUFS (LKFS)</h3>
 
-<p>base64なども変換できるようだ</p>
+<p>音声全体がどれくらいの音圧かを指標化したもの</p>
 
-<pre><code>$ recode --list | head
-/21-Permutation swabytes
-/4321-Permutation
-/Base64 64 b64
-/CR
-/CR-LF cl
-/Decimal-1 d d1
-/Decimal-2 d2
-/Decimal-4 d4
-/Hexadecimal-1 x x1
-/Hexadecimal-2 x2
-</code></pre>
+<ul>
+<li>LUFSとLKFSは同じもので規格によって呼び方が違う</li>
+<li>LUFS = Loudness Unit Full Scale</li>
+</ul>
 
-<h3 id="bash">bash</h3>
+<h3 id="dbtp">dBTP</h3>
 
-<p>インストールはmacならbrewで入る</p>
+<ul>
+<li>デジタル音声はアナログ音声をサンプリングしたものである</li>
+<li>サンプリングされたときに信号のピーク値が失われる</li>
+</ul>
 
-<pre><code class="language-bash">brew install recode
-</code></pre>
+<p><img src="https://user-images.githubusercontent.com/5309672/66366718-5890de00-e9cc-11e9-9fe5-03e59c670f3d.png" alt="image" /></p>
+
+<p>引用元: <a href="https://soundevotee.net/blog/2018/03/09/learn_about_isp_and_think_about_ceiling/">インターサンプルピーク/トゥルーピークの復習をして、Ceiling設定について考える | SOUNDEVOTEE.NET</a></p>
+
+<p>このとき、サンプリング前のピーク値を推測した値がトゥルーピーク
+これがわかっていないとハードウェアの制約で音が歪んでしまう場合がある</p>
+
+<h5 id="ダイナミックレンジ">ダイナミックレンジ</h5>
+
+<p>dB のこと。おおまかに音量</p>
+
+<p>音はハードウェアの制約で大きすぎても小さすぎても音声を正しく表現できない</p>
+
+<ul>
+<li>小さすぎる音はハードウェアのノイズに埋もれてしまって正しく表現されない</li>
+<li>大きすぎる音は出力が歪んでしまって正しく表現されない</li>
+</ul>
 
                 </section>
             </article>
 
             
-                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2frecode-file-charactor-encoding%2f - recode%e3%82%b3%e3%83%9e%e3%83%b3%e3%83%89%e3%81%a7%e3%83%95%e3%82%a1%e3%82%a4%e3%83%ab%e3%81%ae%e6%96%87%e5%ad%97%2f%e6%94%b9%e8%a1%8c%e3%82%b3%e3%83%bc%e3%83%89%e3%82%92%e5%a4%89%e6%9b%b4%e3%81%99%e3%82%8b by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2flufs-loudness-101%2f - %e5%8b%95%e7%94%bb%e3%81%ae%e3%83%a9%e3%82%a6%e3%83%89%e3%83%8d%e3%82%b9%e3%81%ab%e3%81%a4%e3%81%84%e3%81%a6 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
 
 <a class="facebook" href="#" onclick="
     window.open(

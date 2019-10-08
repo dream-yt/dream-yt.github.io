@@ -6,10 +6,19 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Thu, 03 Oct 2019 07:38:18 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 08 Oct 2019 13:08:30 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>動画のラウドネスについて</title>
+      <link>https://dream-yt.github.io/post/lufs-loudness-101/</link>
+      <pubDate>Tue, 08 Oct 2019 13:08:30 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/lufs-loudness-101/</guid>
+      <description>動画のエンコードをする場合の用語の整理 映像系の人が出してくる仕様で知らない用語があったのでメモ 参考にしたもの このドキュメントが(比較的)平易</description>
+    </item>
     
     <item>
       <title> .athenaclirc の使い方</title>
