@@ -6,10 +6,19 @@
     <description>Recent content in Posts on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Tue, 08 Oct 2019 13:08:30 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 12 Oct 2019 13:05:11 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>@types/nodeを使う</title>
+      <link>https://dream-yt.github.io/post/use-at-types-node/</link>
+      <pubDate>Sat, 12 Oct 2019 13:05:11 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/use-at-types-node/</guid>
+      <description>@types/nodeをいれておくと fsなどnodeのデフォルトのモジュールで型の補完がきくようになる DefinitelyTyped/types/node at master · DefinitelyTyped/DefinitelyTyped @types/node のバージョンは node のバージョ</description>
+    </item>
     
     <item>
       <title>動画のラウドネスについて</title>
