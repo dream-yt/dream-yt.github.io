@@ -6,10 +6,19 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sat, 12 Oct 2019 13:05:11 +0900</lastBuildDate>
+    <lastBuildDate>Mon, 14 Oct 2019 14:01:42 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>nodejsのコードからtypescriptをrequireする</title>
+      <link>https://dream-yt.github.io/post/ts-node-register-to-call-from-nodejs/</link>
+      <pubDate>Mon, 14 Oct 2019 14:01:42 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/ts-node-register-to-call-from-nodejs/</guid>
+      <description>ts-node/register を使うとできる たとえば scripts/make-index.js というスクリプトから src/bigquery/index.ts 内のクラスをrequireする こんなコードを書くとrequireできる #!/usr/bin/env node require(&amp;quot;source-map-support&amp;quot;).install() require(&amp;quot;ts-node&amp;quot;).register() const { Indexer } = require(&amp;quot;../src/bigquery&amp;quot;) Indexer.run()</description>
+    </item>
     
     <item>
       <title>@types/nodeを使う</title>
