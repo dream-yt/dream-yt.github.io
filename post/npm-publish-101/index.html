@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="https://dream-yt.github.io/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="npmパッケージング関連コマンド"/>
+  <meta name="twitter:description" content="CLI documentation | npm Documentation npm init package.json を一般的な方式で初期化してくれる npm-init | npm Documentation npm set author 情報の更新/設定 $ npm set init.author.url https://twitter.com/sakamoto_akira_ $ npm set init.author.email mild7caloriemategreentea@gmail.com $ npm set init.author.name sakamoto_akira_ $ npm adduser npm version package.json の version を上げてくれる $"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@site_author"/>
+  
+
+
+
+		
+		<meta name="author" content="site_author">
+		<meta name="description" content="Site Description">
+		<meta name="generator" content="Hugo 0.51" />
+		<title>npmパッケージング関連コマンド &middot; sacre</title>
+		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/font-awesome.min.css">
+		
+
+		
+		<link href="https://dream-yt.github.io/index.xml" rel="alternate" type="application/rss+xml" title="sacre" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='https://dream-yt.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://dream-yt.github.io/posts'>Archive</a>
+	<a href='https://dream-yt.github.io/tags'>Tags</a>
+	<a href='https://dream-yt.github.io/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="https://dream-yt.github.io/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        npmパッケージング関連コマンド
+                    </h1>
+                    <h2 class="headline">
+                    Oct 20, 2019 16:49
+                    · 114 words
+                    · 1 minute read
+                      <span class="tags">
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#npm-init">npm init</a></li>
+<li><a href="#npm-set">npm set</a></li>
+<li><a href="#npm-version">npm version</a></li>
+<li><a href="#npm-publish">npm publish</a></li>
+</ul></li>
+</ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    
+
+<ul>
+<li><a href="https://docs.npmjs.com/cli-documentation/">CLI documentation | npm Documentation</a></li>
+</ul>
+
+<h2 id="npm-init">npm init</h2>
+
+<p>package.json を一般的な方式で初期化してくれる</p>
+
+<ul>
+<li><a href="https://docs.npmjs.com/cli/init.html">npm-init | npm Documentation</a></li>
+</ul>
+
+<h2 id="npm-set">npm set</h2>
+
+<p>author 情報の更新/設定</p>
+
+<pre><code class="language-bash">$ npm set init.author.url https://twitter.com/sakamoto_akira_
+$ npm set init.author.email mild7caloriemategreentea@gmail.com
+$ npm set init.author.name sakamoto_akira_
+$ npm adduser
+</code></pre>
+
+<h2 id="npm-version">npm version</h2>
+
+<p>package.json の version を上げてくれる</p>
+
+<pre><code class="language-bash">$ npm version patch
+$ npm version minor
+$ npm version major
+</code></pre>
+
+<ul>
+<li><a href="https://docs.npmjs.com/updating-your-published-package-version-number">Updating your published package version number | npm Documentation</a></li>
+</ul>
+
+<h2 id="npm-publish">npm publish</h2>
+
+<p>パッケージの公開</p>
+
+<pre><code class="language-bash">$ git push origin tags/v&quot;$(cat ./package.json | jq -r .version)&quot;
+$ npm publish ./
+</code></pre>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fnpm-publish-101%2f - npm%e3%83%91%e3%83%83%e3%82%b1%e3%83%bc%e3%82%b8%e3%83%b3%e3%82%b0%e9%96%a2%e9%80%a3%e3%82%b3%e3%83%9e%e3%83%b3%e3%83%89 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'your_disqus_short_name'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/dream-yt/sacre">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://twitter.com/FUTABA_SACRE">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2019 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="https://dream-yt.github.io/js/jquery-3.3.1.min.js"></script>
+<script src="https://dream-yt.github.io/js/main.js"></script>
+<script src="https://dream-yt.github.io/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+
+
+
+
+    </body>
+</html>
