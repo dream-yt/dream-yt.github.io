@@ -13,8 +13,8 @@
     
   
   
-  <meta name="twitter:title" content="recodeコマンドでファイルの文字/改行コードを変更する"/>
-  <meta name="twitter:description" content="文字コードの変換をするときはiconvを使うことが多かったが、recodeコマンドのほうが便利なことが多い 既存ファイルに置き換え(inpla"/>
+  <meta name="twitter:title" content="bashスクリプトに、tsvの標準入力を入れて、readで使いやすくやる"/>
+  <meta name="twitter:description" content="readというコマンドがあり、多くはシェルスクリプトでユーザの入力を受け取るときに使われるが、これをwhileと一緒に使うと標準入力を1行ご"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -30,7 +30,7 @@
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
 		<meta name="generator" content="Hugo 0.42.1" />
-		<title>recodeコマンドでファイルの文字/改行コードを変更する &middot; sacre</title>
+		<title>bashスクリプトに、tsvの標準入力を入れて、readで使いやすくやる &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
@@ -68,11 +68,11 @@
             <article>
                 <header>
                     <h1>
-                        recodeコマンドでファイルの文字/改行コードを変更する
+                        bashスクリプトに、tsvの標準入力を入れて、readで使いやすくやる
                     </h1>
                     <h2 class="headline">
-                    Jun 19, 2019 17:09
-                    · 271 words
+                    Oct 21, 2019 15:35
+                    · 368 words
                     · 1 minute read
                       <span class="tags">
                       
@@ -86,9 +86,9 @@
 <ul>
 <li>
 <ul>
-<li><a href="#対応している変換方式">対応している変換方式</a>
+<li>
 <ul>
-<li><a href="#bash">bash</a></li>
+<li><a href="#つまり">つまり</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -99,50 +99,55 @@
                 <section id="post-body">
                     
 
-<p>文字コードの変換をするときはiconvを使うことが多かったが、recodeコマンドのほうが便利なことが多い</p>
+<p>readというコマンドがあり、多くはシェルスクリプトでユーザの入力を受け取るときに使われるが、これをwhileと一緒に使うと標準入力を1行ごと変数に束縛して処理ができる</p>
+
+<pre><code class="language-bash">while read line; do
+  echo $line;
+done
+</code></pre>
+
+<p>ここまではなんとなくみたことあったが、変数を複数宣言しておくと<br />
+空白区切りでsplitしてくれるという機能があった</p>
 
 <ul>
-<li>既存ファイルに置き換え(inplace)で文字コードが変更できる</li>
-<li>改行コード(CR-LFなど)の変換も対応している</li>
-<li>複数ファイルを引数に取ることができる</li>
+<li><a href="https://qiita.com/hasegit/items/5be056d67347e1553f08#read%E3%81%AE%E5%A0%B4%E5%90%88">bashで文字列分解する時、cutやawkもいいけど、setの方が早い、けどreadが最強 - Qiita</a></li>
 </ul>
 
-<p>たとえばディレクトリ配下のcsvファイルをすべて {UTF16 =&gt; UTF-8} と変更したい場合は下記の1行で済む</p>
+<h3 id="つまり">つまり</h3>
 
-<pre><code class="language-bash">$ recode UTF-16..UTF-8 &quot;$f&quot; $(ls -1 ./*.csv)
+<p>こんなスクリプトを用意して</p>
+
+<pre><code class="language-bash">while read key value; do
+  echo &quot;key:${key}, value:${value}&quot;
+done
 </code></pre>
 
-<h2 id="対応している変換方式">対応している変換方式</h2>
+<p>tsvを標準出力から入れると</p>
 
-<p>対応している変換方式は <code>--list</code> で出てくる</p>
-
-<p>base64なども変換できるようだ</p>
-
-<pre><code>$ recode --list | head
-/21-Permutation swabytes
-/4321-Permutation
-/Base64 64 b64
-/CR
-/CR-LF cl
-/Decimal-1 d d1
-/Decimal-2 d2
-/Decimal-4 d4
-/Hexadecimal-1 x x1
-/Hexadecimal-2 x2
+<pre><code class="language-txt">isom ~/Desktop/mp4/1021/ehara.mp4
+isom ~/Desktop/mp4/1021/uno.mp4
+mp42 ~/Desktop/mp4/1021/megurizumu.mp4
 </code></pre>
 
-<h3 id="bash">bash</h3>
+<p>1カラム目が <code>$key</code> 2カラム目が <code>$value</code> に束縛できる</p>
 
-<p>インストールはmacならbrewで入る</p>
-
-<pre><code class="language-bash">brew install recode
+<pre><code class="language-console">$ pbpaste &gt; /tmp/read-split.sh  # スクリプトをファイルに
+$ pbpaste | bash /tmp/read-split.sh  # csvをコピーして実行
+key: isom, value: ~/Desktop/mp4/1021/ehara.mp4
+key: isom, value: ~/Desktop/mp4/1021/uno.mp4
+key: mp42, value: ~/Desktop/mp4/1021/megurizumu.mp4
 </code></pre>
+
+<hr />
+
+<p>いままでtsvになったらperlで処理してたけど、bashで済む場合に楽が出来そう<br />
+とくにcurlとかhttpリクエスト必要な処理</p>
 
                 </section>
             </article>
 
             
-                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2frecode-file-charactor-encoding%2f - recode%e3%82%b3%e3%83%9e%e3%83%b3%e3%83%89%e3%81%a7%e3%83%95%e3%82%a1%e3%82%a4%e3%83%ab%e3%81%ae%e6%96%87%e5%ad%97%2f%e6%94%b9%e8%a1%8c%e3%82%b3%e3%83%bc%e3%83%89%e3%82%92%e5%a4%89%e6%9b%b4%e3%81%99%e3%82%8b by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fbash-tsv-read-split%2f - bash%e3%82%b9%e3%82%af%e3%83%aa%e3%83%97%e3%83%88%e3%81%ab%e3%80%81tsv%e3%81%ae%e6%a8%99%e6%ba%96%e5%85%a5%e5%8a%9b%e3%82%92%e5%85%a5%e3%82%8c%e3%81%a6%e3%80%81read%e3%81%a7%e4%bd%bf%e3%81%84%e3%82%84%e3%81%99%e3%81%8f%e3%82%84%e3%82%8b by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
 
 <a class="facebook" href="#" onclick="
     window.open(
