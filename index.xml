@@ -6,10 +6,19 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Mon, 21 Oct 2019 15:35:05 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 22 Oct 2019 20:53:11 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>reactでhtml内にjsonを埋め込む</title>
+      <link>https://dream-yt.github.io/post/react-embedd-json-innerhtml/</link>
+      <pubDate>Tue, 22 Oct 2019 20:53:11 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/react-embedd-json-innerhtml/</guid>
+      <description>reactのVDOMにJSONを埋め込もうとすると、htmlサニタイズされてしまう サニタイズされた文字列を読み込むのは面倒 サニタイズされない</description>
+    </item>
     
     <item>
       <title>bashスクリプトに、tsvの標準入力を入れて、readで使いやすくやる</title>

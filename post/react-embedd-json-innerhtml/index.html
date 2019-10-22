@@ -13,8 +13,8 @@
     
   
   
-  <meta name="twitter:title" content="commitを別の作業branchへ移動する方法"/>
-  <meta name="twitter:description" content="これは一体 Gitで何度も陥ってしまう過ちにまたハマってしまう日が来ても、乗り越えられる自分でありたい。 そのための備忘録です。 状況 新しい作業の"/>
+  <meta name="twitter:title" content="reactでhtml内にjsonを埋め込む"/>
+  <meta name="twitter:description" content="reactのVDOMにJSONを埋め込もうとすると、htmlサニタイズされてしまう サニタイズされた文字列を読み込むのは面倒 サニタイズされない"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -30,7 +30,7 @@
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
 		<meta name="generator" content="Hugo 0.51" />
-		<title>commitを別の作業branchへ移動する方法 &middot; sacre</title>
+		<title>reactでhtml内にjsonを埋め込む &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
@@ -68,19 +68,13 @@
             <article>
                 <header>
                     <h1>
-                        commitを別の作業branchへ移動する方法
+                        reactでhtml内にjsonを埋め込む
                     </h1>
                     <h2 class="headline">
-                    Nov 28, 2018 22:27
-                    · 645 words
-                    · 2 minute read
+                    Oct 22, 2019 20:53
+                    · 133 words
+                    · 1 minute read
                       <span class="tags">
-                      
-                      
-                          
-                              <a href="https://dream-yt.github.io/tags/git">git</a>
-                          
-                      
                       
                       </span>
                     </h2>
@@ -90,10 +84,13 @@
                     <div id="toc">
                       <nav id="TableOfContents">
 <ul>
-<li><a href="#これは一体">これは一体</a></li>
-<li><a href="#状況">状況</a></li>
-<li><a href="#やること">やること</a></li>
-<li><a href="#他のやりかた">他のやりかた</a></li>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul></li>
 </ul>
 </nav>
                     </div>
@@ -102,87 +99,32 @@
                 <section id="post-body">
                     
 
-<p><img src="/images/post/dream/GitCherryPick01.png" alt="This is a image" /></p>
-
-<h1 id="これは一体">これは一体</h1>
-
-<p>Gitで何度も陥ってしまう過ちにまたハマってしまう日が来ても、乗り越えられる自分でありたい。
-そのための備忘録です。</p>
-
-<h1 id="状況">状況</h1>
-
-<p>新しい作業の開始時に、branchの切り替えを忘れてしまう。</br>
-前回まで作業してたbranchやmasterで作業を開始してしまった時に、正しいbranchに作業したcommitを移動する。</p>
-
-<p>&hellip;&hellip;これ、自分的にはあるあるすぎる。何回やってんだ。</p>
-
-<h1 id="やること">やること</h1>
-
-<p><strong>[start地点]</strong> </br>
-正しくないbranch Aで作業を開始してしまった。移したいcommitは3つ。</p>
-
-<p><strong>1. 移動先branchがない場合は作成</strong> (branch B)</p>
-
-<p><strong>2. branch Aで下記コマンドを叩いて、移動するcommitのIDを確認</strong></p>
-
 <ul>
-<li>末尾に <code>-10</code>などいれると最新のcommitを上から10個表示するなど指定できる</li>
+<li>reactのVDOMにJSONを埋め込もうとすると、htmlサニタイズされてしまう</li>
+<li>サニタイズされた文字列を読み込むのは面倒</li>
+<li>サニタイズされないように文字列を埋め込むのには <code>dangerouslySetInnerHTML</code> を使う</li>
 </ul>
 
-<pre><code class="language-bash">$ git log --oneline 
+<pre><code class="language-jsx">&lt;template id=&quot;foo&quot; dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }} /&gt;
 </code></pre>
 
-<p><img src="/images/post/dream/GitCherryPick02.png" alt="This is a image" /></p>
+<p>埋め込んだ値を使うときはこんな感じ (innerHTML に入る)</p>
 
-<p><strong>3. branch Bに移動して移したいcommitをcherry pick する</strong></p>
+<pre><code class="language-js">const template = document.getElementById('foo');
+const data = JSON.parse(template.innerHTML)
+</code></pre>
+
+<h3 id="参考">参考</h3>
 
 <ul>
-<li>コマンドの後にcommit IDを入力</li>
-<li>古い順に入力すること</li>
+<li><a href="https://reactjs.org/docs/dom-elements.html#　dangerouslysetinnerhtml">DOM Elements – React # dangerouslySetInnerHTML</a></li>
 </ul>
-
-<pre><code class="language-bash">$ git cherry-pick xxxxxxx yyyyyyy zzzzzzz
-</code></pre>
-
-<p><strong>4. commitがbranch Bに移動できているかlogで確認</strong></p>
-
-<pre><code class="language-bash">$ git log --oneline 
-</code></pre>
-
-<p><strong>5. 必要があればbranchAのcommitを消去</strong></p>
-
-<ul>
-<li>下記のコマンドでできるらしい</li>
-<li>HEAD~xは任意の数値に変更</li>
-</ul>
-
-<pre><code class="language-bash">$ git reset --hard HEAD~3
-</code></pre>
-
-<h1 id="他のやりかた">他のやりかた</h1>
-
-<p>branch Bがまっさら状態だった場合、</p>
-
-<p><strong>1. branch Aで作業をstashにしまう</strong></p>
-
-<pre><code class="language-bash">git stash
-</code></pre>
-
-<p><strong>2. branch Bでstashを開ける</strong></p>
-
-<pre><code class="language-bash">git stash pop
-</code></pre>
-
-<p>というやり方もあるらしい。</br>
-この場合、branch AとBの作業箇所が被らないことが前提となる。（コンフリクトするため）</p>
-
-<p>備忘のために書いたとはいえ、同じことを繰り返さない自分であってほしい。</p>
 
                 </section>
             </article>
 
             
-                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fgit-cherry-pick%2f - commit%e3%82%92%e5%88%a5%e3%81%ae%e4%bd%9c%e6%a5%adbranch%e3%81%b8%e7%a7%bb%e5%8b%95%e3%81%99%e3%82%8b%e6%96%b9%e6%b3%95 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2freact-embedd-json-innerhtml%2f - react%e3%81%a7html%e5%86%85%e3%81%abjson%e3%82%92%e5%9f%8b%e3%82%81%e8%be%bc%e3%82%80 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
 
 <a class="facebook" href="#" onclick="
     window.open(
