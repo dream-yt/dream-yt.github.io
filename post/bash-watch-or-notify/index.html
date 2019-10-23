@@ -13,8 +13,8 @@
     
   
   
-  <meta name="twitter:title" content="recodeコマンドでファイルの文字/改行コードを変更する"/>
-  <meta name="twitter:description" content="文字コードの変換をするときはiconvを使うことが多かったが、recodeコマンドのほうが便利なことが多い 既存ファイルに置き換え(inpla"/>
+  <meta name="twitter:title" content="watchで出力が変化したら通知が欲しい"/>
+  <meta name="twitter:description" content="watchコマンドにはエラー時にビープするオプションはあるが、コマンドが正常終了した場合にビープして気がつく手段がないのでそれをなんとかする"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -30,7 +30,7 @@
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
 		<meta name="generator" content="Hugo 0.42.1" />
-		<title>recodeコマンドでファイルの文字/改行コードを変更する &middot; sacre</title>
+		<title>watchで出力が変化したら通知が欲しい &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
@@ -68,11 +68,11 @@
             <article>
                 <header>
                     <h1>
-                        recodeコマンドでファイルの文字/改行コードを変更する
+                        watchで出力が変化したら通知が欲しい
                     </h1>
                     <h2 class="headline">
-                    Jun 19, 2019 17:09
-                    · 271 words
+                    Oct 23, 2019 15:25
+                    · 362 words
                     · 1 minute read
                       <span class="tags">
                       
@@ -86,10 +86,17 @@
 <ul>
 <li>
 <ul>
-<li><a href="#対応している変換方式">対応している変換方式</a>
+<li><a href="#mac-iterm2の設定">mac/iterm2の設定</a></li>
+<li><a href="#watch側のコマンド">watch側のコマンド</a>
 <ul>
-<li><a href="#bash">bash</a></li>
+<li>
+<ul>
+<li><a href="#chgexit"><code>--chgexit</code></a></li>
+<li><a href="#interval-60"><code>--interval 60</code></a></li>
+<li><a href="#perl-e-say-007"><code>perl -E 'say &quot;\007&quot;'</code></a></li>
 </ul></li>
+</ul></li>
+<li><a href="#動作確認">動作確認</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -99,50 +106,76 @@
                 <section id="post-body">
                     
 
-<p>文字コードの変換をするときはiconvを使うことが多かったが、recodeコマンドのほうが便利なことが多い</p>
+<p>watchコマンドにはエラー時にビープするオプションはあるが、コマンドが正常終了した場合にビープして気がつく手段がないのでそれをなんとかする</p>
 
 <ul>
-<li>既存ファイルに置き換え(inplace)で文字コードが変更できる</li>
-<li>改行コード(CR-LFなど)の変換も対応している</li>
-<li>複数ファイルを引数に取ることができる</li>
+<li><a href="#maciterm2の設定">mac/iterm2の設定</a></li>
+<li><a href="#watch側のコマンド">watch側のコマンド</a>
+
+<ul>
+<li><a href="#--chgexit"><code>--chgexit</code></a></li>
+<li><a href="#--interval-60"><code>--interval 60</code></a></li>
+<li><a href="#perl--e-say-007"><code>perl -E 'say &quot;\007&quot;'</code></a></li>
+</ul></li>
+<li><a href="#動作確認">動作確認</a></li>
 </ul>
 
-<p>たとえばディレクトリ配下のcsvファイルをすべて {UTF16 =&gt; UTF-8} と変更したい場合は下記の1行で済む</p>
+<h2 id="mac-iterm2の設定">mac/iterm2の設定</h2>
 
-<pre><code class="language-bash">$ recode UTF-16..UTF-8 &quot;$f&quot; $(ls -1 ./*.csv)
+<p>通知の設定をONにしておく</p>
+
+<ul>
+<li>Profile
+
+<ul>
+<li>Terminal</li>
+<li>Notification Center</li>
+</ul></li>
+</ul>
+
+<p><img src="https://user-images.githubusercontent.com/5309672/67363240-e4e3f900-f5a7-11e9-8823-11bbccb3d3d9.png" alt="貼り付けた画像_2019_10_23_15_14" /></p>
+
+<h2 id="watch側のコマンド">watch側のコマンド</h2>
+
+<p>60ごとにコマンドを実行して結果を監視したい場合はこんな感じ</p>
+
+<pre><code>$ watch --chgexit --interval 60 {{ コマンド }} &amp;&amp; perl -E 'say &quot;\007&quot;'
 </code></pre>
 
-<h2 id="対応している変換方式">対応している変換方式</h2>
+<h4 id="chgexit"><code>--chgexit</code></h4>
 
-<p>対応している変換方式は <code>--list</code> で出てくる</p>
+<p>出力が変化したらwatchコマンドを終了する</p>
 
-<p>base64なども変換できるようだ</p>
+<h4 id="interval-60"><code>--interval 60</code></h4>
 
-<pre><code>$ recode --list | head
-/21-Permutation swabytes
-/4321-Permutation
-/Base64 64 b64
-/CR
-/CR-LF cl
-/Decimal-1 d d1
-/Decimal-2 d2
-/Decimal-4 d4
-/Hexadecimal-1 x x1
-/Hexadecimal-2 x2
+<p>60ごとにコマンドを実行する</p>
+
+<h4 id="perl-e-say-007"><code>perl -E 'say &quot;\007&quot;'</code></h4>
+
+<p>macでビープ音を出すためのコマンド<br />
+好みでsayなどを使ってもよい</p>
+
+<h2 id="動作確認">動作確認</h2>
+
+<p>macのitermで beep/chgexit がどんな感じになるか確認する</p>
+
+<p>watchでlsファイルさせて、途中でみてるファイルに書き込みを行う</p>
+
+<pre><code class="language-bash">$ watch --chgexit --interval 4 &quot;ls -laGh /tmp/_&quot; &amp;&amp; perl -E 'say &quot;\007&quot;'
 </code></pre>
 
-<h3 id="bash">bash</h3>
-
-<p>インストールはmacならbrewで入る</p>
-
-<pre><code class="language-bash">brew install recode
+<pre><code class="language-bash">$ echo &quot;hello&quot; &gt;&gt; /tmp/_
 </code></pre>
+
+<p>こんな感じで通知が得られる</p>
+
+<p><img src="https://user-images.githubusercontent.com/5309672/67362812-e3fe9780-f5a6-11e9-8de8-3dca447cd663.png" alt="image" /></p>
 
                 </section>
             </article>
 
             
-                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2frecode-file-charactor-encoding%2f - recode%e3%82%b3%e3%83%9e%e3%83%b3%e3%83%89%e3%81%a7%e3%83%95%e3%82%a1%e3%82%a4%e3%83%ab%e3%81%ae%e6%96%87%e5%ad%97%2f%e6%94%b9%e8%a1%8c%e3%82%b3%e3%83%bc%e3%83%89%e3%82%92%e5%a4%89%e6%9b%b4%e3%81%99%e3%82%8b by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fbash-watch-or-notify%2f - watch%e3%81%a7%e5%87%ba%e5%8a%9b%e3%81%8c%e5%a4%89%e5%8c%96%e3%81%97%e3%81%9f%e3%82%89%e9%80%9a%e7%9f%a5%e3%81%8c%e6%ac%b2%e3%81%97%e3%81%84 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
 
 <a class="facebook" href="#" onclick="
     window.open(

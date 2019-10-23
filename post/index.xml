@@ -6,10 +6,19 @@
     <description>Recent content in Posts on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Tue, 22 Oct 2019 20:53:11 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 23 Oct 2019 15:25:01 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>watchで出力が変化したら通知が欲しい</title>
+      <link>https://dream-yt.github.io/post/bash-watch-or-notify/</link>
+      <pubDate>Wed, 23 Oct 2019 15:25:01 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/bash-watch-or-notify/</guid>
+      <description>watchコマンドにはエラー時にビープするオプションはあるが、コマンドが正常終了した場合にビープして気がつく手段がないのでそれをなんとかする</description>
+    </item>
     
     <item>
       <title>reactでhtml内にjsonを埋め込む</title>
@@ -18,15 +27,6 @@
       
       <guid>https://dream-yt.github.io/post/react-embedd-json-innerhtml/</guid>
       <description>reactのVDOMにJSONを埋め込もうとすると、htmlサニタイズされてしまう サニタイズされた文字列を読み込むのは面倒 サニタイズされない</description>
-    </item>
-    
-    <item>
-      <title>bashスクリプトに、tsvの標準入力を入れて、readで使いやすくやる</title>
-      <link>https://dream-yt.github.io/post/bash-tsv-read-split/</link>
-      <pubDate>Mon, 21 Oct 2019 15:35:05 +0900</pubDate>
-      
-      <guid>https://dream-yt.github.io/post/bash-tsv-read-split/</guid>
-      <description>readというコマンドがあり、多くはシェルスクリプトでユーザの入力を受け取るときに使われるが、これをwhileと一緒に使うと標準入力を1行ご</description>
     </item>
     
     <item>
@@ -1062,6 +1062,15 @@
       
       <guid>https://dream-yt.github.io/post/strace-in-docker-container/</guid>
       <description>docker runに起動オブションをつけないとstraceは実行できない これはセキュリティの見地からdocker内では呼んで良いシステムコールが制限さ</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://dream-yt.github.io/post/bash-tsv-read-split/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/bash-tsv-read-split/</guid>
+      <description></description>
     </item>
     
     <item>
