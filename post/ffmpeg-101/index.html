@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="https://dream-yt.github.io/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="ffmpegコマンドの最小限の基本"/>
+  <meta name="twitter:description" content="基本はこの順番 ffmpeg -i {{ 入力ファイル }} {{ フィルタ }} {{ 出力ファイル }} フィルタとは 動画、音声、または両方を加工するためのもの たとえばぼやかしたり、前"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@site_author"/>
+  
+
+
+
+		
+		<meta name="author" content="site_author">
+		<meta name="description" content="Site Description">
+		<meta name="generator" content="Hugo 0.42.1" />
+		<title>ffmpegコマンドの最小限の基本 &middot; sacre</title>
+		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/font-awesome.min.css">
+		
+
+		
+		<link href="https://dream-yt.github.io/index.xml" rel="alternate" type="application/rss+xml" title="sacre" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='https://dream-yt.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://dream-yt.github.io/posts'>Archive</a>
+	<a href='https://dream-yt.github.io/tags'>Tags</a>
+	<a href='https://dream-yt.github.io/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="https://dream-yt.github.io/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        ffmpegコマンドの最小限の基本
+                    </h1>
+                    <h2 class="headline">
+                    Oct 23, 2019 17:45
+                    · 316 words
+                    · 1 minute read
+                      <span class="tags">
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#フィルタとは">フィルタとは</a></li>
+</ul></li>
+<li><a href="#動画ファイルの情報を見るだけ">動画ファイルの情報を見るだけ</a></li>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    
+
+<p>基本はこの順番</p>
+
+<pre><code>ffmpeg -i {{ 入力ファイル }} {{ フィルタ }} {{ 出力ファイル }}
+</code></pre>
+
+<h3 id="フィルタとは">フィルタとは</h3>
+
+<ul>
+<li>動画、音声、または両方を加工するためのもの</li>
+<li>たとえばぼやかしたり、前後にフェードインフェードアウトを入れたりできる</li>
+<li>一度に複数重ねてかけることもできる (フィルタチェイン)</li>
+</ul>
+
+<h2 id="動画ファイルの情報を見るだけ">動画ファイルの情報を見るだけ</h2>
+
+<p>一番基本的なのは動画の情報を見るだけの使い方 (とくにフィルタは使わない)</p>
+
+<pre><code class="language-bash">$ ffmpeg -i ~/Desktop/mp4/test.mp4 -f null -
+</code></pre>
+
+<ul>
+<li><code>-i</code>
+
+<ul>
+<li>入力ファイル</li>
+</ul></li>
+<li><code>-f</code>
+
+<ul>
+<li>本来は出力の形式を指定するオプション</li>
+<li><code>-f null -</code>を指定すると出力ファイルを作らない挙動になる</li>
+</ul></li>
+</ul>
+
+<h2 id="参考">参考</h2>
+
+<p>わかりやすい解説がたくさんある</p>
+
+<ul>
+<li><a href="https://yoshipc.net/how-to-use-ffmpeg/">ffmpeg使い方のまとめ | みんなのメモ帳</a></li>
+<li><a href="https://qiita.com/cha84rakanal/items/e84fe4eb6fbe2ae13fd8">それFFmpegで出来るよ！ - Qiita</a></li>
+<li><a href="https://zariganitosh.hatenablog.jp/entry/20150619/understand_ffmpeg">なるべく理解したいffmpeg - ザリガニが見ていた&hellip;。</a></li>
+</ul>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fffmpeg-101%2f - ffmpeg%e3%82%b3%e3%83%9e%e3%83%b3%e3%83%89%e3%81%ae%e6%9c%80%e5%b0%8f%e9%99%90%e3%81%ae%e5%9f%ba%e6%9c%ac by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'your_disqus_short_name'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/dream-yt/sacre">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://twitter.com/FUTABA_SACRE">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2019 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="https://dream-yt.github.io/js/jquery-3.3.1.min.js"></script>
+<script src="https://dream-yt.github.io/js/main.js"></script>
+<script src="https://dream-yt.github.io/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+
+
+
+
+    </body>
+</html>

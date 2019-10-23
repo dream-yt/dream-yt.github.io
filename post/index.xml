@@ -6,10 +6,19 @@
     <description>Recent content in Posts on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 23 Oct 2019 15:25:01 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 23 Oct 2019 17:45:08 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>ffmpegコマンドの最小限の基本</title>
+      <link>https://dream-yt.github.io/post/ffmpeg-101/</link>
+      <pubDate>Wed, 23 Oct 2019 17:45:08 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/ffmpeg-101/</guid>
+      <description>基本はこの順番 ffmpeg -i {{ 入力ファイル }} {{ フィルタ }} {{ 出力ファイル }} フィルタとは 動画、音声、または両方を加工するためのもの たとえばぼやかしたり、前</description>
+    </item>
     
     <item>
       <title>watchで出力が変化したら通知が欲しい</title>
