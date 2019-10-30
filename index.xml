@@ -6,10 +6,19 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 23 Oct 2019 17:45:08 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 30 Oct 2019 12:02:06 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>ngrokを使いはじめる</title>
+      <link>https://dream-yt.github.io/post/start-ngrok/</link>
+      <pubDate>Wed, 30 Oct 2019 12:02:06 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/start-ngrok/</guid>
+      <description>サインアップ アカウントをつくる必要がある (GitHubアカウントでサインアップできる) ngrok - secure introspectable tunnels to localhost インストール/認証 サインアップするとng</description>
+    </item>
     
     <item>
       <title>ffmpegコマンドの最小限の基本</title>
