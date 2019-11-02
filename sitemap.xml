@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://dream-yt.github.io/post/awscli-create-user-and-policy/</loc>
+    <lastmod>2019-11-02T15:10:56+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://dream-yt.github.io/post/ts-type-guard/</loc>
     <lastmod>2019-11-01T08:03:40+09:00</lastmod>
   </url>
@@ -616,20 +621,14 @@
   </url>
   
   <url>
-    <loc>https://dream-yt.github.io/categories/git/</loc>
-    <lastmod>2018-11-28T22:27:25+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://dream-yt.github.io/tags/git/</loc>
     <lastmod>2018-11-28T22:27:25+09:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://dream-yt.github.io/categories/posgresql/</loc>
-    <lastmod>2019-03-16T17:00:00+09:00</lastmod>
+    <loc>https://dream-yt.github.io/categories/git/</loc>
+    <lastmod>2018-11-28T22:27:25+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -640,8 +639,14 @@
   </url>
   
   <url>
+    <loc>https://dream-yt.github.io/categories/posgresql/</loc>
+    <lastmod>2019-03-16T17:00:00+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://dream-yt.github.io/post/</loc>
-    <lastmod>2019-11-01T08:03:40+09:00</lastmod>
+    <lastmod>2019-11-02T15:10:56+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -653,7 +658,7 @@
   
   <url>
     <loc>https://dream-yt.github.io/</loc>
-    <lastmod>2019-11-01T08:03:40+09:00</lastmod>
+    <lastmod>2019-11-02T15:10:56+09:00</lastmod>
     <priority>0</priority>
   </url>
   

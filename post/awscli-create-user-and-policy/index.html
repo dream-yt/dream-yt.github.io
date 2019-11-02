@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="https://dream-yt.github.io/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="IAM権限を絞ったuserでserverlessを使う"/>
+  <meta name="twitter:description" content="Serverless framework は sls deploy コマンドを叩くAWSユーザには admin アクセスを推奨している Attach existing policies directly. Search for and select AdministratorAccess then click Next: Review. Check to make sure everything looks good and click Create user. Serverless Framework - AWS Lambda Guide - Credentials しかし、SI"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@site_author"/>
+  
+
+
+
+		
+		<meta name="author" content="site_author">
+		<meta name="description" content="Site Description">
+		<meta name="generator" content="Hugo 0.51" />
+		<title>IAM権限を絞ったuserでserverlessを使う &middot; sacre</title>
+		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/font-awesome.min.css">
+		
+
+		
+		<link href="https://dream-yt.github.io/index.xml" rel="alternate" type="application/rss+xml" title="sacre" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='https://dream-yt.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://dream-yt.github.io/posts'>Archive</a>
+	<a href='https://dream-yt.github.io/tags'>Tags</a>
+	<a href='https://dream-yt.github.io/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="https://dream-yt.github.io/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        IAM権限を絞ったuserでserverlessを使う
+                    </h1>
+                    <h2 class="headline">
+                    Nov 2, 2019 15:10
+                    · 738 words
+                    · 2 minute read
+                      <span class="tags">
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#前提">前提</a></li>
+<li><a href="#policy-yaml">policy.yaml</a>
+<ul>
+<li><a href="#sls-remove-はできない">sls remove はできない</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    
+
+<p>Serverless framework は <code>sls deploy</code> コマンドを叩くAWSユーザには admin アクセスを推奨している</p>
+
+<blockquote>
+<p>Attach existing policies directly. Search for and select AdministratorAccess then click Next: Review. Check to make sure everything looks good and click Create user.</p>
+</blockquote>
+
+<ul>
+<li><a href="https://serverless.com/framework/docs/providers/aws/guide/credentials/">Serverless Framework - AWS Lambda Guide - Credentials</a></li>
+</ul>
+
+<p>しかし、SIなどの堅めの組織や大企業病がひどいところだと開発者に与えられる権限は制限されることもある。そうなると制限された権限を使っている姿勢をとることが必要になってくる</p>
+
+<p>本家のリポジトリでも、どれくらい権限をせばめても開発が行えるか議論がされている</p>
+
+<ul>
+<li><a href="https://github.com/serverless/serverless/issues/1439">Narrowing the Serverless IAM Deployment Policy · Issue #1439 · serverless/serverless</a></li>
+</ul>
+
+<h2 id="前提">前提</h2>
+
+<p>どんな用途でつかわれるpolicyなのかでけっこう違う権限が必要</p>
+
+<p>色々考えられる</p>
+
+<ul>
+<li>sls deploy でリソースがCloudFormationStackの作成から行える権限</li>
+<li>既存のlambda関数のソースコードが更新できればよい権限</li>
+<li>sls で管理するリソースにkmsやroute53などが含まれているかどうか</li>
+</ul>
+
+<p>今回は <code>sls deploy でリソースがCloudFormationStackの作成から行える権限</code>  という前提で権限を整理していた。ほぼほぼ色々なことができてしまうが、ミス等で致命的なリソースを削除してしまうリスクを担保したものを考えた</p>
+
+<h2 id="policy-yaml">policy.yaml</h2>
+
+<ul>
+<li>こんなpolicyを書いたら sls deploy は通った</li>
+<li>その他権限を渡したくないものがあったらDenyで弾いてもらう</li>
+</ul>
+
+<pre><code class="language-yaml">Version: '2012-10-17'
+Statement:
+- Sid: AllowLambdaAPIGateway
+  Effect: Allow
+  Action:
+  - apigateway:*
+  - lambda:*
+  - logs:*
+  - events:*
+  - s3:*
+  Resource: '*'
+- Sid: AllowIAM
+  Effect: Allow
+  Action:
+  - iam:GetRole
+  - iam:PassRole
+  - iam:CreateRole
+  - iam:DeleteRole
+  - iam:CreateServiceLinkedRole
+  - iam:DetachRolePolicy
+  - iam:PutRolePolicy
+  - iam:AttachRolePolicy
+  - iam:DeleteRolePolicy
+  Resource: '*'
+- Sid: AllowCloudFormation
+  Effect: Allow
+  Action:
+  - cloudformation:CreateStack
+  - cloudformation:Describe*
+  - cloudformation:ValidateTemplate
+  - cloudformation:UpdateStack
+  - cloudformation:List*
+  # cloudformation:DeleteStack は省いている。UIから消せればよい
+  Resource: '*'
+# 悪用やミスで触ってしまうとマズいリソースにはdeniedを設定する
+- Sid: DenyS3
+  Effect: Deny
+  Action: s3:*
+  Resource:
+  - arn:aws:s3:::apiaccess-1wqlmdji14kx3
+- Sid: DenyIAM
+  Effect: Deny
+  Action: iam:*
+  Resource:
+  - arn:aws:iam::1234567890:user/kms
+</code></pre>
+
+<h3 id="sls-remove-はできない">sls remove はできない</h3>
+
+<ul>
+<li><code>DeleteStack</code> 権限がないのでremoveはできない。期待通りの挙動</li>
+<li><code>--aws-profile cr-slsdeploy</code> の部分は awscliのprofileを使うオプション</li>
+</ul>
+
+<pre><code class="language-console">$ serverless remove --verbose --aws-profile cr-slsdeploy --stage dev
+Serverless: Getting all objects in S3 bucket...
+Serverless: Removing objects in S3 bucket...
+Serverless: Removing Stack...
+
+  Serverless Error ---------------------------------------
+
+  User: arn:aws:iam::836859347283:user/slsdeploy is not authorized to perform: cloudformation:DeleteStack on resource: arn:aws:cloudformation:us-east-1:1234567890:stack/testslsdeploypolicy-dev/0876f250-fd1e-11e9-94f2-0a583df6bf38
+</code></pre>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fawscli-create-user-and-policy%2f - IAM%e6%a8%a9%e9%99%90%e3%82%92%e7%b5%9e%e3%81%a3%e3%81%9fuser%e3%81%a7serverless%e3%82%92%e4%bd%bf%e3%81%86 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'your_disqus_short_name'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/dream-yt/sacre">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://twitter.com/FUTABA_SACRE">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2019 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="https://dream-yt.github.io/js/jquery-3.3.1.min.js"></script>
+<script src="https://dream-yt.github.io/js/main.js"></script>
+<script src="https://dream-yt.github.io/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+
+
+
+
+    </body>
+</html>
