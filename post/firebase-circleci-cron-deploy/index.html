@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="https://dream-yt.github.io/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="circleciのcronトリガーでfirebase/hostingをアップデートする"/>
+  <meta name="twitter:description" content="こんな前提の場合の設定 静的サイトをfirebase/hostingに置いている circleciのjob上 (dockerコンテナ内) でサイトの"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@site_author"/>
+  
+
+
+
+		
+		<meta name="author" content="site_author">
+		<meta name="description" content="Site Description">
+		<meta name="generator" content="Hugo 0.51" />
+		<title>circleciのcronトリガーでfirebase/hostingをアップデートする &middot; sacre</title>
+		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/font-awesome.min.css">
+		
+
+		
+		<link href="https://dream-yt.github.io/index.xml" rel="alternate" type="application/rss+xml" title="sacre" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='https://dream-yt.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://dream-yt.github.io/posts'>Archive</a>
+	<a href='https://dream-yt.github.io/tags'>Tags</a>
+	<a href='https://dream-yt.github.io/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="https://dream-yt.github.io/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        circleciのcronトリガーでfirebase/hostingをアップデートする
+                    </h1>
+                    <h2 class="headline">
+                    Nov 4, 2019 14:26
+                    · 419 words
+                    · 1 minute read
+                      <span class="tags">
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#circleci上で定時実行する">circleci上で定時実行する</a></li>
+<li><a href="#firebaseへのデプロイ">firebaseへのデプロイ</a>
+<ul>
+<li>
+<ul>
+<li><a href="#firebase-deploy-token"><code>firebase deploy --token</code></a></li>
+</ul></li>
+</ul></li>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    
+
+<p>こんな前提の場合の設定</p>
+
+<ul>
+<li>静的サイトをfirebase/hostingに置いている</li>
+<li>circleciのjob上 (dockerコンテナ内) でサイトの更新をしたい</li>
+<li>日毎で毎日決まった時間に更新したい</li>
+</ul>
+
+<h2 id="circleci上で定時実行する">circleci上で定時実行する</h2>
+
+<ul>
+<li><code>.circleci/config.yaml</code> にこんなworkflowを書く</li>
+<li>この設定で <code>yarn install &amp;&amp; yarn run release</code> が毎日2時になったら実行される</li>
+</ul>
+
+<pre><code class="language-yaml">workflows:
+  daily:
+    jobs:
+      - update
+    triggers:
+      - schedule:
+          # UTCで記述 (JST14時)
+          cron: &quot;0 5 * * *&quot;
+          filters:
+            branches:
+              only:
+                - master
+jobs:
+  # `workflows.daily.jobs` に定義したのと同じ名前
+  update:
+    docker:
+      - image: circleci/node:10.15
+    steps:
+      - checkout
+      - run:
+          command: yarn install
+          working_directory: functions/example.com
+      # このコマンドの中で firebase deploy を叩いている (後述)
+      - run:
+          command: yarn run release
+          working_directory: functions/example.com
+</code></pre>
+
+<h2 id="firebaseへのデプロイ">firebaseへのデプロイ</h2>
+
+<p><code>yarn run release</code> をしている package.json はこんな感じ</p>
+
+<pre><code class="language-json">  &quot;scripts&quot;: {
+    &quot;build&quot;: &quot;gatsby build&quot;,
+    &quot;deploy:ci&quot;: &quot;firebase deploy --token 'xxxxxxxxxxxxxxxxxxxx'&quot;,
+    &quot;release&quot;: &quot;yarn run build &amp;&amp; yarn run deploy:ci&quot;,
+  }
+</code></pre>
+
+<h4 id="firebase-deploy-token"><code>firebase deploy --token</code></h4>
+
+<p>firebase は ci上でデプロイをするためのトークンを発行することができる<br />
+こんなコマンドで払い出すことができる (実行するとブラウザが立ち上がって認証画面に行く)</p>
+
+<pre><code class="language-bash">$ npx firebase login:ci
+</code></pre>
+
+<h2 id="参考">参考</h2>
+
+<ul>
+<li><a href="https://circleci.com/blog/automatically-deploy-a-gatsby-site-to-firebase-hosting/">Firebase Hosting - Deploying to Firebase Hosting - Deploying a Gatsby site | CircleCI</a></li>
+<li><a href="https://qiita.com/terrierscript/items/55b6bbfbc064e80c1349">Circle-CI 2.0のcron triggerを使って、定期実行をする - Qiita</a></li>
+</ul>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2ffirebase-circleci-cron-deploy%2f - circleci%e3%81%aecron%e3%83%88%e3%83%aa%e3%82%ac%e3%83%bc%e3%81%a7firebase%2fhosting%e3%82%92%e3%82%a2%e3%83%83%e3%83%97%e3%83%87%e3%83%bc%e3%83%88%e3%81%99%e3%82%8b by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'your_disqus_short_name'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/dream-yt/sacre">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://twitter.com/FUTABA_SACRE">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2019 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="https://dream-yt.github.io/js/jquery-3.3.1.min.js"></script>
+<script src="https://dream-yt.github.io/js/main.js"></script>
+<script src="https://dream-yt.github.io/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+
+
+
+
+    </body>
+</html>
