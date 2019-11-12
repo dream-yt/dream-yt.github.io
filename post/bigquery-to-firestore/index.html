@@ -13,8 +13,8 @@
     
   
   
-  <meta name="twitter:title" content="recodeコマンドでファイルの文字/改行コードを変更する"/>
-  <meta name="twitter:description" content="文字コードの変換をするときはiconvを使うことが多かったが、recodeコマンドのほうが便利なことが多い 既存ファイルに置き換え(inpla"/>
+  <meta name="twitter:title" content="firestoreからbigqueryへのexport手順"/>
+  <meta name="twitter:description" content="gcsを介して行う export from firestore gcloud beta firestore export \ gs://[BUCKET_NAME] \ --collection-ids=[COLLECTION_ID_1],[COLLECTION_ID_2] データのエクスポートとインポート | Firebase import to bigquery bq --location=[LOCATION] load \ --source_format=[FORMAT] \ [DATASET].[TABLE] \ [PATH_TO_SOURCE] Loading data from Cloud Firestore exports | BigQuery | Google Cloud"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -30,7 +30,7 @@
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
 		<meta name="generator" content="Hugo 0.42.1" />
-		<title>recodeコマンドでファイルの文字/改行コードを変更する &middot; sacre</title>
+		<title>firestoreからbigqueryへのexport手順 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
@@ -68,11 +68,11 @@
             <article>
                 <header>
                     <h1>
-                        recodeコマンドでファイルの文字/改行コードを変更する
+                        firestoreからbigqueryへのexport手順
                     </h1>
                     <h2 class="headline">
-                    Jun 19, 2019 17:09
-                    · 271 words
+                    Nov 12, 2019 18:56
+                    · 61 words
                     · 1 minute read
                       <span class="tags">
                       
@@ -86,10 +86,8 @@
 <ul>
 <li>
 <ul>
-<li><a href="#対応している変換方式">対応している変換方式</a>
-<ul>
-<li><a href="#bash">bash</a></li>
-</ul></li>
+<li><a href="#export-from-firestore">export from firestore</a></li>
+<li><a href="#import-to-bigquery">import to bigquery</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -99,50 +97,36 @@
                 <section id="post-body">
                     
 
-<p>文字コードの変換をするときはiconvを使うことが多かったが、recodeコマンドのほうが便利なことが多い</p>
+<p>gcsを介して行う</p>
+
+<h2 id="export-from-firestore">export from firestore</h2>
+
+<pre><code>gcloud beta firestore export \
+  gs://[BUCKET_NAME] \
+  --collection-ids=[COLLECTION_ID_1],[COLLECTION_ID_2]
+</code></pre>
 
 <ul>
-<li>既存ファイルに置き換え(inplace)で文字コードが変更できる</li>
-<li>改行コード(CR-LFなど)の変換も対応している</li>
-<li>複数ファイルを引数に取ることができる</li>
+<li><a href="https://firebase.google.com/docs/firestore/manage-data/export-import?hl=ja">データのエクスポートとインポート  |  Firebase</a></li>
 </ul>
 
-<p>たとえばディレクトリ配下のcsvファイルをすべて {UTF16 =&gt; UTF-8} と変更したい場合は下記の1行で済む</p>
+<h2 id="import-to-bigquery">import to bigquery</h2>
 
-<pre><code class="language-bash">$ recode UTF-16..UTF-8 &quot;$f&quot; $(ls -1 ./*.csv)
+<pre><code>bq --location=[LOCATION] load \
+  --source_format=[FORMAT] \
+  [DATASET].[TABLE] \
+  [PATH_TO_SOURCE]
 </code></pre>
 
-<h2 id="対応している変換方式">対応している変換方式</h2>
-
-<p>対応している変換方式は <code>--list</code> で出てくる</p>
-
-<p>base64なども変換できるようだ</p>
-
-<pre><code>$ recode --list | head
-/21-Permutation swabytes
-/4321-Permutation
-/Base64 64 b64
-/CR
-/CR-LF cl
-/Decimal-1 d d1
-/Decimal-2 d2
-/Decimal-4 d4
-/Hexadecimal-1 x x1
-/Hexadecimal-2 x2
-</code></pre>
-
-<h3 id="bash">bash</h3>
-
-<p>インストールはmacならbrewで入る</p>
-
-<pre><code class="language-bash">brew install recode
-</code></pre>
+<ul>
+<li><a href="https://cloud.google.com/bigquery/docs/loading-data-cloud-firestore#loading_cloud_firestore_export_service_data">Loading data from Cloud Firestore exports  |  BigQuery  |  Google Cloud</a></li>
+</ul>
 
                 </section>
             </article>
 
             
-                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2frecode-file-charactor-encoding%2f - recode%e3%82%b3%e3%83%9e%e3%83%b3%e3%83%89%e3%81%a7%e3%83%95%e3%82%a1%e3%82%a4%e3%83%ab%e3%81%ae%e6%96%87%e5%ad%97%2f%e6%94%b9%e8%a1%8c%e3%82%b3%e3%83%bc%e3%83%89%e3%82%92%e5%a4%89%e6%9b%b4%e3%81%99%e3%82%8b by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fbigquery-to-firestore%2f - firestore%e3%81%8b%e3%82%89bigquery%e3%81%b8%e3%81%aeexport%e6%89%8b%e9%a0%86 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
 
 <a class="facebook" href="#" onclick="
     window.open(
