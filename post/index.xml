@@ -6,10 +6,19 @@
     <description>Recent content in Posts on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Tue, 12 Nov 2019 18:56:11 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 13 Nov 2019 12:33:01 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>一定期間で自分がGitHubでマージしたブランチを取得する</title>
+      <link>https://dream-yt.github.io/post/gitlog-mymerge/</link>
+      <pubDate>Wed, 13 Nov 2019 12:33:01 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/gitlog-mymerge/</guid>
+      <description>こんな感じ $ git log \ --format=&#39;%h %an (%ai) %s&#39; --since=&#39;2019-10-25&#39; \ --author=sakamossan \ --grep=&#39;Merge pull request #\d+&#39; -P こんな出力が得られる 3fc6ed727 sakamossan (2019-11-11 14:04:54 +0900) Merge pull request #4573 ... 87daf1614 sakamossan (2019-11-06 17:59:30 +0900) Merge pull request #4557 ... 47e68edfc sakamossan (2019-11-06 11:22:41 +0900) Merge pull request #4542 ... &amp;ndash;format=&amp;lsquo;%h %an (%ai) %s&amp;rsquo; 出力フォ</description>
+    </item>
     
     <item>
       <title>firestoreからbigqueryへのexport手順</title>
