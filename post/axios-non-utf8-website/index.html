@@ -13,8 +13,8 @@
     
   
   
-  <meta name="twitter:title" content="commitを別の作業branchへ移動する方法"/>
-  <meta name="twitter:description" content="これは一体 Gitで何度も陥ってしまう過ちにまたハマってしまう日が来ても、乗り越えられる自分でありたい。 そのための備忘録です。 状況 新しい作業の"/>
+  <meta name="twitter:title" content="UTF-8じゃないサイトをaxiosで取得する"/>
+  <meta name="twitter:description" content="axiosはデフォルトでサイトの文字コードをUTF-8決め打ちでデコードしてしまう なのでUTF-8じゃないサイトを取得すると文字化けする how to"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -30,7 +30,7 @@
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
 		<meta name="generator" content="Hugo 0.51" />
-		<title>commitを別の作業branchへ移動する方法 &middot; sacre</title>
+		<title>UTF-8じゃないサイトをaxiosで取得する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
@@ -68,19 +68,13 @@
             <article>
                 <header>
                     <h1>
-                        commitを別の作業branchへ移動する方法
+                        UTF-8じゃないサイトをaxiosで取得する
                     </h1>
                     <h2 class="headline">
-                    Nov 28, 2018 22:27
-                    · 645 words
-                    · 2 minute read
+                    Nov 17, 2019 12:34
+                    · 289 words
+                    · 1 minute read
                       <span class="tags">
-                      
-                      
-                          
-                              <a href="https://dream-yt.github.io/tags/git">git</a>
-                          
-                      
                       
                       </span>
                     </h2>
@@ -90,10 +84,10 @@
                     <div id="toc">
                       <nav id="TableOfContents">
 <ul>
-<li><a href="#これは一体">これは一体</a></li>
-<li><a href="#状況">状況</a></li>
-<li><a href="#やること">やること</a></li>
-<li><a href="#他のやりかた">他のやりかた</a></li>
+<li>
+<ul>
+<li><a href="#参考">参考</a></li>
+</ul></li>
 </ul>
 </nav>
                     </div>
@@ -102,87 +96,56 @@
                 <section id="post-body">
                     
 
-<p><img src="/images/post/dream/GitCherryPick01.png" alt="This is a image" /></p>
-
-<h1 id="これは一体">これは一体</h1>
-
-<p>Gitで何度も陥ってしまう過ちにまたハマってしまう日が来ても、乗り越えられる自分でありたい。
-そのための備忘録です。</p>
-
-<h1 id="状況">状況</h1>
-
-<p>新しい作業の開始時に、branchの切り替えを忘れてしまう。</br>
-前回まで作業してたbranchやmasterで作業を開始してしまった時に、正しいbranchに作業したcommitを移動する。</p>
-
-<p>&hellip;&hellip;これ、自分的にはあるあるすぎる。何回やってんだ。</p>
-
-<h1 id="やること">やること</h1>
-
-<p><strong>[start地点]</strong> </br>
-正しくないbranch Aで作業を開始してしまった。移したいcommitは3つ。</p>
-
-<p><strong>1. 移動先branchがない場合は作成</strong> (branch B)</p>
-
-<p><strong>2. branch Aで下記コマンドを叩いて、移動するcommitのIDを確認</strong></p>
+<p>axiosはデフォルトでサイトの文字コードをUTF-8決め打ちでデコードしてしまう<br />
+なのでUTF-8じゃないサイトを取得すると文字化けする</p>
 
 <ul>
-<li>末尾に <code>-10</code>などいれると最新のcommitを上から10個表示するなど指定できる</li>
+<li><a href="https://github.com/axios/axios/issues/332">how to decode non-utf8 response? · Issue #332 · axios/axios</a></li>
 </ul>
 
-<pre><code class="language-bash">$ git log --oneline 
-</code></pre>
-
-<p><img src="/images/post/dream/GitCherryPick02.png" alt="This is a image" /></p>
-
-<p><strong>3. branch Bに移動して移したいcommitをcherry pick する</strong></p>
+<p>以下のやり方でUTF-8以外のデコードができるようだ</p>
 
 <ul>
-<li>コマンドの後にcommit IDを入力</li>
-<li>古い順に入力すること</li>
+<li><code>responseType</code> に <code>arraybuffer</code> を指定する</li>
+<li><code>transformResponse</code> で <code>response.data</code> を期待する文字コードにデコードする</li>
 </ul>
 
-<pre><code class="language-bash">$ git cherry-pick xxxxxxx yyyyyyy zzzzzzz
+<p>自動でエンコーディングを判定してくれるchardetを使うとこんな感じになる</p>
+
+<pre><code class="language-ts">import * as chardet from 'chardet';
+import * as iconv from 'iconv-lite';
+
+axios.create({
+  responseType: 'arraybuffer',
+  transformResponse: data =&gt; {
+    const encoding = chardet.detect(data);
+    if (!encoding) {
+      throw new Error('chardet failed to detect encoding');
+    }
+    return iconv.decode(data, encoding);
+  }
+})
 </code></pre>
 
-<p><strong>4. commitがbranch Bに移動できているかlogで確認</strong></p>
+<h2 id="参考">参考</h2>
 
-<pre><code class="language-bash">$ git log --oneline 
-</code></pre>
-
-<p><strong>5. 必要があればbranchAのcommitを消去</strong></p>
+<p>chardetの仕組みについて</p>
 
 <ul>
-<li>下記のコマンドでできるらしい</li>
-<li>HEAD~xは任意の数値に変更</li>
+<li><a href="https://www-archive.mozilla.org/projects/intl/universalcharsetdetection">A composite approach to language/encoding detection</a></li>
 </ul>
 
-<pre><code class="language-bash">$ git reset --hard HEAD~3
-</code></pre>
+<p>UTF-8じゃないサイトを探す時に役に立った</p>
 
-<h1 id="他のやりかた">他のやりかた</h1>
-
-<p>branch Bがまっさら状態だった場合、</p>
-
-<p><strong>1. branch Aで作業をstashにしまう</strong></p>
-
-<pre><code class="language-bash">git stash
-</code></pre>
-
-<p><strong>2. branch Bでstashを開ける</strong></p>
-
-<pre><code class="language-bash">git stash pop
-</code></pre>
-
-<p>というやり方もあるらしい。</br>
-この場合、branch AとBの作業箇所が被らないことが前提となる。（コンフリクトするため）</p>
-
-<p>備忘のために書いたとはいえ、同じことを繰り返さない自分であってほしい。</p>
+<ul>
+<li><a href="https://docs.google.com/spreadsheets/d/1Z_rR1UvpQnvf75DPBLP7LByXSIavT-mBdBmFegbeB4w/edit#gid=972298121">上場企業HP文字コード一覧(2017/10/20) - Google スプレッドシート</a></li>
+</ul>
 
                 </section>
             </article>
 
             
-                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fgit-cherry-pick%2f - commit%e3%82%92%e5%88%a5%e3%81%ae%e4%bd%9c%e6%a5%adbranch%e3%81%b8%e7%a7%bb%e5%8b%95%e3%81%99%e3%82%8b%e6%96%b9%e6%b3%95 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2faxios-non-utf8-website%2f - UTF-8%e3%81%98%e3%82%83%e3%81%aa%e3%81%84%e3%82%b5%e3%82%a4%e3%83%88%e3%82%92axios%e3%81%a7%e5%8f%96%e5%be%97%e3%81%99%e3%82%8b by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
 
 <a class="facebook" href="#" onclick="
     window.open(
