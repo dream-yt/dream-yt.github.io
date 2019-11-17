@@ -6,10 +6,19 @@
     <description>Recent content in Posts on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sun, 17 Nov 2019 12:34:41 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 17 Nov 2019 12:54:35 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>axiosでステータスコード404のときに例外をあげなくする</title>
+      <link>https://dream-yt.github.io/post/axios-allows-404-statuscode/</link>
+      <pubDate>Sun, 17 Nov 2019 12:54:35 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/axios-allows-404-statuscode/</guid>
+      <description>axiosはレスポンスのステータスが500でも404でも例外を投げてしまう Don&amp;rsquo;t throw error / catch on 400-level responses · Issue #41 · axios/axios それで困る時、たとえば4xx系は許容した</description>
+    </item>
     
     <item>
       <title>UTF-8じゃないサイトをaxiosで取得する</title>
