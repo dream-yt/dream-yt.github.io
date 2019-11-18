@@ -6,10 +6,19 @@
     <description>Recent content in Posts on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sun, 17 Nov 2019 12:54:35 +0900</lastBuildDate>
+    <lastBuildDate>Mon, 18 Nov 2019 15:09:20 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>[読書メモ] インターフェイスデザインのお約束</title>
+      <link>https://dream-yt.github.io/post/ui-101-principles/</link>
+      <pubDate>Mon, 18 Nov 2019 15:09:20 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/ui-101-principles/</guid>
+      <description>O&amp;rsquo;Reilly Japan - インタフェースデザインのお約束 2章 文字と言葉 010 log-in より sign-in log-in ではなく sign-in を使った方がよい ただし、日本語では「ログイン」のほうが一般的なのでそ</description>
+    </item>
     
     <item>
       <title>axiosでステータスコード404のときに例外をあげなくする</title>
