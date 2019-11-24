@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="https://dream-yt.github.io/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="jqで変形 (オブジェクト =&gt; 配列 =&gt; オブジェクト)"/>
+  <meta name="twitter:description" content="こんなデータ構造のjsonがあるとして { &quot;APP1&quot;: { &quot;name&quot;: &quot;旧App&quot;, &quot;monId&quot;: 277013 }, &quot;APP2&quot;: { &quot;name&quot;: &quot;App&quot;, &quot;monId&quot;: 241736 }, &quot;DB&quot;: { &quot;name&quot;: &quot;Database&quot;, &quot;monId&quot;: 234737 }, &quot;S&quot;: { &quot;name&quot;: &quot;Static&quot;, &quot;monId&quot;: 221738 } } この形式に"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@site_author"/>
+  
+
+
+
+		
+		<meta name="author" content="site_author">
+		<meta name="description" content="Site Description">
+		<meta name="generator" content="Hugo 0.51" />
+		<title>jqで変形 (オブジェクト =&gt; 配列 =&gt; オブジェクト) &middot; sacre</title>
+		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/font-awesome.min.css">
+		
+
+		
+		<link href="https://dream-yt.github.io/index.xml" rel="alternate" type="application/rss+xml" title="sacre" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='https://dream-yt.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://dream-yt.github.io/posts'>Archive</a>
+	<a href='https://dream-yt.github.io/tags'>Tags</a>
+	<a href='https://dream-yt.github.io/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="https://dream-yt.github.io/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        jqで変形 (オブジェクト =&gt; 配列 =&gt; オブジェクト)
+                    </h1>
+                    <h2 class="headline">
+                    Nov 24, 2019 09:18
+                    · 442 words
+                    · 1 minute read
+                      <span class="tags">
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#具体的には">具体的には</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#jqで変換">jqで変換</a>
+<ul>
+<li><a href="#to-entries">to_entries</a>
+<ul>
+<li><a href="#例">例</a></li>
+</ul></li>
+<li><a href="#map-value-monid-tostring-value-name-add">map({ (.value.monId|tostring): (.value.name) }) | add</a>
+<ul>
+<li>
+<ul>
+<li><a href="#add-の例">add の例</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    
+
+<p>こんなデータ構造のjsonがあるとして</p>
+
+<pre><code class="language-json">{
+  &quot;APP1&quot;: { &quot;name&quot;: &quot;旧App&quot;, &quot;monId&quot;: 277013 },
+  &quot;APP2&quot;: { &quot;name&quot;: &quot;App&quot;, &quot;monId&quot;: 241736 },
+  &quot;DB&quot;: { &quot;name&quot;: &quot;Database&quot;, &quot;monId&quot;: 234737 },
+  &quot;S&quot;: { &quot;name&quot;: &quot;Static&quot;, &quot;monId&quot;: 221738 }
+}
+</code></pre>
+
+<p>この形式にjqで変換したい</p>
+
+<pre><code class="language-json">{
+  &quot;277013&quot;: &quot;旧App&quot;,
+  &quot;241736&quot;: &quot;App&quot;,
+  &quot;234737&quot;: &quot;Database&quot;,
+  &quot;221738&quot;: &quot;Static&quot;
+}
+</code></pre>
+
+<h3 id="具体的には">具体的には</h3>
+
+<p>こんなオブジェクトに変換したい</p>
+
+<ul>
+<li><code>monId</code> をオブジェクトのキーに</li>
+<li>値は <code>name</code> に</li>
+</ul>
+
+<h1 id="jqで変換">jqで変換</h1>
+
+<p>スクリプトはこんな感じ</p>
+
+<pre><code class="language-bash">pbpaste | jq '. 
+  | to_entries 
+  | map({ (.value.monId|tostring): (.value.name) }) 
+  | add '
+</code></pre>
+
+<ul>
+<li>オブジェクトから <code>to_entries</code> でいっかい配列に</li>
+<li>配列の各要素からキーとバリューをのセットを取得</li>
+<li><code>map | add</code> で再度オブジェクトに変換</li>
+</ul>
+
+<h2 id="to-entries">to_entries</h2>
+
+<p>オブジェクトから配列に変換してくれる</p>
+
+<h3 id="例">例</h3>
+
+<p>この形を</p>
+
+<pre><code class="language-js">{
+  &quot;APP1&quot;: { &quot;name&quot;: &quot;旧App&quot;, &quot;monId&quot;: 277013 },
+  &quot;APP2&quot;: { &quot;name&quot;: &quot;App&quot;, &quot;monId&quot;: 241736 }
+}
+</code></pre>
+
+<p>こうしてくれる</p>
+
+<pre><code class="language-js">$ pbpaste | jq '. | to_entries'
+[
+  {
+    &quot;key&quot;: &quot;APP1&quot;,
+    &quot;value&quot;: {
+      &quot;name&quot;: &quot;旧App&quot;,
+      &quot;monId&quot;: 277013
+    }
+  },
+  {
+    &quot;key&quot;: &quot;APP2&quot;,
+    &quot;value&quot;: {
+      &quot;name&quot;: &quot;App&quot;,
+      &quot;monId&quot;: 241736
+    }
+  }
+]
+</code></pre>
+
+<h2 id="map-value-monid-tostring-value-name-add">map({ (.value.monId|tostring): (.value.name) }) | add</h2>
+
+<ul>
+<li>オブジェクトのキーはstringな必要があるため <code>.value.monId|tostring</code></li>
+<li><code>map | add</code> は配列からオブジェクトへ変換するときに使う
+
+<ul>
+<li>2つのオブジェクトをaddすると、オブジェクトのマージになる</li>
+</ul></li>
+</ul>
+
+<h4 id="add-の例">add の例</h4>
+
+<pre><code class="language-js">[
+  {&quot;a&quot;: 1},
+  {&quot;b&quot;: 2}
+]
+</code></pre>
+
+<pre><code class="language-js">$ pbpaste | jq '. | add'
+{
+  &quot;a&quot;: 1,
+  &quot;b&quot;: 2
+}
+</code></pre>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fjq-object-array-object%2f - jq%e3%81%a7%e5%a4%89%e5%bd%a2%20%28%e3%82%aa%e3%83%96%e3%82%b8%e3%82%a7%e3%82%af%e3%83%88%20%3d%3e%20%e9%85%8d%e5%88%97%20%3d%3e%20%e3%82%aa%e3%83%96%e3%82%b8%e3%82%a7%e3%82%af%e3%83%88%29 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'your_disqus_short_name'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/dream-yt/sacre">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://twitter.com/FUTABA_SACRE">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2019 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="https://dream-yt.github.io/js/jquery-3.3.1.min.js"></script>
+<script src="https://dream-yt.github.io/js/main.js"></script>
+<script src="https://dream-yt.github.io/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+
+
+
+
+    </body>
+</html>
