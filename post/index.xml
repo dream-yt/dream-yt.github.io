@@ -6,10 +6,19 @@
     <description>Recent content in Posts on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sun, 24 Nov 2019 09:18:24 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 26 Nov 2019 18:46:57 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>StackDriverLoggingのログへのクエリ入門</title>
+      <link>https://dream-yt.github.io/post/stack-driver-log-query-101/</link>
+      <pubDate>Tue, 26 Nov 2019 18:46:57 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/stack-driver-log-query-101/</guid>
+      <description>クエリ内の文字列にはダブルクオートを使う必要がある (シングルクオートはダメそう) ログがjson形式の場合は jsonPayload.requestUrl とかでペイロードを使ったクエリも</description>
+    </item>
     
     <item>
       <title>jqで変形 (オブジェクト =&gt; 配列 =&gt; オブジェクト)</title>

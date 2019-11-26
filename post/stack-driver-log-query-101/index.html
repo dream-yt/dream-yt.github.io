@@ -13,8 +13,8 @@
     
   
   
-  <meta name="twitter:title" content="recodeコマンドでファイルの文字/改行コードを変更する"/>
-  <meta name="twitter:description" content="文字コードの変換をするときはiconvを使うことが多かったが、recodeコマンドのほうが便利なことが多い 既存ファイルに置き換え(inpla"/>
+  <meta name="twitter:title" content="StackDriverLoggingのログへのクエリ入門"/>
+  <meta name="twitter:description" content="クエリ内の文字列にはダブルクオートを使う必要がある (シングルクオートはダメそう) ログがjson形式の場合は jsonPayload.requestUrl とかでペイロードを使ったクエリも"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -30,7 +30,7 @@
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
 		<meta name="generator" content="Hugo 0.42.1" />
-		<title>recodeコマンドでファイルの文字/改行コードを変更する &middot; sacre</title>
+		<title>StackDriverLoggingのログへのクエリ入門 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
@@ -68,11 +68,11 @@
             <article>
                 <header>
                     <h1>
-                        recodeコマンドでファイルの文字/改行コードを変更する
+                        StackDriverLoggingのログへのクエリ入門
                     </h1>
                     <h2 class="headline">
-                    Jun 19, 2019 17:09
-                    · 271 words
+                    Nov 26, 2019 18:46
+                    · 280 words
                     · 1 minute read
                       <span class="tags">
                       
@@ -86,9 +86,9 @@
 <ul>
 <li>
 <ul>
-<li><a href="#対応している変換方式">対応している変換方式</a>
+<li>
 <ul>
-<li><a href="#bash">bash</a></li>
+<li><a href="#その他メモ">その他メモ</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -99,50 +99,41 @@
                 <section id="post-body">
                     
 
-<p>文字コードの変換をするときはiconvを使うことが多かったが、recodeコマンドのほうが便利なことが多い</p>
-
 <ul>
-<li>既存ファイルに置き換え(inplace)で文字コードが変更できる</li>
-<li>改行コード(CR-LFなど)の変換も対応している</li>
-<li>複数ファイルを引数に取ることができる</li>
+<li>クエリ内の文字列にはダブルクオートを使う必要がある (シングルクオートはダメそう)</li>
+<li>ログがjson形式の場合は <code>jsonPayload.requestUrl</code> とかでペイロードを使ったクエリもかける</li>
 </ul>
 
-<p>たとえばディレクトリ配下のcsvファイルをすべて {UTF16 =&gt; UTF-8} と変更したい場合は下記の1行で済む</p>
+<p>こんなクエリを書くことになる</p>
 
-<pre><code class="language-bash">$ recode UTF-16..UTF-8 &quot;$f&quot; $(ls -1 ./*.csv)
+<pre><code class="language-bash">gcloud logging read '
+  logName=&quot;projects/my-proj/logs/openresty&quot;
+  jsonPayload.requestUrl=&quot;http://example.com/api/&quot;
+  timestamp&gt;=&quot;2019-11-21T20:05:00+09:00&quot;
+  timestamp&lt;=&quot;2019-11-21T20:06:00+09:00&quot;
+  ' --format=json --limit=10 --order=asc
 </code></pre>
 
-<h2 id="対応している変換方式">対応している変換方式</h2>
+<p>クエリを別ファイルに書きたいならこんな感じ</p>
 
-<p>対応している変換方式は <code>--list</code> で出てくる</p>
-
-<p>base64なども変換できるようだ</p>
-
-<pre><code>$ recode --list | head
-/21-Permutation swabytes
-/4321-Permutation
-/Base64 64 b64
-/CR
-/CR-LF cl
-/Decimal-1 d d1
-/Decimal-2 d2
-/Decimal-4 d4
-/Hexadecimal-1 x x1
-/Hexadecimal-2 x2
+<pre><code class="language-bash">gcloud logging read &quot;$(cat ,/stackdriver/test.logquery)&quot; \
+  --format=json --order=asc
 </code></pre>
 
-<h3 id="bash">bash</h3>
+<h3 id="その他メモ">その他メモ</h3>
 
-<p>インストールはmacならbrewで入る</p>
-
-<pre><code class="language-bash">brew install recode
-</code></pre>
+<ul>
+<li>なぜか <code>--order</code> のデフォルトがdescなので見慣れた形式にするならasc (普通は最新のログが下にくるよね)</li>
+<li>プロジェクト内のlogNameのリストを見るのは <code>$ gcloud logging logs list</code></li>
+<li>直近の5分の結果が欲しいなら <code>--freshness=5M</code> というオプションがつけられる</li>
+<li>容赦無く条件に合うもの全件取得してきちゃうようなので結果が大きそうなら <code>--limit=10</code> とか必要</li>
+</ul>
 
                 </section>
             </article>
 
             
-                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2frecode-file-charactor-encoding%2f - recode%e3%82%b3%e3%83%9e%e3%83%b3%e3%83%89%e3%81%a7%e3%83%95%e3%82%a1%e3%82%a4%e3%83%ab%e3%81%ae%e6%96%87%e5%ad%97%2f%e6%94%b9%e8%a1%8c%e3%82%b3%e3%83%bc%e3%83%89%e3%82%92%e5%a4%89%e6%9b%b4%e3%81%99%e3%82%8b by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fstack-driver-log-query-101%2f - StackDriverLogging%e3%81%ae%e3%83%ad%e3%82%b0%e3%81%b8%e3%81%ae%e3%82%af%e3%82%a8%e3%83%aa%e5%85%a5%e9%96%80 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
 
 <a class="facebook" href="#" onclick="
     window.open(
