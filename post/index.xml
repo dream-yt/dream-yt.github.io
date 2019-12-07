@@ -6,10 +6,19 @@
     <description>Recent content in Posts on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 04 Dec 2019 14:47:44 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 07 Dec 2019 22:26:58 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>SQLで5分ごとの平均を出す</title>
+      <link>https://dream-yt.github.io/post/sql-groupby-5minute-window/</link>
+      <pubDate>Sat, 07 Dec 2019 22:26:58 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/sql-groupby-5minute-window/</guid>
+      <description>こんな2カラムがあるテーブルで5分ごとのdurationの平均とかMAXとかをサマりたい duration doubleが入っている レスポンスを返すまでにかか</description>
+    </item>
     
     <item>
       <title>nodejsで Google Cloud Storage にファイルをアップロードしてCDNで配信する</title>
@@ -18,6 +27,15 @@
       
       <guid>https://dream-yt.github.io/post/gcs-upload-static-public-file/</guid>
       <description>こんな場合のスニペット データをJSON形式でアップロードしたい 静的ファイルをアップロードしてCDNがわりに使うようなヘッダを付与したい gcs</description>
+    </item>
+    
+    <item>
+      <title>Python Simple S3client</title>
+      <link>https://dream-yt.github.io/post/python-simple-s3client/</link>
+      <pubDate>Sun, 01 Dec 2019 22:13:23 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/python-simple-s3client/</guid>
+      <description></description>
     </item>
     
     <item>

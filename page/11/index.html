@@ -24,7 +24,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.42.1" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -72,6 +72,36 @@
 
     <section id="wrapper" class="home">
         <ul id="post-list">
+    
+    
+        
+            <li>
+                <aside class="dates">Jan 22</aside>
+                <a href='https://dream-yt.github.io/post/vscode-sql-formatter-stun/'>
+                    There is no document formatter for &#39;sql&#39;-files installed
+                    
+                        
+                            <h2>vscodeを使っている。SQLファイルは保存時にフォーマットされるようしているが、 ある日突然保存時フォーマットが聞かなくなった vscode</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Jan 20</aside>
+                <a href='https://dream-yt.github.io/post/alb-request-count-by-awscli/'>
+                    ALBの直近1時間のリクエスト数をawscliで取得する
+                    
+                        
+                            <h2>以下のコマンドで取得できる aws cloudwatch --profile mossan get-metric-statistics \ --namespace &#39;AWS/ApplicationELB&#39; \ --metric-name &#39;RequestCount&#39; \ --dimensions &#39;Name=LoadBalancer,Value=app/sakamoto-alb/xxxxxxxxx&#39; \ --statistics &#39;Sum&#39; \ --start-time $(date -v -1H -u &#43;&#34;%Y-%m-%dT%H:%M&#34;) \ --end-time $(date -u &#43;&#34;%Y-%m-%dT%H:%M&#34;) \ --period 3600 --dimensions RequestCountのSumをどの軸でGro</h2>
+                        
+                    
+                </a>
+            </li>
+        
     
     
         
@@ -187,36 +217,6 @@
                     
                         
                             <h2>表示言語の設定は設定ファイルとは別ファイル管理になっている 以下のファイルで設定されている ~/Library/Application\ Support/Code/User/locale.json localeの値をよしなに変更すれば良い { // VS Code</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Dec 16</aside>
-                <a href='https://dream-yt.github.io/post/javascript-heap-out-of-memory/'>
-                    JavaScript heap out of memory になんとなくで対処する場合とchromeでデバッグする場合
-                    
-                        
-                            <h2>例えばwebpackの処理で以下のエラーが出た場合の話 $ serverless deploy --function App --stage prod Serverless: Bundling with Webpack... ...中略... FATAL ERROR: CALL_AND_RETRY_LAST Allocation failed - JavaScript heap out of memory 1: node::Abort() [~/.nodebrew/node/v8.10.0/bin/node] 2: node::FatalException(v8::Isolate*, v8::Local&lt;v8::Value&gt;, v8::Local&lt;v8::Message&gt;) [~/.nodebrew/node/v8.10.0/bin/node] ...中略</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Dec 14</aside>
-                <a href='https://dream-yt.github.io/post/mongodump-101/'>
-                    mongodump/mongoexportのやりかた
-                    
-                        
-                            <h2>mongoexport ってのでjson形式で吐き出せる (jqを使って作業がしやすい) mongoexport \ --host=aws-singapore-free-shard-00-01-xxxx.mongodb.net \ --port=27017 \ --username=app \ --authenticationDatabase=admin \ --password=xxxxxx \ --ssl \ --db=abcd \ --collection=profiles \ --out /tmp/profiles.json</h2>
                         
                     
                 </a>

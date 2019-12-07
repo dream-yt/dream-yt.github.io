@@ -13,8 +13,8 @@
     
   
   
-  <meta name="twitter:title" content="commitを別の作業branchへ移動する方法"/>
-  <meta name="twitter:description" content="これは一体 Gitで何度も陥ってしまう過ちにまたハマってしまう日が来ても、乗り越えられる自分でありたい。 そのための備忘録です。 状況 新しい作業の"/>
+  <meta name="twitter:title" content="SQLで5分ごとの平均を出す"/>
+  <meta name="twitter:description" content="こんな2カラムがあるテーブルで5分ごとのdurationの平均とかMAXとかをサマりたい duration doubleが入っている レスポンスを返すまでにかか"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -30,7 +30,7 @@
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
 		<meta name="generator" content="Hugo 0.51" />
-		<title>commitを別の作業branchへ移動する方法 &middot; sacre</title>
+		<title>SQLで5分ごとの平均を出す &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
@@ -68,19 +68,13 @@
             <article>
                 <header>
                     <h1>
-                        commitを別の作業branchへ移動する方法
+                        SQLで5分ごとの平均を出す
                     </h1>
                     <h2 class="headline">
-                    Nov 28, 2018 22:27
-                    · 645 words
-                    · 2 minute read
+                    Dec 7, 2019 22:26
+                    · 298 words
+                    · 1 minute read
                       <span class="tags">
-                      
-                      
-                          
-                              <a href="https://dream-yt.github.io/tags/git">git</a>
-                          
-                      
                       
                       </span>
                     </h2>
@@ -90,10 +84,11 @@
                     <div id="toc">
                       <nav id="TableOfContents">
 <ul>
-<li><a href="#これは一体">これは一体</a></li>
-<li><a href="#状況">状況</a></li>
-<li><a href="#やること">やること</a></li>
-<li><a href="#他のやりかた">他のやりかた</a></li>
+<li>
+<ul>
+<li><a href="#sql">SQL</a></li>
+<li><a href="#参考">参考</a></li>
+</ul></li>
 </ul>
 </nav>
                     </div>
@@ -102,87 +97,56 @@
                 <section id="post-body">
                     
 
-<p><img src="/images/post/dream/GitCherryPick01.png" alt="This is a image" /></p>
-
-<h1 id="これは一体">これは一体</h1>
-
-<p>Gitで何度も陥ってしまう過ちにまたハマってしまう日が来ても、乗り越えられる自分でありたい。
-そのための備忘録です。</p>
-
-<h1 id="状況">状況</h1>
-
-<p>新しい作業の開始時に、branchの切り替えを忘れてしまう。</br>
-前回まで作業してたbranchやmasterで作業を開始してしまった時に、正しいbranchに作業したcommitを移動する。</p>
-
-<p>&hellip;&hellip;これ、自分的にはあるあるすぎる。何回やってんだ。</p>
-
-<h1 id="やること">やること</h1>
-
-<p><strong>[start地点]</strong> </br>
-正しくないbranch Aで作業を開始してしまった。移したいcommitは3つ。</p>
-
-<p><strong>1. 移動先branchがない場合は作成</strong> (branch B)</p>
-
-<p><strong>2. branch Aで下記コマンドを叩いて、移動するcommitのIDを確認</strong></p>
+<p>こんな2カラムがあるテーブルで5分ごとのdurationの平均とかMAXとかをサマりたい</p>
 
 <ul>
-<li>末尾に <code>-10</code>などいれると最新のcommitを上から10個表示するなど指定できる</li>
-</ul>
-
-<pre><code class="language-bash">$ git log --oneline 
-</code></pre>
-
-<p><img src="/images/post/dream/GitCherryPick02.png" alt="This is a image" /></p>
-
-<p><strong>3. branch Bに移動して移したいcommitをcherry pick する</strong></p>
+<li><code>duration</code>
 
 <ul>
-<li>コマンドの後にcommit IDを入力</li>
-<li>古い順に入力すること</li>
-</ul>
-
-<pre><code class="language-bash">$ git cherry-pick xxxxxxx yyyyyyy zzzzzzz
-</code></pre>
-
-<p><strong>4. commitがbranch Bに移動できているかlogで確認</strong></p>
-
-<pre><code class="language-bash">$ git log --oneline 
-</code></pre>
-
-<p><strong>5. 必要があればbranchAのcommitを消去</strong></p>
+<li>doubleが入っている</li>
+<li>レスポンスを返すまでにかかった時間</li>
+</ul></li>
+<li><code>utc_timestamp</code>
 
 <ul>
-<li>下記のコマンドでできるらしい</li>
-<li>HEAD~xは任意の数値に変更</li>
+<li>timestampが入っている</li>
+<li>アクセスされた時刻</li>
+</ul></li>
 </ul>
 
-<pre><code class="language-bash">$ git reset --hard HEAD~3
+<h2 id="sql">SQL</h2>
+
+<p>prestoだとこんな感じ (datetimeがintに変換できればどのDBでもできる)</p>
+
+<p>5分は300秒なので、datetimeをUNIXTIMEに変換して(intにして)<br />
+300でわった商が同じなら同じGROUPに入る</p>
+
+<pre><code class="language-sql">SELECT
+  from_unixtime((CAST(to_unixtime(utc_timestamp) AS INTEGER) / 300) * 300) AT TIME ZONE 'Asia/Tokyo' window,
+  AVG(duration), 
+  MAX(duration),
+  APPROX_PERCENTILE(duration, 0.98)  -- 98パーセンタイル
+FROM lblog.api
+GROUP BY
+  CAST(to_unixtime(utc_timestamp) AS INTEGER) / 300
+ORDER BY
+  MIN(utc_timestamp)
 </code></pre>
 
-<h1 id="他のやりかた">他のやりかた</h1>
+<p>パーセンタイルは他のDBだと工夫しないといけないかもしれない</p>
 
-<p>branch Bがまっさら状態だった場合、</p>
+<h2 id="参考">参考</h2>
 
-<p><strong>1. branch Aで作業をstashにしまう</strong></p>
-
-<pre><code class="language-bash">git stash
-</code></pre>
-
-<p><strong>2. branch Bでstashを開ける</strong></p>
-
-<pre><code class="language-bash">git stash pop
-</code></pre>
-
-<p>というやり方もあるらしい。</br>
-この場合、branch AとBの作業箇所が被らないことが前提となる。（コンフリクトするため）</p>
-
-<p>備忘のために書いたとはいえ、同じことを繰り返さない自分であってほしい。</p>
+<ul>
+<li><a href="https://prestodb.io/docs/current/functions/math.html">6.6. Mathematical Functions and Operators — Presto 0.229 Documentation</a></li>
+<li><a href="https://prestodb.io/docs/0.172/functions/datetime.html">6.10. Date and Time Functions and Operators — Presto 0.172 Documentation</a></li>
+</ul>
 
                 </section>
             </article>
 
             
-                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fgit-cherry-pick%2f - commit%e3%82%92%e5%88%a5%e3%81%ae%e4%bd%9c%e6%a5%adbranch%e3%81%b8%e7%a7%bb%e5%8b%95%e3%81%99%e3%82%8b%e6%96%b9%e6%b3%95 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fsql-groupby-5minute-window%2f - SQL%e3%81%a75%e5%88%86%e3%81%94%e3%81%a8%e3%81%ae%e5%b9%b3%e5%9d%87%e3%82%92%e5%87%ba%e3%81%99 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
 
 <a class="facebook" href="#" onclick="
     window.open(
