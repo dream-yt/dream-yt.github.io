@@ -13,8 +13,8 @@
     
   
   
-  <meta name="twitter:title" content="recodeコマンドでファイルの文字/改行コードを変更する"/>
-  <meta name="twitter:description" content="文字コードの変換をするときはiconvを使うことが多かったが、recodeコマンドのほうが便利なことが多い 既存ファイルに置き換え(inpla"/>
+  <meta name="twitter:title" content="自宅のLANの設定で毎回調べることメモ"/>
+  <meta name="twitter:description" content="PPPoE とは インターネット用語1分解説～PPPoEとは～ - JPNIC まずPPPとは PPPの機能の中には、 ユーザーの認証やIPアドレスの割り当て等が含まれま"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -30,7 +30,7 @@
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
 		<meta name="generator" content="Hugo 0.42.1" />
-		<title>recodeコマンドでファイルの文字/改行コードを変更する &middot; sacre</title>
+		<title>自宅のLANの設定で毎回調べることメモ &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
@@ -68,12 +68,12 @@
             <article>
                 <header>
                     <h1>
-                        recodeコマンドでファイルの文字/改行コードを変更する
+                        自宅のLANの設定で毎回調べることメモ
                     </h1>
                     <h2 class="headline">
-                    Jun 19, 2019 17:09
-                    · 271 words
-                    · 1 minute read
+                    Dec 11, 2019 11:55
+                    · 599 words
+                    · 2 minute read
                       <span class="tags">
                       
                       </span>
@@ -86,10 +86,18 @@
 <ul>
 <li>
 <ul>
-<li><a href="#対応している変換方式">対応している変換方式</a>
+<li><a href="#pppoe-とは">PPPoE とは</a>
 <ul>
-<li><a href="#bash">bash</a></li>
+<li>
+<ul>
+<li><a href="#まずpppとは">まずPPPとは</a></li>
+<li><a href="#pppoe-ppp-over-ethernet">PPPoE (PPP over Ethernet)</a>
+<ul>
+<li><a href="#トンネルとは">トンネルとは</a></li>
 </ul></li>
+</ul></li>
+</ul></li>
+<li><a href="#wan-とは">WAN とは</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -99,50 +107,67 @@
                 <section id="post-body">
                     
 
-<p>文字コードの変換をするときはiconvを使うことが多かったが、recodeコマンドのほうが便利なことが多い</p>
+<h2 id="pppoe-とは">PPPoE とは</h2>
 
 <ul>
-<li>既存ファイルに置き換え(inplace)で文字コードが変更できる</li>
-<li>改行コード(CR-LFなど)の変換も対応している</li>
-<li>複数ファイルを引数に取ることができる</li>
+<li><a href="https://www.nic.ad.jp/ja/basics/terms/pppoe.html">インターネット用語1分解説～PPPoEとは～ - JPNIC</a></li>
 </ul>
 
-<p>たとえばディレクトリ配下のcsvファイルをすべて {UTF16 =&gt; UTF-8} と変更したい場合は下記の1行で済む</p>
+<h4 id="まずpppとは">まずPPPとは</h4>
 
-<pre><code class="language-bash">$ recode UTF-16..UTF-8 &quot;$f&quot; $(ls -1 ./*.csv)
-</code></pre>
+<blockquote>
+<p>PPPの機能の中には、 ユーザーの認証やIPアドレスの割り当て等が含まれます。</p>
+</blockquote>
 
-<h2 id="対応している変換方式">対応している変換方式</h2>
+<p>ネットワーク内で認証してIPアドレスをもらうためのプロトコル</p>
 
-<p>対応している変換方式は <code>--list</code> で出てくる</p>
+<p>LANの設定でもPPPを(oEで)行う</p>
 
-<p>base64なども変換できるようだ</p>
+<ul>
+<li>プロバイダと契約するとIDとパスワードがもらえる</li>
+<li>そのIDとパスワードで認証する</li>
+<li>IPアドレスをもらってインターネットと通信する</li>
+</ul>
 
-<pre><code>$ recode --list | head
-/21-Permutation swabytes
-/4321-Permutation
-/Base64 64 b64
-/CR
-/CR-LF cl
-/Decimal-1 d d1
-/Decimal-2 d2
-/Decimal-4 d4
-/Hexadecimal-1 x x1
-/Hexadecimal-2 x2
-</code></pre>
+<h4 id="pppoe-ppp-over-ethernet">PPPoE (PPP over Ethernet)</h4>
 
-<h3 id="bash">bash</h3>
+<p>イーサネット上で認証してIPアドレスをもらうためのプロトコル</p>
 
-<p>インストールはmacならbrewで入る</p>
+<ul>
+<li>まずEthernetで自宅のルーターとプロバイダが接続</li>
+<li>接続できたら、PPPoEセッションでトンネルしたPPPプロトコルにて認証してIPをもらう</li>
+</ul>
 
-<pre><code class="language-bash">brew install recode
-</code></pre>
+<h5 id="トンネルとは">トンネルとは</h5>
+
+<blockquote>
+<p>トンネルとは、ある通信プロトコルを別のプロトコルでカプセル化して通信できるようにすることで、
+そのような通信の方式をトンネリングと呼びます。</p>
+</blockquote>
+
+<p>今回の場合はPPPの通信をPPPoEセッションでカプセル化している
+(id/passworkの暗号化とかはPPPoEがやってくれる)</p>
+
+<h2 id="wan-とは">WAN とは</h2>
+
+<p>定義はこう</p>
+
+<blockquote>
+<p>Wide Area Network（ワイドエリアネットワーク）」の略で、遠く離れた場所とつながったネットワークのことで、だれもが自由に接続できるネットワークです</p>
+</blockquote>
+
+<ul>
+<li><a href="https://flets-w.com/user/point-otoku/knowledge/other/otherl28.html">LANとWANって何が違うの？｜ネットの知恵袋｜フレッツ光公式｜NTT西日本</a></li>
+</ul>
+
+<p>大体の場合LANの設定でWANという言葉が出てきた場合、<br />
+「LANに対してインターネット側」という認識で良い</p>
 
                 </section>
             </article>
 
             
-                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2frecode-file-charactor-encoding%2f - recode%e3%82%b3%e3%83%9e%e3%83%b3%e3%83%89%e3%81%a7%e3%83%95%e3%82%a1%e3%82%a4%e3%83%ab%e3%81%ae%e6%96%87%e5%ad%97%2f%e6%94%b9%e8%a1%8c%e3%82%b3%e3%83%bc%e3%83%89%e3%82%92%e5%a4%89%e6%9b%b4%e3%81%99%e3%82%8b by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fhome-lan-memo%2f - %e8%87%aa%e5%ae%85%e3%81%aeLAN%e3%81%ae%e8%a8%ad%e5%ae%9a%e3%81%a7%e6%af%8e%e5%9b%9e%e8%aa%bf%e3%81%b9%e3%82%8b%e3%81%93%e3%81%a8%e3%83%a1%e3%83%a2 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
 
 <a class="facebook" href="#" onclick="
     window.open(

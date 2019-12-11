@@ -6,10 +6,19 @@
     <description>Recent content in Posts on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sat, 07 Dec 2019 22:26:58 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 11 Dec 2019 11:55:06 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>自宅のLANの設定で毎回調べることメモ</title>
+      <link>https://dream-yt.github.io/post/home-lan-memo/</link>
+      <pubDate>Wed, 11 Dec 2019 11:55:06 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/home-lan-memo/</guid>
+      <description>PPPoE とは インターネット用語1分解説～PPPoEとは～ - JPNIC まずPPPとは PPPの機能の中には、 ユーザーの認証やIPアドレスの割り当て等が含まれま</description>
+    </item>
     
     <item>
       <title>SQLで5分ごとの平均を出す</title>
