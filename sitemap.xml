@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://dream-yt.github.io/post/m3u8andhls/</loc>
+    <lastmod>2019-12-24T19:08:10+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://dream-yt.github.io/post/home-lan-memo/</loc>
     <lastmod>2019-12-11T11:55:06+09:00</lastmod>
   </url>
@@ -711,7 +716,7 @@
   
   <url>
     <loc>https://dream-yt.github.io/post/</loc>
-    <lastmod>2019-12-11T11:55:06+09:00</lastmod>
+    <lastmod>2019-12-24T19:08:10+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -723,7 +728,7 @@
   
   <url>
     <loc>https://dream-yt.github.io/</loc>
-    <lastmod>2019-12-11T11:55:06+09:00</lastmod>
+    <lastmod>2019-12-24T19:08:10+09:00</lastmod>
     <priority>0</priority>
   </url>
   

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="https://dream-yt.github.io/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="m3u8とhls"/>
+  <meta name="twitter:description" content="m3u8とhls は両方とも動画ファイルの配信で使う仕様/ファイルフォーマットの名前 m3u8 とは 動画ファイルが分割されてアップロードされている場合に"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@site_author"/>
+  
+
+
+
+		
+		<meta name="author" content="site_author">
+		<meta name="description" content="Site Description">
+		<meta name="generator" content="Hugo 0.42.1" />
+		<title>m3u8とhls &middot; sacre</title>
+		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/font-awesome.min.css">
+		
+
+		
+		<link href="https://dream-yt.github.io/index.xml" rel="alternate" type="application/rss+xml" title="sacre" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='https://dream-yt.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://dream-yt.github.io/posts'>Archive</a>
+	<a href='https://dream-yt.github.io/tags'>Tags</a>
+	<a href='https://dream-yt.github.io/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="https://dream-yt.github.io/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        m3u8とhls
+                    </h1>
+                    <h2 class="headline">
+                    Dec 24, 2019 19:08
+                    · 765 words
+                    · 2 minute read
+                      <span class="tags">
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#m3u8-とは">m3u8 とは</a></li>
+<li><a href="#m3u8ファイルの中身">m3u8ファイルの中身</a></li>
+<li><a href="#hls">HLS</a>
+<ul>
+<li><a href="#参考-hlsとは">参考: HLSとは</a></li>
+</ul></li>
+<li><a href="#master-playlist">Master Playlist</a></li>
+</ul></li>
+</ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    
+
+<p>m3u8とhls は両方とも動画ファイルの配信で使う仕様/ファイルフォーマットの名前</p>
+
+<h2 id="m3u8-とは">m3u8 とは</h2>
+
+<p>動画ファイルが分割されてアップロードされている場合に、それらのインデックスとなる情報を保持するのがm3uファイル</p>
+
+<blockquote>
+<p>M3U はマルチメディアプレイリストのファイルフォーマット。Windows Media Player、iTunes、Winamp、foobar2000、ビデオ、JuKなど多くのアプリケーションがサポートしているが、正式な仕様は存在せず対応状況はまちまちである。</p>
+
+<p>M3Uファイルは、一つ、または複数のメディアファイルのパスをプレーンテキスト（テキストファイル)で記述したものである。このファイルを、&rdquo;.m3u&rdquo;または&rdquo;.m3u8&rdquo;の拡張子で保存する。 M3UファイルのエンコードはWindows-1252の場合が多いものの、CP932に対応しているものも存在する。エンコードがUTF-8であることを明示するとき、拡張子M3U8を使用する。</p>
+</blockquote>
+
+<ul>
+<li><a href="https://ja.wikipedia.org/wiki/M3U">M3U - Wikipedia</a></li>
+</ul>
+
+<p>utf8で書かれたm3uファイルはm3u8と呼ばれる</p>
+
+<h2 id="m3u8ファイルの中身">m3u8ファイルの中身</h2>
+
+<p>こんな感じ</p>
+
+<pre><code class="language-ini">#EXTM3U
+#EXT-X-PLAYLIST-TYPE:VOD
+#EXT-X-TARGETDURATION:10
+#EXTINF:10,
+index-00001.ts
+#EXTINF:10,
+index-00002.ts
+#EXTINF:10,
+index-00003.ts
+#ZEN-TOTAL-DURATION:30.02999
+#ZEN-AVERAGE-BANDWIDTH:1364980
+#ZEN-MAXIMUM-BANDWIDTH:1688541
+#EXT-X-ENDLIST
+
+</code></pre>
+
+<h2 id="hls">HLS</h2>
+
+<p>appleが提唱しているHLS(HTTP Live Streaming) はm3u8がもとになっている</p>
+
+<blockquote>
+<p>iOSのHTTP Live Streamingフォーマットは&rdquo;M3U&rdquo; and &ldquo;M3U8&rdquo; ファイルをもとにしている。</p>
+</blockquote>
+
+<ul>
+<li>動画ファイルの圧縮形式はmpeg2-tsを使う</li>
+<li>映像コーデックはh.264, 音声にはAAC</li>
+</ul>
+
+<h3 id="参考-hlsとは">参考: HLSとは</h3>
+
+<ul>
+<li><a href="https://qiita.com/STomohiko/items/eb223a9cb6325d7d42d9">HLSとは - Qiita</a></li>
+<li><a href="https://developer.apple.com/library/archive/documentation/AudioVideo/Conceptual/MediaPlaybackGuide/Contents/Resources/en.lproj/HTTPLiveStreaming/HTTPLiveStreaming.html">Working with HTTP Live Streaming</a></li>
+</ul>
+
+<h2 id="master-playlist">Master Playlist</h2>
+
+<p>(ビットレートの違いなど) 動画ファイルのvariantを指示するファイルフォーマット</p>
+
+<ul>
+<li><a href="https://developer.apple.com/documentation/http_live_streaming/example_playlists_for_http_live_streaming/creating_a_master_playlist">Creating a Master Playlist | Apple Developer Documentation</a></li>
+</ul>
+
+<p>たとえばビットレートが高い動画と低い動画のそれぞれのURLを端末に支持することができる (どちらのファイルを使うかは端末側で制御する)</p>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fm3u8andhls%2f - m3u8%e3%81%a8hls by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'your_disqus_short_name'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/dream-yt/sacre">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://twitter.com/FUTABA_SACRE">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2019 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="https://dream-yt.github.io/js/jquery-3.3.1.min.js"></script>
+<script src="https://dream-yt.github.io/js/main.js"></script>
+<script src="https://dream-yt.github.io/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+
+
+
+
+    </body>
+</html>
