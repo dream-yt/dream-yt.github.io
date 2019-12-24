@@ -6,10 +6,19 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Tue, 24 Dec 2019 19:08:10 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 25 Dec 2019 00:13:24 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Start Gcp Free Instance</title>
+      <link>https://dream-yt.github.io/post/start-gcp-free-instance/</link>
+      <pubDate>Wed, 25 Dec 2019 00:13:24 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/start-gcp-free-instance/</guid>
+      <description>gcpで無料のインスタンスを立ち上げてsshするまで gcpアカウントのセットアップ $ gcloud config set project penguin-xxxxxxxxxx $ gcloud config set account penguin@gmail.com $ gcloud auth login ブラウザが立ち上がるのでロ</description>
+    </item>
     
     <item>
       <title>m3u8とhls</title>
