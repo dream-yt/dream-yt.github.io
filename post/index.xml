@@ -6,10 +6,19 @@
     <description>Recent content in Posts on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 25 Dec 2019 00:13:24 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 28 Dec 2019 11:12:24 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Fluentd→Bigquery タグごとに別テーブルにinsert</title>
+      <link>https://dream-yt.github.io/post/fluentd-bigquery-101/</link>
+      <pubDate>Sat, 28 Dec 2019 11:12:24 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/fluentd-bigquery-101/</guid>
+      <description>こんな設定でできる &amp;lt;source&amp;gt; @type forward &amp;lt;/source&amp;gt; &amp;lt;match bigquery.**&amp;gt; @type bigquery_insert &amp;lt;buffer tag&amp;gt; flush_interval 10 &amp;lt;/buffer&amp;gt; &amp;lt;inject&amp;gt; time_key time utc true &amp;lt;/inject&amp;gt; auth_method json_key json_key /home/jibun/fluentd/xxxxxx-123456-35640a504591.json project myprj-135512 dataset ${tag[1]} table ${tag[2]} &amp;lt;/match&amp;gt; プレースホルダー この部分の設定で、タグごとに別テーブルへとin</description>
+    </item>
     
     <item>
       <title>Start Gcp Free Instance</title>

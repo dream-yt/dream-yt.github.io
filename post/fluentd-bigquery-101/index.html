@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="https://dream-yt.github.io/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="Fluentd→Bigquery タグごとに別テーブルにinsert"/>
+  <meta name="twitter:description" content="こんな設定でできる &lt;source&gt; @type forward &lt;/source&gt; &lt;match bigquery.**&gt; @type bigquery_insert &lt;buffer tag&gt; flush_interval 10 &lt;/buffer&gt; &lt;inject&gt; time_key time utc true &lt;/inject&gt; auth_method json_key json_key /home/jibun/fluentd/xxxxxx-123456-35640a504591.json project myprj-135512 dataset ${tag[1]} table ${tag[2]} &lt;/match&gt; プレースホルダー この部分の設定で、タグごとに別テーブルへとin"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@site_author"/>
+  
+
+
+
+		
+		<meta name="author" content="site_author">
+		<meta name="description" content="Site Description">
+		<meta name="generator" content="Hugo 0.51" />
+		<title>Fluentd→Bigquery タグごとに別テーブルにinsert &middot; sacre</title>
+		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/font-awesome.min.css">
+		
+
+		
+		<link href="https://dream-yt.github.io/index.xml" rel="alternate" type="application/rss+xml" title="sacre" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='https://dream-yt.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://dream-yt.github.io/posts'>Archive</a>
+	<a href='https://dream-yt.github.io/tags'>Tags</a>
+	<a href='https://dream-yt.github.io/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="https://dream-yt.github.io/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        Fluentd→Bigquery タグごとに別テーブルにinsert
+                    </h1>
+                    <h2 class="headline">
+                    Dec 28, 2019 11:12
+                    · 634 words
+                    · 2 minute read
+                      <span class="tags">
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#プレースホルダー">プレースホルダー</a></li>
+<li><a href="#time-key">time_key</a>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#例">例</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li><a href="#buffer-tag">buffer tag</a>
+<ul>
+<li>
+<ul>
+<li><a href="#その他">その他</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    
+
+<p>こんな設定でできる</p>
+
+<pre><code class="language-xml">&lt;source&gt;
+  @type forward
+&lt;/source&gt;
+
+&lt;match bigquery.**&gt;
+  @type bigquery_insert
+
+  &lt;buffer tag&gt;
+    flush_interval 10
+  &lt;/buffer&gt;
+
+  &lt;inject&gt;
+    time_key time
+    utc true
+  &lt;/inject&gt;
+
+  auth_method json_key
+  json_key /home/jibun/fluentd/xxxxxx-123456-35640a504591.json
+
+  project myprj-135512
+  dataset ${tag[1]}
+  table ${tag[2]}
+&lt;/match&gt;
+</code></pre>
+
+<h2 id="プレースホルダー">プレースホルダー</h2>
+
+<p>この部分の設定で、タグごとに別テーブルへとinsertしている</p>
+
+<pre><code>  dataset ${tag[1]}
+  table ${tag[2]}
+</code></pre>
+
+<p>fluentdは現在のバージョンでは <code>${tag[1]}</code> というようなプレースホルダーを設定に使うことができる</p>
+
+<ul>
+<li><a href="https://docs.fluentd.org/configuration/buffer-section#placeholders">Config: Buffer Section - Fluentd</a></li>
+</ul>
+
+<p>たとえば <code>bigquery.mydataset.temperature</code> タグを渡すと、
+mydatasetというデータセットのtemperatureテーブルにデータを入れてくれる</p>
+
+<h2 id="time-key">time_key</h2>
+
+<pre><code class="language-xml">  &lt;inject&gt;
+    time_key time
+</code></pre>
+
+<p><code>time_key time</code> という設定をいれておくと、
+時間を指定せずにメッセージを送ってもtimeカラムに送信日時が入ってくれる</p>
+
+<h5 id="例">例</h5>
+
+<p>こんなコマンドを何回か叩いたとして</p>
+
+<pre><code class="language-bash"># timeカラムをメッセージに含めていない
+echo &quot;{\&quot;value\&quot;: $RANDOM}&quot; | fluent-cat bigquery.mydataset.temperature
+</code></pre>
+
+<p>これでちゃんと時間が入ってくれる</p>
+
+<pre><code class="language-sql">+---------------------+-------+
+|        time         | value |
++---------------------+-------+
+| 2019-12-28 02:11:26 | 25425 |
+| 2019-12-28 02:11:28 | 13507 |
+| 2019-12-28 02:11:33 | 31525 |
++---------------------+-------+
+</code></pre>
+
+<h2 id="buffer-tag">buffer tag</h2>
+
+<p>この設定がないと</p>
+
+<pre><code class="language-xml"> &lt;buffer tag&gt;
+</code></pre>
+
+<p>こんなエラーが出る</p>
+
+<blockquote>
+<p>Parameter &lsquo;bigquery_insert: project=xxxxxx-123456/dataset=${tag[1]}/table=${tag[2]}/fetch_schema_table=/template_suffix=&rsquo; has tag placeholders, but chunk key &lsquo;tag&rsquo; is not configured</p>
+</blockquote>
+
+<p>ちゃんとプレースホルダーのドキュメントに書いてあった</p>
+
+<blockquote>
+<p>When the chunk keys are specified, these values can be extracted in configuration parameter values.</p>
+</blockquote>
+
+<ul>
+<li><a href="https://docs.fluentd.org/configuration/buffer-section#placeholders">Config: Buffer Section - Fluentd</a></li>
+</ul>
+
+<p>タグプレースホルダーを使うときはchunk-key(bufferの設定)のところでtagを指定しないとダメ</p>
+
+<hr />
+
+<h4 id="その他">その他</h4>
+
+<p><code>@type bigquery_load</code> を使う場合、 サービスアカウントに <code>bigquery.jobs.create</code> 権限が必要 (BigQuery編集者だとその権限はついていなかった)</p>
+
+<p>また、<code>bigquery_load</code> ではデータが少量すぎると以下のようなエラーが出ていた</p>
+
+<blockquote>
+<p>failed to poll load job error_class=Fluent::BigQuery::UnRetryableError error=&ldquo;notFound: Not found: Job penguin-171212:job_H555BgtYLRUQpxq-bnSBH3uAbBfn&rdquo;</p>
+</blockquote>
+
+<p>データはbigqueryに入っていたので、おそらく初回のポーリングまでに処理が終わってしまうような量だと発生するエラーかも</p>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2ffluentd-bigquery-101%2f - Fluentd%e2%86%92Bigquery%20%e3%82%bf%e3%82%b0%e3%81%94%e3%81%a8%e3%81%ab%e5%88%a5%e3%83%86%e3%83%bc%e3%83%96%e3%83%ab%e3%81%abinsert by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'your_disqus_short_name'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/dream-yt/sacre">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://twitter.com/FUTABA_SACRE">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2019 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="https://dream-yt.github.io/js/jquery-3.3.1.min.js"></script>
+<script src="https://dream-yt.github.io/js/main.js"></script>
+<script src="https://dream-yt.github.io/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+
+
+
+
+    </body>
+</html>
