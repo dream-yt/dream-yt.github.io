@@ -6,10 +6,19 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sat, 28 Dec 2019 11:12:24 +0900</lastBuildDate>
+    <lastBuildDate>Mon, 06 Jan 2020 12:33:01 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>HLSとm3u8ファイルとMaster Playlistについて</title>
+      <link>https://dream-yt.github.io/post/hls-m3u8-masterplaylist/</link>
+      <pubDate>Mon, 06 Jan 2020 12:33:01 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/hls-m3u8-masterplaylist/</guid>
+      <description>こちらの記事の焼き直し m3u8とhls · sacre m3u8ファイルとは こちらがわかりやすかった 動画配信技術 その1 - HTTP Live Streaming(HLS) - Akamai Japan Blog HLSを行うためのヘ</description>
+    </item>
     
     <item>
       <title>Fluentd→Bigquery タグごとに別テーブルにinsert</title>

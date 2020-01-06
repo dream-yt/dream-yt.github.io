@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://dream-yt.github.io/post/hls-m3u8-masterplaylist/</loc>
+    <lastmod>2020-01-06T12:33:01+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://dream-yt.github.io/post/fluentd-bigquery-101/</loc>
     <lastmod>2019-12-28T11:12:24+09:00</lastmod>
   </url>
@@ -726,7 +731,7 @@
   
   <url>
     <loc>https://dream-yt.github.io/post/</loc>
-    <lastmod>2019-12-28T11:12:24+09:00</lastmod>
+    <lastmod>2020-01-06T12:33:01+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -738,7 +743,7 @@
   
   <url>
     <loc>https://dream-yt.github.io/</loc>
-    <lastmod>2019-12-28T11:12:24+09:00</lastmod>
+    <lastmod>2020-01-06T12:33:01+09:00</lastmod>
     <priority>0</priority>
   </url>
   

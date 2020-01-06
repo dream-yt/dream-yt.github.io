@@ -24,7 +24,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.42.1" />
 		<title>sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -72,6 +72,21 @@
 
     <section id="wrapper" class="home">
         <ul id="post-list">
+    
+    
+        
+            <li>
+                <aside class="dates">Sep 18</aside>
+                <a href='https://dream-yt.github.io/post/jq-list-json-into-array/'>
+                    jqで改行区切りなど連続したjsonを配列にする
+                    
+                        
+                            <h2>jq でselectとかで色々やったあと配列に戻したいときがある jq -s をパイプすると改行区切りのjsonを1つの配列にしてくれる cat ./src/resources/test/ranking-latest.json \ | jq &#39;.[] | select(.shopId |</h2>
+                        
+                    
+                </a>
+            </li>
+        
     
     
         
@@ -208,21 +223,6 @@
             </li>
         
     
-    
-        
-            <li>
-                <aside class="dates">Aug 5</aside>
-                <a href='https://dream-yt.github.io/post/serverless-deploy-from-docker-container/'>
-                    serverless deploy を amazonlinuxイメージで行う
-                    
-                        
-                            <h2>lambdaとnodeのネイティブモジュール周りで辛いことになった時用 Dockerfile FROM amazonlinux:latest RUN curl --silent --location https://dl.yarnpkg.com/rpm/yarn.repo &gt; /etc/yum.repos.d/yarn.repo RUN curl --silent --location https://rpm.nodesource.com/setup_10.x | bash RUN yum install -y nodejs gcc-c&#43;&#43; make git yarn RUN yarn global add serverless --silent --no-progress RUN mkdir</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
 </ul>
 
         <nav id="post-nav">
@@ -264,7 +264,7 @@
     
     <p class="small">
     
-       © Copyright 2019 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+       © Copyright 2020 <i class="fa fa-heart" aria-hidden="true"></i> site_author
     
     </p>
     <p class="small">
