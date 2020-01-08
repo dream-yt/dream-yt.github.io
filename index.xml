@@ -6,10 +6,19 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Mon, 06 Jan 2020 12:33:01 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 08 Jan 2020 12:34:39 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>macosでディスクがいっぱいになったとき、大きくて使わないファイルを探す</title>
+      <link>https://dream-yt.github.io/post/macos-find-bigfile/</link>
+      <pubDate>Wed, 08 Jan 2020 12:34:39 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/macos-find-bigfile/</guid>
+      <description>duを使ったりしても良いが、macosの標準でついているUIから大きくて不要なファイルを探すのが簡単 macの左上の🍎マーク このマックのついて</description>
+    </item>
     
     <item>
       <title>HLSとm3u8ファイルとMaster Playlistについて</title>
