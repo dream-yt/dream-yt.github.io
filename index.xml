@@ -6,10 +6,19 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 08 Jan 2020 12:34:39 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 11 Jan 2020 16:34:44 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>package.json の deps を深く考えずに全部upgradeする</title>
+      <link>https://dream-yt.github.io/post/use-npm-check-updates/</link>
+      <pubDate>Sat, 11 Jan 2020 16:34:44 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/use-npm-check-updates/</guid>
+      <description>以下のコマンドでできる $ npx npm-check-updates --upgrade いちおうどんなアップグレードになるかは事前に確認できる $ npx npm-check-updates その他のオプションもいろいろある $ npx npm-check-updates --help npx: 259個</description>
+    </item>
     
     <item>
       <title>macosでディスクがいっぱいになったとき、大きくて使わないファイルを探す</title>

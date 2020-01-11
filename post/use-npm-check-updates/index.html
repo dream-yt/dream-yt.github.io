@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="https://dream-yt.github.io/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="package.json の deps を深く考えずに全部upgradeする"/>
+  <meta name="twitter:description" content="以下のコマンドでできる $ npx npm-check-updates --upgrade いちおうどんなアップグレードになるかは事前に確認できる $ npx npm-check-updates その他のオプションもいろいろある $ npx npm-check-updates --help npx: 259個"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@site_author"/>
+  
+
+
+
+		
+		<meta name="author" content="site_author">
+		<meta name="description" content="Site Description">
+		<meta name="generator" content="Hugo 0.51" />
+		<title>package.json の deps を深く考えずに全部upgradeする &middot; sacre</title>
+		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/font-awesome.min.css">
+		
+
+		
+		<link href="https://dream-yt.github.io/index.xml" rel="alternate" type="application/rss+xml" title="sacre" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='https://dream-yt.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://dream-yt.github.io/posts'>Archive</a>
+	<a href='https://dream-yt.github.io/tags'>Tags</a>
+	<a href='https://dream-yt.github.io/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="https://dream-yt.github.io/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        package.json の deps を深く考えずに全部upgradeする
+                    </h1>
+                    <h2 class="headline">
+                    Jan 11, 2020 16:34
+                    · 461 words
+                    · 1 minute read
+                      <span class="tags">
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                
+                <section id="post-body">
+                    <p>以下のコマンドでできる</p>
+
+<pre><code class="language-bash">$ npx npm-check-updates --upgrade
+</code></pre>
+
+<p>いちおうどんなアップグレードになるかは事前に確認できる</p>
+
+<pre><code class="language-bash">$ npx npm-check-updates 
+</code></pre>
+
+<p>その他のオプションもいろいろある</p>
+
+<pre><code class="language-bash">$ npx npm-check-updates --help
+npx: 259個のパッケージを8.35秒でインストールしました。
+Usage: ncu [options] [filter]
+
+[filter] is a list or regex of package names to check (all others will be ignored).
+
+Options:
+  --configFilePath &lt;path&gt;      rc config file path (default: directory of `packageFile` or ./ otherwise)
+  --configFileName &lt;path&gt;      rc config file name (default: .ncurc.{json,yml,js})
+  --cwd &lt;path&gt;                 Used as current working directory for `spawn` in npm listing
+  --dep &lt;dep&gt;                  check only a specific section(s) of dependencies: prod|dev|peer|optional|bundle (comma-delimited)
+  -e, --error-level &lt;n&gt;        set the error-level. 1: exits with error code 0 if no errors occur. 2: exits with error code 0 if no packages need updating (useful for continuous integration). Default is
+                               1. (default: 1)
+  --engines-node               upgrade to version which satisfies engines.node range
+  -f, --filter &lt;matches&gt;       include only package names matching the given string, comma-or-space-delimited list, or /regex/
+  -g, --global                 check global packages instead of in the current project
+  -i, --interactive            Enable interactive prompts for each dependency; implies -u unless one of the json options are set
+  -j, --jsonAll                output new package file instead of human-readable message
+  --jsonDeps                   Will return output like `jsonAll` but only lists `dependencies`, `devDependencies`, and `optionalDependencies` of the new package data.
+  --jsonUpgraded               output upgraded dependencies in json
+  -l, --loglevel &lt;n&gt;           what level of logs to report: silent, error, minimal, warn, info, verbose, silly (default: warn) (default: &quot;warn&quot;)
+  -m, --minimal                do not upgrade newer versions that are already satisfied by the version range according to semver
+  -n, --newest                 find the newest versions available instead of the latest stable versions
+  -p, --packageManager &lt;name&gt;  npm (default) or bower (default: &quot;npm&quot;)
+  --packageData                include stringified package file (use stdin instead)
+  --packageFile &lt;filename&gt;     package file location (default: ./package.json)
+  --pre &lt;n&gt;                    Include -alpha, -beta, -rc. Default: 0. Default with --newest and --greatest: 1
+  --prefix &lt;path&gt;              Used as current working directory in bower and npm
+  -r, --registry &lt;url&gt;         specify third-party npm registry
+  --removeRange                remove version ranges from the final package version
+  -s, --silent                 don't output anything (--loglevel silent)
+  --semverLevel &lt;level&gt;        find the highest version within &quot;major&quot; or &quot;minor&quot;
+  -t, --greatest               find the highest versions available instead of the latest stable versions
+  --timeout &lt;ms&gt;               a global timeout in ms
+  -u, --upgrade                overwrite package file
+  -x, --reject &lt;matches&gt;       exclude packages matching the given string, comma-or-space-delimited list, or /regex/
+  -v, --version                4.0.1
+  -V
+  -h, --help                   output usage information
+</code></pre>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fuse-npm-check-updates%2f - package.json%20%e3%81%ae%20deps%20%e3%82%92%e6%b7%b1%e3%81%8f%e8%80%83%e3%81%88%e3%81%9a%e3%81%ab%e5%85%a8%e9%83%a8upgrade%e3%81%99%e3%82%8b by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'your_disqus_short_name'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/dream-yt/sacre">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://twitter.com/FUTABA_SACRE">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2020 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="https://dream-yt.github.io/js/jquery-3.3.1.min.js"></script>
+<script src="https://dream-yt.github.io/js/main.js"></script>
+<script src="https://dream-yt.github.io/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+
+
+
+
+    </body>
+</html>
