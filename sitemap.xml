@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://dream-yt.github.io/post/my-project-d-ts-file/</loc>
+    <lastmod>2020-01-12T12:35:03+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://dream-yt.github.io/post/use-npm-check-updates/</loc>
     <lastmod>2020-01-11T16:34:44+09:00</lastmod>
   </url>
@@ -741,7 +746,7 @@
   
   <url>
     <loc>https://dream-yt.github.io/post/</loc>
-    <lastmod>2020-01-11T16:34:44+09:00</lastmod>
+    <lastmod>2020-01-12T12:35:03+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -753,7 +758,7 @@
   
   <url>
     <loc>https://dream-yt.github.io/</loc>
-    <lastmod>2020-01-11T16:34:44+09:00</lastmod>
+    <lastmod>2020-01-12T12:35:03+09:00</lastmod>
     <priority>0</priority>
   </url>
   
