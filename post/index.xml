@@ -6,10 +6,19 @@
     <description>Recent content in Posts on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sun, 12 Jan 2020 12:35:03 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 16 Jan 2020 09:17:45 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>terraformでroute53の管理</title>
+      <link>https://dream-yt.github.io/post/terraform-route53/</link>
+      <pubDate>Thu, 16 Jan 2020 09:17:45 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/terraform-route53/</guid>
+      <description>前提 awsのコンソールから諸々設定をしたものを、terraformをつかってコード管理できるようにしていく場合の作業 前準備 まず最初に目当ての</description>
+    </item>
     
     <item>
       <title>.d.ts ファイルを自作してimportする</title>
