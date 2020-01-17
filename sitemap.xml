@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://dream-yt.github.io/post/connect-avd-adb-as-root/</loc>
+    <lastmod>2020-01-17T15:47:02+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://dream-yt.github.io/post/git-grep-target-file-extension/</loc>
     <lastmod>2020-01-17T11:35:48+09:00</lastmod>
   </url>
@@ -761,7 +766,7 @@
   
   <url>
     <loc>https://dream-yt.github.io/post/</loc>
-    <lastmod>2020-01-17T11:35:48+09:00</lastmod>
+    <lastmod>2020-01-17T15:47:02+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -773,7 +778,7 @@
   
   <url>
     <loc>https://dream-yt.github.io/</loc>
-    <lastmod>2020-01-17T11:35:48+09:00</lastmod>
+    <lastmod>2020-01-17T15:47:02+09:00</lastmod>
     <priority>0</priority>
   </url>
   

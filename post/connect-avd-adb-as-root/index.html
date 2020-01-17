@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="https://dream-yt.github.io/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="androidの仮想デバイス(AVD)にadb rootで接続する"/>
+  <meta name="twitter:description" content="androidの /data/ 配下など、rootでしかアクセスできない領域のデータを確認する場合に、 adb root する必要がある 仮想デバイスの起動 # 一覧を取得 $ emulator"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@site_author"/>
+  
+
+
+
+		
+		<meta name="author" content="site_author">
+		<meta name="description" content="Site Description">
+		<meta name="generator" content="Hugo 0.42.1" />
+		<title>androidの仮想デバイス(AVD)にadb rootで接続する &middot; sacre</title>
+		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/font-awesome.min.css">
+		
+
+		
+		<link href="https://dream-yt.github.io/index.xml" rel="alternate" type="application/rss+xml" title="sacre" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='https://dream-yt.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://dream-yt.github.io/posts'>Archive</a>
+	<a href='https://dream-yt.github.io/tags'>Tags</a>
+	<a href='https://dream-yt.github.io/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="https://dream-yt.github.io/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        androidの仮想デバイス(AVD)にadb rootで接続する
+                    </h1>
+                    <h2 class="headline">
+                    Jan 17, 2020 15:47
+                    · 253 words
+                    · 1 minute read
+                      <span class="tags">
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#仮想デバイスの起動">仮想デバイスの起動</a></li>
+<li><a href="#接続">接続</a></li>
+<li><a href="#接続-1">接続</a></li>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    
+
+<p>androidの <code>/data/</code> 配下など、rootでしかアクセスできない領域のデータを確認する場合に、
+adb root する必要がある</p>
+
+<h2 id="仮想デバイスの起動">仮想デバイスの起動</h2>
+
+<pre><code class="language-bash"># 一覧を取得
+$ emulator -list-avds
+# 起動
+$ emulator -avd GoogleAPI_-_Pixel_2_XL_API_29
+</code></pre>
+
+<h2 id="接続">接続</h2>
+
+<p><strong>注意</strong></p>
+
+<p>OSイメージによってadb rootできないものがある
+仮想デバイスを作成するときに <code>Google Play  ~</code> というのを選ぶとrootできない</p>
+
+<blockquote>
+<p>To enable root access, use an emulator image like
+   Google APIs Intel x86 Atom System Image
+not
+   Google Play Intel x86 Atom System Image</p>
+</blockquote>
+
+<ul>
+<li><a href="https://stackoverflow.com/questions/43923996/adb-root-is-not-working-on-emulator-cannot-run-as-root-in-production-builds/45668555#45668555">android - ADB root is not working on emulator (cannot run as root in production builds) - Stack Overflow</a></li>
+</ul>
+
+<h2 id="接続-1">接続</h2>
+
+<p>adbコマンドで接続する</p>
+
+<pre><code class="language-console">$ adb root
+restarting adbd as root
+$ adb shell
+</code></pre>
+
+<pre><code class="language-console">1|generic_x86:/ # ls -lah /data/user/
+total 8.0K
+drwx--x--x  2 system system 4.0K 2020-01-17 15:29 .
+drwxrwx--x 45 system system 4.0K 2020-01-17 15:29 ..
+lrwxrwxrwx  1 root   root     10 2020-01-17 15:29 0 -&gt; /data/data
+</code></pre>
+
+<h2 id="参考">参考</h2>
+
+<ul>
+<li><a href="https://seleniumbycharan.com/2016/08/07/using-adb-to-interact-with-the-avd/">Using ADB to interact with the AVD – Automation Guide</a></li>
+</ul>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fconnect-avd-adb-as-root%2f - android%e3%81%ae%e4%bb%ae%e6%83%b3%e3%83%87%e3%83%90%e3%82%a4%e3%82%b9%28AVD%29%e3%81%abadb%20root%e3%81%a7%e6%8e%a5%e7%b6%9a%e3%81%99%e3%82%8b by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'your_disqus_short_name'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/dream-yt/sacre">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://twitter.com/FUTABA_SACRE">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2020 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="https://dream-yt.github.io/js/jquery-3.3.1.min.js"></script>
+<script src="https://dream-yt.github.io/js/main.js"></script>
+<script src="https://dream-yt.github.io/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+
+
+
+
+    </body>
+</html>
