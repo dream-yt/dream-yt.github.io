@@ -13,8 +13,8 @@
     
   
   
-  <meta name="twitter:title" content="SSL越しにローカルの静的ファイルを閲覧したい (開発用)"/>
-  <meta name="twitter:description" content="SSLさせてくれるhttpサーバのコード こちらから拝借 simple-https-server.py import http.server import ssl server_address = (&#39;127.0.0.1&#39;, 443) httpd = http.server.HTTPServer(server_address, http.server.SimpleHTTPRequestHandler) httpd.socket = ssl.wrap_socket(httpd.socket, server_side=True, certfile=&quot;server.pem&quot;, keyfile=&quot;key.pem&quot;, ssl_version=ssl.PROTOCOL_TLS) httpd.serve_forever() 証明書を作ってserver start $ mkdir /tmp/$(pwgen) &amp;&amp; cd $_ $ pbpaste"/>
+  <meta name="twitter:title" content="vscodeにペーストすると画像をgithubにあげてくれるvscode-extension-mardown-image-pasteが便利"/>
+  <meta name="twitter:description" content="GitHubのコメント欄に画像を貼り付けられるのと同じ操作感でvscode上から画像をアップロードできる とても便利 njleonzhang/vscode-extension-mardown-image-paste: read the image from system clipborad, optimize the size, upload to CDN,"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -30,7 +30,7 @@
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
 		<meta name="generator" content="Hugo 0.42.1" />
-		<title>SSL越しにローカルの静的ファイルを閲覧したい (開発用) &middot; sacre</title>
+		<title>vscodeにペーストすると画像をgithubにあげてくれるvscode-extension-mardown-image-pasteが便利 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
@@ -68,11 +68,11 @@
             <article>
                 <header>
                     <h1>
-                        SSL越しにローカルの静的ファイルを閲覧したい (開発用)
+                        vscodeにペーストすると画像をgithubにあげてくれるvscode-extension-mardown-image-pasteが便利
                     </h1>
                     <h2 class="headline">
-                    Jul 10, 2019 18:26
-                    · 216 words
+                    Jan 15, 2020 14:48
+                    · 303 words
                     · 1 minute read
                       <span class="tags">
                       
@@ -86,13 +86,8 @@
 <ul>
 <li>
 <ul>
-<li>
-<ul>
-<li><a href="#sslさせてくれるhttpサーバのコード">SSLさせてくれるhttpサーバのコード</a></li>
-<li><a href="#証明書を作ってserver-start">証明書を作ってserver start</a></li>
-<li><a href="#chromeで見る">Chromeで見る</a></li>
-</ul></li>
-<li><a href="#参考">参考</a></li>
+<li><a href="#セットアップ">セットアップ</a></li>
+<li><a href="#使用">使用</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -102,63 +97,49 @@
                 <section id="post-body">
                     
 
-<h3 id="sslさせてくれるhttpサーバのコード">SSLさせてくれるhttpサーバのコード</h3>
+<p>GitHubのコメント欄に画像を貼り付けられるのと同じ操作感でvscode上から画像をアップロードできる</p>
 
-<p>こちらから拝借</p>
+<p>とても便利</p>
 
 <ul>
-<li><a href="https://gist.github.com/DannyHinshaw/a3ac5991d66a2fe6d97a569c6cdac534">simple-https-server.py</a></li>
+<li><a href="https://github.com/njleonzhang/vscode-extension-mardown-image-paste">njleonzhang/vscode-extension-mardown-image-paste: read the image from system clipborad, optimize the size, upload to CDN, and return you the CDN link.</a></li>
 </ul>
 
-<pre><code class="language-python">import http.server
-import ssl
-
-server_address = ('127.0.0.1', 443)
-httpd = http.server.HTTPServer(server_address, http.server.SimpleHTTPRequestHandler)
-httpd.socket = ssl.wrap_socket(httpd.socket,
-                               server_side=True,
-                               certfile=&quot;server.pem&quot;,
-                               keyfile=&quot;key.pem&quot;,
-                               ssl_version=ssl.PROTOCOL_TLS)
-httpd.serve_forever()
-</code></pre>
-
-<h3 id="証明書を作ってserver-start">証明書を作ってserver start</h3>
-
-<pre><code class="language-bash">$ mkdir /tmp/$(pwgen) &amp;&amp; cd $_
-$ pbpaste &gt; test.html
-$ openssl req -new -x509 -keyout key.pem -out server.pem -days 365 -nodes
-# 質問には全部.(blank)で答えて良い
-$ sudo python3 https.py
-# SSL越しにみたいファイルを/tmp/$(pwgen)に入れる
-</code></pre>
-
-<h3 id="chromeで見る">Chromeで見る</h3>
-
-<p>/etc/hosts をよしなに書き換えてから</p>
-
-<pre><code>127.0.0.1 example.com
-</code></pre>
-
-<p>警告を無視するオプションをつけて閲覧</p>
-
-<pre><code class="language-bash">$ /Applications/Google\ Chrome\ Canary.app/Contents/MacOS/Google\ Chrome\ Canary \
-  --ignore-certificate-errors \
-  https://example.com/test.html
-</code></pre>
-
-<h2 id="参考">参考</h2>
+<h2 id="セットアップ">セットアップ</h2>
 
 <ul>
-<li><a href="https://gist.github.com/DannyHinshaw/a3ac5991d66a2fe6d97a569c6cdac534">simple-https-server.py</a></li>
-<li><a href="https://www.technipages.com/google-chrome-bypass-your-connection-is-not-private-message">Google Chrome: Bypass “Your connection is not private” Message</a></li>
+<li>extension(vscode-extension-mardown-image-paste)をvscodeに入れる</li>
+<li><code>$ npm install -g electron-image-ipc-server</code></li>
+<li><code>$ eiis</code>
+
+<ul>
+<li>このプロセスが動いてないとアップロードされない</li>
+</ul></li>
+<li>設定
+
+<ul>
+<li>githubのアクセストークン</li>
+<li>こちらから <a href="https://github.com/settings/tokens">Personal Access Tokens</a></li>
+<li>TinyPNGのアクセストークン</li>
+<li><a href="https://tinypng.com/developers">TinyPNG – Developer API</a></li>
+<li>画像を配備するリポジトリをgithub上に作成</li>
+<li>githubAssetFolder, proxy は設定しないでも動作した</li>
+</ul></li>
+</ul>
+
+<h2 id="使用">使用</h2>
+
+<ul>
+<li>マークダウン(.md)ファイル上で</li>
+<li>クリップボードに画像を入れておいて</li>
+<li>コマンドパレットから <code>Paste Image</code> を実行</li>
 </ul>
 
                 </section>
             </article>
 
             
-                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fdevserver-ssl-static%2f - SSL%e8%b6%8a%e3%81%97%e3%81%ab%e3%83%ad%e3%83%bc%e3%82%ab%e3%83%ab%e3%81%ae%e9%9d%99%e7%9a%84%e3%83%95%e3%82%a1%e3%82%a4%e3%83%ab%e3%82%92%e9%96%b2%e8%a6%a7%e3%81%97%e3%81%9f%e3%81%84%20%28%e9%96%8b%e7%99%ba%e7%94%a8%29 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fvscode-extension-mardown-image-paste%2f - vscode%e3%81%ab%e3%83%9a%e3%83%bc%e3%82%b9%e3%83%88%e3%81%99%e3%82%8b%e3%81%a8%e7%94%bb%e5%83%8f%e3%82%92github%e3%81%ab%e3%81%82%e3%81%92%e3%81%a6%e3%81%8f%e3%82%8c%e3%82%8bvscode-extension-mardown-image-paste%e3%81%8c%e4%be%bf%e5%88%a9 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
 
 <a class="facebook" href="#" onclick="
     window.open(

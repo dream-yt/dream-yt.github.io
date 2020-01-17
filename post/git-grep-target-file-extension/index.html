@@ -13,8 +13,8 @@
     
   
   
-  <meta name="twitter:title" content="SSL越しにローカルの静的ファイルを閲覧したい (開発用)"/>
-  <meta name="twitter:description" content="SSLさせてくれるhttpサーバのコード こちらから拝借 simple-https-server.py import http.server import ssl server_address = (&#39;127.0.0.1&#39;, 443) httpd = http.server.HTTPServer(server_address, http.server.SimpleHTTPRequestHandler) httpd.socket = ssl.wrap_socket(httpd.socket, server_side=True, certfile=&quot;server.pem&quot;, keyfile=&quot;key.pem&quot;, ssl_version=ssl.PROTOCOL_TLS) httpd.serve_forever() 証明書を作ってserver start $ mkdir /tmp/$(pwgen) &amp;&amp; cd $_ $ pbpaste"/>
+  <meta name="twitter:title" content="git grepで探すファイルの拡張子を指定"/>
+  <meta name="twitter:description" content="こんな感じでできる $ git grep cache -- &#39;*.java&#39; git grepでは -- 以降が対象パスの指定となっているので、そこにglobを書くと探索するファイルを指定できる &ndash; …​"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -30,7 +30,7 @@
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
 		<meta name="generator" content="Hugo 0.42.1" />
-		<title>SSL越しにローカルの静的ファイルを閲覧したい (開発用) &middot; sacre</title>
+		<title>git grepで探すファイルの拡張子を指定 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
@@ -68,11 +68,11 @@
             <article>
                 <header>
                     <h1>
-                        SSL越しにローカルの静的ファイルを閲覧したい (開発用)
+                        git grepで探すファイルの拡張子を指定
                     </h1>
                     <h2 class="headline">
-                    Jul 10, 2019 18:26
-                    · 216 words
+                    Jan 17, 2020 11:35
+                    · 136 words
                     · 1 minute read
                       <span class="tags">
                       
@@ -88,11 +88,8 @@
 <ul>
 <li>
 <ul>
-<li><a href="#sslさせてくれるhttpサーバのコード">SSLさせてくれるhttpサーバのコード</a></li>
-<li><a href="#証明書を作ってserver-start">証明書を作ってserver start</a></li>
-<li><a href="#chromeで見る">Chromeで見る</a></li>
-</ul></li>
 <li><a href="#参考">参考</a></li>
+</ul></li>
 </ul></li>
 </ul>
 </nav>
@@ -102,63 +99,39 @@
                 <section id="post-body">
                     
 
-<h3 id="sslさせてくれるhttpサーバのコード">SSLさせてくれるhttpサーバのコード</h3>
+<p>こんな感じでできる</p>
 
-<p>こちらから拝借</p>
+<pre><code class="language-console">$ git grep cache -- '*.java'
+</code></pre>
+
+<p>git grepでは <code>--</code> 以降が対象パスの指定となっているので、そこにglobを書くと探索するファイルを指定できる</p>
+
+<blockquote>
+<p>&ndash; <pathspec>…​
+Signals the end of options; the rest of the parameters are <pathspec> limiters.</p>
+</blockquote>
+
+<p>ちなみにexcludeするときは以下のように書くようだ</p>
+
+<pre><code class="language-console">$ git grep solution -- :^Documentation
+</code></pre>
+
+<blockquote>
+<p>Looks for solution, excluding files in Documentation.</p>
+</blockquote>
+
+<h3 id="参考">参考</h3>
 
 <ul>
-<li><a href="https://gist.github.com/DannyHinshaw/a3ac5991d66a2fe6d97a569c6cdac534">simple-https-server.py</a></li>
-</ul>
-
-<pre><code class="language-python">import http.server
-import ssl
-
-server_address = ('127.0.0.1', 443)
-httpd = http.server.HTTPServer(server_address, http.server.SimpleHTTPRequestHandler)
-httpd.socket = ssl.wrap_socket(httpd.socket,
-                               server_side=True,
-                               certfile=&quot;server.pem&quot;,
-                               keyfile=&quot;key.pem&quot;,
-                               ssl_version=ssl.PROTOCOL_TLS)
-httpd.serve_forever()
-</code></pre>
-
-<h3 id="証明書を作ってserver-start">証明書を作ってserver start</h3>
-
-<pre><code class="language-bash">$ mkdir /tmp/$(pwgen) &amp;&amp; cd $_
-$ pbpaste &gt; test.html
-$ openssl req -new -x509 -keyout key.pem -out server.pem -days 365 -nodes
-# 質問には全部.(blank)で答えて良い
-$ sudo python3 https.py
-# SSL越しにみたいファイルを/tmp/$(pwgen)に入れる
-</code></pre>
-
-<h3 id="chromeで見る">Chromeで見る</h3>
-
-<p>/etc/hosts をよしなに書き換えてから</p>
-
-<pre><code>127.0.0.1 example.com
-</code></pre>
-
-<p>警告を無視するオプションをつけて閲覧</p>
-
-<pre><code class="language-bash">$ /Applications/Google\ Chrome\ Canary.app/Contents/MacOS/Google\ Chrome\ Canary \
-  --ignore-certificate-errors \
-  https://example.com/test.html
-</code></pre>
-
-<h2 id="参考">参考</h2>
-
-<ul>
-<li><a href="https://gist.github.com/DannyHinshaw/a3ac5991d66a2fe6d97a569c6cdac534">simple-https-server.py</a></li>
-<li><a href="https://www.technipages.com/google-chrome-bypass-your-connection-is-not-private-message">Google Chrome: Bypass “Your connection is not private” Message</a></li>
+<li><a href="https://stackoverflow.com/questions/13867705/git-grep-by-file-extensions">git grep by file extensions - Stack Overflow</a></li>
+<li><a href="https://git-scm.com/docs/git-grep#Documentation/git-grep.txt-ltpathspecgt82308203">Git - git-grep Documentation</a></li>
 </ul>
 
                 </section>
             </article>
 
             
-                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fdevserver-ssl-static%2f - SSL%e8%b6%8a%e3%81%97%e3%81%ab%e3%83%ad%e3%83%bc%e3%82%ab%e3%83%ab%e3%81%ae%e9%9d%99%e7%9a%84%e3%83%95%e3%82%a1%e3%82%a4%e3%83%ab%e3%82%92%e9%96%b2%e8%a6%a7%e3%81%97%e3%81%9f%e3%81%84%20%28%e9%96%8b%e7%99%ba%e7%94%a8%29 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fgit-grep-target-file-extension%2f - git%20grep%e3%81%a7%e6%8e%a2%e3%81%99%e3%83%95%e3%82%a1%e3%82%a4%e3%83%ab%e3%81%ae%e6%8b%a1%e5%bc%b5%e5%ad%90%e3%82%92%e6%8c%87%e5%ae%9a by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
 
 <a class="facebook" href="#" onclick="
     window.open(
