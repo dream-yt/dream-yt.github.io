@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="https://dream-yt.github.io/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="browserifyからwebpackに移行するときのエラー"/>
+  <meta name="twitter:description" content="browserifyのcommonjsと、webpackのcommonjsの違いにハマったときの話 経緯 browserifyからwebpack"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@site_author"/>
+  
+
+
+
+		
+		<meta name="author" content="site_author">
+		<meta name="description" content="Site Description">
+		<meta name="generator" content="Hugo 0.42.1" />
+		<title>browserifyからwebpackに移行するときのエラー &middot; sacre</title>
+		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/font-awesome.min.css">
+		
+
+		
+		<link href="https://dream-yt.github.io/index.xml" rel="alternate" type="application/rss+xml" title="sacre" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='https://dream-yt.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://dream-yt.github.io/posts'>Archive</a>
+	<a href='https://dream-yt.github.io/tags'>Tags</a>
+	<a href='https://dream-yt.github.io/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="https://dream-yt.github.io/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        browserifyからwebpackに移行するときのエラー
+                    </h1>
+                    <h2 class="headline">
+                    Jan 23, 2020 17:46
+                    · 933 words
+                    · 2 minute read
+                      <span class="tags">
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#経緯">経緯</a></li>
+<li><a href="#commonjsとamd">commonjsとAMD</a>
+<ul>
+<li><a href="#参照">参照</a></li>
+</ul></li>
+<li><a href="#解決方法">解決方法</a></li>
+</ul></li>
+</ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    
+
+<p>browserifyのcommonjsと、webpackのcommonjsの違いにハマったときの話</p>
+
+<h2 id="経緯">経緯</h2>
+
+<p>browserifyからwebpackに移行するときに、ある古いライブラリが読み込み時エラーとなってしまった
+その古いライブラリはモジュール解決のロジックを以下のように行なっていた</p>
+
+<pre><code class="language-js">	if ( typeof define === 'function' &amp;&amp; define.amd ) {
+		// AMD
+		define( ['jquery'], function ( $ ) {
+			return factory( $, window, document );
+		} );
+	}
+	else if ( typeof exports === 'object' ) {
+		// CommonJS
+		module.exports = function (root, $) {
+</code></pre>
+
+<ul>
+<li><a href="https://github.com/DataTables/DataTables/blob/master/media/js/jquery.dataTables.js#L30-L38">DataTables/jquery.dataTables.js at master · DataTables/DataTables</a></li>
+</ul>
+
+<p>browserifyでモジュール解決をしていたときは名前空間に <code>define</code> がなかったため無事にcommonjsとしてモジュールを読み込めていたが、webpackでビルドすると名前空間に <code>define</code> が存在し、分岐の結果AMDとしてモジュールを読み込もうとしているようだった</p>
+
+<p>これまでbrowserify(commonjs)でビルドしていたので、このファイルのみAMDで読み込むことになりエラーになった</p>
+
+<h2 id="commonjsとamd">commonjsとAMD</h2>
+
+<p>両方ともjsでモジュールを読み込むための仕様</p>
+
+<p>commonjsはnodejsで使われており、AMDはブラウザ側で使うために作られた (クライアント側が通信してjsファイルを取ってくるといったことをする)</p>
+
+<p>datatable.netはcommonjsとAMDを背反なものとして分岐させているが、実際にはcommonjsとAMDを同時に動作させるといったことも行われているようだ</p>
+
+<h3 id="参照">参照</h3>
+
+<p>commonjsのwikiにAMDの仕様がPROPOSALであがっていたり</p>
+
+<ul>
+<li><a href="http://wiki.commonjs.org/wiki/Modules/AsynchronousDefinition">Modules/AsynchronousDefinition - CommonJS Spec Wiki</a></li>
+</ul>
+
+<p>commonjsのwikiにメーリングリストにAMDを別口に分けようとするスレッドがあったりする</p>
+
+<ul>
+<li><a href="https://groups.google.com/forum/#!searchin/commonjs/define%7Csort:date/commonjs/lqCWO8tMp48/gRqjWVP4364J">Split off AMD? (was Re: [CommonJS] New amd-implement list) - Google グループ</a></li>
+</ul>
+
+<p>もともとこの辺りのスニペットをコピペしたライブラリなのかもしれない</p>
+
+<ul>
+<li><a href="https://github.com/umdjs/umd/blob/master/templates/returnExportsGlobal.js">umd/returnExportsGlobal.js at master · umdjs/umd</a></li>
+</ul>
+
+<h2 id="解決方法">解決方法</h2>
+
+<p>説明から遠回りしたが、今回の問題はつまるところ次の点に尽きる</p>
+
+<ul>
+<li>browserifyのcommonjsではAMDが有効になっていないが</li>
+<li>webpackのcommonjsではAMDが有効になっている
+
+<ul>
+<li>コンパイル時のグローバル名前空間に <code>define</code> 関数が存在している</li>
+</ul></li>
+</ul>
+
+<p>なのでwebpackの設定でAMDを無効にした</p>
+
+<ul>
+<li><a href="https://webpack.js.org/configuration/module/#ruleparser">ruleparser | Module | webpack</a></li>
+</ul>
+
+<pre><code class="language-js">module.exports = {
+  module: {
+    rules: [
+      {
+        parser: {
+          amd: false, // disable AMD
+        }
+      }
+    ]
+  }
+}
+</code></pre>
+
+<p>この設定でbrowserifyでビルドできていたときと同じ動作にすることができた</p>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fbrowserify-webpack-amd-commonjs%2f - browserify%e3%81%8b%e3%82%89webpack%e3%81%ab%e7%a7%bb%e8%a1%8c%e3%81%99%e3%82%8b%e3%81%a8%e3%81%8d%e3%81%ae%e3%82%a8%e3%83%a9%e3%83%bc by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'your_disqus_short_name'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/dream-yt/sacre">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://twitter.com/FUTABA_SACRE">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2020 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="https://dream-yt.github.io/js/jquery-3.3.1.min.js"></script>
+<script src="https://dream-yt.github.io/js/main.js"></script>
+<script src="https://dream-yt.github.io/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+
+
+
+
+    </body>
+</html>

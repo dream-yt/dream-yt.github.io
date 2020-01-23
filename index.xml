@@ -6,10 +6,19 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Fri, 17 Jan 2020 15:47:02 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 23 Jan 2020 17:46:27 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>browserifyからwebpackに移行するときのエラー</title>
+      <link>https://dream-yt.github.io/post/browserify-webpack-amd-commonjs/</link>
+      <pubDate>Thu, 23 Jan 2020 17:46:27 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/browserify-webpack-amd-commonjs/</guid>
+      <description>browserifyのcommonjsと、webpackのcommonjsの違いにハマったときの話 経緯 browserifyからwebpack</description>
+    </item>
     
     <item>
       <title>androidの仮想デバイス(AVD)にadb rootで接続する</title>
