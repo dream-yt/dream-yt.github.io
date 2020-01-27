@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://dream-yt.github.io/post/heroku-deploy-bia-git/</loc>
+    <lastmod>2020-01-27T12:38:15+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://dream-yt.github.io/post/browserify-webpack-amd-commonjs/</loc>
     <lastmod>2020-01-23T17:46:27+09:00</lastmod>
   </url>
@@ -771,7 +776,7 @@
   
   <url>
     <loc>https://dream-yt.github.io/post/</loc>
-    <lastmod>2020-01-23T17:46:27+09:00</lastmod>
+    <lastmod>2020-01-27T12:38:15+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -783,7 +788,7 @@
   
   <url>
     <loc>https://dream-yt.github.io/</loc>
-    <lastmod>2020-01-23T17:46:27+09:00</lastmod>
+    <lastmod>2020-01-27T12:38:15+09:00</lastmod>
     <priority>0</priority>
   </url>
   
