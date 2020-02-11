@@ -13,8 +13,8 @@
     
   
   
-  <meta name="twitter:title" content="aws-cdkを使い始めるまでメモ"/>
-  <meta name="twitter:description" content="プロジェクトを作成する app ってのはサブコマンドで、「アプリ開発者として使う」という意味 (libってのがあって、それはcdkのライブラリ作者が使"/>
+  <meta name="twitter:title" content="Cloud Runの動作確認 (イメージのビルド、デプロイと削除)"/>
+  <meta name="twitter:description" content="システム パッケージのチュートリアルを使用する | Cloud Run | Google Cloud $ gcloud builds submit を叩くと、Dockerfileをもとにビルドが始まる $ gcloud builds submit --tag gcr.io/$GOOGLE_PROJECT_ID/graphvizn ... snip ... 10-alpine: Pulling from"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -30,7 +30,7 @@
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
 		<meta name="generator" content="Hugo 0.51" />
-		<title>aws-cdkを使い始めるまでメモ &middot; sacre</title>
+		<title>Cloud Runの動作確認 (イメージのビルド、デプロイと削除) &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
@@ -68,11 +68,11 @@
             <article>
                 <header>
                     <h1>
-                        aws-cdkを使い始めるまでメモ
+                        Cloud Runの動作確認 (イメージのビルド、デプロイと削除)
                     </h1>
                     <h2 class="headline">
-                    Nov 17, 2018 22:30
-                    · 235 words
+                    Feb 12, 2020 08:29
+                    · 239 words
                     · 1 minute read
                       <span class="tags">
                       
@@ -81,65 +81,77 @@
                 </header>
                 
                   
-                    <div id="toc">
-                      <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#参考">参考</a></li>
-</ul></li>
-</ul></li>
-</ul>
-</nav>
-                    </div>
-                  
                 
                 <section id="post-body">
-                    
-
-<p>プロジェクトを作成する</p>
-
-<p><code>app</code> ってのはサブコマンドで、「アプリ開発者として使う」という意味
-(<code>lib</code>ってのがあって、それはcdkのライブラリ作者が使うらしい)</p>
-
-<pre><code class="language-bash">$ cdk init app --language typescript
-</code></pre>
-
-<p>補完を効かせながら開発したいので追加</p>
-
-<pre><code class="language-bash">$ yarn add --dev \
-    tslint prettier \
-    tslint-config-prettier tslint-config-standard tslint-plugin-prettier 
-$ code ./tslint.json
-</code></pre>
-
-<p>使いたいAWSサービスの定義を加えて開発</p>
-
-<pre><code class="language-bash">$ yarn add @aws-cdk/aws-cognito
-$ code ./bin/infra.ts
-</code></pre>
-
-<p>cloudformationの形式のファイルを出力</p>
-
-<pre><code class="language-bash"># cdk.jsonで定義された位置にjsファイルを生成
-$ yarn run build
-# そのjsを読んでcloudformationの形式を出力
-$ cdk synth &gt; ./cf.yaml
-</code></pre>
-
-<h3 id="参考">参考</h3>
-
-<ul>
-<li><a href="https://github.com/awslabs/aws-cdk/tree/6495e3ccd335ce9cb4438cfc285ca2bdb921f52a/examples/cdk-examples-typescript">examples/cdk-examples-typescript · awslabs/aws-cdk</a></li>
+                    <ul>
+<li><a href="https://cloud.google.com/run/docs/tutorials/system-packages">システム パッケージのチュートリアルを使用する  |  Cloud Run  |  Google Cloud</a></li>
 </ul>
+
+<p><code>$ gcloud builds submit</code> を叩くと、Dockerfileをもとにビルドが始まる</p>
+
+<pre><code class="language-console">$ gcloud builds submit --tag gcr.io/$GOOGLE_PROJECT_ID/graphvizn
+
+... snip ...
+
+10-alpine: Pulling from library/node
+c9b1b535fdd9: Already exists
+0188bce71676: Pulling fs layer
+f62af20101b7: Pulling fs layer
+1bffdb76255c: Pulling fs layer
+1bffdb76255c: Download complete
+f62af20101b7: Verifying Checksum
+f62af20101b7: Download complete
+0188bce71676: Verifying Checksum
+0188bce71676: Download complete
+0188bce71676: Pull complete
+f62af20101b7: Pull complete
+1bffdb76255c: Pull complete
+Digest: sha256:ca59a7a6abfdfe8f2fb62b14c24be5eac33a0acda20fd3d5e5bf2a942de57bad
+Status: Downloaded newer image for node:10-alpine
+ ---&gt; 955e0e1f1a41
+Step 2/9 : WORKDIR /usr/src/app
+ ---&gt; Running in e54837b13a43
+Removing intermediate container e54837b13a43
+ ---&gt; 8de69a28fa7b
+Step 3/9 : RUN apk --no-cache add graphviz ttf-ubuntu-font-family
+ ---&gt; Running in fa8a10c00d92
+fetch http://dl-cdn.alpinelinux.org/alpine/v3.11/main/x86_64/APKINDEX.tar.gz
+fetch http://dl-cdn.alpinelinux.org/alpine/v3.11/community/x86_64/APKINDEX.tar.gz
+(1/35) Installing libxau (1.0.9-r0)
+(2/35) Installing libbsd (0.10.0-r0)
+
+... snip ...
+
+4bc9914fb50e: Pushed
+latest: digest: sha256:0000df6c3d9f6c6f5a2876eccfcd4ebff014022d41b2e069a9108ccad9c0a532 size: 2207
+DONE
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+ID                                    CREATE_TIME                DURATION  SOURCE                                                                                    IMAGES                                     STATUS
+959f914d-b05f-43c1-a1e7-1a66d4f080c6  2020-02-11T22:49:37+00:00  35S       gs://testes123456_cloudbuild/source/1581461344.82-4ddc74bd5d524f54ba32577e2c06d110.tgz  gcr.io/mcskpjt-192612/graphvizn (+1 more)  SUCCESS
+</code></pre>
+
+<p><code>run deploy</code> でimageを指定してデプロイ</p>
+
+<pre><code class="language-bash">$ gcloud beta run deploy graphviz-web2 \
+  --platform managed \
+  --no-allow-unauthenticated \
+  --region asia-northeast1 \
+  --image gcr.io/mcskpjt-192612/graphvizn@sha256:0000df6c3d9f6c6f5a2876eccfcd4ebff014022d41b2e069a9108ccad9c0a532
+</code></pre>
+
+<p><code>run services delete</code> で削除</p>
+
+<pre><code class="language-bash">$ gcloud beta run services delete \
+  --platform managed \
+  --region asia-northeast1 graphviz-web2
+</code></pre>
 
                 </section>
             </article>
 
             
-                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2faws-cdk-101%2f - aws-cdk%e3%82%92%e4%bd%bf%e3%81%84%e5%a7%8b%e3%82%81%e3%82%8b%e3%81%be%e3%81%a7%e3%83%a1%e3%83%a2 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2ftesting-cloudrun%2f - Cloud%20Run%e3%81%ae%e5%8b%95%e4%bd%9c%e7%a2%ba%e8%aa%8d%20%28%e3%82%a4%e3%83%a1%e3%83%bc%e3%82%b8%e3%81%ae%e3%83%93%e3%83%ab%e3%83%89%e3%80%81%e3%83%87%e3%83%97%e3%83%ad%e3%82%a4%e3%81%a8%e5%89%8a%e9%99%a4%29 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
 
 <a class="facebook" href="#" onclick="
     window.open(

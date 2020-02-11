@@ -6,10 +6,19 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Thu, 06 Feb 2020 15:08:17 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 12 Feb 2020 08:29:32 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Cloud Runの動作確認 (イメージのビルド、デプロイと削除)</title>
+      <link>https://dream-yt.github.io/post/testing-cloudrun/</link>
+      <pubDate>Wed, 12 Feb 2020 08:29:32 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/testing-cloudrun/</guid>
+      <description>システム パッケージのチュートリアルを使用する | Cloud Run | Google Cloud $ gcloud builds submit を叩くと、Dockerfileをもとにビルドが始まる $ gcloud builds submit --tag gcr.io/$GOOGLE_PROJECT_ID/graphvizn ... snip ... 10-alpine: Pulling from</description>
+    </item>
     
     <item>
       <title>ERROR:root:code for hash md5 was not found</title>
