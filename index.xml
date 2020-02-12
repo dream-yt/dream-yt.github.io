@@ -6,10 +6,37 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 12 Feb 2020 08:29:32 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 12 Feb 2020 09:37:33 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>psコマンドでメモリ使用量, CPU使用量でソートする</title>
+      <link>https://dream-yt.github.io/post/ps-mem-cpu-sort/</link>
+      <pubDate>Wed, 12 Feb 2020 09:37:33 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/ps-mem-cpu-sort/</guid>
+      <description>--sort オプションがある 例 -%mem は降順、メモリ使用量という意味 root@92b0f68c3eb3:/# ps aux --sort -%mem | head USER PID %CPU %MEM VSZ RSS TTY STAT START TIME COMMAND root 1 0.0 0.1 18240 3236 pts/0 Ss 00:20 0:00 /bin/bash root 20 0.0 0.1 34424 2780 pts/0 R+ 00:22 0:00 ps aux --sort -%mem root</description>
+    </item>
+    
+    <item>
+      <title>Bash Elif</title>
+      <link>https://dream-yt.github.io/post/bash-elif/</link>
+      <pubDate>Wed, 12 Feb 2020 09:15:26 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/bash-elif/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>シェルスクリプトで変数が未定義かを確認する</title>
+      <link>https://dream-yt.github.io/post/bash-non-zero-variable/</link>
+      <pubDate>Wed, 12 Feb 2020 09:06:11 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/bash-non-zero-variable/</guid>
+      <description>毎回忘れるのでメモ -n で判定できる。逆は -z。 正確には値のlengthがnon-zeroかという判定をしている main.sh #!/bin/bash [ -n &amp;quot;$ONE&amp;quot; ] &amp;amp;&amp;amp; echo &amp;quot;ONE is non-zero&amp;quot; [ -z &amp;quot;$ONE&amp;quot; ] &amp;amp;&amp;amp;</description>
+    </item>
     
     <item>
       <title>Cloud Runの動作確認 (イメージのビルド、デプロイと削除)</title>

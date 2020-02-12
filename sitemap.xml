@@ -3,6 +3,21 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://dream-yt.github.io/post/ps-mem-cpu-sort/</loc>
+    <lastmod>2020-02-12T09:37:33+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://dream-yt.github.io/post/bash-elif/</loc>
+    <lastmod>2020-02-12T09:15:26+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://dream-yt.github.io/post/bash-non-zero-variable/</loc>
+    <lastmod>2020-02-12T09:06:11+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://dream-yt.github.io/post/testing-cloudrun/</loc>
     <lastmod>2020-02-12T08:29:32+09:00</lastmod>
   </url>
@@ -786,7 +801,7 @@
   
   <url>
     <loc>https://dream-yt.github.io/post/</loc>
-    <lastmod>2020-02-12T08:29:32+09:00</lastmod>
+    <lastmod>2020-02-12T09:37:33+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -798,7 +813,7 @@
   
   <url>
     <loc>https://dream-yt.github.io/</loc>
-    <lastmod>2020-02-12T08:29:32+09:00</lastmod>
+    <lastmod>2020-02-12T09:37:33+09:00</lastmod>
     <priority>0</priority>
   </url>
   
