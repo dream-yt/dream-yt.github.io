@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="https://dream-yt.github.io/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="nodejsで標準入出力/エラーを共有した子プロセスを作る"/>
+  <meta name="twitter:description" content="cloudrunを使う際に必要になった cloudrunはhttpエンドポイントから処理がキックされるので、コンテナでbashコマンドを実行し"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@site_author"/>
+  
+
+
+
+		
+		<meta name="author" content="site_author">
+		<meta name="description" content="Site Description">
+		<meta name="generator" content="Hugo 0.42.1" />
+		<title>nodejsで標準入出力/エラーを共有した子プロセスを作る &middot; sacre</title>
+		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/font-awesome.min.css">
+		
+
+		
+		<link href="https://dream-yt.github.io/index.xml" rel="alternate" type="application/rss+xml" title="sacre" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='https://dream-yt.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://dream-yt.github.io/posts'>Archive</a>
+	<a href='https://dream-yt.github.io/tags'>Tags</a>
+	<a href='https://dream-yt.github.io/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="https://dream-yt.github.io/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        nodejsで標準入出力/エラーを共有した子プロセスを作る
+                    </h1>
+                    <h2 class="headline">
+                    Feb 14, 2020 11:26
+                    · 699 words
+                    · 2 minute read
+                      <span class="tags">
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#コード">コード</a>
+<ul>
+<li>
+<ul>
+<li><a href="#entrypoint-sh">entrypoint.sh</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#動作">動作</a>
+<ul>
+<li><a href="#spawnのstdio引数">spawnのstdio引数</a></li>
+<li><a href="#pspawn">pSpawn</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    
+
+<p>cloudrunを使う際に必要になった</p>
+
+<p>cloudrunはhttpエンドポイントから処理がキックされるので、コンテナでbashコマンドを実行したいときはnodejsのhttpサーバの子プロセスがスクリプトを実行するという形になる(つかいにくい)</p>
+
+<p>子プロセスの出力をログとしてstackdriverに流したいので、nodejsで標準入出力/エラーを共有した子プロセスを作る必要があった</p>
+
+<h2 id="コード">コード</h2>
+
+<p>こんなコードを書いて動作確認</p>
+
+<ul>
+<li><code>$ node index.js out</code> などで親プロセスを起動</li>
+<li>サブコマンドごとに子プロセスが以下の動作
+
+<ul>
+<li>標準出力を吐いて終了</li>
+<li>エラー出力を吐いて終了</li>
+<li>異常終了</li>
+</ul></li>
+</ul>
+
+<pre><code class="language-js">const { spawn } = require('child_process');
+
+const pSpawn = (command, args, options) =&gt; new Promise((resolve, reject) =&gt; {
+  const childProcess = spawn(command, args, options);
+  childProcess.on('exit', code =&gt; code ? reject(code) : resolve(code));
+});
+
+(async () =&gt; {
+  const subcommand = process.argv[2];
+  const promise = pSpawn('./entrypoint.sh', [subcommand], {
+    env: process.env,
+    cwd: __dirname,
+    stdio: 'inherit',
+  });
+  let exitCode;
+  try {
+    exitCode = await promise
+  } catch (error) {
+    exitCode = error;
+  }
+  console.log(`exitCode: ${exitCode}`);
+})();
+</code></pre>
+
+<h4 id="entrypoint-sh">entrypoint.sh</h4>
+
+<pre><code class="language-bash">#!/bin/bash
+set -eu
+scase &quot;$1&quot; in
+  out)
+    shift
+    echo &quot;one!&quot;
+    ;;
+  err)
+    shift
+    perl -E 'warn &quot;two&quot;'
+    ;;
+  die)
+    shift
+    exit 77
+    ;;
+esac
+</code></pre>
+
+<h2 id="動作">動作</h2>
+
+<p>期待通りに動作した</p>
+
+<ul>
+<li>stdoutはstdoutに</li>
+<li>stderrはstderrに</li>
+<li>exitcodeが0でないときはrejectされた</li>
+</ul>
+
+<pre><code class="language-console">$ node index.js out
+one!
+exitCode: 0
+# エラー出力を確認する
+$ node index.js err 1&gt;/dev/null
+two at -e line 1.
+$ node index.js die
+exitCode: 77
+</code></pre>
+
+<hr />
+
+<p>以下は実装時のメモ</p>
+
+<h3 id="spawnのstdio引数">spawnのstdio引数</h3>
+
+<pre><code class="language-js">pSpawn('./entrypoint.sh', [subcommand], {
+    env: process.env,
+    cwd: __dirname,
+    stdio: 'inherit',
+  });
+</code></pre>
+
+<p>この<code>stdio</code>引数で標準出力/エラー出力を制御している</p>
+
+<ul>
+<li><a href="https://nodejs.org/api/child_process.html#child_process_child_process_spawn_command_args_options">Child Process | Node.js v13.8.0 Documentation</a></li>
+</ul>
+
+<p><code>stdio: 'inherit'</code> で今回やりたい動作にできる</p>
+
+<blockquote>
+<p>&lsquo;inherit&rsquo;: Pass through the corresponding stdio stream to/from the parent process. In the first three positions, this is equivalent to process.stdin, process.stdout, and process.stderr, respectively. In any other position, equivalent to &lsquo;ignore&rsquo;.</p>
+</blockquote>
+
+<h3 id="pspawn">pSpawn</h3>
+
+<pre><code class="language-js">const pSpawn = (command, args, options) =&gt; new Promise((resolve, reject) =&gt; {
+  const childProcess = spawn(command, args, options);
+  childProcess.on('exit', code =&gt; code ? reject(code) : resolve(code));
+});
+</code></pre>
+
+<p>毎回 <code>on.('exit')</code> などを書きたくないのでヘルパー</p>
+
+<ul>
+<li>spawnと引数は一緒</li>
+<li>ただし異常終了した場合はexitcodeをrejectする</li>
+</ul>
+
+<p>pidが欲しい場合などはちゃんとしたのをつかうのがよい</p>
+
+<ul>
+<li><a href="https://github.com/patrick-steele-idem/child-process-promise">patrick-steele-idem/child-process-promise: Simple wrapper around the &ldquo;child_process&rdquo; module that makes use of promises</a></li>
+</ul>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fnodejs-spawn-inherit-stdout-stderr%2f - nodejs%e3%81%a7%e6%a8%99%e6%ba%96%e5%85%a5%e5%87%ba%e5%8a%9b%2f%e3%82%a8%e3%83%a9%e3%83%bc%e3%82%92%e5%85%b1%e6%9c%89%e3%81%97%e3%81%9f%e5%ad%90%e3%83%97%e3%83%ad%e3%82%bb%e3%82%b9%e3%82%92%e4%bd%9c%e3%82%8b by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'your_disqus_short_name'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/dream-yt/sacre">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://twitter.com/FUTABA_SACRE">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2020 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="https://dream-yt.github.io/js/jquery-3.3.1.min.js"></script>
+<script src="https://dream-yt.github.io/js/main.js"></script>
+<script src="https://dream-yt.github.io/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+
+
+
+
+    </body>
+</html>
