@@ -13,8 +13,8 @@
     
   
   
-  <meta name="twitter:title" content="aws-cdkを使い始めるまでメモ"/>
-  <meta name="twitter:description" content="プロジェクトを作成する app ってのはサブコマンドで、「アプリ開発者として使う」という意味 (libってのがあって、それはcdkのライブラリ作者が使"/>
+  <meta name="twitter:title" content="ERROR: (gcloud.beta.run.deploy) PERMISSION_DENIED"/>
+  <meta name="twitter:description" content="CloudRunのデプロイ時にこんなログが出た ERROR: (gcloud.beta.run.deploy) PERMISSION_DENIED: Permission denied on &lsquo;locations/asia-northeast1-a&rsquo; (or it may not exist) フル権限のユーザで作業しているはずなので PERMISSION_DENIED といわれても原因がピンとこな"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -30,7 +30,7 @@
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
 		<meta name="generator" content="Hugo 0.51" />
-		<title>aws-cdkを使い始めるまでメモ &middot; sacre</title>
+		<title>ERROR: (gcloud.beta.run.deploy) PERMISSION_DENIED &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
@@ -68,11 +68,11 @@
             <article>
                 <header>
                     <h1>
-                        aws-cdkを使い始めるまでメモ
+                        ERROR: (gcloud.beta.run.deploy) PERMISSION_DENIED
                     </h1>
                     <h2 class="headline">
-                    Nov 17, 2018 22:30
-                    · 235 words
+                    Feb 17, 2020 09:08
+                    · 125 words
                     · 1 minute read
                       <span class="tags">
                       
@@ -81,65 +81,26 @@
                 </header>
                 
                   
-                    <div id="toc">
-                      <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#参考">参考</a></li>
-</ul></li>
-</ul></li>
-</ul>
-</nav>
-                    </div>
-                  
                 
                 <section id="post-body">
-                    
+                    <p>CloudRunのデプロイ時にこんなログが出た</p>
 
-<p>プロジェクトを作成する</p>
+<blockquote>
+<p>ERROR: (gcloud.beta.run.deploy) PERMISSION_DENIED: Permission denied on &lsquo;locations/asia-northeast1-a&rsquo; (or it may not exist)</p>
+</blockquote>
 
-<p><code>app</code> ってのはサブコマンドで、「アプリ開発者として使う」という意味
-(<code>lib</code>ってのがあって、それはcdkのライブラリ作者が使うらしい)</p>
-
-<pre><code class="language-bash">$ cdk init app --language typescript
-</code></pre>
-
-<p>補完を効かせながら開発したいので追加</p>
-
-<pre><code class="language-bash">$ yarn add --dev \
-    tslint prettier \
-    tslint-config-prettier tslint-config-standard tslint-plugin-prettier 
-$ code ./tslint.json
-</code></pre>
-
-<p>使いたいAWSサービスの定義を加えて開発</p>
-
-<pre><code class="language-bash">$ yarn add @aws-cdk/aws-cognito
-$ code ./bin/infra.ts
-</code></pre>
-
-<p>cloudformationの形式のファイルを出力</p>
-
-<pre><code class="language-bash"># cdk.jsonで定義された位置にjsファイルを生成
-$ yarn run build
-# そのjsを読んでcloudformationの形式を出力
-$ cdk synth &gt; ./cf.yaml
-</code></pre>
-
-<h3 id="参考">参考</h3>
+<p>フル権限のユーザで作業しているはずなので <code>PERMISSION_DENIED</code> といわれても原因がピンとこない。しかしこれは単にregionの指定が間違っているだけである(locationと間違っていた)</p>
 
 <ul>
-<li><a href="https://github.com/awslabs/aws-cdk/tree/6495e3ccd335ce9cb4438cfc285ca2bdb921f52a/examples/cdk-examples-typescript">examples/cdk-examples-typescript · awslabs/aws-cdk</a></li>
+<li>❌ <code>--region asia-northeast1-a</code></li>
+<li>⭕️ <code>--region asia-northeast1</code></li>
 </ul>
 
                 </section>
             </article>
 
             
-                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2faws-cdk-101%2f - aws-cdk%e3%82%92%e4%bd%bf%e3%81%84%e5%a7%8b%e3%82%81%e3%82%8b%e3%81%be%e3%81%a7%e3%83%a1%e3%83%a2 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fcloudrun-error-permission-denied%2f - ERROR%3a%20%28gcloud.beta.run.deploy%29%20PERMISSION_DENIED by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
 
 <a class="facebook" href="#" onclick="
     window.open(
