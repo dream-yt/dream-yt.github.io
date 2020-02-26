@@ -6,10 +6,28 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Fri, 21 Feb 2020 09:23:30 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 26 Feb 2020 18:26:57 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>webpackの開発用に便利なオプション</title>
+      <link>https://dream-yt.github.io/post/webpack-dev-options/</link>
+      <pubDate>Wed, 26 Feb 2020 18:26:57 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/webpack-dev-options/</guid>
+      <description>1ファイルだけトランスパイルするならこんな感じ $ npx webpack $entry --output $output \ --progress \ --cache=true \ --display-error-details \ --debug \ --devtool eval-cheap-module-source-map \ --output-pathinfo \ --watch --progress 動作重い時でも動いているかどうかわかるだけで便利 --cache=true</description>
+    </item>
+    
+    <item>
+      <title>fdを使う</title>
+      <link>https://dream-yt.github.io/post/fd-instead-of-find-101/</link>
+      <pubDate>Wed, 26 Feb 2020 16:34:33 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/fd-instead-of-find-101/</guid>
+      <description>rustで GNU Core Utilities 実装してみたよシリーズであるところのfdコマンド sharkdp/fd: A simple, fast and user-friendly alternative to &amp;lsquo;find&amp;rsquo; 老害が嫌がりそうなプロジェクトで好感が持てます インストール</description>
+    </item>
     
     <item>
       <title>alpine に gcloud をインストールする Dockerfile</title>
