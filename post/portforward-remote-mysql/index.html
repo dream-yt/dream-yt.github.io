@@ -13,8 +13,8 @@
     
   
   
-  <meta name="twitter:title" content="aws-cdkを使い始めるまでメモ"/>
-  <meta name="twitter:description" content="プロジェクトを作成する app ってのはサブコマンドで、「アプリ開発者として使う」という意味 (libってのがあって、それはcdkのライブラリ作者が使"/>
+  <meta name="twitter:title" content="ポートフォワードしてリモートのMySQLに接続する"/>
+  <meta name="twitter:description" content="リモートワークになったのでローカルの環境構築をしている 各種変数を設定 export SSH_USER=mossan # `SSH_HOST` はここでは踏み台ホストのこと export SSH_HOST=xxx.xxx.xxx.xxx export DB_HOST=xxx.xxx.xxx.xxx export DB_USER=app export DB_NAME=prod ポートフォワード設定"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -30,7 +30,7 @@
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
 		<meta name="generator" content="Hugo 0.51" />
-		<title>aws-cdkを使い始めるまでメモ &middot; sacre</title>
+		<title>ポートフォワードしてリモートのMySQLに接続する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
@@ -68,11 +68,11 @@
             <article>
                 <header>
                     <h1>
-                        aws-cdkを使い始めるまでメモ
+                        ポートフォワードしてリモートのMySQLに接続する
                     </h1>
                     <h2 class="headline">
-                    Nov 17, 2018 22:30
-                    · 235 words
+                    Feb 27, 2020 16:50
+                    · 229 words
                     · 1 minute read
                       <span class="tags">
                       
@@ -88,7 +88,16 @@
 <ul>
 <li>
 <ul>
-<li><a href="#参考">参考</a></li>
+<li>
+<ul>
+<li><a href="#各種変数を設定">各種変数を設定</a></li>
+<li><a href="#ポートフォワード設定">ポートフォワード設定</a>
+<ul>
+<li><a href="#ssh-の-f-オプション">ssh の <code>-f</code> オプション</a></li>
+</ul></li>
+<li><a href="#mysql-config-editor-で接続情報の簡単化">mysql_config_editor で接続情報の簡単化</a></li>
+<li><a href="#mycliでつないで確認">mycliでつないで確認</a></li>
+</ul></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -99,47 +108,53 @@
                 <section id="post-body">
                     
 
-<p>プロジェクトを作成する</p>
+<p>リモートワークになったのでローカルの環境構築をしている</p>
 
-<p><code>app</code> ってのはサブコマンドで、「アプリ開発者として使う」という意味
-(<code>lib</code>ってのがあって、それはcdkのライブラリ作者が使うらしい)</p>
+<h4 id="各種変数を設定">各種変数を設定</h4>
 
-<pre><code class="language-bash">$ cdk init app --language typescript
+<pre><code class="language-bash">export SSH_USER=mossan
+# `SSH_HOST` はここでは踏み台ホストのこと
+export SSH_HOST=xxx.xxx.xxx.xxx
+export DB_HOST=xxx.xxx.xxx.xxx
+export DB_USER=app
+export DB_NAME=prod
 </code></pre>
 
-<p>補完を効かせながら開発したいので追加</p>
+<h4 id="ポートフォワード設定">ポートフォワード設定</h4>
 
-<pre><code class="language-bash">$ yarn add --dev \
-    tslint prettier \
-    tslint-config-prettier tslint-config-standard tslint-plugin-prettier 
-$ code ./tslint.json
+<pre><code class="language-bash"># ローカルの3306が埋まっていたので今回は33306を使う
+$ ssh -f -N -L 33306:${DB_HOST}:3306 ${SSH_USER}@${SSH_HOST}
 </code></pre>
 
-<p>使いたいAWSサービスの定義を加えて開発</p>
+<h5 id="ssh-の-f-オプション">ssh の <code>-f</code> オプション</h5>
 
-<pre><code class="language-bash">$ yarn add @aws-cdk/aws-cognito
-$ code ./bin/infra.ts
+<p>ssh の <code>-f</code> オプションはバックグラウンドでの実行になってくれる
+バックグラウンドなので起動したシェルを落とすと死ぬ(かゾンビになる)はず</p>
+
+<blockquote>
+<p>-f    Requests ssh to go to background just before command execution.</p>
+</blockquote>
+
+<h4 id="mysql-config-editor-で接続情報の簡単化">mysql_config_editor で接続情報の簡単化</h4>
+
+<pre><code class="language-bash">$ mysql_config_editor set \
+  --login-path=prod-master-portforwarded-33306 \
+  --host=127.0.0.1 \
+  --port=33306 \
+  --user=$DB_USER \
+  --password
 </code></pre>
 
-<p>cloudformationの形式のファイルを出力</p>
+<h4 id="mycliでつないで確認">mycliでつないで確認</h4>
 
-<pre><code class="language-bash"># cdk.jsonで定義された位置にjsファイルを生成
-$ yarn run build
-# そのjsを読んでcloudformationの形式を出力
-$ cdk synth &gt; ./cf.yaml
+<pre><code class="language-bash">$ mycli --login-path=prod-master-portforwarded-33306 prod
 </code></pre>
-
-<h3 id="参考">参考</h3>
-
-<ul>
-<li><a href="https://github.com/awslabs/aws-cdk/tree/6495e3ccd335ce9cb4438cfc285ca2bdb921f52a/examples/cdk-examples-typescript">examples/cdk-examples-typescript · awslabs/aws-cdk</a></li>
-</ul>
 
                 </section>
             </article>
 
             
-                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2faws-cdk-101%2f - aws-cdk%e3%82%92%e4%bd%bf%e3%81%84%e5%a7%8b%e3%82%81%e3%82%8b%e3%81%be%e3%81%a7%e3%83%a1%e3%83%a2 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fportforward-remote-mysql%2f - %e3%83%9d%e3%83%bc%e3%83%88%e3%83%95%e3%82%a9%e3%83%af%e3%83%bc%e3%83%89%e3%81%97%e3%81%a6%e3%83%aa%e3%83%a2%e3%83%bc%e3%83%88%e3%81%aeMySQL%e3%81%ab%e6%8e%a5%e7%b6%9a%e3%81%99%e3%82%8b by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
 
 <a class="facebook" href="#" onclick="
     window.open(

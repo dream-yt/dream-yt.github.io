@@ -6,10 +6,19 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 26 Feb 2020 18:26:57 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 27 Feb 2020 16:50:22 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>ポートフォワードしてリモートのMySQLに接続する</title>
+      <link>https://dream-yt.github.io/post/portforward-remote-mysql/</link>
+      <pubDate>Thu, 27 Feb 2020 16:50:22 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/portforward-remote-mysql/</guid>
+      <description>リモートワークになったのでローカルの環境構築をしている 各種変数を設定 export SSH_USER=mossan # `SSH_HOST` はここでは踏み台ホストのこと export SSH_HOST=xxx.xxx.xxx.xxx export DB_HOST=xxx.xxx.xxx.xxx export DB_USER=app export DB_NAME=prod ポートフォワード設定</description>
+    </item>
     
     <item>
       <title>webpackの開発用に便利なオプション</title>
