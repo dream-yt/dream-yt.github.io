@@ -6,10 +6,19 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Thu, 27 Feb 2020 16:50:22 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 14 Mar 2020 12:07:18 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Windows初心者の設定</title>
+      <link>https://dream-yt.github.io/post/windows-newbie/</link>
+      <pubDate>Sat, 14 Mar 2020 12:07:18 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/windows-newbie/</guid>
+      <description>10年ぶりのwindows 完全にPC初心者の気持ちがわかる状態なのでメモっておく cmd(windows)キーとctrlキーの入れ替え Apple Wireless Keyboard を</description>
+    </item>
     
     <item>
       <title>ポートフォワードしてリモートのMySQLに接続する</title>
