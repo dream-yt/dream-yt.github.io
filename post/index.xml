@@ -6,10 +6,19 @@
     <description>Recent content in Posts on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sat, 28 Mar 2020 14:37:28 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 28 Mar 2020 15:46:19 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>s3オブジェクトのタグに使える文字</title>
+      <link>https://dream-yt.github.io/post/charactors-allowed-on-s3tag/</link>
+      <pubDate>Sat, 28 Mar 2020 15:46:19 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/charactors-allowed-on-s3tag/</guid>
+      <description>パッとググっても出てこなかったので Tagging Your Amazon EC2 Resources - Amazon Elastic Compute Cloud The allowed characters across services are: letters, numbers, and spaces representable in UTF-8, and the following characters: + - = . _ : / @. % が使えないのでURLエスケープはで</description>
+    </item>
     
     <item>
       <title>ttyとは</title>
