@@ -6,10 +6,19 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sat, 28 Mar 2020 15:46:19 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 29 Mar 2020 20:45:55 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>RSSHubにPR出すときのメモ</title>
+      <link>https://dream-yt.github.io/post/contribute-rsshub-memo/</link>
+      <pubDate>Sun, 29 Mar 2020 20:45:55 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/contribute-rsshub-memo/</guid>
+      <description>DIYgod/RSSHub: 🍰 Everything is RSSible まず先にfetch $ git remote add upstream ssh://git@github.com/DIYgod/RSSHub.git $ git fetch upstream 開発者向けのドキュメント Join Us | RSSHub 開発用のコマンド 使うのはこのへん $ yarn dev $ yarn docs:dev $ cat package.json | jq .scripts { &amp;quot;start&amp;quot;:</description>
+    </item>
     
     <item>
       <title>s3オブジェクトのタグに使える文字</title>
