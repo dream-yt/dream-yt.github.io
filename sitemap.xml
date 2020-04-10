@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://dream-yt.github.io/post/vscode-eslint-v2/</loc>
+    <lastmod>2020-04-10T15:58:01+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://dream-yt.github.io/post/contribute-rsshub-memo/</loc>
     <lastmod>2020-03-29T20:45:55+09:00</lastmod>
   </url>
@@ -836,20 +841,14 @@
   </url>
   
   <url>
-    <loc>https://dream-yt.github.io/tags/git/</loc>
-    <lastmod>2018-11-28T22:27:25+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://dream-yt.github.io/categories/git/</loc>
     <lastmod>2018-11-28T22:27:25+09:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://dream-yt.github.io/tags/posgresql/</loc>
-    <lastmod>2019-03-16T17:00:00+09:00</lastmod>
+    <loc>https://dream-yt.github.io/tags/git/</loc>
+    <lastmod>2018-11-28T22:27:25+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -860,8 +859,14 @@
   </url>
   
   <url>
+    <loc>https://dream-yt.github.io/tags/posgresql/</loc>
+    <lastmod>2019-03-16T17:00:00+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://dream-yt.github.io/post/</loc>
-    <lastmod>2020-03-29T20:45:55+09:00</lastmod>
+    <lastmod>2020-04-10T15:58:01+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -873,7 +878,7 @@
   
   <url>
     <loc>https://dream-yt.github.io/</loc>
-    <lastmod>2020-03-29T20:45:55+09:00</lastmod>
+    <lastmod>2020-04-10T15:58:01+09:00</lastmod>
     <priority>0</priority>
   </url>
   

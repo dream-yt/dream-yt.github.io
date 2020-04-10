@@ -6,10 +6,19 @@
     <description>Recent content in Posts on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sun, 29 Mar 2020 20:45:55 +0900</lastBuildDate>
+    <lastBuildDate>Fri, 10 Apr 2020 15:58:01 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>vscode-eslint(v2)の設定をする</title>
+      <link>https://dream-yt.github.io/post/vscode-eslint-v2/</link>
+      <pubDate>Fri, 10 Apr 2020 15:58:01 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/vscode-eslint-v2/</guid>
+      <description>こんな設定になった { &amp;quot;[javascript]&amp;quot;: { &amp;quot;editor.codeActionsOnSave&amp;quot;: { &amp;quot;source.fixAll.eslint&amp;quot;: true }, &amp;quot;editor.tabSize&amp;quot;: 2 }, &amp;quot;eslint.enable&amp;quot;: true, &amp;quot;eslint.alwaysShowStatus&amp;quot;: true, &amp;quot;eslint.debug&amp;quot;: false, &amp;quot;eslint.format.enable&amp;quot;: true, &amp;quot;eslint.lintTask.enable&amp;quot;: true, &amp;quot;eslint.workingDirectories&amp;quot;: [ { &amp;quot;mode&amp;quot;: &amp;quot;auto&amp;quot; } ] } editor.codeActionsOnSave vscode-eslintはv2からこんな設定になっている https://github.com/microsoft/vscode-eslint#release-notes &amp;quot;editor.codeActionsOnSave&amp;quot;:</description>
+    </item>
     
     <item>
       <title>RSSHubにPR出すときのメモ</title>
