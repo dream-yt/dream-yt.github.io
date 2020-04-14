@@ -111,7 +111,7 @@
 <p>具体的には jest.config.js にて moduleNameMapper に以下の設定を入れる</p>
 
 <pre><code class="language-js">// commonjsのプロジェクトなので `vue.common.dev.js`
-moduleNameMapper = {'vue': 'vue/dist/vue.common.dev.js'}
+moduleNameMapper = {'^vue$': 'vue/dist/vue.common.dev.js'}
 </code></pre>
 
 <h2 id="参考">参考</h2>
