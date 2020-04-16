@@ -6,10 +6,19 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Tue, 14 Apr 2020 12:15:24 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 16 Apr 2020 20:41:10 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>WithingsAPIのトークンのを取得</title>
+      <link>https://dream-yt.github.io/post/withings-api-101/</link>
+      <pubDate>Thu, 16 Apr 2020 20:41:10 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/withings-api-101/</guid>
+      <description>トークンの取得 Withings API codeを取得 管理画面から CLIENT_ID , CONSUMER_SECRET を発行する dashboard_oauth2 export CLIENT_ID=xxxx export CONSUMER_SECRET=xxxxxxxx export REDIRECT_URL=http://localhost:8000 export SCOPE=user.info,user.metrics,user.activity,user.sleepevents export STATE=sakamoto # リクエストが重複しないようにするためのなんでもいい文字列</description>
+    </item>
     
     <item>
       <title>runtime-only build of Vue where the template compiler is not available</title>

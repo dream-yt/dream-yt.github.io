@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://dream-yt.github.io/post/withings-api-101/</loc>
+    <lastmod>2020-04-16T20:41:10+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://dream-yt.github.io/post/vue-jest-runtime-only-build-warn/</loc>
     <lastmod>2020-04-14T12:15:24+09:00</lastmod>
   </url>
@@ -871,7 +876,7 @@
   
   <url>
     <loc>https://dream-yt.github.io/post/</loc>
-    <lastmod>2020-04-14T12:15:24+09:00</lastmod>
+    <lastmod>2020-04-16T20:41:10+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -883,7 +888,7 @@
   
   <url>
     <loc>https://dream-yt.github.io/</loc>
-    <lastmod>2020-04-14T12:15:24+09:00</lastmod>
+    <lastmod>2020-04-16T20:41:10+09:00</lastmod>
     <priority>0</priority>
   </url>
   
