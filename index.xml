@@ -6,10 +6,19 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Thu, 16 Apr 2020 20:41:10 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 18 Apr 2020 13:01:07 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>hive(athena)の InputFormat, OutputFormat, SerDe</title>
+      <link>https://dream-yt.github.io/post/hive-table-input-output-serde/</link>
+      <pubDate>Sat, 18 Apr 2020 13:01:07 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/hive-table-input-output-serde/</guid>
+      <description>hive の create table は次のようなものである CREATE TABLE test(id INT, name STRING) ROW FORMAT SERDE &#39;org.apache.hadoop.hive.serde2.avro.AvroSerDe&#39; STORED as INPUTFORMAT &#39;org.apache.hadoop.hive.ql.io.avro.AvroContainerInputFormat&#39; OUTPUTFORMAT &#39;org.apache.hadoop.hive.ql.io.avro.AvroContainerOutputFormat&#39; このなかの SERDE, INPUTFORMAT, OUTPUTFORMAT についてメモ INPUTFORMAT, OUTPUTFORMAT hive には external storage と hive warehouse 2種類のデータストアがある これ</description>
+    </item>
     
     <item>
       <title>WithingsAPIのトークンのを取得</title>

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="https://dream-yt.github.io/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="hive(athena)の InputFormat, OutputFormat, SerDe"/>
+  <meta name="twitter:description" content="hive の create table は次のようなものである CREATE TABLE test(id INT, name STRING) ROW FORMAT SERDE &#39;org.apache.hadoop.hive.serde2.avro.AvroSerDe&#39; STORED as INPUTFORMAT &#39;org.apache.hadoop.hive.ql.io.avro.AvroContainerInputFormat&#39; OUTPUTFORMAT &#39;org.apache.hadoop.hive.ql.io.avro.AvroContainerOutputFormat&#39; このなかの SERDE, INPUTFORMAT, OUTPUTFORMAT についてメモ INPUTFORMAT, OUTPUTFORMAT hive には external storage と hive warehouse 2種類のデータストアがある これ"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@site_author"/>
+  
+
+
+
+		
+		<meta name="author" content="site_author">
+		<meta name="description" content="Site Description">
+		<meta name="generator" content="Hugo 0.51" />
+		<title>hive(athena)の InputFormat, OutputFormat, SerDe &middot; sacre</title>
+		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/font-awesome.min.css">
+		
+
+		
+		<link href="https://dream-yt.github.io/index.xml" rel="alternate" type="application/rss+xml" title="sacre" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='https://dream-yt.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://dream-yt.github.io/posts'>Archive</a>
+	<a href='https://dream-yt.github.io/tags'>Tags</a>
+	<a href='https://dream-yt.github.io/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="https://dream-yt.github.io/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        hive(athena)の InputFormat, OutputFormat, SerDe
+                    </h1>
+                    <h2 class="headline">
+                    Apr 18, 2020 13:01
+                    · 296 words
+                    · 1 minute read
+                      <span class="tags">
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#inputformat-outputformat">INPUTFORMAT, OUTPUTFORMAT</a>
+<ul>
+<li><a href="#serde">SerDe</a></li>
+</ul></li>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    
+
+<p>hive の create table は次のようなものである</p>
+
+<pre><code class="language-sql">CREATE TABLE test(id INT, name STRING) 
+ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.avro.AvroSerDe' 
+STORED as INPUTFORMAT 'org.apache.hadoop.hive.ql.io.avro.AvroContainerInputFormat' OUTPUTFORMAT 'org.apache.hadoop.hive.ql.io.avro.AvroContainerOutputFormat'
+</code></pre>
+
+<p>このなかの SERDE, INPUTFORMAT, OUTPUTFORMAT についてメモ</p>
+
+<h2 id="inputformat-outputformat">INPUTFORMAT, OUTPUTFORMAT</h2>
+
+<p>hive には external storage と hive warehouse 2種類のデータストアがある</p>
+
+<p>これらのストアされたデータの形式はcsvからparquetまで色んなものが使えるが、どのデータ構造でストアされているかを InputFormat, OutputFormat にて定義しておく</p>
+
+<ul>
+<li>データを読みだすときには InputFormat の定義が使われ</li>
+<li>データを書き出すときには OutputFormat の定義が使われる</li>
+</ul>
+
+<h3 id="serde">SerDe</h3>
+
+<p>Deserializer, Serializer のこと</p>
+
+<p>InputFormat によって 読みだしたファイルのレコードをどのようにパースしてRowオブジェクトにするかを定義するのが Deserializer であり、同様に結果のRowをどうシリアライズするかが Serializer である</p>
+
+<h2 id="参考">参考</h2>
+
+<ul>
+<li><a href="https://stackoverflow.com/questions/42416236/what-is-the-difference-between-inputformat-outputformat-stored-as-in-hive">hadoop - What is the difference between &lsquo;InputFormat, OutputFormat&rsquo; &amp; &lsquo;Stored as&rsquo; in Hive? - Stack Overflow</a></li>
+<li><a href="https://oyermolenko.blog/2017/02/16/structuring-hadoop-data-through-hive-and-sql/">Structuring Hadoop data through Hive and SQL – Diving into Hadoop</a></li>
+</ul>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fhive-table-input-output-serde%2f - hive%28athena%29%e3%81%ae%20InputFormat%2c%20OutputFormat%2c%20SerDe by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'your_disqus_short_name'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/dream-yt/sacre">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://twitter.com/FUTABA_SACRE">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2020 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="https://dream-yt.github.io/js/jquery-3.3.1.min.js"></script>
+<script src="https://dream-yt.github.io/js/main.js"></script>
+<script src="https://dream-yt.github.io/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+
+
+
+
+    </body>
+</html>
