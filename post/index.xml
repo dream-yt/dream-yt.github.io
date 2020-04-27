@@ -6,10 +6,37 @@
     <description>Recent content in Posts on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sat, 18 Apr 2020 13:01:07 +0900</lastBuildDate>
+    <lastBuildDate>Mon, 27 Apr 2020 10:23:34 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>複数属性をもつ要素を指定するCSSセレクタ</title>
+      <link>https://dream-yt.github.io/post/css-selector-multiple-attributes/</link>
+      <pubDate>Mon, 27 Apr 2020 10:23:34 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/css-selector-multiple-attributes/</guid>
+      <description>たとえばこんな要素に複数の属性でマッチさせたい場合 &amp;lt;input type=&amp;quot;file&amp;quot; multiple /&amp;gt; こんな指定になる input[type=&amp;quot;file&amp;quot;][multiple] { ... } 参考 Specify multiple attribute selectors in CSS - Stack Overflow</description>
+    </item>
+    
+    <item>
+      <title>Terraform(AWS)でDNSのTXTレコードを作成する</title>
+      <link>https://dream-yt.github.io/post/aws-terraform-dns-txt-record/</link>
+      <pubDate>Sun, 26 Apr 2020 22:43:04 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/aws-terraform-dns-txt-record/</guid>
+      <description>Googleのサーチコンソールの認証をDNSでしたかったのでterraformで設定した TXTレコードの値は records の中に入れる resource &amp;quot;aws_route53_record&amp;quot; &amp;quot;b_n-t_jp__txt&amp;quot; { zone_id = &amp;quot;${aws_route53_zone.n_t.zone_id}&amp;quot; name =</description>
+    </item>
+    
+    <item>
+      <title>nodejsのEvent Loopについておおまかなメモ</title>
+      <link>https://dream-yt.github.io/post/nodejs-event-loop/</link>
+      <pubDate>Sun, 19 Apr 2020 13:35:05 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/nodejs-event-loop/</guid>
+      <description>nodejsのイベントループは次の6個のフェーズからなる timers pending callbacks idle, prepare poll check close callbacks この6個のフェーズの1周はラウンドと呼ばれる それぞれのフェーズはそ</description>
+    </item>
     
     <item>
       <title>hive(athena)の InputFormat, OutputFormat, SerDe</title>
