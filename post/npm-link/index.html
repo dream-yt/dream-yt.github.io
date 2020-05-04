@@ -13,8 +13,8 @@
     
   
   
-  <meta name="twitter:title" content="Firebase Hosting のサイトを削除する"/>
-  <meta name="twitter:description" content="firebase hosting は以下の要領でサイトを消すことができる まずはdisableに $ firebase hosting:disable ? Are you sure you want to disable Firebase Hosting? This will immediately make your site inaccessible! Yes ✔ Hosting has been disabled for pjx-112312. Deploy a new version to re-enable. リリース"/>
+  <meta name="twitter:title" content="開発中のパッケージをrequireできる npm link を使う"/>
+  <meta name="twitter:description" content="npmパッケージを開発するとき、いちいちnpmにアップロードしてそれを使う側でinstallしてなどとやってられないので npm link という仕組みがあ"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -30,7 +30,7 @@
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
 		<meta name="generator" content="Hugo 0.51" />
-		<title>Firebase Hosting のサイトを削除する &middot; sacre</title>
+		<title>開発中のパッケージをrequireできる npm link を使う &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
@@ -68,11 +68,11 @@
             <article>
                 <header>
                     <h1>
-                        Firebase Hosting のサイトを削除する
+                        開発中のパッケージをrequireできる npm link を使う
                     </h1>
                     <h2 class="headline">
-                    May 2, 2020 10:01
-                    · 153 words
+                    May 4, 2020 22:36
+                    · 373 words
                     · 1 minute read
                       <span class="tags">
                       
@@ -88,9 +88,13 @@
 <ul>
 <li>
 <ul>
-<li><a href="#まずはdisableに">まずはdisableに</a></li>
-<li><a href="#リリースを削除">リリースを削除</a></li>
+<li>
+<ul>
+<li><a href="#vscode">vscode</a></li>
 </ul></li>
+</ul></li>
+<li><a href="#何をやっているのか">何をやっているのか</a></li>
+<li><a href="#npm-unlink">npm unlink</a></li>
 <li><a href="#参考">参考</a></li>
 </ul></li>
 </ul>
@@ -101,34 +105,57 @@
                 <section id="post-body">
                     
 
-<p>firebase hosting は以下の要領でサイトを消すことができる</p>
+<p>npmパッケージを開発するとき、いちいちnpmにアップロードしてそれを使う側でinstallしてなどとやってられないので npm link という仕組みがある</p>
 
-<h3 id="まずはdisableに">まずはdisableに</h3>
+<p>たとえば <code>api-client</code> パッケージというのがあり、それを <code>service</code> パッケージで使いたい場合は以下のような手順になる</p>
 
-<pre><code class="language-console">$ firebase hosting:disable
-? Are you sure you want to disable Firebase Hosting?
-  This will immediately make your site inaccessible! Yes
-✔  Hosting has been disabled for pjx-112312. Deploy a new version to re-enable.
-
+<pre><code class="language-bash"># api-clientのディレクトリに移動して npm link
+$ cd api-clilent
+$ npm link
+...
 </code></pre>
 
-<h3 id="リリースを削除">リリースを削除</h3>
+<pre><code class="language-bash"># serviceディレクトリに移動して npm link api-clilent
+$ cd service
+$ npm link api-clilent
+...
+</code></pre>
 
-<p>このコマンド実施後に <code>リリース履歴</code> のリストから直前のリリースを削除</p>
+<h4 id="vscode">vscode</h4>
 
-<p>ただ、サイトは閲覧できなくできるが、デプロイ履歴などは消せないようだ</p>
+<p>これだけだと vscode ではエラーになるので、 vscode を使ってる場合には package.json の依存管理の欄に <code>api-client: &quot;&quot;</code> などと足しておく</p>
+
+<h2 id="何をやっているのか">何をやっているのか</h2>
+
+<p>symbolic link の仕組みが使われている</p>
+
+<ul>
+<li><code>npm link</code> で、まずグローバルの node_modules 配下に <code>api-client</code> へ向いている symlink が作られる</li>
+<li><code>npm link api-client</code> を実行すると、グローバルの node_modules/api-client 配下を見ている symlink が service/node_modules 配下にできる</li>
+</ul>
+
+<h2 id="npm-unlink">npm unlink</h2>
+
+<p>貼ったシンボリックリンクを消したい場合は npm unlink で消すことができる</p>
+
+<pre><code class="language-bash">$ cd service
+$ npm unlink api-clilent
+$ cd ./../api-clilent
+$ npm unlink
+</code></pre>
 
 <h2 id="参考">参考</h2>
 
 <ul>
-<li><a href="https://stackoverflow.com/questions/42591099/how-do-i-remove-a-hosted-site-from-firebase">How do I remove a hosted site from firebase - Stack Overflow</a></li>
+<li><a href="https://docs.npmjs.com/cli/link.html">npm-link | npm Documentation</a></li>
+<li><a href="https://medium.com/@alexishevia/the-magic-behind-npm-link-d94dcb3a81af">The magic behind npm link - Alexis Hevia - Medium</a></li>
 </ul>
 
                 </section>
             </article>
 
             
-                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fremove-firebase-hosting%2f - Firebase%20Hosting%20%e3%81%ae%e3%82%b5%e3%82%a4%e3%83%88%e3%82%92%e5%89%8a%e9%99%a4%e3%81%99%e3%82%8b by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fnpm-link%2f - %e9%96%8b%e7%99%ba%e4%b8%ad%e3%81%ae%e3%83%91%e3%83%83%e3%82%b1%e3%83%bc%e3%82%b8%e3%82%92require%e3%81%a7%e3%81%8d%e3%82%8b%20npm%20link%20%e3%82%92%e4%bd%bf%e3%81%86 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
 
 <a class="facebook" href="#" onclick="
     window.open(
