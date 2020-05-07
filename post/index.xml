@@ -6,10 +6,19 @@
     <description>Recent content in Posts on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 06 May 2020 21:41:26 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 07 May 2020 08:29:36 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>GCP の cloudbuild を ローカルで実行する</title>
+      <link>https://dream-yt.github.io/post/gcp-cloud-build-local/</link>
+      <pubDate>Thu, 07 May 2020 08:29:36 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/gcp-cloud-build-local/</guid>
+      <description>cloud-build-local というツールがあり、公式のドキュメント通りにやればだいたいできる Building and debugging locally | Cloud Build Documentation 作業ディレクトリ ビルドを実施するディレクトリは cloudbuild.yaml があるディ</description>
+    </item>
     
     <item>
       <title>typescript で express を watch しながら開発する</title>
