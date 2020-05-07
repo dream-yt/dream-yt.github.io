@@ -6,10 +6,19 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Thu, 07 May 2020 08:29:36 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 07 May 2020 23:20:24 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>cloudrun にデプロイする cloudbuild.yaml</title>
+      <link>https://dream-yt.github.io/post/cloudbuild-cloudrun/</link>
+      <pubDate>Thu, 07 May 2020 23:20:24 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/cloudbuild-cloudrun/</guid>
+      <description>トリガー まず、cloudbuildのトリガーをこんな感じで登録しておく ^master$ のときに変数が _SERVICE=service となるように ^canary/ のときに変数が _SERVICE=service-canary となるように cloudbuild.yaml timeout: &#39;900s&#39; steps: -</description>
+    </item>
     
     <item>
       <title>GCP の cloudbuild を ローカルで実行する</title>
