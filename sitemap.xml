@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://dream-yt.github.io/post/mysql-extract-hostname-from-url/</loc>
+    <lastmod>2020-05-13T12:56:31+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://dream-yt.github.io/post/cloudbuild-cloudrun/</loc>
     <lastmod>2020-05-07T23:20:24+09:00</lastmod>
   </url>
@@ -911,20 +916,14 @@
   </url>
   
   <url>
-    <loc>https://dream-yt.github.io/categories/git/</loc>
-    <lastmod>2018-11-28T22:27:25+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://dream-yt.github.io/tags/git/</loc>
     <lastmod>2018-11-28T22:27:25+09:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://dream-yt.github.io/categories/posgresql/</loc>
-    <lastmod>2019-03-16T17:00:00+09:00</lastmod>
+    <loc>https://dream-yt.github.io/categories/git/</loc>
+    <lastmod>2018-11-28T22:27:25+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -935,8 +934,14 @@
   </url>
   
   <url>
+    <loc>https://dream-yt.github.io/categories/posgresql/</loc>
+    <lastmod>2019-03-16T17:00:00+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://dream-yt.github.io/post/</loc>
-    <lastmod>2020-05-07T23:20:24+09:00</lastmod>
+    <lastmod>2020-05-13T12:56:31+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -948,7 +953,7 @@
   
   <url>
     <loc>https://dream-yt.github.io/</loc>
-    <lastmod>2020-05-07T23:20:24+09:00</lastmod>
+    <lastmod>2020-05-13T12:56:31+09:00</lastmod>
     <priority>0</priority>
   </url>
   
