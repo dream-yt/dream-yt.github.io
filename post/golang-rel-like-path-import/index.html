@@ -13,8 +13,8 @@
     
   
   
-  <meta name="twitter:title" content="複数属性をもつ要素を指定するCSSセレクタ"/>
-  <meta name="twitter:description" content="たとえばこんな要素に複数の属性でマッチさせたい場合 &lt;input type=&quot;file&quot; multiple /&gt; こんな指定になる input[type=&quot;file&quot;][multiple] { ... } 参考 Specify multiple attribute selectors in CSS - Stack Overflow"/>
+  <meta name="twitter:title" content="golangで相対パスっぽいimportをできるようにする"/>
+  <meta name="twitter:description" content="※ おそらくよくないやりかたである goではv1.11から相対パスのimportができなくなったとのこと Go1.11からのGo Modulesでは"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -30,7 +30,7 @@
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
 		<meta name="generator" content="Hugo 0.42.1" />
-		<title>複数属性をもつ要素を指定するCSSセレクタ &middot; sacre</title>
+		<title>golangで相対パスっぽいimportをできるようにする &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
@@ -68,11 +68,11 @@
             <article>
                 <header>
                     <h1>
-                        複数属性をもつ要素を指定するCSSセレクタ
+                        golangで相対パスっぽいimportをできるようにする
                     </h1>
                     <h2 class="headline">
-                    Apr 27, 2020 10:23
-                    · 52 words
+                    Mar 13, 2020 17:54
+                    · 258 words
                     · 1 minute read
                       <span class="tags">
                       
@@ -81,47 +81,35 @@
                 </header>
                 
                   
-                    <div id="toc">
-                      <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#参考">参考</a></li>
-</ul></li>
-</ul></li>
-</ul>
-</nav>
-                    </div>
-                  
                 
                 <section id="post-body">
-                    
+                    <p>※ おそらくよくないやりかたである</p>
 
-<p>たとえばこんな要素に複数の属性でマッチさせたい場合</p>
-
-<pre><code class="language-html">&lt;input type=&quot;file&quot; multiple /&gt;
-</code></pre>
-
-<p>こんな指定になる</p>
-
-<pre><code class="language-css">input[type=&quot;file&quot;][multiple] { 
-  ...
-}
-</code></pre>
-
-<h3 id="参考">参考</h3>
+<p>goではv1.11から相対パスのimportができなくなったとのこと</p>
 
 <ul>
-<li><a href="https://stackoverflow.com/questions/12340737/specify-multiple-attribute-selectors-in-css">Specify multiple attribute selectors in CSS - Stack Overflow</a></li>
+<li><a href="https://qiita.com/momotaro98/items/23fa4356389a7e610acc">Go1.11からのGo Modulesでは相対パスImportは全くできなくなったので注意 - Qiita</a></li>
 </ul>
+
+<p>以下の要件でなんとかする場合</p>
+
+<ul>
+<li><code>github/~~</code> みたいなimportを用意したくない</li>
+<li>コードをdropboxに置いておきたい</li>
+<li>既存のコードを変更したくない</li>
+<li>自分しか触らないコード (滅茶苦茶していい)</li>
+</ul>
+
+<p><code>$GOPATH/src</code> の中身なら参照されるので、そこにシンボリックリンクを貼る方法にしたところちゃんと動いた (というかvscode上でエラーにはならなくなった)</p>
+
+<pre><code>$ ln -s $(pwd)/mygocli ~/.go/src/
+</code></pre>
 
                 </section>
             </article>
 
             
-                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fcss-selector-multiple-attributes%2f - %e8%a4%87%e6%95%b0%e5%b1%9e%e6%80%a7%e3%82%92%e3%82%82%e3%81%a4%e8%a6%81%e7%b4%a0%e3%82%92%e6%8c%87%e5%ae%9a%e3%81%99%e3%82%8bCSS%e3%82%bb%e3%83%ac%e3%82%af%e3%82%bf by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fgolang-rel-like-path-import%2f - golang%e3%81%a7%e7%9b%b8%e5%af%be%e3%83%91%e3%82%b9%e3%81%a3%e3%81%bd%e3%81%84import%e3%82%92%e3%81%a7%e3%81%8d%e3%82%8b%e3%82%88%e3%81%86%e3%81%ab%e3%81%99%e3%82%8b by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
 
 <a class="facebook" href="#" onclick="
     window.open(
