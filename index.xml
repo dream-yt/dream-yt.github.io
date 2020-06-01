@@ -6,10 +6,19 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sun, 31 May 2020 19:03:18 +0900</lastBuildDate>
+    <lastBuildDate>Mon, 01 Jun 2020 16:31:19 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>CloudFunction で CloudBuild をトリガーする </title>
+      <link>https://dream-yt.github.io/post/gcp-trigger-cloudbuild-via-cloudfunction/</link>
+      <pubDate>Mon, 01 Jun 2020 16:31:19 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/gcp-trigger-cloudbuild-via-cloudfunction/</guid>
+      <description>まずgcloudで既存のトリガーの一覧を確認しておく $ gcloud beta builds triggers list --- createTime: &#39;2020-05-06T13:01:33.647678872Z&#39; description: master ブランチへの push filename: site/cloudbuild.yaml github: name: test owner: admin push: branch: ^master$ id: 0e2bd416-129f-44a3-b7ed-79c3c61e021a name: master-push-trigger tags: - github-default-push-trigger nodejsで呼び</description>
+    </item>
     
     <item>
       <title>Firebase Cloudfunction のデプロイに webpack を使ってビルドしようとするメモ</title>
