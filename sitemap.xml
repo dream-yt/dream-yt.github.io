@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://dream-yt.github.io/post/invite-account-to-gcp-project/</loc>
+    <lastmod>2020-06-03T18:04:08+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://dream-yt.github.io/post/gcp-trigger-cloudbuild-via-cloudfunction/</loc>
     <lastmod>2020-06-01T16:31:19+09:00</lastmod>
   </url>
@@ -961,7 +966,7 @@
   
   <url>
     <loc>https://dream-yt.github.io/post/</loc>
-    <lastmod>2020-06-01T16:31:19+09:00</lastmod>
+    <lastmod>2020-06-03T18:04:08+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -973,7 +978,7 @@
   
   <url>
     <loc>https://dream-yt.github.io/</loc>
-    <lastmod>2020-06-01T16:31:19+09:00</lastmod>
+    <lastmod>2020-06-03T18:04:08+09:00</lastmod>
     <priority>0</priority>
   </url>
   
