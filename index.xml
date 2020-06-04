@@ -6,10 +6,19 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 03 Jun 2020 18:04:08 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 04 Jun 2020 16:21:16 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>LogEntry からそのログ周辺へのCloudLogging のURLを生成する</title>
+      <link>https://dream-yt.github.io/post/gcp-cloudlogging-entry-url/</link>
+      <pubDate>Thu, 04 Jun 2020 16:21:16 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/gcp-cloudlogging-entry-url/</guid>
+      <description>こんな処理をつくるとき CloudLogging でエラーログを補足したら そのログを PubSub にシンクして それを CloudFunction でSlackに通知する 通知メッセージの中にそのログへのリンク</description>
+    </item>
     
     <item>
       <title>GCPのプロジェクトにユーザを招待する</title>
