@@ -6,10 +6,19 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Thu, 04 Jun 2020 16:21:16 +0900</lastBuildDate>
+    <lastBuildDate>Fri, 05 Jun 2020 01:04:32 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>SlackAPI よりチャンネルとアイコンとユーザ名を変更してポストする</title>
+      <link>https://dream-yt.github.io/post/slack-get-postmessage-token/</link>
+      <pubDate>Fri, 05 Jun 2020 01:04:32 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/slack-get-postmessage-token/</guid>
+      <description>現在、Slack は昔ながらの Webhook の方式ではチャンネルとアイコンとユーザ名をすべてデフォルトから変更してポストできなくなっている Sending messages using Incoming Webhooks | Slack You</description>
+    </item>
     
     <item>
       <title>LogEntry からそのログ周辺へのCloudLogging のURLを生成する</title>
