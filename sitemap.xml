@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://dream-yt.github.io/post/exclude-gcp-audit-log/</loc>
+    <lastmod>2020-06-05T07:08:03+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://dream-yt.github.io/post/slack-get-postmessage-token/</loc>
     <lastmod>2020-06-05T01:04:32+09:00</lastmod>
   </url>
@@ -976,7 +981,7 @@
   
   <url>
     <loc>https://dream-yt.github.io/post/</loc>
-    <lastmod>2020-06-05T01:04:32+09:00</lastmod>
+    <lastmod>2020-06-05T07:08:03+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -988,7 +993,7 @@
   
   <url>
     <loc>https://dream-yt.github.io/</loc>
-    <lastmod>2020-06-05T01:04:32+09:00</lastmod>
+    <lastmod>2020-06-05T07:08:03+09:00</lastmod>
     <priority>0</priority>
   </url>
   
