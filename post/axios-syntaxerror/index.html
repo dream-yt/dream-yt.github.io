@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="https://dream-yt.github.io/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="[jest] SyntaxError: The string did not match the expected pattern"/>
+  <meta name="twitter:description" content="axios を使った jest のテストで以下のようなエラーが出た SyntaxError: The string did not match the expected pattern. これは jest ランタイムだと axios が XMLHttpRequest を使おうとしてしまうため発生するエラーだったよう"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@site_author"/>
+  
+
+
+
+		
+		<meta name="author" content="site_author">
+		<meta name="description" content="Site Description">
+		<meta name="generator" content="Hugo 0.42.1" />
+		<title>[jest] SyntaxError: The string did not match the expected pattern &middot; sacre</title>
+		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/font-awesome.min.css">
+		
+
+		
+		<link href="https://dream-yt.github.io/index.xml" rel="alternate" type="application/rss+xml" title="sacre" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='https://dream-yt.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://dream-yt.github.io/posts'>Archive</a>
+	<a href='https://dream-yt.github.io/tags'>Tags</a>
+	<a href='https://dream-yt.github.io/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="https://dream-yt.github.io/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        [jest] SyntaxError: The string did not match the expected pattern
+                    </h1>
+                    <h2 class="headline">
+                    Jun 7, 2020 06:46
+                    · 124 words
+                    · 1 minute read
+                      <span class="tags">
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    
+
+<p>axios を使った jest のテストで以下のようなエラーが出た</p>
+
+<blockquote>
+<p>SyntaxError: The string did not match the expected pattern.</p>
+</blockquote>
+
+<p>これは jest ランタイムだと axios が XMLHttpRequest を使おうとしてしまうため発生するエラーだったようだ</p>
+
+<p>jest.config.js に <code>testEnvironment: 'node'</code> を追加すればよい</p>
+
+<pre><code class="language-js">module.exports = {
+  verbose: true,
+  testEnvironment: 'node',
+  ...
+</code></pre>
+
+<h2 id="参考">参考</h2>
+
+<ul>
+<li><a href="https://github.com/axios/axios/issues/1180">detect jest and use http adapter instead of XMLhttpRequest · Issue #1180 · axios/axios</a></li>
+<li><a href="https://github.com/facebook/jest/issues/5737">Unmocking axios? I get &lsquo;the string did not match the expected pattern&rsquo; · Issue #5737 · facebook/jest</a></li>
+</ul>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2faxios-syntaxerror%2f - %5bjest%5d%20SyntaxError%3a%20The%20string%20did%20not%20match%20the%20expected%20pattern by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'your_disqus_short_name'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/dream-yt/sacre">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://twitter.com/FUTABA_SACRE">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2020 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="https://dream-yt.github.io/js/jquery-3.3.1.min.js"></script>
+<script src="https://dream-yt.github.io/js/main.js"></script>
+<script src="https://dream-yt.github.io/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+
+
+
+
+    </body>
+</html>
