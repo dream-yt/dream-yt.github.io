@@ -6,18 +6,27 @@
     <description>Recent content in Posts on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Thu, 18 Jun 2020 10:38:39 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 25 Jun 2020 12:22:41 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Create React App Rough Deploy</title>
+      <title>bashの変数から文字列を取り出す</title>
+      <link>https://dream-yt.github.io/post/bash-substring-extraction/</link>
+      <pubDate>Thu, 25 Jun 2020 12:22:41 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/bash-substring-extraction/</guid>
+      <description>以下のような記法で変数から部分文字列を取り出すことができる ${FOO%...} ${FOO#...} string - Extract substring in Bash - Stack Overflow 例 ui/src/js/test/tag.js という文字列から test/tag.js という文字列を取り出す場合 ui/src/ という文字</description>
+    </item>
+    
+    <item>
+      <title>雑create-react-app のデプロイについて</title>
       <link>https://dream-yt.github.io/post/create-react-app-rough-deploy/</link>
       <pubDate>Thu, 18 Jun 2020 10:38:39 +0900</pubDate>
       
       <guid>https://dream-yt.github.io/post/create-react-app-rough-deploy/</guid>
-      <description></description>
+      <description>init こんな感じで開発を始める npm install -g create-react-app npx create-react-app {{ アプリ名 }} --typescript yarn start build ビルドコマンドはデフォルトで用意されている yarn build これを実行すると ./build 配下にhtmlなど</description>
     </item>
     
     <item>

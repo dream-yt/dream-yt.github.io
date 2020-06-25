@@ -13,8 +13,8 @@
     
   
   
-  <meta name="twitter:title" content="雑create-react-app のデプロイについて"/>
-  <meta name="twitter:description" content="init こんな感じで開発を始める npm install -g create-react-app npx create-react-app {{ アプリ名 }} --typescript yarn start build ビルドコマンドはデフォルトで用意されている yarn build これを実行すると ./build 配下にhtmlなど"/>
+  <meta name="twitter:title" content="bashの変数から文字列を取り出す"/>
+  <meta name="twitter:description" content="以下のような記法で変数から部分文字列を取り出すことができる ${FOO%...} ${FOO#...} string - Extract substring in Bash - Stack Overflow 例 ui/src/js/test/tag.js という文字列から test/tag.js という文字列を取り出す場合 ui/src/ という文字"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -30,7 +30,7 @@
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
 		<meta name="generator" content="Hugo 0.51" />
-		<title>雑create-react-app のデプロイについて &middot; sacre</title>
+		<title>bashの変数から文字列を取り出す &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
@@ -68,11 +68,11 @@
             <article>
                 <header>
                     <h1>
-                        雑create-react-app のデプロイについて
+                        bashの変数から文字列を取り出す
                     </h1>
                     <h2 class="headline">
-                    Jun 18, 2020 10:38
-                    · 216 words
+                    Jun 25, 2020 12:22
+                    · 189 words
                     · 1 minute read
                       <span class="tags">
                       
@@ -86,13 +86,11 @@
 <ul>
 <li>
 <ul>
-<li>
+<li><a href="#例">例</a>
 <ul>
-<li><a href="#init">init</a></li>
-<li><a href="#build">build</a></li>
-<li><a href="#deploy">deploy</a></li>
+<li><a href="#test-tag-js-を取り出す"><code>test/tag.js</code> を取り出す</a></li>
+<li><a href="#ui-src-を取り出す"><code>ui/src/</code> を取り出す</a></li>
 </ul></li>
-<li><a href="#パスの調整">パスの調整</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -102,57 +100,54 @@
                 <section id="post-body">
                     
 
-<h3 id="init">init</h3>
+<p>以下のような記法で変数から部分文字列を取り出すことができる</p>
 
-<p>こんな感じで開発を始める</p>
+<ul>
+<li><code>${FOO%...}</code></li>
+<li><code>${FOO#...}</code></li>
+</ul>
 
-<pre><code class="language-bash">npm install -g create-react-app
-npx create-react-app {{ アプリ名 }} --typescript
-yarn start
+<p><a href="https://stackoverflow.com/questions/428109/extract-substring-in-bash">string - Extract substring in Bash - Stack Overflow</a></p>
+
+<h2 id="例">例</h2>
+
+<ul>
+<li><code>ui/src/js/test/tag.js</code> という文字列から
+
+<ol>
+<li><code>test/tag.js</code> という文字列を取り出す場合</li>
+<li><code>ui/src/</code> という文字列を取り出す場合</li>
+</ol></li>
+</ul>
+
+<p>取り出したい文字列を書くのではなく、除去したい文字列を書くことになる</p>
+
+<ul>
+<li>文字列の文頭から文字列を除去するのは <code>#</code></li>
+<li>文末から除去する場合は <code>%</code></li>
+</ul>
+
+<h3 id="test-tag-js-を取り出す"><code>test/tag.js</code> を取り出す</h3>
+
+<p><code>ui/src/js/test/tag.js</code> の左側から <code>ui/src/js/</code> を探して除去</p>
+
+<pre><code class="language-bash">readonly FOO=ui/src/js/test/tag.js
+echo ${FOO#ui/src/js/}
 </code></pre>
 
-<h3 id="build">build</h3>
+<h3 id="ui-src-を取り出す"><code>ui/src/</code> を取り出す</h3>
 
-<p>ビルドコマンドはデフォルトで用意されている</p>
+<p><code>ui/src/js/test/tag.js</code> の右側から <code>js/test/tag.js</code> を探して除去</p>
 
-<pre><code class="language-bash">yarn build
-</code></pre>
-
-<p>これを実行すると <code>./build</code> 配下にhtmlなどビルド結果が生成される</p>
-
-<h3 id="deploy">deploy</h3>
-
-<p>AWSを使ってるとしてs3にあげる例だとこんな感じ</p>
-
-<pre><code class="language-bash">aws s3 sync --delete ./build s3://static-bucket-name/thirdapp
-</code></pre>
-
-<h2 id="パスの調整">パスの調整</h2>
-
-<p>create-react-app の yarn build はデフォルトだとパスをルート <code>/</code> からの絶対パスで生成する</p>
-
-<pre><code class="language-html">&lt;link rel=&quot;apple-touch-icon&quot; href=&quot;/logo192.png&quot;/&gt;
-</code></pre>
-
-<p><code>s3://static-bucket-name/thirdapp/</code> にアプリを置きたい場合はこれを <code>/thirdapp/</code> 配下にする必要があるが、そのパスの変更は <code>package.json#homepage</code> で設定できる</p>
-
-<p>こんな感じ</p>
-
-<pre><code class="language-json">$ cat package.json
-{
-  &quot;name&quot;: &quot;thirdapp&quot;,
-  &quot;version&quot;: &quot;0.1.0&quot;,
-  &quot;private&quot;: true,
-  &quot;homepage&quot;: &quot;/thirdapp/&quot;,
-  &quot;dependencies&quot;: {
-  ...
+<pre><code class="language-bash">readonly FOO=ui/src/js/test/tag.js
+echo ${FOO%/js/test/tag.js}
 </code></pre>
 
                 </section>
             </article>
 
             
-                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fcreate-react-app-rough-deploy%2f - %e9%9b%91create-react-app%20%e3%81%ae%e3%83%87%e3%83%97%e3%83%ad%e3%82%a4%e3%81%ab%e3%81%a4%e3%81%84%e3%81%a6 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fbash-substring-extraction%2f - bash%e3%81%ae%e5%a4%89%e6%95%b0%e3%81%8b%e3%82%89%e6%96%87%e5%ad%97%e5%88%97%e3%82%92%e5%8f%96%e3%82%8a%e5%87%ba%e3%81%99 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
 
 <a class="facebook" href="#" onclick="
     window.open(
