@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="https://dream-yt.github.io/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="serverless-plugin-aws-alertsでエラーを監視"/>
+  <meta name="twitter:description" content="Serverless Framework を使っている場合、エラーやタイムアウトなどの検知をするためのリソースはプラグインで簡単に簡単に生成できる ACloudGuru/serverless-plugin-aws-alerts: A Serverless Framework plugin that creates CloudWatch alarms for functions. たとえば「"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@site_author"/>
+  
+
+
+
+		
+		<meta name="author" content="site_author">
+		<meta name="description" content="Site Description">
+		<meta name="generator" content="Hugo 0.51" />
+		<title>serverless-plugin-aws-alertsでエラーを監視 &middot; sacre</title>
+		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/font-awesome.min.css">
+		
+
+		
+		<link href="https://dream-yt.github.io/index.xml" rel="alternate" type="application/rss+xml" title="sacre" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='https://dream-yt.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://dream-yt.github.io/posts'>Archive</a>
+	<a href='https://dream-yt.github.io/tags'>Tags</a>
+	<a href='https://dream-yt.github.io/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="https://dream-yt.github.io/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        serverless-plugin-aws-alertsでエラーを監視
+                    </h1>
+                    <h2 class="headline">
+                    Jul 5, 2020 20:48
+                    · 1067 words
+                    · 3 minute read
+                      <span class="tags">
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#cloudwatch-alarm">CloudWatch Alarm</a></li>
+<li><a href="#sns-topic">SNS Topic</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#設定例">設定例</a></li>
+<li><a href="#通知について">通知について</a></li>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    
+
+<p>Serverless Framework を使っている場合、エラーやタイムアウトなどの検知をするためのリソースはプラグインで簡単に簡単に生成できる</p>
+
+<ul>
+<li><a href="https://github.com/ACloudGuru/serverless-plugin-aws-alerts">ACloudGuru/serverless-plugin-aws-alerts: A Serverless Framework plugin that creates CloudWatch alarms for functions.</a></li>
+</ul>
+
+<p>たとえば「エラー発生時には通知をうける」といった機能には以下のリソースを作る必要があるが、このプラグインはそれを(けっこう親切に)面倒みてくれる</p>
+
+<ul>
+<li>CloudWatch Alarm</li>
+<li>SNS Topic</li>
+</ul>
+
+<h4 id="cloudwatch-alarm">CloudWatch Alarm</h4>
+
+<ul>
+<li>CloudWatchでLambdaのエラーの発生数がわかっている</li>
+<li>CloudWatch Alarm はその発生数が域値以上かどうかを監視してくれるリソース</li>
+<li>エラーの発生数が指定以上となった場合にSNSへメッセージを送れる</li>
+</ul>
+
+<h4 id="sns-topic">SNS Topic</h4>
+
+<ul>
+<li>エラーが発生したときにメッセージがキューに入る</li>
+<li>キューがどんな処理をキックするかはその先の設定次第
+
+<ul>
+<li>だいたいAWSChatBotにSlack通知させることになる</li>
+</ul></li>
+</ul>
+
+<h2 id="設定例">設定例</h2>
+
+<p>もともと serverless-plugin-aws-alerts はデフォルトの設定がしっかりしていて、なんも設定を書かなくてもエラーの監視はしてくれるようになっている</p>
+
+<ul>
+<li><a href="https://github.com/ACloudGuru/serverless-plugin-aws-alerts#default-definitions">serverless-plugin-aws-alerts#default-definitions</a></li>
+</ul>
+
+<p>ただ、デフォルトだと Duration や Invocation, Throttle など色々な状態を監視するAlarmができてしまうので、エラーだけ監視したいという場合は以下のような塩梅になる</p>
+
+<pre><code class="language-yaml">custom:
+  # serverless-plugin-aws-alerts用の項目
+  alerts:
+    # どのstageでアラート用のリソースを作成するか [&quot;prod&quot;, &quot;dev&quot;] とかでもよい
+    stages: [ &quot;prod&quot; ]
+    # ここに記述した数だけSNSTopicが生成される
+    topics:
+      # 異常が発生した場合にメッセージが送られるトピック
+      alarm:
+        topic: ${self:service}-prod-alerts-alarm
+      # 発生した異常が収束した場合にメッセージが送られるトピック
+      ok:
+        topic: ${self:service}-prod-alerts-ok
+    alarms:
+      # ここに書くのは監視する項目のリスト。他にもタイムアウトなどを監視できる
+      # 60秒間でエラーが一回以上あれば〜 の60秒のような閾値のデフォルト値はこちら
+      # https://github.com/ACloudGuru/serverless-plugin-aws-alerts#default-definitions
+      - functionErrors
+    # alarmに記述した監視項目のデフォルト設定を上書きするところ
+    definitions:
+      functionErrors:
+        # cronが5分に1回実行される処理なら、チェック間隔も5分に1回でよい
+        period: 300
+        # 正常に戻った時にも通知が欲しい場合の設定
+        topics:
+          ok: ${self:service}-prod-alerts-ok
+</code></pre>
+
+<h2 id="通知について">通知について</h2>
+
+<p>serverless-plugin-aws-alertsはSNSトピックをつくるところまでしかやってくれないので、そこから先にSlackへの通知は AWS ChatBot を使うと楽である (以前は通知するためのLambdaを実装する必要があった)</p>
+
+<p>AWS ChatBot は2020年7月時点だとコンソールからGUIでしか設定できないので、ポチポチ設定すればよい。ただ、AWSChatBotを利用するためのRoleを作る必要はある (AWSChatBotのコンソール画面内でこの権限の生成が促されている)</p>
+
+<h2 id="参考">参考</h2>
+
+<p>CloudWatch Alarm 周りの設定がよくわからなかったので以前に調べたメモ</p>
+
+<ul>
+<li><a href="https://blog.n-t.jp/cloudwatch-alarm-treatMissingData/">cloudwatch、アラームの設定 (period, treatMissingData) | Tech Weblog | blog.n-t.jp</a></li>
+</ul>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fserverless-plugin-aws-alerts-101%2f - serverless-plugin-aws-alerts%e3%81%a7%e3%82%a8%e3%83%a9%e3%83%bc%e3%82%92%e7%9b%a3%e8%a6%96 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'your_disqus_short_name'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/dream-yt/sacre">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://twitter.com/FUTABA_SACRE">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2020 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="https://dream-yt.github.io/js/jquery-3.3.1.min.js"></script>
+<script src="https://dream-yt.github.io/js/main.js"></script>
+<script src="https://dream-yt.github.io/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+
+
+
+
+    </body>
+</html>
