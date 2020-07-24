@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://dream-yt.github.io/post/diet-js-bundle-file/</loc>
+    <lastmod>2020-07-25T00:01:24+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://dream-yt.github.io/post/serverless-plugin-aws-alerts-101/</loc>
     <lastmod>2020-07-05T20:48:54+09:00</lastmod>
   </url>
@@ -1001,7 +1006,7 @@
   
   <url>
     <loc>https://dream-yt.github.io/post/</loc>
-    <lastmod>2020-07-05T20:48:54+09:00</lastmod>
+    <lastmod>2020-07-25T00:01:24+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -1013,7 +1018,7 @@
   
   <url>
     <loc>https://dream-yt.github.io/</loc>
-    <lastmod>2020-07-05T20:48:54+09:00</lastmod>
+    <lastmod>2020-07-25T00:01:24+09:00</lastmod>
     <priority>0</priority>
   </url>
   
