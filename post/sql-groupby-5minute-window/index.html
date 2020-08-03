@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.74.3" />
 		<title>SQLで5分ごとの平均を出す &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,60 +83,46 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#sql">SQL</a></li>
-<li><a href="#参考">参考</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#sql">SQL</a></li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p>こんな2カラムがあるテーブルで5分ごとのdurationの平均とかMAXとかをサマりたい</p>
-
+                    <p>こんな2カラムがあるテーブルで5分ごとのdurationの平均とかMAXとかをサマりたい</p>
 <ul>
 <li><code>duration</code>
-
 <ul>
 <li>doubleが入っている</li>
 <li>レスポンスを返すまでにかかった時間</li>
-</ul></li>
+</ul>
+</li>
 <li><code>utc_timestamp</code>
-
 <ul>
 <li>timestampが入っている</li>
 <li>アクセスされた時刻</li>
-</ul></li>
 </ul>
-
+</li>
+</ul>
 <h2 id="sql">SQL</h2>
-
 <p>prestoだとこんな感じ (datetimeがintに変換できればどのDBでもできる)</p>
-
-<p>5分は300秒なので、datetimeをUNIXTIMEに変換して(intにして)<br />
+<p>5分は300秒なので、datetimeをUNIXTIMEに変換して(intにして)<br>
 300でわった商が同じなら同じGROUPに入る</p>
-
-<pre><code class="language-sql">SELECT
-  from_unixtime((CAST(to_unixtime(utc_timestamp) AS INTEGER) / 300) * 300) AT TIME ZONE 'Asia/Tokyo' window,
-  AVG(duration), 
-  MAX(duration),
-  APPROX_PERCENTILE(duration, 0.98)  -- 98パーセンタイル
-FROM lblog.api
-GROUP BY
-  CAST(to_unixtime(utc_timestamp) AS INTEGER) / 300
-ORDER BY
-  MIN(utc_timestamp)
-</code></pre>
-
-<p>パーセンタイルは他のDBだと工夫しないといけないかもしれない</p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span>
+  from_unixtime((<span style="color:#66d9ef">CAST</span>(to_unixtime(utc_timestamp) <span style="color:#66d9ef">AS</span> INTEGER) <span style="color:#f92672">/</span> <span style="color:#ae81ff">300</span>) <span style="color:#f92672">*</span> <span style="color:#ae81ff">300</span>) <span style="color:#66d9ef">AT</span> TIME <span style="color:#66d9ef">ZONE</span> <span style="color:#e6db74">&#39;Asia/Tokyo&#39;</span> window,
+  <span style="color:#66d9ef">AVG</span>(duration), 
+  <span style="color:#66d9ef">MAX</span>(duration),
+  APPROX_PERCENTILE(duration, <span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">98</span>)  <span style="color:#75715e">-- 98パーセンタイル
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">FROM</span> lblog.api
+<span style="color:#66d9ef">GROUP</span> <span style="color:#66d9ef">BY</span>
+  <span style="color:#66d9ef">CAST</span>(to_unixtime(utc_timestamp) <span style="color:#66d9ef">AS</span> INTEGER) <span style="color:#f92672">/</span> <span style="color:#ae81ff">300</span>
+<span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span>
+  <span style="color:#66d9ef">MIN</span>(utc_timestamp)
+</code></pre></div><p>パーセンタイルは他のDBだと工夫しないといけないかもしれない</p>
 <h2 id="参考">参考</h2>
-
 <ul>
 <li><a href="https://prestodb.io/docs/current/functions/math.html">6.6. Mathematical Functions and Operators — Presto 0.229 Documentation</a></li>
 <li><a href="https://prestodb.io/docs/0.172/functions/datetime.html">6.10. Date and Time Functions and Operators — Presto 0.172 Documentation</a></li>

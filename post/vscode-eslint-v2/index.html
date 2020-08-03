@@ -14,7 +14,7 @@
   
   
   <meta name="twitter:title" content="vscode-eslint(v2)の設定をする"/>
-  <meta name="twitter:description" content="こんな設定になった { &quot;[javascript]&quot;: { &quot;editor.codeActionsOnSave&quot;: { &quot;source.fixAll.eslint&quot;: true }, &quot;editor.tabSize&quot;: 2 }, &quot;eslint.enable&quot;: true, &quot;eslint.alwaysShowStatus&quot;: true, &quot;eslint.debug&quot;: false, &quot;eslint.format.enable&quot;: true, &quot;eslint.lintTask.enable&quot;: true, &quot;eslint.workingDirectories&quot;: [ { &quot;mode&quot;: &quot;auto&quot; } ] } editor.codeActionsOnSave vscode-eslintはv2からこんな設定になっている https://github.com/microsoft/vscode-eslint#release-notes &quot;editor.codeActionsOnSave&quot;:"/>
+  <meta name="twitter:description" content="こんな設定になった { &#34;[javascript]&#34;: { &#34;editor.codeActionsOnSave&#34;: { &#34;source.fixAll.eslint&#34;: true }, &#34;editor.tabSize&#34;: 2 }, &#34;eslint.enable&#34;: true, &#34;eslint.alwaysShowStatus&#34;: true, &#34;eslint.debug&#34;: false, &#34;eslint.format.enable&#34;: true, &#34;eslint.lintTask.enable&#34;: true, &#34;eslint.workingDirectories&#34;: [ { &#34;mode&#34;: &#34;auto&#34; } ] } editor.codeActionsOnSave vscode-eslintはv2からこんな設定になっている https://github.com/microsoft/vscode-eslint#release-notes &#34;editor.codeActionsOnSave&#34;:"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.74.3" />
 		<title>vscode-eslint(v2)の設定をする &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,96 +83,75 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#editor-codeactionsonsave">editor.codeActionsOnSave</a></li>
-<li><a href="#eslint-alwaysshowstatus">eslint.alwaysShowStatus</a></li>
-<li><a href="#eslint-workingdirectories">eslint.workingDirectories</a></li>
-</ul></li>
-<li><a href="#参考">参考</a></li>
-<li><a href="#デバッグ">デバッグ</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#editorcodeactionsonsave">editor.codeActionsOnSave</a></li>
+        <li><a href="#eslintalwaysshowstatus">eslint.alwaysShowStatus</a></li>
+        <li><a href="#eslintworkingdirectories">eslint.workingDirectories</a></li>
+      </ul>
+    </li>
+    <li><a href="#参考">参考</a></li>
+    <li><a href="#デバッグ">デバッグ</a></li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p>こんな設定になった</p>
-
-<pre><code class="language-json">{
-  &quot;[javascript]&quot;: {
-    &quot;editor.codeActionsOnSave&quot;: {
-      &quot;source.fixAll.eslint&quot;: true
+                    <p>こんな設定になった</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+  <span style="color:#f92672">&#34;[javascript]&#34;</span>: {
+    <span style="color:#f92672">&#34;editor.codeActionsOnSave&#34;</span>: {
+      <span style="color:#f92672">&#34;source.fixAll.eslint&#34;</span>: <span style="color:#66d9ef">true</span>
     },
-    &quot;editor.tabSize&quot;: 2
+    <span style="color:#f92672">&#34;editor.tabSize&#34;</span>: <span style="color:#ae81ff">2</span>
   },
-  &quot;eslint.enable&quot;: true,
-  &quot;eslint.alwaysShowStatus&quot;: true,
-  &quot;eslint.debug&quot;: false,
-  &quot;eslint.format.enable&quot;: true,
-  &quot;eslint.lintTask.enable&quot;: true,
-  &quot;eslint.workingDirectories&quot;: [
+  <span style="color:#f92672">&#34;eslint.enable&#34;</span>: <span style="color:#66d9ef">true</span>,
+  <span style="color:#f92672">&#34;eslint.alwaysShowStatus&#34;</span>: <span style="color:#66d9ef">true</span>,
+  <span style="color:#f92672">&#34;eslint.debug&#34;</span>: <span style="color:#66d9ef">false</span>,
+  <span style="color:#f92672">&#34;eslint.format.enable&#34;</span>: <span style="color:#66d9ef">true</span>,
+  <span style="color:#f92672">&#34;eslint.lintTask.enable&#34;</span>: <span style="color:#66d9ef">true</span>,
+  <span style="color:#f92672">&#34;eslint.workingDirectories&#34;</span>: [
     {
-      &quot;mode&quot;: &quot;auto&quot;
+      <span style="color:#f92672">&#34;mode&#34;</span>: <span style="color:#e6db74">&#34;auto&#34;</span>
     }
   ]
 }
-</code></pre>
-
-<h3 id="editor-codeactionsonsave">editor.codeActionsOnSave</h3>
-
+</code></pre></div><h3 id="editorcodeactionsonsave">editor.codeActionsOnSave</h3>
 <p>vscode-eslintはv2からこんな設定になっている</p>
-
 <ul>
 <li><a href="https://github.com/microsoft/vscode-eslint#release-notes">https://github.com/microsoft/vscode-eslint#release-notes</a></li>
 </ul>
-
-<pre><code class="language-json">&quot;editor.codeActionsOnSave&quot;: {
-  &quot;source.fixAll.eslint&quot;: true
-},
-</code></pre>
-
-<h3 id="eslint-alwaysshowstatus">eslint.alwaysShowStatus</h3>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#e6db74">&#34;editor.codeActionsOnSave&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> {
+  <span style="color:#f92672">&#34;source.fixAll.eslint&#34;</span>: <span style="color:#66d9ef">true</span>
+}<span style="color:#960050;background-color:#1e0010">,</span>
+</code></pre></div><h3 id="eslintalwaysshowstatus">eslint.alwaysShowStatus</h3>
 <p>動作確認をするときに役に立った
 OUTPUTパネルを簡単に見れるようになる</p>
-
-<h3 id="eslint-workingdirectories">eslint.workingDirectories</h3>
-
+<h3 id="eslintworkingdirectories">eslint.workingDirectories</h3>
 <p><code>{ &quot;mode&quot;: &quot;auto&quot; }</code> がよい (v2からの設定)</p>
-
 <blockquote>
 <p>{ &ldquo;mode&rdquo;: &ldquo;auto&rdquo; } (@SInCE 2.0.0): instructs ESLint to infer a working directory based on the location of package.json, .eslintignore and .eslintrc* files. This might work in many cases but can lead to unexpected results as well.</p>
 </blockquote>
-
 <h2 id="参考">参考</h2>
-
 <ul>
 <li><a href="https://github.com/microsoft/vscode-eslint/issues/696">ESLint fails to load plugins when using ESLint 6.x · Issue #696 · microsoft/vscode-eslint</a></li>
 <li><a href="https://github.com/anvilabs/eslint-config/pull/52/files">fix(jest): fix &ldquo;jest/globals&rdquo; is unknown by binchik · Pull Request #52 · anvilabs/eslint-config</a></li>
 </ul>
-
 <h2 id="デバッグ">デバッグ</h2>
-
 <p>うまく動かない時は以下を確認</p>
-
 <ul>
 <li>全体の設定とワークスペースごとの設定を確認する
-
 <ul>
 <li>古い設定で <code>&quot;eslint.enable&quot;: false</code> とかが効いてると動かない</li>
-</ul></li>
+</ul>
+</li>
 <li>コンソールの表示(OUTPUT/PROBLEM)を確認する
-
 <ul>
 <li>vscode-eslintはOUTPUT <code>INFO</code> ログにエラーメッセージが出て止まっていた</li>
-</ul></li>
+</ul>
+</li>
 </ul>
 
                 </section>

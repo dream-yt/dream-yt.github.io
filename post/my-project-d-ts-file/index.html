@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.74.3" />
 		<title>.d.ts ファイルを自作してimportする &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,70 +83,51 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#d-ts-ファイルを作成">.d.ts ファイルを作成</a></li>
-<li><a href="#importする">importする</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#dts-ファイルを作成">.d.ts ファイルを作成</a></li>
+    <li><a href="#importする">importする</a></li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p>APIのTypeScriptの型定義ファイル(<code>foobar.d.ts</code>など)が提供されておらず、APIレスポンスをjson2tsなどにつっこんで型定義ファイルを得るということをよくやる</p>
-
+                    <p>APIのTypeScriptの型定義ファイル(<code>foobar.d.ts</code>など)が提供されておらず、APIレスポンスをjson2tsなどにつっこんで型定義ファイルを得るということをよくやる</p>
 <ul>
 <li><a href="http://json2ts.com/">json2ts - generate TypeScript interfaces from json</a></li>
 </ul>
-
 <p>こんな型定義が得られる</p>
-
-<pre><code class="language-ts">declare module Kibela {
-  export interface OutgoingWebhook {
-    action: string;
-    blog: Blog;
-    resource_type: string;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">declare</span> <span style="color:#66d9ef">module</span> <span style="color:#a6e22e">Kibela</span> {
+  <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">OutgoingWebhook</span> {
+    <span style="color:#a6e22e">action</span>: <span style="color:#66d9ef">string</span>;
+    <span style="color:#a6e22e">blog</span>: <span style="color:#66d9ef">Blog</span>;
+    <span style="color:#a6e22e">resource_type</span>: <span style="color:#66d9ef">string</span>;
   }
 
-  export interface Blog {
-    author: Author;
-    boards: Board[];a
-    content_html: string;
-    content_md: string;
-    id: string;
-    title: string;
-    url: string;
+  <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">Blog</span> {
+    <span style="color:#a6e22e">author</span>: <span style="color:#66d9ef">Author</span>;
+    <span style="color:#a6e22e">boards</span>: <span style="color:#66d9ef">Board</span>[];<span style="color:#a6e22e">a</span>
+    <span style="color:#a6e22e">content_html</span>: <span style="color:#66d9ef">string</span>;
+    <span style="color:#a6e22e">content_md</span>: <span style="color:#66d9ef">string</span>;
+    <span style="color:#a6e22e">id</span>: <span style="color:#66d9ef">string</span>;
+    <span style="color:#a6e22e">title</span>: <span style="color:#66d9ef">string</span>;
+    <span style="color:#a6e22e">url</span>: <span style="color:#66d9ef">string</span>;
   }
 }
-</code></pre>
-
-<p>これを <code>.ts</code>ではなく<code>.d.ts</code>で管理すると、型定義と実装が別ファイルで管理できて具合がいい</p>
-
-<h2 id="d-ts-ファイルを作成">.d.ts ファイルを作成</h2>
-
+</code></pre></div><p>これを <code>.ts</code>ではなく<code>.d.ts</code>で管理すると、型定義と実装が別ファイルで管理できて具合がいい</p>
+<h2 id="dts-ファイルを作成">.d.ts ファイルを作成</h2>
 <p>tscは <code>@types</code> という名前のディレクトリを見つけたらそれの中のものを型定義ファイルとして読み込んでくれる</p>
-
 <blockquote>
 <p>By default all visible “@types” packages are included in your compilation.</p>
 </blockquote>
-
 <ul>
 <li><a href="https://www.typescriptlang.org/docs/handbook/tsconfig-json.html#types-typeroots-and-types">tsconfig.json · TypeScript</a></li>
 </ul>
-
 <p><code>src/@types/foo.d.ts</code> といった場所にファイルを作成しておく</p>
-
 <h2 id="importする">importする</h2>
-
 <p>こんな感じでimportすればnamespaceが使える</p>
-
-<pre><code class="language-ts">import './@types/foo';
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">import</span> <span style="color:#e6db74">&#39;./@types/foo&#39;</span>;
+</code></pre></div>
                 </section>
             </article>
 

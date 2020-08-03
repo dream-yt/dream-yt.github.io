@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.74.3" />
 		<title>LogEntry からそのログ周辺へのCloudLogging のURLを生成する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,84 +83,62 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#logentry">LogEntry</a></li>
-<li><a href="#ログクエリ">ログクエリ</a></li>
-<li><a href="#コード">コード</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#logentry">LogEntry</a></li>
+    <li><a href="#ログクエリ">ログクエリ</a></li>
+    <li><a href="#コード">コード</a></li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p>こんな処理をつくるとき</p>
-
+                    <p>こんな処理をつくるとき</p>
 <ul>
 <li>CloudLogging でエラーログを補足したら</li>
 <li>そのログを PubSub にシンクして</li>
 <li>それを CloudFunction でSlackに通知する</li>
 </ul>
-
 <p>通知メッセージの中にそのログへのリンクを置きたくて、URLを生成する処理を書いた</p>
-
 <h2 id="logentry">LogEntry</h2>
-
 <p>CloudFunction は LogEntry という構造体を呼び出し時に受け取る</p>
-
 <ul>
 <li><a href="https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry">LogEntry  |  Cloud Logging  |  Google Cloud</a></li>
 </ul>
-
 <p>この中の <code>timestamp</code> と <code>resource.type</code> を使う</p>
-
 <h2 id="ログクエリ">ログクエリ</h2>
-
 <p>CloudLogging は、URLにログクエリを埋め込むことができる</p>
-
 <ul>
 <li><a href="https://cloud.google.com/logging/docs/view/advanced-queries?hl=ja">高度なログクエリ  |  Cloud Logging  |  Google Cloud</a></li>
 </ul>
-
 <p>以下のような条件のログクエリを生成して、それをURLにつける</p>
-
 <ul>
 <li>同じ <code>resource.type</code></li>
 <li>エラーログの発生から前後10秒</li>
 </ul>
-
 <p><code>insertId</code> でもそのログへのリンクが生成できるが、たぶんエラーログの場合は前後に何があったか知りたいはずなので「エラーログの発生から前後10秒」にしている</p>
-
 <h2 id="コード">コード</h2>
-
 <p>こんな感じ</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">URL</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;url&#39;</span>;
+<span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">as</span> <span style="color:#a6e22e">querystring</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;querystring&#39;</span>;
 
-<pre><code class="language-ts">import { URL } from 'url';
-import * as querystring from 'querystring';
-
-const buildLogEntryUrl = (log: LogEntry, projectId?: string) =&gt; {
-  const at = new Date(log.timestamp);
-  const from = new Date(at.getTime() - 10000).toISOString();
-  const to = new Date(at.getTime() + 10000).toISOString();
-  const query = querystring.escape(
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">buildLogEntryUrl</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">log</span>: <span style="color:#66d9ef">LogEntry</span>, <span style="color:#a6e22e">projectId?</span>: <span style="color:#66d9ef">string</span>) <span style="color:#f92672">=&gt;</span> {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">at</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Date(<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">timestamp</span>);
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">from</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Date(<span style="color:#a6e22e">at</span>.<span style="color:#a6e22e">getTime</span>() <span style="color:#f92672">-</span> <span style="color:#ae81ff">10000</span>).<span style="color:#a6e22e">toISOString</span>();
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">to</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Date(<span style="color:#a6e22e">at</span>.<span style="color:#a6e22e">getTime</span>() <span style="color:#f92672">+</span> <span style="color:#ae81ff">10000</span>).<span style="color:#a6e22e">toISOString</span>();
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">query</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">querystring</span>.<span style="color:#a6e22e">escape</span>(
     [
-      `timestamp&gt;=&quot;${from}&quot;`,
-      `timestamp&lt;=&quot;${to}&quot;`,
-      `resource.type=${log.resource.type}`,
-    ].join('\n')
+      <span style="color:#e6db74">`timestamp&gt;=&#34;</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">from</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;`</span>,
+      <span style="color:#e6db74">`timestamp&lt;=&#34;</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">to</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;`</span>,
+      <span style="color:#e6db74">`resource.type=</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">resource</span>.<span style="color:#a6e22e">type</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>,
+    ].<span style="color:#a6e22e">join</span>(<span style="color:#e6db74">&#39;\n&#39;</span>)
   );
-  const param = projectId ? `?project=${projectId}` : '';
-  return new URL(
-    `https://console.cloud.google.com/logs/query;query=${query}${param}`
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">param</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">projectId</span> <span style="color:#f92672">?</span> <span style="color:#e6db74">`?project=</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">projectId</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;&#39;</span>;
+  <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">URL</span>(
+    <span style="color:#e6db74">`https://console.cloud.google.com/logs/query;query=</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">query</span><span style="color:#e6db74">}${</span><span style="color:#a6e22e">param</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>
   );
 };
-</code></pre>
-
-<p><code>project</code> はクエリパラメータにつけると一意になるので、つけれそうならつける</p>
+</code></pre></div><p><code>project</code> はクエリパラメータにつけると一意になるので、つけれそうならつける</p>
 
                 </section>
             </article>

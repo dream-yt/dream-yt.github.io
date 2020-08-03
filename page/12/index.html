@@ -24,7 +24,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.74.3" />
 		<title>sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -72,6 +72,36 @@
 
     <section id="wrapper" class="home">
         <ul id="post-list">
+    
+    
+        
+            <li>
+                <aside class="dates">Jul 3</aside>
+                <a href='https://dream-yt.github.io/post/jq-object-add/'>
+                    jq変形 {配列 =&gt; IDをキーとするオブジェクト}
+                    
+                        
+                            <h2>こんな配列を [ {&#34;id&#34;: &#34;123&#34;, &#34;name&#34;: &#34;abc&#34;}, {&#34;id&#34;: &#34;456&#34;, &#34;name&#34;: &#34;qwe&#34;} ] こうしたい { &#34;123&#34;: {&#34;id&#34;: &#34;123&#34;, &#34;name&#34;: &#34;abc&#34;}, &#34;456&#34;: {&#34;id&#34;: &#34;456&#34;, &#34;name&#34;: &#34;qwe&#34;} } add を使うとできる $ pbpaste | jq &#39;{ (.id): . } | [ . ] | add&#39; { &#34;123&#34;: { &#34;id&#34;: &#34;123&#34;, &#34;name&#34;: &#34;abc&#34; }, &#34;456&#34;: { &#34;id&#34;: &#34;456&#34;, &#34;name&#34;: &#34;qwe&#34; }</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Jul 1</aside>
+                <a href='https://dream-yt.github.io/post/react-synthetic-event/'>
+                    React の Synthetic Event
+                    
+                        
+                            <h2>Reactに標準でついてくるEventオブジェクト Syntheticは合成という意味 ブラウザごとの差異を吸収してくれている SyntheticEvent – React event pooling なお、R</h2>
+                        
+                    
+                </a>
+            </li>
+        
     
     
         
@@ -187,36 +217,6 @@
                     
                         
                             <h2>cloudtrailのlookup-eventsで昨日の分をすべてとる $ aws cloudtrail lookup-events \ --lookup-attributes AttributeKey=AccessKeyId,AttributeValue=xxxxxxxx \ --start-time $(date -v -2d -u &#43;&#34;%Y-%m-%dT%H:%M:%SZ&#34;) \ --end-time $(date -v -1d -u &#43;&#34;%Y-%m-%dT%H:%M:%SZ&#34;) \ | tee /tmp/_ 取得できるデータ Ev</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jun 3</aside>
-                <a href='https://dream-yt.github.io/post/date-sequence-bash/'>
-                    直近1週間の日付をdate形式で取得する
-                    
-                        
-                            <h2>seqとdate(mac上で作業しているのでgnu-date)を使う $ seq -7 0 | xargs -I{} gdate -d&#43;{}days &#43;&#39;%Y-%m-%d&#39; 2019-05-27 2019-05-28 2019-05-29 2019-05-30 2019-05-31 2019-06-01 2019-06-02 2019-06-03 こんな感じで mycommand --date 2019-05-27 mycommand --date 2019-05-28 mycommand --date 2019-05-29 mycommand --date 2019-05-30</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jun 2</aside>
-                <a href='https://dream-yt.github.io/post/vscode-extention-by-vsix/'>
-                    vscodeのextensionをvsixファイルからインストールする
-                    
-                        
-                            <h2>コマンドラインからcodeコマンドでできる $ code --install-extension ./auto-collapse-explorer-0.0.2.vsix --install-extension オプションが必要 .vsix ファイルを引数にとる 再起動 vscodeの再起動が必要(コマンドパレット</h2>
                         
                     
                 </a>
