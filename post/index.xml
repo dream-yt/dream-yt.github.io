@@ -6,10 +6,19 @@
     <description>Recent content in Posts on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Thu, 06 Aug 2020 15:48:59 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 06 Aug 2020 18:42:29 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>jqである属性(配列)が空じゃないもののみに絞る</title>
+      <link>https://dream-yt.github.io/post/jq-select-not-empty-array/</link>
+      <pubDate>Thu, 06 Aug 2020 18:42:29 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/jq-select-not-empty-array/</guid>
+      <description>select と length を使えばよい cat data.json | jq &amp;#39;select(.errors | length &amp;gt; 0) 参考 length select</description>
+    </item>
     
     <item>
       <title>rrwebがバグの調査に使えそうというメモ</title>
