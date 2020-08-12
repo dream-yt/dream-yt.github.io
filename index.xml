@@ -6,10 +6,19 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 12 Aug 2020 11:49:42 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 12 Aug 2020 18:34:01 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>mp4dumpでmp4ファイルのメタデータ(atom)をJSONで取得する</title>
+      <link>https://dream-yt.github.io/post/dump-mp4-atom-in-json/</link>
+      <pubDate>Wed, 12 Aug 2020 18:34:01 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/dump-mp4-atom-in-json/</guid>
+      <description>mp4dumpを使うとJSON形式で取得できる $ mp4dump ./test.mp4 --format json &amp;gt; /tmp/_ $ mp4dump ./test.mp4 --format json | jq . | head -30 [ { &amp;quot;name&amp;quot;: &amp;quot;ftyp&amp;quot;, &amp;quot;header_size&amp;quot;: 8, &amp;quot;size&amp;quot;: 28, &amp;quot;major_brand&amp;quot;: &amp;quot;mp42&amp;quot;, &amp;quot;minor_version&amp;quot;: 0, &amp;quot;compatible_brand&amp;quot;: &amp;quot;avc1&amp;quot; }, { &amp;quot;name&amp;quot;: &amp;quot;moov&amp;quot;, &amp;quot;header_size&amp;quot;: 8, &amp;quot;size&amp;quot;: 9187, &amp;quot;children&amp;quot;: [ { &amp;quot;name&amp;quot;: &amp;quot;mvhd&amp;quot;, &amp;quot;header_size&amp;quot;: 12,</description>
+    </item>
     
     <item>
       <title>/usr/local/Cellar/pyenv/1.2.8/libexec/pyenv: No such file or directory</title>
