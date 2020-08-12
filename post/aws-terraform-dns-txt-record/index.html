@@ -14,7 +14,7 @@
   
   
   <meta name="twitter:title" content="Terraform(AWS)でDNSのTXTレコードを作成する"/>
-  <meta name="twitter:description" content="Googleのサーチコンソールの認証をDNSでしたかったのでterraformで設定した TXTレコードの値は records の中に入れる resource &#34;aws_route53_record&#34; &#34;b_n-t_jp__txt&#34; { zone_id = &#34;${aws_route53_zone.n_t.zone_id}&#34; name ="/>
+  <meta name="twitter:description" content="Googleのサーチコンソールの認証をDNSでしたかったのでterraformで設定した TXTレコードの値は records の中に入れる resource &quot;aws_route53_record&quot; &quot;b_n-t_jp__txt&quot; { zone_id = &quot;${aws_route53_zone.n_t.zone_id}&quot; name ="/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.74.3" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>Terraform(AWS)でDNSのTXTレコードを作成する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -81,22 +81,21 @@
                 </header>
                 
                   
-                    <div id="toc">
-                      <nav id="TableOfContents"></nav>
-                    </div>
-                  
                 
                 <section id="post-body">
                     <p>Googleのサーチコンソールの認証をDNSでしたかったのでterraformで設定した</p>
+
 <p>TXTレコードの値は <code>records</code> の中に入れる</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-hcl" data-lang="hcl"><span style="color:#66d9ef">resource</span> <span style="color:#e6db74">&#34;aws_route53_record&#34; &#34;b_n-t_jp__txt&#34;</span> {
-  zone_id <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;${aws_route53_zone.n_t.zone_id}&#34;</span>
-  name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;b.f-f.jp&#34;</span>
-  type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;TXT&#34;</span>
-  ttl <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;3600&#34;</span>
-  records <span style="color:#f92672">=</span> [&#34;google-site-verification<span style="color:#f92672">=</span><span style="color:#66d9ef">xxxxxxxxxx</span><span style="color:#960050;background-color:#1e0010">&#34;</span>]
+
+<pre><code>resource &quot;aws_route53_record&quot; &quot;b_n-t_jp__txt&quot; {
+  zone_id = &quot;${aws_route53_zone.n_t.zone_id}&quot;
+  name = &quot;b.f-f.jp&quot;
+  type = &quot;TXT&quot;
+  ttl = &quot;3600&quot;
+  records = [&quot;google-site-verification=xxxxxxxxxx&quot;]
 }
-</code></pre></div>
+</code></pre>
+
                 </section>
             </article>
 

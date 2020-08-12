@@ -13,8 +13,8 @@
     
   
   
-  <meta name="twitter:title" content="aws-cdkを使い始めるまでメモ"/>
-  <meta name="twitter:description" content="プロジェクトを作成する app ってのはサブコマンドで、「アプリ開発者として使う」という意味 (libってのがあって、それはcdkのライブラリ作者が使"/>
+  <meta name="twitter:title" content="/usr/local/Cellar/pyenv/1.2.8/libexec/pyenv: No such file or directory"/>
+  <meta name="twitter:description" content="brewで色々アップグレードされたあと、pyenvで入れたpythonが動かなくなることがある $ code /Users/sakamoto/.pyenv/shims/python: 行 21: /usr/local/Cellar/pyenv/1.2.8/libexec/pyenv: No such file or directory /usr/local/bin/code: 行 10: ./MacOS/Electron: No such file or directory pye"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -30,7 +30,7 @@
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
 		<meta name="generator" content="Hugo 0.51" />
-		<title>aws-cdkを使い始めるまでメモ &middot; sacre</title>
+		<title>/usr/local/Cellar/pyenv/1.2.8/libexec/pyenv: No such file or directory &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
@@ -68,11 +68,11 @@
             <article>
                 <header>
                     <h1>
-                        aws-cdkを使い始めるまでメモ
+                        /usr/local/Cellar/pyenv/1.2.8/libexec/pyenv: No such file or directory
                     </h1>
                     <h2 class="headline">
-                    Nov 17, 2018 22:30
-                    · 235 words
+                    Aug 12, 2020 11:49
+                    · 342 words
                     · 1 minute read
                       <span class="tags">
                       
@@ -81,65 +81,47 @@
                 </header>
                 
                   
-                    <div id="toc">
-                      <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#参考">参考</a></li>
-</ul></li>
-</ul></li>
-</ul>
-</nav>
-                    </div>
-                  
                 
                 <section id="post-body">
-                    
+                    <p>brewで色々アップグレードされたあと、pyenvで入れたpythonが動かなくなることがある</p>
 
-<p>プロジェクトを作成する</p>
-
-<p><code>app</code> ってのはサブコマンドで、「アプリ開発者として使う」という意味
-(<code>lib</code>ってのがあって、それはcdkのライブラリ作者が使うらしい)</p>
-
-<pre><code class="language-bash">$ cdk init app --language typescript
+<pre><code class="language-bash">$ code
+/Users/sakamoto/.pyenv/shims/python: 行 21: /usr/local/Cellar/pyenv/1.2.8/libexec/pyenv: No such file or directory
+/usr/local/bin/code: 行 10: ./MacOS/Electron: No such file or directory
 </code></pre>
 
-<p>補完を効かせながら開発したいので追加</p>
+<p>pyenvで入れたpython (~/.pyenv/shims/python) はbashスクリプトになっていて、以下の行にもう存在しないパスがハードコードされてるので発生している</p>
 
-<pre><code class="language-bash">$ yarn add --dev \
-    tslint prettier \
-    tslint-config-prettier tslint-config-standard tslint-plugin-prettier 
-$ code ./tslint.json
+<pre><code class="language-bash">$ tail -1 ~/.pyenv/shims/python
+exec &quot;/usr/local/Cellar/pyenv/1.2.8/libexec/pyenv&quot; exec &quot;$program&quot; &quot;$@&quot;
 </code></pre>
 
-<p>使いたいAWSサービスの定義を加えて開発</p>
+<p>これは <code>pyenv rehash</code> で直る</p>
 
-<pre><code class="language-bash">$ yarn add @aws-cdk/aws-cognito
-$ code ./bin/infra.ts
+<pre><code class="language-bash">$ pyenv rehash
 </code></pre>
 
-<p>cloudformationの形式のファイルを出力</p>
-
-<pre><code class="language-bash"># cdk.jsonで定義された位置にjsファイルを生成
-$ yarn run build
-# そのjsを読んでcloudformationの形式を出力
-$ cdk synth &gt; ./cf.yaml
+<pre><code class="language-bash">$ tail -1 ~/.pyenv/shims/python
+exec &quot;/usr/local/Cellar/pyenv/1.2.20/libexec/pyenv&quot; exec &quot;$program&quot; &quot;$@&quot;
 </code></pre>
 
-<h3 id="参考">参考</h3>
+<p>rehashは現在のshimsのパスに張り替えたスクリプトを作り直してくれるもの</p>
 
 <ul>
-<li><a href="https://github.com/awslabs/aws-cdk/tree/6495e3ccd335ce9cb4438cfc285ca2bdb921f52a/examples/cdk-examples-typescript">examples/cdk-examples-typescript · awslabs/aws-cdk</a></li>
+<li><a href="https://github.com/pyenv/pyenv/blob/d08c9cfb362c5a7e18a92acd2253a16935ad9a99/libexec/pyenv-rehash#L64">pyenv/pyenv-rehash at d08c9cfb362c5a7e18a92acd2253a16935ad9a99 · pyenv/pyenv</a></li>
+</ul>
+
+<p>本来だと自動的にrehashがされるはず、とのことだがたぶんbrewが勝手にpyenv自体のパスを変えてしまうのでそれをカバーするのは無理なのだろう。困ってる人たくさんいるみたいなのでエラーメッセージがもうちょい親切になってればいいのかもしれない</p>
+
+<ul>
+<li><a href="https://github.com/pyenv/pyenv/issues/1068">RFE: pyenv update should regenerate shims unconditionally · Issue #1068 · pyenv/pyenv</a></li>
 </ul>
 
                 </section>
             </article>
 
             
-                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2faws-cdk-101%2f - aws-cdk%e3%82%92%e4%bd%bf%e3%81%84%e5%a7%8b%e3%82%81%e3%82%8b%e3%81%be%e3%81%a7%e3%83%a1%e3%83%a2 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2flibexec-pyenv-no-such-file%2f - %2fusr%2flocal%2fCellar%2fpyenv%2f1.2.8%2flibexec%2fpyenv%3a%20No%20such%20file%20or%20directory by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
 
 <a class="facebook" href="#" onclick="
     window.open(

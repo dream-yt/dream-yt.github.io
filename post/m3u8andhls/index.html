@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.74.3" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>m3u8とhls &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -72,7 +72,7 @@
                     </h1>
                     <h2 class="headline">
                     Dec 24, 2019 19:08
-                    · 761 words
+                    · 765 words
                     · 2 minute read
                       <span class="tags">
                       
@@ -83,69 +83,91 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#m3u8-とは">m3u8 とは</a></li>
-    <li><a href="#m3u8ファイルの中身">m3u8ファイルの中身</a></li>
-    <li><a href="#hls">HLS</a>
-      <ul>
-        <li><a href="#参考-hlsとは">参考: HLSとは</a></li>
-      </ul>
-    </li>
-    <li><a href="#master-playlist">Master Playlist</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#m3u8-とは">m3u8 とは</a></li>
+<li><a href="#m3u8ファイルの中身">m3u8ファイルの中身</a></li>
+<li><a href="#hls">HLS</a>
+<ul>
+<li><a href="#参考-hlsとは">参考: HLSとは</a></li>
+</ul></li>
+<li><a href="#master-playlist">Master Playlist</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>m3u8とhls は両方とも動画ファイルの配信で使う仕様/ファイルフォーマットの名前</p>
+                    
+
+<p>m3u8とhls は両方とも動画ファイルの配信で使う仕様/ファイルフォーマットの名前</p>
+
 <h2 id="m3u8-とは">m3u8 とは</h2>
+
 <p>動画ファイルが分割されてアップロードされている場合に、それらのインデックスとなる情報を保持するのがm3uファイル</p>
+
 <blockquote>
 <p>M3U はマルチメディアプレイリストのファイルフォーマット。Windows Media Player、iTunes、Winamp、foobar2000、ビデオ、JuKなど多くのアプリケーションがサポートしているが、正式な仕様は存在せず対応状況はまちまちである。</p>
+
+<p>M3Uファイルは、一つ、または複数のメディアファイルのパスをプレーンテキスト（テキストファイル)で記述したものである。このファイルを、&rdquo;.m3u&rdquo;または&rdquo;.m3u8&rdquo;の拡張子で保存する。 M3UファイルのエンコードはWindows-1252の場合が多いものの、CP932に対応しているものも存在する。エンコードがUTF-8であることを明示するとき、拡張子M3U8を使用する。</p>
 </blockquote>
-<blockquote>
-<p>M3Uファイルは、一つ、または複数のメディアファイルのパスをプレーンテキスト（テキストファイル)で記述したものである。このファイルを、&quot;.m3u&quot;または&rdquo;.m3u8&quot;の拡張子で保存する。 M3UファイルのエンコードはWindows-1252の場合が多いものの、CP932に対応しているものも存在する。エンコードがUTF-8であることを明示するとき、拡張子M3U8を使用する。</p>
-</blockquote>
+
 <ul>
 <li><a href="https://ja.wikipedia.org/wiki/M3U">M3U - Wikipedia</a></li>
 </ul>
-<p>utf8で書かれたm3uファイルはm3u8と呼ばれる</p>
-<h2 id="m3u8ファイルの中身">m3u8ファイルの中身</h2>
-<p>こんな感じ</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#75715e">#EXTM3U</span>
-<span style="color:#75715e">#EXT-X-PLAYLIST-TYPE:VOD</span>
-<span style="color:#75715e">#EXT-X-TARGETDURATION:10</span>
-<span style="color:#75715e">#EXTINF:10,</span>
-<span style="color:#a6e22e">index-00001.ts</span>
-<span style="color:#75715e">#EXTINF:10,</span>
-<span style="color:#a6e22e">index-00002.ts</span>
-<span style="color:#75715e">#EXTINF:10,</span>
-<span style="color:#a6e22e">index-00003.ts</span>
-<span style="color:#75715e">#ZEN-TOTAL-DURATION:30.02999</span>
-<span style="color:#75715e">#ZEN-AVERAGE-BANDWIDTH:1364980</span>
-<span style="color:#75715e">#ZEN-MAXIMUM-BANDWIDTH:1688541</span>
-<span style="color:#75715e">#EXT-X-ENDLIST</span>
 
-</code></pre></div><h2 id="hls">HLS</h2>
+<p>utf8で書かれたm3uファイルはm3u8と呼ばれる</p>
+
+<h2 id="m3u8ファイルの中身">m3u8ファイルの中身</h2>
+
+<p>こんな感じ</p>
+
+<pre><code class="language-ini">#EXTM3U
+#EXT-X-PLAYLIST-TYPE:VOD
+#EXT-X-TARGETDURATION:10
+#EXTINF:10,
+index-00001.ts
+#EXTINF:10,
+index-00002.ts
+#EXTINF:10,
+index-00003.ts
+#ZEN-TOTAL-DURATION:30.02999
+#ZEN-AVERAGE-BANDWIDTH:1364980
+#ZEN-MAXIMUM-BANDWIDTH:1688541
+#EXT-X-ENDLIST
+
+</code></pre>
+
+<h2 id="hls">HLS</h2>
+
 <p>appleが提唱しているHLS(HTTP Live Streaming) はm3u8がもとになっている</p>
+
 <blockquote>
-<p>iOSのHTTP Live Streamingフォーマットは&quot;M3U&rdquo; and &ldquo;M3U8&rdquo; ファイルをもとにしている。</p>
+<p>iOSのHTTP Live Streamingフォーマットは&rdquo;M3U&rdquo; and &ldquo;M3U8&rdquo; ファイルをもとにしている。</p>
 </blockquote>
+
 <ul>
 <li>動画ファイルの圧縮形式はmpeg2-tsを使う</li>
 <li>映像コーデックはh.264, 音声にはAAC</li>
 </ul>
+
 <h3 id="参考-hlsとは">参考: HLSとは</h3>
+
 <ul>
 <li><a href="https://qiita.com/STomohiko/items/eb223a9cb6325d7d42d9">HLSとは - Qiita</a></li>
 <li><a href="https://developer.apple.com/library/archive/documentation/AudioVideo/Conceptual/MediaPlaybackGuide/Contents/Resources/en.lproj/HTTPLiveStreaming/HTTPLiveStreaming.html">Working with HTTP Live Streaming</a></li>
 </ul>
+
 <h2 id="master-playlist">Master Playlist</h2>
+
 <p>(ビットレートの違いなど) 動画ファイルのvariantを指示するファイルフォーマット</p>
+
 <ul>
 <li><a href="https://developer.apple.com/documentation/http_live_streaming/example_playlists_for_http_live_streaming/creating_a_master_playlist">Creating a Master Playlist | Apple Developer Documentation</a></li>
 </ul>
+
 <p>たとえばビットレートが高い動画と低い動画のそれぞれのURLを端末に支持することができる (どちらのファイルを使うかは端末側で制御する)</p>
 
                 </section>

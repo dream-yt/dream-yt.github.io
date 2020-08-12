@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.74.3" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>自宅のLANの設定で毎回調べることメモ &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,56 +83,84 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#pppoe-とは">PPPoE とは</a>
-      <ul>
-        <li></li>
-      </ul>
-    </li>
-    <li><a href="#wan-とは">WAN とは</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#pppoe-とは">PPPoE とは</a>
+<ul>
+<li>
+<ul>
+<li><a href="#まずpppとは">まずPPPとは</a></li>
+<li><a href="#pppoe-ppp-over-ethernet">PPPoE (PPP over Ethernet)</a>
+<ul>
+<li><a href="#トンネルとは">トンネルとは</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li><a href="#wan-とは">WAN とは</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <h2 id="pppoe-とは">PPPoE とは</h2>
+                    
+
+<h2 id="pppoe-とは">PPPoE とは</h2>
+
 <ul>
 <li><a href="https://www.nic.ad.jp/ja/basics/terms/pppoe.html">インターネット用語1分解説～PPPoEとは～ - JPNIC</a></li>
 </ul>
+
 <h4 id="まずpppとは">まずPPPとは</h4>
+
 <blockquote>
 <p>PPPの機能の中には、 ユーザーの認証やIPアドレスの割り当て等が含まれます。</p>
 </blockquote>
+
 <p>ネットワーク内で認証してIPアドレスをもらうためのプロトコル</p>
+
 <p>LANの設定でもPPPを(oEで)行う</p>
+
 <ul>
 <li>プロバイダと契約するとIDとパスワードがもらえる</li>
 <li>そのIDとパスワードで認証する</li>
 <li>IPアドレスをもらってインターネットと通信する</li>
 </ul>
+
 <h4 id="pppoe-ppp-over-ethernet">PPPoE (PPP over Ethernet)</h4>
+
 <p>イーサネット上で認証してIPアドレスをもらうためのプロトコル</p>
+
 <ul>
 <li>まずEthernetで自宅のルーターとプロバイダが接続</li>
 <li>接続できたら、PPPoEセッションでトンネルしたPPPプロトコルにて認証してIPをもらう</li>
 </ul>
+
 <h5 id="トンネルとは">トンネルとは</h5>
+
 <blockquote>
 <p>トンネルとは、ある通信プロトコルを別のプロトコルでカプセル化して通信できるようにすることで、
 そのような通信の方式をトンネリングと呼びます。</p>
 </blockquote>
+
 <p>今回の場合はPPPの通信をPPPoEセッションでカプセル化している
 (id/passworkの暗号化とかはPPPoEがやってくれる)</p>
+
 <h2 id="wan-とは">WAN とは</h2>
+
 <p>定義はこう</p>
+
 <blockquote>
 <p>Wide Area Network（ワイドエリアネットワーク）」の略で、遠く離れた場所とつながったネットワークのことで、だれもが自由に接続できるネットワークです</p>
 </blockquote>
+
 <ul>
 <li><a href="https://flets-w.com/user/point-otoku/knowledge/other/otherl28.html">LANとWANって何が違うの？｜ネットの知恵袋｜フレッツ光公式｜NTT西日本</a></li>
 </ul>
-<p>大体の場合LANの設定でWANという言葉が出てきた場合、<br>
+
+<p>大体の場合LANの設定でWANという言葉が出てきた場合、<br />
 「LANに対してインターネット側」という認識で良い</p>
 
                 </section>
