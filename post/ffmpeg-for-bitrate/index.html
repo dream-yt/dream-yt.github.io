@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.74.3" />
 		<title>macで動画のビットレートを変更したい &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,56 +83,41 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#ffprobe">ffprobe</a></li>
-<li><a href="#参考">参考</a></li>
-</ul></li>
-</ul></li>
-</ul>
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#ffprobe">ffprobe</a></li>
+        <li><a href="#参考">参考</a></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p>ffmpegを使う</p>
-
-<pre><code class="language-bash">$ brew install ffmpeg
-</code></pre>
-
-<p>こんな感じで使う</p>
-
-<pre><code class="language-bash">$ ffmpeg -i ./inputfile.mp4 -b:v 2M -bufsize 10M ./outfile.mp4
-</code></pre>
-
-<ul>
+                    <p>ffmpegを使う</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ brew install ffmpeg
+</code></pre></div><p>こんな感じで使う</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ ffmpeg -i ./inputfile.mp4 -b:v 2M -bufsize 10M ./outfile.mp4
+</code></pre></div><ul>
 <li><code>-b:v 2M</code>
-
 <ul>
 <li>指定したいbitrate。KBで指定したい場合は <code>320K</code> のようにKを使う</li>
-</ul></li>
+</ul>
+</li>
 <li><code>-bufsize 10M</code>
-
 <ul>
 <li>どれくらいの領域を使ってbitrateを計算するか</li>
 <li>これが大きいと指定した値に近いbitrateで動画が出来上がる</li>
-</ul></li>
 </ul>
-
+</li>
+</ul>
 <p>bufsizeを指定しないと指定した通りのbitrateにならなかったのでbufsize指定した方がよさそう</p>
-
 <h3 id="ffprobe">ffprobe</h3>
-
 <p>ffmpegを入れるとffprobeというコマンドも使えるようになる</p>
-
 <p>これは動画の詳細な情報を見るのに便利</p>
-
-<pre><code class="language-console">$ ffprobe ./outfile.mp4 -hide_banner
+<pre><code class="language-console" data-lang="console">$ ffprobe ./outfile.mp4 -hide_banner
 Input #0, mov,mp4,m4a,3gp,3g2,mj2, from './outfile.mp4':
   Metadata:
     major_brand     : isom
@@ -146,18 +131,14 @@ Input #0, mov,mp4,m4a,3gp,3g2,mj2, from './outfile.mp4':
     Stream #0:1(jpn): Audio: aac (LC) (mp4a / 0x6134706D), 48000 Hz, stereo, fltp, 130 kb/s (default)
     Metadata:
       handler_name    : SoundHandler
-</code></pre>
-
-<ul>
+</code></pre><ul>
 <li><code>-hide_banner</code>
-
 <ul>
 <li>デフォルトだとライセンスの表示などが出力されるのでそれの抑制</li>
-</ul></li>
 </ul>
-
+</li>
+</ul>
 <h3 id="参考">参考</h3>
-
 <ul>
 <li><a href="https://trac.ffmpeg.org/wiki/Limiting%20the%20output%20bitrate">Limiting the output bitrate – FFmpeg</a></li>
 </ul>

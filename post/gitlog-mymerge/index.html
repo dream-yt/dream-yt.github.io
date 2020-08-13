@@ -14,7 +14,7 @@
   
   
   <meta name="twitter:title" content="一定期間で自分がGitHubでマージしたブランチを取得する"/>
-  <meta name="twitter:description" content="こんな感じ $ git log \ --format=&#39;%h %an (%ai) %s&#39; --since=&#39;2019-10-25&#39; \ --author=sakamossan \ --grep=&#39;Merge pull request #\d&#43;&#39; -P こんな出力が得られる 3fc6ed727 sakamossan (2019-11-11 14:04:54 &#43;0900) Merge pull request #4573 ... 87daf1614 sakamossan (2019-11-06 17:59:30 &#43;0900) Merge pull request #4557 ... 47e68edfc sakamossan (2019-11-06 11:22:41 &#43;0900) Merge pull request #4542 ... &ndash;format=&lsquo;%h %an (%ai) %s&rsquo; 出力フォ"/>
+  <meta name="twitter:description" content="こんな感じ $ git log \ --format=&#39;%h %an (%ai) %s&#39; --since=&#39;2019-10-25&#39; \ --author=sakamossan \ --grep=&#39;Merge pull request #\d&#43;&#39; -P こんな出力が得られる 3fc6ed727 sakamossan (2019-11-11 14:04:54 &#43;0900) Merge pull request #4573 ... 87daf1614 sakamossan (2019-11-06 17:59:30 &#43;0900) Merge pull request #4557 ... 47e68edfc sakamossan (2019-11-06 11:22:41 &#43;0900) Merge pull request #4542 ... &ndash;format=&rsquo;%h %an (%ai) %s&rsquo; 出力フォ"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.74.3" />
 		<title>一定期間で自分がGitHubでマージしたブランチを取得する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,96 +83,76 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#format-h-an-ai-s">&ndash;format=&lsquo;%h %an (%ai) %s&rsquo;</a></li>
-<li><a href="#author-sakamossan">&ndash;author=sakamossan</a></li>
-<li><a href="#since-2019-10-25">&ndash;since=&lsquo;2019-10-25&rsquo;</a></li>
-<li><a href="#grep-merge-pull-request-d-p">&ndash;grep=&lsquo;Merge pull request #\d+&rsquo; -P</a></li>
-</ul></li>
-</ul></li>
-</ul>
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#--formath-an-ai-s">&ndash;format=&rsquo;%h %an (%ai) %s&rsquo;</a></li>
+        <li><a href="#--authorsakamossan">&ndash;author=sakamossan</a></li>
+        <li><a href="#--since2019-10-25">&ndash;since='2019-10-25&rsquo;</a></li>
+        <li><a href="#--grepmerge-pull-request-d--p">&ndash;grep='Merge pull request #\d+&rsquo; -P</a></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p>こんな感じ</p>
-
-<pre><code class="language-bash">$ git log \
-  --format='%h %an (%ai) %s' 
-  --since='2019-10-25' \
-  --author=sakamossan \
-  --grep='Merge pull request #\d+' -P
-</code></pre>
-
-<p>こんな出力が得られる</p>
-
+                    <p>こんな感じ</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git log <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  --format<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;%h %an (%ai) %s&#39;</span> 
+  --since<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;2019-10-25&#39;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  --author<span style="color:#f92672">=</span>sakamossan <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  --grep<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Merge pull request #\d+&#39;</span> -P
+</code></pre></div><p>こんな出力が得られる</p>
 <pre><code>3fc6ed727 sakamossan (2019-11-11 14:04:54 +0900) Merge pull request #4573 ...
 87daf1614 sakamossan (2019-11-06 17:59:30 +0900) Merge pull request #4557 ...
 47e68edfc sakamossan (2019-11-06 11:22:41 +0900) Merge pull request #4542 ...
-</code></pre>
-
-<h3 id="format-h-an-ai-s">&ndash;format=&lsquo;%h %an (%ai) %s&rsquo;</h3>
-
+</code></pre><h3 id="--formath-an-ai-s">&ndash;format=&rsquo;%h %an (%ai) %s&rsquo;</h3>
 <p>出力フォーマットの指定</p>
-
 <ul>
 <li><code>%h</code>
-
 <ul>
 <li>abbreviated commit hash</li>
-</ul></li>
+</ul>
+</li>
 <li><code>%an</code>
-
 <ul>
 <li>auther name</li>
-</ul></li>
+</ul>
+</li>
 <li><code>%ai</code>
-
 <ul>
 <li>author date, ISO 8601-like format</li>
-</ul></li>
+</ul>
+</li>
 <li><code>%s</code>
-
 <ul>
 <li>subject</li>
-</ul></li>
 </ul>
-
+</li>
+</ul>
 <p>全部のプレースホルダーからここで見られる</p>
-
 <ul>
 <li><a href="https://git-scm.com/docs/pretty-formats">Git - pretty-formats Documentation</a></li>
 </ul>
-
-<h3 id="author-sakamossan">&ndash;author=sakamossan</h3>
-
+<h3 id="--authorsakamossan">&ndash;author=sakamossan</h3>
 <p>authorでフィルタ</p>
-
-<h3 id="since-2019-10-25">&ndash;since=&lsquo;2019-10-25&rsquo;</h3>
-
+<h3 id="--since2019-10-25">&ndash;since='2019-10-25&rsquo;</h3>
 <p>2019年10月25日以降のコミットログのみが表示される</p>
-
-<h3 id="grep-merge-pull-request-d-p">&ndash;grep=&lsquo;Merge pull request #\d+&rsquo; -P</h3>
-
+<h3 id="--grepmerge-pull-request-d--p">&ndash;grep='Merge pull request #\d+&rsquo; -P</h3>
 <ul>
 <li><code>--grep='Merge pull request #\d+'</code>
-
 <ul>
 <li>指定した文字列/パターンでgrep</li>
-</ul></li>
+</ul>
+</li>
 <li><code>-P</code>
-
 <ul>
 <li>grepするパターンにperl互換の正規表現を使う</li>
 <li><code>\d+</code> を使うために指定している</li>
-</ul></li>
+</ul>
+</li>
 </ul>
 
                 </section>

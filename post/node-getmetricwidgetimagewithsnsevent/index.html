@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.74.3" />
 		<title>nodejs/typescriptでSNSイベントからgetMetricWidgetImage(画像)を取得する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -81,77 +81,76 @@
                 </header>
                 
                   
+                    <div id="toc">
+                      <nav id="TableOfContents"></nav>
+                    </div>
+                  
                 
                 <section id="post-body">
                     <p>こんな感じのコードでできた</p>
-
 <ul>
 <li><code>MetricWidget</code> の型定義はaws-sdkにはなかった
-
 <ul>
 <li>ドキュメントにはなっていた</li>
 <li><a href="https://docs.aws.amazon.com/ja_jp/AmazonCloudWatch/latest/APIReference/CloudWatch-Metric-Widget-Structure.html">GetMetricWidgetImage: Metric Widget Structure and Syntax - Amazon CloudWatch</a></li>
-</ul></li>
+</ul>
+</li>
 <li><code>SNSEvent</code> の型定義は↓
-
 <ul>
 <li><a href="https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/aws-lambda/index.d.ts#L206">DefinitelyTyped/index.d.ts at master · DefinitelyTyped/DefinitelyTyped</a></li>
-</ul></li>
 </ul>
+</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">SNSEvent</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;aws-lambda&#39;</span>;
+<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">CloudWatch</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;aws-sdk&#39;</span>;
+<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">isBuffer</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;util&#39;</span>;
 
-<pre><code class="language-ts">import { SNSEvent } from 'aws-lambda';
-import { CloudWatch } from 'aws-sdk';
-import { isBuffer } from 'util';
-
-type MetricWidget = {
-  width: number;
-  height: number;
-  start: string;
-  end: string;
-  timezone: '+0900';
-  view: 'timeSeries';
-  stacked: boolean;
-  stat: 'SampleCount' | 'Average' | 'Sum' | 'Minimum' | 'Maximum' | 'p99';
-  title: string;
-  // [Namespace, MetricName, Dimension1Name, Dimension1Value, Dimension2Name, Dimension2Value... {Options Object}]
-  metrics: string[][];
-  period: 300;
+<span style="color:#a6e22e">type</span> <span style="color:#a6e22e">MetricWidget</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">width</span>: <span style="color:#66d9ef">number</span>;
+  <span style="color:#a6e22e">height</span>: <span style="color:#66d9ef">number</span>;
+  <span style="color:#a6e22e">start</span>: <span style="color:#66d9ef">string</span>;
+  <span style="color:#a6e22e">end</span>: <span style="color:#66d9ef">string</span>;
+  <span style="color:#a6e22e">timezone</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;+0900&#39;</span>;
+  <span style="color:#a6e22e">view</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;timeSeries&#39;</span>;
+  <span style="color:#a6e22e">stacked</span>: <span style="color:#66d9ef">boolean</span>;
+  <span style="color:#a6e22e">stat</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;SampleCount&#39;</span> <span style="color:#f92672">|</span> <span style="color:#e6db74">&#39;Average&#39;</span> <span style="color:#f92672">|</span> <span style="color:#e6db74">&#39;Sum&#39;</span> <span style="color:#f92672">|</span> <span style="color:#e6db74">&#39;Minimum&#39;</span> <span style="color:#f92672">|</span> <span style="color:#e6db74">&#39;Maximum&#39;</span> <span style="color:#f92672">|</span> <span style="color:#e6db74">&#39;p99&#39;</span>;
+  <span style="color:#a6e22e">title</span>: <span style="color:#66d9ef">string</span>;
+  <span style="color:#75715e">// [Namespace, MetricName, Dimension1Name, Dimension1Value, Dimension2Name, Dimension2Value... {Options Object}]
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">metrics</span>: <span style="color:#66d9ef">string</span>[][];
+  <span style="color:#a6e22e">period</span>: <span style="color:#66d9ef">300</span>;
 };
 
-export const getMetricWidgetImageWithSNSEvent = async (
-  event: SNSEvent,
-  options = {}
-) =&gt; {
-  const cloudWatch = new CloudWatch({ region: 'ap-northeast-1' });
-  const snsMessage = JSON.parse(event.Records[0].Sns.Message);
-  const { Namespace, MetricName } = snsMessage.Trigger;
-  const MetricWidget = JSON.stringify({
-    title: `${Namespace}: ${MetricName}`,
-    width: 1200,
-    height: 500,
-    metrics: [[Namespace, MetricName]],
-    start: '-PT3H',
-    end: 'PT0H',
-    timezone: '+0900',
-    view: 'timeSeries',
-    period: 300,
-    stacked: false,
-    stat: 'Sum',
-    ...options
-  } as MetricWidget);
-  const response = await cloudWatch
-    .getMetricWidgetImage({ MetricWidget })
-    .promise();
-  if (isBuffer(response.MetricWidgetImage)) {
-    return response.MetricWidgetImage;
-  } else {
-    throw Error(JSON.stringify({ response, event, options }));
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">getMetricWidgetImageWithSNSEvent</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">async</span> (
+  <span style="color:#a6e22e">event</span>: <span style="color:#66d9ef">SNSEvent</span>,
+  <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {}
+) <span style="color:#f92672">=&gt;</span> {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">cloudWatch</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">CloudWatch</span>({ <span style="color:#a6e22e">region</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;ap-northeast-1&#39;</span> });
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">snsMessage</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">parse</span>(<span style="color:#a6e22e">event</span>.<span style="color:#a6e22e">Records</span>[<span style="color:#ae81ff">0</span>].<span style="color:#a6e22e">Sns</span>.<span style="color:#a6e22e">Message</span>);
+  <span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">Namespace</span>, <span style="color:#a6e22e">MetricName</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">snsMessage</span>.<span style="color:#a6e22e">Trigger</span>;
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">MetricWidget</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>({
+    <span style="color:#a6e22e">title</span><span style="color:#f92672">:</span> <span style="color:#e6db74">`</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">Namespace</span><span style="color:#e6db74">}</span><span style="color:#e6db74">: </span><span style="color:#e6db74">${</span><span style="color:#a6e22e">MetricName</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>,
+    <span style="color:#a6e22e">width</span>: <span style="color:#66d9ef">1200</span>,
+    <span style="color:#a6e22e">height</span>: <span style="color:#66d9ef">500</span>,
+    <span style="color:#a6e22e">metrics</span><span style="color:#f92672">:</span> [[<span style="color:#a6e22e">Namespace</span>, <span style="color:#a6e22e">MetricName</span>]],
+    <span style="color:#a6e22e">start</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;-PT3H&#39;</span>,
+    <span style="color:#a6e22e">end</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;PT0H&#39;</span>,
+    <span style="color:#a6e22e">timezone</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;+0900&#39;</span>,
+    <span style="color:#a6e22e">view</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;timeSeries&#39;</span>,
+    <span style="color:#a6e22e">period</span>: <span style="color:#66d9ef">300</span>,
+    <span style="color:#a6e22e">stacked</span>: <span style="color:#66d9ef">false</span>,
+    <span style="color:#a6e22e">stat</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;Sum&#39;</span>,
+    ...<span style="color:#a6e22e">options</span>
+  } <span style="color:#66d9ef">as</span> <span style="color:#a6e22e">MetricWidget</span>);
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">response</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">cloudWatch</span>
+    .<span style="color:#a6e22e">getMetricWidgetImage</span>({ <span style="color:#a6e22e">MetricWidget</span> })
+    .<span style="color:#a6e22e">promise</span>();
+  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">isBuffer</span>(<span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">MetricWidgetImage</span>)) {
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">MetricWidgetImage</span>;
+  } <span style="color:#66d9ef">else</span> {
+    <span style="color:#66d9ef">throw</span> Error(<span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>({ <span style="color:#a6e22e">response</span>, <span style="color:#a6e22e">event</span>, <span style="color:#a6e22e">options</span> }));
   }
 };
-</code></pre>
-
-<p>metricsの型がperlみたいで(酷くて)ちょっと面白かった</p>
-
+</code></pre></div><p>metricsの型がperlみたいで(酷くて)ちょっと面白かった</p>
 <blockquote>
 <p>[Namespace, MetricName, Dimension1Name, Dimension1Value, Dimension2Name, Dimension2Value&hellip; {Options Object}]</p>
 </blockquote>

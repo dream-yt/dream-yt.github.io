@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.74.3" />
 		<title>LambdaのエラーをコーディングなしでSlack通知までしてもらう設定 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,60 +83,45 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#メモ">メモ</a></li>
-</ul></li>
-</ul></li>
-<li><a href="#参考">参考</a></li>
-</ul></li>
-</ul></li>
-</ul>
+  <ul>
+    <li>
+      <ul>
+        <li></li>
+        <li><a href="#参考">参考</a></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p>serverlessを使っている前提</p>
-
+                    <p>serverlessを使っている前提</p>
 <ul>
 <li>slackの <code>bring emails into slack</code> を使う
-
 <ul>
 <li>slack通知用のメールアドレスを取得</li>
 <li>このアドレスにメールを送ると、内容がslack(自分とslackbotのDirectMessage)に投稿される</li>
-</ul></li>
+</ul>
+</li>
 <li>slsプラグイン <code>serverless-plugin-aws-alerts</code> を使う
-
 <ul>
 <li>AWS::CloudWatch::Alarm でエラーを検知</li>
 <li>AWS::SNS::Topic でエラー内容をメール送信</li>
 <li>送信先にslackから払い出されたメールアドレスを入れる</li>
-</ul></li>
 </ul>
-
+</li>
+</ul>
 <h5 id="メモ">メモ</h5>
-
 <ul>
 <li>SNSにメアドを設定した時、確認メールがくるのでメール内のconfirmリンクを踏んでおく</li>
 <li>SNSからのメールの履歴を残したい場合は{ Gmail =&gt; slackメール }で転送する
-
 <ul>
 <li>Gmailの転送設定が必要</li>
-</ul></li>
 </ul>
-
+</li>
+</ul>
 <h3 id="参考">参考</h3>
-
 <ul>
 <li><a href="https://get.slack.help/hc/ja/articles/206819278-Slack-%E3%81%A7%E3%83%A1%E3%83%BC%E3%83%AB%E3%82%92%E5%8F%97%E4%BF%A1%E3%81%99%E3%82%8B">Slack でメールを受信する – Slack</a></li>
 <li><a href="https://github.com/ACloudGuru/serverless-plugin-aws-alerts">serverless-plugin-aws-alerts: A plugin that creates CloudWatch alarms for functions.</a></li>
