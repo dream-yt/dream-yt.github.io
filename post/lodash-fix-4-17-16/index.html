@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.74.3" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>lodash@4.17.16 の脆弱性修正について &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,42 +83,61 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li>
-      <ul>
-        <li><a href="#sourceurlに改行をふくめないように">sourceURLに改行をふくめないように</a></li>
-        <li><a href="#prototype-pollution-対応">prototype pollution 対応</a></li>
-      </ul>
-    </li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#sourceurlに改行をふくめないように">sourceURLに改行をふくめないように</a></li>
+<li><a href="#prototype-pollution-対応">prototype pollution 対応</a></li>
+</ul></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p><code>4.17.16</code> にていくつかの脆弱性が修正されている</p>
+                    
+
+<p><code>4.17.16</code> にていくつかの脆弱性が修正されている</p>
+
 <ul>
 <li><a href="https://github.com/lodash/lodash/releases">Releases · lodash/lodash</a></li>
 </ul>
+
 <p><code>template</code>, <code>zipObjectDeep</code> あたりを使ってトリッキーなコードをかいていなければ挙動に変更はなさそうである</p>
+
 <h3 id="sourceurlに改行をふくめないように">sourceURLに改行をふくめないように</h3>
+
 <p>差分はこちら</p>
+
 <ul>
 <li><a href="https://github.com/lodash/lodash/commit/e7b28ea6cb17b4ca021e7c9d66218c8c89782f32">Sanitize sourceURL so it cannot affect evaled code (#4518) · lodash/lodash@e7b28ea</a></li>
 </ul>
+
 <p>ブラウザにはsourceURLという仕組みがあり、デバッグ時のコードの断片に名前をつけておくことができる。これはevalされるコードやインラインのjsコードをデバッグしたい時に使われる</p>
+
 <ul>
 <li><a href="https://developer.mozilla.org/ja/docs/Tools/Debugger/How_to/Debug_eval_sources">eval ソースをデバッグする - 開発ツール | MDN</a></li>
 </ul>
+
 <p>sourceURL の記法はインラインコメントにて定義するというものだが、インラインコメントなのでこの文字列に改行を含められてしまうと、コメント外に任意のjsコードが配置できるということになってしまう</p>
+
 <p>これまでは <code>[\r\n]</code> をサニタイズしていたが、マルチバイトの改行文字列もサニタイズしとかないといけなかったということで <code>\s</code> をサニタイズするように変更されている。そもそも sourceURL に特殊な不可視文字は必要ないのだろう</p>
+
 <h3 id="prototype-pollution-対応">prototype pollution 対応</h3>
+
 <p>差分はこちら</p>
+
 <ul>
 <li><a href="https://github.com/lodash/lodash/commit/c84fe82760fb2d3e03a63379b297a1cc1a2fce12">fix(zipObjectDeep): prototype pollution (#4759) · lodash/lodash@c84fe82</a></li>
 </ul>
+
 <p>jsではオブジェクトの <code>prototype</code>, <code>constructor</code> といった名前の属性が特別な意味を持っているが、jsは動的な言語なのでこれらの属性は後から書き換えることができてしまう。</p>
+
 <p>この特性が悪用される脆弱性を <code>prototype pollution</code> と呼ぶ。たとえばライブラリをロードしただけで <code>jQuery#ready</code> が突然ファーウェイと通信し始めたりするとよろしくないということだ</p>
+
 <p>対応は単純に特殊な名前の属性は処理をスキップするというもの</p>
 
                 </section>

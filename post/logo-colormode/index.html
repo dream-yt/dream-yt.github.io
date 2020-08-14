@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.74.3" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>【ロゴ作成】RGBとCMYKの色マニュアルを作った時の備忘録 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,57 +83,80 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#状況">状況</a></li>
-    <li><a href="#手順">手順</a>
-      <ul>
-        <li><a href="#色調整">色調整</a></li>
-        <li><a href="#cmykの数値チェック">CMYKの数値チェック</a></li>
-        <li><a href="#濃度オーバーに注意">濃度オーバーに注意</a></li>
-      </ul>
-    </li>
-    <li><a href="#複数タイプのロゴがある場合">複数タイプのロゴがある場合</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#状況">状況</a></li>
+<li><a href="#手順">手順</a>
+<ul>
+<li><a href="#色調整">色調整</a></li>
+<li><a href="#cmykの数値チェック">CMYKの数値チェック</a></li>
+<li><a href="#濃度オーバーに注意">濃度オーバーに注意</a></li>
+</ul></li>
+<li><a href="#複数タイプのロゴがある場合">複数タイプのロゴがある場合</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p><img src="/images/post/dream/LogoColorMode01.png" alt="This is a image"></p>
+                    
+
+<p><img src="/images/post/dream/LogoColorMode01.png" alt="This is a image" /></p>
+
 <h2 id="状況">状況</h2>
+
 <p>新ロゴができたので、RGBとCMYKで色のマニュアルを作る。
 が。
 RGBで作成したAiデータをCMYKに変換しただけでは、色が変わってしまうよね。</p>
+
 <h2 id="手順">手順</h2>
+
 <h3 id="色調整">色調整</h3>
+
 <ul>
 <li>メインとなるデータ（今回はこっちがRGB）を複製して、別のカラーモードで保存</li>
 </ul>
-<p><img src="/images/post/dream/LogoColorMode02.png" alt="This is a image"></p>
+
+<p><img src="/images/post/dream/LogoColorMode02.png" alt="This is a image" /></p>
+
 <ul>
 <li>RGBの見え方に似るようにCMYKの色を設定し直す</li>
 <li>両方とも開いて並べるとやりやすい</li>
 </ul>
-<p><img src="/images/post/dream/LogoColorMode03.png" alt="This is a image"></p>
+
+<p><img src="/images/post/dream/LogoColorMode03.png" alt="This is a image" /></p>
+
 <h3 id="cmykの数値チェック">CMYKの数値チェック</h3>
+
 <ul>
 <li>カラーウィンドウで確認してみると、大抵数値が細かい。端数はトル。</li>
 </ul>
-<p><img src="/images/post/dream/LogoColorMode04.png" alt="This is a image"></p>
+
+<p><img src="/images/post/dream/LogoColorMode04.png" alt="This is a image" /></p>
+
 <h3 id="濃度オーバーに注意">濃度オーバーに注意</h3>
+
 <p>例えばこんな数値だった場合。</p>
-<p><img src="/images/post/dream/LogoColorMode05.png" alt="This is a image"></p>
+
+<p><img src="/images/post/dream/LogoColorMode05.png" alt="This is a image" /></p>
+
 <ul>
 <li>パレットの合計値を確認すると「310」</li>
 <li>300を超えると裏写りが発生するため、狙いの色を300以下で再現できるように調整。（ビビりなので250で攻めたい）</li>
 <li>ロゴは印刷物に使われることも頻繁なので注意する</li>
 </ul>
+
 <h2 id="複数タイプのロゴがある場合">複数タイプのロゴがある場合</h2>
+
 <p>RGBとCMYKの数値が固まったので、小さいサイズ用など、複数パターンのロゴカラーも一気に変換したい。
 「オブジェクトを再配色」で色を一気に置き換え。</p>
-<p><img src="/images/post/dream/LogoColorMode06.png" alt="This is a image">
-<img src="/images/post/dream/LogoColorMode07.png" alt="This is a image">
-<img src="/images/post/dream/LogoColorMode08.png" alt="This is a image"></p>
+
+<p><img src="/images/post/dream/LogoColorMode06.png" alt="This is a image" />
+<img src="/images/post/dream/LogoColorMode07.png" alt="This is a image" />
+<img src="/images/post/dream/LogoColorMode08.png" alt="This is a image" /></p>
+
 <p>できた！</p>
 
                 </section>
