@@ -6,10 +6,19 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Thu, 13 Aug 2020 17:03:54 +0900</lastBuildDate>
+    <lastBuildDate>Mon, 17 Aug 2020 17:07:35 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>fdでsrc配下のjsファイルをtsに一括でrenameする</title>
+      <link>https://dream-yt.github.io/post/fd-rename-js-ts-in-project/</link>
+      <pubDate>Mon, 17 Aug 2020 17:07:35 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/fd-rename-js-ts-in-project/</guid>
+      <description>fdを使うとこんな塩梅になる fd --glob &#39;*.js&#39; ./src --exec mv {//}/{/.}.js {//}/{/.}.ts --glob &#39;*.js&#39; jsファイルのみを対象にする ./src ファイルを探すパス --exec mv {//}/{/.}.js {//}/{/.}.ts 見つかったファイル1つ1つに対して処</description>
+    </item>
     
     <item>
       <title>mp4のatomとは</title>
@@ -1308,15 +1317,6 @@
     </item>
     
     <item>
-      <title>Testpost</title>
-      <link>https://dream-yt.github.io/post/testpost/</link>
-      <pubDate>Sat, 16 Mar 2019 17:51:12 +0900</pubDate>
-      
-      <guid>https://dream-yt.github.io/post/testpost/</guid>
-      <description>test1</description>
-    </item>
-    
-    <item>
       <title>PostgreSQLで特定期間の日数/時間数などを数える</title>
       <link>https://dream-yt.github.io/post/psql-day-count/</link>
       <pubDate>Sat, 16 Mar 2019 17:00:00 +0900</pubDate>
@@ -1809,15 +1809,6 @@
       
       <guid>https://dream-yt.github.io/post/googlespreadsheet-csv-json-perl/</guid>
       <description>csvjsonを使うとcsv =&amp;gt; json が簡単に変換できる csvjsonはcsvkitをインストールすると入ってくる $ brew install csvkit ... $ which csvjson /usr/local/bin/csvjson csvでダウン</description>
-    </item>
-    
-    <item>
-      <title>起業の科学の読書メモ</title>
-      <link>https://dream-yt.github.io/post/startup-sci/</link>
-      <pubDate>Sun, 28 Oct 2018 18:14:17 +0900</pubDate>
-      
-      <guid>https://dream-yt.github.io/post/startup-sci/</guid>
-      <description>会社でみんなで読もうみたいな機運だったのでちゃんと読みました 市場分析フレームワークの図鑑みたいな内容 前半部分、起業以前のところは一般常識とし</description>
     </item>
     
     <item>
