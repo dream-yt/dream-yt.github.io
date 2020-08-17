@@ -3,6 +3,16 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://dream-yt.github.io/post/typescript-jquery-plugin-method-typing/</loc>
+    <lastmod>2020-08-17T18:22:13+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://dream-yt.github.io/post/typescipt-ignore-global-from-3rd-party-js/</loc>
+    <lastmod>2020-08-17T18:11:09+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://dream-yt.github.io/post/fd-rename-js-ts-in-project/</loc>
     <lastmod>2020-08-17T17:07:35+09:00</lastmod>
   </url>
@@ -1043,7 +1053,7 @@
   
   <url>
     <loc>https://dream-yt.github.io/post/</loc>
-    <lastmod>2020-08-17T17:07:35+09:00</lastmod>
+    <lastmod>2020-08-17T18:22:13+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -1055,7 +1065,7 @@
   
   <url>
     <loc>https://dream-yt.github.io/</loc>
-    <lastmod>2020-08-17T17:07:35+09:00</lastmod>
+    <lastmod>2020-08-17T18:22:13+09:00</lastmod>
     <priority>0</priority>
   </url>
   

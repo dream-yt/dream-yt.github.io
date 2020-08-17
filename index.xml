@@ -6,10 +6,28 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Mon, 17 Aug 2020 17:07:35 +0900</lastBuildDate>
+    <lastBuildDate>Mon, 17 Aug 2020 18:22:13 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>TypeScriptでjQueryプラグインにて追加した関数の型定義</title>
+      <link>https://dream-yt.github.io/post/typescript-jquery-plugin-method-typing/</link>
+      <pubDate>Mon, 17 Aug 2020 18:22:13 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/typescript-jquery-plugin-method-typing/</guid>
+      <description>index.d.ts ファイルを用意して以下のようにメソッドを追加すればよい interface JQuery { foo(arg: string): jQuery; } jQueryはネームスペースを切らずに型を定義しているので、グローバル</description>
+    </item>
+    
+    <item>
+      <title>TypeScriptで外部スクリプトからロードされたグローバル変数のエラーを無視する</title>
+      <link>https://dream-yt.github.io/post/typescipt-ignore-global-from-3rd-party-js/</link>
+      <pubDate>Mon, 17 Aug 2020 18:11:09 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/typescipt-ignore-global-from-3rd-party-js/</guid>
+      <description>GoogleChartはnpmパッケージになっておらず、またローカルにファイルを置くことが許可されていない Sorry; our terms of service do not allow you to download and save or host the google.charts.load</description>
+    </item>
     
     <item>
       <title>fdでsrc配下のjsファイルをtsに一括でrenameする</title>
