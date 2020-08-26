@@ -14,7 +14,7 @@
   
   
   <meta name="twitter:title" content="jqで変形 (オブジェクト =&gt; 配列 =&gt; オブジェクト)"/>
-  <meta name="twitter:description" content="こんなデータ構造のjsonがあるとして { &quot;APP1&quot;: { &quot;name&quot;: &quot;旧App&quot;, &quot;monId&quot;: 277013 }, &quot;APP2&quot;: { &quot;name&quot;: &quot;App&quot;, &quot;monId&quot;: 241736 }, &quot;DB&quot;: { &quot;name&quot;: &quot;Database&quot;, &quot;monId&quot;: 234737 }, &quot;S&quot;: { &quot;name&quot;: &quot;Static&quot;, &quot;monId&quot;: 221738 } } この形式に"/>
+  <meta name="twitter:description" content="こんなデータ構造のjsonがあるとして { &#34;APP1&#34;: { &#34;name&#34;: &#34;旧App&#34;, &#34;monId&#34;: 277013 }, &#34;APP2&#34;: { &#34;name&#34;: &#34;App&#34;, &#34;monId&#34;: 241736 }, &#34;DB&#34;: { &#34;name&#34;: &#34;Database&#34;, &#34;monId&#34;: 234737 }, &#34;S&#34;: { &#34;name&#34;: &#34;Static&#34;, &#34;monId&#34;: 221738 } } この形式にjq"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.74.3" />
 		<title>jqで変形 (オブジェクト =&gt; 配列 =&gt; オブジェクト) &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -72,7 +72,7 @@
                     </h1>
                     <h2 class="headline">
                     Nov 24, 2019 09:18
-                    · 442 words
+                    · 434 words
                     · 1 minute read
                       <span class="tags">
                       
@@ -83,142 +83,108 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#具体的には">具体的には</a></li>
-</ul></li>
-</ul></li>
-<li><a href="#jqで変換">jqで変換</a>
-<ul>
-<li><a href="#to-entries">to_entries</a>
-<ul>
-<li><a href="#例">例</a></li>
-</ul></li>
-<li><a href="#map-value-monid-tostring-value-name-add">map({ (.value.monId|tostring): (.value.name) }) | add</a>
-<ul>
-<li>
-<ul>
-<li><a href="#add-の例">add の例</a></li>
-</ul></li>
-</ul></li>
-</ul></li>
-</ul>
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#具体的には">具体的には</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#to_entries">to_entries</a>
+      <ul>
+        <li><a href="#例">例</a></li>
+      </ul>
+    </li>
+    <li><a href="#map-valuemonidtostring-valuename---add">map({ (.value.monId|tostring): (.value.name) }) | add</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p>こんなデータ構造のjsonがあるとして</p>
-
-<pre><code class="language-json">{
-  &quot;APP1&quot;: { &quot;name&quot;: &quot;旧App&quot;, &quot;monId&quot;: 277013 },
-  &quot;APP2&quot;: { &quot;name&quot;: &quot;App&quot;, &quot;monId&quot;: 241736 },
-  &quot;DB&quot;: { &quot;name&quot;: &quot;Database&quot;, &quot;monId&quot;: 234737 },
-  &quot;S&quot;: { &quot;name&quot;: &quot;Static&quot;, &quot;monId&quot;: 221738 }
+                    <p>こんなデータ構造のjsonがあるとして</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+  <span style="color:#f92672">&#34;APP1&#34;</span>: { <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;旧App&#34;</span>, <span style="color:#f92672">&#34;monId&#34;</span>: <span style="color:#ae81ff">277013</span> },
+  <span style="color:#f92672">&#34;APP2&#34;</span>: { <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;App&#34;</span>, <span style="color:#f92672">&#34;monId&#34;</span>: <span style="color:#ae81ff">241736</span> },
+  <span style="color:#f92672">&#34;DB&#34;</span>: { <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;Database&#34;</span>, <span style="color:#f92672">&#34;monId&#34;</span>: <span style="color:#ae81ff">234737</span> },
+  <span style="color:#f92672">&#34;S&#34;</span>: { <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;Static&#34;</span>, <span style="color:#f92672">&#34;monId&#34;</span>: <span style="color:#ae81ff">221738</span> }
 }
-</code></pre>
-
-<p>この形式にjqで変換したい</p>
-
-<pre><code class="language-json">{
-  &quot;277013&quot;: &quot;旧App&quot;,
-  &quot;241736&quot;: &quot;App&quot;,
-  &quot;234737&quot;: &quot;Database&quot;,
-  &quot;221738&quot;: &quot;Static&quot;
+</code></pre></div><p>この形式にjqで変換したい</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+  <span style="color:#f92672">&#34;277013&#34;</span>: <span style="color:#e6db74">&#34;旧App&#34;</span>,
+  <span style="color:#f92672">&#34;241736&#34;</span>: <span style="color:#e6db74">&#34;App&#34;</span>,
+  <span style="color:#f92672">&#34;234737&#34;</span>: <span style="color:#e6db74">&#34;Database&#34;</span>,
+  <span style="color:#f92672">&#34;221738&#34;</span>: <span style="color:#e6db74">&#34;Static&#34;</span>
 }
-</code></pre>
-
-<h3 id="具体的には">具体的には</h3>
-
+</code></pre></div><h3 id="具体的には">具体的には</h3>
 <p>こんなオブジェクトに変換したい</p>
-
 <ul>
 <li><code>monId</code> をオブジェクトのキーに</li>
 <li>値は <code>name</code> に</li>
 </ul>
-
 <h1 id="jqで変換">jqで変換</h1>
-
 <p>スクリプトはこんな感じ</p>
-
-<pre><code class="language-bash">pbpaste | jq '. 
-  | to_entries 
-  | map({ (.value.monId|tostring): (.value.name) }) 
-  | add '
-</code></pre>
-
-<ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">pbpaste | jq <span style="color:#e6db74">&#39;. 
+</span><span style="color:#e6db74">  | to_entries 
+</span><span style="color:#e6db74">  | map({ (.value.monId|tostring): (.value.name) }) 
+</span><span style="color:#e6db74">  | add &#39;</span>
+</code></pre></div><ul>
 <li>オブジェクトから <code>to_entries</code> でいっかい配列に</li>
 <li>配列の各要素からキーとバリューをのセットを取得</li>
 <li><code>map | add</code> で再度オブジェクトに変換</li>
 </ul>
-
-<h2 id="to-entries">to_entries</h2>
-
+<h2 id="to_entries">to_entries</h2>
 <p>オブジェクトから配列に変換してくれる</p>
-
 <h3 id="例">例</h3>
-
 <p>この形を</p>
-
-<pre><code class="language-js">{
-  &quot;APP1&quot;: { &quot;name&quot;: &quot;旧App&quot;, &quot;monId&quot;: 277013 },
-  &quot;APP2&quot;: { &quot;name&quot;: &quot;App&quot;, &quot;monId&quot;: 241736 }
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">{
+  <span style="color:#e6db74">&#34;APP1&#34;</span><span style="color:#f92672">:</span> { <span style="color:#e6db74">&#34;name&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;旧App&#34;</span>, <span style="color:#e6db74">&#34;monId&#34;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">277013</span> },
+  <span style="color:#e6db74">&#34;APP2&#34;</span><span style="color:#f92672">:</span> { <span style="color:#e6db74">&#34;name&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;App&#34;</span>, <span style="color:#e6db74">&#34;monId&#34;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">241736</span> }
 }
-</code></pre>
-
-<p>こうしてくれる</p>
-
-<pre><code class="language-js">$ pbpaste | jq '. | to_entries'
+</code></pre></div><p>こうしてくれる</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">$</span> <span style="color:#a6e22e">pbpaste</span> <span style="color:#f92672">|</span> <span style="color:#a6e22e">jq</span> <span style="color:#e6db74">&#39;. | to_entries&#39;</span>
 [
   {
-    &quot;key&quot;: &quot;APP1&quot;,
-    &quot;value&quot;: {
-      &quot;name&quot;: &quot;旧App&quot;,
-      &quot;monId&quot;: 277013
+    <span style="color:#e6db74">&#34;key&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;APP1&#34;</span>,
+    <span style="color:#e6db74">&#34;value&#34;</span><span style="color:#f92672">:</span> {
+      <span style="color:#e6db74">&#34;name&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;旧App&#34;</span>,
+      <span style="color:#e6db74">&#34;monId&#34;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">277013</span>
     }
   },
   {
-    &quot;key&quot;: &quot;APP2&quot;,
-    &quot;value&quot;: {
-      &quot;name&quot;: &quot;App&quot;,
-      &quot;monId&quot;: 241736
+    <span style="color:#e6db74">&#34;key&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;APP2&#34;</span>,
+    <span style="color:#e6db74">&#34;value&#34;</span><span style="color:#f92672">:</span> {
+      <span style="color:#e6db74">&#34;name&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;App&#34;</span>,
+      <span style="color:#e6db74">&#34;monId&#34;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">241736</span>
     }
   }
 ]
-</code></pre>
-
-<h2 id="map-value-monid-tostring-value-name-add">map({ (.value.monId|tostring): (.value.name) }) | add</h2>
-
+</code></pre></div><h2 id="map-valuemonidtostring-valuename---add">map({ (.value.monId|tostring): (.value.name) }) | add</h2>
 <ul>
 <li>オブジェクトのキーはstringな必要があるため <code>.value.monId|tostring</code></li>
 <li><code>map | add</code> は配列からオブジェクトへ変換するときに使う
-
 <ul>
 <li>2つのオブジェクトをaddすると、オブジェクトのマージになる</li>
-</ul></li>
 </ul>
-
+</li>
+</ul>
 <h4 id="add-の例">add の例</h4>
-
-<pre><code class="language-js">[
-  {&quot;a&quot;: 1},
-  {&quot;b&quot;: 2}
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">[
+  {<span style="color:#e6db74">&#34;a&#34;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>},
+  {<span style="color:#e6db74">&#34;b&#34;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">2</span>}
 ]
-</code></pre>
-
-<pre><code class="language-js">$ pbpaste | jq '. | add'
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">$</span> <span style="color:#a6e22e">pbpaste</span> <span style="color:#f92672">|</span> <span style="color:#a6e22e">jq</span> <span style="color:#e6db74">&#39;. | add&#39;</span>
 {
-  &quot;a&quot;: 1,
-  &quot;b&quot;: 2
+  <span style="color:#e6db74">&#34;a&#34;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>,
+  <span style="color:#e6db74">&#34;b&#34;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">2</span>
 }
-</code></pre>
-
+</code></pre></div>
                 </section>
             </article>
 

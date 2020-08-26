@@ -24,7 +24,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.74.3" />
 		<title>sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -72,6 +72,21 @@
 
     <section id="wrapper" class="home">
         <ul id="post-list">
+    
+    
+        
+            <li>
+                <aside class="dates">Jul 10</aside>
+                <a href='https://dream-yt.github.io/post/devserver-ssl-static/'>
+                    SSL越しにローカルの静的ファイルを閲覧したい (開発用)
+                    
+                        
+                            <h2>SSLさせてくれるhttpサーバのコード こちらから拝借 simple-https-server.py import http.server import ssl server_address = (&#39;127.0.0.1&#39;, 443) httpd = http.server.HTTPServer(server_address, http.server.SimpleHTTPRequestHandler) httpd.socket = ssl.wrap_socket(httpd.socket, server_side=True, certfile=&#34;server.pem&#34;, keyfile=&#34;key.pem&#34;, ssl_version=ssl.PROTOCOL_TLS) httpd.serve_forever() 証明書を作ってserver start $ mkdir /tmp/$(pwgen) &amp;&amp; cd $_ $ pbpaste</h2>
+                        
+                    
+                </a>
+            </li>
+        
     
     
         
@@ -202,21 +217,6 @@
                     
                         
                             <h2>redux-form (handleSubmit) 入門 MyFormコンポーネントを定義 自前で実装するフォーム const MyForm = ({ handleSubmit }) =&gt; ( &lt;form onSubmit={handleSubmit}&gt; &lt;div&gt; &lt;label htmlFor=&#34;firstName&#34;&gt;First Name&lt;/label&gt; &lt;Field component={renderTextField} name=&#34;firstName&#34; type=&#34;text&#34; /&gt; &lt;/div&gt; &lt;button type=&#34;submit&#34;&gt;Submit&lt;/button&gt; &lt;/form&gt; ); ({ handleSubmit }) =&gt; ( reduxFormか</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jun 12</aside>
-                <a href='https://dream-yt.github.io/post/redash-no-comma-number-column/'>
-                    redashで数値カラムからカンマを取り除く
-                    
-                        
-                            <h2>画面下部のEdit Visualization カンマを取り除きたいカラムの Number format を 0 に変更 参考 Table Query Result Adding Commas · Issue #2778 · getredash/redash</h2>
                         
                     
                 </a>
