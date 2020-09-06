@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.74.3" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>覚えにくくてもいいようなランダム文字列を生成する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,44 +83,60 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li>
-      <ul>
-        <li><a href="#options">options</a></li>
-        <li><a href="#参考">参考</a></li>
-      </ul>
-    </li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#options">options</a></li>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>pwgenを使うのが便利</p>
-<pre><code class="language-console" data-lang="console">$ pwgen --symbols --secure 12 1
+                    
+
+<p>pwgenを使うのが便利</p>
+
+<pre><code class="language-console">$ pwgen --symbols --secure 12 1
 `lJ+b9$&quot;J}Cv
-</code></pre><p>pwgenはデフォルトだと覚えやすい感じで生成してくれるので、その辺をオプションでさらにランダムにしてみる</p>
+</code></pre>
+
+<p>pwgenはデフォルトだと覚えやすい感じで生成してくれるので、その辺をオプションでさらにランダムにしてみる</p>
+
 <h3 id="options">options</h3>
+
 <ul>
 <li>pw_length 生成する文字列の長さ</li>
 <li>num_pw 生成する個数</li>
 </ul>
+
 <blockquote>
 <p>Usage: pwgen [ OPTIONS ] [ pw_length ] [ num_pw ]</p>
 </blockquote>
+
 <p>デフォルトだとpwgenは紛らわしい文字や連続した文字などを生成しない
 <code>--secure</code> オプションで完全にランダムにできる</p>
+
 <blockquote>
 <p>-s or &ndash;secure
-Generate completely random passwords</p>
+  Generate completely random passwords</p>
 </blockquote>
+
 <p>デフォルトだとpwgenは <code>;</code> <code>&amp;</code> などの記号を含めない
 記号が含まれてもいいので <code>--symbols</code> をつける</p>
+
 <blockquote>
 <p>-y or &ndash;symbols
-Include at least one special symbol in the password</p>
+  Include at least one special symbol in the password</p>
 </blockquote>
+
 <h3 id="参考">参考</h3>
+
 <ul>
 <li><a href="https://linux.die.net/man/1/pwgen">pwgen(1): make pronounceable passwords - Linux man page</a></li>
 </ul>

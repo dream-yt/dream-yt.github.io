@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.74.3" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>athenaのUNIXタイムスタンプなカラムをJSTで一昨日から昨日の範囲でとる場合 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,122 +83,153 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#前提">前提</a></li>
-    <li><a href="#utcは先かあとか">UTCは先かあとか</a>
-      <ul>
-        <li><a href="#指定するパーティション">指定するパーティション</a></li>
-      </ul>
-    </li>
-  </ul>
-
-  <ul>
-    <li>
-      <ul>
-        <li><a href="#何日前を指定するか">何日前を指定するか</a></li>
-        <li><a href="#どの範囲を指定するか">どの範囲を指定するか</a></li>
-        <li><a href="#指定の仕方">指定の仕方</a></li>
-      </ul>
-    </li>
-    <li><a href="#緑の範囲から黄色の範囲に絞る">緑の範囲から黄色の範囲に絞る</a></li>
-    <li><a href="#例">例</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#前提">前提</a></li>
+<li><a href="#utcは先かあとか">UTCは先かあとか</a>
+<ul>
+<li><a href="#指定するパーティション">指定するパーティション</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#諸々の範囲の指定の仕方">諸々の範囲の指定の仕方</a>
+<ul>
+<li>
+<ul>
+<li><a href="#何日前を指定するか">何日前を指定するか</a></li>
+<li><a href="#どの範囲を指定するか">どの範囲を指定するか</a></li>
+<li><a href="#指定の仕方">指定の仕方</a></li>
+</ul></li>
+<li><a href="#緑の範囲から黄色の範囲に絞る">緑の範囲から黄色の範囲に絞る</a></li>
+<li><a href="#例">例</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>下記の図でJSTでの18日〜19日のデータが欲しい場合のこと</p>
-<p><img src="https://user-images.githubusercontent.com/5309672/51434631-ce231580-1ca8-11e9-88ba-886d6df79bbd.png" alt="img_0333"></p>
+                    
+
+<p>下記の図でJSTでの18日〜19日のデータが欲しい場合のこと</p>
+
+<p><img src="https://user-images.githubusercontent.com/5309672/51434631-ce231580-1ca8-11e9-88ba-886d6df79bbd.png" alt="img_0333" /></p>
+
 <h2 id="前提">前提</h2>
+
 <ul>
 <li>日本で使いたいデータなので「日本時間での一昨日から昨日」</li>
 <li>カラムにはunixタイムスタンプが入っている</li>
 <li>クエリをかける際には探索範囲の節約のためにパーティションの指定が必要
+
 <ul>
 <li>athenaでの作業</li>
-</ul>
-</li>
+</ul></li>
 <li>DBのパーティションはUTCでの日付で切られている</li>
 <li>パーティションの指定は「現時刻から何日前のdayか」をINTでしか指定できない
+
 <ul>
 <li>こんな指定: <code>day = day(current_date - interval '1' day)</code></li>
+</ul></li>
 </ul>
-</li>
-</ul>
+
 <h2 id="utcは先かあとか">UTCは先かあとか</h2>
+
 <p>JSTは極東の時間帯 (世界地図では一番右) なので時間が進んでいるところにいる</p>
-<p><img src="https://user-images.githubusercontent.com/5309672/51434644-6d480d00-1ca9-11e9-9172-7a367d9c7880.png" alt="image"></p>
+
+<p><img src="https://user-images.githubusercontent.com/5309672/51434644-6d480d00-1ca9-11e9-9172-7a367d9c7880.png" alt="image" /></p>
+
 <ul>
 <li>JSTの方が先に20日になる</li>
 <li>JSTの <code>20日01:00</code> の時点ではUTCは <code>19日16:00</code></li>
 </ul>
+
 <h3 id="指定するパーティション">指定するパーティション</h3>
+
 <p>JSTの18~19を取得したい場合、
 探索範囲とするパーティション(UTC)は17~19</p>
+
 <h1 id="諸々の範囲の指定の仕方">諸々の範囲の指定の仕方</h1>
-<p><img src="https://user-images.githubusercontent.com/5309672/51434858-b13d1100-1cad-11e9-9ce9-e12ef28af200.png" alt="img_0333 2"></p>
+
+<p><img src="https://user-images.githubusercontent.com/5309672/51434858-b13d1100-1cad-11e9-9ce9-e12ef28af200.png" alt="img_0333 2" /></p>
+
 <h3 id="何日前を指定するか">何日前を指定するか</h3>
+
 <p>パーティションは時間ではなく日付で指定するので
 今から何日前のパーティションを範囲とするかを整数で指定する</p>
+
 <p>例えば冒頭の図のNOWの時点で -1(1日前) を指定すると
 UTCの軸で19日0:00から19日23:59の範囲を取得することになる</p>
+
 <h3 id="どの範囲を指定するか">どの範囲を指定するか</h3>
+
 <ul>
 <li>最終的に欲しいのは JSTの18の範囲(黄色)の部分</li>
 <li>パーティション(UTC)は(17, 18)を指定できればよい</li>
 </ul>
+
 <h3 id="指定の仕方">指定の仕方</h3>
+
 <p>パーティションで17, 18(緑の部分)を指定するには
 日付をまたぐことを考えると以下のように指定する必要がある</p>
+
 <ul>
 <li>ピンクの時間帯では (-2, -1)</li>
 <li>黒の時間帯では (-3, -2)</li>
 </ul>
+
 <p>(-3, -1) のパーティションを取得するようにすれば、
 かならず黄色の部分の時間帯はカバー出来ることになる</p>
+
 <h2 id="緑の範囲から黄色の範囲に絞る">緑の範囲から黄色の範囲に絞る</h2>
+
 <p>JSTに変換してdayでtranc(切り詰める)ことをすればよい
 athena/prestoだと下記の通りになる</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">BETWEEN</span>
-    date_trunc(<span style="color:#e6db74">&#39;day&#39;</span>, <span style="color:#66d9ef">current_timestamp</span> <span style="color:#66d9ef">AT</span> TIME <span style="color:#66d9ef">ZONE</span> <span style="color:#e6db74">&#39;Asia/Tokyo&#39;</span> <span style="color:#f92672">-</span> interval <span style="color:#e6db74">&#39;1&#39;</span> <span style="color:#66d9ef">day</span>) <span style="color:#66d9ef">AND</span>
-    date_trunc(<span style="color:#e6db74">&#39;day&#39;</span>, <span style="color:#66d9ef">current_timestamp</span> <span style="color:#66d9ef">AT</span> TIME <span style="color:#66d9ef">ZONE</span> <span style="color:#e6db74">&#39;Asia/Tokyo&#39;</span> <span style="color:#f92672">-</span> interval <span style="color:#e6db74">&#39;2&#39;</span> <span style="color:#66d9ef">day</span>)
-</code></pre></div><p>日本時間の20日にクエリをかけたとして、
+
+<pre><code class="language-sql">BETWEEN
+    date_trunc('day', current_timestamp AT TIME ZONE 'Asia/Tokyo' - interval '1' day) AND
+    date_trunc('day', current_timestamp AT TIME ZONE 'Asia/Tokyo' - interval '2' day)
+</code></pre>
+
+<p>日本時間の20日にクエリをかけたとして、
 日本時間での日付を指定して範囲を切り出しているので黄色い部分だけが取れる</p>
+
 <h2 id="例">例</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span>
-    <span style="color:#f92672">*</span>
-<span style="color:#66d9ef">FROM</span>
+
+<pre><code class="language-sql">SELECT
+    *
+FROM
     mydb.mytable
-<span style="color:#66d9ef">WHERE</span>
-    <span style="color:#75715e">-- UTCでのパーティションの指定の部分
-</span><span style="color:#75715e"></span>    (
+WHERE
+    -- UTCでのパーティションの指定の部分
+    (
         (
-            <span style="color:#66d9ef">year</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">year</span>(<span style="color:#66d9ef">current_date</span> <span style="color:#f92672">-</span> interval <span style="color:#e6db74">&#39;1&#39;</span> <span style="color:#66d9ef">day</span>)
-            <span style="color:#66d9ef">AND</span> <span style="color:#66d9ef">month</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">month</span>(<span style="color:#66d9ef">current_date</span> <span style="color:#f92672">-</span> interval <span style="color:#e6db74">&#39;1&#39;</span> <span style="color:#66d9ef">day</span>)
-            <span style="color:#66d9ef">AND</span> <span style="color:#66d9ef">day</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">day</span>(<span style="color:#66d9ef">current_date</span> <span style="color:#f92672">-</span> interval <span style="color:#e6db74">&#39;1&#39;</span> <span style="color:#66d9ef">day</span>)
+            year = year(current_date - interval '1' day)
+            AND month = month(current_date - interval '1' day)
+            AND day = day(current_date - interval '1' day)
         )
-        <span style="color:#66d9ef">OR</span> (
-            <span style="color:#66d9ef">year</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">year</span>(<span style="color:#66d9ef">current_date</span> <span style="color:#f92672">-</span> interval <span style="color:#e6db74">&#39;2&#39;</span> <span style="color:#66d9ef">day</span>)
-            <span style="color:#66d9ef">AND</span> <span style="color:#66d9ef">month</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">month</span>(<span style="color:#66d9ef">current_date</span> <span style="color:#f92672">-</span> interval <span style="color:#e6db74">&#39;2&#39;</span> <span style="color:#66d9ef">day</span>)
-            <span style="color:#66d9ef">AND</span> <span style="color:#66d9ef">day</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">day</span>(<span style="color:#66d9ef">current_date</span> <span style="color:#f92672">-</span> interval <span style="color:#e6db74">&#39;2&#39;</span> <span style="color:#66d9ef">day</span>)
+        OR (
+            year = year(current_date - interval '2' day)
+            AND month = month(current_date - interval '2' day)
+            AND day = day(current_date - interval '2' day)
         )
-        <span style="color:#66d9ef">OR</span> (
-            <span style="color:#66d9ef">year</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">year</span>(<span style="color:#66d9ef">current_date</span> <span style="color:#f92672">-</span> interval <span style="color:#e6db74">&#39;3&#39;</span> <span style="color:#66d9ef">day</span>)
-            <span style="color:#66d9ef">AND</span> <span style="color:#66d9ef">month</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">month</span>(<span style="color:#66d9ef">current_date</span> <span style="color:#f92672">-</span> interval <span style="color:#e6db74">&#39;3&#39;</span> <span style="color:#66d9ef">day</span>)
-            <span style="color:#66d9ef">AND</span> <span style="color:#66d9ef">day</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">day</span>(<span style="color:#66d9ef">current_date</span> <span style="color:#f92672">-</span> interval <span style="color:#e6db74">&#39;3&#39;</span> <span style="color:#66d9ef">day</span>)
+        OR (
+            year = year(current_date - interval '3' day)
+            AND month = month(current_date - interval '3' day)
+            AND day = day(current_date - interval '3' day)
         )
     )
-    <span style="color:#75715e">-- JSTで望んだ時間だけに絞る部分
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">AND</span> from_unixtime(check_result.<span style="color:#66d9ef">timestamp</span> <span style="color:#f92672">/</span> <span style="color:#ae81ff">1000</span>) <span style="color:#66d9ef">BETWEEN</span> date_trunc(
-        <span style="color:#e6db74">&#39;day&#39;</span>,
-        <span style="color:#66d9ef">current_timestamp</span> <span style="color:#66d9ef">AT</span> TIME <span style="color:#66d9ef">ZONE</span> <span style="color:#e6db74">&#39;Asia/Tokyo&#39;</span> <span style="color:#f92672">-</span> interval <span style="color:#e6db74">&#39;2&#39;</span> <span style="color:#66d9ef">day</span>
+    -- JSTで望んだ時間だけに絞る部分
+    AND from_unixtime(check_result.timestamp / 1000) BETWEEN date_trunc(
+        'day',
+        current_timestamp AT TIME ZONE 'Asia/Tokyo' - interval '2' day
     )
-    <span style="color:#66d9ef">AND</span> date_trunc(
-        <span style="color:#e6db74">&#39;day&#39;</span>,
-        <span style="color:#66d9ef">current_timestamp</span> <span style="color:#66d9ef">AT</span> TIME <span style="color:#66d9ef">ZONE</span> <span style="color:#e6db74">&#39;Asia/Tokyo&#39;</span> <span style="color:#f92672">-</span> interval <span style="color:#e6db74">&#39;1&#39;</span> <span style="color:#66d9ef">day</span>
+    AND date_trunc(
+        'day',
+        current_timestamp AT TIME ZONE 'Asia/Tokyo' - interval '1' day
     )
-</code></pre></div>
+</code></pre>
+
                 </section>
             </article>
 

@@ -1,15 +1,65 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://dream-yt.github.io/post/</loc>
-    <lastmod>2020-08-26T14:08:12+09:00</lastmod>
+    <loc>https://dream-yt.github.io/post/add-next-ssg-ts/</loc>
+    <lastmod>2020-09-06T15:43:45+09:00</lastmod>
   </url>
   
   <url>
-    <loc>https://dream-yt.github.io/</loc>
-    <lastmod>2020-08-26T14:08:12+09:00</lastmod>
+    <loc>https://dream-yt.github.io/post/cookiecutter-typescript-jest-eslint/</loc>
+    <lastmod>2020-09-06T14:00:34+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://dream-yt.github.io/post/replace-all-japanese-in-page/</loc>
+    <lastmod>2020-09-05T12:07:03+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://dream-yt.github.io/post/react-render-google-analytics/</loc>
+    <lastmod>2020-09-05T12:03:51+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://dream-yt.github.io/post/git-bisect-101/</loc>
+    <lastmod>2020-09-03T10:50:22+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://dream-yt.github.io/post/firebase-hosting-customdomain-with-aws/</loc>
+    <lastmod>2020-09-03T09:45:26+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://dream-yt.github.io/post/http-10-proxy/</loc>
+    <lastmod>2020-08-30T18:59:16+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://dream-yt.github.io/post/i-use-iclouddrive/</loc>
+    <lastmod>2020-08-30T17:45:09+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://dream-yt.github.io/post/tsc-webpack-tsloader-code-diff/</loc>
+    <lastmod>2020-08-29T17:19:29+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://dream-yt.github.io/post/gitignore-gibo-101/</loc>
+    <lastmod>2020-08-29T12:29:04+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://dream-yt.github.io/post/ansible-raspbian-install-golang/</loc>
+    <lastmod>2020-08-28T00:26:50+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://dream-yt.github.io/post/ansible-raspbian-install-nodejs/</loc>
+    <lastmod>2020-08-28T00:07:02+09:00</lastmod>
   </url>
   
   <url>
@@ -533,6 +583,11 @@
   </url>
   
   <url>
+    <loc>https://dream-yt.github.io/post/import-withat-mark-in-typescript-vscode-jest/</loc>
+    <lastmod>2019-08-25T15:44:56+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://dream-yt.github.io/post/serverless-webpack-offline-node_env/</loc>
     <lastmod>2019-08-25T15:06:15+09:00</lastmod>
   </url>
@@ -753,27 +808,7 @@
   </url>
   
   <url>
-    <loc>https://dream-yt.github.io/categories/</loc>
-    <lastmod>2019-03-16T17:00:00+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://dream-yt.github.io/tags/posgresql/</loc>
-    <lastmod>2019-03-16T17:00:00+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://dream-yt.github.io/categories/posgresql/</loc>
-    <lastmod>2019-03-16T17:00:00+09:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://dream-yt.github.io/post/psql-day-count/</loc>
-    <lastmod>2019-03-16T17:00:00+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://dream-yt.github.io/tags/</loc>
     <lastmod>2019-03-16T17:00:00+09:00</lastmod>
   </url>
   
@@ -993,16 +1028,6 @@
   </url>
   
   <url>
-    <loc>https://dream-yt.github.io/tags/git/</loc>
-    <lastmod>2018-11-28T22:27:25+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://dream-yt.github.io/categories/git/</loc>
-    <lastmod>2018-11-28T22:27:25+09:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://dream-yt.github.io/post/python-__del__/</loc>
     <lastmod>2018-11-26T12:21:22+09:00</lastmod>
   </url>
@@ -1065,6 +1090,53 @@
   <url>
     <loc>https://dream-yt.github.io/post/strace-in-docker-container/</loc>
     <lastmod>2018-10-24T23:36:47+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://dream-yt.github.io/categories/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://dream-yt.github.io/tags/git/</loc>
+    <lastmod>2018-11-28T22:27:25+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://dream-yt.github.io/categories/git/</loc>
+    <lastmod>2018-11-28T22:27:25+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://dream-yt.github.io/tags/posgresql/</loc>
+    <lastmod>2019-03-16T17:00:00+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://dream-yt.github.io/categories/posgresql/</loc>
+    <lastmod>2019-03-16T17:00:00+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://dream-yt.github.io/post/</loc>
+    <lastmod>2020-09-06T15:43:45+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://dream-yt.github.io/tags/</loc>
+    <lastmod>2018-11-28T22:27:25+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://dream-yt.github.io/</loc>
+    <lastmod>2020-09-06T15:43:45+09:00</lastmod>
+    <priority>0</priority>
   </url>
   
 </urlset>

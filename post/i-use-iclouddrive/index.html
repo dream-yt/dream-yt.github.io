@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="https://dream-yt.github.io/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="iCloudドライブを使うようになった"/>
+  <meta name="twitter:description" content="最近iCloudドライブをちゃんと使っている。もともとは新しいMacをプロビジョニングするための設定ファイルを入れていたのみだが、以下のリン"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@site_author"/>
+  
+
+
+
+		
+		<meta name="author" content="site_author">
+		<meta name="description" content="Site Description">
+		<meta name="generator" content="Hugo 0.51" />
+		<title>iCloudドライブを使うようになった &middot; sacre</title>
+		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/font-awesome.min.css">
+		
+
+		
+		<link href="https://dream-yt.github.io/index.xml" rel="alternate" type="application/rss+xml" title="sacre" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='https://dream-yt.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://dream-yt.github.io/posts'>Archive</a>
+	<a href='https://dream-yt.github.io/tags'>Tags</a>
+	<a href='https://dream-yt.github.io/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="https://dream-yt.github.io/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        iCloudドライブを使うようになった
+                    </h1>
+                    <h2 class="headline">
+                    Aug 30, 2020 17:45
+                    · 761 words
+                    · 2 minute read
+                      <span class="tags">
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#こんなファイルを置いている">こんなファイルを置いている</a></li>
+<li><a href="#スクリプトも">スクリプトも</a>
+<ul>
+<li>
+<ul>
+<li><a href="#move-and-symlink-under-iclouddrive-sh">move-and-symlink-under-iclouddrive.sh</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#感想">感想</a></li>
+</ul></li>
+</ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    
+
+<p>最近iCloudドライブをちゃんと使っている。もともとは新しいMacをプロビジョニングするための設定ファイルを入れていたのみだが、以下のリンクを貼ってからけっこう色々なファイルを置くようになった。</p>
+
+<pre><code class="language-bash">ln -s &quot;~/Library/Mobile Documents/com~apple~CloudDocs&quot; ~/iCloudDrive
+</code></pre>
+
+<p>最近は子供ができたりコロナだったりで、仕事をするMacが4つある状態になっていた。</p>
+
+<ul>
+<li>会社の MacBook Pro (2020)</li>
+<li>家の Mac Mini (2018)</li>
+<li>妻の実家に置かせてもらってる MacBook Pro (2015)</li>
+<li>出先に持ってくノート MacBook Air (2013)</li>
+</ul>
+
+<p>だいたいコードはGit管理なので問題なかったのだが、ちょっとしたメモや資料などはやっぱり勝手に共有されていて欲しい、</p>
+
+<p>DropBoxに課金する一歩手前だったがiCloudの存在を思い出してよかった。iCloudでもけっこうなんとかなる。DropBoxと違って npm install でプロセスが暴走しないのもいい。</p>
+
+<h2 id="こんなファイルを置いている">こんなファイルを置いている</h2>
+
+<ul>
+<li>~/iCloudDrive/mac-provision-url.txt
+
+<ul>
+<li>新しいMacをプロビジョニングするためのBrew Bundleや環境構築メモが入っている</li>
+<li>MacだとiCloudには必ずログインするので、新しいPCでChromeより先にこのファイルが手に入るのは大きい</li>
+</ul></li>
+<li>~/iCloudDrive/memo.md
+
+<ul>
+<li>どんな作業をしてても開いているメモ。バッファ</li>
+</ul></li>
+<li>~/iCloudDrive/pdf
+
+<ul>
+<li>Mac でダウンロードしてものをiPhoneで読んだりできたりして地味に便利だった</li>
+</ul></li>
+<li>~/iCloudDrive/.bash_history-merged
+
+<ul>
+<li>bash_historyにちょっと手を入れて同期用にしたもの</li>
+<li>Macの作業環境はディレクトリ構成/鍵も全部一緒なので基本historyが使いまわせるようになっている</li>
+</ul></li>
+</ul>
+
+<h2 id="スクリプトも">スクリプトも</h2>
+
+<p>最近は dotfiles や TIL, TODO管理などもiCloud配下に移行しようとしたのでこんなスクリプトを書いた。</p>
+
+<h4 id="move-and-symlink-under-iclouddrive-sh">move-and-symlink-under-iclouddrive.sh</h4>
+
+<pre><code class="language-bash">#!/usr/bin/env bash
+set -eux
+
+readonly iclouddir=&quot;$HOME/iCloudDrive&quot;
+test -d $iclouddir
+
+readonly src=&quot;$(dirname $1)/$(basename $1)&quot;
+readonly dest=&quot;$iclouddir/$(basename $1)&quot;
+test ! -d $dest
+
+mv $src &quot;$iclouddir/&quot;
+ln -s $dest $src
+</code></pre>
+
+<h2 id="感想">感想</h2>
+
+<p>とくに気にしないでファイルが同期されるのはやっぱり便利。Windows, Android 方面に進出するのが億劫になっちゃったけど、それは Raspberry-PI でSambaが構築できたらやってみようかなと思っている。</p>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fi-use-iclouddrive%2f - iCloud%e3%83%89%e3%83%a9%e3%82%a4%e3%83%96%e3%82%92%e4%bd%bf%e3%81%86%e3%82%88%e3%81%86%e3%81%ab%e3%81%aa%e3%81%a3%e3%81%9f by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'your_disqus_short_name'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/dream-yt/sacre">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://twitter.com/FUTABA_SACRE">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2020 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="https://dream-yt.github.io/js/jquery-3.3.1.min.js"></script>
+<script src="https://dream-yt.github.io/js/main.js"></script>
+<script src="https://dream-yt.github.io/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+
+
+
+
+    </body>
+</html>

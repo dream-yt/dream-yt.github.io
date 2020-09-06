@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="https://dream-yt.github.io/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="gitignoreを生成してくれるgiboを使う"/>
+  <meta name="twitter:description" content="giboは .gitignoreファイルを生成するソフトウェア VSCode や Node、 Rails などを引数で指定してそのプロジェクトに必要そうなgitignor"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@site_author"/>
+  
+
+
+
+		
+		<meta name="author" content="site_author">
+		<meta name="description" content="Site Description">
+		<meta name="generator" content="Hugo 0.51" />
+		<title>gitignoreを生成してくれるgiboを使う &middot; sacre</title>
+		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/font-awesome.min.css">
+		
+
+		
+		<link href="https://dream-yt.github.io/index.xml" rel="alternate" type="application/rss+xml" title="sacre" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='https://dream-yt.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://dream-yt.github.io/posts'>Archive</a>
+	<a href='https://dream-yt.github.io/tags'>Tags</a>
+	<a href='https://dream-yt.github.io/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="https://dream-yt.github.io/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        gitignoreを生成してくれるgiboを使う
+                    </h1>
+                    <h2 class="headline">
+                    Aug 29, 2020 12:29
+                    · 417 words
+                    · 1 minute read
+                      <span class="tags">
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#list">list</a></li>
+<li><a href="#search">search</a></li>
+<li><a href="#dump">dump</a></li>
+</ul></li>
+</ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    
+
+<p>giboは .gitignoreファイルを生成するソフトウェア
+<code>VSCode</code> や <code>Node</code>、 <code>Rails</code> などを引数で指定してそのプロジェクトに必要そうなgitignoreを精製してくれる</p>
+
+<ul>
+<li><a href="https://github.com/simonwhitaker/gibo">simonwhitaker/gibo: Easy access to gitignore boilerplates</a></li>
+</ul>
+
+<p>brewで入る</p>
+
+<pre><code class="language-console">$ brew install gibo 
+</code></pre>
+
+<pre><code class="language-console">$ gibo help
+gibo 2.2.4 by Simon Whitaker &lt;sw@netcetera.org&gt;
+https://github.com/simonwhitaker/gibo
+
+Fetches gitignore boilerplates from https://github.com/github/gitignore
+
+Usage:
+    gibo [command]
+
+Example:
+    gibo dump Swift Xcode &gt;&gt; .gitignore
+
+Commands:
+    dump BOILERPLATE...   Write boilerplate(s) to STDOUT
+    help                  Display this help text
+    list                  List available boilerplates
+    root                  Show the directory where gibo stores its boilerplates
+    search STR            Search for boilerplates with STR in the name
+    update                Update list of available boilerplates
+    version               Display current script version
+</code></pre>
+
+<h2 id="list">list</h2>
+
+<p><code>gibo list</code> で何向けのgitignoreが生成できるかの一覧がみられる</p>
+
+<pre><code>$ gibo list
+Cloning https://github.com/github/gitignore.git to /Users/sakamossan/.gitignore-boilerplates
+Cloning into '/Users/sakamossan/.gitignore-boilerplates'...
+remote: Enumerating objects: 8935, done.
+remote: Total 8935 (delta 0), reused 0 (delta 0), pack-reused 8935
+Receiving objects: 100% (8935/8935), 2.05 MiB | 1.22 MiB/s, done.
+Resolving deltas: 100% (4842/4842), done.
+Actionscript
+Ada
+Agda
+Android
+AppceleratorTitanium
+AppEngine
+ArchLinuxPackages
+Autotools
+C++
+C
+</code></pre>
+
+<p>データを <code>https://github.com/github/gitignore</code> から取得しているので、久しぶりに使う場合などは <code>gibo update</code> を叩いておくと良いようだ</p>
+
+<pre><code class="language-console">$ gibo update
+From https://github.com/github/gitignore
+ * branch            master     -&gt; FETCH_HEAD
+Already up to date.
+</code></pre>
+
+<h2 id="search">search</h2>
+
+<p>searchで部分一致してるboilerplateを探してくれる</p>
+
+<pre><code class="language-console">$ gibo search code
+CodeIgniter
+CodeKit
+CodeSniffer
+VisualStudioCode
+Xcode
+</code></pre>
+
+<h2 id="dump">dump</h2>
+
+<p>生成するコマンドは <code>gibo dump</code>
+標準出力に出てくるのでシェルのリダイレクトなどをつかってファイルに落とす</p>
+
+<p>boilerplate は幾つ指定してもいいようだ</p>
+
+<pre><code>$ gibo dump VisualStudioCode Node &gt;&gt; .gitignore
+</code></pre>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fgitignore-gibo-101%2f - gitignore%e3%82%92%e7%94%9f%e6%88%90%e3%81%97%e3%81%a6%e3%81%8f%e3%82%8c%e3%82%8bgibo%e3%82%92%e4%bd%bf%e3%81%86 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'your_disqus_short_name'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/dream-yt/sacre">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://twitter.com/FUTABA_SACRE">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2020 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="https://dream-yt.github.io/js/jquery-3.3.1.min.js"></script>
+<script src="https://dream-yt.github.io/js/main.js"></script>
+<script src="https://dream-yt.github.io/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+
+
+
+
+    </body>
+</html>

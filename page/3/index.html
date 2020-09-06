@@ -24,7 +24,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.74.3" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -76,27 +76,12 @@
     
         
             <li>
-                <aside class="dates">Jun 5</aside>
-                <a href='https://dream-yt.github.io/post/slack-get-postmessage-token/'>
-                    SlackAPI よりチャンネルとアイコンとユーザ名を変更してポストする
+                <aside class="dates">Aug 7</aside>
+                <a href='https://dream-yt.github.io/post/cpp-buildstep-and-static-dynamic/'>
+                    C&#43;&#43;のビルドステップと静的/動的ライブラリについて
                     
                         
-                            <h2>現在、Slack は昔ながらの Webhook の方式ではチャンネルとアイコンとユーザ名をすべてデフォルトから変更してポストできなくなっている Sending messages using Incoming Webhooks | Slack You</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jun 4</aside>
-                <a href='https://dream-yt.github.io/post/gcp-cloudlogging-entry-url/'>
-                    LogEntry からそのログ周辺へのCloudLogging のURLを生成する
-                    
-                        
-                            <h2>こんな処理をつくるとき CloudLogging でエラーログを補足したら そのログを PubSub にシンクして それを CloudFunction でSlackに通知する 通知メッセージの中にそのログへのリンク</h2>
+                            <h2>ビルドのステップ プリプロセッサ #include の処理 #ifdef とかの処理 コンパイラ ソースファイルひとつからアセンブリファイルひとつを生成する #include された関数などは、ヘ</h2>
                         
                     
                 </a>
@@ -106,27 +91,12 @@
     
         
             <li>
-                <aside class="dates">Jun 3</aside>
-                <a href='https://dream-yt.github.io/post/invite-account-to-gcp-project/'>
-                    GCPのプロジェクトにユーザを招待する
+                <aside class="dates">Aug 6</aside>
+                <a href='https://dream-yt.github.io/post/jq-select-not-empty-array/'>
+                    jqである属性(配列)が空じゃないもののみに絞る
                     
                         
-                            <h2>GCPの管理コンソールの IAM から行う IAM 追加 招待したい人のメールアドレスを入力 与えたい権限を選択</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jun 1</aside>
-                <a href='https://dream-yt.github.io/post/gcp-trigger-cloudbuild-via-cloudfunction/'>
-                    CloudFunction で CloudBuild をトリガーする 
-                    
-                        
-                            <h2>まずgcloudで既存のトリガーの一覧を確認しておく $ gcloud beta builds triggers list --- createTime: &#39;2020-05-06T13:01:33.647678872Z&#39; description: master ブランチへの push filename: site/cloudbuild.yaml github: name: test owner: admin push: branch: ^master$ id: 0e2bd416-129f-44a3-b7ed-79c3c61e021a name: master-push-trigger tags: - github-default-push-trigger nodejsで呼び</h2>
+                            <h2>select と length を使えばよい cat data.json | jq &#39;select(.errors | length &gt; 0) 参考 length select</h2>
                         
                     
                 </a>
@@ -136,27 +106,12 @@
     
         
             <li>
-                <aside class="dates">May 31</aside>
-                <a href='https://dream-yt.github.io/post/cloudfunction-build-via-webpack-memo/'>
-                    Firebase Cloudfunction のデプロイに webpack を使ってビルドしようとするメモ
+                <aside class="dates">Aug 6</aside>
+                <a href='https://dream-yt.github.io/post/rrweb-usecase-for-debugging/'>
+                    rrwebがバグの調査に使えそうというメモ
                     
                         
-                            <h2>次のような理由で Cloudfunction のビルドに webpack が使いたくなった jsonファイルを require したい sqlファイルを raw-loader で require したい 最終的に webpack は不要にしたが、調べたことをメ</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">May 19</aside>
-                <a href='https://dream-yt.github.io/post/html-nested-anchor/'>
-                    htmlではaタグはネストできない
-                    
-                        
-                            <h2>htmlではaタグがネストできない。できないと言うか、そういうコードを書くとブラウザがDOM構造をネストのない形に勝手に変更する。警告はでな</h2>
+                            <h2>rrwebはサイトでユーザがなにをしたかを記録できるというもの rrweb-io/rrweb: record and replay the web rrweb refers to ‘record and replay the web’, which is a tool for recording and replaying users’ interactions on the web. ユーザの行動調査のために</h2>
                         
                     
                 </a>
@@ -166,27 +121,12 @@
     
         
             <li>
-                <aside class="dates">May 13</aside>
-                <a href='https://dream-yt.github.io/post/mysql-extract-hostname-from-url/'>
-                    MySQLで、URLからホスト部まで抜き出す
+                <aside class="dates">Aug 6</aside>
+                <a href='https://dream-yt.github.io/post/unicode-emoji-modifier-zwj/'>
+                    emojiで肌とか性別とか髪の色が変えられる仕組み
                     
                         
-                            <h2>ちょっとサボって https:// などのスキーマ部も入る形 SELECT SUBSTRING_INDEX(SUBSTRING_INDEX(url, &#39;/&#39;, 3), &#39;?&#39;, 1) FROM t 参考 熱い議論が交わされている Mysql query to extract domains from urls - Stack Overflow</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">May 7</aside>
-                <a href='https://dream-yt.github.io/post/cloudbuild-cloudrun/'>
-                    cloudrun にデプロイする cloudbuild.yaml
-                    
-                        
-                            <h2>トリガー まず、cloudbuildのトリガーをこんな感じで登録しておく ^master$ のときに変数が _SERVICE=service となるように ^canary/ のときに変数が _SERVICE=service-canary となるように cloudbuild.yaml timeout: &#39;900s&#39; steps: -</h2>
+                            <h2>unicodeでは肌の色を変えられる仕組みが2015年から入っている。これは skin tone modifiers と呼ばれるもので、結合文字のようにベースとなる絵文字の後ろ</h2>
                         
                     
                 </a>
@@ -196,12 +136,12 @@
     
         
             <li>
-                <aside class="dates">May 7</aside>
-                <a href='https://dream-yt.github.io/post/gcp-cloud-build-local/'>
-                    GCP の cloudbuild を ローカルで実行する
+                <aside class="dates">Aug 3</aside>
+                <a href='https://dream-yt.github.io/post/js-multibyte-regex-uflag/'>
+                    jsでマルチバイト文字にあてる正規表現はuフラグをつける
                     
                         
-                            <h2>cloud-build-local というツールがあり、公式のドキュメント通りにやればだいたいできる Building and debugging locally | Cloud Build Documentation 作業ディレクトリ ビルドを実施するディレクトリは cloudbuild.yaml があるディ</h2>
+                            <h2>理由 jsの文字列は内部でUTF-16を使っている jsで文字列の1文字は1つのコードユニットを指し、コードポイントを指すわけではない 例 👶🏼.l</h2>
                         
                     
                 </a>
@@ -211,12 +151,72 @@
     
         
             <li>
-                <aside class="dates">May 6</aside>
-                <a href='https://dream-yt.github.io/post/typescript-express-watch-develop/'>
-                    typescript で express を watch しながら開発する
+                <aside class="dates">Jul 28</aside>
+                <a href='https://dream-yt.github.io/post/lodash-fix-4-17-16/'>
+                    lodash@4.17.16 の脆弱性修正について
                     
                         
-                            <h2>nodemon と ts-node を使えばできる たとえば src/index.tsx が express アプリなら以下のコマンドになる nodemon -r ts-node/register ./src/index.tsx nodemon 配下のファイルが変更されたらサーバをリロードしてくれる -r ts-node/register ./src/index.tsx index.tsx を tsconfig.json</h2>
+                            <h2>4.17.16 にていくつかの脆弱性が修正されている Releases · lodash/lodash template, zipObjectDeep あたりを使ってトリッキーなコードをかいていなければ挙動に変更はなさそうである sourceUR</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Jul 25</aside>
+                <a href='https://dream-yt.github.io/post/diet-js-bundle-file/'>
+                    jsファイルの容量削減 lodash/jQuery
+                    
+                        
+                            <h2>webpackの設定がよくなかったのか、生成したバンドルjsファイルが重かったので若干雑な感じで軽くした lodashは全部読み込むと結構重い</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Jul 5</aside>
+                <a href='https://dream-yt.github.io/post/serverless-plugin-aws-alerts-101/'>
+                    serverless-plugin-aws-alertsでエラーを監視
+                    
+                        
+                            <h2>Serverless Framework を使っている場合、エラーやタイムアウトなどの検知をするためのリソースはプラグインで簡単に簡単に生成できる ACloudGuru/serverless-plugin-aws-alerts: A Serverless Framework plugin that creates CloudWatch alarms for functions. たとえば「</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Jun 25</aside>
+                <a href='https://dream-yt.github.io/post/bash-substring-extraction/'>
+                    bashの変数から文字列を取り出す
+                    
+                        
+                            <h2>以下のような記法で変数から部分文字列を取り出すことができる ${FOO%...} ${FOO#...} string - Extract substring in Bash - Stack Overflow 例 ui/src/js/test/tag.js という文字列から test/tag.js という文字列を取り出す場合 ui/src/ という文字</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Jun 18</aside>
+                <a href='https://dream-yt.github.io/post/create-react-app-rough-deploy/'>
+                    雑create-react-app のデプロイについて
+                    
+                        
+                            <h2>init こんな感じで開発を始める npm install -g create-react-app npx create-react-app {{ アプリ名 }} --typescript yarn start build ビルドコマンドはデフォルトで用意されている yarn build これを実行すると ./build 配下にhtmlなど</h2>
                         
                     
                 </a>

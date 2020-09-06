@@ -14,7 +14,7 @@
   
   
   <meta name="twitter:title" content="jq変形 {配列 =&gt; IDをキーとするオブジェクト}"/>
-  <meta name="twitter:description" content="こんな配列を [ {&#34;id&#34;: &#34;123&#34;, &#34;name&#34;: &#34;abc&#34;}, {&#34;id&#34;: &#34;456&#34;, &#34;name&#34;: &#34;qwe&#34;} ] こうしたい { &#34;123&#34;: {&#34;id&#34;: &#34;123&#34;, &#34;name&#34;: &#34;abc&#34;}, &#34;456&#34;: {&#34;id&#34;: &#34;456&#34;, &#34;name&#34;: &#34;qwe&#34;} } add を使うとできる $ pbpaste | jq &#39;{ (.id): . } | [ . ] | add&#39; { &quot;123&quot;: { &quot;id&quot;: &quot;123&quot;, &quot;name&quot;: &quot;abc&quot; }, &quot;456&quot;: { &quot;id&quot;: &quot;456&quot;, &quot;name&quot;: &quot;qwe&quot; }"/>
+  <meta name="twitter:description" content="こんな配列を [ {&quot;id&quot;: &quot;123&quot;, &quot;name&quot;: &quot;abc&quot;}, {&quot;id&quot;: &quot;456&quot;, &quot;name&quot;: &quot;qwe&quot;} ] こうしたい { &quot;123&quot;: {&quot;id&quot;: &quot;123&quot;, &quot;name&quot;: &quot;abc&quot;}, &quot;456&quot;: {&quot;id&quot;: &quot;456&quot;, &quot;name&quot;: &quot;qwe&quot;} } add を使うとできる $ pbpaste | jq &#39;{ (.id): . } | [ . ] | add&#39; { &quot;123&quot;: { &quot;id&quot;: &quot;123&quot;, &quot;name&quot;: &quot;abc&quot; }, &quot;456&quot;: { &quot;id&quot;: &quot;456&quot;, &quot;name&quot;: &quot;qwe&quot; }"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.74.3" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>jq変形 {配列 =&gt; IDをキーとするオブジェクト} &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,29 +83,40 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li>
-      <ul>
-        <li><a href="#add">add</a></li>
-      </ul>
-    </li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#add">add</a></li>
+</ul></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>こんな配列を</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">[
-  {<span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;123&#34;</span>, <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;abc&#34;</span>},
-  {<span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;456&#34;</span>, <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;qwe&#34;</span>}
+                    
+
+<p>こんな配列を</p>
+
+<pre><code class="language-json">[
+  {&quot;id&quot;: &quot;123&quot;, &quot;name&quot;: &quot;abc&quot;},
+  {&quot;id&quot;: &quot;456&quot;, &quot;name&quot;: &quot;qwe&quot;}
 ]
-</code></pre></div><p>こうしたい</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
-  <span style="color:#f92672">&#34;123&#34;</span>: {<span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;123&#34;</span>, <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;abc&#34;</span>},
-  <span style="color:#f92672">&#34;456&#34;</span>: {<span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;456&#34;</span>, <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;qwe&#34;</span>}
+</code></pre>
+
+<p>こうしたい</p>
+
+<pre><code class="language-json">{
+  &quot;123&quot;: {&quot;id&quot;: &quot;123&quot;, &quot;name&quot;: &quot;abc&quot;},
+  &quot;456&quot;: {&quot;id&quot;: &quot;456&quot;, &quot;name&quot;: &quot;qwe&quot;}
 }
-</code></pre></div><p><code>add</code> を使うとできる</p>
+</code></pre>
+
+<p><code>add</code> を使うとできる</p>
+
 <pre><code>$ pbpaste | jq '{ (.id): . } | [ . ] | add'
 {
   &quot;123&quot;: {
@@ -117,22 +128,31 @@
     &quot;name&quot;: &quot;qwe&quot;
   }
 }
-</code></pre><h3 id="add">add</h3>
+</code></pre>
+
+<h3 id="add">add</h3>
+
 <p>通常は足し算や文字列結合に使われるが、
 オブジェクトの配列に適用すると、それぞれの要素をマージしたオブジェクトができる</p>
+
 <ul>
 <li><a href="https://github.com/stedolan/jq/issues/70">QUESTION: A way to concatenate input objects into one · Issue #70 · stedolan/jq</a></li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">[
-  { <span style="color:#f92672">&#34;123&#34;</span>: {<span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;123&#34;</span>, <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;abc&#34;</span>} }
-  { <span style="color:#f92672">&#34;456&#34;</span>: {<span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;456&#34;</span>, <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;qwe&#34;</span>} }
+
+<pre><code class="language-json">[
+  { &quot;123&quot;: {&quot;id&quot;: &quot;123&quot;, &quot;name&quot;: &quot;abc&quot;} }
+  { &quot;456&quot;: {&quot;id&quot;: &quot;456&quot;, &quot;name&quot;: &quot;qwe&quot;} }
 ]
-</code></pre></div><p>↓ こうなるイメージ</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
-  <span style="color:#f92672">&#34;123&#34;</span>: {<span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;123&#34;</span>, <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;abc&#34;</span>},
-  <span style="color:#f92672">&#34;456&#34;</span>: {<span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;456&#34;</span>, <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;qwe&#34;</span>}
+</code></pre>
+
+<p>↓ こうなるイメージ</p>
+
+<pre><code class="language-json">{
+  &quot;123&quot;: {&quot;id&quot;: &quot;123&quot;, &quot;name&quot;: &quot;abc&quot;},
+  &quot;456&quot;: {&quot;id&quot;: &quot;456&quot;, &quot;name&quot;: &quot;qwe&quot;}
 }
-</code></pre></div>
+</code></pre>
+
                 </section>
             </article>
 

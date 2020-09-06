@@ -24,7 +24,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.74.3" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -76,27 +76,12 @@
     
         
             <li>
-                <aside class="dates">May 4</aside>
-                <a href='https://dream-yt.github.io/post/develop-npm-package-and-pull-request/'>
-                    誰かのnpmパッケージに機能追加して、本番で動作確認してからプルリクエストを出す
+                <aside class="dates">Jun 7</aside>
+                <a href='https://dream-yt.github.io/post/axios-syntaxerror/'>
+                    [jest] SyntaxError: The string did not match the expected pattern
                     
                         
-                            <h2>たとえばつぎのような場合 プロジェクト service でつかっている api-client パッケージを使っている api-client に機能を追加したくなった api-client で機能追加 まず api-client を GitHub で fork してローカル</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">May 4</aside>
-                <a href='https://dream-yt.github.io/post/npm-link/'>
-                    開発中のパッケージをrequireできる npm link を使う
-                    
-                        
-                            <h2>npmパッケージを開発するとき、いちいちnpmにアップロードしてそれを使う側でinstallしてなどとやってられないので npm link という仕組みがあ</h2>
+                            <h2>axios を使った jest のテストで以下のようなエラーが出た SyntaxError: The string did not match the expected pattern. これは jest ランタイムだと axios が XMLHttpRequest を使おうとしてしまうため発生するエラーだったよう</h2>
                         
                     
                 </a>
@@ -106,27 +91,12 @@
     
         
             <li>
-                <aside class="dates">May 2</aside>
-                <a href='https://dream-yt.github.io/post/remove-firebase-hosting/'>
-                    Firebase Hosting のサイトを削除する
+                <aside class="dates">Jun 5</aside>
+                <a href='https://dream-yt.github.io/post/exclude-gcp-audit-log/'>
+                    CloudLogging で監査ログを除外する
                     
                         
-                            <h2>firebase hosting は以下の要領でサイトを消すことができる まずはdisableに $ firebase hosting:disable ? Are you sure you want to disable Firebase Hosting? This will immediately make your site inaccessible! Yes ✔ Hosting has been disabled for pjx-112312. Deploy a new version to re-enable. リリース</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Apr 30</aside>
-                <a href='https://dream-yt.github.io/post/shell-for-parallel/'>
-                    bashのfor文の中身を並列処理させる
-                    
-                        
-                            <h2>こんなスクリプトがあったとして for i ($find ./src); do somecommand $i done forの中身 (somecommand) を並列で実行したい場合はこうすればよい for i ($find ./src); do somecommand $i &amp; done wait いままでxargsを使</h2>
+                            <h2>GCPには、ユーザの操作などを記録する監査ログがデフォルトで有効になっているサービスがいくつかある 監査ログについて | Cloud Logging | Google Cloud BigQuery の監査ログが</h2>
                         
                     
                 </a>
@@ -136,27 +106,12 @@
     
         
             <li>
-                <aside class="dates">Apr 29</aside>
-                <a href='https://dream-yt.github.io/post/youtube-data-api-insert-playlistitems/'>
-                    YouTube DataAPIv3 でプレイリストに動画を追加する
+                <aside class="dates">Jun 5</aside>
+                <a href='https://dream-yt.github.io/post/slack-get-postmessage-token/'>
+                    SlackAPI よりチャンネルとアイコンとユーザ名を変更してポストする
                     
                         
-                            <h2>工程はこんな感じになる GCPのコンソールでYouTubeDataAPIv3をenableにする OAuthトークンを取得 youtube.playlistItems.insert を呼ぶ トークンを取得</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Apr 27</aside>
-                <a href='https://dream-yt.github.io/post/css-selector-multiple-attributes/'>
-                    複数属性をもつ要素を指定するCSSセレクタ
-                    
-                        
-                            <h2>たとえばこんな要素に複数の属性でマッチさせたい場合 &lt;input type=&#34;file&#34; multiple /&gt; こんな指定になる input[type=&#34;file&#34;][multiple] { ... } 参考 Specify multiple attribute selectors in CSS - Stack Overflow</h2>
+                            <h2>現在、Slack は昔ながらの Webhook の方式ではチャンネルとアイコンとユーザ名をすべてデフォルトから変更してポストできなくなっている Sending messages using Incoming Webhooks | Slack You</h2>
                         
                     
                 </a>
@@ -166,27 +121,12 @@
     
         
             <li>
-                <aside class="dates">Apr 26</aside>
-                <a href='https://dream-yt.github.io/post/aws-terraform-dns-txt-record/'>
-                    Terraform(AWS)でDNSのTXTレコードを作成する
+                <aside class="dates">Jun 4</aside>
+                <a href='https://dream-yt.github.io/post/gcp-cloudlogging-entry-url/'>
+                    LogEntry からそのログ周辺へのCloudLogging のURLを生成する
                     
                         
-                            <h2>Googleのサーチコンソールの認証をDNSでしたかったのでterraformで設定した TXTレコードの値は records の中に入れる resource &#34;aws_route53_record&#34; &#34;b_n-t_jp__txt&#34; { zone_id = &#34;${aws_route53_zone.n_t.zone_id}&#34; name =</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Apr 19</aside>
-                <a href='https://dream-yt.github.io/post/nodejs-event-loop/'>
-                    nodejsのEvent Loopについておおまかなメモ
-                    
-                        
-                            <h2>nodejsのイベントループは次の6個のフェーズからなる timers pending callbacks idle, prepare poll check close callbacks この6個のフェーズの1周はラウンドと呼ばれる それぞれのフェーズはそ</h2>
+                            <h2>こんな処理をつくるとき CloudLogging でエラーログを補足したら そのログを PubSub にシンクして それを CloudFunction でSlackに通知する 通知メッセージの中にそのログへのリンク</h2>
                         
                     
                 </a>
@@ -196,12 +136,12 @@
     
         
             <li>
-                <aside class="dates">Apr 18</aside>
-                <a href='https://dream-yt.github.io/post/hive-table-input-output-serde/'>
-                    hive(athena)の InputFormat, OutputFormat, SerDe
+                <aside class="dates">Jun 3</aside>
+                <a href='https://dream-yt.github.io/post/invite-account-to-gcp-project/'>
+                    GCPのプロジェクトにユーザを招待する
                     
                         
-                            <h2>hive の create table は次のようなものである CREATE TABLE test(id INT, name STRING) ROW FORMAT SERDE &#39;org.apache.hadoop.hive.serde2.avro.AvroSerDe&#39; STORED as INPUTFORMAT &#39;org.apache.hadoop.hive.ql.io.avro.AvroContainerInputFormat&#39; OUTPUTFORMAT &#39;org.apache.hadoop.hive.ql.io.avro.AvroContainerOutputFormat&#39; このなかの SERDE, INPUTFORMAT, OUTPUTFORMAT についてメモ INPUTFORMAT, OUTPUTFORMAT hive には external storage と hive warehouse 2種類のデータストアがある これ</h2>
+                            <h2>GCPの管理コンソールの IAM から行う IAM 追加 招待したい人のメールアドレスを入力 与えたい権限を選択</h2>
                         
                     
                 </a>
@@ -211,12 +151,72 @@
     
         
             <li>
-                <aside class="dates">Apr 16</aside>
-                <a href='https://dream-yt.github.io/post/withings-api-101/'>
-                    WithingsAPIのトークンのを取得
+                <aside class="dates">Jun 1</aside>
+                <a href='https://dream-yt.github.io/post/gcp-trigger-cloudbuild-via-cloudfunction/'>
+                    CloudFunction で CloudBuild をトリガーする 
                     
                         
-                            <h2>トークンの取得 Withings API codeを取得 管理画面から CLIENT_ID , CONSUMER_SECRET を発行する dashboard_oauth2 export CLIENT_ID=xxxx export CONSUMER_SECRET=xxxxxxxx export REDIRECT_URL=http://localhost:8000 export SCOPE=user.info,user.metrics,user.activity,user.sleepevents export STATE=sakamoto # リクエストが重複しないようにするためのなんでもいい文字列</h2>
+                            <h2>まずgcloudで既存のトリガーの一覧を確認しておく $ gcloud beta builds triggers list --- createTime: &#39;2020-05-06T13:01:33.647678872Z&#39; description: master ブランチへの push filename: site/cloudbuild.yaml github: name: test owner: admin push: branch: ^master$ id: 0e2bd416-129f-44a3-b7ed-79c3c61e021a name: master-push-trigger tags: - github-default-push-trigger nodejsで呼び</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">May 31</aside>
+                <a href='https://dream-yt.github.io/post/cloudfunction-build-via-webpack-memo/'>
+                    Firebase Cloudfunction のデプロイに webpack を使ってビルドしようとするメモ
+                    
+                        
+                            <h2>次のような理由で Cloudfunction のビルドに webpack が使いたくなった jsonファイルを require したい sqlファイルを raw-loader で require したい 最終的に webpack は不要にしたが、調べたことをメ</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">May 19</aside>
+                <a href='https://dream-yt.github.io/post/html-nested-anchor/'>
+                    htmlではaタグはネストできない
+                    
+                        
+                            <h2>htmlではaタグがネストできない。できないと言うか、そういうコードを書くとブラウザがDOM構造をネストのない形に勝手に変更する。警告はでな</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">May 13</aside>
+                <a href='https://dream-yt.github.io/post/mysql-extract-hostname-from-url/'>
+                    MySQLで、URLからホスト部まで抜き出す
+                    
+                        
+                            <h2>ちょっとサボって https:// などのスキーマ部も入る形 SELECT SUBSTRING_INDEX(SUBSTRING_INDEX(url, &#39;/&#39;, 3), &#39;?&#39;, 1) FROM t 参考 熱い議論が交わされている Mysql query to extract domains from urls - Stack Overflow</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">May 7</aside>
+                <a href='https://dream-yt.github.io/post/cloudbuild-cloudrun/'>
+                    cloudrun にデプロイする cloudbuild.yaml
+                    
+                        
+                            <h2>トリガー まず、cloudbuildのトリガーをこんな感じで登録しておく ^master$ のときに変数が _SERVICE=service となるように ^canary/ のときに変数が _SERVICE=service-canary となるように cloudbuild.yaml timeout: &#39;900s&#39; steps: -</h2>
                         
                     
                 </a>

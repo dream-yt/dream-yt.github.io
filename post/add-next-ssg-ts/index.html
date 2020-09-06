@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="https://dream-yt.github.io/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="既存のtypescriptプロジェクトにnextjsのSSGを導入する"/>
+  <meta name="twitter:description" content="簡単に追加できる。 準備 nextを入れる $ npm install next src/pages配下にtsxを作成 $ touch ./src/pages/index.tsx なお、nextはトップレベルではなくsrc配下にpa"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@site_author"/>
+  
+
+
+
+		
+		<meta name="author" content="site_author">
+		<meta name="description" content="Site Description">
+		<meta name="generator" content="Hugo 0.51" />
+		<title>既存のtypescriptプロジェクトにnextjsのSSGを導入する &middot; sacre</title>
+		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/font-awesome.min.css">
+		
+
+		
+		<link href="https://dream-yt.github.io/index.xml" rel="alternate" type="application/rss+xml" title="sacre" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='https://dream-yt.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://dream-yt.github.io/posts'>Archive</a>
+	<a href='https://dream-yt.github.io/tags'>Tags</a>
+	<a href='https://dream-yt.github.io/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="https://dream-yt.github.io/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        既存のtypescriptプロジェクトにnextjsのSSGを導入する
+                    </h1>
+                    <h2 class="headline">
+                    Sep 6, 2020 15:43
+                    · 472 words
+                    · 1 minute read
+                      <span class="tags">
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#準備">準備</a></li>
+<li><a href="#index-tsx">index.tsx</a></li>
+<li><a href="#動作確認">動作確認</a></li>
+<li><a href="#その他">その他</a></li>
+</ul></li>
+</ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    
+
+<p>簡単に追加できる。</p>
+
+<h2 id="準備">準備</h2>
+
+<p>nextを入れる</p>
+
+<pre><code class="language-bash">$ npm install next
+</code></pre>
+
+<p>src/pages配下にtsxを作成</p>
+
+<pre><code class="language-bash">$ touch ./src/pages/index.tsx
+</code></pre>
+
+<p>なお、nextはトップレベルではなくsrc配下にpagesディレクトリを作ってもちゃんとそこを認識してくれるようだ。</p>
+
+<blockquote>
+<p>Pages can also be added under src/pages as an alternative to the root pages directory.
+The src directory is very common in many apps and Next.js supports it by default.</p>
+</blockquote>
+
+<ul>
+<li><a href="https://nextjs.org/docs/advanced-features/src-directory">Advanced Features: <code>src</code> Directory | Next.js</a></li>
+</ul>
+
+<h2 id="index-tsx">index.tsx</h2>
+
+<p>index.tsxはこんな感じ</p>
+
+<pre><code class="language-jsx">import { GetStaticProps } from &quot;next&quot;;
+import React from &quot;react&quot;;
+
+export default ({ hello }: { hello: string }) =&gt; &lt;h1&gt;{hello}&lt;/h1&gt;;
+
+// 
+export const getStaticProps: GetStaticProps = async () =&gt; {
+  const hello = &quot;helloworld&quot;;
+  return { props: { hello } };
+};
+</code></pre>
+
+<ul>
+<li><code>getStaticProps</code>
+
+<ul>
+<li><code>next export</code> の時に呼ばれて、結果がdefault関数にpropsとして渡される</li>
+</ul></li>
+<li>default関数
+
+<ul>
+<li>このページのhtmlを生成するコンポーネント</li>
+</ul></li>
+</ul>
+
+<h2 id="動作確認">動作確認</h2>
+
+<pre><code class="language-console">$ npx next build &amp;&amp; npx next export &amp;&amp; npx next start &amp;
+
+...
+
+$ ready - started server on http://localhost:3000
+$ curl http://localhost:3000
+&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;&lt;meta charSet=&quot;utf-8&quot;/&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width&quot;/&gt;&lt;meta name=&quot;next-head-count&quot; content=&quot;2&quot;/&gt;&lt;noscript data-n-css=&quot;true&quot;&gt;&lt;/noscript&gt;&lt;link rel=&quot;preload&quot; href=&quot;/_next/static/chunks/main-087f27b04f4c732ab1a1.js&quot; as=&quot;script&quot;/&gt;&lt;link rel=&quot;preload&quot; href=&quot;/_next/static/chunks/webpack-e067438c4cf4ef2ef178.js&quot; as=&quot;script&quot;/&gt;&lt;link rel=&quot;preload&quot; href=&quot;/_next/static/chunks/framework.cb05d56be993eb6b088a.js&quot; as=&quot;script&quot;/&gt;&lt;link rel=&quot;preload&quot; href=&quot;/_next/static/chunks/f6078781a05fe1bcb0902d23dbbb2662c8d200b3.00aaea69a4bfc61676f6.js&quot; as=&quot;script&quot;/&gt;&lt;link rel=&quot;preload&quot; href=&quot;/_next/static/chunks/pages/_app-af1b8e54567fd58d71e4.js&quot; as=&quot;script&quot;/&gt;&lt;link rel=&quot;preload&quot; href=&quot;/_next/static/chunks/pages/index-cc4f0e2bbac07be32208.js&quot; as=&quot;script&quot;/&gt;&lt;/head&gt;&lt;body&gt;&lt;div id=&quot;__next&quot;&gt;&lt;h1&gt;helloworld&lt;/h1&gt;
+
+...
+</code></pre>
+
+<h2 id="その他">その他</h2>
+
+<p>typescript環境で動かすとnextが勝手にtsconfig.jsonを変更する。</p>
+
+<pre><code class="language-diff">+    &quot;allowJs&quot;: true,
++    &quot;skipLibCheck&quot;: true,
++    &quot;forceConsistentCasingInFileNames&quot;: true,
++    &quot;noEmit&quot;: true,
++    &quot;isolatedModules&quot;: true
+</code></pre>
+
+<p>また、<code>next-env.d.ts</code> というファイルがトップレベルに作成される。</p>
+
+<pre><code class="language-diff">/next-env.d.ts
+@@ -0,0 +1,2 @@
++/// &lt;reference types=&quot;next&quot; /&gt;
++/// &lt;reference types=&quot;next/types/global&quot; /&gt;
+</code></pre>
+
+<p>デフォルトだと以下にビルド結果のファイルが作られるので .gitignore に追加しておく。</p>
+
+<pre><code class="language-diff">+# next
++/out
++/.next
+</code></pre>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fadd-next-ssg-ts%2f - %e6%97%a2%e5%ad%98%e3%81%aetypescript%e3%83%97%e3%83%ad%e3%82%b8%e3%82%a7%e3%82%af%e3%83%88%e3%81%abnextjs%e3%81%aeSSG%e3%82%92%e5%b0%8e%e5%85%a5%e3%81%99%e3%82%8b by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'your_disqus_short_name'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/dream-yt/sacre">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://twitter.com/FUTABA_SACRE">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2020 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="https://dream-yt.github.io/js/jquery-3.3.1.min.js"></script>
+<script src="https://dream-yt.github.io/js/main.js"></script>
+<script src="https://dream-yt.github.io/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+
+
+
+
+    </body>
+</html>
