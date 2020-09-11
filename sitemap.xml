@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://dream-yt.github.io/post/generate-bigquery-schema-from-mysql-create-table/</loc>
+    <lastmod>2020-09-11T13:43:11+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://dream-yt.github.io/post/add-next-ssg-ts/</loc>
     <lastmod>2020-09-06T15:43:45+09:00</lastmod>
   </url>
@@ -1123,7 +1128,7 @@
   
   <url>
     <loc>https://dream-yt.github.io/post/</loc>
-    <lastmod>2020-09-06T15:43:45+09:00</lastmod>
+    <lastmod>2020-09-11T13:43:11+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -1135,7 +1140,7 @@
   
   <url>
     <loc>https://dream-yt.github.io/</loc>
-    <lastmod>2020-09-06T15:43:45+09:00</lastmod>
+    <lastmod>2020-09-11T13:43:11+09:00</lastmod>
     <priority>0</priority>
   </url>
   
