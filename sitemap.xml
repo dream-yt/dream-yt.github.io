@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://dream-yt.github.io/post/ffmpeg-cutout-mp3/</loc>
+    <lastmod>2020-09-12T19:22:56+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://dream-yt.github.io/post/generate-bigquery-schema-from-mysql-create-table/</loc>
     <lastmod>2020-09-11T13:43:11+09:00</lastmod>
   </url>
@@ -1128,7 +1133,7 @@
   
   <url>
     <loc>https://dream-yt.github.io/post/</loc>
-    <lastmod>2020-09-11T13:43:11+09:00</lastmod>
+    <lastmod>2020-09-12T19:22:56+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -1140,7 +1145,7 @@
   
   <url>
     <loc>https://dream-yt.github.io/</loc>
-    <lastmod>2020-09-11T13:43:11+09:00</lastmod>
+    <lastmod>2020-09-12T19:22:56+09:00</lastmod>
     <priority>0</priority>
   </url>
   
