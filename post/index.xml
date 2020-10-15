@@ -6,10 +6,19 @@
     <description>Recent content in Posts on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 07 Oct 2020 19:01:35 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 15 Oct 2020 21:53:43 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>VSCodeでワークスペースのpythonファイルだけオートフォーマットを無効にする</title>
+      <link>https://dream-yt.github.io/post/turnoff-vscode-python-autoformat/</link>
+      <pubDate>Thu, 15 Oct 2020 21:53:43 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/turnoff-vscode-python-autoformat/</guid>
+      <description>半年に1回くらい設定してるのでメモ settingsからworkspaceの設定を開き、以下のように設定すればよい &amp;quot;settings&amp;quot;: { &amp;quot;[python]&amp;quot;: { &amp;quot;editor.formatOnSave&amp;quot;: false } } Turn off auto formatting for json</description>
+    </item>
     
     <item>
       <title>BigQuery の Scheduled Query をCLIから登録/参照</title>
