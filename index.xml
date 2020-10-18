@@ -21,6 +21,24 @@
     </item>
     
     <item>
+      <title>Unicodeスカラー値と、対になっていないサロゲートコードポイントについてメモ</title>
+      <link>https://dream-yt.github.io/post/read-usvstring-doc/</link>
+      <pubDate>Tue, 13 Oct 2020 14:38:36 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/read-usvstring-doc/</guid>
+      <description>この文章がよく分からなかったので単語について調べたときのメモ USVString - Web API | MDN USVString は、Unicode スカラー値（unicode scalar values）のすべ</description>
+    </item>
+    
+    <item>
+      <title>BOMつきUTF-8とjsについて</title>
+      <link>https://dream-yt.github.io/post/bom-utf8-and-js/</link>
+      <pubDate>Tue, 13 Oct 2020 12:14:06 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/bom-utf8-and-js/</guid>
+      <description>まずBOMについて バイトオーダーマーク - Wikipedia BOMとはもともとはリトルエンディアンとビッグエンディアンのどちらかを判別するためにファイルの先頭</description>
+    </item>
+    
+    <item>
       <title>BigQuery の Scheduled Query をCLIから登録/参照</title>
       <link>https://dream-yt.github.io/post/create-bigquery-scheduled-query-from-cli-bq/</link>
       <pubDate>Wed, 07 Oct 2020 19:01:35 +0900</pubDate>
