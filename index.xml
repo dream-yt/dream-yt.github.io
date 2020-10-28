@@ -6,10 +6,19 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Thu, 15 Oct 2020 21:53:43 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 28 Oct 2020 12:41:48 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>TypeScriptで、「この配列の要素がキーになってるオブジェクト」という型を定義する</title>
+      <link>https://dream-yt.github.io/post/typescript-array-element-object-typing/</link>
+      <pubDate>Wed, 28 Oct 2020 12:41:48 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/typescript-array-element-object-typing/</guid>
+      <description>こんな感じでできる const columns = [&amp;quot;id&amp;quot;, &amp;quot;name&amp;quot;, &amp;quot;created&amp;quot;] as const; type Column = typeof columns[number]; // type Column = &amp;quot;id&amp;quot; | &amp;quot;name&amp;quot; | &amp;quot;created&amp;quot; type Obj = { [F in Column]: string }; typeof columns[number] がミソ What means typeof Array[number] in Typescript? - Stack Overflow</description>
+    </item>
     
     <item>
       <title>VSCodeでワークスペースのpythonファイルだけオートフォーマットを無効にする</title>
