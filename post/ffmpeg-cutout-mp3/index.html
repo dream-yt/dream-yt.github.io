@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.74.3" />
 		<title>ffmpegを使ってmp3をカットする &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,50 +83,40 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#参考">参考</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#参考">参考</a></li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p>こんな感じで切り出せる</p>
-
+                    <p>こんな感じで切り出せる</p>
 <pre><code>ffmpeg -ss 7 -to 00:00:12 -i ./source.mp3 ./output.mp3
-</code></pre>
-
-<ul>
+</code></pre><ul>
 <li><code>-ss</code>
-
 <ul>
 <li>切り出す開始時点の秒数</li>
-</ul></li>
+</ul>
+</li>
 <li><code>-to</code>
-
 <ul>
 <li>切り出す終了時点。ffmpegは秒数で指定するとわかりにくいのでこの形式</li>
-</ul></li>
+</ul>
+</li>
 <li><code>-i</code>
-
 <ul>
 <li>元のファイル</li>
-</ul></li>
+</ul>
+</li>
 <li><code>./output.mp3</code>
-
 <ul>
 <li>出力ファイル</li>
 <li>ffmpegは拡張子をみて出力する形式を決める</li>
-</ul></li>
 </ul>
-
+</li>
+</ul>
 <h2 id="参考">参考</h2>
-
 <ul>
 <li><a href="https://nico-lab.net/cutting_ffmpeg/">ffmpeg で指定時間でカットするまとめ | ニコラボ</a></li>
 </ul>

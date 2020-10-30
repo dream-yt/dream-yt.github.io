@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.74.3" />
 		<title>プロジェクトの.bigqueryrcの設定 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,60 +83,43 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#どのパスの-bigqueryrc-ファイルが使われるか">どのパスの .bigqueryrc ファイルが使われるか</a></li>
-<li><a href="#プロジェクト-bigqueryrc-ファイルを設定をする">プロジェクト .bigqueryrc ファイルを設定をする</a></li>
-<li><a href="#bigqueryrc-ファイルの例">.bigqueryrc ファイルの例</a></li>
-</ul></li>
-</ul></li>
-</ul>
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#どのパスの-bigqueryrc-ファイルが使われるか">どのパスの .bigqueryrc ファイルが使われるか</a></li>
+        <li><a href="#プロジェクト-bigqueryrc-ファイルを設定をする">プロジェクト .bigqueryrc ファイルを設定をする</a></li>
+        <li><a href="#bigqueryrc-ファイルの例">.bigqueryrc ファイルの例</a></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<ul>
+                    <ul>
 <li>bqコマンド、<code>--maximum_bytes_billed</code> とか、デフォルトで設定しておきたいオプションはある</li>
 <li>.bigqueryrc というファイルを使うとbqコマンドのデフォルトオプションを設定できる</li>
 </ul>
-
 <h3 id="どのパスの-bigqueryrc-ファイルが使われるか">どのパスの .bigqueryrc ファイルが使われるか</h3>
-
 <p>デフォルトだと <code>$HOME/.bigqueryrc</code> なので、そこは工夫が必要</p>
-
 <blockquote>
 <p>&ndash;bigqueryrc フラグが指定されていない場合は、BIGQUERYRC 環境変数が使用されます。これが指定されていない場合、パス ~/.bigqueryrc が使用されます。デフォルトのパスは $HOME/.bigqueryrc です。</p>
 </blockquote>
-
 <ul>
 <li><a href="https://cloud.google.com/bigquery/docs/bq-command-line-tool?hl=ja#setting_default_values_for_command-line_flags">bq コマンドライン ツールの使用  |  BigQuery  |  Google Cloud</a></li>
 </ul>
-
 <h3 id="プロジェクト-bigqueryrc-ファイルを設定をする">プロジェクト .bigqueryrc ファイルを設定をする</h3>
-
 <p>direnvをつかって BIGQUERYRC 環境変数を設定する</p>
-
-<pre><code class="language-bash">export BIGQUERYRC=$(git rev-parse --show-toplevel)/.bigqueryrc
-</code></pre>
-
-<p><code>git rev-parse --show-toplevel</code> で リポジトリのトップレベルのパスが取得できる</p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">export BIGQUERYRC<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>git rev-parse --show-toplevel<span style="color:#66d9ef">)</span>/.bigqueryrc
+</code></pre></div><p><code>git rev-parse --show-toplevel</code> で リポジトリのトップレベルのパスが取得できる</p>
 <h3 id="bigqueryrc-ファイルの例">.bigqueryrc ファイルの例</h3>
-
 <p>サブコマンドごとに <code>[サブコマンド名]</code> で区切って記述する</p>
-
 <pre><code>[query]
 --max_rows=2147483647
 --maximum_bytes_billed=200000000
 --use_legacy_sql=false
 </code></pre>
-
                 </section>
             </article>
 

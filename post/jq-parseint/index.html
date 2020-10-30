@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.74.3" />
 		<title>jq で parseInt &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,47 +83,35 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#例">例</a></li>
-<li><a href="#参考">参考</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#例">例</a></li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p>jqで文字列から数値に変換したいときは <code>tonumber</code> 関数を使う</p>
-
+                    <p>jqで文字列から数値に変換したいときは <code>tonumber</code> 関数を使う</p>
 <h2 id="例">例</h2>
-
 <p>こんな感じで使える</p>
-
 <ul>
 <li><code>select</code> 関数で条件に合うものだけにフィルタ
-
 <ul>
 <li>IDが文字列で <code>5</code> から始まるもの</li>
 <li>数値比較でランキングが3以下のもの</li>
-</ul></li>
+</ul>
+</li>
 <li><code>jq -s .</code> でまた配列に戻している</li>
 <li>sponge コマンドを使って元のファイルに書き出し</li>
 </ul>
-
-<pre><code class="language-bash">$ cat /tmp/_.json \
-  | jq '.[] 
-    | select(.id|test(&quot;^5&quot;)) 
-    | select((.ranking|tonumber) &lt;= 3)' \
-  | jq -s . \
-  | sponge /tmp/_.json
-</code></pre>
-
-<h2 id="参考">参考</h2>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cat /tmp/_.json <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  | jq <span style="color:#e6db74">&#39;.[] 
+</span><span style="color:#e6db74">    | select(.id|test(&#34;^5&#34;)) 
+</span><span style="color:#e6db74">    | select((.ranking|tonumber) &lt;= 3)&#39;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  | jq -s . <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  | sponge /tmp/_.json
+</code></pre></div><h2 id="参考">参考</h2>
 <ul>
 <li><a href="https://stackoverflow.com/questions/48887711/how-to-convert-a-string-to-an-integer-in-a-json-file-using-jq">casting - How to convert a string to an integer in a JSON file using jq? - Stack Overflow</a></li>
 <li><a href="https://stedolan.github.io/jq/manual/#tonumber">jq Manual (development version) | tonumber</a></li>

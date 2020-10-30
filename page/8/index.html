@@ -24,7 +24,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.74.3" />
 		<title>sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -77,6 +77,21 @@
         
             <li>
                 <aside class="dates">Feb 26</aside>
+                <a href='https://dream-yt.github.io/post/webpack-dev-options/'>
+                    webpackの開発用に便利なオプション
+                    
+                        
+                            <h2>1ファイルだけトランスパイルするならこんな感じ $ npx webpack $entry --output $output \ --progress \ --cache=true \ --display-error-details \ --debug \ --devtool eval-cheap-module-source-map \ --output-pathinfo \ --watch --progress 動作重い時でも動いているかどうかわかるだけで便利 --cache=true</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Feb 26</aside>
                 <a href='https://dream-yt.github.io/post/fd-instead-of-find-101/'>
                     fdを使う
                     
@@ -96,7 +111,7 @@
                     alpine に gcloud をインストールする Dockerfile
                     
                         
-                            <h2>curl, bash, python, が必要 PATHを通す (root配下にインストールされた) FROM node:10-alpine RUN apk --no-cache add curl bash python RUN curl -sSL https://sdk.cloud.google.com | bash ENV PATH $PATH:/root/google-cloud-sdk/bin 参考 How to install the Google Cloud SDK in a Docker Image? - Stack Overflow Push an image on google</h2>
+                            <h2>curl, bash, python, が必要 PATHを通す (root配下にインストールされた) FROMnode:10-alpineRUN apk --no-cache add curl bash pythonRUN curl -sSL https://sdk.cloud.google.com | bashENV PATH $PATH:/root/google-cloud-s</h2>
                         
                     
                 </a>
@@ -202,21 +217,6 @@
                     
                         
                             <h2>毎回忘れるのでメモ -n で判定できる。逆は -z。 正確には値のlengthがnon-zeroかという判定をしている main.sh #!/bin/bash [ -n &#34;$ONE&#34; ] &amp;&amp; echo &#34;ONE is non-zero&#34; [ -z &#34;$ONE&#34; ] &amp;&amp;</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Feb 12</aside>
-                <a href='https://dream-yt.github.io/post/testing-cloudrun/'>
-                    Cloud Runの動作確認 (イメージのビルド、デプロイと削除)
-                    
-                        
-                            <h2>システム パッケージのチュートリアルを使用する | Cloud Run | Google Cloud $ gcloud builds submit を叩くと、Dockerfileをもとにビルドが始まる $ gcloud builds submit --tag gcr.io/$GOOGLE_PROJECT_ID/graphvizn ... snip ... 10-alpine: Pulling from</h2>
                         
                     
                 </a>

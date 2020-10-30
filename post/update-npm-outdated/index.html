@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.74.3" />
 		<title>package.jsonの古いファイルをいっぺんに更新する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,46 +83,29 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#古いパッケージの一覧">古いパッケージの一覧</a></li>
-<li><a href="#いっぺんに更新する">いっぺんに更新する</a></li>
-<li><a href="#その他">その他</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#古いパッケージの一覧">古いパッケージの一覧</a></li>
+    <li><a href="#いっぺんに更新する">いっぺんに更新する</a></li>
+    <li><a href="#その他">その他</a></li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<h2 id="古いパッケージの一覧">古いパッケージの一覧</h2>
-
-<pre><code class="language-bash">$ npm outdated
-</code></pre>
-
-<p>こんな感じの出力が得られる</p>
-
+                    <h2 id="古いパッケージの一覧">古いパッケージの一覧</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ npm outdated
+</code></pre></div><p>こんな感じの出力が得られる</p>
 <pre><code>$ npm outdated
 Package             Current  Wanted  Latest  Location
 firebase-functions    2.3.1   2.3.1   3.1.0  project_name
 firebase-tools       6.12.0  6.12.0   7.1.0  project_name
-</code></pre>
-
-<h2 id="いっぺんに更新する">いっぺんに更新する</h2>
-
+</code></pre><h2 id="いっぺんに更新する">いっぺんに更新する</h2>
 <p>以下のようなワンライナーで全部最新のに更新できる</p>
-
 <pre><code>$ npm outdated | grep -v ^Package | awk '{print $1}' | xargs -I{} yarn add {}@latest
-</code></pre>
-
-<h2 id="その他">その他</h2>
-
+</code></pre><h2 id="その他">その他</h2>
 <p><code>npm-check-updates</code> というコマンドをインストールすると
 この辺りをよしなにやってくれるようだ (けどインストールするのも手間なのでワンライナーでなんとかしてしまった)</p>
-
 <ul>
 <li><a href="https://dackdive.hateblo.jp/entry/2016/10/10/095800">npm installしたパッケージの更新確認とアップデート(npm-check-updates) - dackdive&rsquo;s blog</a></li>
 </ul>

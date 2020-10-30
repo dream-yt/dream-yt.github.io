@@ -14,7 +14,7 @@
   
   
   <meta name="twitter:title" content="シェルスクリプトで変数が未定義かを確認する"/>
-  <meta name="twitter:description" content="毎回忘れるのでメモ -n で判定できる。逆は -z。 正確には値のlengthがnon-zeroかという判定をしている main.sh #!/bin/bash [ -n &quot;$ONE&quot; ] &amp;&amp; echo &quot;ONE is non-zero&quot; [ -z &quot;$ONE&quot; ] &amp;&amp;"/>
+  <meta name="twitter:description" content="毎回忘れるのでメモ -n で判定できる。逆は -z。 正確には値のlengthがnon-zeroかという判定をしている main.sh #!/bin/bash [ -n &#34;$ONE&#34; ] &amp;&amp; echo &#34;ONE is non-zero&#34; [ -z &#34;$ONE&#34; ] &amp;&amp;"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.74.3" />
 		<title>シェルスクリプトで変数が未定義かを確認する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -72,7 +72,7 @@
                     </h1>
                     <h2 class="headline">
                     Feb 12, 2020 09:06
-                    · 121 words
+                    · 123 words
                     · 1 minute read
                       <span class="tags">
                       
@@ -83,46 +83,32 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#main-sh">main.sh</a></li>
-<li><a href="#実行">実行</a></li>
-<li><a href="#参考">参考</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#mainsh">main.sh</a></li>
+    <li><a href="#実行">実行</a></li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p>毎回忘れるのでメモ</p>
-
+                    <p>毎回忘れるのでメモ</p>
 <p><code>-n</code> で判定できる。逆は <code>-z</code>。
 正確には値のlengthがnon-zeroかという判定をしている</p>
-
-<h2 id="main-sh">main.sh</h2>
-
-<pre><code class="language-bash">#!/bin/bash
-
-[ -n &quot;$ONE&quot; ] &amp;&amp; echo &quot;ONE is non-zero&quot;
-[ -z &quot;$ONE&quot; ] &amp;&amp; echo &quot;ONE (length) is zero&quot;
-</code></pre>
-
-<h2 id="実行">実行</h2>
-
-<pre><code class="language-bash">$ ONE=1 ./main.sh
+<h2 id="mainsh">main.sh</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/bash
+</span><span style="color:#75715e"></span>
+<span style="color:#f92672">[</span> -n <span style="color:#e6db74">&#34;</span>$ONE<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span> <span style="color:#f92672">&amp;&amp;</span> echo <span style="color:#e6db74">&#34;ONE is non-zero&#34;</span>
+<span style="color:#f92672">[</span> -z <span style="color:#e6db74">&#34;</span>$ONE<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span> <span style="color:#f92672">&amp;&amp;</span> echo <span style="color:#e6db74">&#34;ONE (length) is zero&#34;</span>
+</code></pre></div><h2 id="実行">実行</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ ONE<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> ./main.sh
 ONE is non-zero
-$ ONE= ./main.sh
-ONE (length) is zero
-</code></pre>
-
-<h2 id="参考">参考</h2>
-
+$ ONE<span style="color:#f92672">=</span> ./main.sh
+ONE <span style="color:#f92672">(</span>length<span style="color:#f92672">)</span> is zero
+</code></pre></div><h2 id="参考">参考</h2>
 <ul>
-<li><a href="http://nekoyukimmm.hatenablog.com/entry/2018/01/21/101828"><Bash, zsh> シェル変数が定義されているかを判定する方法 - ねこゆきのメモ</a></li>
+<li><a href="http://nekoyukimmm.hatenablog.com/entry/2018/01/21/101828">&lt;Bash, zsh&gt; シェル変数が定義されているかを判定する方法 - ねこゆきのメモ</a></li>
 </ul>
 
                 </section>

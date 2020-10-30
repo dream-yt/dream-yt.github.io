@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>sacre</title>
@@ -6,10 +6,19 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 28 Oct 2020 12:41:48 +0900</lastBuildDate>
+    <lastBuildDate>Fri, 30 Oct 2020 18:39:11 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>throttle と debounce の違い</title>
+      <link>https://dream-yt.github.io/post/difference-throttle-debounce/</link>
+      <pubDate>Fri, 30 Oct 2020 18:39:11 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/difference-throttle-debounce/</guid>
+      <description>こちらの説明がわかりやすかった throttleとdebounce lodash の debounce や throttle で簡単に負荷対策 - Qiita debounce 連続して大量に繰り返される処理が指定時間内に</description>
+    </item>
     
     <item>
       <title>TypeScriptで、「この配列の要素がキーになってるオブジェクト」という型を定義する</title>
@@ -17,7 +26,7 @@
       <pubDate>Wed, 28 Oct 2020 12:41:48 +0900</pubDate>
       
       <guid>https://dream-yt.github.io/post/typescript-array-element-object-typing/</guid>
-      <description>こんな感じでできる const columns = [&amp;quot;id&amp;quot;, &amp;quot;name&amp;quot;, &amp;quot;created&amp;quot;] as const; type Column = typeof columns[number]; // type Column = &amp;quot;id&amp;quot; | &amp;quot;name&amp;quot; | &amp;quot;created&amp;quot; type Obj = { [F in Column]: string }; typeof columns[number] がミソ What means typeof Array[number] in Typescript? - Stack Overflow</description>
+      <description>こんな感じでできる const columns = [&amp;#34;id&amp;#34;, &amp;#34;name&amp;#34;, &amp;#34;created&amp;#34;] as const; type Column = typeof columns[number]; // type Column = &amp;#34;id&amp;#34; | &amp;#34;name&amp;#34; | &amp;#34;created&amp;#34; type Obj = { [F in Column]: string }; typeof columns[number] がミソ What means typeof Array[number] in Typescript? - Stack Overflow</description>
     </item>
     
     <item>
@@ -26,7 +35,7 @@
       <pubDate>Thu, 15 Oct 2020 21:53:43 +0900</pubDate>
       
       <guid>https://dream-yt.github.io/post/turnoff-vscode-python-autoformat/</guid>
-      <description>半年に1回くらい設定してるのでメモ settingsからworkspaceの設定を開き、以下のように設定すればよい &amp;quot;settings&amp;quot;: { &amp;quot;[python]&amp;quot;: { &amp;quot;editor.formatOnSave&amp;quot;: false } } Turn off auto formatting for json</description>
+      <description>半年に1回くらい設定してるのでメモ settingsからworkspaceの設定を開き、以下のように設定すればよい &amp;#34;settings&amp;#34;: { &amp;#34;[python]&amp;#34;: { &amp;#34;editor.formatOnSave&amp;#34;: false } } Turn off auto formatting for json</description>
     </item>
     
     <item>
@@ -53,7 +62,7 @@
       <pubDate>Wed, 07 Oct 2020 19:01:35 +0900</pubDate>
       
       <guid>https://dream-yt.github.io/post/create-bigquery-scheduled-query-from-cli-bq/</guid>
-      <description>こんなコマンドで登録できる $ bq mk \ --transfer_config \ --data_source=scheduled_query \ --target_dataset=mydataset \ --display_name=&#39;daily_update/$tablename&#39; \ --schedule=&#39;every day 18:00&#39; \ --params=&amp;quot;$(cat $filename)&amp;quot; --schedule=&#39;every day 18:00&#39; ここで指定する時間はUTC --params=&amp;quot;\$(cat $filename)&amp;quot; {&amp;quot;query&amp;quot;:&amp;quot;SELECT 1&amp;quot;} みたいなJSONが入ってるファイルとす</description>
+      <description>こんなコマンドで登録できる $ bq mk \ --transfer_config \ --data_source=scheduled_query \ --target_dataset=mydataset \ --display_name=&amp;#39;daily_update/$tablename&amp;#39; \ --schedule=&amp;#39;every day 18:00&amp;#39; \ --params=&amp;#34;$(cat $filename)&amp;#34; --schedule=&#39;every day 18:00&#39; ここで指定する時間はUTC --params=&amp;quot;\$(cat $filename)&amp;quot; {&amp;quot;query&amp;quot;:&amp;quot;SELECT 1&amp;quot;} みたいなJSONが入ってるファイルとす</description>
     </item>
     
     <item>
@@ -71,7 +80,7 @@
       <pubDate>Wed, 16 Sep 2020 09:22:10 +0900</pubDate>
       
       <guid>https://dream-yt.github.io/post/css-flex-horizontal-card/</guid>
-      <description>画像が左、説明文が右というレイアウトの最小限の定義 &amp;lt;div class=&amp;quot;card&amp;quot;&amp;gt; &amp;lt;div class=&amp;quot;card-left&amp;quot;&amp;gt; &amp;lt;img src=&amp;quot;https://thumbnail.image.rakuten.co.jp/@0_mall/book/cabinet/1989/19892000.jpg?_ex=200x200&amp;quot; /&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;div class=&amp;quot;card-right&amp;quot;&amp;gt; &amp;lt;h3&amp;gt;{book.title}&amp;lt;/h3&amp;gt; &amp;lt;p&amp;gt;{book.itemCaption}&amp;lt;/p&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/div&amp;gt; .card { display: flex; /* PCで閲覧された時に横幅を絞っておく */ width: 600px; } .card-left { width: 30%;</description>
+      <description>画像が左、説明文が右というレイアウトの最小限の定義 &amp;lt;div class=&amp;#34;card&amp;#34;&amp;gt; &amp;lt;div class=&amp;#34;card-left&amp;#34;&amp;gt; &amp;lt;img src=&amp;#34;https://thumbnail.image.rakuten.co.jp/@0_mall/book/cabinet/1989/19892000.jpg?_ex=200x200&amp;#34; /&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;div class=&amp;#34;card-right&amp;#34;&amp;gt; &amp;lt;h3&amp;gt;{book.title}&amp;lt;/h3&amp;gt; &amp;lt;p&amp;gt;{book.itemCaption}&amp;lt;/p&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/div&amp;gt; .card { display: flex; /* PCで閲覧された時に横幅を絞っておく */ width: 600px; } .card-left { width: 30%;</description>
     </item>
     
     <item>
@@ -116,7 +125,7 @@
       <pubDate>Sat, 05 Sep 2020 12:07:03 +0900</pubDate>
       
       <guid>https://dream-yt.github.io/post/replace-all-japanese-in-page/</guid>
-      <description>nodejs/express で開発をしていて、画面内の日本語をすべて記号に置き換えたい時があったのでこのようにした const replace = require(&#39;stream-replace&#39;); stream = stream .pipe(replace(/[ぁ-ん</description>
+      <description>nodejs/express で開発をしていて、画面内の日本語をすべて記号に置き換えたい時があったのでこのようにした const replace = require(&amp;#39;stream-replace&amp;#39;); stream = stream .pipe(replace(/[ぁ-ん</description>
     </item>
     
     <item>
@@ -125,7 +134,7 @@
       <pubDate>Sat, 05 Sep 2020 12:03:51 +0900</pubDate>
       
       <guid>https://dream-yt.github.io/post/react-render-google-analytics/</guid>
-      <description>なんかいろんなプラグインがnpmにあったが、自分で dangerouslySetInnerHTML で直接書いてしまうのが楽だった import React from &amp;lsquo;react&amp;rsquo;; export const GoogleAnalytics: React.FC = () =&amp;gt; ( &amp;lt;&amp;gt; &amp;lt;/&amp;gt; );</description>
+      <description>なんかいろんなプラグインがnpmにあったが、自分で dangerouslySetInnerHTML で直接書いてしまうのが楽だった</description>
     </item>
     
     <item>
@@ -170,7 +179,7 @@
       <pubDate>Sat, 29 Aug 2020 17:19:29 +0900</pubDate>
       
       <guid>https://dream-yt.github.io/post/tsc-webpack-tsloader-code-diff/</guid>
-      <description>トランスパイルされる元のコードはこんな感じ index.ts import { f } from &#39;./A&#39;; console.log(&amp;quot;this is index&amp;quot;); f(); A.ts export const f = () =&amp;gt; console.log(&amp;quot;this is A.f&amp;quot;) このコードを以下の4パターンでトランスパイルしてみて、出</description>
+      <description>トランスパイルされる元のコードはこんな感じ index.ts import { f } from &amp;#39;./A&amp;#39;; console.log(&amp;#34;this is index&amp;#34;); f(); A.ts export const f = () =&amp;gt; console.log(&amp;#34;this is A.f&amp;#34;) このコードを以下の4パターンでトランスパイルしてみて、出</description>
     </item>
     
     <item>
@@ -197,7 +206,7 @@
       <pubDate>Fri, 28 Aug 2020 00:07:02 +0900</pubDate>
       
       <guid>https://dream-yt.github.io/post/ansible-raspbian-install-nodejs/</guid>
-      <description>ansible-role-nodejs を使うとラズパイでも簡単に入る geerlingguy/ansible-role-nodejs: Ansible Role - Node.js 一緒に npm -g install yarn もしてもらうような最小限の設定 vars: nodejs_version: &amp;quot;12.x&amp;quot; nodejs_npm_global_packages: - yarn roles: - ansible-role-nodejs 環境 Raspbian Buster Lite で動作 Download Raspbian for Raspberry Pi</description>
+      <description>ansible-role-nodejs を使うとラズパイでも簡単に入る geerlingguy/ansible-role-nodejs: Ansible Role - Node.js 一緒に npm -g install yarn もしてもらうような最小限の設定 vars: nodejs_version: &amp;#34;12.x&amp;#34; nodejs_npm_global_packages: - yarn roles: - ansible-role-nodejs 環境 Raspbian Buster Lite で動作 Download Raspbian for Raspberry Pi</description>
     </item>
     
     <item>
@@ -233,7 +242,7 @@
       <pubDate>Mon, 17 Aug 2020 17:07:35 +0900</pubDate>
       
       <guid>https://dream-yt.github.io/post/fd-rename-js-ts-in-project/</guid>
-      <description>fdを使うとこんな塩梅になる fd --glob &#39;*.js&#39; ./src --exec mv {//}/{/.}.js {//}/{/.}.ts --glob &#39;*.js&#39; jsファイルのみを対象にする ./src ファイルを探すパス --exec mv {//}/{/.}.js {//}/{/.}.ts 見つかったファイル1つ1つに対して処</description>
+      <description>fdを使うとこんな塩梅になる fd --glob &amp;#39;*.js&amp;#39; ./src --exec mv {//}/{/.}.js {//}/{/.}.ts --glob &#39;*.js&#39; jsファイルのみを対象にする ./src ファイルを探すパス --exec mv {//}/{/.}.js {//}/{/.}.ts 見つかったファイル1つ1つに対して処</description>
     </item>
     
     <item>
@@ -260,7 +269,7 @@
       <pubDate>Wed, 12 Aug 2020 18:34:01 +0900</pubDate>
       
       <guid>https://dream-yt.github.io/post/dump-mp4-atom-in-json/</guid>
-      <description>mp4dumpを使うとJSON形式で取得できる $ mp4dump ./test.mp4 --format json &amp;gt; /tmp/_ $ mp4dump ./test.mp4 --format json | jq . | head -30 [ { &amp;quot;name&amp;quot;: &amp;quot;ftyp&amp;quot;, &amp;quot;header_size&amp;quot;: 8, &amp;quot;size&amp;quot;: 28, &amp;quot;major_brand&amp;quot;: &amp;quot;mp42&amp;quot;, &amp;quot;minor_version&amp;quot;: 0, &amp;quot;compatible_brand&amp;quot;: &amp;quot;avc1&amp;quot; }, { &amp;quot;name&amp;quot;: &amp;quot;moov&amp;quot;, &amp;quot;header_size&amp;quot;: 8, &amp;quot;size&amp;quot;: 9187, &amp;quot;children&amp;quot;: [ { &amp;quot;name&amp;quot;: &amp;quot;mvhd&amp;quot;, &amp;quot;header_size&amp;quot;: 12,</description>
+      <description>mp4dumpを使うとJSON形式で取得できる $ mp4dump ./test.mp4 --format json &amp;gt; /tmp/_ $ mp4dump ./test.mp4 --format json | jq . | head -30 [ { &amp;#34;name&amp;#34;: &amp;#34;ftyp&amp;#34;, &amp;#34;header_size&amp;#34;: 8, &amp;#34;size&amp;#34;: 28, &amp;#34;major_brand&amp;#34;: &amp;#34;mp42&amp;#34;, &amp;#34;minor_version&amp;#34;: 0, &amp;#34;compatible_brand&amp;#34;: &amp;#34;avc1&amp;#34; }, { &amp;#34;name&amp;#34;: &amp;#34;moov&amp;#34;, &amp;#34;header_size&amp;#34;: 8, &amp;#34;size&amp;#34;: 9187, &amp;#34;children&amp;#34;: [ { &amp;#34;name&amp;#34;: &amp;#34;mvhd&amp;#34;, &amp;#34;header_size&amp;#34;: 12,</description>
     </item>
     
     <item>
@@ -287,7 +296,7 @@
       <pubDate>Thu, 06 Aug 2020 18:42:29 +0900</pubDate>
       
       <guid>https://dream-yt.github.io/post/jq-select-not-empty-array/</guid>
-      <description>select と length を使えばよい cat data.json | jq &#39;select(.errors | length &amp;gt; 0) 参考 length select</description>
+      <description>select と length を使えばよい cat data.json | jq &amp;#39;select(.errors | length &amp;gt; 0) 参考 length select</description>
     </item>
     
     <item>
@@ -413,7 +422,7 @@
       <pubDate>Mon, 01 Jun 2020 16:31:19 +0900</pubDate>
       
       <guid>https://dream-yt.github.io/post/gcp-trigger-cloudbuild-via-cloudfunction/</guid>
-      <description>まずgcloudで既存のトリガーの一覧を確認しておく $ gcloud beta builds triggers list --- createTime: &#39;2020-05-06T13:01:33.647678872Z&#39; description: master ブランチへの push filename: site/cloudbuild.yaml github: name: test owner: admin push: branch: ^master$ id: 0e2bd416-129f-44a3-b7ed-79c3c61e021a name: master-push-trigger tags: - github-default-push-trigger nodejsで呼び</description>
+      <description>まずgcloudで既存のトリガーの一覧を確認しておく $ gcloud beta builds triggers list --- createTime: &amp;#39;2020-05-06T13:01:33.647678872Z&amp;#39; description: master ブランチへの push filename: site/cloudbuild.yaml github: name: test owner: admin push: branch: ^master$ id: 0e2bd416-129f-44a3-b7ed-79c3c61e021a name: master-push-trigger tags: - github-default-push-trigger nodejsで呼び</description>
     </item>
     
     <item>
@@ -440,7 +449,7 @@
       <pubDate>Wed, 13 May 2020 12:56:31 +0900</pubDate>
       
       <guid>https://dream-yt.github.io/post/mysql-extract-hostname-from-url/</guid>
-      <description>ちょっとサボって https:// などのスキーマ部も入る形 SELECT SUBSTRING_INDEX(SUBSTRING_INDEX(url, &#39;/&#39;, 3), &#39;?&#39;, 1) FROM t 参考 熱い議論が交わされている Mysql query to extract domains from urls - Stack Overflow</description>
+      <description>ちょっとサボって https:// などのスキーマ部も入る形 SELECT SUBSTRING_INDEX(SUBSTRING_INDEX(url, &amp;#39;/&amp;#39;, 3), &amp;#39;?&amp;#39;, 1) FROM t 参考 熱い議論が交わされている Mysql query to extract domains from urls - Stack Overflow</description>
     </item>
     
     <item>
@@ -449,7 +458,7 @@
       <pubDate>Thu, 07 May 2020 23:20:24 +0900</pubDate>
       
       <guid>https://dream-yt.github.io/post/cloudbuild-cloudrun/</guid>
-      <description>トリガー まず、cloudbuildのトリガーをこんな感じで登録しておく ^master$ のときに変数が _SERVICE=service となるように ^canary/ のときに変数が _SERVICE=service-canary となるように cloudbuild.yaml timeout: &#39;900s&#39; steps: -</description>
+      <description>トリガー まず、cloudbuildのトリガーをこんな感じで登録しておく ^master$ のときに変数が _SERVICE=service となるように ^canary/ のときに変数が _SERVICE=service-canary となるように cloudbuild.yaml timeout: &amp;#39;900s&amp;#39; steps: -</description>
     </item>
     
     <item>
@@ -521,7 +530,7 @@
       <pubDate>Mon, 27 Apr 2020 10:23:34 +0900</pubDate>
       
       <guid>https://dream-yt.github.io/post/css-selector-multiple-attributes/</guid>
-      <description>たとえばこんな要素に複数の属性でマッチさせたい場合 &amp;lt;input type=&amp;quot;file&amp;quot; multiple /&amp;gt; こんな指定になる input[type=&amp;quot;file&amp;quot;][multiple] { ... } 参考 Specify multiple attribute selectors in CSS - Stack Overflow</description>
+      <description>たとえばこんな要素に複数の属性でマッチさせたい場合 &amp;lt;input type=&amp;#34;file&amp;#34; multiple /&amp;gt; こんな指定になる input[type=&amp;#34;file&amp;#34;][multiple] { ... } 参考 Specify multiple attribute selectors in CSS - Stack Overflow</description>
     </item>
     
     <item>
@@ -548,7 +557,7 @@
       <pubDate>Sat, 18 Apr 2020 13:01:07 +0900</pubDate>
       
       <guid>https://dream-yt.github.io/post/hive-table-input-output-serde/</guid>
-      <description>hive の create table は次のようなものである CREATE TABLE test(id INT, name STRING) ROW FORMAT SERDE &#39;org.apache.hadoop.hive.serde2.avro.AvroSerDe&#39; STORED as INPUTFORMAT &#39;org.apache.hadoop.hive.ql.io.avro.AvroContainerInputFormat&#39; OUTPUTFORMAT &#39;org.apache.hadoop.hive.ql.io.avro.AvroContainerOutputFormat&#39; このなかの SERDE, INPUTFORMAT, OUTPUTFORMAT についてメモ INPUTFORMAT, OUTPUTFORMAT hive には external storage と hive warehouse 2種類のデータストアがある これ</description>
+      <description>hive の create table は次のようなものである CREATE TABLE test(id INT, name STRING) ROW FORMAT SERDE &amp;#39;org.apache.hadoop.hive.serde2.avro.AvroSerDe&amp;#39; STORED as INPUTFORMAT &amp;#39;org.apache.hadoop.hive.ql.io.avro.AvroContainerInputFormat&amp;#39; OUTPUTFORMAT &amp;#39;org.apache.hadoop.hive.ql.io.avro.AvroContainerOutputFormat&amp;#39; このなかの SERDE, INPUTFORMAT, OUTPUTFORMAT についてメモ INPUTFORMAT, OUTPUTFORMAT hive には external storage と hive warehouse 2種類のデータストアがある これ</description>
     </item>
     
     <item>
@@ -575,7 +584,7 @@
       <pubDate>Fri, 10 Apr 2020 15:58:01 +0900</pubDate>
       
       <guid>https://dream-yt.github.io/post/vscode-eslint-v2/</guid>
-      <description>こんな設定になった { &amp;quot;[javascript]&amp;quot;: { &amp;quot;editor.codeActionsOnSave&amp;quot;: { &amp;quot;source.fixAll.eslint&amp;quot;: true }, &amp;quot;editor.tabSize&amp;quot;: 2 }, &amp;quot;eslint.enable&amp;quot;: true, &amp;quot;eslint.alwaysShowStatus&amp;quot;: true, &amp;quot;eslint.debug&amp;quot;: false, &amp;quot;eslint.format.enable&amp;quot;: true, &amp;quot;eslint.lintTask.enable&amp;quot;: true, &amp;quot;eslint.workingDirectories&amp;quot;: [ { &amp;quot;mode&amp;quot;: &amp;quot;auto&amp;quot; } ] } editor.codeActionsOnSave vscode-eslintはv2からこんな設定になっている https://github.com/microsoft/vscode-eslint#release-notes &amp;quot;editor.codeActionsOnSave&amp;quot;:</description>
+      <description>こんな設定になった { &amp;#34;[javascript]&amp;#34;: { &amp;#34;editor.codeActionsOnSave&amp;#34;: { &amp;#34;source.fixAll.eslint&amp;#34;: true }, &amp;#34;editor.tabSize&amp;#34;: 2 }, &amp;#34;eslint.enable&amp;#34;: true, &amp;#34;eslint.alwaysShowStatus&amp;#34;: true, &amp;#34;eslint.debug&amp;#34;: false, &amp;#34;eslint.format.enable&amp;#34;: true, &amp;#34;eslint.lintTask.enable&amp;#34;: true, &amp;#34;eslint.workingDirectories&amp;#34;: [ { &amp;#34;mode&amp;#34;: &amp;#34;auto&amp;#34; } ] } editor.codeActionsOnSave vscode-eslintはv2からこんな設定になっている https://github.com/microsoft/vscode-eslint#release-notes &amp;#34;editor.codeActionsOnSave&amp;#34;:</description>
     </item>
     
     <item>
@@ -656,7 +665,7 @@
       <pubDate>Fri, 21 Feb 2020 09:23:30 +0900</pubDate>
       
       <guid>https://dream-yt.github.io/post/install-gcloud-to-alpine/</guid>
-      <description>curl, bash, python, が必要 PATHを通す (root配下にインストールされた) FROM node:10-alpine RUN apk --no-cache add curl bash python RUN curl -sSL https://sdk.cloud.google.com | bash ENV PATH $PATH:/root/google-cloud-sdk/bin 参考 How to install the Google Cloud SDK in a Docker Image? - Stack Overflow Push an image on google</description>
+      <description>curl, bash, python, が必要 PATHを通す (root配下にインストールされた) FROMnode:10-alpineRUN apk --no-cache add curl bash pythonRUN curl -sSL https://sdk.cloud.google.com | bashENV PATH $PATH:/root/google-cloud-s</description>
     </item>
     
     <item>
@@ -674,7 +683,7 @@
       <pubDate>Mon, 17 Feb 2020 09:48:04 +0900</pubDate>
       
       <guid>https://dream-yt.github.io/post/cloudscheduler-error-invalid_argument/</guid>
-      <description>GCPのCloudSchedulerの設定で以下のようなコマンドを叩いたところエラーとなった gcloud beta scheduler jobs create http subcommandtesting-out-job \ --schedule &amp;quot;5 * * * *&amp;quot; \ --http-method=GET \ --uri=&#39;https://test-iujvxwvxra-an.a.run.app/test/out&#39; \ --oidc-service-account-email=&#39;xxxxxxxx@gmail.com&#39; ERROR: (gcloud.beta.scheduler.jobs.create.http) INVALID_ARGUMENT: Request</description>
+      <description>GCPのCloudSchedulerの設定で以下のようなコマンドを叩いたところエラーとなった gcloud beta scheduler jobs create http subcommandtesting-out-job \ --schedule &amp;#34;5 * * * *&amp;#34; \ --http-method=GET \ --uri=&amp;#39;https://test-iujvxwvxra-an.a.run.app/test/out&amp;#39; \ --oidc-service-account-email=&amp;#39;xxxxxxxx@gmail.com&amp;#39; ERROR: (gcloud.beta.scheduler.jobs.create.http) INVALID_ARGUMENT: Request</description>
     </item>
     
     <item>
@@ -719,7 +728,7 @@
       <pubDate>Wed, 12 Feb 2020 09:06:11 +0900</pubDate>
       
       <guid>https://dream-yt.github.io/post/bash-non-zero-variable/</guid>
-      <description>毎回忘れるのでメモ -n で判定できる。逆は -z。 正確には値のlengthがnon-zeroかという判定をしている main.sh #!/bin/bash [ -n &amp;quot;$ONE&amp;quot; ] &amp;amp;&amp;amp; echo &amp;quot;ONE is non-zero&amp;quot; [ -z &amp;quot;$ONE&amp;quot; ] &amp;amp;&amp;amp;</description>
+      <description>毎回忘れるのでメモ -n で判定できる。逆は -z。 正確には値のlengthがnon-zeroかという判定をしている main.sh #!/bin/bash [ -n &amp;#34;$ONE&amp;#34; ] &amp;amp;&amp;amp; echo &amp;#34;ONE is non-zero&amp;#34; [ -z &amp;#34;$ONE&amp;#34; ] &amp;amp;&amp;amp;</description>
     </item>
     
     <item>
@@ -908,7 +917,7 @@
       <pubDate>Sun, 24 Nov 2019 09:18:24 +0900</pubDate>
       
       <guid>https://dream-yt.github.io/post/jq-object-array-object/</guid>
-      <description>こんなデータ構造のjsonがあるとして { &amp;quot;APP1&amp;quot;: { &amp;quot;name&amp;quot;: &amp;quot;旧App&amp;quot;, &amp;quot;monId&amp;quot;: 277013 }, &amp;quot;APP2&amp;quot;: { &amp;quot;name&amp;quot;: &amp;quot;App&amp;quot;, &amp;quot;monId&amp;quot;: 241736 }, &amp;quot;DB&amp;quot;: { &amp;quot;name&amp;quot;: &amp;quot;Database&amp;quot;, &amp;quot;monId&amp;quot;: 234737 }, &amp;quot;S&amp;quot;: { &amp;quot;name&amp;quot;: &amp;quot;Static&amp;quot;, &amp;quot;monId&amp;quot;: 221738 } } この形式に</description>
+      <description>こんなデータ構造のjsonがあるとして { &amp;#34;APP1&amp;#34;: { &amp;#34;name&amp;#34;: &amp;#34;旧App&amp;#34;, &amp;#34;monId&amp;#34;: 277013 }, &amp;#34;APP2&amp;#34;: { &amp;#34;name&amp;#34;: &amp;#34;App&amp;#34;, &amp;#34;monId&amp;#34;: 241736 }, &amp;#34;DB&amp;#34;: { &amp;#34;name&amp;#34;: &amp;#34;Database&amp;#34;, &amp;#34;monId&amp;#34;: 234737 }, &amp;#34;S&amp;#34;: { &amp;#34;name&amp;#34;: &amp;#34;Static&amp;#34;, &amp;#34;monId&amp;#34;: 221738 } } この形式にjq</description>
     </item>
     
     <item>
@@ -944,7 +953,7 @@
       <pubDate>Wed, 13 Nov 2019 12:33:01 +0900</pubDate>
       
       <guid>https://dream-yt.github.io/post/gitlog-mymerge/</guid>
-      <description>こんな感じ $ git log \ --format=&#39;%h %an (%ai) %s&#39; --since=&#39;2019-10-25&#39; \ --author=sakamossan \ --grep=&#39;Merge pull request #\d+&#39; -P こんな出力が得られる 3fc6ed727 sakamossan (2019-11-11 14:04:54 +0900) Merge pull request #4573 ... 87daf1614 sakamossan (2019-11-06 17:59:30 +0900) Merge pull request #4557 ... 47e68edfc sakamossan (2019-11-06 11:22:41 +0900) Merge pull request #4542 ... &amp;ndash;format=&amp;lsquo;%h %an (%ai) %s&amp;rsquo; 出力フォ</description>
+      <description>こんな感じ $ git log \ --format=&amp;#39;%h %an (%ai) %s&amp;#39; --since=&amp;#39;2019-10-25&amp;#39; \ --author=sakamossan \ --grep=&amp;#39;Merge pull request #\d+&amp;#39; -P こんな出力が得られる 3fc6ed727 sakamossan (2019-11-11 14:04:54 +0900) Merge pull request #4573 ... 87daf1614 sakamossan (2019-11-06 17:59:30 +0900) Merge pull request #4557 ... 47e68edfc sakamossan (2019-11-06 11:22:41 +0900) Merge pull request #4542 ... &amp;ndash;format=&amp;rsquo;%h %an (%ai) %s&amp;rsquo; 出力フォ</description>
     </item>
     
     <item>
@@ -1043,7 +1052,7 @@
       <pubDate>Mon, 14 Oct 2019 14:01:42 +0900</pubDate>
       
       <guid>https://dream-yt.github.io/post/ts-node-register-to-call-from-nodejs/</guid>
-      <description>ts-node/register を使うとできる たとえば scripts/make-index.js というスクリプトから src/bigquery/index.ts 内のクラスをrequireする こんなコードを書くとrequireできる #!/usr/bin/env node require(&amp;quot;source-map-support&amp;quot;).install() require(&amp;quot;ts-node&amp;quot;).register() const { Indexer } = require(&amp;quot;../src/bigquery&amp;quot;) Indexer.run()</description>
+      <description>ts-node/register を使うとできる たとえば scripts/make-index.js というスクリプトから src/bigquery/index.ts 内のクラスをrequireする こんなコードを書くとrequireできる #!/usr/bin/env node require(&amp;#34;source-map-support&amp;#34;).install() require(&amp;#34;ts-node&amp;#34;).register() const { Indexer } = require(&amp;#34;../src/bigquery&amp;#34;) Indexer.run()</description>
     </item>
     
     <item>
@@ -1097,7 +1106,7 @@
       <pubDate>Wed, 18 Sep 2019 22:47:34 +0900</pubDate>
       
       <guid>https://dream-yt.github.io/post/jq-list-json-into-array/</guid>
-      <description>jq でselectとかで色々やったあと配列に戻したいときがある jq -s をパイプすると改行区切りのjsonを1つの配列にしてくれる cat ./src/resources/test/ranking-latest.json \ | jq &#39;.[] | select(.shopId |</description>
+      <description>jq でselectとかで色々やったあと配列に戻したいときがある jq -s をパイプすると改行区切りのjsonを1つの配列にしてくれる cat ./src/resources/test/ranking-latest.json \ | jq &amp;#39;.[] | select(.shopId |</description>
     </item>
     
     <item>
@@ -1133,7 +1142,7 @@
       <pubDate>Sun, 25 Aug 2019 15:44:56 +0900</pubDate>
       
       <guid>https://dream-yt.github.io/post/import-withmark-in-typescript-vscode-jest/</guid>
-      <description>webpackだとsymlink貼ったり NODE_PATH をいじったりする必要はない 差分 webpack.config.js を変更しないとビルドできない resolve: { + alias: { &#39;@&#39;: path.resolve(__dirname, &#39;./src/&#39;) }, extensions: [&#39;.ts&#39;, &#39;.tsx&#39;, &#39;.js&#39;] }, 正常にビル</description>
+      <description>webpackだとsymlink貼ったり NODE_PATH をいじったりする必要はない 差分 webpack.config.js を変更しないとビルドできない resolve: { + alias: { &amp;#39;@&amp;#39;: path.resolve(__dirname, &amp;#39;./src/&amp;#39;) }, extensions: [&amp;#39;.ts&amp;#39;, &amp;#39;.tsx&amp;#39;, &amp;#39;.js&amp;#39;] }, 正常にビル</description>
     </item>
     
     <item>
@@ -1142,7 +1151,7 @@
       <pubDate>Sun, 25 Aug 2019 15:44:56 +0900</pubDate>
       
       <guid>https://dream-yt.github.io/post/import-withat-mark-in-typescript-vscode-jest/</guid>
-      <description>webpackだとsymlink貼ったり NODE_PATH をいじったりする必要はない 差分 webpack.config.js を変更しないとビルドできない resolve: { + alias: { &#39;@&#39;: path.resolve(__dirname, &#39;./src/&#39;) }, extensions: [&#39;.ts&#39;, &#39;.tsx&#39;, &#39;.js&#39;] }, 正常にビル</description>
+      <description>webpackだとsymlink貼ったり NODE_PATH をいじったりする必要はない 差分 webpack.config.js を変更しないとビルドできない resolve: { + alias: { &amp;#39;@&amp;#39;: path.resolve(__dirname, &amp;#39;./src/&amp;#39;) }, extensions: [&amp;#39;.ts&amp;#39;, &amp;#39;.tsx&amp;#39;, &amp;#39;.js&amp;#39;] }, 正常にビル</description>
     </item>
     
     <item>
@@ -1196,7 +1205,7 @@
       <pubDate>Mon, 05 Aug 2019 11:32:41 +0900</pubDate>
       
       <guid>https://dream-yt.github.io/post/serverless-deploy-from-docker-container/</guid>
-      <description>lambdaとnodeのネイティブモジュール周りで辛いことになった時用 Dockerfile FROM amazonlinux:latest RUN curl --silent --location https://dl.yarnpkg.com/rpm/yarn.repo &amp;gt; /etc/yum.repos.d/yarn.repo RUN curl --silent --location https://rpm.nodesource.com/setup_10.x | bash RUN yum install -y nodejs gcc-c++ make git yarn RUN yarn global add serverless --silent --no-progress RUN mkdir</description>
+      <description>lambdaとnodeのネイティブモジュール周りで辛いことになった時用 Dockerfile FROMamazonlinux:latestRUN curl --silent --location https://dl.yarnpkg.com/rpm/yarn.repo &amp;gt; /etc/yum.repos.d/yarn.repoRUN curl --silent --location https://rpm.nodesource.com/setup_10.x | bashRUN yum install -y nodejs gcc-c++ make git yarnRUN yarn global add serverless --silent --no-progressRUN mkdir /appWORKDIR/appADD package.json /app/package.jsonADD yarn.lock /app/yarn.lock# b</description>
     </item>
     
     <item>
@@ -1241,7 +1250,7 @@
       <pubDate>Fri, 26 Jul 2019 09:34:34 +0900</pubDate>
       
       <guid>https://dream-yt.github.io/post/rsync-clone-directory/</guid>
-      <description>送信元ディレクトリと送信先ディレクトリを同じ状態にしたいときは下記のような指定をする $ rsync \ -e &amp;quot;ssh -i ~/.ssh/id_rsa&amp;quot; \ -ahv --compress --delete ./webui/public/ admin@test.jp:/www/data/ ssh鍵が指定が必要な場合は-</description>
+      <description>送信元ディレクトリと送信先ディレクトリを同じ状態にしたいときは下記のような指定をする $ rsync \ -e &amp;#34;ssh -i ~/.ssh/id_rsa&amp;#34; \ -ahv --compress --delete ./webui/public/ admin@test.jp:/www/data/ ssh鍵が指定が必要な場合は-</description>
     </item>
     
     <item>
@@ -1268,7 +1277,7 @@
       <pubDate>Tue, 16 Jul 2019 11:23:13 +0900</pubDate>
       
       <guid>https://dream-yt.github.io/post/change-file-extention-with-bash/</guid>
-      <description>たとえばsrc配下のjsファイルをぜんぶtsファイルに変更したい場合は以下のように書ける $ find ./src -name &#39;*.js&#39; -type f \ | perl -wnlE &#39;/(\S+).js/ and say &amp;quot;$1.js $1.ts&amp;quot;&#39; \ | xargs -n2 mv 動作 find ./src -name</description>
+      <description>たとえばsrc配下のjsファイルをぜんぶtsファイルに変更したい場合は以下のように書ける $ find ./src -name &amp;#39;*.js&amp;#39; -type f \ | perl -wnlE &amp;#39;/(\S+).js/ and say &amp;#34;$1.js $1.ts&amp;#34;&amp;#39; \ | xargs -n2 mv 動作 find ./src -name</description>
     </item>
     
     <item>
@@ -1295,7 +1304,7 @@
       <pubDate>Wed, 10 Jul 2019 18:26:22 +0900</pubDate>
       
       <guid>https://dream-yt.github.io/post/devserver-ssl-static/</guid>
-      <description>SSLさせてくれるhttpサーバのコード こちらから拝借 simple-https-server.py import http.server import ssl server_address = (&#39;127.0.0.1&#39;, 443) httpd = http.server.HTTPServer(server_address, http.server.SimpleHTTPRequestHandler) httpd.socket = ssl.wrap_socket(httpd.socket, server_side=True, certfile=&amp;quot;server.pem&amp;quot;, keyfile=&amp;quot;key.pem&amp;quot;, ssl_version=ssl.PROTOCOL_TLS) httpd.serve_forever() 証明書を作ってserver start $ mkdir /tmp/$(pwgen) &amp;amp;&amp;amp; cd $_ $ pbpaste</description>
+      <description>SSLさせてくれるhttpサーバのコード こちらから拝借 simple-https-server.py import http.server import ssl server_address = (&amp;#39;127.0.0.1&amp;#39;, 443) httpd = http.server.HTTPServer(server_address, http.server.SimpleHTTPRequestHandler) httpd.socket = ssl.wrap_socket(httpd.socket, server_side=True, certfile=&amp;#34;server.pem&amp;#34;, keyfile=&amp;#34;key.pem&amp;#34;, ssl_version=ssl.PROTOCOL_TLS) httpd.serve_forever() 証明書を作ってserver start $ mkdir /tmp/$(pwgen) &amp;amp;&amp;amp; cd $_ $ pbpaste</description>
     </item>
     
     <item>
@@ -1313,7 +1322,7 @@
       <pubDate>Wed, 03 Jul 2019 15:30:19 +0900</pubDate>
       
       <guid>https://dream-yt.github.io/post/jq-object-add/</guid>
-      <description>こんな配列を [ {&amp;quot;id&amp;quot;: &amp;quot;123&amp;quot;, &amp;quot;name&amp;quot;: &amp;quot;abc&amp;quot;}, {&amp;quot;id&amp;quot;: &amp;quot;456&amp;quot;, &amp;quot;name&amp;quot;: &amp;quot;qwe&amp;quot;} ] こうしたい { &amp;quot;123&amp;quot;: {&amp;quot;id&amp;quot;: &amp;quot;123&amp;quot;, &amp;quot;name&amp;quot;: &amp;quot;abc&amp;quot;}, &amp;quot;456&amp;quot;: {&amp;quot;id&amp;quot;: &amp;quot;456&amp;quot;, &amp;quot;name&amp;quot;: &amp;quot;qwe&amp;quot;} } add を使うとできる $ pbpaste | jq &#39;{ (.id): . } | [ . ] | add&#39; { &amp;quot;123&amp;quot;: { &amp;quot;id&amp;quot;: &amp;quot;123&amp;quot;, &amp;quot;name&amp;quot;: &amp;quot;abc&amp;quot; }, &amp;quot;456&amp;quot;: { &amp;quot;id&amp;quot;: &amp;quot;456&amp;quot;, &amp;quot;name&amp;quot;: &amp;quot;qwe&amp;quot; }</description>
+      <description>こんな配列を [ {&amp;#34;id&amp;#34;: &amp;#34;123&amp;#34;, &amp;#34;name&amp;#34;: &amp;#34;abc&amp;#34;}, {&amp;#34;id&amp;#34;: &amp;#34;456&amp;#34;, &amp;#34;name&amp;#34;: &amp;#34;qwe&amp;#34;} ] こうしたい { &amp;#34;123&amp;#34;: {&amp;#34;id&amp;#34;: &amp;#34;123&amp;#34;, &amp;#34;name&amp;#34;: &amp;#34;abc&amp;#34;}, &amp;#34;456&amp;#34;: {&amp;#34;id&amp;#34;: &amp;#34;456&amp;#34;, &amp;#34;name&amp;#34;: &amp;#34;qwe&amp;#34;} } add を使うとできる $ pbpaste | jq &#39;{ (.id): . } | [ . ] | add&#39; { &amp;quot;123&amp;quot;: { &amp;quot;id&amp;quot;: &amp;quot;123&amp;quot;, &amp;quot;name&amp;quot;: &amp;quot;abc&amp;quot; }, &amp;quot;456&amp;quot;: { &amp;quot;id&amp;quot;: &amp;quot;456&amp;quot;, &amp;quot;name&amp;quot;: &amp;quot;qwe&amp;quot; }</description>
     </item>
     
     <item>
@@ -1376,7 +1385,7 @@
       <pubDate>Sun, 16 Jun 2019 10:23:17 +0900</pubDate>
       
       <guid>https://dream-yt.github.io/post/redux-form-101-handlesubmit/</guid>
-      <description>redux-form (handleSubmit) 入門 MyFormコンポーネントを定義 自前で実装するフォーム const MyForm = ({ handleSubmit }) =&amp;gt; ( &amp;lt;form onSubmit={handleSubmit}&amp;gt; &amp;lt;div&amp;gt; &amp;lt;label htmlFor=&amp;quot;firstName&amp;quot;&amp;gt;First Name&amp;lt;/label&amp;gt; &amp;lt;Field component={renderTextField} name=&amp;quot;firstName&amp;quot; type=&amp;quot;text&amp;quot; /&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;button type=&amp;quot;submit&amp;quot;&amp;gt;Submit&amp;lt;/button&amp;gt; &amp;lt;/form&amp;gt; ); ({ handleSubmit }) =&amp;gt; ( reduxFormか</description>
+      <description>redux-form (handleSubmit) 入門 MyFormコンポーネントを定義 自前で実装するフォーム const MyForm = ({ handleSubmit }) =&amp;gt; ( &amp;lt;form onSubmit={handleSubmit}&amp;gt; &amp;lt;div&amp;gt; &amp;lt;label htmlFor=&amp;#34;firstName&amp;#34;&amp;gt;First Name&amp;lt;/label&amp;gt; &amp;lt;Field component={renderTextField} name=&amp;#34;firstName&amp;#34; type=&amp;#34;text&amp;#34; /&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;button type=&amp;#34;submit&amp;#34;&amp;gt;Submit&amp;lt;/button&amp;gt; &amp;lt;/form&amp;gt; ); ({ handleSubmit }) =&amp;gt; ( reduxFormか</description>
     </item>
     
     <item>
@@ -1394,7 +1403,7 @@
       <pubDate>Mon, 10 Jun 2019 13:31:32 +0900</pubDate>
       
       <guid>https://dream-yt.github.io/post/aws-cloudtrail-per-access-key/</guid>
-      <description>cloudtrailのlookup-eventsで昨日の分をすべてとる $ aws cloudtrail lookup-events \ --lookup-attributes AttributeKey=AccessKeyId,AttributeValue=xxxxxxxx \ --start-time $(date -v -2d -u +&amp;quot;%Y-%m-%dT%H:%M:%SZ&amp;quot;) \ --end-time $(date -v -1d -u +&amp;quot;%Y-%m-%dT%H:%M:%SZ&amp;quot;) \ | tee /tmp/_ 取得できるデータ Ev</description>
+      <description>cloudtrailのlookup-eventsで昨日の分をすべてとる $ aws cloudtrail lookup-events \ --lookup-attributes AttributeKey=AccessKeyId,AttributeValue=xxxxxxxx \ --start-time $(date -v -2d -u +&amp;#34;%Y-%m-%dT%H:%M:%SZ&amp;#34;) \ --end-time $(date -v -1d -u +&amp;#34;%Y-%m-%dT%H:%M:%SZ&amp;#34;) \ | tee /tmp/_ 取得できるデータ Ev</description>
     </item>
     
     <item>
@@ -1403,7 +1412,7 @@
       <pubDate>Mon, 03 Jun 2019 18:01:44 +0900</pubDate>
       
       <guid>https://dream-yt.github.io/post/date-sequence-bash/</guid>
-      <description>seqとdate(mac上で作業しているのでgnu-date)を使う $ seq -7 0 | xargs -I{} gdate -d+{}days +&#39;%Y-%m-%d&#39; 2019-05-27 2019-05-28 2019-05-29 2019-05-30 2019-05-31 2019-06-01 2019-06-02 2019-06-03 こんな感じで mycommand --date 2019-05-27 mycommand --date 2019-05-28 mycommand --date 2019-05-29 mycommand --date 2019-05-30</description>
+      <description>seqとdate(mac上で作業しているのでgnu-date)を使う $ seq -7 0 | xargs -I{} gdate -d+{}days +&amp;#39;%Y-%m-%d&amp;#39; 2019-05-27 2019-05-28 2019-05-29 2019-05-30 2019-05-31 2019-06-01 2019-06-02 2019-06-03 こんな感じで mycommand --date 2019-05-27 mycommand --date 2019-05-28 mycommand --date 2019-05-29 mycommand --date 2019-05-30</description>
     </item>
     
     <item>
@@ -1421,7 +1430,7 @@
       <pubDate>Sat, 25 May 2019 13:44:24 +0900</pubDate>
       
       <guid>https://dream-yt.github.io/post/csv2sqlite-with-csvsql/</guid>
-      <description>例えばathenaのクエリ結果のcsvをさらにこねたいときなど sqliteファイルを生成 $ csvsql \ --db sqlite:////tmp/_.db \ --tables t \ --insert ~/Downloads/3a032f51-1111-411b-8e6a-d19b2beba27e.csv $ sqlite3 /tmp/_.db &#39;.schema&#39; 出力 markdown形</description>
+      <description>例えばathenaのクエリ結果のcsvをさらにこねたいときなど sqliteファイルを生成 $ csvsql \ --db sqlite:////tmp/_.db \ --tables t \ --insert ~/Downloads/3a032f51-1111-411b-8e6a-d19b2beba27e.csv $ sqlite3 /tmp/_.db &amp;#39;.schema&amp;#39; 出力 markdown形</description>
     </item>
     
     <item>
@@ -1457,7 +1466,7 @@
       <pubDate>Mon, 06 May 2019 22:12:51 +0900</pubDate>
       
       <guid>https://dream-yt.github.io/post/raspberry-pi-static-ip/</guid>
-      <description>結論としてはこんなコマンドでとりあえず固定IPを払い出せる echo &#39;interface eth0&#39; | tee -a /etc/dhcpcd.conf echo &#39;static ip_address=192.168.111.90/24&#39; | tee -a /etc/dhcpcd.conf echo &#39;static routers=192.168.111.1&#39; | tee -a /etc/dhcpcd.conf echo &#39;staitc domain_name_servers=192.168.111.1&#39; | tee -a /etc/dhcpcd.conf 以下、それぞれの項目につい</description>
+      <description>結論としてはこんなコマンドでとりあえず固定IPを払い出せる echo &amp;#39;interface eth0&amp;#39; | tee -a /etc/dhcpcd.conf echo &amp;#39;static ip_address=192.168.111.90/24&amp;#39; | tee -a /etc/dhcpcd.conf echo &amp;#39;static routers=192.168.111.1&amp;#39; | tee -a /etc/dhcpcd.conf echo &amp;#39;staitc domain_name_servers=192.168.111.1&amp;#39; | tee -a /etc/dhcpcd.conf 以下、それぞれの項目につい</description>
     </item>
     
     <item>
@@ -1484,7 +1493,7 @@
       <pubDate>Fri, 26 Apr 2019 15:14:18 +0900</pubDate>
       
       <guid>https://dream-yt.github.io/post/spreadsheet-date-format/</guid>
-      <description>TEXT関数を使えばよい =TEXT(G11, &amp;quot;m月d日（ddd）&amp;quot;) こんな感じで表示される 4月22日（月） ↑ G11 に日付文字列が入っている場合</description>
+      <description>TEXT関数を使えばよい =TEXT(G11, &amp;#34;m月d日（ddd）&amp;#34;) こんな感じで表示される 4月22日（月） ↑ G11 に日付文字列が入っている場合の例</description>
     </item>
     
     <item>
@@ -1493,7 +1502,7 @@
       <pubDate>Mon, 08 Apr 2019 18:43:30 +0900</pubDate>
       
       <guid>https://dream-yt.github.io/post/dbix-class-resultset-search1/</guid>
-      <description>searchメソッドはすごい色々できるので覚えきれない 特に第二引数のハッシュに渡せるものがすごい色々できる $tab1_resultset-&amp;gt;search( { # 1つ目の引数は検索条件 &#39;tab1.id&#39; =&amp;gt; $id,</description>
+      <description>searchメソッドはすごい色々できるので覚えきれない 特に第二引数のハッシュに渡せるものがすごい色々できる $tab1_resultset-&amp;gt;search( { # 1つ目の引数は検索条件 &amp;#39;tab1.id&amp;#39; =&amp;gt; $id,</description>
     </item>
     
     <item>
@@ -1565,7 +1574,7 @@
       <pubDate>Sat, 16 Mar 2019 12:19:07 +0900</pubDate>
       
       <guid>https://dream-yt.github.io/post/swift-memo-selector/</guid>
-      <description>コールバックを渡すための仕組みのようなもの? たとえばメソッドを渡してイベントが発生した時の実行するような場合につかう? var button = UIButton() button.addTarget(self, action: &amp;quot;tappedButton:&amp;quot;, forControlEvents: .TouchUpInside) 今度</description>
+      <description>コールバックを渡すための仕組みのようなもの? たとえばメソッドを渡してイベントが発生した時の実行するような場合につかう? var button = UIButton() button.addTarget(self, action: &amp;#34;tappedButton:&amp;#34;, forControlEvents: .TouchUpInside) 今度</description>
     </item>
     
     <item>
@@ -1574,7 +1583,7 @@
       <pubDate>Fri, 15 Mar 2019 17:33:58 +0900</pubDate>
       
       <guid>https://dream-yt.github.io/post/modify-auto-increment/</guid>
-      <description>確認 show table status where Name = &#39;{{ テーブル名 }}&#39;\G 変更 ALTER TABLE &#39;{{ テーブル名 }}&#39; AUTO_INCREMENT = 1000000; 参考 MySQLでAUTO_INCREMENTを任意の数字に変更する - Bouldering &amp;amp; Com.</description>
+      <description>確認 show table status where Name = &amp;#39;{{ テーブル名 }}&amp;#39;\G 変更 ALTER TABLE &amp;#39;{{ テーブル名 }}&amp;#39; AUTO_INCREMENT = 1000000; 参考 MySQLでAUTO_INCREMENTを任意の数字に変更する - Bouldering &amp;amp; Com.</description>
     </item>
     
     <item>
@@ -1655,7 +1664,7 @@
       <pubDate>Tue, 26 Feb 2019 12:47:49 +0900</pubDate>
       
       <guid>https://dream-yt.github.io/post/adhoc-formdata-logging/</guid>
-      <description>submitイベントを途中で止める FormDataクラスをつかう こんなコードを仕込めば値が一覧できる const form = document.querySelector(&#39;form&#39;); form.addEventListener(&#39;submit&#39;, (event) =&amp;gt; { const formData = new FormData(form); for (let i of formData.entries()) { console.log(i.join(&amp;quot;\t&amp;quot;));</description>
+      <description>submitイベントを途中で止める FormDataクラスをつかう こんなコードを仕込めば値が一覧できる const form = document.querySelector(&amp;#39;form&amp;#39;); form.addEventListener(&amp;#39;submit&amp;#39;, (event) =&amp;gt; { const formData = new FormData(form); for (let i of formData.entries()) { console.log(i.join(&amp;#34;\t&amp;#34;));</description>
     </item>
     
     <item>
@@ -1673,7 +1682,7 @@
       <pubDate>Sun, 24 Feb 2019 17:28:42 +0900</pubDate>
       
       <guid>https://dream-yt.github.io/post/query-google-spreadsheet-with-bigquery/</guid>
-      <description>こんなコマンドでspreadsheetをbigqueryのテーブルのように使うことができる $ bq mk --external_table_definition=[SCHEMA]@[SOURCE_FORMAT]=[GOOGLE_DRIVE_URL] \ [DATASET_ID].[TABLE_NAME] 実際の値をいれるとこんな感じ $ export GOOGLE_SHEETS=&#39;https://docs.google.com/spreadsheets/d/1r--MIJGEuZSgx9KMQxyAOL9S80cZaV8BM/edit#gid=1436148405&#39; $ export</description>
+      <description>こんなコマンドでspreadsheetをbigqueryのテーブルのように使うことができる $ bq mk --external_table_definition=[SCHEMA]@[SOURCE_FORMAT]=[GOOGLE_DRIVE_URL] \ [DATASET_ID].[TABLE_NAME] 実際の値をいれるとこんな感じ $ export GOOGLE_SHEETS=&amp;#39;https://docs.google.com/spreadsheets/d/1r--MIJGEuZSgx9KMQxyAOL9S80cZaV8BM/edit#gid=1436148405&amp;#39; $ export</description>
     </item>
     
     <item>
@@ -1682,7 +1691,7 @@
       <pubDate>Sun, 24 Feb 2019 10:50:59 +0900</pubDate>
       
       <guid>https://dream-yt.github.io/post/bigquery-transfer-log/</guid>
-      <description>transfer_config 設定されているtransfer_configを一覧 $ bq --format=json ls --transfer_config --transfer_location=&#39;us&#39; | jq . transfer_run name を引数に渡してtransfer_runを一覧 $ bq --format=json ls --transfer_run --transfer_location=&#39;us&#39; \ projects/987573330809/locations/us/transferConfigs/5c5aff8c-0000-285b-bf15-089e08324cf4 summary 実行</description>
+      <description>transfer_config 設定されているtransfer_configを一覧 $ bq --format=json ls --transfer_config --transfer_location=&amp;#39;us&amp;#39; | jq . transfer_run name を引数に渡してtransfer_runを一覧 $ bq --format=json ls --transfer_run --transfer_location=&amp;#39;us&amp;#39; \ projects/987573330809/locations/us/transferConfigs/5c5aff8c-0000-285b-bf15-089e08324cf4 summary 実行</description>
     </item>
     
     <item>
@@ -1727,7 +1736,7 @@
       <pubDate>Tue, 29 Jan 2019 22:32:51 +0900</pubDate>
       
       <guid>https://dream-yt.github.io/post/bigquery-show-data-transfer-service/</guid>
-      <description>以下の要領で表示できる $ bq --format=json ls --transfer_config --transfer_location=&#39;us&#39; $ bq show --transfer_config projects/123456789/locations/us/transferConfigs/xxxxxx 出力される設定はこんな感じ ( --format=json ) bq mk にこの形式のjsonを食わせると設定できるのだろうか? 🤔 $ bq</description>
+      <description>以下の要領で表示できる $ bq --format=json ls --transfer_config --transfer_location=&amp;#39;us&amp;#39; $ bq show --transfer_config projects/123456789/locations/us/transferConfigs/xxxxxx 出力される設定はこんな感じ ( --format=json ) bq mk にこの形式のjsonを食わせると設定できるのだろうか? 🤔 $ bq</description>
     </item>
     
     <item>
@@ -1781,7 +1790,7 @@
       <pubDate>Sun, 20 Jan 2019 15:05:24 +0900</pubDate>
       
       <guid>https://dream-yt.github.io/post/alb-request-count-by-awscli/</guid>
-      <description>以下のコマンドで取得できる aws cloudwatch --profile mossan get-metric-statistics \ --namespace &#39;AWS/ApplicationELB&#39; \ --metric-name &#39;RequestCount&#39; \ --dimensions &#39;Name=LoadBalancer,Value=app/sakamoto-alb/xxxxxxxxx&#39; \ --statistics &#39;Sum&#39; \ --start-time $(date -v -1H -u +&amp;quot;%Y-%m-%dT%H:%M&amp;quot;) \ --end-time $(date -u +&amp;quot;%Y-%m-%dT%H:%M&amp;quot;) \ --period 3600 --dimensions RequestCountのSumをどの軸でGro</description>
+      <description>以下のコマンドで取得できる aws cloudwatch --profile mossan get-metric-statistics \ --namespace &amp;#39;AWS/ApplicationELB&amp;#39; \ --metric-name &amp;#39;RequestCount&amp;#39; \ --dimensions &amp;#39;Name=LoadBalancer,Value=app/sakamoto-alb/xxxxxxxxx&amp;#39; \ --statistics &amp;#39;Sum&amp;#39; \ --start-time $(date -v -1H -u +&amp;#34;%Y-%m-%dT%H:%M&amp;#34;) \ --end-time $(date -u +&amp;#34;%Y-%m-%dT%H:%M&amp;#34;) \ --period 3600 --dimensions RequestCountのSumをどの軸でGro</description>
     </item>
     
     <item>
@@ -1790,7 +1799,7 @@
       <pubDate>Sun, 20 Jan 2019 14:57:42 +0900</pubDate>
       
       <guid>https://dream-yt.github.io/post/list-alb-names/</guid>
-      <description>aws cloudwatch list-metrics \ --namespace AWS/ApplicationELB \ --metric-name RequestCount \ | jq -r &#39;.Metrics[].Dimensions[] | select(.Name | test(&amp;quot;LoadBalancer&amp;quot;)) | .Value&#39; \ | sort \ | uniq jq の部分はjsonから必要な部分を抜き出すためのもの 配列を Name=LoadBalancer なオブジェクトにフィルタして</description>
+      <description>aws cloudwatch list-metrics \ --namespace AWS/ApplicationELB \ --metric-name RequestCount \ | jq -r &amp;#39;.Metrics[].Dimensions[] | select(.Name | test(&amp;#34;LoadBalancer&amp;#34;)) | .Value&amp;#39; \ | sort \ | uniq jq の部分はjsonから必要な部分を抜き出すためのもの 配列を Name=LoadBalancer なオブジェクトにフィルタして</description>
     </item>
     
     <item>
@@ -1880,7 +1889,7 @@
       <pubDate>Wed, 12 Dec 2018 08:12:58 +0900</pubDate>
       
       <guid>https://dream-yt.github.io/post/vscode-perl-docker-linter/</guid>
-      <description>こちらを使うと簡単に出来た henriiik/vscode-docker-linter: Lint the things in your docker containers 設定 設定項目もこれくらいで済む &amp;quot;docker-linter.perl.enable&amp;quot;: true, &amp;quot;docker-linter.perl.machine&amp;quot;: &amp;quot;&amp;quot;, // &amp;quot;default&amp;quot;だとdocker-m</description>
+      <description>こちらを使うと簡単に出来た henriiik/vscode-docker-linter: Lint the things in your docker containers 設定 設定項目もこれくらいで済む &amp;#34;docker-linter.perl.enable&amp;#34;: true, &amp;#34;docker-linter.perl.machine&amp;#34;: &amp;#34;&amp;#34;, // &amp;#34;default&amp;#34;だとdocker-mac</description>
     </item>
     
     <item>
@@ -1979,7 +1988,7 @@
       <pubDate>Tue, 20 Nov 2018 23:59:56 +0900</pubDate>
       
       <guid>https://dream-yt.github.io/post/zakki-181120-dream/</guid>
-      <description>これは一体 文章を書く練習の一貫で、最近思ったことを書く。 箇条書きと文章を使い分けられるいいかんじの人を目指して。 雑記です。もう。 身の回りでも</description>
+      <description>これは一体 文章を書く練習の一貫で、最近思ったことを書く。箇条書きと文章を使い分けられるいいかんじの人を目指して。雑記です。もう。身の回りでも</description>
     </item>
     
     <item>
@@ -2024,7 +2033,7 @@
       <pubDate>Sat, 03 Nov 2018 17:45:49 +0900</pubDate>
       
       <guid>https://dream-yt.github.io/post/jq-sample-keys-obj-children/</guid>
-      <description>こんなjsonがあって { &amp;quot;xxxxxx&amp;quot;: { &amp;quot;_name&amp;quot;: &amp;quot;トーマス&amp;quot;, &amp;quot;children&amp;quot;: [ { &amp;quot;name&amp;quot;: &amp;quot;トーマス（男性向け）&amp;quot;, &amp;quot;code&amp;quot;: &amp;quot;41080&amp;quot; }, { &amp;quot;code&amp;quot;: &amp;quot;41081&amp;quot;, &amp;quot;name&amp;quot;: &amp;quo</description>
+      <description>こんなjsonがあって { &amp;#34;xxxxxx&amp;#34;: { &amp;#34;_name&amp;#34;: &amp;#34;トーマス&amp;#34;, &amp;#34;children&amp;#34;: [ { &amp;#34;name&amp;#34;: &amp;#34;トーマス（男性向け）&amp;#34;, &amp;#34;code&amp;#34;: &amp;#34;41080&amp;#34; }, { &amp;#34;code&amp;#34;: &amp;#34;41081&amp;#34;, &amp;#34;name&amp;#34;: &amp;#34;トーマ</description>
     </item>
     
     <item>
