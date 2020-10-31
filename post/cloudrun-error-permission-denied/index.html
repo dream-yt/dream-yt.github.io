@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.74.3" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>ERROR: (gcloud.beta.run.deploy) PERMISSION_DENIED &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -81,17 +81,16 @@
                 </header>
                 
                   
-                    <div id="toc">
-                      <nav id="TableOfContents"></nav>
-                    </div>
-                  
                 
                 <section id="post-body">
                     <p>CloudRunのデプロイ時にこんなログが出た</p>
+
 <blockquote>
 <p>ERROR: (gcloud.beta.run.deploy) PERMISSION_DENIED: Permission denied on &lsquo;locations/asia-northeast1-a&rsquo; (or it may not exist)</p>
 </blockquote>
+
 <p>フル権限のユーザで作業しているはずなので <code>PERMISSION_DENIED</code> といわれても原因がピンとこない。しかしこれは単にregionの指定が間違っているだけである(locationと間違っていた)</p>
+
 <ul>
 <li>❌ <code>--region asia-northeast1-a</code></li>
 <li>⭕️ <code>--region asia-northeast1</code></li>

@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.74.3" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>fdを使う &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,46 +83,70 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li>
-      <ul>
-        <li><a href="#インストール">インストール</a></li>
-      </ul>
-    </li>
-    <li><a href="#例">例</a>
-      <ul>
-        <li></li>
-      </ul>
-    </li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#インストール">インストール</a></li>
+</ul></li>
+<li><a href="#例">例</a>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#ghq-ディレクトリ配下-node-modules-以外で-envrc-ファイルを探す">~/.ghq ディレクトリ配下 node_modules 以外で .envrc ファイルを探す</a></li>
+</ul></li>
+<li><a href="#test-js-なファイルから-grep-する">test.js なファイルから grep する</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>rustで GNU Core Utilities 実装してみたよシリーズであるところのfdコマンド</p>
+                    
+
+<p>rustで GNU Core Utilities 実装してみたよシリーズであるところのfdコマンド</p>
+
 <ul>
 <li><a href="https://github.com/sharkdp/fd">sharkdp/fd: A simple, fast and user-friendly alternative to &lsquo;find&rsquo;</a></li>
 </ul>
+
 <p>老害が嫌がりそうなプロジェクトで好感が持てます</p>
+
 <h3 id="インストール">インストール</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">brew install fd
-</code></pre></div><h2 id="例">例</h2>
-<h5 id="ghq-ディレクトリ配下-node_modules-以外で-envrc-ファイルを探す">~/.ghq ディレクトリ配下 node_modules 以外で .envrc ファイルを探す</h5>
+
+<pre><code class="language-bash">brew install fd
+</code></pre>
+
+<h2 id="例">例</h2>
+
+<h5 id="ghq-ディレクトリ配下-node-modules-以外で-envrc-ファイルを探す">~/.ghq ディレクトリ配下 node_modules 以外で .envrc ファイルを探す</h5>
+
 <pre><code>$ fd '.envrc' ~/.ghq --no-ignore --exclude node_modules
-</code></pre><h4 id="testjs-なファイルから-grep-する">test.js なファイルから grep する</h4>
+</code></pre>
+
+<h4 id="test-js-なファイルから-grep-する">test.js なファイルから grep する</h4>
+
 <p>findと同様 <code>{}</code> がプレースホルダになっている</p>
+
 <pre><code>$ fd test.js ./ --exec grep '.vue' {}
-</code></pre><blockquote>
+</code></pre>
+
+<blockquote>
 <p>&ndash;exec
 Execute a command for each search result.
 All arguments following &ndash;exec are taken to be arguments to the command until the argument &lsquo;;&rsquo; is encountered.
 Each occurrence of the following placeholders is substituted by a path derived from the current search result before the command is executed:
-&lsquo;{}':   path
-&lsquo;{/}':  basename
-&lsquo;{//}': parent directory
-&lsquo;{.}':  path without file extension
-&lsquo;{/.}': basename without file extension</p>
+&lsquo;{}&rsquo;:   path
+&lsquo;{/}&rsquo;:  basename
+&lsquo;{//}&rsquo;: parent directory
+&lsquo;{.}&rsquo;:  path without file extension
+&lsquo;{/.}&rsquo;: basename without file extension</p>
 </blockquote>
 
                 </section>

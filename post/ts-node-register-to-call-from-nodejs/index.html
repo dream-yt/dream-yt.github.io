@@ -14,7 +14,7 @@
   
   
   <meta name="twitter:title" content="nodejsのコードからtypescriptをrequireする"/>
-  <meta name="twitter:description" content="ts-node/register を使うとできる たとえば scripts/make-index.js というスクリプトから src/bigquery/index.ts 内のクラスをrequireする こんなコードを書くとrequireできる #!/usr/bin/env node require(&#34;source-map-support&#34;).install() require(&#34;ts-node&#34;).register() const { Indexer } = require(&#34;../src/bigquery&#34;) Indexer.run()"/>
+  <meta name="twitter:description" content="ts-node/register を使うとできる たとえば scripts/make-index.js というスクリプトから src/bigquery/index.ts 内のクラスをrequireする こんなコードを書くとrequireできる #!/usr/bin/env node require(&quot;source-map-support&quot;).install() require(&quot;ts-node&quot;).register() const { Indexer } = require(&quot;../src/bigquery&quot;) Indexer.run()"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.74.3" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>nodejsのコードからtypescriptをrequireする &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,32 +83,47 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#たとえば">たとえば</a></li>
-    <li><a href="#参考">参考</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#たとえば">たとえば</a></li>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>ts-node/register を使うとできる</p>
+                    
+
+<p>ts-node/register を使うとできる</p>
+
 <h2 id="たとえば">たとえば</h2>
+
 <ul>
 <li><code>scripts/make-index.js</code> というスクリプトから</li>
 <li><code>src/bigquery/index.ts</code> 内のクラスをrequireする</li>
 </ul>
-<p>こんなコードを書くとrequireできる</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">#!/usr/bin/env node
-</span><span style="color:#75715e"></span><span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#34;source-map-support&#34;</span>).<span style="color:#a6e22e">install</span>()
-<span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#34;ts-node&#34;</span>).<span style="color:#a6e22e">register</span>()
 
-<span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">Indexer</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#34;../src/bigquery&#34;</span>)
-<span style="color:#a6e22e">Indexer</span>.<span style="color:#a6e22e">run</span>()
-</code></pre></div><p>普通にnodejsのスクリプトとして実行できる</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ chmod +x ./scripts/make-index.js
+<p>こんなコードを書くとrequireできる</p>
+
+<pre><code class="language-js">#!/usr/bin/env node
+require(&quot;source-map-support&quot;).install()
+require(&quot;ts-node&quot;).register()
+
+const { Indexer } = require(&quot;../src/bigquery&quot;)
+Indexer.run()
+</code></pre>
+
+<p>普通にnodejsのスクリプトとして実行できる</p>
+
+<pre><code class="language-bash">$ chmod +x ./scripts/make-index.js
 $ ./scripts/make-index.js
-</code></pre></div><h2 id="参考">参考</h2>
+</code></pre>
+
+<h2 id="参考">参考</h2>
+
 <ul>
 <li><a href="https://github.com/TypeStrong/ts-node">TypeStrong/ts-node: TypeScript execution and REPL for node.js</a></li>
 <li><a href="https://github.com/gatsbyjs/gatsby/issues/1457#issuecomment-381405638">Is it possible to write the gatsby config in TypeScript? · Issue #1457 · gatsbyjs/gatsby</a></li>

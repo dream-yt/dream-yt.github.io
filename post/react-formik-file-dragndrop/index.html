@@ -13,8 +13,8 @@
     
   
   
-  <meta name="twitter:title" content="aws-cdkを使い始めるまでメモ"/>
-  <meta name="twitter:description" content="プロジェクトを作成する app ってのはサブコマンドで、「アプリ開発者として使う」という意味 (libってのがあって、それはcdkのライブラリ作者が使"/>
+  <meta name="twitter:title" content="React/Formikでファイルのドラッグアンドドロップ"/>
+  <meta name="twitter:description" content="Formikに渡すコンポーネントはこんな感じのをつくる ドラッグアンドドロップを捕捉するためのイベントは onDragOver, onDragLeave Formikは input[type=file] に対応していないの"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -30,7 +30,7 @@
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
 		<meta name="generator" content="Hugo 0.51" />
-		<title>aws-cdkを使い始めるまでメモ &middot; sacre</title>
+		<title>React/Formikでファイルのドラッグアンドドロップ &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
@@ -68,11 +68,11 @@
             <article>
                 <header>
                     <h1>
-                        aws-cdkを使い始めるまでメモ
+                        React/Formikでファイルのドラッグアンドドロップ
                     </h1>
                     <h2 class="headline">
-                    Nov 17, 2018 22:30
-                    · 235 words
+                    Oct 31, 2020 16:54
+                    · 399 words
                     · 1 minute read
                       <span class="tags">
                       
@@ -86,9 +86,9 @@
 <ul>
 <li>
 <ul>
-<li>
+<li><a href="#css">css</a>
 <ul>
-<li><a href="#参考">参考</a></li>
+<li><a href="#classnames">classNames</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -99,47 +99,113 @@
                 <section id="post-body">
                     
 
-<p>プロジェクトを作成する</p>
-
-<p><code>app</code> ってのはサブコマンドで、「アプリ開発者として使う」という意味
-(<code>lib</code>ってのがあって、それはcdkのライブラリ作者が使うらしい)</p>
-
-<pre><code class="language-bash">$ cdk init app --language typescript
-</code></pre>
-
-<p>補完を効かせながら開発したいので追加</p>
-
-<pre><code class="language-bash">$ yarn add --dev \
-    tslint prettier \
-    tslint-config-prettier tslint-config-standard tslint-plugin-prettier 
-$ code ./tslint.json
-</code></pre>
-
-<p>使いたいAWSサービスの定義を加えて開発</p>
-
-<pre><code class="language-bash">$ yarn add @aws-cdk/aws-cognito
-$ code ./bin/infra.ts
-</code></pre>
-
-<p>cloudformationの形式のファイルを出力</p>
-
-<pre><code class="language-bash"># cdk.jsonで定義された位置にjsファイルを生成
-$ yarn run build
-# そのjsを読んでcloudformationの形式を出力
-$ cdk synth &gt; ./cf.yaml
-</code></pre>
-
-<h3 id="参考">参考</h3>
+<p>Formikに渡すコンポーネントはこんな感じのをつくる</p>
 
 <ul>
-<li><a href="https://github.com/awslabs/aws-cdk/tree/6495e3ccd335ce9cb4438cfc285ca2bdb921f52a/examples/cdk-examples-typescript">examples/cdk-examples-typescript · awslabs/aws-cdk</a></li>
+<li>ドラッグアンドドロップを捕捉するためのイベントは <code>onDragOver</code>, <code>onDragLeave</code></li>
+<li>Formikは <code>input[type=file]</code> に対応していないので <code>onChange</code> で捕捉する
+
+<ul>
+<li><a href="https://stackoverflow.com/questions/56149756/reactjs-how-to-handle-image-file-upload-with-formik">react redux - ReactJS: How to handle Image / File upload with Formik? - Stack Overflow</a></li>
+</ul></li>
+<li></li>
+</ul>
+
+<pre><code class="language-tsx">const { setStatus, status } = props;
+const { isFileDragging } = status;
+return (
+    &lt;label
+        className={classNames(&quot;dropzone&quot;, { isFileDragging })}
+        onDragOver={() =&gt;
+            setStatus({ ...status, isFileDragging: true })
+        }
+        onDragLeave={() =&gt;
+            setStatus({ ...status, isFileDragging: false })
+        }
+    &gt;
+        &lt;input
+        name=&quot;file&quot;
+        type=&quot;file&quot;
+        onChange={async (event: any) =&gt; {
+            if (event.currentTarget.files) {
+                await props.setFieldValue(
+                    &quot;file&quot;,
+                    event.currentTarget.files[0]
+                );
+                await props.submitForm();
+            }
+        }}
+        /&gt;
+    &lt;/label&gt;
+)
+</code></pre>
+
+<h2 id="css">css</h2>
+
+<p>ドラッグアンドドロップできる領域を作るcssについては以下の記事が参考になった</p>
+
+<ul>
+<li><a href="https://stackoverflow.com/questions/49971247/drag-and-drop-a-file-on-label/49972384#49972384">javascript - Drag and drop a file on label - Stack Overflow</a></li>
+</ul>
+
+<pre><code class="language-css">.dropzone {
+  width: 600px;
+  height: 180px;
+  line-height: 180px;
+  border-style: dotted;
+  border-width: 2px;
+  border-color: #ccc;
+  color: #ccc;
+  text-align: center;
+
+  position: relative;
+  input[type=file] {
+    opacity: 0;
+    height: 100%;
+    width: 100%;
+    display: block;
+  }
+}
+</code></pre>
+
+<p>こんなロジックでCSSを定義するようだ</p>
+
+<ul>
+<li>labelの中にinput要素を入れる</li>
+<li>label要素を
+
+<ul>
+<li>position: relative;
+
+<ul>
+<li>子要素で100%を指定しても親要素を超えなくなる</li>
+</ul></li>
+</ul></li>
+<li>input要素を
+
+<ul>
+<li>labelの領域 = input[type=file]の領域 となるようする
+
+<ul>
+<li>height: 100%;</li>
+<li>width: 100%;<br /></li>
+</ul></li>
+</ul></li>
+</ul>
+
+<h3 id="classnames">classNames</h3>
+
+<p>動的にclassNameを変更するときは <code>classNames</code> パッケージが使いやすい</p>
+
+<ul>
+<li><a href="https://github.com/JedWatson/classnames">JedWatson/classnames: A simple javascript utility for conditionally joining classNames together</a></li>
 </ul>
 
                 </section>
             </article>
 
             
-                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2faws-cdk-101%2f - aws-cdk%e3%82%92%e4%bd%bf%e3%81%84%e5%a7%8b%e3%82%81%e3%82%8b%e3%81%be%e3%81%a7%e3%83%a1%e3%83%a2 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2freact-formik-file-dragndrop%2f - React%2fFormik%e3%81%a7%e3%83%95%e3%82%a1%e3%82%a4%e3%83%ab%e3%81%ae%e3%83%89%e3%83%a9%e3%83%83%e3%82%b0%e3%82%a2%e3%83%b3%e3%83%89%e3%83%89%e3%83%ad%e3%83%83%e3%83%97 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
 
 <a class="facebook" href="#" onclick="
     window.open(
