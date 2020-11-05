@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.74.3" />
 		<title>ttyとは &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,46 +83,34 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#プロセスにttyがついている">プロセスにttyがついている ?</a></li>
-<li><a href="#dev-pts-0">/dev/pts/0 ?</a></li>
-<li><a href="#つまり">つまり</a></li>
-</ul></li>
-</ul></li>
-</ul>
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#プロセスにttyがついている-">プロセスにttyがついている ?</a></li>
+        <li><a href="#devpts0-">/dev/pts/0 ?</a></li>
+        <li><a href="#つまり">つまり</a></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p>プロセスは2種類に分けられる</p>
-
+                    <p>プロセスは2種類に分けられる</p>
 <ul>
 <li>シェルなど、ユーザのインタラクションを受け付けるプロセス</li>
 <li>そうではないデーモンプロセス</li>
 </ul>
-
 <p>この2つを区別するのが、「プロセスにttyがついているか」である</p>
-
-<h3 id="プロセスにttyがついている">プロセスにttyがついている ?</h3>
-
+<h3 id="プロセスにttyがついている-">プロセスにttyがついている ?</h3>
 <p>「プロセスにttyがついている」というのは、プロセスの標準入出力が
 <code>/dev/pts/0</code> といったファイルディスクリプタになっていることである</p>
-
-<h3 id="dev-pts-0">/dev/pts/0 ?</h3>
-
+<h3 id="devpts0-">/dev/pts/0 ?</h3>
 <p><code>/dev/pts/0</code> といったファイルディスクリプタは擬似端末 (pseudo-terminal) のこと
 今となっては何が擬似なのか分からない名前だが、
 とりあえずユーザの入力を受付け、その結果の出力先となっているfdという理解でよさそうだ</p>
-
 <h3 id="つまり">つまり</h3>
-
 <p>bashなどのプロセスは、ついているptsから入力と出力を行うことができる
 つまり tty とはプロセスをインタラクティブに操作するための機能と言える</p>
 

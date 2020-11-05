@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.74.3" />
 		<title>jsでマルチバイト文字にあてる正規表現はuフラグをつける &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -72,7 +72,7 @@
                     </h1>
                     <h2 class="headline">
                     Aug 3, 2020 10:19
-                    · 328 words
+                    · 342 words
                     · 1 minute read
                       <span class="tags">
                       
@@ -83,64 +83,43 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#理由">理由</a></li>
-<li><a href="#例">例</a></li>
-<li><a href="#参考">参考</a></li>
-<li><a href="#その他">その他</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#理由">理由</a></li>
+    <li><a href="#例">例</a></li>
+    <li><a href="#参考">参考</a></li>
+    <li><a href="#その他">その他</a></li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<h2 id="理由">理由</h2>
-
+                    <h2 id="理由">理由</h2>
 <ul>
 <li>jsの文字列は内部でUTF-16を使っている</li>
 <li>jsで文字列の1文字は1つのコードユニットを指し、コードポイントを指すわけではない</li>
 </ul>
-
 <h2 id="例">例</h2>
-
 <p><code>👶🏼.length</code>はJSだと4である</p>
-
-<pre><code class="language-js">&gt; const baby = &quot;👶🏼&quot;
-undefined
-&gt; baby.length
-4
-</code></pre>
-
-<p>なので以下の「4文字」という正規表現にマッチしてしまう</p>
-
-<pre><code class="language-js">&gt; baby.match(/^.{4}$/)
-[ '👶🏼', index: 0, input: '👶🏼', groups: undefined ]
-</code></pre>
-
-<p>これを避けるためには(<code>👶🏼</code>を1文字として扱うためには)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">baby</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;👶🏼&#34;</span>
+<span style="color:#66d9ef">undefined</span>
+<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">baby</span>.<span style="color:#a6e22e">length</span>
+<span style="color:#ae81ff">4</span>
+</code></pre></div><p>なので以下の「4文字」という正規表現にマッチしてしまう</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">baby</span>.<span style="color:#a6e22e">match</span>(<span style="color:#e6db74">/^.{4}$/</span>)
+[ <span style="color:#e6db74">&#39;👶🏼&#39;</span>, <span style="color:#a6e22e">index</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">input</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;👶🏼&#39;</span>, <span style="color:#a6e22e">groups</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">undefined</span> ]
+</code></pre></div><p>これを避けるためには(<code>👶🏼</code>を1文字として扱うためには)
 正規表現に<code>u</code>フラグをつける</p>
-
-<pre><code class="language-js">&gt; baby.match(/^.{4}$/u)
-null
-</code></pre>
-
-<h2 id="参考">参考</h2>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">baby</span>.<span style="color:#a6e22e">match</span>(<span style="color:#e6db74">/^.{4}$/u</span>)
+<span style="color:#66d9ef">null</span>
+</code></pre></div><h2 id="参考">参考</h2>
 <ul>
 <li><a href="https://jsprimer.net/basic/string-unicode/">文字列とUnicode · JavaScript Primer #jsprimer</a></li>
 </ul>
-
 <blockquote>
 <p>基本的には正規表現にuフラグをつけて問題となるケースは少ないはずです。 なぜなら、サロゲートペアの片方だけにマッチしたい正規表現を書くケースはまれであるためです。</p>
 </blockquote>
-
 <h2 id="その他">その他</h2>
-
 <p>例にあげた <code>👶🏼</code> だと異体字セレクタの話が混ざってるのでそれはまた今度</p>
 
                 </section>

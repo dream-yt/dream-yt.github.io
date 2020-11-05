@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.74.3" />
 		<title>golangで相対パスっぽいimportをできるようにする &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -81,30 +81,27 @@
                 </header>
                 
                   
+                    <div id="toc">
+                      <nav id="TableOfContents"></nav>
+                    </div>
+                  
                 
                 <section id="post-body">
                     <p>※ おそらくよくないやりかたである</p>
-
 <p>goではv1.11から相対パスのimportができなくなったとのこと</p>
-
 <ul>
 <li><a href="https://qiita.com/momotaro98/items/23fa4356389a7e610acc">Go1.11からのGo Modulesでは相対パスImportは全くできなくなったので注意 - Qiita</a></li>
 </ul>
-
 <p>以下の要件でなんとかする場合</p>
-
 <ul>
 <li><code>github/~~</code> みたいなimportを用意したくない</li>
 <li>コードをdropboxに置いておきたい</li>
 <li>既存のコードを変更したくない</li>
 <li>自分しか触らないコード (滅茶苦茶していい)</li>
 </ul>
-
 <p><code>$GOPATH/src</code> の中身なら参照されるので、そこにシンボリックリンクを貼る方法にしたところちゃんと動いた (というかvscode上でエラーにはならなくなった)</p>
-
 <pre><code>$ ln -s $(pwd)/mygocli ~/.go/src/
 </code></pre>
-
                 </section>
             </article>
 

@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.74.3" />
 		<title>mongodump/mongoexportのやりかた &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -81,22 +81,24 @@
                 </header>
                 
                   
+                    <div id="toc">
+                      <nav id="TableOfContents"></nav>
+                    </div>
+                  
                 
                 <section id="post-body">
                     <p>mongoexport ってのでjson形式で吐き出せる (jqを使って作業がしやすい)</p>
-
-<pre><code class="language-bash">mongoexport \
-    --host=aws-singapore-free-shard-00-01-xxxx.mongodb.net \
-    --port=27017 \
-    --username=app \
-    --authenticationDatabase=admin \
-    --password=xxxxxx \
-    --ssl \
-    --db=abcd \
-    --collection=profiles \
-    --out /tmp/profiles.json
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mongoexport <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --host<span style="color:#f92672">=</span>aws-singapore-free-shard-00-01-xxxx.mongodb.net <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --port<span style="color:#f92672">=</span><span style="color:#ae81ff">27017</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --username<span style="color:#f92672">=</span>app <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --authenticationDatabase<span style="color:#f92672">=</span>admin <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --password<span style="color:#f92672">=</span>xxxxxx <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --ssl <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --db<span style="color:#f92672">=</span>abcd <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --collection<span style="color:#f92672">=</span>profiles <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --out /tmp/profiles.json
+</code></pre></div>
                 </section>
             </article>
 
