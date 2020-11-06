@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.74.3" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>macosでパイプで翻訳してくれるtransコマンドを使う &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,32 +83,51 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li>
-      <ul>
-        <li><a href="#インストール">インストール</a></li>
-        <li><a href="#使い方">使い方</a></li>
-      </ul>
-    </li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#インストール">インストール</a></li>
+<li><a href="#使い方">使い方</a>
+<ul>
+<li>
+<ul>
+<li><a href="#例えば">例えば</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <ul>
+                    
+
+<ul>
 <li><a href="https://github.com/soimort/translate-shell">soimort/translate-shell: Command-line translator using Google Translate, Bing Translator, Yandex.Translate, DeepL Translator, etc.</a></li>
 </ul>
+
 <h3 id="インストール">インストール</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">brew install gawk  <span style="color:#75715e"># 依存してるのでmacosの場合必要</span>
+
+<pre><code class="language-bash">brew install gawk  # 依存してるのでmacosの場合必要
 sudo wget git.io/trans -O /usr/local/bin/trans
 sudo chmod +x /usr/local/bin/trans
-</code></pre></div><h3 id="使い方">使い方</h3>
+</code></pre>
+
+<h3 id="使い方">使い方</h3>
+
 <pre><code>$ trans --help | head -1
 Usage:  trans [OPTIONS] [SOURCE]:[TARGETS] [TEXT]...
-</code></pre><h5 id="例えば">例えば</h5>
+</code></pre>
+
+<h5 id="例えば">例えば</h5>
+
 <p>日本語(<code>ja</code>)から英語(<code>en</code>)ならこんな感じ</p>
-<pre><code class="language-console" data-lang="console">$ echo 最新に更新する | trans ja:en
+
+<pre><code class="language-console">$ echo 最新に更新する | trans ja:en
 最新に更新する
 (Saishin ni kōshin suru)
 
@@ -120,6 +139,7 @@ Update to latest
 最新に更新する
     Update to latest, To update to the latest
 </code></pre>
+
                 </section>
             </article>
 

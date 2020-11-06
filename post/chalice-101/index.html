@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="https://dream-yt.github.io/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="AWS Chalice でデプロイまで"/>
+  <meta name="twitter:description" content="こちらに書いてある手順を踏んだだけ Quickstart — AWS Chalice $ python3 -m venv venv38 ... $ code .envrc ... $ pip install --upgrade pip $ pip install chalice $ chalice new-project sandbox $ chalice deploy Creating deployment package. Creating IAM role: sandbox-dev Creating lambda function: sandbox-dev Creating Rest API Resources deployed: - Lambda ARN: arn:aws:lambda:ap-northeast-1:xxxxxxxx:function:sandbox-dev - Rest API"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@site_author"/>
+  
+
+
+
+		
+		<meta name="author" content="site_author">
+		<meta name="description" content="Site Description">
+		<meta name="generator" content="Hugo 0.51" />
+		<title>AWS Chalice でデプロイまで &middot; sacre</title>
+		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/font-awesome.min.css">
+		
+
+		
+		<link href="https://dream-yt.github.io/index.xml" rel="alternate" type="application/rss+xml" title="sacre" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='https://dream-yt.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://dream-yt.github.io/posts'>Archive</a>
+	<a href='https://dream-yt.github.io/tags'>Tags</a>
+	<a href='https://dream-yt.github.io/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="https://dream-yt.github.io/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        AWS Chalice でデプロイまで
+                    </h1>
+                    <h2 class="headline">
+                    Nov 7, 2020 00:20
+                    · 354 words
+                    · 1 minute read
+                      <span class="tags">
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#生成されるファイル">生成されるファイル</a></li>
+<li><a href="#メモ">メモ</a></li>
+</ul></li>
+</ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    
+
+<p>こちらに書いてある手順を踏んだだけ</p>
+
+<ul>
+<li><a href="https://aws.github.io/chalice/quickstart.html">Quickstart — AWS Chalice</a></li>
+</ul>
+
+<pre><code class="language-console">$ python3 -m venv venv38
+...
+$ code .envrc
+...
+$ pip install --upgrade pip
+$ pip install chalice
+</code></pre>
+
+<pre><code class="language-console">$ chalice new-project sandbox
+$ chalice deploy
+Creating deployment package.
+Creating IAM role: sandbox-dev
+Creating lambda function: sandbox-dev
+Creating Rest API
+Resources deployed:
+  - Lambda ARN: arn:aws:lambda:ap-northeast-1:xxxxxxxx:function:sandbox-dev
+  - Rest API URL: https://xxxxxxxx.execute-api.ap-northeast-1.amazonaws.com/api/
+</code></pre>
+
+<h2 id="生成されるファイル">生成されるファイル</h2>
+
+<pre><code class="language-console">$ tree -a .
+.
+├── .chalice
+│   ├── config.json
+│   ├── deployed
+│   │   └── dev.json
+│   └── deployments
+│       └── 041db0e7db2677b2098fef77581d1fcf-python3.8.zip
+├── .gitignore
+├── app.py
+└── requirements.txt
+
+3 directories, 6 files
+</code></pre>
+
+<pre><code class="language-json">$ cat ./.chalice/config.json
+{
+  &quot;version&quot;: &quot;2.0&quot;,
+  &quot;app_name&quot;: &quot;sandbox&quot;,
+  &quot;stages&quot;: {
+    &quot;dev&quot;: {
+      &quot;api_gateway_stage&quot;: &quot;api&quot;
+    }
+  }
+}
+</code></pre>
+
+<pre><code class="language-json">$ cat ./.chalice/deployed/dev.json
+{
+  &quot;resources&quot;: [
+    {
+      &quot;name&quot;: &quot;default-role&quot;,
+      &quot;resource_type&quot;: &quot;iam_role&quot;,
+      &quot;role_arn&quot;: &quot;arn:aws:iam::xxxxxxxxxx:role/sandbox-dev&quot;,
+      &quot;role_name&quot;: &quot;sandbox-dev&quot;
+    },
+    {
+      &quot;name&quot;: &quot;api_handler&quot;,
+      &quot;resource_type&quot;: &quot;lambda_function&quot;,
+      &quot;lambda_arn&quot;: &quot;arn:aws:lambda:ap-northeast-1:xxxxxxxxxx:function:sandbox-dev&quot;
+    },
+    {
+      &quot;name&quot;: &quot;rest_api&quot;,
+      &quot;resource_type&quot;: &quot;rest_api&quot;,
+      &quot;rest_api_id&quot;: &quot;xxxxcllgsl&quot;,
+      &quot;rest_api_url&quot;: &quot;https://xxxxcllgsl.execute-api.ap-northeast-1.amazonaws.com/api/&quot;
+    }
+  ],
+  &quot;schema_version&quot;: &quot;2.0&quot;,
+  &quot;backend&quot;: &quot;api&quot;
+}
+</code></pre>
+
+<h2 id="メモ">メモ</h2>
+
+<ul>
+<li>ChaliceはデフォルトだとAWS-SDKでリソースを作るだけである</li>
+<li>CloudFormationするには chalice package などして色々する必要がある
+
+<ul>
+<li><a href="https://aws.github.io/chalice/topics/cfn.html?highlight=config%20json">AWS CloudFormation Support — AWS Chalice</a></li>
+<li><a href="https://aws.amazon.com/jp/blogs/developer/deploying-aws-chalice-application-using-aws-cloud-development-kit/">Deploying AWS Chalice application using AWS Cloud Development Kit | AWS Developer Blog</a></li>
+</ul></li>
+<li><code>deployed/dev.json</code> に書いてある以外にもリソースは生成されている
+
+<ul>
+<li>LambdaのCloudWatchLogsなどはつくられる</li>
+</ul></li>
+<li>ローカルでちょっと確認したいときは <code>$ chalice local</code> が使える</li>
+</ul>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fchalice-101%2f - AWS%20Chalice%20%e3%81%a7%e3%83%87%e3%83%97%e3%83%ad%e3%82%a4%e3%81%be%e3%81%a7 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'your_disqus_short_name'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/dream-yt/sacre">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://twitter.com/FUTABA_SACRE">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2020 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="https://dream-yt.github.io/js/jquery-3.3.1.min.js"></script>
+<script src="https://dream-yt.github.io/js/main.js"></script>
+<script src="https://dream-yt.github.io/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+
+
+
+
+    </body>
+</html>

@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.74.3" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>mp4のatomとは &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,54 +83,70 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#fast-start-とは">fast start とは</a>
-      <ul>
-        <li></li>
-      </ul>
-    </li>
-    <li><a href="#参考">参考</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#fast-start-とは">fast start とは</a>
+<ul>
+<li>
+<ul>
+<li><a href="#前提">前提</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <ul>
+                    
+
+<ul>
 <li>atomとはmp4ファイルを構成する要素</li>
 <li>atomはboxとも呼ばれる</li>
 </ul>
+
 <p>メタデータもコンテンツもatomに格納されている</p>
+
 <ul>
 <li>ftyp: このmp4ファイルが準拠している規格 (eg: mp42, m4v, isom)</li>
 <li>moov: メディア/トラックごとのヘッダ情報
+
 <ul>
-<li>例:
-<ul>
+<li>例:</li>
 <li>動画のDuration</li>
 <li>音声のビットレート</li>
-</ul>
-</li>
-</ul>
-</li>
+</ul></li>
 <li>mdat: メディアファイル本体</li>
 </ul>
+
 <h2 id="fast-start-とは">fast start とは</h2>
+
 <p>web経由で動画を再生する場合、ファイル内のatomの配置を工夫する必要がある</p>
+
 <h4 id="前提">前提</h4>
+
 <ul>
 <li>moovは動画の長さやビットレートなどのヘッダ情報</li>
 <li>mdatはメディアファイル本体</li>
 </ul>
+
 <p>動画ファイルを作成する時は以下の順番になり、
 ファイル内でヘッダ情報(moov)がメディア情報(mdat)より後ろに配置される</p>
+
 <ol>
 <li>メディアファイルができあがる</li>
 <li>動画の長さやビットレートがわかるので、ヘッダ情報に入れる</li>
 </ol>
+
 <p>インターネット経由で動画を再生する場合などはファイルを先頭からダウンロードしながら再生したいため、ファイルの先頭にヘッダ情報が含まれている必要がある</p>
+
 <p>このヘッダ情報をメディア情報より先に配置することを fast start という</p>
+
 <h2 id="参考">参考</h2>
+
 <ul>
 <li><a href="https://unoh.github.io/2007/09/12/mp43gpp3gpp2.html">unoh.github.com by unoh</a></li>
 <li><a href="http://yebisupress.dac.co.jp/2015/11/04/profile%EF%BC%9Fatom%EF%BC%9Fmp4%E3%81%AE%E3%82%88%E3%81%8F%E3%82%8F%E3%81%8B%E3%82%89%E3%81%AA%E3%81%84%E3%81%82%E3%82%8C%E3%81%93%E3%82%8C%EF%BC%88atom%E7%B7%A8/">profile？atom？mp4のよくわからないあれこれ（atom編) | DACエンジニアブログ：アドテクゑびす界</a></li>

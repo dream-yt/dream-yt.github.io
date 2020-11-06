@@ -14,7 +14,7 @@
   
   
   <meta name="twitter:title" content="[ansible x Raspbian] nodejs のインストール"/>
-  <meta name="twitter:description" content="ansible-role-nodejs を使うとラズパイでも簡単に入る geerlingguy/ansible-role-nodejs: Ansible Role - Node.js 一緒に npm -g install yarn もしてもらうような最小限の設定 vars: nodejs_version: &#34;12.x&#34; nodejs_npm_global_packages: - yarn roles: - ansible-role-nodejs 環境 Raspbian Buster Lite で動作 Download Raspbian for Raspberry Pi"/>
+  <meta name="twitter:description" content="ansible-role-nodejs を使うとラズパイでも簡単に入る geerlingguy/ansible-role-nodejs: Ansible Role - Node.js 一緒に npm -g install yarn もしてもらうような最小限の設定 vars: nodejs_version: &quot;12.x&quot; nodejs_npm_global_packages: - yarn roles: - ansible-role-nodejs 環境 Raspbian Buster Lite で動作 Download Raspbian for Raspberry Pi"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.74.3" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>[ansible x Raspbian] nodejs のインストール &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,31 +83,42 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li>
-      <ul>
-        <li><a href="#環境">環境</a></li>
-      </ul>
-    </li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#環境">環境</a></li>
+</ul></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>ansible-role-nodejs を使うとラズパイでも簡単に入る</p>
+                    
+
+<p>ansible-role-nodejs を使うとラズパイでも簡単に入る</p>
+
 <ul>
 <li><a href="https://github.com/geerlingguy/ansible-role-nodejs">geerlingguy/ansible-role-nodejs: Ansible Role - Node.js</a></li>
 </ul>
+
 <p>一緒に <code>npm -g install yarn</code> もしてもらうような最小限の設定</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">  <span style="color:#66d9ef">vars</span>:
-    <span style="color:#66d9ef">nodejs_version</span>: <span style="color:#e6db74">&#34;12.x&#34;</span>
-    <span style="color:#66d9ef">nodejs_npm_global_packages</span>:
+
+<pre><code class="language-yaml">  vars:
+    nodejs_version: &quot;12.x&quot;
+    nodejs_npm_global_packages:
       - yarn
-  <span style="color:#66d9ef">roles</span>:
+  roles:
     - ansible-role-nodejs
-</code></pre></div><h3 id="環境">環境</h3>
+</code></pre>
+
+<h3 id="環境">環境</h3>
+
 <p><code>Raspbian Buster Lite</code> で動作</p>
+
 <ul>
 <li><a href="https://www.raspberrypi.org/downloads/raspbian/">Download Raspbian for Raspberry Pi</a></li>
 </ul>

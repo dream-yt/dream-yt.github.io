@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.74.3" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>いまのブランチでいじってるファイルをいっぺんにvscodeで開く &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,30 +83,54 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#コマンド全体">コマンド全体</a>
-      <ul>
-        <li></li>
-        <li><a href="#参考">参考</a></li>
-      </ul>
-    </li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#コマンド全体">コマンド全体</a>
+<ul>
+<li>
+<ul>
+<li><a href="#いまいるブランチはどこでmasterから分岐しているか">いまいるブランチはどこでmasterから分岐しているか</a></li>
+<li><a href="#いじったファイルの一覧">いじったファイルの一覧</a></li>
+<li><a href="#ファイル一覧をそれぞれvscodeで開く">ファイル一覧をそれぞれvscodeで開く</a></li>
+</ul></li>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>なお、ブランチはmasterから派生させている前提</p>
+                    
+
+<p>なお、ブランチはmasterから派生させている前提</p>
+
 <h2 id="コマンド全体">コマンド全体</h2>
+
 <p>最初にmasterから分岐した箇所のコミットハッシュを取得している</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">BASE<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>git show-branch --merge-base master HEAD<span style="color:#66d9ef">)</span>; git diff $BASE HEAD --name-only | xargs code
-</code></pre></div><h4 id="いまいるブランチはどこでmasterから分岐しているか">いまいるブランチはどこでmasterから分岐しているか</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git show-branch --merge-base master HEAD
-</code></pre></div><h4 id="いじったファイルの一覧">いじったファイルの一覧</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git diff $BASE HEAD --name-only
-</code></pre></div><h4 id="ファイル一覧をそれぞれvscodeで開く">ファイル一覧をそれぞれvscodeで開く</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">| xargs code
-</code></pre></div><h3 id="参考">参考</h3>
+
+<pre><code class="language-bash">BASE=$(git show-branch --merge-base master HEAD); git diff $BASE HEAD --name-only | xargs code
+</code></pre>
+
+<h4 id="いまいるブランチはどこでmasterから分岐しているか">いまいるブランチはどこでmasterから分岐しているか</h4>
+
+<pre><code class="language-bash">git show-branch --merge-base master HEAD
+</code></pre>
+
+<h4 id="いじったファイルの一覧">いじったファイルの一覧</h4>
+
+<pre><code class="language-bash">git diff $BASE HEAD --name-only
+</code></pre>
+
+<h4 id="ファイル一覧をそれぞれvscodeで開く">ファイル一覧をそれぞれvscodeで開く</h4>
+
+<pre><code class="language-bash">| xargs code
+</code></pre>
+
+<h3 id="参考">参考</h3>
+
 <ul>
 <li><a href="https://qiita.com/awakia/items/ed53f4aada688f7f19a9">2つのブランチの分岐点をみつけるgit show-branch &ndash;merge-base - Qiita</a></li>
 </ul>

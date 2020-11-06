@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.74.3" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>iCloudドライブを使うようになった &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,72 +83,94 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#こんなファイルを置いている">こんなファイルを置いている</a></li>
-    <li><a href="#スクリプトも">スクリプトも</a>
-      <ul>
-        <li></li>
-      </ul>
-    </li>
-    <li><a href="#感想">感想</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#こんなファイルを置いている">こんなファイルを置いている</a></li>
+<li><a href="#スクリプトも">スクリプトも</a>
+<ul>
+<li>
+<ul>
+<li><a href="#move-and-symlink-under-iclouddrive-sh">move-and-symlink-under-iclouddrive.sh</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#感想">感想</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>最近iCloudドライブをちゃんと使っている。もともとは新しいMacをプロビジョニングするための設定ファイルを入れていたのみだが、以下のリンクを貼ってからけっこう色々なファイルを置くようになった。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ln -s <span style="color:#e6db74">&#34;~/Library/Mobile Documents/com~apple~CloudDocs&#34;</span> ~/iCloudDrive
-</code></pre></div><p>最近は子供ができたりコロナだったりで、仕事をするMacが4つある状態になっていた。</p>
+                    
+
+<p>最近iCloudドライブをちゃんと使っている。もともとは新しいMacをプロビジョニングするための設定ファイルを入れていたのみだが、以下のリンクを貼ってからけっこう色々なファイルを置くようになった。</p>
+
+<pre><code class="language-bash">ln -s &quot;~/Library/Mobile Documents/com~apple~CloudDocs&quot; ~/iCloudDrive
+</code></pre>
+
+<p>最近は子供ができたりコロナだったりで、仕事をするMacが4つある状態になっていた。</p>
+
 <ul>
 <li>会社の MacBook Pro (2020)</li>
 <li>家の Mac Mini (2018)</li>
 <li>妻の実家に置かせてもらってる MacBook Pro (2015)</li>
 <li>出先に持ってくノート MacBook Air (2013)</li>
 </ul>
+
 <p>だいたいコードはGit管理なので問題なかったのだが、ちょっとしたメモや資料などはやっぱり勝手に共有されていて欲しい、</p>
+
 <p>DropBoxに課金する一歩手前だったがiCloudの存在を思い出してよかった。iCloudでもけっこうなんとかなる。DropBoxと違って npm install でプロセスが暴走しないのもいい。</p>
+
 <h2 id="こんなファイルを置いている">こんなファイルを置いている</h2>
+
 <ul>
 <li>~/iCloudDrive/mac-provision-url.txt
+
 <ul>
 <li>新しいMacをプロビジョニングするためのBrew Bundleや環境構築メモが入っている</li>
 <li>MacだとiCloudには必ずログインするので、新しいPCでChromeより先にこのファイルが手に入るのは大きい</li>
-</ul>
-</li>
+</ul></li>
 <li>~/iCloudDrive/memo.md
+
 <ul>
 <li>どんな作業をしてても開いているメモ。バッファ</li>
-</ul>
-</li>
+</ul></li>
 <li>~/iCloudDrive/pdf
+
 <ul>
 <li>Mac でダウンロードしてものをiPhoneで読んだりできたりして地味に便利だった</li>
-</ul>
-</li>
+</ul></li>
 <li>~/iCloudDrive/.bash_history-merged
+
 <ul>
 <li>bash_historyにちょっと手を入れて同期用にしたもの</li>
 <li>Macの作業環境はディレクトリ構成/鍵も全部一緒なので基本historyが使いまわせるようになっている</li>
+</ul></li>
 </ul>
-</li>
-</ul>
-<h2 id="スクリプトも">スクリプトも</h2>
-<p>最近は dotfiles や TIL, TODO管理などもiCloud配下に移行しようとしたのでこんなスクリプトを書いた。</p>
-<h4 id="move-and-symlink-under-iclouddrivesh">move-and-symlink-under-iclouddrive.sh</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/usr/bin/env bash
-</span><span style="color:#75715e"></span>set -eux
 
-readonly iclouddir<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$HOME<span style="color:#e6db74">/iCloudDrive&#34;</span>
+<h2 id="スクリプトも">スクリプトも</h2>
+
+<p>最近は dotfiles や TIL, TODO管理などもiCloud配下に移行しようとしたのでこんなスクリプトを書いた。</p>
+
+<h4 id="move-and-symlink-under-iclouddrive-sh">move-and-symlink-under-iclouddrive.sh</h4>
+
+<pre><code class="language-bash">#!/usr/bin/env bash
+set -eux
+
+readonly iclouddir=&quot;$HOME/iCloudDrive&quot;
 test -d $iclouddir
 
-readonly src<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>dirname $1<span style="color:#66d9ef">)</span><span style="color:#e6db74">/</span><span style="color:#66d9ef">$(</span>basename $1<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
-readonly dest<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$iclouddir<span style="color:#e6db74">/</span><span style="color:#66d9ef">$(</span>basename $1<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+readonly src=&quot;$(dirname $1)/$(basename $1)&quot;
+readonly dest=&quot;$iclouddir/$(basename $1)&quot;
 test ! -d $dest
 
-mv $src <span style="color:#e6db74">&#34;</span>$iclouddir<span style="color:#e6db74">/&#34;</span>
+mv $src &quot;$iclouddir/&quot;
 ln -s $dest $src
-</code></pre></div><h2 id="感想">感想</h2>
+</code></pre>
+
+<h2 id="感想">感想</h2>
+
 <p>とくに気にしないでファイルが同期されるのはやっぱり便利。Windows, Android 方面に進出するのが億劫になっちゃったけど、それは Raspberry-PI でSambaが構築できたらやってみようかなと思っている。</p>
 
                 </section>

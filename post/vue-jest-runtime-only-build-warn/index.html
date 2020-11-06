@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.74.3" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>runtime-only build of Vue where the template compiler is not available &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,25 +83,39 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#参考">参考</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>vueコンポーネントが混ざったjsのテストで以下のようなwarningがでる</p>
+                    
+
+<p>vueコンポーネントが混ざったjsのテストで以下のようなwarningがでる</p>
+
 <blockquote>
 <p>[Vue warn]: You are using the runtime-only build of Vue where the template compiler is not available. Either pre-compile the templates into render functions, or use the compiler-included build</p>
 </blockquote>
+
 <p>これは、単一ファイルコンポーネントではないVueコンポーネント( <code>runtime-only build</code> )をランタイムでコンパイルなしに使おうとしていて咎められているようだ</p>
+
 <p>templateをコンパイル済みのjsコードを用意するか、<code>compiler-included build</code> のvueを使うかが逃げ道として提示されている</p>
+
 <p><code>compiler-included build</code> のvueを使うほうが楽そうだ。jestでテストを走らせているので、そのランタイムで<code>compiler-included build</code> のvueが使われるようにする</p>
+
 <p>具体的には jest.config.js にて moduleNameMapper に以下の設定を入れる</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">// commonjsのプロジェクトなので `vue.common.dev.js`
-</span><span style="color:#75715e"></span><span style="color:#a6e22e">moduleNameMapper</span> <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#39;^vue$&#39;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;vue/dist/vue.common.dev.js&#39;</span>}
-</code></pre></div><h2 id="参考">参考</h2>
+
+<pre><code class="language-js">// commonjsのプロジェクトなので `vue.common.dev.js`
+moduleNameMapper = {'^vue$': 'vue/dist/vue.common.dev.js'}
+</code></pre>
+
+<h2 id="参考">参考</h2>
+
 <ul>
 <li><a href="https://github.com/vuejs/vue-cli/issues/2754">[Vue warn]: You are using the runtime-only build of Vue where the template compiler is not available. Either pre-compile the templates into render functions, or use the compiler-included build. · Issue #2754 · vuejs/vue-cli</a></li>
 <li><a href="https://stackoverflow.com/questions/43154381/running-jest-tests-in-vue-js">jestjs - Running Jest tests in Vue.js - Stack Overflow</a></li>

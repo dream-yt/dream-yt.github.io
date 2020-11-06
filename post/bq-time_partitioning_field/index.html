@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.74.3" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>BigQueryの日付分割テーブルを使う &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,81 +83,117 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#使い方">使い方</a>
-      <ul>
-        <li></li>
-      </ul>
-    </li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#使い方">使い方</a>
+<ul>
+<li>
+<ul>
+<li><a href="#select-insertで作ったテーブルをそうする例">select-insertで作ったテーブルをそうする例</a></li>
+<li><a href="#jsonファイルから-bq-mk-コマンドで作る例">jsonファイルから bq mk コマンドで作る例</a></li>
+<li><a href="#bq-show">bq show</a></li>
+<li><a href="#ちゃんと減ってるか確認">ちゃんと減ってるか確認</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>bigqueryで探索するディスク領域を節約する方法は過去たくさんあった</p>
+                    
+
+<p>bigqueryで探索するディスク領域を節約する方法は過去たくさんあった</p>
+
 <ul>
 <li><code>_YYYYMMDD</code> suffix pattern</li>
 <li>using the <code>_PARTITIONTIME</code> pseudo-column
+
 <ul>
 <li>これはまだ今でも現役なところが多そう</li>
+</ul></li>
 </ul>
-</li>
-</ul>
+
 <p>TIMESTAMPかDATEのカラムをパーティションとして切れる機能が2月に発表された</p>
+
 <ul>
 <li><a href="https://cloud.google.com/bigquery/docs/release-notes#february_8_2018">Release Notes  |  BigQuery  |  Google Cloud</a></li>
 <li><a href="https://cloud.google.com/bigquery/docs/creating-column-partitions?hl=en">Creating and Using Partitioned Tables  |  BigQuery  |  Google Cloud</a></li>
 </ul>
-<p>パーティションにしたカラムをwhere句に入れると、それで探索範囲を節約してくれる<br>
+
+<p>パーティションにしたカラムをwhere句に入れると、それで探索範囲を節約してくれる<br />
 もちろん、bigqueryの料金も安くなる</p>
+
 <p>注意点としては以下二つ</p>
+
 <ul>
 <li>まだベータ版</li>
 <li>レガシーSQLの文法は使えなくなる</li>
 </ul>
+
 <h2 id="使い方">使い方</h2>
+
 <p>テーブルを作る時に <code>--time_partitioning_field</code> オプションを指定するだけでよい</p>
+
 <h4 id="select-insertで作ったテーブルをそうする例">select-insertで作ったテーブルをそうする例</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ bq query <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    --destination_table grey-sort-challenge:partitioning_magic.nyc_taxi_trips_partitioned <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    --time_partitioning_type<span style="color:#f92672">=</span>DAY <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    --time_partitioning_field<span style="color:#f92672">=</span>pickup_datetime <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    --use_legacy_sql<span style="color:#f92672">=</span>false <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    <span style="color:#e6db74">&#39;select * from `grey-sort-challenge.partitioning_magic.nyc_taxi_trips`&#39;</span>
-</code></pre></div><h4 id="jsonファイルから-bq-mk-コマンドで作る例">jsonファイルから bq mk コマンドで作る例</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ bq mk --table <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>     --time_partitioning_field<span style="color:#f92672">=</span>created <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>     --use_legacy_sql<span style="color:#f92672">=</span>false <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>     mylog.test <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>     ./bigquery/test.json
-Table <span style="color:#e6db74">&#39;pjt-192612:mylog.test&#39;</span> successfully created.
-</code></pre></div><h4 id="bq-show">bq show</h4>
-<p>bq show すると <code>timePartitioning</code> という属性が生えている<br>
+
+<pre><code class="language-bash">$ bq query \
+    --destination_table grey-sort-challenge:partitioning_magic.nyc_taxi_trips_partitioned \
+    --time_partitioning_type=DAY \
+    --time_partitioning_field=pickup_datetime \
+    --use_legacy_sql=false \
+    'select * from `grey-sort-challenge.partitioning_magic.nyc_taxi_trips`'
+</code></pre>
+
+<h4 id="jsonファイルから-bq-mk-コマンドで作る例">jsonファイルから bq mk コマンドで作る例</h4>
+
+<pre><code class="language-bash">$ bq mk --table \
+     --time_partitioning_field=created \
+     --use_legacy_sql=false \
+     mylog.test \
+     ./bigquery/test.json
+Table 'pjt-192612:mylog.test' successfully created.
+</code></pre>
+
+<h4 id="bq-show">bq show</h4>
+
+<p>bq show すると <code>timePartitioning</code> という属性が生えている<br />
 以下の例はcreatedというカラムを日付分割パーティションカラムにして作ったテーブルの例</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ bq show --format<span style="color:#f92672">=</span>prettyjson mylog.work_status | jq .timePartitioning
-<span style="color:#f92672">{</span>
-  <span style="color:#e6db74">&#34;field&#34;</span>: <span style="color:#e6db74">&#34;created&#34;</span>,
-  <span style="color:#e6db74">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;DAY&#34;</span>
-<span style="color:#f92672">}</span>
-</code></pre></div><p>今の所は日毎のパーティションしか切れないようだ (<code>&quot;type&quot;: &quot;DAY&quot;</code>)</p>
+
+<pre><code class="language-bash">$ bq show --format=prettyjson mylog.work_status | jq .timePartitioning
+{
+  &quot;field&quot;: &quot;created&quot;,
+  &quot;type&quot;: &quot;DAY&quot;
+}
+</code></pre>
+
+<p>今の所は日毎のパーティションしか切れないようだ (<code>&quot;type&quot;: &quot;DAY&quot;</code>)</p>
+
 <h4 id="ちゃんと減ってるか確認">ちゃんと減ってるか確認</h4>
+
 <p><code>--dry_run</code> オプションをつけて <code>statistics.totalBytesProcessed</code> を確認</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ bq query <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>     --format<span style="color:#f92672">=</span>prettyjson <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>     --use_legacy_sql<span style="color:#f92672">=</span>false <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>     --dry_run <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>     <span style="color:#e6db74">&#34;select distinct(created) from mylog.test where created &gt; &#39;2018-09-22&#39; order by created desc&#34;</span> <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>     | jq .statistics.totalBytesProcessed
-<span style="color:#e6db74">&#34;42065576&#34;</span>
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ bq query <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>     --format<span style="color:#f92672">=</span>prettyjson <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>     --use_legacy_sql<span style="color:#f92672">=</span>false <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>     --dry_run <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>     <span style="color:#e6db74">&#34;select distinct(created) from mylog.test where created &gt; &#39;2018-08-22&#39; order by created desc&#34;</span> <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>     | jq .statistics.totalBytesProcessed
-<span style="color:#e6db74">&#34;69017048&#34;</span>
-</code></pre></div><p>ちゃんとwhere句の日付指定を変更するだけで探索バイト数が減っている(安くなっている)</p>
+
+<pre><code class="language-bash">$ bq query \
+     --format=prettyjson \
+     --use_legacy_sql=false \
+     --dry_run \
+     &quot;select distinct(created) from mylog.test where created &gt; '2018-09-22' order by created desc&quot; \
+     | jq .statistics.totalBytesProcessed
+&quot;42065576&quot;
+</code></pre>
+
+<pre><code class="language-bash">$ bq query \
+     --format=prettyjson \
+     --use_legacy_sql=false \
+     --dry_run \
+     &quot;select distinct(created) from mylog.test where created &gt; '2018-08-22' order by created desc&quot; \
+     | jq .statistics.totalBytesProcessed
+&quot;69017048&quot;
+</code></pre>
+
+<p>ちゃんとwhere句の日付指定を変更するだけで探索バイト数が減っている(安くなっている)</p>
 
                 </section>
             </article>
