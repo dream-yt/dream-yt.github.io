@@ -6,10 +6,28 @@
     <description>Recent content in Posts on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sat, 07 Nov 2020 09:54:43 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 07 Nov 2020 22:09:07 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>vscodeのformatOnSaveでPython/autopep8を使って整形する</title>
+      <link>https://dream-yt.github.io/post/vscode-python-autopep8/</link>
+      <pubDate>Sat, 07 Nov 2020 22:09:07 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/vscode-python-autopep8/</guid>
+      <description>自動でフォーマットを効かせる最低限の設定 &amp;quot;settings&amp;quot;: { &amp;quot;[python]&amp;quot;: { &amp;quot;editor.formatOnSave&amp;quot;: true }, &amp;quot;python.formatting.autopep8Path&amp;quot;: &amp;quot;autopep8&amp;quot;, &amp;quot;python.formatting.autopep8Args&amp;quot;: [ &amp;quot;--aggressive&amp;quot;, &amp;quot;--aggressive&amp;quot; ] 参考 公式のドキュメントがトラブルシューティングを提供していて親切だった Editing</description>
+    </item>
+    
+    <item>
+      <title>VS Codeでインデントをハードタブにする</title>
+      <link>https://dream-yt.github.io/post/vscode-using-hardtab/</link>
+      <pubDate>Sat, 07 Nov 2020 21:59:28 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/vscode-using-hardtab/</guid>
+      <description>この設定にするとTabキーでハードタブが挿入される &amp;quot;editor.insertSpaces&amp;quot;: false たとえば(pep8違反だが)Pythonだけで適用したい場合は下記のように書く &amp;quot;settings&amp;quot;: { &amp;quot;[python]&amp;quot;: {</description>
+    </item>
     
     <item>
       <title>vscode で python の virtualenv を認識させる</title>
