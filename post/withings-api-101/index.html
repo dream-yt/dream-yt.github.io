@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.74.3" />
 		<title>WithingsAPIのトークンのを取得 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,108 +83,80 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#トークンの取得">トークンの取得</a>
-<ul>
-<li><a href="#codeを取得">codeを取得</a></li>
-<li><a href="#トークンの取得-1">トークンの取得</a></li>
-<li><a href="#トークンの更新">トークンの更新</a></li>
-</ul></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#トークンの取得">トークンの取得</a>
+      <ul>
+        <li><a href="#codeを取得">codeを取得</a></li>
+        <li><a href="#トークンの取得-1">トークンの取得</a></li>
+        <li><a href="#トークンの更新">トークンの更新</a></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<h2 id="トークンの取得">トークンの取得</h2>
-
+                    <h2 id="トークンの取得">トークンの取得</h2>
 <ul>
 <li><a href="https://developer.withings.com/oauth2/#tag/glossary">Withings API</a></li>
 </ul>
-
 <h3 id="codeを取得">codeを取得</h3>
-
 <p>管理画面から <code>CLIENT_ID</code> , <code>CONSUMER_SECRET</code> を発行する</p>
-
 <ul>
 <li><a href="https://account.withings.com/partner/dashboard_oauth2">dashboard_oauth2</a></li>
 </ul>
-
-<pre><code class="language-bash">export CLIENT_ID=xxxx
-export CONSUMER_SECRET=xxxxxxxx
-export REDIRECT_URL=http://localhost:8000
-export SCOPE=user.info,user.metrics,user.activity,user.sleepevents
-export STATE=sakamoto  # リクエストが重複しないようにするためのなんでもいい文字列
-</code></pre>
-
-<p>ブラウザで開いて <code>アプリを許可する</code></p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">export CLIENT_ID<span style="color:#f92672">=</span>xxxx
+export CONSUMER_SECRET<span style="color:#f92672">=</span>xxxxxxxx
+export REDIRECT_URL<span style="color:#f92672">=</span>http://localhost:8000
+export SCOPE<span style="color:#f92672">=</span>user.info,user.metrics,user.activity,user.sleepevents
+export STATE<span style="color:#f92672">=</span>sakamoto  <span style="color:#75715e"># リクエストが重複しないようにするためのなんでもいい文字列</span>
+</code></pre></div><p>ブラウザで開いて <code>アプリを許可する</code></p>
 <pre><code>open &quot;https://account.withings.com/oauth2_user/authorize2?response_type=code&amp;client_id=$CLIENT_ID&amp;state=$STATE&amp;scope=$SCOPE&amp;redirect_uri=$REDIRECT_URL&quot;
-</code></pre>
-
-<p><code>REDIRECT_URL</code> で定義したURLへリダイレクトされる<br />
+</code></pre><p><code>REDIRECT_URL</code> で定義したURLへリダイレクトされる<br>
 そのクエリパラメータに <code>code</code> が入っている</p>
-
 <blockquote>
-<p><a href="http://localhost:8000/?code=xxxx&amp;state=akira">http://localhost:8000/?code=xxxx&amp;state=akira</a></p>
+<p>http://localhost:8000/?code=xxxx&amp;state=akira</p>
 </blockquote>
-
 <h3 id="トークンの取得-1">トークンの取得</h3>
-
 <p>POSTしたらJSONが返ってくる</p>
-
-<pre><code class="language-bash">export CODE=xxxxxxxxxxxx
-curl https://account.withings.com/oauth2/token \
-  -d 'grant_type=authorization_code' \
-  -d &quot;client_id=$CLIENT_ID&quot; \
-  -d &quot;client_secret=$CONSUMER_SECRET&quot; \
-  -d &quot;code=$CODE&quot; \
-  -d &quot;redirect_uri=$REDIRECT_URL&quot;
-</code></pre>
-
-<pre><code class="language-json">{
-  &quot;access_token&quot;: &quot;xxxxxxxxxx&quot;,
-  &quot;expires_in&quot;: 10800,
-  &quot;token_type&quot;: &quot;Bearer&quot;,
-  &quot;scope&quot;: &quot;user.info,user.metrics,user.activity,user.sleepevents&quot;,
-  &quot;refresh_token&quot;: &quot;xxxxxxxxxxxxxxxxxxxx&quot;,
-  &quot;userid&quot;: &quot;xxxxxxxxxx&quot;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">export CODE<span style="color:#f92672">=</span>xxxxxxxxxxxx
+curl https://account.withings.com/oauth2/token <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  -d <span style="color:#e6db74">&#39;grant_type=authorization_code&#39;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  -d <span style="color:#e6db74">&#34;client_id=</span>$CLIENT_ID<span style="color:#e6db74">&#34;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  -d <span style="color:#e6db74">&#34;client_secret=</span>$CONSUMER_SECRET<span style="color:#e6db74">&#34;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  -d <span style="color:#e6db74">&#34;code=</span>$CODE<span style="color:#e6db74">&#34;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  -d <span style="color:#e6db74">&#34;redirect_uri=</span>$REDIRECT_URL<span style="color:#e6db74">&#34;</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+  <span style="color:#f92672">&#34;access_token&#34;</span>: <span style="color:#e6db74">&#34;xxxxxxxxxx&#34;</span>,
+  <span style="color:#f92672">&#34;expires_in&#34;</span>: <span style="color:#ae81ff">10800</span>,
+  <span style="color:#f92672">&#34;token_type&#34;</span>: <span style="color:#e6db74">&#34;Bearer&#34;</span>,
+  <span style="color:#f92672">&#34;scope&#34;</span>: <span style="color:#e6db74">&#34;user.info,user.metrics,user.activity,user.sleepevents&#34;</span>,
+  <span style="color:#f92672">&#34;refresh_token&#34;</span>: <span style="color:#e6db74">&#34;xxxxxxxxxxxxxxxxxxxx&#34;</span>,
+  <span style="color:#f92672">&#34;userid&#34;</span>: <span style="color:#e6db74">&#34;xxxxxxxxxx&#34;</span>
 }
-</code></pre>
-
-<h3 id="トークンの更新">トークンの更新</h3>
-
-<p>トークンは3時間で使えなくなる<br />
+</code></pre></div><h3 id="トークンの更新">トークンの更新</h3>
+<p>トークンは3時間で使えなくなる<br>
 refresh_tokenを使って新しいのをゲットする</p>
-
-<pre><code class="language-bash">curl https://account.withings.com/oauth2/token \
-  -d 'grant_type=refresh_token' \
-  -d &quot;client_id=$CLIENT_ID&quot; \
-  -d &quot;client_secret=$CONSUMER_SECRET&quot; \
-  -d &quot;refresh_token=$REFRESH_TOKEN&quot;
-</code></pre>
-
-<p>こんなスクリプトを書いてなんとかした</p>
-
-<pre><code class="language-bash">#!/usr/bin/env bash
-# usage: $ direnv exec bin/refresh-token.sh
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">curl https://account.withings.com/oauth2/token <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  -d <span style="color:#e6db74">&#39;grant_type=refresh_token&#39;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  -d <span style="color:#e6db74">&#34;client_id=</span>$CLIENT_ID<span style="color:#e6db74">&#34;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  -d <span style="color:#e6db74">&#34;client_secret=</span>$CONSUMER_SECRET<span style="color:#e6db74">&#34;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  -d <span style="color:#e6db74">&#34;refresh_token=</span>$REFRESH_TOKEN<span style="color:#e6db74">&#34;</span>
+</code></pre></div><p>こんなスクリプトを書いてなんとかした</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/usr/bin/env bash
+</span><span style="color:#75715e"></span><span style="color:#75715e"># usage: $ direnv exec bin/refresh-token.sh</span>
 set -eux
-cd $(dirname $0)/../
+cd <span style="color:#66d9ef">$(</span>dirname $0<span style="color:#66d9ef">)</span>/../
 
-export REFRESH_TOKEN=$(cat token | jq -r .refresh_token)
-curl -s https://account.withings.com/oauth2/token \
-  -d 'grant_type=refresh_token' \
-  -d &quot;client_id=$CLIENT_ID&quot; \
-  -d &quot;client_secret=$CONSUMER_SECRET&quot; \
-  -d &quot;refresh_token=$REFRESH_TOKEN&quot; | jq . | tee ./token
+export REFRESH_TOKEN<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>cat token | jq -r .refresh_token<span style="color:#66d9ef">)</span>
+curl -s https://account.withings.com/oauth2/token <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  -d <span style="color:#e6db74">&#39;grant_type=refresh_token&#39;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  -d <span style="color:#e6db74">&#34;client_id=</span>$CLIENT_ID<span style="color:#e6db74">&#34;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  -d <span style="color:#e6db74">&#34;client_secret=</span>$CONSUMER_SECRET<span style="color:#e6db74">&#34;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  -d <span style="color:#e6db74">&#34;refresh_token=</span>$REFRESH_TOKEN<span style="color:#e6db74">&#34;</span> | jq . | tee ./token
 
-</code></pre>
-
+</code></pre></div>
                 </section>
             </article>
 

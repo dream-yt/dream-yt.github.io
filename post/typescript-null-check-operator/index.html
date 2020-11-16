@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.74.3" />
 		<title>typescriptでのnullチェック &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,61 +83,43 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#例">例</a>
-<ul>
-<li><a href="#イコールふたつ">イコールふたつ</a></li>
-<li><a href="#イコールみっつだと厳格">イコールみっつだと厳格</a></li>
-</ul></li>
-<li><a href="#その他">その他</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#例">例</a>
+      <ul>
+        <li><a href="#イコールふたつ">イコールふたつ</a></li>
+        <li><a href="#イコールみっつだと厳格">イコールみっつだと厳格</a></li>
+      </ul>
+    </li>
+    <li><a href="#その他">その他</a></li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p>基本的にはイコール2つの演算子でチェックすれば
+                    <p>基本的にはイコール2つの演算子でチェックすれば
 undefinedとnullのどちらかであればtrueになる</p>
-
 <blockquote>
 <p><code>== null</code></p>
 </blockquote>
-
 <h2 id="例">例</h2>
-
-<pre><code class="language-ts">$ ts-node
-&gt; const v = {a: 1, c: null}
-undefined
-</code></pre>
-
-<h3 id="イコールふたつ">イコールふたつ</h3>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#a6e22e">$</span> <span style="color:#a6e22e">ts</span><span style="color:#f92672">-</span><span style="color:#a6e22e">node</span>
+<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">v</span> <span style="color:#f92672">=</span> {<span style="color:#a6e22e">a</span>: <span style="color:#66d9ef">1</span>, <span style="color:#a6e22e">c</span>: <span style="color:#66d9ef">null</span>}
+<span style="color:#66d9ef">undefined</span>
+</code></pre></div><h3 id="イコールふたつ">イコールふたつ</h3>
 <p>nullとundefinedを区別しなくて楽</p>
-
-<pre><code class="language-ts">&gt; v['b'] == null
-true
-&gt; v['c'] == null
-true
-</code></pre>
-
-<h3 id="イコールみっつだと厳格">イコールみっつだと厳格</h3>
-
-<pre><code class="language-ts">&gt; v['c'] === null
-true
-&gt; v['b'] === null
-false
-</code></pre>
-
-<h2 id="その他">その他</h2>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">v</span>[<span style="color:#e6db74">&#39;b&#39;</span>] <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span>
+<span style="color:#66d9ef">true</span>
+<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">v</span>[<span style="color:#e6db74">&#39;c&#39;</span>] <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span>
+<span style="color:#66d9ef">true</span>
+</code></pre></div><h3 id="イコールみっつだと厳格">イコールみっつだと厳格</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">v</span>[<span style="color:#e6db74">&#39;c&#39;</span>] <span style="color:#f92672">===</span> <span style="color:#66d9ef">null</span>
+<span style="color:#66d9ef">true</span>
+<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">v</span>[<span style="color:#e6db74">&#39;b&#39;</span>] <span style="color:#f92672">===</span> <span style="color:#66d9ef">null</span>
+<span style="color:#66d9ef">false</span>
+</code></pre></div><h2 id="その他">その他</h2>
 <p>宣言していない変数についても書いてあるが、これは特殊なコードになってる場合
 普通のコードではイコール2つの演算子でチェックすればよい</p>
-
 <ul>
 <li><a href="https://typescript-jp.gitbook.io/deep-dive/recap/null-undefined">Null vs. Undefined - TypeScript Deep Dive 日本語版</a></li>
 </ul>

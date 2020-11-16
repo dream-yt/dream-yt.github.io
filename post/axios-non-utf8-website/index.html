@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.74.3" />
 		<title>UTF-8じゃないサイトをaxiosで取得する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,60 +83,44 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#参考">参考</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#参考">参考</a></li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p>axiosはデフォルトでサイトの文字コードをUTF-8決め打ちでデコードしてしまう<br />
+                    <p>axiosはデフォルトでサイトの文字コードをUTF-8決め打ちでデコードしてしまう<br>
 なのでUTF-8じゃないサイトを取得すると文字化けする</p>
-
 <ul>
 <li><a href="https://github.com/axios/axios/issues/332">how to decode non-utf8 response? · Issue #332 · axios/axios</a></li>
 </ul>
-
 <p>以下のやり方でUTF-8以外のデコードができるようだ</p>
-
 <ul>
 <li><code>responseType</code> に <code>arraybuffer</code> を指定する</li>
 <li><code>transformResponse</code> で <code>response.data</code> を期待する文字コードにデコードする</li>
 </ul>
-
 <p>自動でエンコーディングを判定してくれるchardetを使うとこんな感じになる</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">as</span> <span style="color:#a6e22e">chardet</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;chardet&#39;</span>;
+<span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">as</span> <span style="color:#a6e22e">iconv</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;iconv-lite&#39;</span>;
 
-<pre><code class="language-ts">import * as chardet from 'chardet';
-import * as iconv from 'iconv-lite';
-
-axios.create({
-  responseType: 'arraybuffer',
-  transformResponse: data =&gt; {
-    const encoding = chardet.detect(data);
-    if (!encoding) {
-      throw new Error('chardet failed to detect encoding');
+<span style="color:#a6e22e">axios</span>.<span style="color:#a6e22e">create</span>({
+  <span style="color:#a6e22e">responseType</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;arraybuffer&#39;</span>,
+  <span style="color:#a6e22e">transformResponse</span>: <span style="color:#66d9ef">data</span> <span style="color:#f92672">=&gt;</span> {
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">encoding</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">chardet</span>.<span style="color:#a6e22e">detect</span>(<span style="color:#a6e22e">data</span>);
+    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">encoding</span>) {
+      <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> Error(<span style="color:#e6db74">&#39;chardet failed to detect encoding&#39;</span>);
     }
-    return iconv.decode(data, encoding);
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">iconv</span>.<span style="color:#a6e22e">decode</span>(<span style="color:#a6e22e">data</span>, <span style="color:#a6e22e">encoding</span>);
   }
 })
-</code></pre>
-
-<h2 id="参考">参考</h2>
-
+</code></pre></div><h2 id="参考">参考</h2>
 <p>chardetの仕組みについて</p>
-
 <ul>
 <li><a href="https://www-archive.mozilla.org/projects/intl/universalcharsetdetection">A composite approach to language/encoding detection</a></li>
 </ul>
-
 <p>UTF-8じゃないサイトを探す時に役に立った</p>
-
 <ul>
 <li><a href="https://docs.google.com/spreadsheets/d/1Z_rR1UvpQnvf75DPBLP7LByXSIavT-mBdBmFegbeB4w/edit#gid=972298121">上場企業HP文字コード一覧(2017/10/20) - Google スプレッドシート</a></li>
 </ul>

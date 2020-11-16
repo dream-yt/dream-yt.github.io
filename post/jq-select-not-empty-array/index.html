@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.74.3" />
 		<title>jqである属性(配列)が空じゃないもののみに絞る &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,26 +83,17 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#参考">参考</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#参考">参考</a></li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p><code>select</code> と <code>length</code> を使えばよい</p>
-
-<pre><code class="language-bash">cat data.json | jq 'select(.errors | length &gt; 0)
-</code></pre>
-
-<h2 id="参考">参考</h2>
-
+                    <p><code>select</code> と <code>length</code> を使えばよい</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cat data.json | jq <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#66d9ef">select</span><span style="color:#f92672">(</span>.errors | length &gt; 0<span style="color:#f92672">)</span>
+</code></pre></div><h2 id="参考">参考</h2>
 <ul>
 <li><a href="https://stedolan.github.io/jq/manual/#length">length</a></li>
 <li><a href="https://stedolan.github.io/jq/manual/#select">select</a></li>

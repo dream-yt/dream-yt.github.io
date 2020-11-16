@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.74.3" />
 		<title>htmlではaタグはネストできない &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,85 +83,58 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#たとえば">たとえば</a></li>
-<li><a href="#理由">理由</a>
-<ul>
-<li>
-<ul>
-<li><a href="#参考">参考</a></li>
-</ul></li>
-</ul></li>
-<li><a href="#対処法">対処法</a>
-<ul>
-<li>
-<ul>
-<li><a href="#参考-1">参考</a></li>
-</ul></li>
-</ul></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#たとえば">たとえば</a></li>
+    <li><a href="#理由">理由</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#対処法">対処法</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p>htmlではaタグがネストできない。できないと言うか、そういうコードを書くとブラウザがDOM構造をネストのない形に勝手に変更する。警告はでない。</p>
-
+                    <p>htmlではaタグがネストできない。できないと言うか、そういうコードを書くとブラウザがDOM構造をネストのない形に勝手に変更する。警告はでない。</p>
 <h2 id="たとえば">たとえば</h2>
-
 <p>aタグの中にaタグが入ってる形</p>
-
-<pre><code class="language-html">&lt;a&gt;
-    &lt;p&gt;テストテスト&lt;/p&gt;
-    &lt;a&gt;リンク&lt;/a&gt;
-&lt;/a&gt;
-</code></pre>
-
-<p>↑のコードを書くと、ブラウザはこれを↓のようにDOMツリーにする</p>
-
-<pre><code class="language-html">&lt;a&gt;
-    &lt;p&gt;テストテスト&lt;/p&gt;
-&lt;/a&gt;
-&lt;a&gt;リンク&lt;/a&gt;
-</code></pre>
-
-<h2 id="理由">理由</h2>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">a</span>&gt;
+    &lt;<span style="color:#f92672">p</span>&gt;テストテスト&lt;/<span style="color:#f92672">p</span>&gt;
+    &lt;<span style="color:#f92672">a</span>&gt;リンク&lt;/<span style="color:#f92672">a</span>&gt;
+&lt;/<span style="color:#f92672">a</span>&gt;
+</code></pre></div><p>↑のコードを書くと、ブラウザはこれを↓のようにDOMツリーにする</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">a</span>&gt;
+    &lt;<span style="color:#f92672">p</span>&gt;テストテスト&lt;/<span style="color:#f92672">p</span>&gt;
+&lt;/<span style="color:#f92672">a</span>&gt;
+&lt;<span style="color:#f92672">a</span>&gt;リンク&lt;/<span style="color:#f92672">a</span>&gt;
+</code></pre></div><h2 id="理由">理由</h2>
 <p>こんな理由でaタグのネストはできないことになっている</p>
-
 <ul>
 <li>もともとaタグはリンクできるタグであり、aタグ=リンク ではない</li>
 <li>aタグは概念上、点であり面積をもたない (よって他の要素を含まない)</li>
 <li>aタグは他のページとの接続点を示すタグである</li>
 <li>aタグが他のaタグを含むと、定義上どちらへの接続なのかが曖昧になる</li>
 </ul>
-
 <h4 id="参考">参考</h4>
-
 <ul>
 <li><a href="https://stackoverflow.com/questions/18666915/why-are-nested-anchor-tags-illegal">html - Why are nested anchor tags illegal? - Stack Overflow</a></li>
 </ul>
-
 <h2 id="対処法">対処法</h2>
-
 <p>objectタグでaタグを囲うと、書いた通りのDOMツリーになる
 が、これは明らかなハックなのでやらないで済むならしないほうがよい</p>
-
-<pre><code class="language-html">&lt;a&gt;
-    &lt;p&gt;テストテスト&lt;/p&gt;
-    &lt;object&gt;
-        &lt;a&gt;リンク&lt;/a&gt;
-    &lt;/object&gt;
-&lt;/a&gt;
-</code></pre>
-
-<h4 id="参考-1">参考</h4>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">a</span>&gt;
+    &lt;<span style="color:#f92672">p</span>&gt;テストテスト&lt;/<span style="color:#f92672">p</span>&gt;
+    &lt;<span style="color:#f92672">object</span>&gt;
+        &lt;<span style="color:#f92672">a</span>&gt;リンク&lt;/<span style="color:#f92672">a</span>&gt;
+    &lt;/<span style="color:#f92672">object</span>&gt;
+&lt;/<span style="color:#f92672">a</span>&gt;
+</code></pre></div><h4 id="参考-1">参考</h4>
 <ul>
 <li><a href="https://qiita.com/fukamiiiiinmin/items/7412b21c6df5de31cab1#2a%E3%82%BF%E3%82%B0%E5%86%85%E3%81%AEa%E3%82%BF%E3%82%B0%E3%81%AFobject%E3%82%BF%E3%82%B0%E3%81%A7%E5%9B%B2%E3%82%80">aタグの中にaタグを書きたい時のtips - Qiita</a></li>
 </ul>

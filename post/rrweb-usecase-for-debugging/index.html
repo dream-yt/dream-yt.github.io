@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.74.3" />
 		<title>rrwebがバグの調査に使えそうというメモ &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -81,24 +81,23 @@
                 </header>
                 
                   
+                    <div id="toc">
+                      <nav id="TableOfContents"></nav>
+                    </div>
+                  
                 
                 <section id="post-body">
                     <p>rrwebはサイトでユーザがなにをしたかを記録できるというもの</p>
-
 <ul>
 <li><a href="https://github.com/rrweb-io/rrweb">rrweb-io/rrweb: record and replay the web</a></li>
 </ul>
-
 <blockquote>
 <p>rrweb refers to &lsquo;record and replay the web&rsquo;, which is a tool for recording and replaying users&rsquo; interactions on the web.</p>
 </blockquote>
-
 <p>ユーザの行動調査のために使うのかとおもったら、exampleで「エラーが発生したときにユーザがどんな操作をしていたか」をキャプチャするための設定が書かれていて、なるほどとなった。</p>
-
 <ul>
 <li><a href="https://github.com/rrweb-io/rrweb/blob/master/guide.md#user-content-checkout">rrweb/guide.md / capturing just the last N events from when an error has occurred</a></li>
 </ul>
-
 <p>ブラウザ側で発生している原因が不明なエラーなど、自分でいろいろデバッグ用のコードを埋め込むよりこれを使った方がいいなってなった</p>
 
                 </section>

@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.74.3" />
 		<title>AWSでドメインを取得してfirebase-hostingに設定する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,62 +83,49 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#手順">手順</a>
-<ul>
-<li>
-<ul>
-<li><a href="#最終的にできるレコードはterraformだとこんな感じ">最終的にできるレコードはterraformだとこんな感じ</a></li>
-</ul></li>
-</ul></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#手順">手順</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p>だいたいドキュメント通りにやればできる</p>
-
+                    <p>だいたいドキュメント通りにやればできる</p>
 <ul>
 <li><a href="https://firebase.google.com/docs/hosting/custom-domain?hl=ja">カスタム ドメインを接続する  |  Firebase</a></li>
 </ul>
-
 <h2 id="手順">手順</h2>
-
 <p>UIからポチポチやる場合の手順</p>
-
 <ul>
 <li>(AWS) まずドメインを取得</li>
 <li>(Firebase) カスタムドメインの追加をクリック</li>
 <li>(Firebase) 自分のサイトにつけたいドメインを入力
-
 <ul>
 <li>TXTレコードが払い出されるの</li>
-</ul></li>
+</ul>
+</li>
 <li>(AWS) 所有権の確認
-
 <ul>
 <li>払い出された文字列をTXTレコードとして設定</li>
-</ul></li>
+</ul>
+</li>
 <li>(Firebase) 入力したTXTレコードを検証
-
 <ul>
 <li>検証をパスすればドメインに対してIPアドレスが2つ払い出される</li>
-</ul></li>
+</ul>
+</li>
 <li>(AWS) 払い出されたIPアドレスをAレコードに登録
-
 <ul>
 <li>httpsでアクセスできるようにするのはちょっと時間がかかった</li>
-</ul></li>
 </ul>
-
+</li>
+</ul>
 <h4 id="最終的にできるレコードはterraformだとこんな感じ">最終的にできるレコードはterraformだとこんな感じ</h4>
-
 <pre><code>resource &quot;aws_route53_record&quot; &quot;mydomain&quot; {
     name    = &quot;mydomain.com&quot;
     records = [
@@ -158,10 +145,7 @@ resource &quot;aws_route53_record&quot; &quot;www--mydomain&quot; {
     type    = &quot;A&quot;
     zone_id = &quot;xxxxxx&quot;
 }
-</code></pre>
-
-<p>AWSで作成したレコードの管理はこちらの記事でやった</p>
-
+</code></pre><p>AWSで作成したレコードの管理はこちらの記事でやった</p>
 <ul>
 <li><a href="https://blog.n-t.jp/terraform-route53/">terraformでroute53の管理</a></li>
 </ul>
