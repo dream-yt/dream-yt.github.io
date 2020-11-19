@@ -76,6 +76,51 @@
     
         
             <li>
+                <aside class="dates">Nov 4</aside>
+                <a href='https://dream-yt.github.io/post/html5-read-file-data-ad-url/'>
+                    html5のFileオブジェクトからimg/videoタグで使えるURLを取得する
+                    
+                        
+                            <h2>こんな関数で取得できる const f = (file: File) =&gt; { const reader = new FileReader(); const promise = new Promise((resolve, reject) =&gt; { reader.onerror = e =&gt; reject(e); reader.onabort = e =&gt; reject(e); reader.onload = e =&gt; resolve(e.target?.result); }); reader.readAsDataURL(file); return promise; }; ... const url = f(event.currentTarget.files[0]); return &lt;video&gt;&lt;source src={url} /&gt;&lt;/video&gt; 参考 Web アプリケーショ</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Oct 31</aside>
+                <a href='https://dream-yt.github.io/post/react-formik-file-dragndrop/'>
+                    React/Formikでファイルのドラッグアンドドロップ
+                    
+                        
+                            <h2>Formikに渡すコンポーネントはこんな感じのをつくる ドラッグアンドドロップを捕捉するためのイベントは onDragOver, onDragLeave Formikは input[type=file] に対応していないの</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Oct 30</aside>
+                <a href='https://dream-yt.github.io/post/difference-throttle-debounce/'>
+                    throttle と debounce の違い
+                    
+                        
+                            <h2>こちらの説明がわかりやすかった throttleとdebounce lodash の debounce や throttle で簡単に負荷対策 - Qiita debounce 連続して大量に繰り返される処理が指定時間内に</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
                 <aside class="dates">Oct 28</aside>
                 <a href='https://dream-yt.github.io/post/typescript-array-element-object-typing/'>
                     TypeScriptで、「この配列の要素がキーになってるオブジェクト」という型を定義する
@@ -172,51 +217,6 @@
                     
                         
                             <h2>画像が左、説明文が右というレイアウトの最小限の定義 &lt;div class=&#34;card&#34;&gt; &lt;div class=&#34;card-left&#34;&gt; &lt;img src=&#34;https://thumbnail.image.rakuten.co.jp/@0_mall/book/cabinet/1989/19892000.jpg?_ex=200x200&#34; /&gt; &lt;/div&gt; &lt;div class=&#34;card-right&#34;&gt; &lt;h3&gt;{book.title}&lt;/h3&gt; &lt;p&gt;{book.itemCaption}&lt;/p&gt; &lt;/div&gt; &lt;/div&gt; .card { display: flex; /* PCで閲覧された時に横幅を絞っておく */ width: 600px; } .card-left { width: 30%;</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Sep 12</aside>
-                <a href='https://dream-yt.github.io/post/ffmpeg-cutout-mp3/'>
-                    ffmpegを使ってmp3をカットする
-                    
-                        
-                            <h2>こんな感じで切り出せる ffmpeg -ss 7 -to 00:00:12 -i ./source.mp3 ./output.mp3 -ss 切り出す開始時点の秒数 -to 切り出す終了時点。ffmpegは秒数で指定するとわかりにくいのでこの形式 -i 元</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Sep 11</aside>
-                <a href='https://dream-yt.github.io/post/generate-bigquery-schema-from-mysql-create-table/'>
-                    MySQL の CREATE TABLE から BigQuery のスキーマ(json)を生成する
-                    
-                        
-                            <h2>ddlparseというモジュールを使うと簡単だった shinichi-takii/ddlparse: DDL parase and Convert to BigQuery JSON schema and DDL statements コードはこれだけでよい import sys from ddlparse import DdlParse sql = sys.stdin.read() table = DdlParse().parse(sql) print(table.to_bigquery_fields()) こんな感じで生成さ</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Sep 6</aside>
-                <a href='https://dream-yt.github.io/post/add-next-ssg-ts/'>
-                    既存のtypescriptプロジェクトにnextjsのSSGを導入する
-                    
-                        
-                            <h2>簡単に追加できる。 準備 nextを入れる $ npm install next src/pages配下にtsxを作成 $ touch ./src/pages/index.tsx なお、nextはトップレベルではなくsrc配下にpa</h2>
                         
                     
                 </a>

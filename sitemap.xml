@@ -3,17 +3,32 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://dream-yt.github.io/post/</loc>
-    <lastmod>2020-11-16T19:14:09+09:00</lastmod>
+    <loc>https://dream-yt.github.io/post/build-python-wheel-for-lambda/</loc>
+    <lastmod>2020-11-20T06:44:01+09:00</lastmod>
   </url>
   
   <url>
-    <loc>https://dream-yt.github.io/post/python-dict-constructor-shallow-copy/</loc>
-    <lastmod>2020-11-16T19:14:09+09:00</lastmod>
+    <loc>https://dream-yt.github.io/post/</loc>
+    <lastmod>2020-11-20T06:44:01+09:00</lastmod>
   </url>
   
   <url>
     <loc>https://dream-yt.github.io/</loc>
+    <lastmod>2020-11-20T06:44:01+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://dream-yt.github.io/post/python-wheel-bdist-sdist-pip/</loc>
+    <lastmod>2020-11-19T20:38:40+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://dream-yt.github.io/post/sed-inplace-replace/</loc>
+    <lastmod>2020-11-17T08:04:28+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://dream-yt.github.io/post/python-dict-constructor-shallow-copy/</loc>
     <lastmod>2020-11-16T19:14:09+09:00</lastmod>
   </url>
   
