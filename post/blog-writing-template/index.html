@@ -13,8 +13,8 @@
     
   
   
-  <meta name="twitter:title" content="sedでファイル内の特定文字列を正規表現で書き換えたい/消したい時"/>
-  <meta name="twitter:description" content="書き換えたい時 $ sed -i &#34;&#34; -e &#39;s/http:\/\/dynamodb:8000/http:\/\/localhost:7800/&#39; path/to/targetfile -i オプション 出力内容をここで指定したパスに書き出す 空文字 &quot;&quot; を指定すると元のファイルを書き換える挙動になる 消したい"/>
+  <meta name="twitter:title" content="ブログ文章のテンプレートを作成する"/>
+  <meta name="twitter:description" content="ブログ文章の構成方法にはフレームワークがいくつもある。それらについて調べてみて、自分が使いやすいような最小限のテンプレートを作って実践してみ"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -30,7 +30,7 @@
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
 		<meta name="generator" content="Hugo 0.74.3" />
-		<title>sedでファイル内の特定文字列を正規表現で書き換えたい/消したい時 &middot; sacre</title>
+		<title>ブログ文章のテンプレートを作成する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
@@ -68,11 +68,11 @@
             <article>
                 <header>
                     <h1>
-                        sedでファイル内の特定文字列を正規表現で書き換えたい/消したい時
+                        ブログ文章のテンプレートを作成する
                     </h1>
                     <h2 class="headline">
-                    Nov 17, 2020 08:04
-                    · 115 words
+                    Nov 22, 2020 10:14
+                    · 466 words
                     · 1 minute read
                       <span class="tags">
                       
@@ -84,40 +84,66 @@
                     <div id="toc">
                       <nav id="TableOfContents">
   <ul>
-    <li><a href="#書き換えたい時">書き換えたい時</a></li>
-    <li><a href="#消したい時">消したい時</a></li>
+    <li><a href="#文章の目的">文章の目的</a></li>
+    <li><a href="#フレームワーク">フレームワーク</a>
+      <ul>
+        <li><a href="#ゴールデンサークルprep-法">ゴールデンサークル/PREP 法</a></li>
+        <li><a href="#その他のフレームワーク">その他のフレームワーク</a></li>
+      </ul>
+    </li>
+    <li><a href="#テンプレート">テンプレート</a></li>
   </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <h2 id="書き換えたい時">書き換えたい時</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sed -i <span style="color:#e6db74">&#34;&#34;</span> -e <span style="color:#e6db74">&#39;s/http:\/\/dynamodb:8000/http:\/\/localhost:7800/&#39;</span> path/to/targetfile
-</code></pre></div><ul>
-<li><code>-i</code> オプション
+                    <p>ブログ文章の構成方法にはフレームワークがいくつもある。それらについて調べてみて、自分が使いやすいような最小限のテンプレートを作って実践してみることにする。</p>
+<h2 id="文章の目的">文章の目的</h2>
+<p>まえもって文章を書くための目的を整理しておく。
+この 2 つは自覚的になっている必要がある。</p>
 <ul>
-<li>出力内容をここで指定したパスに書き出す</li>
-<li>空文字 <code>&quot;&quot;</code> を指定すると元のファイルを書き換える挙動になる</li>
+<li>誰に伝えるのか</li>
+<li>何を伝えるのか</li>
+</ul>
+<h2 id="フレームワーク">フレームワーク</h2>
+<p>文章の論理構成には有名なフレームワークがいくつかある。</p>
+<h3 id="ゴールデンサークルprep-法">ゴールデンサークル/PREP 法</h3>
+<p>有名なゴールデンサークル法と PREP 法は似ている。
+というか以下のようにまとめてみるとだいたい同じ構成である。</p>
+<ul>
+<li>Why/Point,Reasone
+<ul>
+<li>まず結論。なんでそれをやったほうがいいのか</li>
+</ul>
+</li>
+<li>How/Example
+<ul>
+<li>具体的な方法。それはどうやったらできるのか</li>
+</ul>
+</li>
+<li>What/Result
+<ul>
+<li>結果。やったらどうなるのか</li>
 </ul>
 </li>
 </ul>
-<h2 id="消したい時">消したい時</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sed -i<span style="color:#e6db74">&#34;&#34;</span> -e <span style="color:#e6db74">&#39;/192.168.88.19/d&#39;</span>  ~/.ssh/known_hosts
-</code></pre></div><ul>
-<li><code>/d</code> オプション
+<h3 id="その他のフレームワーク">その他のフレームワーク</h3>
+<p>SDS などの他のフレームワークもあるがどれも下の 2 つは共有している。</p>
 <ul>
-<li>マッチする行を消す動作になる</li>
-<li>空行になるのではなく、改行ごと消える</li>
+<li>最初に結論/要点をいう</li>
+<li>すぐそのあとに理由をいう</li>
 </ul>
-</li>
-</ul>
+<p>Web 上の文章は冒頭で掴まないといけないので、前半部分は情報の密度が濃いほうがいいのだろう。</p>
+<h2 id="テンプレート">テンプレート</h2>
+<p>上記を踏まえて以下のようなものを作成した。 (ver2020/11/22)</p>
+<p>文章を書く前に以下の項目を埋めてから書き始めるようにしてみる。</p>
 
                 </section>
             </article>
 
             
-                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fsed-inplace-replace%2f - sed%e3%81%a7%e3%83%95%e3%82%a1%e3%82%a4%e3%83%ab%e5%86%85%e3%81%ae%e7%89%b9%e5%ae%9a%e6%96%87%e5%ad%97%e5%88%97%e3%82%92%e6%ad%a3%e8%a6%8f%e8%a1%a8%e7%8f%be%e3%81%a7%e6%9b%b8%e3%81%8d%e6%8f%9b%e3%81%88%e3%81%9f%e3%81%84%2f%e6%b6%88%e3%81%97%e3%81%9f%e3%81%84%e6%99%82 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fblog-writing-template%2f - %e3%83%96%e3%83%ad%e3%82%b0%e6%96%87%e7%ab%a0%e3%81%ae%e3%83%86%e3%83%b3%e3%83%97%e3%83%ac%e3%83%bc%e3%83%88%e3%82%92%e4%bd%9c%e6%88%90%e3%81%99%e3%82%8b by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
 
 <a class="facebook" href="#" onclick="
     window.open(

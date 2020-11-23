@@ -76,6 +76,81 @@
     
         
             <li>
+                <aside class="dates">Nov 23</aside>
+                <a href='https://dream-yt.github.io/post/add-filename-onth-filehead/'>
+                    ファイル名をファイルの先頭に追加する(ディレクトリ配下全部)
+                    
+                        
+                            <h2>1ファイルだけならいいが、何百とファイルがあると手作業でやるのはかなり辛い。 今回はブログ記事が書いてあるファイル全部にフロントマターに1項目</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Nov 22</aside>
+                <a href='https://dream-yt.github.io/post/blog-writing-template/'>
+                    ブログ文章のテンプレートを作成する
+                    
+                        
+                            <h2>ブログ文章の構成方法にはフレームワークがいくつもある。それらについて調べてみて、自分が使いやすいような最小限のテンプレートを作って実践してみ</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Nov 21</aside>
+                <a href='https://dream-yt.github.io/post/vercel-101/'>
+                    vercel をはじめてつかったときのメモ
+                    
+                        
+                            <h2>Introduction to Vercel - Vercel Documentation だいたい思った通りのサービスだった GitHub のリポジトリがアプリと対応する master にマージすると自動的にデプロイが走る master は常に動く状態になって</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Nov 21</aside>
+                <a href='https://dream-yt.github.io/post/nextjs-ssr-404/'>
+                    nextjs で 404 を返す方法
+                    
+                        
+                            <h2>nextjs の SSR で 404 を返すには、getServerSideProps でこうする const getServerSideProps: GetServerSideProps = async (context) =&gt; { context.res.statusCode = 404; return { props: { errorCode: 404 } }; }; あとはコンポーネント側でよしなに</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Nov 20</aside>
+                <a href='https://dream-yt.github.io/post/nextjs-ssg-redirect-metarefresh/'>
+                    nextjsのSSGでhtmlでredirect
+                    
+                        
+                            <h2>nextjsのSSGでブログを作っているが、技術系以外の記事もこのブログで管理したくなったので今ある技術系の記事を /tech 配下のパスにもってきたい</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
                 <aside class="dates">Nov 20</aside>
                 <a href='https://dream-yt.github.io/post/build-python-wheel-for-lambda/'>
                     cエクステンションを使っているpythonパッケージをlambdaで動くようビルドする
@@ -108,10 +183,10 @@
             <li>
                 <aside class="dates">Nov 17</aside>
                 <a href='https://dream-yt.github.io/post/sed-inplace-replace/'>
-                    Sed Inplace Replace
+                    sedでファイル内の特定文字列を正規表現で書き換えたい/消したい時
                     
                         
-                            <h2>sedでファイル内の特定文字列を正規表現で書き換えたい時 sed -i &#34;” -e ’s/http://dynamodb:8000/http://localhost:7800/’ path/to/targetfile -i オプション /d オプション sed -i&#34;&#34; -e &#39;/192.168.88.19/d&#39; ~/.ssh/known_hosts</h2>
+                            <h2>書き換えたい時 $ sed -i &#34;&#34; -e &#39;s/http:\/\/dynamodb:8000/http:\/\/localhost:7800/&#39; path/to/targetfile -i オプション 出力内容をここで指定したパスに書き出す 空文字 &#34;&#34; を指定すると元のファイルを書き換える挙動になる 消したい</h2>
                         
                     
                 </a>
@@ -142,81 +217,6 @@
                     
                         
                             <h2>chaliceにはMiddlewareと呼ばれる仕組みがある Middleware — AWS Chalice これを使うと、すべての関数に処理を挟み込むことができる。たとえば認証をし</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Nov 7</aside>
-                <a href='https://dream-yt.github.io/post/vscode-python-autopep8/'>
-                    vscodeのformatOnSaveでPython/autopep8を使って整形する
-                    
-                        
-                            <h2>自動でフォーマットを効かせる最低限の設定 &#34;settings&#34;: { &#34;[python]&#34;: { &#34;editor.formatOnSave&#34;: true }, &#34;python.formatting.autopep8Path&#34;: &#34;autopep8&#34;, &#34;python.formatting.autopep8Args&#34;: [ &#34;--aggressive&#34;, &#34;--aggressive&#34; ] 参考 公式のドキュメントがトラブルシューティングを提供していて親切だった Editing</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Nov 7</aside>
-                <a href='https://dream-yt.github.io/post/vscode-using-hardtab/'>
-                    VS Codeでインデントをハードタブにする
-                    
-                        
-                            <h2>この設定にするとTabキーでハードタブが挿入される &#34;editor.insertSpaces&#34;: false たとえば(pep8違反だが)Pythonだけで適用したい場合は下記のように書く &#34;settings&#34;: { &#34;[python]&#34;: {</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Nov 7</aside>
-                <a href='https://dream-yt.github.io/post/vscode-venv-python/'>
-                    vscode で python の virtualenv を認識させる
-                    
-                        
-                            <h2>Cmd&#43;Shift&#43;p で Python: Select interpreter を選択 下記のような選択肢が出てくるので、使いたいpython/venvを選択 これで fn&#43;F2 でライブラリの定義に飛べるようになる</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Nov 7</aside>
-                <a href='https://dream-yt.github.io/post/chalice-101/'>
-                    AWS Chalice でデプロイまで
-                    
-                        
-                            <h2>こちらに書いてある手順を踏んだだけ Quickstart — AWS Chalice $ python3 -m venv venv38 ... $ code .envrc ... $ pip install --upgrade pip $ pip install chalice $ chalice new-project sandbox $ chalice deploy Creating deployment package. Creating IAM role: sandbox-dev Creating lambda function: sandbox-dev Creating Rest API Resources deployed: - Lambda ARN: arn:aws:lambda:ap-northeast-1:xxxxxxxx:function:sandbox-dev - Rest API</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Nov 5</aside>
-                <a href='https://dream-yt.github.io/post/react-suspense-settimeout-minimum/'>
-                    React.SuspenseとsetTimeoutで最小限の非同期コンポーネントをつくる
-                    
-                        
-                            <h2>こんなコードで1秒後に helloworld と表示できるコンポーネントが作れる // 「1秒以内はPromiseがthrowされて、1秒後にはundefinedが返っ</h2>
                         
                     
                 </a>

@@ -13,8 +13,8 @@
     
   
   
-  <meta name="twitter:title" content="sedでファイル内の特定文字列を正規表現で書き換えたい/消したい時"/>
-  <meta name="twitter:description" content="書き換えたい時 $ sed -i &#34;&#34; -e &#39;s/http:\/\/dynamodb:8000/http:\/\/localhost:7800/&#39; path/to/targetfile -i オプション 出力内容をここで指定したパスに書き出す 空文字 &quot;&quot; を指定すると元のファイルを書き換える挙動になる 消したい"/>
+  <meta name="twitter:title" content="ファイル名をファイルの先頭に追加する(ディレクトリ配下全部)"/>
+  <meta name="twitter:description" content="1ファイルだけならいいが、何百とファイルがあると手作業でやるのはかなり辛い。 今回はブログ記事が書いてあるファイル全部にフロントマターに1項目"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -30,7 +30,7 @@
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
 		<meta name="generator" content="Hugo 0.74.3" />
-		<title>sedでファイル内の特定文字列を正規表現で書き換えたい/消したい時 &middot; sacre</title>
+		<title>ファイル名をファイルの先頭に追加する(ディレクトリ配下全部) &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
@@ -68,11 +68,11 @@
             <article>
                 <header>
                     <h1>
-                        sedでファイル内の特定文字列を正規表現で書き換えたい/消したい時
+                        ファイル名をファイルの先頭に追加する(ディレクトリ配下全部)
                     </h1>
                     <h2 class="headline">
-                    Nov 17, 2020 08:04
-                    · 115 words
+                    Nov 23, 2020 11:29
+                    · 451 words
                     · 1 minute read
                       <span class="tags">
                       
@@ -84,40 +84,65 @@
                     <div id="toc">
                       <nav id="TableOfContents">
   <ul>
-    <li><a href="#書き換えたい時">書き換えたい時</a></li>
-    <li><a href="#消したい時">消したい時</a></li>
+    <li>
+      <ul>
+        <li><a href="#ls">ls</a></li>
+        <li><a href="#xargs">xargs</a></li>
+        <li><a href="#gsed">gsed</a></li>
+      </ul>
+    </li>
+    <li><a href="#参考">参考</a></li>
   </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <h2 id="書き換えたい時">書き換えたい時</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sed -i <span style="color:#e6db74">&#34;&#34;</span> -e <span style="color:#e6db74">&#39;s/http:\/\/dynamodb:8000/http:\/\/localhost:7800/&#39;</span> path/to/targetfile
-</code></pre></div><ul>
-<li><code>-i</code> オプション
+                    <p>1ファイルだけならいいが、何百とファイルがあると手作業でやるのはかなり辛い。
+今回はブログ記事が書いてあるファイル全部に<a href="https://qiita.com/amay077/items/e27f9b4e2374b70a5dfb">フロントマター</a>に1項目追加したかったので、1コマンドこさえた。</p>
+<p>こんなコマンドでできる</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ ls -1 | xargs -I<span style="color:#f92672">{}</span> gsed -i -e <span style="color:#e6db74">&#39;1i {}&#39;</span> <span style="color:#f92672">{}</span>
+</code></pre></div><h3 id="ls">ls</h3>
+<blockquote>
+<p>ls -1</p>
+</blockquote>
+<p>ファイル名を一覧するのに使う</p>
+<h3 id="xargs">xargs</h3>
+<blockquote>
+<p>xargs -I{}</p>
+</blockquote>
 <ul>
-<li>出力内容をここで指定したパスに書き出す</li>
-<li>空文字 <code>&quot;&quot;</code> を指定すると元のファイルを書き換える挙動になる</li>
+<li>パイプされた1行に対して同じコマンドを発行する</li>
+<li>ファイル名のリストがパイプされているので、1ファイル1コマンド発行される</li>
+<li><code>{}</code> はプレースホルダ
+<ul>
+<li><code>{}</code> がパイプされた1行に置換されてコマンドが実行される</li>
 </ul>
 </li>
 </ul>
-<h2 id="消したい時">消したい時</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sed -i<span style="color:#e6db74">&#34;&#34;</span> -e <span style="color:#e6db74">&#39;/192.168.88.19/d&#39;</span>  ~/.ssh/known_hosts
-</code></pre></div><ul>
-<li><code>/d</code> オプション
+<h3 id="gsed">gsed</h3>
+<p>macOSでLinux版のsedを使いたかったのでgsed</p>
+<p>gsedはbrewでインストールできる</p>
 <ul>
-<li>マッチする行を消す動作になる</li>
-<li>空行になるのではなく、改行ごと消える</li>
+<li><a href="https://formulae.brew.sh/formula/gnu-sed">gnu-sed — Homebrew Formulae</a></li>
 </ul>
-</li>
+<h4 id="-i">-i</h4>
+<p>ファイルを直接書き換えるという指示
+引数に文字列を渡すとその名前のファイルを生成する</p>
+<h4 id="1i">1i</h4>
+<p><code>1i ~~</code> で「1行目に~~という文字列を入れる」という指示になる
+この改行も一緒に入る</p>
+<h2 id="参考">参考</h2>
+<ul>
+<li><a href="https://www.atmarkit.co.jp/ait/articles/1801/19/news014.html">【 xargs 】コマンド――コマンドラインを作成して実行する：Linux基本コマンドTips（176） - ＠IT</a></li>
+<li><a href="https://www.na3.jp/entry/20110310/p1">ある文字列をファイルの特定行に挿入するコマンド - 元RX-7乗りの適当な日々</a></li>
 </ul>
 
                 </section>
             </article>
 
             
-                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fsed-inplace-replace%2f - sed%e3%81%a7%e3%83%95%e3%82%a1%e3%82%a4%e3%83%ab%e5%86%85%e3%81%ae%e7%89%b9%e5%ae%9a%e6%96%87%e5%ad%97%e5%88%97%e3%82%92%e6%ad%a3%e8%a6%8f%e8%a1%a8%e7%8f%be%e3%81%a7%e6%9b%b8%e3%81%8d%e6%8f%9b%e3%81%88%e3%81%9f%e3%81%84%2f%e6%b6%88%e3%81%97%e3%81%9f%e3%81%84%e6%99%82 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fadd-filename-onth-filehead%2f - %e3%83%95%e3%82%a1%e3%82%a4%e3%83%ab%e5%90%8d%e3%82%92%e3%83%95%e3%82%a1%e3%82%a4%e3%83%ab%e3%81%ae%e5%85%88%e9%a0%ad%e3%81%ab%e8%bf%bd%e5%8a%a0%e3%81%99%e3%82%8b%28%e3%83%87%e3%82%a3%e3%83%ac%e3%82%af%e3%83%88%e3%83%aa%e9%85%8d%e4%b8%8b%e5%85%a8%e9%83%a8%29 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
 
 <a class="facebook" href="#" onclick="
     window.open(

@@ -3,17 +3,42 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://dream-yt.github.io/post/build-python-wheel-for-lambda/</loc>
-    <lastmod>2020-11-20T06:44:01+09:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://dream-yt.github.io/post/</loc>
-    <lastmod>2020-11-20T06:44:01+09:00</lastmod>
+    <lastmod>2020-11-23T11:29:52+09:00</lastmod>
   </url>
   
   <url>
     <loc>https://dream-yt.github.io/</loc>
+    <lastmod>2020-11-23T11:29:52+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://dream-yt.github.io/post/add-filename-onth-filehead/</loc>
+    <lastmod>2020-11-23T11:29:52+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://dream-yt.github.io/post/blog-writing-template/</loc>
+    <lastmod>2020-11-22T10:14:02+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://dream-yt.github.io/post/vercel-101/</loc>
+    <lastmod>2020-11-21T11:56:23+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://dream-yt.github.io/post/nextjs-ssr-404/</loc>
+    <lastmod>2020-11-21T08:49:54+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://dream-yt.github.io/post/nextjs-ssg-redirect-metarefresh/</loc>
+    <lastmod>2020-11-20T18:50:25+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://dream-yt.github.io/post/build-python-wheel-for-lambda/</loc>
     <lastmod>2020-11-20T06:44:01+09:00</lastmod>
   </url>
   

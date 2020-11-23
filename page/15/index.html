@@ -76,6 +76,81 @@
     
         
             <li>
+                <aside class="dates">Sep 12</aside>
+                <a href='https://dream-yt.github.io/post/macos-duti/'>
+                    macosでデフォルトで開くアプリをコマンドライン(duti)で変更する
+                    
+                        
+                            <h2>macosでは各拡張子ごとにデフォルトで開くアプリが決まっている Finderから変更はできるが、扱う拡張子はけっこうたくさんあるのでいちいち</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Sep 7</aside>
+                <a href='https://dream-yt.github.io/post/serverless-kms-secrets-102/'>
+                    serverless-kms-secrets を導入する手順2
+                    
+                        
+                            <h2>こちらの使い方 nordcloud/serverless-kms-secrets: 🔑🔐☁️ Serverless plugin to encrypt variables with KMS インストール $ npm install --save-dev serverless-kms-secrets CMKを生成 kmsでCMK(マスターキーのようなもの)を作成 ポリシーの設定など細</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Aug 25</aside>
+                <a href='https://dream-yt.github.io/post/import-withmark-in-typescript-vscode-jest/'>
+                    webpackで、プロジェクトのファイルを@ディレクトリ配下でimportできるような設定
+                    
+                        
+                            <h2>webpackだとsymlink貼ったり NODE_PATH をいじったりする必要はない 差分 webpack.config.js を変更しないとビルドできない resolve: { &#43; alias: { &#39;@&#39;: path.resolve(__dirname, &#39;./src/&#39;) }, extensions: [&#39;.ts&#39;, &#39;.tsx&#39;, &#39;.js&#39;] }, 正常にビル</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Aug 25</aside>
+                <a href='https://dream-yt.github.io/post/import-withat-mark-in-typescript-vscode-jest/'>
+                    webpackで、プロジェクトのファイルを@ディレクトリ配下でimportできるような設定
+                    
+                        
+                            <h2>webpackだとsymlink貼ったり NODE_PATH をいじったりする必要はない 差分 webpack.config.js を変更しないとビルドできない resolve: { &#43; alias: { &#39;@&#39;: path.resolve(__dirname, &#39;./src/&#39;) }, extensions: [&#39;.ts&#39;, &#39;.tsx&#39;, &#39;.js&#39;] }, 正常にビル</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Aug 25</aside>
+                <a href='https://dream-yt.github.io/post/serverless-webpack-offline-node_env/'>
+                    serverless-webpack のプロジェクトで serverless-offline 実行時に NODE_ENV を設定する
+                    
+                        
+                            <h2>地味だがハマった。ちょうどおんなじことをしていた人の解決策が見つかって助かった MNML ↑の方法でうまくいった つまり原因は こういうことらしい webpack はNO</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
                 <aside class="dates">Aug 24</aside>
                 <a href='https://dream-yt.github.io/post/cloudfront-access-log-jst-datetime/'>
                     athena(presto)で、dateとtimeからJSTを得る
@@ -142,81 +217,6 @@
                     
                         
                             <h2>lambdaとnodeのネイティブモジュール周りで辛いことになった時用 Dockerfile FROMamazonlinux:latestRUN curl --silent --location https://dl.yarnpkg.com/rpm/yarn.repo &gt; /etc/yum.repos.d/yarn.repoRUN curl --silent --location https://rpm.nodesource.com/setup_10.x | bashRUN yum install -y nodejs gcc-c&#43;&#43; make git yarnRUN yarn global add serverless --silent --no-progressRUN mkdir /appWORKDIR/appADD package.json /app/package.jsonADD yarn.lock /app/yarn.lock# b</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Aug 4</aside>
-                <a href='https://dream-yt.github.io/post/node-getmetricwidgetimagewithsnsevent/'>
-                    nodejs/typescriptでSNSイベントからgetMetricWidgetImage(画像)を取得する
-                    
-                        
-                            <h2>こんな感じのコードでできた MetricWidget の型定義はaws-sdkにはなかった ドキュメントにはなっていた GetMetricWidgetImage: Metric Widget Structure and Syntax - Amazon CloudWatch SNSEvent の型定義は↓ DefinitelyTyped/index.d.ts at master · DefinitelyTyped/DefinitelyTyped import { SNSEvent }</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Aug 4</aside>
-                <a href='https://dream-yt.github.io/post/typescript-lambda-shellscript/'>
-                    TypescriptでLambdaのハンドラーを書いてbashでアップロードする
-                    
-                        
-                            <h2>普通だとlambdaのアップロードはserverlessなどフレームワークを使うが、package.jsonを別に作りたくない場合があり、デ</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jul 30</aside>
-                <a href='https://dream-yt.github.io/post/perl-use-strict-utf8-flag/'>
-                    perlのstrict/utf8フラグについて
-                    
-                        
-                            <h2>なんとなく知識では知っていたけど試したことがなかったのでメモ perlにはstrictフラグというものがあって、 構文エラーにならないけど変な式</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jul 28</aside>
-                <a href='https://dream-yt.github.io/post/aws-iam-101/'>
-                    AWS、LambdaまわりのIAM入門
-                    
-                        
-                            <h2>lambda を使っていて、権限周りが分からなかったのでメモ 用語 IAM IAMロール ポリシー IAMポリシー リソースポリシー IAM 権限周りを管理しているエンティティ</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jul 26</aside>
-                <a href='https://dream-yt.github.io/post/rsync-clone-directory/'>
-                    rsyncでディレクトリをコピーする
-                    
-                        
-                            <h2>送信元ディレクトリと送信先ディレクトリを同じ状態にしたいときは下記のような指定をする $ rsync \ -e &#34;ssh -i ~/.ssh/id_rsa&#34; \ -ahv --compress --delete ./webui/public/ admin@test.jp:/www/data/ ssh鍵が指定が必要な場合は-</h2>
                         
                     
                 </a>

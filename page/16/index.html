@@ -76,6 +76,81 @@
     
         
             <li>
+                <aside class="dates">Aug 4</aside>
+                <a href='https://dream-yt.github.io/post/node-getmetricwidgetimagewithsnsevent/'>
+                    nodejs/typescriptでSNSイベントからgetMetricWidgetImage(画像)を取得する
+                    
+                        
+                            <h2>こんな感じのコードでできた MetricWidget の型定義はaws-sdkにはなかった ドキュメントにはなっていた GetMetricWidgetImage: Metric Widget Structure and Syntax - Amazon CloudWatch SNSEvent の型定義は↓ DefinitelyTyped/index.d.ts at master · DefinitelyTyped/DefinitelyTyped import { SNSEvent }</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Aug 4</aside>
+                <a href='https://dream-yt.github.io/post/typescript-lambda-shellscript/'>
+                    TypescriptでLambdaのハンドラーを書いてbashでアップロードする
+                    
+                        
+                            <h2>普通だとlambdaのアップロードはserverlessなどフレームワークを使うが、package.jsonを別に作りたくない場合があり、デ</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Jul 30</aside>
+                <a href='https://dream-yt.github.io/post/perl-use-strict-utf8-flag/'>
+                    perlのstrict/utf8フラグについて
+                    
+                        
+                            <h2>なんとなく知識では知っていたけど試したことがなかったのでメモ perlにはstrictフラグというものがあって、 構文エラーにならないけど変な式</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Jul 28</aside>
+                <a href='https://dream-yt.github.io/post/aws-iam-101/'>
+                    AWS、LambdaまわりのIAM入門
+                    
+                        
+                            <h2>lambda を使っていて、権限周りが分からなかったのでメモ 用語 IAM IAMロール ポリシー IAMポリシー リソースポリシー IAM 権限周りを管理しているエンティティ</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Jul 26</aside>
+                <a href='https://dream-yt.github.io/post/rsync-clone-directory/'>
+                    rsyncでディレクトリをコピーする
+                    
+                        
+                            <h2>送信元ディレクトリと送信先ディレクトリを同じ状態にしたいときは下記のような指定をする $ rsync \ -e &#34;ssh -i ~/.ssh/id_rsa&#34; \ -ahv --compress --delete ./webui/public/ admin@test.jp:/www/data/ ssh鍵が指定が必要な場合は-</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
                 <aside class="dates">Jul 18</aside>
                 <a href='https://dream-yt.github.io/post/firebase-next-typescript/'>
                     firebase上でtypescriptで書かれたnextjsを動かす
@@ -142,81 +217,6 @@
                     
                         
                             <h2>こういう機能 今開いているページのドメインから、別のドメインにリクエストを送る際に、 クッキーを送るかどうかを設定できる機能 別のドメインにリクエ</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jul 10</aside>
-                <a href='https://dream-yt.github.io/post/devserver-ssl-static/'>
-                    SSL越しにローカルの静的ファイルを閲覧したい (開発用)
-                    
-                        
-                            <h2>SSLさせてくれるhttpサーバのコード こちらから拝借 simple-https-server.py import http.server import ssl server_address = (&#39;127.0.0.1&#39;, 443) httpd = http.server.HTTPServer(server_address, http.server.SimpleHTTPRequestHandler) httpd.socket = ssl.wrap_socket(httpd.socket, server_side=True, certfile=&#34;server.pem&#34;, keyfile=&#34;key.pem&#34;, ssl_version=ssl.PROTOCOL_TLS) httpd.serve_forever() 証明書を作ってserver start $ mkdir /tmp/$(pwgen) &amp;&amp; cd $_ $ pbpaste</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jul 5</aside>
-                <a href='https://dream-yt.github.io/post/docker-image-history/'>
-                    dockerイメージの、レイヤーとサイズの関係をみる
-                    
-                        
-                            <h2>docker history を使うとみられる 例 $ docker history --no-trunc --format=&#34;{{.Size}}\t{{.CreatedBy}}&#34; perl:5.20.0 0B /bin/sh -c #(nop) CMD [perl5.20.0 -de0] 0B /bin/sh -c #(nop) WORKDIR /root 6.55MB /bin/sh -c curl -LO https://raw.githubusercontent.com/miyagawa/cpanminus/master/cpanm &amp;&amp; chmod &#43;x cpanm &amp;&amp; ./cpanm App::cpanminus &amp;&amp; rm ./cpanm 0B /bin/sh -c #(nop) WORKDIR /usr/src 55MB /bin/sh -c ./Configure -Duse64bitall -des &amp;&amp; make -j$(nproc) &amp;&amp; TEST_JOBS=$(nproc) make test_harness &amp;&amp; make install &amp;&amp; make</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jul 3</aside>
-                <a href='https://dream-yt.github.io/post/jq-object-add/'>
-                    jq変形 {配列 =&gt; IDをキーとするオブジェクト}
-                    
-                        
-                            <h2>こんな配列を [ {&#34;id&#34;: &#34;123&#34;, &#34;name&#34;: &#34;abc&#34;}, {&#34;id&#34;: &#34;456&#34;, &#34;name&#34;: &#34;qwe&#34;} ] こうしたい { &#34;123&#34;: {&#34;id&#34;: &#34;123&#34;, &#34;name&#34;: &#34;abc&#34;}, &#34;456&#34;: {&#34;id&#34;: &#34;456&#34;, &#34;name&#34;: &#34;qwe&#34;} } add を使うとできる $ pbpaste | jq &#39;{ (.id): . } | [ . ] | add&#39; { &#34;123&#34;: { &#34;id&#34;: &#34;123&#34;, &#34;name&#34;: &#34;abc&#34; }, &#34;456&#34;: { &#34;id&#34;: &#34;456&#34;, &#34;name&#34;: &#34;qwe&#34; }</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jul 1</aside>
-                <a href='https://dream-yt.github.io/post/react-synthetic-event/'>
-                    React の Synthetic Event
-                    
-                        
-                            <h2>Reactに標準でついてくるEventオブジェクト Syntheticは合成という意味 ブラウザごとの差異を吸収してくれている SyntheticEvent – React event pooling なお、R</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jun 30</aside>
-                <a href='https://dream-yt.github.io/post/typescript-null-check-operator/'>
-                    typescriptでのnullチェック
-                    
-                        
-                            <h2>基本的にはイコール2つの演算子でチェックすれば undefinedとnullのどちらかであればtrueになる == null 例 $ ts-node &gt; const v = {a: 1, c: null} undefined イコー</h2>
                         
                     
                 </a>

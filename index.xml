@@ -6,10 +6,55 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Fri, 20 Nov 2020 06:44:01 +0900</lastBuildDate>
+    <lastBuildDate>Mon, 23 Nov 2020 11:29:52 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>ファイル名をファイルの先頭に追加する(ディレクトリ配下全部)</title>
+      <link>https://dream-yt.github.io/post/add-filename-onth-filehead/</link>
+      <pubDate>Mon, 23 Nov 2020 11:29:52 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/add-filename-onth-filehead/</guid>
+      <description>1ファイルだけならいいが、何百とファイルがあると手作業でやるのはかなり辛い。 今回はブログ記事が書いてあるファイル全部にフロントマターに1項目</description>
+    </item>
+    
+    <item>
+      <title>ブログ文章のテンプレートを作成する</title>
+      <link>https://dream-yt.github.io/post/blog-writing-template/</link>
+      <pubDate>Sun, 22 Nov 2020 10:14:02 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/blog-writing-template/</guid>
+      <description>ブログ文章の構成方法にはフレームワークがいくつもある。それらについて調べてみて、自分が使いやすいような最小限のテンプレートを作って実践してみ</description>
+    </item>
+    
+    <item>
+      <title>vercel をはじめてつかったときのメモ</title>
+      <link>https://dream-yt.github.io/post/vercel-101/</link>
+      <pubDate>Sat, 21 Nov 2020 11:56:23 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/vercel-101/</guid>
+      <description>Introduction to Vercel - Vercel Documentation だいたい思った通りのサービスだった GitHub のリポジトリがアプリと対応する master にマージすると自動的にデプロイが走る master は常に動く状態になって</description>
+    </item>
+    
+    <item>
+      <title>nextjs で 404 を返す方法</title>
+      <link>https://dream-yt.github.io/post/nextjs-ssr-404/</link>
+      <pubDate>Sat, 21 Nov 2020 08:49:54 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/nextjs-ssr-404/</guid>
+      <description>nextjs の SSR で 404 を返すには、getServerSideProps でこうする const getServerSideProps: GetServerSideProps = async (context) =&amp;gt; { context.res.statusCode = 404; return { props: { errorCode: 404 } }; }; あとはコンポーネント側でよしなに</description>
+    </item>
+    
+    <item>
+      <title>nextjsのSSGでhtmlでredirect</title>
+      <link>https://dream-yt.github.io/post/nextjs-ssg-redirect-metarefresh/</link>
+      <pubDate>Fri, 20 Nov 2020 18:50:25 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/nextjs-ssg-redirect-metarefresh/</guid>
+      <description>nextjsのSSGでブログを作っているが、技術系以外の記事もこのブログで管理したくなったので今ある技術系の記事を /tech 配下のパスにもってきたい</description>
+    </item>
     
     <item>
       <title>cエクステンションを使っているpythonパッケージをlambdaで動くようビルドする</title>
@@ -30,12 +75,12 @@
     </item>
     
     <item>
-      <title>Sed Inplace Replace</title>
+      <title>sedでファイル内の特定文字列を正規表現で書き換えたい/消したい時</title>
       <link>https://dream-yt.github.io/post/sed-inplace-replace/</link>
       <pubDate>Tue, 17 Nov 2020 08:04:28 +0900</pubDate>
       
       <guid>https://dream-yt.github.io/post/sed-inplace-replace/</guid>
-      <description>sedでファイル内の特定文字列を正規表現で書き換えたい時 sed -i &amp;quot;&amp;rdquo; -e &amp;rsquo;s/http://dynamodb:8000/http://localhost:7800/&amp;rsquo; path/to/targetfile -i オプション /d オプション sed -i&amp;#34;&amp;#34; -e &amp;#39;/192.168.88.19/d&amp;#39; ~/.ssh/known_hosts</description>
+      <description>書き換えたい時 $ sed -i &amp;#34;&amp;#34; -e &amp;#39;s/http:\/\/dynamodb:8000/http:\/\/localhost:7800/&amp;#39; path/to/targetfile -i オプション 出力内容をここで指定したパスに書き出す 空文字 &amp;quot;&amp;quot; を指定すると元のファイルを書き換える挙動になる 消したい</description>
     </item>
     
     <item>
