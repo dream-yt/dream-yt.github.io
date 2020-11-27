@@ -13,8 +13,8 @@
     
   
   
-  <meta name="twitter:title" content="ファイル名をファイルの先頭に追加する(ディレクトリ配下全部)"/>
-  <meta name="twitter:description" content="1ファイルだけならいいが、何百とファイルがあると手作業でやるのはかなり辛い。 今回はブログ記事のファイル全部にフロントマターに1項目追加したか"/>
+  <meta name="twitter:title" content="WordPressをdocker-composeでサッとたてる"/>
+  <meta name="twitter:description" content="wordpressを手元でさくっと立ち上げたい時があったので、docker-composeでたててみた .docker 配下にボリュームをつくってデータを永"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -30,7 +30,7 @@
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
 		<meta name="generator" content="Hugo 0.74.3" />
-		<title>ファイル名をファイルの先頭に追加する(ディレクトリ配下全部) &middot; sacre</title>
+		<title>WordPressをdocker-composeでサッとたてる &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
@@ -68,11 +68,11 @@
             <article>
                 <header>
                     <h1>
-                        ファイル名をファイルの先頭に追加する(ディレクトリ配下全部)
+                        WordPressをdocker-composeでサッとたてる
                     </h1>
                     <h2 class="headline">
-                    Nov 23, 2020 11:29
-                    · 452 words
+                    Nov 27, 2020 17:05
+                    · 161 words
                     · 1 minute read
                       <span class="tags">
                       
@@ -84,13 +84,6 @@
                     <div id="toc">
                       <nav id="TableOfContents">
   <ul>
-    <li>
-      <ul>
-        <li><a href="#ls">ls</a></li>
-        <li><a href="#xargs">xargs</a></li>
-        <li><a href="#gsed">gsed</a></li>
-      </ul>
-    </li>
     <li><a href="#参考">参考</a></li>
   </ul>
 </nav>
@@ -98,55 +91,45 @@
                   
                 
                 <section id="post-body">
-                    <p>1ファイルだけならいいが、何百とファイルがあると手作業でやるのはかなり辛い。
-今回はブログ記事のファイル全部に<a href="https://qiita.com/amay077/items/e27f9b4e2374b70a5dfb">フロントマター</a>に1項目追加したかったので、1コマンドこさえた。</p>
-<p>こんなコマンドでできる</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ ls -1 | xargs -I<span style="color:#f92672">{}</span> gsed -i -e <span style="color:#e6db74">&#39;1i {}&#39;</span> <span style="color:#f92672">{}</span>
-</code></pre></div><h3 id="ls">ls</h3>
-<blockquote>
-<p>ls -1</p>
-</blockquote>
-<p>ファイル名を一覧するのに使う</p>
-<h3 id="xargs">xargs</h3>
-<blockquote>
-<p>xargs -I{}</p>
-</blockquote>
+                    <p>wordpressを手元でさくっと立ち上げたい時があったので、docker-composeでたててみた</p>
+<p><code>.docker</code> 配下にボリュームをつくってデータを永続化している</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#66d9ef">version</span>: <span style="color:#e6db74">&#34;2&#34;</span>
+<span style="color:#66d9ef">services</span>:
+  <span style="color:#66d9ef">wp</span>:
+    <span style="color:#66d9ef">image</span>: wordpress:latest
+    <span style="color:#66d9ef">restart</span>: always
+    <span style="color:#66d9ef">volumes</span>:
+      - <span style="color:#e6db74">&#34;.docker/wp/var/www/html:/var/www/html&#34;</span>
+    <span style="color:#66d9ef">ports</span>:
+      - <span style="color:#e6db74">&#34;127.0.0.1:8000:80&#34;</span>
+    <span style="color:#66d9ef">depends_on</span>:
+      - db
+    <span style="color:#66d9ef">environment</span>:
+      <span style="color:#66d9ef">WORDPRESS_DB_HOST</span>: <span style="color:#e6db74">&#34;db:3306&#34;</span>
+      <span style="color:#66d9ef">WORDPRESS_DB_USER</span>: wordpress
+      <span style="color:#66d9ef">WORDPRESS_DB_PASSWORD</span>: wordpress
+
+  <span style="color:#66d9ef">db</span>:
+    <span style="color:#66d9ef">image</span>: mysql:<span style="color:#ae81ff">5.7</span>
+    <span style="color:#66d9ef">restart</span>: always
+    <span style="color:#66d9ef">volumes</span>:
+      - <span style="color:#e6db74">&#34;.docker/db/var/lib/mysql:/var/lib/mysql&#34;</span>
+    <span style="color:#66d9ef">environment</span>:
+      <span style="color:#66d9ef">MYSQL_ROOT_PASSWORD</span>: root
+      <span style="color:#66d9ef">MYSQL_DATABASE</span>: wordpress
+      <span style="color:#66d9ef">MYSQL_USER</span>: wordpress
+      <span style="color:#66d9ef">MYSQL_PASSWORD</span>: wordpress
+</code></pre></div><h2 id="参考">参考</h2>
 <ul>
-<li>パイプされた1行に対して同じコマンドを発行する</li>
-<li>ファイル名のリストがパイプされているので、1ファイル1コマンド発行される</li>
-<li><code>{}</code> はプレースホルダ
-<ul>
-<li><code>{}</code> がパイプされた1行に置換されてコマンドが実行される</li>
-</ul>
-</li>
-</ul>
-<h3 id="gsed">gsed</h3>
-<p>macOSでLinux版のsedを使いたかったのでgsed。</p>
-<p>gsedはbrewでインストールできる。</p>
-<ul>
-<li><a href="https://formulae.brew.sh/formula/gnu-sed">gnu-sed — Homebrew Formulae</a></li>
-</ul>
-<blockquote>
-<p>-i</p>
-</blockquote>
-<p>ファイルを直接書き換えるという指示。
-引数に文字列を渡すとその名前のファイルを生成する。</p>
-<blockquote>
-<p>1i</p>
-</blockquote>
-<p><code>1i ~~</code> で「1行目に~~という文字列を入れる」という指示になる。
-この改行も一緒に入る。</p>
-<h2 id="参考">参考</h2>
-<ul>
-<li><a href="https://www.atmarkit.co.jp/ait/articles/1801/19/news014.html">【 xargs 】コマンド――コマンドラインを作成して実行する：Linux基本コマンドTips（176） - ＠IT</a></li>
-<li><a href="https://www.na3.jp/entry/20110310/p1">ある文字列をファイルの特定行に挿入するコマンド - 元RX-7乗りの適当な日々</a></li>
+<li><a href="https://docs.docker.jp/compose/wordpress.html">クィックスタート: Compose と WordPress — Docker-docs-ja 17.06 ドキュメント</a></li>
+<li><a href="https://docs.docker.jp/compose/compose-file.html#volumes-volume-driver">Compose ファイル・リファレンス — Docker-docs-ja 17.06 ドキュメント</a></li>
 </ul>
 
                 </section>
             </article>
 
             
-                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fadd-filename-onth-filehead%2f - %e3%83%95%e3%82%a1%e3%82%a4%e3%83%ab%e5%90%8d%e3%82%92%e3%83%95%e3%82%a1%e3%82%a4%e3%83%ab%e3%81%ae%e5%85%88%e9%a0%ad%e3%81%ab%e8%bf%bd%e5%8a%a0%e3%81%99%e3%82%8b%28%e3%83%87%e3%82%a3%e3%83%ac%e3%82%af%e3%83%88%e3%83%aa%e9%85%8d%e4%b8%8b%e5%85%a8%e9%83%a8%29 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fwordpress-docker-compose%2f - WordPress%e3%82%92docker-compose%e3%81%a7%e3%82%b5%e3%83%83%e3%81%a8%e3%81%9f%e3%81%a6%e3%82%8b by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
 
 <a class="facebook" href="#" onclick="
     window.open(

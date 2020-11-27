@@ -6,10 +6,19 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Mon, 23 Nov 2020 11:29:52 +0900</lastBuildDate>
+    <lastBuildDate>Fri, 27 Nov 2020 17:05:07 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>WordPressをdocker-composeでサッとたてる</title>
+      <link>https://dream-yt.github.io/post/wordpress-docker-compose/</link>
+      <pubDate>Fri, 27 Nov 2020 17:05:07 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/wordpress-docker-compose/</guid>
+      <description>wordpressを手元でさくっと立ち上げたい時があったので、docker-composeでたててみた .docker 配下にボリュームをつくってデータを永</description>
+    </item>
     
     <item>
       <title>ファイル名をファイルの先頭に追加する(ディレクトリ配下全部)</title>
@@ -17,7 +26,7 @@
       <pubDate>Mon, 23 Nov 2020 11:29:52 +0900</pubDate>
       
       <guid>https://dream-yt.github.io/post/add-filename-onth-filehead/</guid>
-      <description>1ファイルだけならいいが、何百とファイルがあると手作業でやるのはかなり辛い。 今回はブログ記事が書いてあるファイル全部にフロントマターに1項目</description>
+      <description>1ファイルだけならいいが、何百とファイルがあると手作業でやるのはかなり辛い。 今回はブログ記事のファイル全部にフロントマターに1項目追加したか</description>
     </item>
     
     <item>
