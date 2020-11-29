@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.74.3" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>ads.txt入門 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,96 +83,128 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#概要">概要</a>
-      <ul>
-        <li><a href="#利用しているsspを明示">利用しているSSPを明示?</a></li>
-        <li><a href="#リセラー">リセラー?</a></li>
-      </ul>
-    </li>
-    <li><a href="#仕様">仕様</a>
-      <ul>
-        <li></li>
-      </ul>
-    </li>
-    <li><a href="#その他">その他</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#概要">概要</a>
+<ul>
+<li><a href="#利用しているsspを明示">利用しているSSPを明示?</a></li>
+<li><a href="#リセラー">リセラー?</a></li>
+</ul></li>
+<li><a href="#仕様">仕様</a>
+<ul>
+<li>
+<ul>
+<li><a href="#場所">場所</a></li>
+<li><a href="#内容">内容</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#その他">その他</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>ads.txtという仕様がIABから出されている</p>
+                    
+
+<p>ads.txtという仕様がIABから出されている</p>
+
 <ul>
 <li><a href="https://iabtechlab.com/ads-txt/">ads.txt - Authorized Digital Sellers - IAB Tech Lab</a></li>
 </ul>
+
 <h2 id="概要">概要</h2>
+
 <ul>
 <li>ads.txtはメディアのドメイン配下に置かれるtxtファイル</li>
 <li>枠を買い付ける側が参照するもの</li>
 <li>広告配信システムとの関係を記述するためのもの
+
 <ul>
 <li>そのメディアが利用しているSSPを明示する</li>
 <li>リセラーがいる場合それをはっきりとさせる</li>
+</ul></li>
 </ul>
-</li>
-</ul>
+
 <h3 id="利用しているsspを明示">利用しているSSPを明示?</h3>
+
 <p>悪意のあるサイトが、メディア名を騙ってadリクエストをする場合がある</p>
+
 <ol>
 <li>訪問がないのにSSPにadリクエストを送る</li>
 <li>SSPとDSPでオークション</li>
 <li>adレスポンスをつかって悪意あるサイトが広告を表示/クリック</li>
 <li>落札金額が悪意あるサイトに支払われる</li>
 </ol>
+
 <p>メディアとSSPの関係性がはっきりとしていればこういった詐欺はできなくなる</p>
+
 <p>具体的には、ads.txtではSSP内のメディアIDを載せることになっていて、
 DSPがそのメディアIDへと支払いを行うようにすれば悪意あるサイトにはお金が流れない</p>
+
 <h3 id="リセラー">リセラー?</h3>
+
 <p>メディアとDSPの間に複数の広告事業者(リセラー)が入ってくる場合がある</p>
+
 <ol>
-<li>メディアが枠をSSPに売る</li>
-</ol>
+<li>メディアが枠をSSPに売る
+
 <ul>
 <li>枠のタグからSSPにadリクエストが投げられる</li>
-</ul>
-<ol>
-<li>SSPがその枠をリセラーに売る</li>
-</ol>
+</ul></li>
+<li>SSPがその枠をリセラーに売る
+
 <ul>
 <li>SSPがs2sでリセラーに bidリクエストを投げる</li>
-</ul>
-<ol>
-<li>DSPはリセラーから枠を買うことになる</li>
-</ol>
+</ul></li>
+<li>DSPはリセラーから枠を買うことになる
+
 <ul>
 <li>リセラーがbidリクエストを横流ししてDSPからbidレスポンスを受け取る</li>
-</ul>
+</ul></li>
+</ol>
+
 <p>リセラーが産む付加価値は小さいので多くの場合こういった構造は歓迎されない
 知らないうちにリセラーが入り込んでいるという状況が発生しないようにメディアはads.txtを設置して、
 リセラーがいない、ないしは自らが認めているリセラーをはっきりとさせておくことができる</p>
+
 <h2 id="仕様">仕様</h2>
+
 <h4 id="場所">場所</h4>
+
 <p>配置するのはメディアのトップレベルドメイン直下のパス <code>/ads.txt</code>
 たとえば <code>https://www.facebook.com</code> というURLのメディアに置くなら以下の場所になる</p>
+
 <blockquote>
 <p><a href="https://facebook.com/ads.txt">https://facebook.com/ads.txt</a></p>
 </blockquote>
+
 <h4 id="内容">内容</h4>
+
 <p>カンマ区切りの4カラムで1レコード</p>
+
 <ul>
 <li>SSPのドメイン</li>
 <li>SSPがそのメディアに払い出したID</li>
 <li>管理タイプ ( <code>DIRECT</code> or <code>RESELLER</code> )</li>
 <li>(任意) TAGという認証団体からSSPがもらっているID</li>
 </ul>
+
 <p>このレコードは使っているSSPごとに必要
 たとえばgoogleとopenxを使っているなら以下のような2レコードとなる</p>
+
 <pre><code>google.com, pub-3004679189235742, DIRECT, f08c47fec0942fa0
 openx.com, 537149074, DIRECT, 6a698e2ec38604c6
-</code></pre><p>必須ではないものとしては以下のふたつ</p>
+</code></pre>
+
+<p>必須ではないものとしては以下のふたつ</p>
+
 <h2 id="その他">その他</h2>
+
 <p>形式があっているかをチェックしてくれるサービス</p>
+
 <ul>
 <li><a href="https://fe.datasign.co/adstxt/">Ads.txt Manager | DataSign FE</a></li>
 </ul>

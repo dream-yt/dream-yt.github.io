@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.74.3" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>cloudwatch、アラームの設定 (period, treatMissingData) &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,45 +83,66 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li>
-      <ul>
-        <li></li>
-      </ul>
-    </li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#period">period</a></li>
+<li><a href="#treatmissingdata">treatMissingData</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p><code>serverless-plugin-aws-alerts</code> を使うとアラームの設定/適用まで簡単に出来る</p>
+                    
+
+<p><code>serverless-plugin-aws-alerts</code> を使うとアラームの設定/適用まで簡単に出来る</p>
+
 <ul>
 <li><a href="https://github.com/ACloudGuru/serverless-plugin-aws-alerts">ACloudGuru/serverless-plugin-aws-alerts: A Serverless Framework plugin that creates CloudWatch alarms for functions.</a></li>
 </ul>
+
 <p>以下の設定項目はパッと見で分からなかったのでメモ</p>
+
 <ul>
 <li>period</li>
 <li>treatMissingData</li>
 </ul>
+
 <h4 id="period">period</h4>
+
 <p>メトリクスの数値を監視するインターバル
 単位は秒なので<code>600</code>とか設定すると10分に一回メトリクスの数値をチェックする挙動になる</p>
+
 <h4 id="treatmissingdata">treatMissingData</h4>
+
 <p>メトリクスの数値が取得できなかったなかった場合にどうするかの設定。
 例えばperiodを600に設定した場合に、10分間lambdaが呼ばれなかったらDuration(実行時間)などのメトリクスは発生しないので数値が取得できない状態になる。</p>
+
 <p>メトリクスの数値が取得できなかった場合は<code>INSUFFICIENT_DATA</code>としてアラーム状態になるのがデフォルトの設定。</p>
+
 <p>treatMissingDataには以下の4つが設定できる</p>
+
 <ul>
 <li>breaching (欠落は問題アリとみなす)</li>
 <li>notBreaching (欠落を問題無しとみなす)</li>
 <li>ignore (欠落してるときは、その時のアラーム状態を維持する)</li>
 <li>missing (欠落してるときは、過去のデータを見に行く)</li>
 </ul>
+
 <p>こちらの説明が詳しい</p>
+
 <ul>
 <li><a href="https://docs.aws.amazon.com/ja_jp/AmazonCloudWatch/latest/monitoring/AlarmThatSendsEmail.html#alarms-and-missing-data">CloudWatch アラームの欠落データの処理の設定 - Amazon CloudWatch</a></li>
 </ul>
+
 <p>breaching, notBreachingの使い分けはわかるが、missingとignoreの使い分けが分かりにくい。アラームの通知を送るかどうかなどが関係あるのだろうか 🤔</p>
 
                 </section>

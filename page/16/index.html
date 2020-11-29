@@ -24,7 +24,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.74.3" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -76,12 +76,42 @@
     
         
             <li>
+                <aside class="dates">Aug 10</aside>
+                <a href='https://dream-yt.github.io/post/bigquery-export-gcs-script-py/'>
+                    bigqueryのクエリ結果をgcsに出力するスクリプト
+                    
+                        
+                            <h2>こんな段取りで行う テンポラリなテーブルを作って、そこにクエリの結果を入れる そのテンポラリなテーブルを、データエクスポート機能を使ってgcsに</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Aug 8</aside>
+                <a href='https://dream-yt.github.io/post/bq-bigqueryrc-in-project/'>
+                    プロジェクトの.bigqueryrcの設定
+                    
+                        
+                            <h2>bqコマンド、--maximum_bytes_billed とか、デフォルトで設定しておきたいオプションはある .bigqueryrc というファイルを使うとbqコマ</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
                 <aside class="dates">Aug 5</aside>
                 <a href='https://dream-yt.github.io/post/serverless-deploy-from-docker-container/'>
                     serverless deploy を amazonlinuxイメージで行う
                     
                         
-                            <h2>lambdaとnodeのネイティブモジュール周りで辛いことになった時用 Dockerfile FROMamazonlinux:latestRUN curl --silent --location https://dl.yarnpkg.com/rpm/yarn.repo &gt; /etc/yum.repos.d/yarn.repoRUN curl --silent --location https://rpm.nodesource.com/setup_10.x | bashRUN yum install -y nodejs gcc-c&#43;&#43; make git yarnRUN yarn global add serverless --silent --no-progressRUN mkdir /appWORKDIR/appADD package.json /app/package.jsonADD yarn.lock /app/yarn.lock# b</h2>
+                            <h2>lambdaとnodeのネイティブモジュール周りで辛いことになった時用 Dockerfile FROM amazonlinux:latest RUN curl --silent --location https://dl.yarnpkg.com/rpm/yarn.repo &gt; /etc/yum.repos.d/yarn.repo RUN curl --silent --location https://rpm.nodesource.com/setup_10.x | bash RUN yum install -y nodejs gcc-c&#43;&#43; make git yarn RUN yarn global add serverless --silent --no-progress RUN mkdir</h2>
                         
                     
                 </a>
@@ -187,36 +217,6 @@
                     
                         
                             <h2>circleciではシェルのコマンドを組み合わせてビルドを実施するが、 GCPのcloudbuildはdockerイメージを使ってビルドを実施</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jul 16</aside>
-                <a href='https://dream-yt.github.io/post/change-file-extention-with-bash/'>
-                    bashでファイルの拡張子を一括変更する
-                    
-                        
-                            <h2>たとえばsrc配下のjsファイルをぜんぶtsファイルに変更したい場合は以下のように書ける $ find ./src -name &#39;*.js&#39; -type f \ | perl -wnlE &#39;/(\S&#43;).js/ and say &#34;$1.js $1.ts&#34;&#39; \ | xargs -n2 mv 動作 find ./src -name</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jul 15</aside>
-                <a href='https://dream-yt.github.io/post/update-npm-outdated/'>
-                    package.jsonの古いファイルをいっぺんに更新する
-                    
-                        
-                            <h2>古いパッケージの一覧 $ npm outdated こんな感じの出力が得られる $ npm outdated Package Current Wanted Latest Location firebase-functions 2.3.1 2.3.1 3.1.0 project_name firebase-tools 6.12.0 6.12.0 7.1.0 project_name いっぺんに更新する 以下のようなワンライナーで全部最新</h2>
                         
                     
                 </a>

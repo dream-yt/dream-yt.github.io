@@ -24,7 +24,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.74.3" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -72,6 +72,36 @@
 
     <section id="wrapper" class="home">
         <ul id="post-list">
+    
+    
+        
+            <li>
+                <aside class="dates">Apr 18</aside>
+                <a href='https://dream-yt.github.io/post/hive-table-input-output-serde/'>
+                    hive(athena)の InputFormat, OutputFormat, SerDe
+                    
+                        
+                            <h2>hive の create table は次のようなものである CREATE TABLE test(id INT, name STRING) ROW FORMAT SERDE &#39;org.apache.hadoop.hive.serde2.avro.AvroSerDe&#39; STORED as INPUTFORMAT &#39;org.apache.hadoop.hive.ql.io.avro.AvroContainerInputFormat&#39; OUTPUTFORMAT &#39;org.apache.hadoop.hive.ql.io.avro.AvroContainerOutputFormat&#39; このなかの SERDE, INPUTFORMAT, OUTPUTFORMAT についてメモ INPUTFORMAT, OUTPUTFORMAT hive には external storage と hive warehouse 2種類のデータストアがある これ</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Apr 16</aside>
+                <a href='https://dream-yt.github.io/post/withings-api-101/'>
+                    WithingsAPIのトークンのを取得
+                    
+                        
+                            <h2>トークンの取得 Withings API codeを取得 管理画面から CLIENT_ID , CONSUMER_SECRET を発行する dashboard_oauth2 export CLIENT_ID=xxxx export CONSUMER_SECRET=xxxxxxxx export REDIRECT_URL=http://localhost:8000 export SCOPE=user.info,user.metrics,user.activity,user.sleepevents export STATE=sakamoto # リクエストが重複しないようにするためのなんでもいい文字列</h2>
+                        
+                    
+                </a>
+            </li>
+        
     
     
         
@@ -187,36 +217,6 @@
                     
                         
                             <h2>リモートワークになったのでローカルの環境構築をしている 各種変数を設定 export SSH_USER=mossan # `SSH_HOST` はここでは踏み台ホストのこと export SSH_HOST=xxx.xxx.xxx.xxx export DB_HOST=xxx.xxx.xxx.xxx export DB_USER=app export DB_NAME=prod ポートフォワード設定</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Feb 26</aside>
-                <a href='https://dream-yt.github.io/post/webpack-dev-options/'>
-                    webpackの開発用に便利なオプション
-                    
-                        
-                            <h2>1ファイルだけトランスパイルするならこんな感じ $ npx webpack $entry --output $output \ --progress \ --cache=true \ --display-error-details \ --debug \ --devtool eval-cheap-module-source-map \ --output-pathinfo \ --watch --progress 動作重い時でも動いているかどうかわかるだけで便利 --cache=true</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Feb 26</aside>
-                <a href='https://dream-yt.github.io/post/fd-instead-of-find-101/'>
-                    fdを使う
-                    
-                        
-                            <h2>rustで GNU Core Utilities 実装してみたよシリーズであるところのfdコマンド sharkdp/fd: A simple, fast and user-friendly alternative to ‘find’ 老害が嫌がりそうなプロジェクトで好感が持てます インストール</h2>
                         
                     
                 </a>
