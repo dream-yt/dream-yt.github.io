@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://dream-yt.github.io/post/chalice-generate-pipeline-use-github/</loc>
+    <lastmod>2020-12-06T22:07:00+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://dream-yt.github.io/post/python-pyenv-direnv-layout/</loc>
     <lastmod>2020-11-29T17:07:29+09:00</lastmod>
   </url>
@@ -1273,7 +1278,7 @@
   
   <url>
     <loc>https://dream-yt.github.io/post/</loc>
-    <lastmod>2020-11-29T17:07:29+09:00</lastmod>
+    <lastmod>2020-12-06T22:07:00+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -1285,7 +1290,7 @@
   
   <url>
     <loc>https://dream-yt.github.io/</loc>
-    <lastmod>2020-11-29T17:07:29+09:00</lastmod>
+    <lastmod>2020-12-06T22:07:00+09:00</lastmod>
     <priority>0</priority>
   </url>
   

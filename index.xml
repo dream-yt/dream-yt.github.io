@@ -6,10 +6,19 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sun, 29 Nov 2020 17:07:29 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 06 Dec 2020 22:07:00 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Chalice の generate pipeline を試す (コードはGitHub)</title>
+      <link>https://dream-yt.github.io/post/chalice-generate-pipeline-use-github/</link>
+      <pubDate>Sun, 06 Dec 2020 22:07:00 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/chalice-generate-pipeline-use-github/</guid>
+      <description>chalice pipeline の動作検証 私用のAWSアカウントで chalice pipeline コマンドを試してみた。 デフォルトだとソースコードの管理は AWS Code Commit になるが、GitHubが使いたいので</description>
+    </item>
     
     <item>
       <title>python(pyenv) と direnv を組み合わせる</title>
