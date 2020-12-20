@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://dream-yt.github.io/post/terraform-error-invalid-legacy-provider-address/</loc>
+    <lastmod>2020-12-20T09:37:05+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://dream-yt.github.io/post/tailwindcss-fix-image-aspect-ratio/</loc>
     <lastmod>2020-12-19T16:54:10+09:00</lastmod>
   </url>
@@ -1288,7 +1293,7 @@
   
   <url>
     <loc>https://dream-yt.github.io/post/</loc>
-    <lastmod>2020-12-19T16:54:10+09:00</lastmod>
+    <lastmod>2020-12-20T09:37:05+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -1300,7 +1305,7 @@
   
   <url>
     <loc>https://dream-yt.github.io/</loc>
-    <lastmod>2020-12-19T16:54:10+09:00</lastmod>
+    <lastmod>2020-12-20T09:37:05+09:00</lastmod>
     <priority>0</priority>
   </url>
   
