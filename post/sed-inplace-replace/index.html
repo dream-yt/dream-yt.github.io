@@ -14,7 +14,7 @@
   
   
   <meta name="twitter:title" content="sedでファイル内の特定文字列を正規表現で書き換えたい/消したい時"/>
-  <meta name="twitter:description" content="書き換えたい時 $ sed -i &#34;&#34; -e &#39;s/http:\/\/dynamodb:8000/http:\/\/localhost:7800/&#39; path/to/targetfile -i オプション 出力内容をここで指定したパスに書き出す 空文字 &quot;&quot; を指定すると元のファイルを書き換える挙動になる 消したい"/>
+  <meta name="twitter:description" content="書き換えたい時 $ sed -i &quot;&quot; -e &#39;s/http:\/\/dynamodb:8000/http:\/\/localhost:7800/&#39; path/to/targetfile -i オプション 出力内容をここで指定したパスに書き出す 空文字 &quot;&quot; を指定すると元のファイルを書き換える挙動になる 消したい"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.74.3" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>sedでファイル内の特定文字列を正規表現で書き換えたい/消したい時 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,34 +83,46 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#書き換えたい時">書き換えたい時</a></li>
-    <li><a href="#消したい時">消したい時</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#書き換えたい時">書き換えたい時</a></li>
+<li><a href="#消したい時">消したい時</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <h2 id="書き換えたい時">書き換えたい時</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sed -i <span style="color:#e6db74">&#34;&#34;</span> -e <span style="color:#e6db74">&#39;s/http:\/\/dynamodb:8000/http:\/\/localhost:7800/&#39;</span> path/to/targetfile
-</code></pre></div><ul>
+                    
+
+<h2 id="書き換えたい時">書き換えたい時</h2>
+
+<pre><code class="language-bash">$ sed -i &quot;&quot; -e 's/http:\/\/dynamodb:8000/http:\/\/localhost:7800/' path/to/targetfile
+</code></pre>
+
+<ul>
 <li><code>-i</code> オプション
+
 <ul>
 <li>出力内容をここで指定したパスに書き出す</li>
 <li>空文字 <code>&quot;&quot;</code> を指定すると元のファイルを書き換える挙動になる</li>
+</ul></li>
 </ul>
-</li>
-</ul>
+
 <h2 id="消したい時">消したい時</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sed -i<span style="color:#e6db74">&#34;&#34;</span> -e <span style="color:#e6db74">&#39;/192.168.88.19/d&#39;</span>  ~/.ssh/known_hosts
-</code></pre></div><ul>
+
+<pre><code class="language-bash">$ sed -i&quot;&quot; -e '/192.168.88.19/d'  ~/.ssh/known_hosts
+</code></pre>
+
+<ul>
 <li><code>/d</code> オプション
+
 <ul>
 <li>マッチする行を消す動作になる</li>
 <li>空行になるのではなく、改行ごと消える</li>
-</ul>
-</li>
+</ul></li>
 </ul>
 
                 </section>

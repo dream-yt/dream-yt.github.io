@@ -24,7 +24,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.74.3" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -72,6 +72,96 @@
 
     <section id="wrapper" class="home">
         <ul id="post-list">
+    
+    
+        
+            <li>
+                <aside class="dates">Feb 24</aside>
+                <a href='https://dream-yt.github.io/post/bigquery-transfer-log/'>
+                    bigqueryのtransfer_configの実行履歴の確認の仕方
+                    
+                        
+                            <h2>transfer_config 設定されているtransfer_configを一覧 $ bq --format=json ls --transfer_config --transfer_location=&#39;us&#39; | jq . transfer_run name を引数に渡してtransfer_runを一覧 $ bq --format=json ls --transfer_run --transfer_location=&#39;us&#39; \ projects/987573330809/locations/us/transferConfigs/5c5aff8c-0000-285b-bf15-089e08324cf4 summary 実行</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Feb 23</aside>
+                <a href='https://dream-yt.github.io/post/typescript-ts-ignore/'>
+                    typescriptで特定ファイルのコンパイルエラーだけdisableする
+                    
+                        
+                            <h2>typescriptのコンパイラオプションは一般的にはtsconfig.jsonでプロジェクト全体のコンパイルの設定を定義することになる。た</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Feb 23</aside>
+                <a href='https://dream-yt.github.io/post/express-serverless-typescript/'>
+                    lambda/typescriptでexpressを使う
+                    
+                        
+                            <h2>express普通に便利なのでawslabs謹製のツールから使う awslabs/aws-serverless-express Run serverless applications and REST APIs using your existing Node.js application framework, on top of AWS Lambda and Amazon API Gateway 使い方 expressのappを生</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Feb 14</aside>
+                <a href='https://dream-yt.github.io/post/invisible-char-in-textfile/'>
+                    テキストに不可視な文字が入っている場合の対処
+                    
+                        
+                            <h2>不可視文字には \t (タブ) や \f (改ページ)など色々ある 環境によってトーフが表示されたりする 例 エディタでは大丈夫なのにGitHubに投稿するとト</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Feb 13</aside>
+                <a href='https://dream-yt.github.io/post/ffmpeg-for-bitrate/'>
+                    macで動画のビットレートを変更したい
+                    
+                        
+                            <h2>ffmpegを使う $ brew install ffmpeg こんな感じで使う $ ffmpeg -i ./inputfile.mp4 -b:v 2M -bufsize 10M ./outfile.mp4 -b:v 2M 指定したいbitrate。KBで指定したい場合は 320K のようにKを使う -bufsize 10M どれく</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Jan 29</aside>
+                <a href='https://dream-yt.github.io/post/bigquery-show-data-transfer-service/'>
+                    BigQueryのtransfer_configを表示する
+                    
+                        
+                            <h2>以下の要領で表示できる $ bq --format=json ls --transfer_config --transfer_location=&#39;us&#39; $ bq show --transfer_config projects/123456789/locations/us/transferConfigs/xxxxxx 出力される設定はこんな感じ ( --format=json ) bq mk にこの形式のjsonを食わせると設定できるのだろうか? 🤔 $ bq</h2>
+                        
+                    
+                </a>
+            </li>
+        
     
     
         
@@ -127,96 +217,6 @@
                     
                         
                             <h2>自分で使ったことがなかったので勉強 概要 指定した表のなかから条件にマッチした行の、指定したカラムの値を返してくれる VLOOKUP(検索キー, 範</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jan 22</aside>
-                <a href='https://dream-yt.github.io/post/vscode-sql-formatter-stun/'>
-                    There is no document formatter for &#39;sql&#39;-files installed
-                    
-                        
-                            <h2>vscodeを使っている。SQLファイルは保存時にフォーマットされるようしているが、 ある日突然保存時フォーマットが聞かなくなった vscode</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jan 20</aside>
-                <a href='https://dream-yt.github.io/post/alb-request-count-by-awscli/'>
-                    ALBの直近1時間のリクエスト数をawscliで取得する
-                    
-                        
-                            <h2>以下のコマンドで取得できる aws cloudwatch --profile mossan get-metric-statistics \ --namespace &#39;AWS/ApplicationELB&#39; \ --metric-name &#39;RequestCount&#39; \ --dimensions &#39;Name=LoadBalancer,Value=app/sakamoto-alb/xxxxxxxxx&#39; \ --statistics &#39;Sum&#39; \ --start-time $(date -v -1H -u &#43;&#34;%Y-%m-%dT%H:%M&#34;) \ --end-time $(date -u &#43;&#34;%Y-%m-%dT%H:%M&#34;) \ --period 3600 --dimensions RequestCountのSumをどの軸でGro</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jan 20</aside>
-                <a href='https://dream-yt.github.io/post/list-alb-names/'>
-                    AWSでプロジェクトに存在するALBを一覧する
-                    
-                        
-                            <h2>aws cloudwatch list-metrics \ --namespace AWS/ApplicationELB \ --metric-name RequestCount \ | jq -r &#39;.Metrics[].Dimensions[] | select(.Name | test(&#34;LoadBalancer&#34;)) | .Value&#39; \ | sort \ | uniq jq の部分はjsonから必要な部分を抜き出すためのもの 配列を Name=LoadBalancer なオブジェクトにフィルタして</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jan 20</aside>
-                <a href='https://dream-yt.github.io/post/athena-before-yesterday-utc-jst/'>
-                    athenaのUNIXタイムスタンプなカラムをJSTで一昨日から昨日の範囲でとる場合
-                    
-                        
-                            <h2>下記の図でJSTでの18日〜19日のデータが欲しい場合のこと 前提 日本で使いたいデータなので「日本時間での一昨日から昨日」 カラムにはunixタ</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jan 12</aside>
-                <a href='https://dream-yt.github.io/post/python-jst-timezone-aware-datetime/'>
-                    PythonでTimezone Aware(Jst)なdatetimeを作る
-                    
-                        
-                            <h2>ググっても簡単なのが出てこなかったのでメモ 環境は python 3.6.7 こんな定義で引数に渡した日付時間がJSTのdatetimeになる from pytz import timezone def jst_datetime(*args): rest = [0] * (7 -</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jan 7</aside>
-                <a href='https://dream-yt.github.io/post/etc-hosts-hostile/'>
-                    hostileで/etc/hostsをテキスト管理する
-                    
-                        
-                            <h2>feross/hostile: Simple, programmatic /etc/hosts manipulation (in node.js) install インストールはyarnで入る (brewとかは用意されてなさそう) $ yarn global add hostile load hostile load コマンドで引数に渡した定義が/etc/hos</h2>
                         
                     
                 </a>

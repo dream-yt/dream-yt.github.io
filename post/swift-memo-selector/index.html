@@ -14,7 +14,7 @@
   
   
   <meta name="twitter:title" content="swiftのselectorについて"/>
-  <meta name="twitter:description" content="コールバックを渡すための仕組みのようなもの? たとえばメソッドを渡してイベントが発生した時の実行するような場合につかう? var button = UIButton() button.addTarget(self, action: &#34;tappedButton:&#34;, forControlEvents: .TouchUpInside) 今度"/>
+  <meta name="twitter:description" content="コールバックを渡すための仕組みのようなもの? たとえばメソッドを渡してイベントが発生した時の実行するような場合につかう? var button = UIButton() button.addTarget(self, action: &quot;tappedButton:&quot;, forControlEvents: .TouchUpInside) 今度"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.74.3" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>swiftのselectorについて &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,29 +83,43 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#参考">参考</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <ul>
+                    
+
+<ul>
 <li>コールバックを渡すための仕組みのようなもの?</li>
 <li>たとえばメソッドを渡してイベントが発生した時の実行するような場合につかう?</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">var</span> button = UIButton()
-button.addTarget(<span style="color:#66d9ef">self</span>, action: <span style="color:#e6db74">&#34;tappedButton:&#34;</span>, forControlEvents: .TouchUpInside)
-</code></pre></div><blockquote>
+
+<pre><code class="language-swift">var button = UIButton()
+button.addTarget(self, action: &quot;tappedButton:&quot;, forControlEvents: .TouchUpInside)
+</code></pre>
+
+<blockquote>
 <p>今度はSwiftの例ですが、上記のコードではボタンが押されたらselfに定義してあるtappedButtonというメソッドが実行されます。</p>
 </blockquote>
+
 <p>swiftの以前のバージョンだと↑のように文字列を渡していたが、
 最近ではメソッドを <code>#selector</code> インスタンスを生成して引数に渡すようなっている</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">var</span> button = UIButton()
-button.addTarget(<span style="color:#66d9ef">self</span>, action: <span style="color:#66d9ef">#selector</span>(MyClass.myMethod(<span style="color:#66d9ef">_</span>:)), forControlEvents: .TouchUpInside)
-</code></pre></div><p>こんな感じなのかな? (動かしていない)</p>
+
+<pre><code class="language-swift">var button = UIButton()
+button.addTarget(self, action: #selector(MyClass.myMethod(_:)), forControlEvents: .TouchUpInside)
+</code></pre>
+
+<p>こんな感じなのかな? (動かしていない)</p>
+
 <h2 id="参考">参考</h2>
+
 <ul>
 <li><a href="https://teratail.com/questions/10558">iOS - Swift（またはObjective-C）のselectorについて｜teratail</a></li>
 <li><a href="http://glassonion.hatenablog.com/entry/2016/06/07/214819">今から始める Swift 3 対策 - A Day In The Life</a></li>

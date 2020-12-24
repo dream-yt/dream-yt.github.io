@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.74.3" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>MySQL、 auto incrementの確認と変更 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,23 +83,39 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li>
-      <ul>
-        <li></li>
-      </ul>
-    </li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#確認">確認</a></li>
+<li><a href="#変更">変更</a></li>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <h4 id="確認">確認</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">show</span> <span style="color:#66d9ef">table</span> status <span style="color:#66d9ef">where</span> Name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;{{ テーブル名 }}&#39;</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#66d9ef">G</span>
-</code></pre></div><h4 id="変更">変更</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">ALTER</span> <span style="color:#66d9ef">TABLE</span> <span style="color:#e6db74">&#39;{{ テーブル名 }}&#39;</span> AUTO_INCREMENT <span style="color:#f92672">=</span> <span style="color:#ae81ff">1000000</span>;
-</code></pre></div><h4 id="参考">参考</h4>
+                    
+
+<h4 id="確認">確認</h4>
+
+<pre><code class="language-sql">show table status where Name = '{{ テーブル名 }}'\G
+</code></pre>
+
+<h4 id="変更">変更</h4>
+
+<pre><code class="language-sql">ALTER TABLE '{{ テーブル名 }}' AUTO_INCREMENT = 1000000;
+</code></pre>
+
+<h4 id="参考">参考</h4>
+
 <ul>
 <li><a href="https://shrkw.hatenablog.com/entry/how_to_change_auto_increment_number_on_mysql">MySQLでAUTO_INCREMENTを任意の数字に変更する - Bouldering &amp; Com.</a></li>
 </ul>

@@ -24,7 +24,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.74.3" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -72,6 +72,96 @@
 
     <section id="wrapper" class="home">
         <ul id="post-list">
+    
+    
+        
+            <li>
+                <aside class="dates">Dec 20</aside>
+                <a href='https://dream-yt.github.io/post/terraform-error-invalid-legacy-provider-address/'>
+                    [terraform] Error: Invalid legacy provider address
+                    
+                        
+                            <h2>ひさしぶりに terraform をアップグレードしたら以下のようなエラーが出るようになった。 Error: Invalid legacy provider address This configuration or its associated state refers to the unqualified provider “aws”. You must complete the Terraform 0.13 upgrade process before upgrading to later versions. これは</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Dec 19</aside>
+                <a href='https://dream-yt.github.io/post/tailwindcss-fix-image-aspect-ratio/'>
+                    tailwindcssで画像のアス比を固定する
+                    
+                        
+                            <h2>object-contain を使えばよい。 &lt;img class=&#34;object-contain&#34; src=&#34;/image.jpg&#34; /&gt; どうなっているのか css の object-fit: contain を使っている。 置換コンテンツはアスペクト比を維持したまま、要素のコンテンツボックスに収まる</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Dec 10</aside>
+                <a href='https://dream-yt.github.io/post/js-1line-scroll-to-top/'>
+                    js 1 行でページ上部までスクロールする
+                    
+                        
+                            <h2>こうするとできる。 document.getElementsByTagName(&#34;body&#34;)[0].scrollIntoView({ behavior: &#34;smooth&#34; }); 説明 モダンなブラウザでは scrollIntoView が使える。 Element.scrollIntoView() - Web API | MDN behavior: &#34;smooth&#34; と指定するとスルスルとアニメーションしながら上にスクロールする</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Dec 6</aside>
+                <a href='https://dream-yt.github.io/post/chalice-generate-pipeline-use-github/'>
+                    Chalice の generate pipeline を試す (コードはGitHub)
+                    
+                        
+                            <h2>chalice pipeline の動作検証 私用のAWSアカウントで chalice pipeline コマンドを試してみた。 デフォルトだとソースコードの管理は AWS Code Commit になるが、GitHubが使いたいので</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Nov 29</aside>
+                <a href='https://dream-yt.github.io/post/python-pyenv-direnv-layout/'>
+                    python(pyenv) と direnv を組み合わせる
+                    
+                        
+                            <h2>検索すると日本語の記事は .envrc で source ./venv/bin/activate するのが出てくるが、 ディレクトリを出ても deactivate が効かないので少し不便。 公式の説明にならって layout を使うのがよさそうだ</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Nov 28</aside>
+                <a href='https://dream-yt.github.io/post/serverless-python-requirements-bug-workaround/'>
+                    Serverless Python Requirements Bug Workaround
+                    
+                        
+                            <h2>pythonのコードを serverless でデプロイしているときに以下のエラーが出た。 TypeError: Cannot read property ‘artifact’ of undefined serverless-python-requirements のバグのようだ。 issueになっていて、1年以上直ってい</h2>
+                        
+                    
+                </a>
+            </li>
+        
     
     
         
@@ -127,96 +217,6 @@
                     
                         
                             <h2>Introduction to Vercel - Vercel Documentation だいたい思った通りのサービスだった GitHub のリポジトリがアプリと対応する master にマージすると自動的にデプロイが走る master は常に動く状態になって</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Nov 21</aside>
-                <a href='https://dream-yt.github.io/post/nextjs-ssr-404/'>
-                    nextjs で 404 を返す方法
-                    
-                        
-                            <h2>nextjs の SSR で 404 を返すには、getServerSideProps でこうする const getServerSideProps: GetServerSideProps = async (context) =&gt; { context.res.statusCode = 404; return { props: { errorCode: 404 } }; }; あとはコンポーネント側でよしなに</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Nov 20</aside>
-                <a href='https://dream-yt.github.io/post/nextjs-ssg-redirect-metarefresh/'>
-                    nextjsのSSGでhtmlでredirect
-                    
-                        
-                            <h2>nextjsのSSGでブログを作っているが、技術系以外の記事もこのブログで管理したくなったので今ある技術系の記事を /tech 配下のパスにもってきたい</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Nov 20</aside>
-                <a href='https://dream-yt.github.io/post/build-python-wheel-for-lambda/'>
-                    cエクステンションを使っているpythonパッケージをlambdaで動くようビルドする
-                    
-                        
-                            <h2>cエクステンションを使っているpythonパッケージをビルドするとビルドしたプラットフォーム固有のwheelファイルが生成される。 つまりLa</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Nov 19</aside>
-                <a href='https://dream-yt.github.io/post/python-wheel-bdist-sdist-pip/'>
-                    pythonのbdistとsdistとwheelファイルについて
-                    
-                        
-                            <h2>lambdaで動くpythonのアプリケーションを開発するとき、依存モジュールをrequirements.txtの記述でなく生のwheelフ</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Nov 17</aside>
-                <a href='https://dream-yt.github.io/post/sed-inplace-replace/'>
-                    sedでファイル内の特定文字列を正規表現で書き換えたい/消したい時
-                    
-                        
-                            <h2>書き換えたい時 $ sed -i &#34;&#34; -e &#39;s/http:\/\/dynamodb:8000/http:\/\/localhost:7800/&#39; path/to/targetfile -i オプション 出力内容をここで指定したパスに書き出す 空文字 &#34;&#34; を指定すると元のファイルを書き換える挙動になる 消したい</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Nov 16</aside>
-                <a href='https://dream-yt.github.io/post/python-dict-constructor-shallow-copy/'>
-                    pythonで辞書をdict()したときの値のコピーのされかたがshallow-copyなのを確認
-                    
-                        
-                            <h2>pythonで dict() を呼ぶとdict-likeな値をdictにキャストできる。 もとの辞書の値がコピーされているのだが、shallow copyなの</h2>
                         
                     
                 </a>

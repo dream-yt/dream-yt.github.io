@@ -14,7 +14,7 @@
   
   
   <meta name="twitter:title" content="TypeScriptで、「この配列の要素がキーになってるオブジェクト」という型を定義する"/>
-  <meta name="twitter:description" content="こんな感じでできる const columns = [&#34;id&#34;, &#34;name&#34;, &#34;created&#34;] as const; type Column = typeof columns[number]; // type Column = &#34;id&#34; | &#34;name&#34; | &#34;created&#34; type Obj = { [F in Column]: string }; typeof columns[number] がミソ What means typeof Array[number] in Typescript? - Stack Overflow"/>
+  <meta name="twitter:description" content="こんな感じでできる const columns = [&quot;id&quot;, &quot;name&quot;, &quot;created&quot;] as const; type Column = typeof columns[number]; // type Column = &quot;id&quot; | &quot;name&quot; | &quot;created&quot; type Obj = { [F in Column]: string }; typeof columns[number] がミソ What means typeof Array[number] in Typescript? - Stack Overflow"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.74.3" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>TypeScriptで、「この配列の要素がキーになってるオブジェクト」という型を定義する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -81,17 +81,17 @@
                 </header>
                 
                   
-                    <div id="toc">
-                      <nav id="TableOfContents"></nav>
-                    </div>
-                  
                 
                 <section id="post-body">
                     <p>こんな感じでできる</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">columns</span> <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#34;id&#34;</span>, <span style="color:#e6db74">&#34;name&#34;</span>, <span style="color:#e6db74">&#34;created&#34;</span>] <span style="color:#66d9ef">as</span> <span style="color:#66d9ef">const</span>;
-<span style="color:#a6e22e">type</span> <span style="color:#a6e22e">Column</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">typeof</span> <span style="color:#a6e22e">columns</span>[<span style="color:#66d9ef">number</span>]; <span style="color:#75715e">// type Column = &#34;id&#34; | &#34;name&#34; | &#34;created&#34;
-</span><span style="color:#75715e"></span><span style="color:#a6e22e">type</span> <span style="color:#a6e22e">Obj</span> <span style="color:#f92672">=</span> { [<span style="color:#a6e22e">F</span> <span style="color:#66d9ef">in</span> <span style="color:#a6e22e">Column</span>]<span style="color:#f92672">:</span> <span style="color:#66d9ef">string</span> };
-</code></pre></div><p><code>typeof columns[number]</code> がミソ</p>
+
+<pre><code class="language-ts">const columns = [&quot;id&quot;, &quot;name&quot;, &quot;created&quot;] as const;
+type Column = typeof columns[number]; // type Column = &quot;id&quot; | &quot;name&quot; | &quot;created&quot;
+type Obj = { [F in Column]: string };
+</code></pre>
+
+<p><code>typeof columns[number]</code> がミソ</p>
+
 <ul>
 <li><a href="https://stackoverflow.com/questions/59541521/what-means-typeof-arraynumber-in-typescript">What means typeof Array[number] in Typescript? - Stack Overflow</a></li>
 </ul>

@@ -14,7 +14,7 @@
   
   
   <meta name="twitter:title" content="Spreadsheetで日付を文字列フォーマットして表示する"/>
-  <meta name="twitter:description" content="TEXT関数を使えばよい =TEXT(G11, &#34;m月d日（ddd）&#34;) こんな感じで表示される 4月22日（月） ↑ G11 に日付文字列が入っている場合の例"/>
+  <meta name="twitter:description" content="TEXT関数を使えばよい =TEXT(G11, &quot;m月d日（ddd）&quot;) こんな感じで表示される 4月22日（月） ↑ G11 に日付文字列が入っている場合"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.74.3" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>Spreadsheetで日付を文字列フォーマットして表示する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -72,7 +72,7 @@
                     </h1>
                     <h2 class="headline">
                     Apr 26, 2019 15:14
-                    · 103 words
+                    · 105 words
                     · 1 minute read
                       <span class="tags">
                       
@@ -83,27 +83,39 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li>
-      <ul>
-        <li><a href="#参考">参考</a></li>
-      </ul>
-    </li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>TEXT関数を使えばよい</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vb" data-lang="vb"><span style="color:#f92672">=</span>TEXT(G11, <span style="color:#e6db74">&#34;m月d日（ddd）&#34;</span>)
-</code></pre></div><p>こんな感じで表示される</p>
+                    
+
+<p>TEXT関数を使えばよい</p>
+
+<pre><code class="language-vb">=TEXT(G11, &quot;m月d日（ddd）&quot;)
+</code></pre>
+
+<p>こんな感じで表示される</p>
+
 <pre><code>4月22日（月）
-</code></pre><ul>
+</code></pre>
+
+<ul>
 <li>↑ <code>G11</code> に日付文字列が入っている場合の例</li>
 <li><code>ddd</code> は曜日を表示するためのやつ</li>
 </ul>
+
 <h3 id="参考">参考</h3>
+
 <ul>
 <li><a href="https://support.google.com/docs/answer/3094139?hl=ja">support.google.com | TEXT - ドキュメント エディタ ヘルプ</a></li>
 </ul>

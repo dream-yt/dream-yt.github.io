@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.74.3" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>lambda/typescriptでexpressを使う &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,74 +83,109 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#使い方">使い方</a>
-      <ul>
-        <li><a href="#example">example</a></li>
-        <li><a href="#deps">deps</a></li>
-      </ul>
-    </li>
-    <li><a href="#serverlessyaml">serverless.yaml</a></li>
-    <li><a href="#その他">その他</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#使い方">使い方</a>
+<ul>
+<li><a href="#example">example</a></li>
+<li><a href="#deps">deps</a>
+<ul>
+<li>
+<ul>
+<li><a href="#devdependencies">devDependencies</a></li>
+<li><a href="#dependencies">dependencies</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li><a href="#serverless-yaml">serverless.yaml</a></li>
+<li><a href="#その他">その他</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>express普通に便利なのでawslabs謹製のツールから使う</p>
+                    
+
+<p>express普通に便利なのでawslabs謹製のツールから使う</p>
+
 <ul>
 <li><a href="https://github.com/awslabs/aws-serverless-express">awslabs/aws-serverless-express</a></li>
 </ul>
+
 <blockquote>
 <p>Run serverless applications and REST APIs using your existing Node.js application framework, on top of AWS Lambda and Amazon API Gateway</p>
 </blockquote>
+
 <h2 id="使い方">使い方</h2>
+
 <ul>
 <li>expressのappを生成して、ルーティングを設定</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">APIGatewayEvent</span>, <span style="color:#a6e22e">Callback</span>, <span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">Handler</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;aws-lambda&#39;</span>;
-<span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">as</span> <span style="color:#a6e22e">awsServerlessExpress</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;aws-serverless-express&#39;</span>;
-<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">Express</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;express&#39;</span>;
 
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">app</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Express</span>();
+<pre><code class="language-ts">import { APIGatewayEvent, Callback, Context, Handler } from 'aws-lambda';
+import * as awsServerlessExpress from 'aws-serverless-express';
+import Express from 'express';
 
-<span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#39;/*&#39;</span>, (<span style="color:#a6e22e">req</span>: <span style="color:#66d9ef">Express.Request</span>, <span style="color:#a6e22e">res</span>: <span style="color:#66d9ef">Express.Response</span>) <span style="color:#f92672">=&gt;</span> {
-  <span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">method</span>, <span style="color:#a6e22e">path</span>, <span style="color:#a6e22e">query</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">req</span>;
-  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">send</span>(<span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>({ <span style="color:#a6e22e">method</span>, <span style="color:#a6e22e">path</span>, <span style="color:#a6e22e">query</span> }));
+const app = Express();
+
+app.get('/*', (req: Express.Request, res: Express.Response) =&gt; {
+  const { method, path, query } = req;
+  return res.send(JSON.stringify({ method, path, query }));
 });
 
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">server</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">awsServerlessExpress</span>.<span style="color:#a6e22e">createServer</span>(<span style="color:#a6e22e">app</span>);
+const server = awsServerlessExpress.createServer(app);
 
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">webapi</span>: <span style="color:#66d9ef">Handler</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">event</span>: <span style="color:#66d9ef">APIGatewayEvent</span>, <span style="color:#a6e22e">context</span>: <span style="color:#66d9ef">Context</span>) <span style="color:#f92672">=&gt;</span> {
-  <span style="color:#a6e22e">awsServerlessExpress</span>.<span style="color:#a6e22e">proxy</span>(<span style="color:#a6e22e">server</span>, <span style="color:#a6e22e">event</span>, <span style="color:#a6e22e">context</span>);
+export const webapi: Handler = (event: APIGatewayEvent, context: Context) =&gt; {
+  awsServerlessExpress.proxy(server, event, context);
 };
-</code></pre></div><h3 id="example">example</h3>
+</code></pre>
+
+<h3 id="example">example</h3>
+
 <p>こちらを参考にすれば一通りのことはサクッとできそう</p>
+
 <ul>
 <li><a href="https://github.com/awslabs/aws-serverless-express/tree/master/examples/basic-starter">aws-serverless-express/examples/basic-starter at master · awslabs/aws-serverless-express</a></li>
 </ul>
+
 <h3 id="deps">deps</h3>
+
 <p>この辺をインストールする必要がある</p>
+
 <h5 id="devdependencies">devDependencies</h5>
+
 <pre><code>    &quot;@types/aws-lambda&quot;: &quot;^8.10.19&quot;,
     &quot;@types/express&quot;: &quot;^4.16.1&quot;,
-</code></pre><h5 id="dependencies">dependencies</h5>
+</code></pre>
+
+<h5 id="dependencies">dependencies</h5>
+
 <pre><code>    &quot;aws-serverless-express&quot;: &quot;^3.3.5&quot;,
     &quot;express&quot;: &quot;^4.16.4&quot;
-</code></pre><h2 id="serverlessyaml">serverless.yaml</h2>
+</code></pre>
+
+<h2 id="serverless-yaml">serverless.yaml</h2>
+
 <p>serverless frameworkの方の設定はpath/methodの設定を以下のようにしておく</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#66d9ef">functions</span>:
-  <span style="color:#66d9ef">WebAPI</span>:
-    <span style="color:#66d9ef">handler</span>: handler.webapi
-    <span style="color:#66d9ef">events</span>:
-      - <span style="color:#66d9ef">http</span>:
-          <span style="color:#75715e"># get/postなんでも受ける</span>
-          <span style="color:#66d9ef">method</span>: ANY
-          <span style="color:#75715e"># どんなパスでもこのエンドポイントで受けられる</span>
-          <span style="color:#66d9ef">path</span>: /{any+}
-</code></pre></div><h2 id="その他">その他</h2>
+
+<pre><code class="language-yaml">functions:
+  WebAPI:
+    handler: handler.webapi
+    events:
+      - http:
+          # get/postなんでも受ける
+          method: ANY
+          # どんなパスでもこのエンドポイントで受けられる
+          path: /{any+}
+</code></pre>
+
+<h2 id="その他">その他</h2>
+
 <p>aws-serverless-expressはexpressだけではなく、普通のnode標準のhttpモジュールからも使えるライブラリのようだ</p>
+
 <ul>
 <li><a href="https://github.com/awslabs/aws-serverless-express/blob/master/examples/vanilla-http/index.js">aws-serverless-express examples/vanilla-http/index.js</a></li>
 </ul>

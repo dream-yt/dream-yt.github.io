@@ -24,7 +24,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.74.3" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -72,6 +72,96 @@
 
     <section id="wrapper" class="home">
         <ul id="post-list">
+    
+    
+        
+            <li>
+                <aside class="dates">Feb 14</aside>
+                <a href='https://dream-yt.github.io/post/nodejs-spawn-inherit-stdout-stderr/'>
+                    nodejsで標準入出力/エラーを共有した子プロセスを作る
+                    
+                        
+                            <h2>cloudrunを使う際に必要になった cloudrunはhttpエンドポイントから処理がキックされるので、コンテナでbashコマンドを実行し</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Feb 12</aside>
+                <a href='https://dream-yt.github.io/post/ps-mem-cpu-sort/'>
+                    psコマンドでメモリ使用量, CPU使用量でソートする
+                    
+                        
+                            <h2>--sort オプションがある 例 -%mem は降順、メモリ使用量という意味 root@92b0f68c3eb3:/# ps aux --sort -%mem | head USER PID %CPU %MEM VSZ RSS TTY STAT START TIME COMMAND root 1 0.0 0.1 18240 3236 pts/0 Ss 00:20 0:00 /bin/bash root 20 0.0 0.1 34424 2780 pts/0 R&#43; 00:22 0:00 ps aux --sort -%mem root</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Feb 12</aside>
+                <a href='https://dream-yt.github.io/post/bash-elif/'>
+                    Bash Elif
+                    
+                        
+                            <h2></h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Feb 12</aside>
+                <a href='https://dream-yt.github.io/post/bash-non-zero-variable/'>
+                    シェルスクリプトで変数が未定義かを確認する
+                    
+                        
+                            <h2>毎回忘れるのでメモ -n で判定できる。逆は -z。 正確には値のlengthがnon-zeroかという判定をしている main.sh #!/bin/bash [ -n &#34;$ONE&#34; ] &amp;&amp; echo &#34;ONE is non-zero&#34; [ -z &#34;$ONE&#34; ] &amp;&amp;</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Feb 12</aside>
+                <a href='https://dream-yt.github.io/post/testing-cloudrun/'>
+                    Cloud Runの動作確認 (イメージのビルド、デプロイと削除)
+                    
+                        
+                            <h2>システム パッケージのチュートリアルを使用する | Cloud Run | Google Cloud $ gcloud builds submit を叩くと、Dockerfileをもとにビルドが始まる $ gcloud builds submit --tag gcr.io/$GOOGLE_PROJECT_ID/graphvizn ... snip ... 10-alpine: Pulling from</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Feb 6</aside>
+                <a href='https://dream-yt.github.io/post/code-for-hash-md5-was-not-found/'>
+                    ERROR:root:code for hash md5 was not found
+                    
+                        
+                            <h2>僕のPCはbrewがopensslがアップデートするたびにこのエラーがでる。1年毎くらいに発生するので毎回発生するたびに原因と対処方法は忘れ</h2>
+                        
+                    
+                </a>
+            </li>
+        
     
     
         
@@ -127,96 +217,6 @@
                     
                         
                             <h2>こんな感じでできる $ git grep cache -- &#39;*.java&#39; git grepでは -- 以降が対象パスの指定となっているので、そこにglobを書くと探索するファイルを指定できる – …​</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jan 16</aside>
-                <a href='https://dream-yt.github.io/post/terraform-route53/'>
-                    terraformでroute53の管理
-                    
-                        
-                            <h2>前提 awsのコンソールから諸々設定をしたものを、terraformをつかってコード管理できるようにしていく場合の作業 前準備 まず最初に目当ての</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jan 15</aside>
-                <a href='https://dream-yt.github.io/post/vscode-extension-mardown-image-paste/'>
-                    vscodeにペーストすると画像をgithubにあげてくれるvscode-extension-mardown-image-pasteが便利
-                    
-                        
-                            <h2>GitHubのコメント欄に画像を貼り付けられるのと同じ操作感でvscode上から画像をアップロードできる とても便利 njleonzhang/vscode-extension-mardown-image-paste: read the image from system clipborad, optimize the size, upload to CDN,</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jan 12</aside>
-                <a href='https://dream-yt.github.io/post/my-project-d-ts-file/'>
-                    .d.ts ファイルを自作してimportする
-                    
-                        
-                            <h2>APIのTypeScriptの型定義ファイル(foobar.d.tsなど)が提供されておらず、APIレスポンスをjson2tsなどにつっこん</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jan 11</aside>
-                <a href='https://dream-yt.github.io/post/use-npm-check-updates/'>
-                    package.json の deps を深く考えずに全部upgradeする
-                    
-                        
-                            <h2>以下のコマンドでできる $ npx npm-check-updates --upgrade いちおうどんなアップグレードになるかは事前に確認できる $ npx npm-check-updates その他のオプションもいろいろある $ npx npm-check-updates --help npx: 259個</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jan 8</aside>
-                <a href='https://dream-yt.github.io/post/macos-find-bigfile/'>
-                    macosでディスクがいっぱいになったとき、大きくて使わないファイルを探す
-                    
-                        
-                            <h2>duを使ったりしても良いが、macosの標準でついているUIから大きくて不要なファイルを探すのが簡単 macの左上の🍎マーク このマックのついて</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jan 6</aside>
-                <a href='https://dream-yt.github.io/post/hls-m3u8-masterplaylist/'>
-                    HLSとm3u8ファイルとMaster Playlistについて
-                    
-                        
-                            <h2>こちらの記事の焼き直し m3u8とhls · sacre m3u8ファイルとは こちらがわかりやすかった 動画配信技術 その1 - HTTP Live Streaming(HLS) - Akamai Japan Blog HLSを行うためのヘ</h2>
                         
                     
                 </a>
