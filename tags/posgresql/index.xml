@@ -1,25 +1,12 @@
-<<<<<<< HEAD
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>posgresql on sacre</title>
     <link>https://dream-yt.github.io/tags/posgresql/</link>
     <description>Recent content in posgresql on sacre</description>
-=======
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Posgresql on sacre</title>
-    <link>https://dream-yt.github.io/tags/posgresql/</link>
-    <description>Recent content in Posgresql on sacre</description>
->>>>>>> 90254b3d76f3be367497fe3e0b39fe2c1d065a13
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sat, 16 Mar 2019 17:00:00 +0900</lastBuildDate>
-    
-	<atom:link href="https://dream-yt.github.io/tags/posgresql/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sat, 16 Mar 2019 17:00:00 +0900</lastBuildDate><atom:link href="https://dream-yt.github.io/tags/posgresql/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>PostgreSQLで特定期間の日数/時間数などを数える</title>
       <link>https://dream-yt.github.io/post/psql-day-count/</link>

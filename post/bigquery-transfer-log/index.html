@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.79.0" />
 		<title>bigqueryのtransfer_configの実行履歴の確認の仕方 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,66 +83,49 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#transfer-config">transfer_config</a></li>
-<li><a href="#transfer-run">transfer_run</a></li>
-<li><a href="#summary">summary</a></li>
-</ul></li>
-</ul></li>
-</ul>
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#transfer_config">transfer_config</a></li>
+        <li><a href="#transfer_run">transfer_run</a></li>
+        <li><a href="#summary">summary</a></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<h3 id="transfer-config">transfer_config</h3>
-
+                    <h3 id="transfer_config">transfer_config</h3>
 <p>設定されているtransfer_configを一覧</p>
-
-<pre><code class="language-bash">$ bq --format=json ls --transfer_config --transfer_location='us' | jq .
-</code></pre>
-
-<h3 id="transfer-run">transfer_run</h3>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ bq --format<span style="color:#f92672">=</span>json ls --transfer_config --transfer_location<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;us&#39;</span> | jq .
+</code></pre></div><h3 id="transfer_run">transfer_run</h3>
 <p><code>name</code> を引数に渡してtransfer_runを一覧</p>
-
-<pre><code class="language-bash">$ bq --format=json ls --transfer_run --transfer_location='us' \
-    projects/987573330809/locations/us/transferConfigs/5c5aff8c-0000-285b-bf15-089e08324cf4
-</code></pre>
-
-<h3 id="summary">summary</h3>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ bq --format<span style="color:#f92672">=</span>json ls --transfer_run --transfer_location<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;us&#39;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    projects/987573330809/locations/us/transferConfigs/5c5aff8c-0000-285b-bf15-089e08324cf4
+</code></pre></div><h3 id="summary">summary</h3>
 <p>実行履歴の成否だけ見たい場合はこんな感じ</p>
-
-<pre><code class="language-bash">bq --format=json ls --transfer_run --transfer_location='us' \
-    projects/987573330809/locations/us/transferConfigs/5c5aff8c-0000-285b-bf15-089e08324cf4 \
-    | jq '.[] | { runTime, endTime, state }'
-</code></pre>
-
-<pre><code class="language-json">{
-  &quot;runTime&quot;: &quot;2019-02-23T03:00:00Z&quot;,
-  &quot;endTime&quot;: &quot;2019-02-23T03:03:01.601951Z&quot;,
-  &quot;state&quot;: &quot;SUCCEEDED&quot;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">bq --format<span style="color:#f92672">=</span>json ls --transfer_run --transfer_location<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;us&#39;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    projects/987573330809/locations/us/transferConfigs/5c5aff8c-0000-285b-bf15-089e08324cf4 <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    | jq <span style="color:#e6db74">&#39;.[] | { runTime, endTime, state }&#39;</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+  <span style="color:#f92672">&#34;runTime&#34;</span>: <span style="color:#e6db74">&#34;2019-02-23T03:00:00Z&#34;</span>,
+  <span style="color:#f92672">&#34;endTime&#34;</span>: <span style="color:#e6db74">&#34;2019-02-23T03:03:01.601951Z&#34;</span>,
+  <span style="color:#f92672">&#34;state&#34;</span>: <span style="color:#e6db74">&#34;SUCCEEDED&#34;</span>
 }
 {
-  &quot;runTime&quot;: &quot;2019-02-22T03:00:00Z&quot;,
-  &quot;endTime&quot;: &quot;2019-02-22T03:03:05.315392Z&quot;,
-  &quot;state&quot;: &quot;SUCCEEDED&quot;
+  <span style="color:#f92672">&#34;runTime&#34;</span>: <span style="color:#e6db74">&#34;2019-02-22T03:00:00Z&#34;</span>,
+  <span style="color:#f92672">&#34;endTime&#34;</span>: <span style="color:#e6db74">&#34;2019-02-22T03:03:05.315392Z&#34;</span>,
+  <span style="color:#f92672">&#34;state&#34;</span>: <span style="color:#e6db74">&#34;SUCCEEDED&#34;</span>
 }
 {
-  &quot;runTime&quot;: &quot;2019-02-21T03:00:00Z&quot;,
-  &quot;endTime&quot;: &quot;2019-02-21T03:04:01.056948Z&quot;,
-  &quot;state&quot;: &quot;SUCCEEDED&quot;
+  <span style="color:#f92672">&#34;runTime&#34;</span>: <span style="color:#e6db74">&#34;2019-02-21T03:00:00Z&#34;</span>,
+  <span style="color:#f92672">&#34;endTime&#34;</span>: <span style="color:#e6db74">&#34;2019-02-21T03:04:01.056948Z&#34;</span>,
+  <span style="color:#f92672">&#34;state&#34;</span>: <span style="color:#e6db74">&#34;SUCCEEDED&#34;</span>
 }
-...
-</code></pre>
-
+<span style="color:#960050;background-color:#1e0010">...</span>
+</code></pre></div>
                 </section>
             </article>
 

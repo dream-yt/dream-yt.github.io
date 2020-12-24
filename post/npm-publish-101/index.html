@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.79.0" />
 		<title>npmパッケージング関連コマンド &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,65 +83,44 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#npm-init">npm init</a></li>
-<li><a href="#npm-set">npm set</a></li>
-<li><a href="#npm-version">npm version</a></li>
-<li><a href="#npm-publish">npm publish</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#npm-init">npm init</a></li>
+    <li><a href="#npm-set">npm set</a></li>
+    <li><a href="#npm-version">npm version</a></li>
+    <li><a href="#npm-publish">npm publish</a></li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<ul>
+                    <ul>
 <li><a href="https://docs.npmjs.com/cli-documentation/">CLI documentation | npm Documentation</a></li>
 </ul>
-
 <h2 id="npm-init">npm init</h2>
-
 <p>package.json を一般的な方式で初期化してくれる</p>
-
 <ul>
 <li><a href="https://docs.npmjs.com/cli/init.html">npm-init | npm Documentation</a></li>
 </ul>
-
 <h2 id="npm-set">npm set</h2>
-
 <p>author 情報の更新/設定</p>
-
-<pre><code class="language-bash">$ npm set init.author.url https://twitter.com/sakamoto_akira_
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ npm set init.author.url https://twitter.com/sakamoto_akira_
 $ npm set init.author.email mild7caloriemategreentea@gmail.com
 $ npm set init.author.name sakamoto_akira_
 $ npm adduser
-</code></pre>
-
-<h2 id="npm-version">npm version</h2>
-
+</code></pre></div><h2 id="npm-version">npm version</h2>
 <p>package.json の version を上げてくれる</p>
-
-<pre><code class="language-bash">$ npm version patch
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ npm version patch
 $ npm version minor
 $ npm version major
-</code></pre>
-
-<ul>
+</code></pre></div><ul>
 <li><a href="https://docs.npmjs.com/updating-your-published-package-version-number">Updating your published package version number | npm Documentation</a></li>
 </ul>
-
 <h2 id="npm-publish">npm publish</h2>
-
 <p>パッケージの公開</p>
-
-<pre><code class="language-bash">$ git push origin tags/v&quot;$(cat ./package.json | jq -r .version)&quot;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git push origin tags/v<span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>cat ./package.json | jq -r .version<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
 $ npm publish ./
-</code></pre>
-
+</code></pre></div>
                 </section>
             </article>
 

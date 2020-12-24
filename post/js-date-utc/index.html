@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.79.0" />
 		<title>jsでローカルのタイムゾーンに関係なく、日付っぽい文字列をUTCで評価したい &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,26 +83,21 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#参考">参考</a></li>
-<li><a href="#参考-1">参考</a></li>
-</ul></li>
-</ul></li>
-</ul>
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#参考">参考</a></li>
+        <li><a href="#参考-1">参考</a></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p>jsのDateオブジェクトはデフォルトで色々な日付っぽい文字列を受け取るが、受け取った日付っぽい文字列をローカルのタイムゾーンとして評価してしまう</p>
-
-<pre><code class="language-console">$ # jsのDateオブジェクトは普通にconsole.logするとUTCでの時刻を出力する
+                    <p>jsのDateオブジェクトはデフォルトで色々な日付っぽい文字列を受け取るが、受け取った日付っぽい文字列をローカルのタイムゾーンとして評価してしまう</p>
+<pre><code class="language-console" data-lang="console">$ # jsのDateオブジェクトは普通にconsole.logするとUTCでの時刻を出力する
 $ node -p 'new Date(&quot;2019-03-03T11:00:00&quot;)'
 2019-03-03T02:00:00.000Z
 $ # toStringするとどのタイムゾーンとして評価しているかが見られる
@@ -112,15 +107,10 @@ $ TZ=UTC node -p 'new Date(&quot;2019-03-03T11:00:00&quot;)'
 2019-03-03T11:00:00.000Z
 $ TZ=America/Los_Angeles node -p 'new Date(&quot;2019-03-03T11:00:00&quot;)'
 2019-03-03T19:00:00.000Z
-</code></pre>
-
-<p>渡された日付っぽい文字列が常にUTCだとわかっている場合はローカルのタイムゾーンではなくUTCとして評価して欲しい。この場合は日付っぽい文字列に細工をしてUTCとして評価してもらうことができる</p>
-
+</code></pre><p>渡された日付っぽい文字列が常にUTCだとわかっている場合はローカルのタイムゾーンではなくUTCとして評価して欲しい。この場合は日付っぽい文字列に細工をしてUTCとして評価してもらうことができる</p>
 <p>jsのDateオブジェクトが受け取る日付っぽい文字列はISO8601の規格に対応しているので、タイムゾーン指定子を日付っぽい文字列につければ、ローカルのタイムゾーンに関係なく評価してもらえる</p>
-
 <p>UTCのタイムゾーン指定子は <code>Z</code> なので、これをつければUTCとして評価される</p>
-
-<pre><code class="language-console">$ node -p 'new Date(&quot;2019-03-03T11:00:00&quot; + &quot;Z&quot;)'
+<pre><code class="language-console" data-lang="console">$ node -p 'new Date(&quot;2019-03-03T11:00:00&quot; + &quot;Z&quot;)'
 2019-03-03T11:00:00.000Z
 $ # '2019-03-03T11:00:00' がUTCとして評価されて、JSTに変換されている
 $ node -p 'new Date(&quot;2019-03-03T11:00:00&quot; + &quot;Z&quot;).toString()'
@@ -131,17 +121,12 @@ $ TZ=UTC node -p 'new Date(&quot;2019-03-03T11:00:00&quot; + &quot;Z&quot;).toSt
 Sun Mar 03 2019 11:00:00 GMT+0000 (UTC)
 $ TZ=America/Los_Angeles node -p 'new Date(&quot;2019-03-03T11:00:00&quot; + &quot;Z&quot;)'
 2019-03-03T11:00:00.000Z
-</code></pre>
-
-<h3 id="参考">参考</h3>
-
+</code></pre><h3 id="参考">参考</h3>
 <ul>
 <li><a href="https://ja.wikipedia.org/wiki/ISO_8601#%E6%97%A5%E4%BB%98%E3%81%A8%E6%99%82%E5%88%BB%E3%81%AE%E7%B5%84%E5%90%88%E3%81%9B">ISO 8601 / タイムゾーン指定子 - Wikipedia</a></li>
 <li><a href="https://github.com/date-fns/date-fns/issues/489">Specify a time zone for format()? · Issue #489 · date-fns/date-fns</a></li>
 </ul>
-
 <h3 id="参考-1">参考</h3>
-
 <ul>
 <li><a href="https://ja.wikipedia.org/wiki/ISO_8601#%E6%97%A5%E4%BB%98%E3%81%A8%E6%99%82%E5%88%BB%E3%81%AE%E7%B5%84%E5%90%88%E3%81%9B">ISO 8601 / タイムゾーン指定子 - Wikipedia</a></li>
 <li><a href="https://github.com/date-fns/date-fns/issues/489">Specify a time zone for format()? · Issue #489 · date-fns/date-fns</a></li>

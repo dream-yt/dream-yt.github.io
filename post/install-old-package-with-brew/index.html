@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.79.0" />
 		<title>homebrewで過去のversionをインストールする &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -81,29 +81,33 @@
                 </header>
                 
                   
+                    <div id="toc">
+                      <nav id="TableOfContents"></nav>
+                    </div>
+                  
                 
                 <section id="post-body">
                     <ul>
 <li>Formulaが入ってるディレクトリに行く
-
 <ul>
 <li><code>cd /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core/Formula/</code></li>
-</ul></li>
+</ul>
+</li>
 <li>目当てのバージョンでコミットされてるハッシュを見る
-
 <ul>
 <li><code>$ git log foo.rb</code></li>
-</ul></li>
+</ul>
+</li>
 <li>そのファイルを巻き戻す
-
 <ul>
 <li><code>$ git checkout fd1dxxxx foo.rb</code></li>
-</ul></li>
+</ul>
+</li>
 <li>入れ直す
-
 <ul>
 <li><code>$ brew reinstall foo.rb</code></li>
-</ul></li>
+</ul>
+</li>
 </ul>
 
                 </section>

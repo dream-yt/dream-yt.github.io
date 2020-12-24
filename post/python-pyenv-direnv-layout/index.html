@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.79.0" />
 		<title>python(pyenv) と direnv を組み合わせる &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,35 +83,23 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#envrc">.envrc</a></li>
-<li><a href="#参考">参考</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#envrc">.envrc</a></li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p>検索すると日本語の記事は <code>.envrc</code> で <code>source ./venv/bin/activate</code> するのが出てくるが、
+                    <p>検索すると日本語の記事は <code>.envrc</code> で <code>source ./venv/bin/activate</code> するのが出てくるが、
 ディレクトリを出ても deactivate が効かないので少し不便。</p>
-
 <p>公式の説明にならって layout を使うのがよさそうだった。</p>
-
 <h2 id="envrc">.envrc</h2>
-
-<pre><code class="language-bash">layout pyenv 3.8.4
-</code></pre>
-
-<p>初回起動時に <code>.direnv</code> ディレクトリにvenvを作ってくれる。
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">layout pyenv 3.8.4
+</code></pre></div><p>初回起動時に <code>.direnv</code> ディレクトリにvenvを作ってくれる。
 cdで移動してくれば自動的に activate され、出ていけば deactivate される。</p>
-
 <h2 id="参考">参考</h2>
-
 <ul>
 <li><a href="https://github.com/direnv/direnv/wiki/Python">Python · direnv/direnv Wiki</a></li>
 </ul>

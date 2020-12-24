@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="https://dream-yt.github.io/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="Chromeの検索バーで特定のサイト配下を検索する"/>
+  <meta name="twitter:description" content="Chromeの検索バーにはサイトを登録することができる。 検索窓に duckduckgo.com と入れてtabを押してから文言をいれて検索すると、Googleではなくdu"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@site_author"/>
+  
+
+
+
+		
+		<meta name="author" content="site_author">
+		<meta name="description" content="Site Description">
+		<meta name="generator" content="Hugo 0.79.0" />
+		<title>Chromeの検索バーで特定のサイト配下を検索する &middot; sacre</title>
+		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/font-awesome.min.css">
+		
+
+		
+		<link href="https://dream-yt.github.io/index.xml" rel="alternate" type="application/rss+xml" title="sacre" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='https://dream-yt.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://dream-yt.github.io/posts'>Archive</a>
+	<a href='https://dream-yt.github.io/tags'>Tags</a>
+	<a href='https://dream-yt.github.io/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="https://dream-yt.github.io/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        Chromeの検索バーで特定のサイト配下を検索する
+                    </h1>
+                    <h2 class="headline">
+                    Dec 24, 2020 16:16
+                    · 356 words
+                    · 1 minute read
+                      <span class="tags">
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#設定画面の例">設定画面の例</a></li>
+    <li><a href="#設定例">設定例</a></li>
+  </ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    <p>Chromeの検索バーにはサイトを登録することができる。</p>
+<p>検索窓に <code>duckduckgo.com</code> と入れてtabを押してから文言をいれて検索すると、Googleではなくduckduckgoの検索結果画面にいける。</p>
+<p><img src="https://raw.githubusercontent.com/sakamossan/image-bed/master/assets/79711023-07ba-590c-c303-319e551d1441.png" alt=""></p>
+<p>duckduckgoのようなGoogle以外の検索はChromeの設定で追加することができる。
+今回は自分のブログ <code>blog.n-t.jp</code> から検索できるように検索メニューを追加した。</p>
+<h2 id="設定画面の例">設定画面の例</h2>
+<p><img src="https://raw.githubusercontent.com/sakamossan/image-bed/master/assets/b268254c-3738-8666-5301-f4b256f518d4.png" alt=""></p>
+<p>設定項目は</p>
+<ul>
+<li>検索エンジンの名前</li>
+<li>キーワード (検索窓で呼び出すための名前)</li>
+<li>URL <code>%s</code> が検索文言に置換される。 <code>%s</code> のほかにも変数があるようだ (後述)</li>
+</ul>
+<p>この機能をつかって、特定のサイト配下のGoogle検索結果にいくためのショートカットが設定できる。</p>
+<h2 id="設定例">設定例</h2>
+<blockquote>
+<p>{google:baseURL}search?q=site:blog.n-t.jp %s</p>
+</blockquote>
+<ul>
+<li><code>{google:baseURL}</code> が <code>https://google.com/</code> に置換される</li>
+<li><code>site:blog.n-t.jp</code> で特定のドメイン配下の検索結果に絞ってくれる</li>
+</ul>
+<p>この機能があるので自分のブログに検索窓をつけなくてもよい。</p>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fchrome-search-bar-to-myblog%2f - Chrome%e3%81%ae%e6%a4%9c%e7%b4%a2%e3%83%90%e3%83%bc%e3%81%a7%e7%89%b9%e5%ae%9a%e3%81%ae%e3%82%b5%e3%82%a4%e3%83%88%e9%85%8d%e4%b8%8b%e3%82%92%e6%a4%9c%e7%b4%a2%e3%81%99%e3%82%8b by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'your_disqus_short_name'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/dream-yt/sacre">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://twitter.com/FUTABA_SACRE">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2020 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="https://dream-yt.github.io/js/jquery-3.3.1.min.js"></script>
+<script src="https://dream-yt.github.io/js/main.js"></script>
+<script src="https://dream-yt.github.io/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+
+
+
+
+    </body>
+</html>

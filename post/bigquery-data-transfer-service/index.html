@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.79.0" />
 		<title>Bigquery Data Transfer Service について &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -81,32 +81,27 @@
                 </header>
                 
                   
+                    <div id="toc">
+                      <nav id="TableOfContents"></nav>
+                    </div>
+                  
                 
                 <section id="post-body">
                     <p><code>$ bq mk --table --help</code> で今まで知らなかったオプションを見つけた</p>
-
 <pre><code>  --[no]transfer_config: Create transfer config.
   --[no]transfer_run: Creates transfer runs for a time range.
-</code></pre>
-
-<p>アドタグやGAのデータを自動的にBigQueryに取り込める設定のようだ</p>
-
+</code></pre><p>アドタグやGAのデータを自動的にBigQueryに取り込める設定のようだ</p>
 <ul>
 <li><a href="https://cloud.google.com/bigquery/docs/transfer-service-overview?hl=ja">BigQuery Data Transfer Service の概要  |  BigQuery  |  Google Cloud</a></li>
 </ul>
-
 <p>GCSから取り込む設定もある</p>
-
 <ul>
 <li><a href="https://cloud.google.com/bigquery/docs/cloud-storage-transfer-overview?hl=ja">Cloud Storage の転送に関する概要  |  BigQuery  |  Google Cloud</a></li>
 </ul>
-
 <p>本当はBigQuery =&gt; MergeコマンドでBigQuery の転送がやりたいが、今はサポートされていない</p>
-
 <blockquote>
 <p>現在、BigQuery Data Transfer Service を使用して BigQuery からデータを転送することはできません。</p>
 </blockquote>
-
 <p>ただ、<code>現在</code> って書いてあるってことはそのうち出来るようになるのかもしれない</p>
 
                 </section>

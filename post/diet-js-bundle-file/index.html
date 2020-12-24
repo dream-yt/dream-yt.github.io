@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.79.0" />
 		<title>jsファイルの容量削減 lodash/jQuery &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,55 +83,36 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#lodashは全部読み込むと結構重い">lodashは全部読み込むと結構重い</a></li>
-<li><a href="#ほとんと機能を使ってないjqueryが重い">ほとんと機能を使ってないjQueryが重い</a></li>
-</ul></li>
-<li><a href="#雑にライブラリごとのファイル容量を確認する">雑にライブラリごとのファイル容量を確認する</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#lodashは全部読み込むと結構重い">lodashは全部読み込むと結構重い</a></li>
+        <li><a href="#ほとんと機能を使ってないjqueryが重い">ほとんと機能を使ってないjQueryが重い</a></li>
+      </ul>
+    </li>
+    <li><a href="#雑にライブラリごとのファイル容量を確認する">雑にライブラリごとのファイル容量を確認する</a></li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p>webpackの設定がよくなかったのか、生成したバンドルjsファイルが重かったので若干雑な感じで軽くした</p>
-
+                    <p>webpackの設定がよくなかったのか、生成したバンドルjsファイルが重かったので若干雑な感じで軽くした</p>
 <h3 id="lodashは全部読み込むと結構重い">lodashは全部読み込むと結構重い</h3>
-
 <p>lodashは全部ビルドにふくめてしまうと500KBとかになっていてかなり重い</p>
-
 <p>一部の関数しか使っていないのなら、こんな感じでロードするコードを減らすことができる。これはドキュメントにも書いてある方法</p>
-
-<pre><code class="language-ts">import { pull } from 'lodash';
-</code></pre>
-
-<pre><code class="language-ts">import pull from 'lodash/pull';
-</code></pre>
-
-<h3 id="ほとんと機能を使ってないjqueryが重い">ほとんと機能を使ってないjQueryが重い</h3>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">pull</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;lodash&#39;</span>;
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">pull</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;lodash/pull&#39;</span>;
+</code></pre></div><h3 id="ほとんと機能を使ってないjqueryが重い">ほとんと機能を使ってないjQueryが重い</h3>
 <p><code>getElementById</code> とか <code>addEventListene</code> とか書きたくないので jQuery を使ったのだが、jQueryも意外と300KB弱あったので代替として <code>cash</code> を使ってみた</p>
-
 <ul>
 <li><a href="https://github.com/fabiospampinato/cash">fabiospampinato/cash: An absurdly small jQuery alternative for modern browsers.</a></li>
 </ul>
-
 <p>これはきちんと動いたのでよかったのだが、TypeScript対応がきちんとされていてその点だけで本家のjQuery使うならこっちの方が全然良いなという感じだった</p>
-
 <h2 id="雑にライブラリごとのファイル容量を確認する">雑にライブラリごとのファイル容量を確認する</h2>
-
 <p>webpackがバンドルするファイル容量を確認する方法として <code>webpack-bundle-analyzer</code> があるが、そこまで依存ライブラリが多くない場合は <code>--display-modules</code> オプションをつければ一応ライブラリごとの容量が出力されるようになる</p>
-
 <p>出力はこんな感じだが、依存が少なければ見れないこともない</p>
-
-<pre><code class="language-console">$ npx webpack --display-modules
+<pre><code class="language-console" data-lang="console">$ npx webpack --display-modules
 Hash: 705e7db395ef48091f13
 Version: webpack 4.43.0
 Time: 2545ms
@@ -182,7 +163,6 @@ Entrypoint main = index.js
 [./src/browser/index.scss] 569 bytes {main} [built]
 [./src/browser/index.ts] 3.6 KiB {main} [built]
 </code></pre>
-
                 </section>
             </article>
 

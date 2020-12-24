@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.79.0" />
 		<title>特定のファイルを消したコミットを確認する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -81,15 +81,15 @@
                 </header>
                 
                   
+                    <div id="toc">
+                      <nav id="TableOfContents"></nav>
+                    </div>
+                  
                 
                 <section id="post-body">
                     <p>以下のコマンドで確認できる</p>
-
 <pre><code>$ git log --diff-filter=D -- path/to/targetfile.pl
-</code></pre>
-
-<p><code>--</code> 以降にファイル名を渡すとそのファイルの履歴だけ見ることが出来る</p>
-
+</code></pre><p><code>--</code> 以降にファイル名を渡すとそのファイルの履歴だけ見ることが出来る</p>
 <pre><code>        [--] &lt;path&gt;...
             Show only commits that are enough to explain how the files that
             match the specified paths came to be. See History Simplification
@@ -97,10 +97,7 @@
 
             Paths may need to be prefixed with -- to separate them from options
             or the revision range, when confusion arises.
-</code></pre>
-
-<p><code>--diff-filter</code> オプションはファイル操作ごとのフィルタを提供している</p>
-
+</code></pre><p><code>--diff-filter</code> オプションはファイル操作ごとのフィルタを提供している</p>
 <pre><code>$ git log --help | grep -A20 diff-filter
        --diff-filter=[(A|C|D|M|R|T|U|X|B)...[*]]
             Select only files that are Added (A), Copied (C), Deleted (D),
@@ -123,7 +120,6 @@
             appear if detection for those types is disabled.
 
 </code></pre>
-
                 </section>
             </article>
 

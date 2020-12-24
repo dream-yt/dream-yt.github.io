@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.79.0" />
 		<title>emojiで肌とか性別とか髪の色が変えられる仕組み &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,42 +83,29 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#zero-width-joiner-zwj">Zero Width Joiner (ZWJ)</a></li>
-<li><a href="#参考">参考</a></li>
-<li><a href="#仕様">仕様</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#zero-width-joiner-zwj">Zero Width Joiner (ZWJ)</a></li>
+    <li><a href="#参考">参考</a></li>
+    <li><a href="#仕様">仕様</a></li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p>unicodeでは肌の色を変えられる仕組みが2015年から入っている。これは <code>skin tone modifiers</code> と呼ばれるもので、結合文字のようにベースとなる絵文字の後ろにコードポイントを従えることで実現している</p>
-
+                    <p>unicodeでは肌の色を変えられる仕組みが2015年から入っている。これは <code>skin tone modifiers</code> と呼ばれるもので、結合文字のようにベースとなる絵文字の後ろにコードポイントを従えることで実現している</p>
 <pre><code>$ node
 &gt; &quot;\u{1F466}&quot;
 '👦'
 &gt; &quot;\u{1F466}\u{1F3FE}&quot;
 '👦🏾'
-</code></pre>
-
-<h2 id="zero-width-joiner-zwj">Zero Width Joiner (ZWJ)</h2>
-
+</code></pre><h2 id="zero-width-joiner-zwj">Zero Width Joiner (ZWJ)</h2>
 <p>Zero Width Joiner (ZWJ) という仕組みがあり、これは複数の絵文字を1文字にまとめるための仕組み。emojiの人物の性別を変えたり、カップルの性別を指示したりとかはこの仕組みを使っている</p>
-
 <h2 id="参考">参考</h2>
-
 <ul>
 <li><a href="https://eng.getwisdom.io/emoji-modifiers-and-sequence-combinations/">Emoji Modifiers and Sequence Combinations</a></li>
 </ul>
-
 <h2 id="仕様">仕様</h2>
-
 <ul>
 <li><a href="https://unicode.org/emoji/charts/full-emoji-modifiers.html">Full Emoji Modifier Sequences, v13.0</a></li>
 <li><a href="http://unicode.org/reports/tr51/">UTS #51: Unicode Emoji</a></li>

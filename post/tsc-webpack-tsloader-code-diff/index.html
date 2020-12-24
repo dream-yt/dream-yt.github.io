@@ -14,7 +14,7 @@
   
   
   <meta name="twitter:title" content="webpack&#43;ts-loaderとtscで同じコードをトランスパイルした結果の違いをみてみる"/>
-  <meta name="twitter:description" content="トランスパイルされる元のコードはこんな感じ index.ts import { f } from &#39;./A&#39;; console.log(&quot;this is index&quot;); f(); A.ts export const f = () =&gt; console.log(&quot;this is A.f&quot;) このコードを以下の4パターンでトランスパイルしてみて、出"/>
+  <meta name="twitter:description" content="トランスパイルされる元のコードはこんな感じ index.ts import { f } from &#39;./A&#39;; console.log(&#34;this is index&#34;); f(); A.ts export const f = () =&gt; console.log(&#34;this is A.f&#34;) このコードを以下の4パターンでトランスパイルしてみて、出"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.79.0" />
 		<title>webpack&#43;ts-loaderとtscで同じコードをトランスパイルした結果の違いをみてみる &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -72,8 +72,8 @@
                     </h1>
                     <h2 class="headline">
                     Aug 29, 2020 17:19
-                    · 1315 words
-                    · 3 minute read
+                    · 404 words
+                    · 1 minute read
                       <span class="tags">
                       
                       </span>
@@ -83,304 +83,89 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#index-ts">index.ts</a></li>
-<li><a href="#a-ts">A.ts</a></li>
-</ul></li>
-</ul></li>
-</ul></li>
-<li><a href="#tsc">tsc</a>
-<ul>
-<li><a href="#tsc-module-commonjs">tsc &ndash;module commonjs</a>
-<ul>
-<li>
-<ul>
-<li><a href="#index-js">index.js</a></li>
-<li><a href="#a-js">A.js</a></li>
-</ul></li>
-</ul></li>
-<li><a href="#tsc-module-esnext">tsc &ndash;module esnext</a>
-<ul>
-<li>
-<ul>
-<li><a href="#index-js-1">index.js</a></li>
-<li><a href="#a-js-1">A.js</a></li>
-</ul></li>
-</ul></li>
-</ul></li>
-<li><a href="#webpack-ts-loader">webpack+ts-loader</a>
-<ul>
-<li><a href="#tsconfig-module-commonjs">tsconfig#module=commonjs</a></li>
-<li><a href="#tsconfig-module-esnext">tsconfig#module=esnext</a></li>
-</ul></li>
-<li><a href="#感想">感想</a></li>
-</ul>
+  <ul>
+    <li>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#tsc---module-commonjs">tsc &ndash;module commonjs</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#tsc---module-esnext">tsc &ndash;module esnext</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#tsconfigmodulecommonjs">tsconfig#module=commonjs</a></li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p>トランスパイルされる元のコードはこんな感じ</p>
-
-<h4 id="index-ts">index.ts</h4>
-
-<pre><code class="language-ts">import { f } from './A';
-console.log(&quot;this is index&quot;);
-f();
-</code></pre>
-
-<h4 id="a-ts">A.ts</h4>
-
-<pre><code class="language-ts">export const f = () =&gt; console.log(&quot;this is A.f&quot;)
-</code></pre>
-
-<p>このコードを以下の4パターンでトランスパイルしてみて、出力されるコードの変化を眺める</p>
-
+                    <p>トランスパイルされる元のコードはこんな感じ</p>
+<h4 id="indexts">index.ts</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">f</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;./A&#39;</span>;
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;this is index&#34;</span>);
+<span style="color:#a6e22e">f</span>();
+</code></pre></div><h4 id="ats">A.ts</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">f</span> <span style="color:#f92672">=</span> () <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;this is A.f&#34;</span>)
+</code></pre></div><p>このコードを以下の4パターンでトランスパイルしてみて、出力されるコードの変化を眺める</p>
 <ul>
 <li>tsc &ndash;module commonjs</li>
 <li>tsc &ndash;module esnext</li>
 <li>webpack (tsconfig#module=commonjs)</li>
 <li>webpack (tsconfig#module=exnext)</li>
 </ul>
-
 <h1 id="tsc">tsc</h1>
-
-<h2 id="tsc-module-commonjs">tsc &ndash;module commonjs</h2>
-
+<h2 id="tsc---module-commonjs">tsc &ndash;module commonjs</h2>
 <p>commonjsで読める形式にトランスパイルされる</p>
-
 <p>nodejsでは実行できるが、そのままだとIEなどでは実行できなさそうだ</p>
-
-<h4 id="index-js">index.js</h4>
-
-<pre><code class="language-js">&quot;use strict&quot;;
-Object.defineProperty(exports, &quot;__esModule&quot;, { value: true });
-var A_1 = require(&quot;./A&quot;);
-console.log(&quot;this is index&quot;);
-A_1.f();
-</code></pre>
-
-<h4 id="a-js">A.js</h4>
-
-<pre><code class="language-js">&quot;use strict&quot;;
-Object.defineProperty(exports, &quot;__esModule&quot;, { value: true });
-exports.f = void 0;
-exports.f = function () { return console.log(&quot;this is A.f&quot;); };
-</code></pre>
-
-<p>もともとのコードがESMなので以下の行がついている</p>
-
+<h4 id="indexjs">index.js</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#e6db74">&#34;use strict&#34;</span>;
+Object.<span style="color:#a6e22e">defineProperty</span>(<span style="color:#a6e22e">exports</span>, <span style="color:#e6db74">&#34;__esModule&#34;</span>, { <span style="color:#a6e22e">value</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span> });
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">A_1</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#34;./A&#34;</span>);
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;this is index&#34;</span>);
+<span style="color:#a6e22e">A_1</span>.<span style="color:#a6e22e">f</span>();
+</code></pre></div><h4 id="ajs">A.js</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#e6db74">&#34;use strict&#34;</span>;
+Object.<span style="color:#a6e22e">defineProperty</span>(<span style="color:#a6e22e">exports</span>, <span style="color:#e6db74">&#34;__esModule&#34;</span>, { <span style="color:#a6e22e">value</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span> });
+<span style="color:#a6e22e">exports</span>.<span style="color:#a6e22e">f</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">void</span> <span style="color:#ae81ff">0</span>;
+<span style="color:#a6e22e">exports</span>.<span style="color:#a6e22e">f</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> () { <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;this is A.f&#34;</span>); };
+</code></pre></div><p>もともとのコードがESMなので以下の行がついている</p>
 <blockquote>
 <p>Object.defineProperty(exports, &ldquo;__esModule&rdquo;, { value: true });</p>
 </blockquote>
-
-<h2 id="tsc-module-esnext">tsc &ndash;module esnext</h2>
-
+<h2 id="tsc---module-esnext">tsc &ndash;module esnext</h2>
 <p>トランスパイル結果もESMとなる
 これはちょっと古いnodejsだと読めない形式</p>
-
-<h4 id="index-js-1">index.js</h4>
-
-<pre><code class="language-js">import { f } from './A';
-console.log(&quot;this is index&quot;);
-f();
-</code></pre>
-
-<h4 id="a-js-1">A.js</h4>
-
-<pre><code class="language-js">export var f = function () { return console.log(&quot;this is A.f&quot;); };
-</code></pre>
-
-<h1 id="webpack-ts-loader">webpack+ts-loader</h1>
-
+<h4 id="indexjs-1">index.js</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">f</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./A&#39;</span>;
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;this is index&#34;</span>);
+<span style="color:#a6e22e">f</span>();
+</code></pre></div><h4 id="ajs-1">A.js</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">f</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> () { <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;this is A.f&#34;</span>); };
+</code></pre></div><h1 id="webpackts-loader">webpack+ts-loader</h1>
 <p>webpackでindex.tsファイルをビルドするときどうなるかをみてみる
 typescriptの変換にはts-loaderを使う</p>
-
 <pre><code>$ npx webpack --mode none --entry ./index.ts --output ./out/bundle.js
-</code></pre>
-
-<p>以下の2パターンでどうなるかを確認する</p>
-
+</code></pre><p>以下の2パターンでどうなるかを確認する</p>
 <ul>
 <li>tsconfig#module=commonjs</li>
 <li>tsconfig#module=esnext</li>
 </ul>
-
-<h2 id="tsconfig-module-commonjs">tsconfig#module=commonjs</h2>
-
+<h2 id="tsconfigmodulecommonjs">tsconfig#module=commonjs</h2>
 <p>こんなjsが生成された</p>
-
-<p><pre>
-/***<strong><em>/ (function(modules) { // webpackBootstrap
-/</em></strong><strong><em>/    // The module cache
-/</em></strong><strong><em>/    var installedModules = {};
-/</em></strong><strong><em>/
-/</em></strong><strong><em>/    // The require function
-/</em></strong><strong><em>/    function <strong>webpack_require</strong>(moduleId) {
-/</em></strong><strong><em>/
-/</em></strong><strong><em>/        // Check if module is in cache
-/</em></strong><strong><em>/        if(installedModules[moduleId]) {
-/</em></strong><strong><em>/            return installedModules[moduleId].exports;
-/</em></strong><strong><em>/        }
-/</em></strong><strong><em>/        // Create a new module (and put it into the cache)
-/</em></strong><strong><em>/        var module = installedModules[moduleId] = {
-/</em></strong><strong><em>/            i: moduleId,
-/</em></strong><strong><em>/            l: false,
-/</em></strong><strong><em>/            exports: {}
-/</em></strong><strong><em>/        };
-/</em></strong><strong><em>/
-/</em></strong><strong><em>/        // Execute the module function
-/</em></strong><strong><em>/        modules[moduleId].call(module.exports, module, module.exports, <strong>webpack_require</strong>);
-/</em></strong><strong><em>/
-/</em></strong><strong><em>/        // Flag the module as loaded
-/</em></strong><strong><em>/        module.l = true;
-/</em></strong><strong><em>/
-/</em></strong><strong><em>/        // Return the exports of the module
-/</em></strong><strong><em>/        return module.exports;
-/</em></strong><strong><em>/    }
-/</em></strong><strong><em>/
-/</em></strong><strong><em>/
-/</em></strong><strong><em>/    // expose the modules object (<strong>webpack_modules</strong>)
-/</em></strong><strong><em>/    <strong>webpack_require</strong>.m = modules;
-/</em></strong><strong><em>/
-/</em></strong><strong><em>/    // expose the module cache
-/</em></strong><strong><em>/    <strong>webpack_require</strong>.c = installedModules;
-/</em></strong><strong><em>/
-/</em></strong><strong><em>/    // define getter function for harmony exports
-/</em></strong><strong><em>/    <strong>webpack_require</strong>.d = function(exports, name, getter) {
-/</em></strong><strong><em>/        if(!<strong>webpack_require</strong>.o(exports, name)) {
-/</em></strong><strong><em>/            Object.defineProperty(exports, name, { enumerable: true, get: getter });
-/</em></strong><strong><em>/        }
-/</em></strong><strong><em>/    };
-/</em></strong><strong><em>/
-/</em></strong><strong><em>/    // define __esModule on exports
-/</em></strong><strong><em>/    <strong>webpack_require</strong>.r = function(exports) {
-/</em></strong><strong><em>/        if(typeof Symbol !== &lsquo;undefined&rsquo; &amp;&amp; Symbol.toStringTag) {
-/</em></strong><strong><em>/            Object.defineProperty(exports, Symbol.toStringTag, { value: &lsquo;Module&rsquo; });
-/</em></strong><strong><em>/        }
-/</em></strong><strong><em>/        Object.defineProperty(exports, &lsquo;__esModule&rsquo;, { value: true });
-/</em></strong><strong><em>/    };
-/</em></strong><strong><em>/
-/</em></strong><strong><em>/    // create a fake namespace object
-/</em></strong><strong><em>/    // mode &amp; 1: value is a module id, require it
-/</em></strong><strong><em>/    // mode &amp; 2: merge all properties of value into the ns
-/</em></strong><strong><em>/    // mode &amp; 4: return value when already ns object
-/</em></strong><strong><em>/    // mode &amp; 8|1: behave like require
-/</em></strong><strong><em>/    <strong>webpack_require</strong>.t = function(value, mode) {
-/</em></strong><strong><em>/        if(mode &amp; 1) value = <strong>webpack_require</strong>(value);
-/</em></strong><strong><em>/        if(mode &amp; 8) return value;
-/</em></strong><strong><em>/        if((mode &amp; 4) &amp;&amp; typeof value === &lsquo;object&rsquo; &amp;&amp; value &amp;&amp; value.__esModule) return value;
-/</em></strong><strong><em>/        var ns = Object.create(null);
-/</em></strong><strong><em>/        <strong>webpack_require</strong>.r(ns);
-/</em></strong><strong><em>/        Object.defineProperty(ns, &lsquo;default&rsquo;, { enumerable: true, value: value });
-/</em></strong><strong><em>/        if(mode &amp; 2 &amp;&amp; typeof value != &lsquo;string&rsquo;) for(var key in value) <strong>webpack_require</strong>.d(ns, key, function(key) { return value[key]; }.bind(null, key));
-/</em></strong><strong><em>/        return ns;
-/</em></strong><strong><em>/    };
-/</em></strong><strong><em>/
-/</em></strong><strong><em>/    // getDefaultExport function for compatibility with non-harmony modules
-/</em></strong><strong><em>/    <strong>webpack_require</strong>.n = function(module) {
-/</em></strong><strong><em>/        var getter = module &amp;&amp; module.__esModule ?
-/</em></strong><strong><em>/            function getDefault() { return module[&lsquo;default&rsquo;]; } :
-/</em></strong><strong><em>/            function getModuleExports() { return module; };
-/</em></strong><strong><em>/        <strong>webpack_require</strong>.d(getter, &lsquo;a&rsquo;, getter);
-/</em></strong><strong><em>/        return getter;
-/</em></strong><strong><em>/    };
-/</em></strong><strong><em>/
-/</em></strong><strong><em>/    // Object.prototype.hasOwnProperty.call
-/</em></strong><strong><em>/    <strong>webpack_require</strong>.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
-/</em></strong><strong><em>/
-/</em></strong><strong><em>/    // <strong>webpack_public_path</strong>
-/</em></strong><strong><em>/    <strong>webpack_require</strong>.p = &ldquo;&rdquo;;
-/</em></strong><strong><em>/
-/</em></strong><strong><em>/
-/</em></strong><strong><em>/    // Load entry module and return exports
-/</em></strong><strong><em>/    return <strong>webpack_require</strong>(<strong>webpack_require</strong>.s = 0);
-/</em></strong><strong><em>/ })
-/</em></strong>******************************************************************<strong><em>/
-/</em></strong>*<strong>/ ([
-/* 0 */
-/</strong>*/ (function(module, exports, <strong>webpack_require</strong>) {</p>
-
-<p>&ldquo;use strict&rdquo;;</p>
-
-<p>Object.defineProperty(exports, &ldquo;__esModule&rdquo;, { value: true });
-var A_1 = <strong>webpack_require</strong>(1);
-console.log(&ldquo;this is index&rdquo;);
-A_1.f();</p>
-
-<p>/*<strong>/ }),
-/* 1 */
-/</strong>*/ (function(module, exports, <strong>webpack_require</strong>) {</p>
-
-<p>&ldquo;use strict&rdquo;;</p>
-
-<p>Object.defineProperty(exports, &ldquo;__esModule&rdquo;, { value: true });
-exports.f = void 0;
-exports.f = function () { return console.log(&ldquo;this is A.f&rdquo;); };</p>
-
-<p>/<strong><em>/ })
-/</em></strong>***/ ]);
-<pre></p>
-
-<p>webpackは依存関係をすべて関数の配列として閉じ込めたjsを吐くようになっているが、
-関数の配列に閉じ込められた部分は tsconfig.json が tsc で出力したものと同じようになっている</p>
-
-<p>処理の中に exports が出てきているが、これは webpack が注入 (<code>Execute the module function</code> というコメントのあたり)しているもので、もちろんブラウザや標準で定義されている <code>exports</code> オブジェクトとは違うものとなっている</p>
-
-<h2 id="tsconfig-module-esnext">tsconfig#module=esnext</h2>
-
-<p>もとは同じ index.ts だが、tsconfig.json によって webpack が違うコードを生成するのがわかる</p>
-
-<pre><code class="language-js">...
-
-// 前半部分は module=commonjs と一緒なので省略
-
-/* 0 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-&quot;use strict&quot;;
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _A__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
-
-console.log(&quot;this is index&quot;);
-Object(_A__WEBPACK_IMPORTED_MODULE_0__[&quot;f&quot;])();
-
-
-/***/ }),
-/* 1 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-&quot;use strict&quot;;
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, &quot;f&quot;, function() { return f; });
-var f = function () { return console.log(&quot;this is A.f&quot;); };
-
-
-/***/ })
-</code></pre>
-
-<h1 id="感想">感想</h1>
-
-<ul>
-<li>tsc は commonjs や ESM など、そのままで色んなブラウザが解釈できる形式までやってくれるわけではない
-
-<ul>
-<li>パスの解決とかまでは tsc はやってくれない。バンドルを作るためのソフトウェアではない</li>
-</ul></li>
-<li>webpack は commonjs や ESM をブラウザが解釈する形式まで落とし込んでくれる
-
-<ul>
-<li>webpack はバンドルを作るためのソフトウェアなのでそこを頑張ってくれる</li>
-</ul></li>
-</ul>
+<!-- raw HTML omitted -->
 
                 </section>
             </article>

@@ -14,7 +14,7 @@
   
   
   <meta name="twitter:title" content="bashでファイルの拡張子を一括変更する"/>
-  <meta name="twitter:description" content="たとえばsrc配下のjsファイルをぜんぶtsファイルに変更したい場合は以下のように書ける $ find ./src -name &#39;*.js&#39; -type f \ | perl -wnlE &#39;/(\S&#43;).js/ and say &quot;$1.js $1.ts&quot;&#39; \ | xargs -n2 mv 動作 find ./src -name"/>
+  <meta name="twitter:description" content="たとえばsrc配下のjsファイルをぜんぶtsファイルに変更したい場合は以下のように書ける $ find ./src -name &#39;*.js&#39; -type f \ | perl -wnlE &#39;/(\S&#43;).js/ and say &#34;$1.js $1.ts&#34;&#39; \ | xargs -n2 mv 動作 find ./src -name"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.79.0" />
 		<title>bashでファイルの拡張子を一括変更する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,95 +83,69 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#動作">動作</a></li>
-<li><a href="#参考">参考</a></li>
-<li><a href="#その他">その他</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#動作">動作</a></li>
+    <li><a href="#参考">参考</a></li>
+    <li><a href="#その他">その他</a></li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p>たとえばsrc配下のjsファイルをぜんぶtsファイルに変更したい場合は以下のように書ける</p>
-
-<pre><code class="language-bash">$ find ./src -name '*.js' -type f \
-  | perl -wnlE '/(\S+).js/ and say &quot;$1.js $1.ts&quot;' \
-  | xargs -n2 mv
-</code></pre>
-
-<h2 id="動作">動作</h2>
-
+                    <p>たとえばsrc配下のjsファイルをぜんぶtsファイルに変更したい場合は以下のように書ける</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ find ./src -name <span style="color:#e6db74">&#39;*.js&#39;</span> -type f <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  | perl -wnlE <span style="color:#e6db74">&#39;/(\S+).js/ and say &#34;$1.js $1.ts&#34;&#39;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  | xargs -n2 mv
+</code></pre></div><h2 id="動作">動作</h2>
 <ul>
 <li><code>find ./src -name '*.js' -type f</code>
-
 <ul>
 <li><code>**/*.js</code> なファイルパスを集めてきている</li>
 <li>eg: <code>./src/app/pages/index.js</code></li>
-</ul></li>
+</ul>
+</li>
 <li><code>perl -wnlE '/(\S+).js/ and say &quot;$1.js $1.ts&quot;'</code>
-
 <ul>
 <li>受け取ったファイルパスからjsをとってtsをつけて出力</li>
 <li>eg: <code>./src/app/pages/index.js ./src/app/pages/index.ts</code></li>
-</ul></li>
+</ul>
+</li>
 <li><code>xargs -n2 mv</code>
-
 <ul>
 <li>mv にふたつのファイル名を渡してリネーム</li>
-</ul></li>
 </ul>
-
+</li>
+</ul>
 <p><code>xargs -n2</code> は以下のように書いてある</p>
-
 <pre><code>-n number
         Set the maximum number of arguments taken from standard input for each invocation of utility.  An invocation of utility will use less than number standard input arguments if
         the number of bytes accumulated (see the -s option) exceeds the specified size or there are fewer than number arguments remaining for the last invocation of utility.  The
         current default value for number is 5000.
-</code></pre>
-
-<p>-n2で2個づつ処理してくれるようになる</p>
-
+</code></pre><p>-n2で2個づつ処理してくれるようになる</p>
 <blockquote>
 <p>Set the maximum number of arguments</p>
 </blockquote>
-
 <h2 id="参考">参考</h2>
-
 <ul>
 <li><a href="https://dev.classmethod.jp/etc/rename_massive_files/">大量のファイルをシェルのコマンドで一括リネームする ｜ DevelopersIO</a></li>
 </ul>
-
 <h2 id="その他">その他</h2>
-
 <p>Linuxだとrenameコマンドというのがあって便利なようだ</p>
-
 <ul>
 <li><a href="https://wiki.ubuntulinux.jp/UbuntuTips/FileHandling/RenameCommand">UbuntuTips/FileHandling/RenameCommand - Ubuntu Japanese Wiki</a></li>
 </ul>
-
 <p>perlスクリプトで、File::Rename::rename を呼んでいるだけだった
 (移植できないもんなのかな)</p>
-
 <ul>
 <li><a href="https://metacpan.org/pod/File::Rename">File::Rename - Perl extension for renaming multiple files - metacpan.org</a></li>
 </ul>
-
 <pre><code>cat /usr/bin/rename
-</code></pre>
-
-<p>作者はLarry Wall</p>
-
+</code></pre><p>作者はLarry Wall</p>
 <pre><code>=head1 AUTHOR
 
 Larry Wall
 </code></pre>
-
                 </section>
             </article>
 
