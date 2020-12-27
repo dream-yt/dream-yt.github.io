@@ -6,7 +6,25 @@
     <description>Recent content in Posts on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Fri, 25 Dec 2020 18:53:17 +0900</lastBuildDate><atom:link href="https://dream-yt.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 27 Dec 2020 23:34:21 +0900</lastBuildDate><atom:link href="https://dream-yt.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>GitHub Action で実行中のブランチ名とリビジョンを出す</title>
+      <link>https://dream-yt.github.io/post/github-action-revision-and-branch/</link>
+      <pubDate>Sun, 27 Dec 2020 23:34:21 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/github-action-revision-and-branch/</guid>
+      <description>こんな感じで出力できる。 - name: Show Revision run: |echo -e &amp;#34;Branch: ${GITHUB_REF##*/}&amp;#34; echo -e &amp;#34;Revision: ${GITHUB_SHA:0:8}&amp;#34; 参考 git - Getting current branch and commit hash in GitHub action - Stack Overflow</description>
+    </item>
+    
+    <item>
+      <title>workflow_dispatch イベントを act でローカルで実行する場合</title>
+      <link>https://dream-yt.github.io/post/act-workflow_dispatch-event/</link>
+      <pubDate>Sun, 27 Dec 2020 23:29:37 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/act-workflow_dispatch-event/</guid>
+      <description>myjob という workflow_dispatch イベントで定義した job を act で実行したい場合。 .act/stg.event.json というファイルを作成する { &amp;#34;event&amp;#34;: &amp;#34;workflow_dispatch&amp;#34;, &amp;#34;inputs&amp;#34;: { &amp;#34;stage&amp;#34;: &amp;#34;stg&amp;#34; } } --eventpath で実行するイベントを指定 $ act --job myjob --eventpath .act/stg.event.json 参考 how</description>
+    </item>
+    
     <item>
       <title>create-react-app と firebase の環境構築</title>
       <link>https://dream-yt.github.io/post/firebase-and-create-react-app/</link>

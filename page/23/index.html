@@ -24,7 +24,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.79.1" />
 		<title>sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -72,6 +72,36 @@
 
     <section id="wrapper" class="home">
         <ul id="post-list">
+    
+    
+        
+            <li>
+                <aside class="dates">Feb 13</aside>
+                <a href='https://dream-yt.github.io/post/ffmpeg-for-bitrate/'>
+                    macで動画のビットレートを変更したい
+                    
+                        
+                            <h2>ffmpegを使う $ brew install ffmpeg こんな感じで使う $ ffmpeg -i ./inputfile.mp4 -b:v 2M -bufsize 10M ./outfile.mp4 -b:v 2M 指定したいbitrate。KBで指定したい場合は 320K のようにKを使う -bufsize 10M どれく</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Jan 29</aside>
+                <a href='https://dream-yt.github.io/post/bigquery-show-data-transfer-service/'>
+                    BigQueryのtransfer_configを表示する
+                    
+                        
+                            <h2>以下の要領で表示できる $ bq --format=json ls --transfer_config --transfer_location=&#39;us&#39; $ bq show --transfer_config projects/123456789/locations/us/transferConfigs/xxxxxx 出力される設定はこんな感じ ( --format=json ) bq mk にこの形式のjsonを食わせると設定できるのだろうか? 🤔 $ bq</h2>
+                        
+                    
+                </a>
+            </li>
+        
     
     
         
@@ -187,36 +217,6 @@
                     
                         
                             <h2>下記の図でJSTでの18日〜19日のデータが欲しい場合のこと 前提 日本で使いたいデータなので「日本時間での一昨日から昨日」 カラムにはunixタ</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jan 12</aside>
-                <a href='https://dream-yt.github.io/post/python-jst-timezone-aware-datetime/'>
-                    PythonでTimezone Aware(Jst)なdatetimeを作る
-                    
-                        
-                            <h2>ググっても簡単なのが出てこなかったのでメモ 環境は python 3.6.7 こんな定義で引数に渡した日付時間がJSTのdatetimeになる from pytz import timezone def jst_datetime(*args): rest = [0] * (7 -</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jan 7</aside>
-                <a href='https://dream-yt.github.io/post/etc-hosts-hostile/'>
-                    hostileで/etc/hostsをテキスト管理する
-                    
-                        
-                            <h2>feross/hostile: Simple, programmatic /etc/hosts manipulation (in node.js) install インストールはyarnで入る (brewとかは用意されてなさそう) $ yarn global add hostile load hostile load コマンドで引数に渡した定義が/etc/hos</h2>
                         
                     
                 </a>
