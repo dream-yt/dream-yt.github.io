@@ -6,7 +6,16 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sun, 27 Dec 2020 23:34:21 +0900</lastBuildDate><atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 31 Dec 2020 22:31:54 +0900</lastBuildDate><atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>vscodeでgolintの警告を抑制する</title>
+      <link>https://dream-yt.github.io/post/vscode-suppress-golint-warning/</link>
+      <pubDate>Thu, 31 Dec 2020 22:31:54 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/vscode-suppress-golint-warning/</guid>
+      <description>vscodeでgolangをgolintしながら書いていると、以下のようなwarningが出る。 exported type Expression should have comment or be unexportedgo-lint publicなコードには説</description>
+    </item>
+    
     <item>
       <title>GitHub Action で実行中のブランチ名とリビジョンを出す</title>
       <link>https://dream-yt.github.io/post/github-action-revision-and-branch/</link>

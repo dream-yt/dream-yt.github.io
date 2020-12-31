@@ -3,17 +3,22 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://dream-yt.github.io/post/github-action-revision-and-branch/</loc>
-    <lastmod>2020-12-27T23:34:21+09:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://dream-yt.github.io/post/</loc>
-    <lastmod>2020-12-27T23:34:21+09:00</lastmod>
+    <lastmod>2020-12-31T22:31:54+09:00</lastmod>
   </url>
   
   <url>
     <loc>https://dream-yt.github.io/</loc>
+    <lastmod>2020-12-31T22:31:54+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://dream-yt.github.io/post/vscode-suppress-golint-warning/</loc>
+    <lastmod>2020-12-31T22:31:54+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://dream-yt.github.io/post/github-action-revision-and-branch/</loc>
     <lastmod>2020-12-27T23:34:21+09:00</lastmod>
   </url>
   
