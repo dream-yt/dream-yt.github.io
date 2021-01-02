@@ -76,6 +76,21 @@
     
         
             <li>
+                <aside class="dates">Nov 4</aside>
+                <a href='https://dream-yt.github.io/post/html5-read-file-data-ad-url/'>
+                    html5のFileオブジェクトからimg/videoタグで使えるURLを取得する
+                    
+                        
+                            <h2>こんな関数で取得できる const f = (file: File) =&gt; { const reader = new FileReader(); const promise = new Promise((resolve, reject) =&gt; { reader.onerror = e =&gt; reject(e); reader.onabort = e =&gt; reject(e); reader.onload = e =&gt; resolve(e.target?.result); }); reader.readAsDataURL(file); return promise; }; ... const url = f(event.currentTarget.files[0]); return &lt;video&gt;&lt;source src={url} /&gt;&lt;/video&gt; 参考 Web アプリケーショ</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
                 <aside class="dates">Oct 31</aside>
                 <a href='https://dream-yt.github.io/post/react-formik-file-dragndrop/'>
                     React/Formikでファイルのドラッグアンドドロップ
@@ -208,21 +223,6 @@
             </li>
         
     
-    
-        
-            <li>
-                <aside class="dates">Sep 12</aside>
-                <a href='https://dream-yt.github.io/post/ffmpeg-cutout-mp3/'>
-                    ffmpegを使ってmp3をカットする
-                    
-                        
-                            <h2>こんな感じで切り出せる ffmpeg -ss 7 -to 00:00:12 -i ./source.mp3 ./output.mp3 -ss 切り出す開始時点の秒数 -to 切り出す終了時点。ffmpegは秒数で指定するとわかりにくいのでこの形式 -i 元</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
 </ul>
 
         <nav id="post-nav">
@@ -264,7 +264,7 @@
     
     <p class="small">
     
-       © Copyright 2020 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+       © Copyright 2021 <i class="fa fa-heart" aria-hidden="true"></i> site_author
     
     </p>
     <p class="small">

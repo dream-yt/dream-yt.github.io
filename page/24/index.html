@@ -77,6 +77,21 @@
         
             <li>
                 <aside class="dates">Jan 20</aside>
+                <a href='https://dream-yt.github.io/post/list-alb-names/'>
+                    AWSでプロジェクトに存在するALBを一覧する
+                    
+                        
+                            <h2>aws cloudwatch list-metrics \ --namespace AWS/ApplicationELB \ --metric-name RequestCount \ | jq -r &#39;.Metrics[].Dimensions[] | select(.Name | test(&#34;LoadBalancer&#34;)) | .Value&#39; \ | sort \ | uniq jq の部分はjsonから必要な部分を抜き出すためのもの 配列を Name=LoadBalancer なオブジェクトにフィルタして</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Jan 20</aside>
                 <a href='https://dream-yt.github.io/post/athena-before-yesterday-utc-jst/'>
                     athenaのUNIXタイムスタンプなカラムをJSTで一昨日から昨日の範囲でとる場合
                     
@@ -208,21 +223,6 @@
             </li>
         
     
-    
-        
-            <li>
-                <aside class="dates">Dec 12</aside>
-                <a href='https://dream-yt.github.io/post/vscode-perl-docker-linter/'>
-                    vscodeからdockerコンテナ内でperl -wcして文法チェック
-                    
-                        
-                            <h2>こちらを使うと簡単に出来た henriiik/vscode-docker-linter: Lint the things in your docker containers 設定 設定項目もこれくらいで済む &#34;docker-linter.perl.enable&#34;: true, &#34;docker-linter.perl.machine&#34;: &#34;&#34;, // &#34;default&#34;だとdocker-mac</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
 </ul>
 
         <nav id="post-nav">
@@ -264,7 +264,7 @@
     
     <p class="small">
     
-       © Copyright 2020 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+       © Copyright 2021 <i class="fa fa-heart" aria-hidden="true"></i> site_author
     
     </p>
     <p class="small">
