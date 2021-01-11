@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.1" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>cookiecutterでtypescript/jest/eslintのテンプレートを作った &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,23 +83,35 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#機能">機能</a></li>
-    <li><a href="#備考">備考</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#機能">機能</a></li>
+<li><a href="#備考">備考</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>CRAだとnodejsのスクリプトを書くときとかは使えないのでcookiecutterにいいのがないか探してみたが、ちょっと古かったり(tslintを使っている)、不要な機能が色々入ってるのしかなかったので必要最小限のやつを自分で作った。</p>
+                    
+
+<p>CRAだとnodejsのスクリプトを書くときとかは使えないのでcookiecutterにいいのがないか探してみたが、ちょっと古かったり(tslintを使っている)、不要な機能が色々入ってるのしかなかったので必要最小限のやつを自分で作った。</p>
+
 <ul>
 <li><a href="https://github.com/sakamossan/cookiecutter-node-typescript">sakamossan/cookiecutter-node-typescript: Cookiecutter for Node.js with Typescript, Eslint, Jest, Prettier</a></li>
 </ul>
+
 <p>cookiebutterの使い方はこんな感じ</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cookiecutter git@github.com:sakamossan/cookiecutter-node-typescript.git
-</code></pre></div><h2 id="機能">機能</h2>
+
+<pre><code class="language-bash">$ cookiecutter git@github.com:sakamossan/cookiecutter-node-typescript.git
+</code></pre>
+
+<h2 id="機能">機能</h2>
+
 <p><code>Jest</code> と <code>Eslint/Prettier</code> だけ入っている</p>
+
 <pre><code>$ tree -a
 .
 ├── .eslintrc.js
@@ -114,7 +126,10 @@
 │   │   └── index.test.ts
 │   └── index.ts
 └── tsconfig.json
-</code></pre><h2 id="備考">備考</h2>
+</code></pre>
+
+<h2 id="備考">備考</h2>
+
 <ul>
 <li>プロジェクトによって必要なものが色々違うはずなのでなるべく機能は少なめになっている</li>
 <li>テストとコードフォーマットはどうしたって使うはずなのでJestとEslint/Prettierは入っている</li>

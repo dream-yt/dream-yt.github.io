@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.1" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>TypeScriptでjQueryプラグインにて追加した関数の型定義 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,23 +83,34 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#参考">参考</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>index.d.ts ファイルを用意して以下のようにメソッドを追加すればよい</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">JQuery</span> {
-  <span style="color:#a6e22e">foo</span>(<span style="color:#a6e22e">arg</span>: <span style="color:#66d9ef">string</span>)<span style="color:#f92672">:</span> <span style="color:#a6e22e">jQuery</span>;
+                    
+
+<p>index.d.ts ファイルを用意して以下のようにメソッドを追加すればよい</p>
+
+<pre><code class="language-ts">interface JQuery {
+  foo(arg: string): jQuery;
 }
-</code></pre></div><p>jQueryはネームスペースを切らずに型を定義しているので、グローバル空間にてinterface宣言からメソッドを記述してやると、既存のJQueryにメソッドが追加された状態になってくれる</p>
+</code></pre>
+
+<p>jQueryはネームスペースを切らずに型を定義しているので、グローバル空間にてinterface宣言からメソッドを記述してやると、既存のJQueryにメソッドが追加された状態になってくれる</p>
+
 <ul>
 <li><a href="https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/jquery/JQuery.d.ts#L5">DefinitelyTyped/JQuery.d.ts at master · DefinitelyTyped/DefinitelyTyped</a></li>
 </ul>
+
 <h2 id="参考">参考</h2>
+
 <ul>
 <li><a href="https://typescript-jp.gitbook.io/deep-dive/type-system/interfaces">インターフェース - TypeScript Deep Dive 日本語版</a></li>
 </ul>

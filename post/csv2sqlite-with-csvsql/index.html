@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.1" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>csvからsqliteのdbファイルを作成/操作 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,37 +83,53 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li>
-      <ul>
-        <li><a href="#sqliteファイルを生成">sqliteファイルを生成</a></li>
-        <li><a href="#出力">出力</a></li>
-        <li><a href="#その他">その他</a></li>
-      </ul>
-    </li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#sqliteファイルを生成">sqliteファイルを生成</a></li>
+<li><a href="#出力">出力</a></li>
+<li><a href="#その他">その他</a></li>
+</ul></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>例えばathenaのクエリ結果のcsvをさらにこねたいときなど</p>
+                    
+
+<p>例えばathenaのクエリ結果のcsvをさらにこねたいときなど</p>
+
 <h3 id="sqliteファイルを生成">sqliteファイルを生成</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ csvsql <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    --db sqlite:////tmp/_.db <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    --tables t <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    --insert ~/Downloads/3a032f51-1111-411b-8e6a-d19b2beba27e.csv
-$ sqlite3 /tmp/_.db <span style="color:#e6db74">&#39;.schema&#39;</span>
-</code></pre></div><h3 id="出力">出力</h3>
+
+<pre><code class="language-bash">$ csvsql \
+    --db sqlite:////tmp/_.db \
+    --tables t \
+    --insert ~/Downloads/3a032f51-1111-411b-8e6a-d19b2beba27e.csv
+$ sqlite3 /tmp/_.db '.schema'
+</code></pre>
+
+<h3 id="出力">出力</h3>
+
 <p>markdown形式で出したりとかなら csvlook をかませるとよい</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sqlite3 /tmp/_.db -header -csv <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    <span style="color:#e6db74">&#39;select user_id, SUM(_col4) from t group by user_id;&#39;</span> | csvlook
-</code></pre></div><h3 id="その他">その他</h3>
+
+<pre><code class="language-bash">$ sqlite3 /tmp/_.db -header -csv \
+    'select user_id, SUM(_col4) from t group by user_id;' | csvlook
+</code></pre>
+
+<h3 id="その他">その他</h3>
+
 <p>macOSの場合だとsqliteをいじるときは <code>db-browser-for-sqlite</code> が便利だった
 データの更新とか表形式でいじれた方がラク</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ brew cask install db-browser-for-sqlite
-$ open -a<span style="color:#e6db74">&#39;/Applications/DB Browser for SQLite.app&#39;</span> /tmp/_.db
-</code></pre></div><ul>
+
+<pre><code class="language-bash">$ brew cask install db-browser-for-sqlite
+$ open -a'/Applications/DB Browser for SQLite.app' /tmp/_.db
+</code></pre>
+
+<ul>
 <li><a href="https://sqlitebrowser.org/">DB Browser for SQLite</a></li>
 </ul>
 

@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.1" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>動画のラウドネスについて &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,54 +83,81 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li>
-      <ul>
-        <li><a href="#参考にしたもの">参考にしたもの</a></li>
-      </ul>
-    </li>
-    <li><a href="#ラウドネス">ラウドネス</a>
-      <ul>
-        <li><a href="#lufs-lkfs">LUFS (LKFS)</a></li>
-        <li><a href="#dbtp">dBTP</a></li>
-      </ul>
-    </li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#参考にしたもの">参考にしたもの</a></li>
+</ul></li>
+<li><a href="#ラウドネス">ラウドネス</a>
+<ul>
+<li><a href="#lufs-lkfs">LUFS (LKFS)</a></li>
+<li><a href="#dbtp">dBTP</a>
+<ul>
+<li>
+<ul>
+<li><a href="#ダイナミックレンジ">ダイナミックレンジ</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>動画のエンコードをする場合の用語の整理 <br>
+                    
+
+<p>動画のエンコードをする場合の用語の整理<br />
 映像系の人が出してくる仕様で知らない用語があったのでメモ</p>
+
 <h3 id="参考にしたもの">参考にしたもの</h3>
+
 <p>このドキュメントが(比較的)平易だった</p>
+
 <ul>
 <li><a href="https://developer.amazon.com/ja/docs/flashbriefing/normalizing-the-loudness-of-audio-content.html">オーディオコンテンツのラウドネス値の正規化 | Alexa Skills Kit</a></li>
 </ul>
+
 <h2 id="ラウドネス">ラウドネス</h2>
+
 <blockquote>
 <p>ラウドネスメーターと呼ばれるツールを使用して、音声のラウドネスを正規化します。ラウドネスメーターは、音声をラウドネス単位（LU）で測定します。ラウドネスメーターはピークメーターや波形メーターとは異なり、音声の電圧レベルを測定するのではなく、人間が耳で聞いた音をどのように感じるかを測定します。</p>
 </blockquote>
+
 <p>ラウドネスの中でも2つ一般的な指標がある</p>
+
 <h3 id="lufs-lkfs">LUFS (LKFS)</h3>
+
 <p>音声全体がどれくらいの音圧かを指標化したもの</p>
+
 <ul>
 <li>LUFSとLKFSは同じもので規格によって呼び方が違う</li>
 <li>LUFS = Loudness Unit Full Scale</li>
 </ul>
+
 <h3 id="dbtp">dBTP</h3>
+
 <ul>
 <li>デジタル音声はアナログ音声をサンプリングしたものである</li>
 <li>サンプリングされたときに信号のピーク値が失われる</li>
 </ul>
-<p><img src="https://user-images.githubusercontent.com/5309672/66366718-5890de00-e9cc-11e9-9fe5-03e59c670f3d.png" alt="image"></p>
+
+<p><img src="https://user-images.githubusercontent.com/5309672/66366718-5890de00-e9cc-11e9-9fe5-03e59c670f3d.png" alt="image" /></p>
+
 <p>引用元: <a href="https://soundevotee.net/blog/2018/03/09/learn_about_isp_and_think_about_ceiling/">インターサンプルピーク/トゥルーピークの復習をして、Ceiling設定について考える | SOUNDEVOTEE.NET</a></p>
+
 <p>このとき、サンプリング前のピーク値を推測した値がトゥルーピーク
 これがわかっていないとハードウェアの制約で音が歪んでしまう場合がある</p>
+
 <h5 id="ダイナミックレンジ">ダイナミックレンジ</h5>
+
 <p>dB のこと。おおまかに音量</p>
+
 <p>音はハードウェアの制約で大きすぎても小さすぎても音声を正しく表現できない</p>
+
 <ul>
 <li>小さすぎる音はハードウェアのノイズに埋もれてしまって正しく表現されない</li>
 <li>大きすぎる音は出力が歪んでしまって正しく表現されない</li>

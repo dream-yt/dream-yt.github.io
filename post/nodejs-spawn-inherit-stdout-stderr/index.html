@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.1" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>nodejsで標準入出力/エラーを共有した子プロセスを作る &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,86 +83,106 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#コード">コード</a>
-      <ul>
-        <li></li>
-      </ul>
-    </li>
-    <li><a href="#動作">動作</a>
-      <ul>
-        <li><a href="#spawnのstdio引数">spawnのstdio引数</a></li>
-        <li><a href="#pspawn">pSpawn</a></li>
-      </ul>
-    </li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#コード">コード</a>
+<ul>
+<li>
+<ul>
+<li><a href="#entrypoint-sh">entrypoint.sh</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#動作">動作</a>
+<ul>
+<li><a href="#spawnのstdio引数">spawnのstdio引数</a></li>
+<li><a href="#pspawn">pSpawn</a></li>
+</ul></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>cloudrunを使う際に必要になった</p>
+                    
+
+<p>cloudrunを使う際に必要になった</p>
+
 <p>cloudrunはhttpエンドポイントから処理がキックされるので、コンテナでbashコマンドを実行したいときはnodejsのhttpサーバの子プロセスがスクリプトを実行するという形になる(つかいにくい)</p>
+
 <p>子プロセスの出力をログとしてstackdriverに流したいので、nodejsで標準入出力/エラーを共有した子プロセスを作る必要があった</p>
+
 <h2 id="コード">コード</h2>
+
 <p>こんなコードを書いて動作確認</p>
+
 <ul>
 <li><code>$ node index.js out</code> などで親プロセスを起動</li>
 <li>サブコマンドごとに子プロセスが以下の動作
+
 <ul>
 <li>標準出力を吐いて終了</li>
 <li>エラー出力を吐いて終了</li>
 <li>異常終了</li>
+</ul></li>
 </ul>
-</li>
-</ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">spawn</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;child_process&#39;</span>);
 
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">pSpawn</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">command</span>, <span style="color:#a6e22e">args</span>, <span style="color:#a6e22e">options</span>) =&gt; <span style="color:#66d9ef">new</span> Promise((<span style="color:#a6e22e">resolve</span>, <span style="color:#a6e22e">reject</span>) =&gt; {
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">childProcess</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">spawn</span>(<span style="color:#a6e22e">command</span>, <span style="color:#a6e22e">args</span>, <span style="color:#a6e22e">options</span>);
-  <span style="color:#a6e22e">childProcess</span>.<span style="color:#a6e22e">on</span>(<span style="color:#e6db74">&#39;exit&#39;</span>, <span style="color:#a6e22e">code</span> =&gt; <span style="color:#a6e22e">code</span> <span style="color:#f92672">?</span> <span style="color:#a6e22e">reject</span>(<span style="color:#a6e22e">code</span>) <span style="color:#f92672">:</span> <span style="color:#a6e22e">resolve</span>(<span style="color:#a6e22e">code</span>));
+<pre><code class="language-js">const { spawn } = require('child_process');
+
+const pSpawn = (command, args, options) =&gt; new Promise((resolve, reject) =&gt; {
+  const childProcess = spawn(command, args, options);
+  childProcess.on('exit', code =&gt; code ? reject(code) : resolve(code));
 });
 
-(<span style="color:#66d9ef">async</span> () =&gt; {
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">subcommand</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">process</span>.<span style="color:#a6e22e">argv</span>[<span style="color:#ae81ff">2</span>];
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">promise</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">pSpawn</span>(<span style="color:#e6db74">&#39;./entrypoint.sh&#39;</span>, [<span style="color:#a6e22e">subcommand</span>], {
-    <span style="color:#a6e22e">env</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">process</span>.<span style="color:#a6e22e">env</span>,
-    <span style="color:#a6e22e">cwd</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">__dirname</span>,
-    <span style="color:#a6e22e">stdio</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;inherit&#39;</span>,
+(async () =&gt; {
+  const subcommand = process.argv[2];
+  const promise = pSpawn('./entrypoint.sh', [subcommand], {
+    env: process.env,
+    cwd: __dirname,
+    stdio: 'inherit',
   });
-  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">exitCode</span>;
-  <span style="color:#66d9ef">try</span> {
-    <span style="color:#a6e22e">exitCode</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">promise</span>
-  } <span style="color:#66d9ef">catch</span> (<span style="color:#a6e22e">error</span>) {
-    <span style="color:#a6e22e">exitCode</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">error</span>;
+  let exitCode;
+  try {
+    exitCode = await promise
+  } catch (error) {
+    exitCode = error;
   }
-  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">`exitCode: </span><span style="color:#e6db74">${</span><span style="color:#a6e22e">exitCode</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>);
+  console.log(`exitCode: ${exitCode}`);
 })();
-</code></pre></div><h4 id="entrypointsh">entrypoint.sh</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/bash
-</span><span style="color:#75715e"></span>set -eu
-scase <span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span> in
-  out<span style="color:#f92672">)</span>
+</code></pre>
+
+<h4 id="entrypoint-sh">entrypoint.sh</h4>
+
+<pre><code class="language-bash">#!/bin/bash
+set -eu
+scase &quot;$1&quot; in
+  out)
     shift
-    echo <span style="color:#e6db74">&#34;one!&#34;</span>
+    echo &quot;one!&quot;
     ;;
-  err<span style="color:#f92672">)</span>
+  err)
     shift
-    perl -E <span style="color:#e6db74">&#39;warn &#34;two&#34;&#39;</span>
+    perl -E 'warn &quot;two&quot;'
     ;;
-  die<span style="color:#f92672">)</span>
+  die)
     shift
-    exit <span style="color:#ae81ff">77</span>
+    exit 77
     ;;
-<span style="color:#66d9ef">esac</span>
-</code></pre></div><h2 id="動作">動作</h2>
+esac
+</code></pre>
+
+<h2 id="動作">動作</h2>
+
 <p>期待通りに動作した</p>
+
 <ul>
 <li>stdoutはstdoutに</li>
 <li>stderrはstderrに</li>
 <li>exitcodeが0でないときはrejectされた</li>
 </ul>
-<pre><code class="language-console" data-lang="console">$ node index.js out
+
+<pre><code class="language-console">$ node index.js out
 one!
 exitCode: 0
 # エラー出力を確認する
@@ -170,33 +190,50 @@ $ node index.js err 1&gt;/dev/null
 two at -e line 1.
 $ node index.js die
 exitCode: 77
-</code></pre><hr>
+</code></pre>
+
+<hr />
+
 <p>以下は実装時のメモ</p>
+
 <h3 id="spawnのstdio引数">spawnのstdio引数</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">pSpawn</span>(<span style="color:#e6db74">&#39;./entrypoint.sh&#39;</span>, [<span style="color:#a6e22e">subcommand</span>], {
-    <span style="color:#a6e22e">env</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">process</span>.<span style="color:#a6e22e">env</span>,
-    <span style="color:#a6e22e">cwd</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">__dirname</span>,
-    <span style="color:#a6e22e">stdio</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;inherit&#39;</span>,
+
+<pre><code class="language-js">pSpawn('./entrypoint.sh', [subcommand], {
+    env: process.env,
+    cwd: __dirname,
+    stdio: 'inherit',
   });
-</code></pre></div><p>この<code>stdio</code>引数で標準出力/エラー出力を制御している</p>
+</code></pre>
+
+<p>この<code>stdio</code>引数で標準出力/エラー出力を制御している</p>
+
 <ul>
 <li><a href="https://nodejs.org/api/child_process.html#child_process_child_process_spawn_command_args_options">Child Process | Node.js v13.8.0 Documentation</a></li>
 </ul>
+
 <p><code>stdio: 'inherit'</code> で今回やりたい動作にできる</p>
+
 <blockquote>
 <p>&lsquo;inherit&rsquo;: Pass through the corresponding stdio stream to/from the parent process. In the first three positions, this is equivalent to process.stdin, process.stdout, and process.stderr, respectively. In any other position, equivalent to &lsquo;ignore&rsquo;.</p>
 </blockquote>
+
 <h3 id="pspawn">pSpawn</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">pSpawn</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">command</span>, <span style="color:#a6e22e">args</span>, <span style="color:#a6e22e">options</span>) =&gt; <span style="color:#66d9ef">new</span> Promise((<span style="color:#a6e22e">resolve</span>, <span style="color:#a6e22e">reject</span>) =&gt; {
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">childProcess</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">spawn</span>(<span style="color:#a6e22e">command</span>, <span style="color:#a6e22e">args</span>, <span style="color:#a6e22e">options</span>);
-  <span style="color:#a6e22e">childProcess</span>.<span style="color:#a6e22e">on</span>(<span style="color:#e6db74">&#39;exit&#39;</span>, <span style="color:#a6e22e">code</span> =&gt; <span style="color:#a6e22e">code</span> <span style="color:#f92672">?</span> <span style="color:#a6e22e">reject</span>(<span style="color:#a6e22e">code</span>) <span style="color:#f92672">:</span> <span style="color:#a6e22e">resolve</span>(<span style="color:#a6e22e">code</span>));
+
+<pre><code class="language-js">const pSpawn = (command, args, options) =&gt; new Promise((resolve, reject) =&gt; {
+  const childProcess = spawn(command, args, options);
+  childProcess.on('exit', code =&gt; code ? reject(code) : resolve(code));
 });
-</code></pre></div><p>毎回 <code>on.('exit')</code> などを書きたくないのでヘルパー</p>
+</code></pre>
+
+<p>毎回 <code>on.('exit')</code> などを書きたくないのでヘルパー</p>
+
 <ul>
 <li>spawnと引数は一緒</li>
 <li>ただし異常終了した場合はexitcodeをrejectする</li>
 </ul>
+
 <p>pidが欲しい場合などはちゃんとしたのをつかうのがよい</p>
+
 <ul>
 <li><a href="https://github.com/patrick-steele-idem/child-process-promise">patrick-steele-idem/child-process-promise: Simple wrapper around the &ldquo;child_process&rdquo; module that makes use of promises</a></li>
 </ul>

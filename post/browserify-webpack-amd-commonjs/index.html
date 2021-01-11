@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.1" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>browserifyからwebpackに移行するときのエラー &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,81 +83,111 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#経緯">経緯</a></li>
-    <li><a href="#commonjsとamd">commonjsとAMD</a>
-      <ul>
-        <li><a href="#参照">参照</a></li>
-      </ul>
-    </li>
-    <li><a href="#解決方法">解決方法</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#経緯">経緯</a></li>
+<li><a href="#commonjsとamd">commonjsとAMD</a>
+<ul>
+<li><a href="#参照">参照</a></li>
+</ul></li>
+<li><a href="#解決方法">解決方法</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>browserifyのcommonjsと、webpackのcommonjsの違いにハマったときの話</p>
+                    
+
+<p>browserifyのcommonjsと、webpackのcommonjsの違いにハマったときの話</p>
+
 <h2 id="経緯">経緯</h2>
+
 <p>browserifyからwebpackに移行するときに、ある古いライブラリが読み込み時エラーとなってしまった
 その古いライブラリはモジュール解決のロジックを以下のように行なっていた</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">	<span style="color:#66d9ef">if</span> ( <span style="color:#66d9ef">typeof</span> <span style="color:#a6e22e">define</span> <span style="color:#f92672">===</span> <span style="color:#e6db74">&#39;function&#39;</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">define</span>.<span style="color:#a6e22e">amd</span> ) {
-		<span style="color:#75715e">// AMD
-</span><span style="color:#75715e"></span>		<span style="color:#a6e22e">define</span>( [<span style="color:#e6db74">&#39;jquery&#39;</span>], <span style="color:#66d9ef">function</span> ( <span style="color:#a6e22e">$</span> ) {
-			<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">factory</span>( <span style="color:#a6e22e">$</span>, window, document );
+
+<pre><code class="language-js">	if ( typeof define === 'function' &amp;&amp; define.amd ) {
+		// AMD
+		define( ['jquery'], function ( $ ) {
+			return factory( $, window, document );
 		} );
 	}
-	<span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> ( <span style="color:#66d9ef">typeof</span> <span style="color:#a6e22e">exports</span> <span style="color:#f92672">===</span> <span style="color:#e6db74">&#39;object&#39;</span> ) {
-		<span style="color:#75715e">// CommonJS
-</span><span style="color:#75715e"></span>		<span style="color:#a6e22e">module</span>.<span style="color:#a6e22e">exports</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">root</span>, <span style="color:#a6e22e">$</span>) {
-</code></pre></div><ul>
+	else if ( typeof exports === 'object' ) {
+		// CommonJS
+		module.exports = function (root, $) {
+</code></pre>
+
+<ul>
 <li><a href="https://github.com/DataTables/DataTables/blob/master/media/js/jquery.dataTables.js#L30-L38">DataTables/jquery.dataTables.js at master · DataTables/DataTables</a></li>
 </ul>
+
 <p>browserifyでモジュール解決をしていたときは名前空間に <code>define</code> がなかったため無事にcommonjsとしてモジュールを読み込めていたが、webpackでビルドすると名前空間に <code>define</code> が存在し、分岐の結果AMDとしてモジュールを読み込もうとしているようだった</p>
+
 <p>これまでbrowserify(commonjs)でビルドしていたので、このファイルのみAMDで読み込むことになりエラーになった</p>
+
 <h2 id="commonjsとamd">commonjsとAMD</h2>
+
 <p>両方ともjsでモジュールを読み込むための仕様</p>
+
 <p>commonjsはnodejsで使われており、AMDはブラウザ側で使うために作られた (クライアント側が通信してjsファイルを取ってくるといったことをする)</p>
+
 <p>datatable.netはcommonjsとAMDを背反なものとして分岐させているが、実際にはcommonjsとAMDを同時に動作させるといったことも行われているようだ</p>
+
 <h3 id="参照">参照</h3>
+
 <p>commonjsのwikiにAMDの仕様がPROPOSALであがっていたり</p>
+
 <ul>
 <li><a href="http://wiki.commonjs.org/wiki/Modules/AsynchronousDefinition">Modules/AsynchronousDefinition - CommonJS Spec Wiki</a></li>
 </ul>
+
 <p>commonjsのwikiにメーリングリストにAMDを別口に分けようとするスレッドがあったりする</p>
+
 <ul>
 <li><a href="https://groups.google.com/forum/#!searchin/commonjs/define%7Csort:date/commonjs/lqCWO8tMp48/gRqjWVP4364J">Split off AMD? (was Re: [CommonJS] New amd-implement list) - Google グループ</a></li>
 </ul>
+
 <p>もともとこの辺りのスニペットをコピペしたライブラリなのかもしれない</p>
+
 <ul>
 <li><a href="https://github.com/umdjs/umd/blob/master/templates/returnExportsGlobal.js">umd/returnExportsGlobal.js at master · umdjs/umd</a></li>
 </ul>
+
 <h2 id="解決方法">解決方法</h2>
+
 <p>説明から遠回りしたが、今回の問題はつまるところ次の点に尽きる</p>
+
 <ul>
 <li>browserifyのcommonjsではAMDが有効になっていないが</li>
 <li>webpackのcommonjsではAMDが有効になっている
+
 <ul>
 <li>コンパイル時のグローバル名前空間に <code>define</code> 関数が存在している</li>
+</ul></li>
 </ul>
-</li>
-</ul>
+
 <p>なのでwebpackの設定でAMDを無効にした</p>
+
 <ul>
 <li><a href="https://webpack.js.org/configuration/module/#ruleparser">ruleparser | Module | webpack</a></li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">module</span>.<span style="color:#a6e22e">exports</span> <span style="color:#f92672">=</span> {
-  <span style="color:#a6e22e">module</span><span style="color:#f92672">:</span> {
-    <span style="color:#a6e22e">rules</span><span style="color:#f92672">:</span> [
+
+<pre><code class="language-js">module.exports = {
+  module: {
+    rules: [
       {
-        <span style="color:#a6e22e">parser</span><span style="color:#f92672">:</span> {
-          <span style="color:#a6e22e">amd</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">false</span>, <span style="color:#75715e">// disable AMD
-</span><span style="color:#75715e"></span>        }
+        parser: {
+          amd: false, // disable AMD
+        }
       }
     ]
   }
 }
-</code></pre></div><p>この設定でbrowserifyでビルドできていたときと同じ動作にすることができた</p>
+</code></pre>
+
+<p>この設定でbrowserifyでビルドできていたときと同じ動作にすることができた</p>
 
                 </section>
             </article>

@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.1" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>watchで出力が変化したら通知が欲しい &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,63 +83,93 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#maciterm2の設定">mac/iterm2の設定</a></li>
-    <li><a href="#watch側のコマンド">watch側のコマンド</a>
-      <ul>
-        <li></li>
-      </ul>
-    </li>
-    <li><a href="#動作確認">動作確認</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#mac-iterm2の設定">mac/iterm2の設定</a></li>
+<li><a href="#watch側のコマンド">watch側のコマンド</a>
+<ul>
+<li>
+<ul>
+<li><a href="#chgexit"><code>--chgexit</code></a></li>
+<li><a href="#interval-60"><code>--interval 60</code></a></li>
+<li><a href="#perl-e-say-007"><code>perl -E 'say &quot;\007&quot;'</code></a></li>
+</ul></li>
+</ul></li>
+<li><a href="#動作確認">動作確認</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>watchコマンドにはエラー時にビープするオプションはあるが、コマンドが正常終了した場合にビープして気がつく手段がないのでそれをなんとかする</p>
+                    
+
+<p>watchコマンドにはエラー時にビープするオプションはあるが、コマンドが正常終了した場合にビープして気がつく手段がないのでそれをなんとかする</p>
+
 <ul>
-<li><a href="#maciterm2%E3%81%AE%E8%A8%AD%E5%AE%9A">mac/iterm2の設定</a></li>
-<li><a href="#watch%E5%81%B4%E3%81%AE%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89">watch側のコマンド</a>
+<li><a href="#maciterm2の設定">mac/iterm2の設定</a></li>
+<li><a href="#watch側のコマンド">watch側のコマンド</a>
+
 <ul>
 <li><a href="#--chgexit"><code>--chgexit</code></a></li>
 <li><a href="#--interval-60"><code>--interval 60</code></a></li>
-<li><a href="#perl--e-say-%5C007"><code>perl -E 'say &quot;\007&quot;'</code></a></li>
+<li><a href="#perl--e-say-007"><code>perl -E 'say &quot;\007&quot;'</code></a></li>
+</ul></li>
+<li><a href="#動作確認">動作確認</a></li>
 </ul>
-</li>
-<li><a href="#%E5%8B%95%E4%BD%9C%E7%A2%BA%E8%AA%8D">動作確認</a></li>
-</ul>
-<h2 id="maciterm2の設定">mac/iterm2の設定</h2>
+
+<h2 id="mac-iterm2の設定">mac/iterm2の設定</h2>
+
 <p>通知の設定をONにしておく</p>
+
 <ul>
 <li>Profile
+
 <ul>
-<li>Terminal
-<ul>
+<li>Terminal</li>
 <li>Notification Center</li>
+</ul></li>
 </ul>
-</li>
-</ul>
-</li>
-</ul>
-<p><img src="https://user-images.githubusercontent.com/5309672/67363240-e4e3f900-f5a7-11e9-8823-11bbccb3d3d9.png" alt="貼り付けた画像_2019_10_23_15_14"></p>
+
+<p><img src="https://user-images.githubusercontent.com/5309672/67363240-e4e3f900-f5a7-11e9-8823-11bbccb3d3d9.png" alt="貼り付けた画像_2019_10_23_15_14" /></p>
+
 <h2 id="watch側のコマンド">watch側のコマンド</h2>
+
 <p>60ごとにコマンドを実行して結果を監視したい場合はこんな感じ</p>
+
 <pre><code>$ watch --chgexit --interval 60 {{ コマンド }} &amp;&amp; perl -E 'say &quot;\007&quot;'
-</code></pre><h4 id="--chgexit"><code>--chgexit</code></h4>
+</code></pre>
+
+<h4 id="chgexit"><code>--chgexit</code></h4>
+
 <p>出力が変化したらwatchコマンドを終了する</p>
-<h4 id="--interval-60"><code>--interval 60</code></h4>
+
+<h4 id="interval-60"><code>--interval 60</code></h4>
+
 <p>60ごとにコマンドを実行する</p>
-<h4 id="perl--e-say-007"><code>perl -E 'say &quot;\007&quot;'</code></h4>
-<p>macでビープ音を出すためのコマンド<br>
+
+<h4 id="perl-e-say-007"><code>perl -E 'say &quot;\007&quot;'</code></h4>
+
+<p>macでビープ音を出すためのコマンド<br />
 好みでsayなどを使ってもよい</p>
+
 <h2 id="動作確認">動作確認</h2>
+
 <p>macのitermで beep/chgexit がどんな感じになるか確認する</p>
+
 <p>watchでlsファイルさせて、途中でみてるファイルに書き込みを行う</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ watch --chgexit --interval <span style="color:#ae81ff">4</span> <span style="color:#e6db74">&#34;ls -laGh /tmp/_&#34;</span> <span style="color:#f92672">&amp;&amp;</span> perl -E <span style="color:#e6db74">&#39;say &#34;\007&#34;&#39;</span>
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ echo <span style="color:#e6db74">&#34;hello&#34;</span> &gt;&gt; /tmp/_
-</code></pre></div><p>こんな感じで通知が得られる</p>
-<p><img src="https://user-images.githubusercontent.com/5309672/67362812-e3fe9780-f5a6-11e9-8de8-3dca447cd663.png" alt="image"></p>
+
+<pre><code class="language-bash">$ watch --chgexit --interval 4 &quot;ls -laGh /tmp/_&quot; &amp;&amp; perl -E 'say &quot;\007&quot;'
+</code></pre>
+
+<pre><code class="language-bash">$ echo &quot;hello&quot; &gt;&gt; /tmp/_
+</code></pre>
+
+<p>こんな感じで通知が得られる</p>
+
+<p><img src="https://user-images.githubusercontent.com/5309672/67362812-e3fe9780-f5a6-11e9-8de8-3dca447cd663.png" alt="image" /></p>
 
                 </section>
             </article>

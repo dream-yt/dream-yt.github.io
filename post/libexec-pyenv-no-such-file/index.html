@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.1" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>/usr/local/Cellar/pyenv/1.2.8/libexec/pyenv: No such file or directory &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -81,28 +81,38 @@
                 </header>
                 
                   
-                    <div id="toc">
-                      <nav id="TableOfContents"></nav>
-                    </div>
-                  
                 
                 <section id="post-body">
                     <p>brewで色々アップグレードされたあと、pyenvで入れたpythonが動かなくなることがある</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ code
+
+<pre><code class="language-bash">$ code
 /Users/sakamoto/.pyenv/shims/python: 行 21: /usr/local/Cellar/pyenv/1.2.8/libexec/pyenv: No such file or directory
 /usr/local/bin/code: 行 10: ./MacOS/Electron: No such file or directory
-</code></pre></div><p>pyenvで入れたpython (~/.pyenv/shims/python) はbashスクリプトになっていて、以下の行にもう存在しないパスがハードコードされてるので発生している</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ tail -1 ~/.pyenv/shims/python
-exec <span style="color:#e6db74">&#34;/usr/local/Cellar/pyenv/1.2.8/libexec/pyenv&#34;</span> exec <span style="color:#e6db74">&#34;</span>$program<span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;</span>$@<span style="color:#e6db74">&#34;</span>
-</code></pre></div><p>これは <code>pyenv rehash</code> で直る</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ pyenv rehash
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ tail -1 ~/.pyenv/shims/python
-exec <span style="color:#e6db74">&#34;/usr/local/Cellar/pyenv/1.2.20/libexec/pyenv&#34;</span> exec <span style="color:#e6db74">&#34;</span>$program<span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;</span>$@<span style="color:#e6db74">&#34;</span>
-</code></pre></div><p>rehashは現在のshimsのパスに張り替えたスクリプトを作り直してくれるもの</p>
+</code></pre>
+
+<p>pyenvで入れたpython (~/.pyenv/shims/python) はbashスクリプトになっていて、以下の行にもう存在しないパスがハードコードされてるので発生している</p>
+
+<pre><code class="language-bash">$ tail -1 ~/.pyenv/shims/python
+exec &quot;/usr/local/Cellar/pyenv/1.2.8/libexec/pyenv&quot; exec &quot;$program&quot; &quot;$@&quot;
+</code></pre>
+
+<p>これは <code>pyenv rehash</code> で直る</p>
+
+<pre><code class="language-bash">$ pyenv rehash
+</code></pre>
+
+<pre><code class="language-bash">$ tail -1 ~/.pyenv/shims/python
+exec &quot;/usr/local/Cellar/pyenv/1.2.20/libexec/pyenv&quot; exec &quot;$program&quot; &quot;$@&quot;
+</code></pre>
+
+<p>rehashは現在のshimsのパスに張り替えたスクリプトを作り直してくれるもの</p>
+
 <ul>
 <li><a href="https://github.com/pyenv/pyenv/blob/d08c9cfb362c5a7e18a92acd2253a16935ad9a99/libexec/pyenv-rehash#L64">pyenv/pyenv-rehash at d08c9cfb362c5a7e18a92acd2253a16935ad9a99 · pyenv/pyenv</a></li>
 </ul>
+
 <p>本来だと自動的にrehashがされるはず、とのことだがたぶんbrewが勝手にpyenv自体のパスを変えてしまうのでそれをカバーするのは無理なのだろう。困ってる人たくさんいるみたいなのでエラーメッセージがもうちょい親切になってればいいのかもしれない</p>
+
 <ul>
 <li><a href="https://github.com/pyenv/pyenv/issues/1068">RFE: pyenv update should regenerate shims unconditionally · Issue #1068 · pyenv/pyenv</a></li>
 </ul>

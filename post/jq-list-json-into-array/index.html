@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.1" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>jqで改行区切りなど連続したjsonを配列にする &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,24 +83,33 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li>
-      <ul>
-        <li><a href="#参考">参考</a></li>
-      </ul>
-    </li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>jq でselectとかで色々やったあと配列に戻したいときがある</p>
+                    
+
+<p>jq でselectとかで色々やったあと配列に戻したいときがある</p>
+
 <p><code>jq -s</code> をパイプすると改行区切りのjsonを1つの配列にしてくれる</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cat ./src/resources/test/ranking-latest.json <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  | jq <span style="color:#e6db74">&#39;.[] | select(.shopId | test(&#34;^hi&#34;)) | select(.ranking &lt;= 3)&#39;</span> <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  | jq -s
-</code></pre></div><h3 id="参考">参考</h3>
+
+<pre><code class="language-bash">cat ./src/resources/test/ranking-latest.json \
+  | jq '.[] | select(.shopId | test(&quot;^hi&quot;)) | select(.ranking &lt;= 3)' \
+  | jq -s
+</code></pre>
+
+<h3 id="参考">参考</h3>
+
 <ul>
 <li><a href="https://qiita.com/eielh/items/aff045e1689be8e89972">jqで連続するオブジェクトを配列にする - Qiita</a></li>
 </ul>

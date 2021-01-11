@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="https://dream-yt.github.io/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="Googleタグマネージャ入門"/>
+  <meta name="twitter:description" content="Googleタグマネージャ(gtm)はタグを管理するツール 条件、イベントを設定して任意のタイミングでタグを発火させるツール 多くの場合はGoo"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@site_author"/>
+  
+
+
+
+		
+		<meta name="author" content="site_author">
+		<meta name="description" content="Site Description">
+		<meta name="generator" content="Hugo 0.51" />
+		<title>Googleタグマネージャ入門 &middot; sacre</title>
+		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/font-awesome.min.css">
+		
+
+		
+		<link href="https://dream-yt.github.io/index.xml" rel="alternate" type="application/rss+xml" title="sacre" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='https://dream-yt.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://dream-yt.github.io/posts'>Archive</a>
+	<a href='https://dream-yt.github.io/tags'>Tags</a>
+	<a href='https://dream-yt.github.io/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="https://dream-yt.github.io/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        Googleタグマネージャ入門
+                    </h1>
+                    <h2 class="headline">
+                    Jan 11, 2021 10:57
+                    · 1953 words
+                    · 4 minute read
+                      <span class="tags">
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#概念">概念</a>
+<ul>
+<li><a href="#タグ">タグ</a></li>
+<li><a href="#トリガー">トリガー</a></li>
+<li><a href="#変数">変数</a>
+<ul>
+<li>
+<ul>
+<li><a href="#変数をつかうとこんなことができる例">変数をつかうとこんなことができる例</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#コンテナ">コンテナ</a></li>
+<li><a href="#タグマネージャで管理できないタグ">タグマネージャで管理できないタグ</a></li>
+<li><a href="#jsの処理でタグの配信タイミングを制御する">jsの処理でタグの配信タイミングを制御する</a>
+<ul>
+<li>
+<ul>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#その他のタグの配信タイミング">その他のタグの配信タイミング</a></li>
+<li><a href="#ページ内のテキストを変数として使う">ページ内のテキストを変数として使う</a>
+<ul>
+<li>
+<ul>
+<li><a href="#参考-1">参考</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#gtmで使える変数をjsから登録する">gtmで使える変数をjsから登録する</a></li>
+<li><a href="#仮想ページビューの計測">仮想ページビューの計測</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#googleアナリティクス">Googleアナリティクス</a>
+<ul>
+<li>
+<ul>
+<li><a href="#概念-1">概念</a></li>
+<li><a href="#連携方法">連携方法</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    
+
+<ul>
+<li>Googleタグマネージャ(gtm)はタグを管理するツール</li>
+<li>条件、イベントを設定して任意のタイミングでタグを発火させるツール</li>
+<li>多くの場合はGoogleアナリティクス(ga)のタグを発火させる
+
+<ul>
+<li>データの蓄積と閲覧はga側でやる</li>
+</ul></li>
+</ul>
+
+<h2 id="概念">概念</h2>
+
+<p>Googleタグマネージャの説明では以下の概念が出てくる。</p>
+
+<ul>
+<li>タグ</li>
+<li>トリガー</li>
+<li>変数</li>
+<li>コンテナ</li>
+</ul>
+
+<h3 id="タグ">タグ</h3>
+
+<p>タグとは普通にhtmlタグのこと。</p>
+
+<p>DMP事業者のトラッキングタグをUIから登録してよしなに配信されるようにする。
+( <code>配信</code> とはユーザのブラウザ上で発火させるということ)</p>
+
+<p>gaやyahooなどよく使うタグなどは登録しないでも使えるようになっている。</p>
+
+<h3 id="トリガー">トリガー</h3>
+
+<p>トリガーとは「どういう条件のときにタグを配信するか」という条件のこと。
+たとえばデフォルトで用意されているものでもたくさんある。</p>
+
+<ul>
+<li><a href="https://support.google.com/tagmanager/topic/7679108">トリガーの種類 - タグマネージャ ヘルプ</a></li>
+</ul>
+
+<h3 id="変数">変数</h3>
+
+<p>トリガーで使ったり、gaに投げたりするときに使う変数。
+計測されたデータを集計するときに役にたつような変数を上手く使うと便利になる。</p>
+
+<p>たとえば現在ユーザが閲覧しているページのURLは <code>Page URL</code> という変数として設定できる。
+この値をトリガーの条件などに使える。</p>
+
+<ul>
+<li><a href="https://support.google.com/tagmanager/topic/7182737">組み込み変数 - タグマネージャ ヘルプ</a></li>
+<li><a href="https://support.google.com/tagmanager/topic/9125128?hl=ja&amp;ref_topic=7683268">ユーザー定義変数 - タグマネージャ ヘルプ</a></li>
+</ul>
+
+<h5 id="変数をつかうとこんなことができる例">変数をつかうとこんなことができる例</h5>
+
+<ul>
+<li>このページのh1要素のテキスト(変数)が <code>.+詳細</code> という正規表現にマッチする場合にタグを出す</li>
+<li>ページ閲覧時にjsのdataLayer.myvalの値(変数)をgaに投げる
+
+<ul>
+<li>jsのdataLayerオブジェクトの中身を変数として使うことができる</li>
+</ul></li>
+</ul>
+
+<h3 id="コンテナ">コンテナ</h3>
+
+<p>複数ドメインにまたがったタグ制御ももちろんできる。
+いったんgaでいう <strong>サイト</strong> のことという理解で良い。</p>
+
+<p>管理上の概念なのでそんなに意味はない。</p>
+
+<hr />
+
+<p>以下はその他のtips</p>
+
+<h3 id="タグマネージャで管理できないタグ">タグマネージャで管理できないタグ</h3>
+
+<ul>
+<li>同期処理が必要になるもの (基本は非同期処理をするタグが想定されている)</li>
+<li>画面の表示を変更するもの
+
+<ul>
+<li>例: SNSのシェアボタン</li>
+</ul></li>
+</ul>
+
+<h3 id="jsの処理でタグの配信タイミングを制御する">jsの処理でタグの配信タイミングを制御する</h3>
+
+<p>gtmでは任意のタイミングでタグを配信したい場合は以下の手順になる</p>
+
+<ul>
+<li>イベント名を変更する処理を実装</li>
+<li>「イベント名が <code>[[ event_name ]]</code> になったとき」というトリガーを作成しておく</li>
+<li>配信したいタグとトリガーを紐付け</li>
+</ul>
+
+<p>イベント名を変更する処理は以下の通り</p>
+
+<pre><code class="language-js">dataLayer.push({'event': '[[ event_name ]]'});
+</code></pre>
+
+<h5 id="参考">参考</h5>
+
+<p>公式でも紹介されている方法となっている</p>
+
+<ul>
+<li><a href="https://developers.google.com/tag-manager/devguide">Developer Guide  |  Google Tag Manager for Web Tracking  |  Google Developers</a></li>
+<li><a href="https://webtan.impress.co.jp/e/2015/03/18/18983">Googleタグマネージャに自在にデータを渡す「データレイヤー変数」（全20回の19） | 実践 Googleタグマネージャ入門 | Web担当者Forum</a></li>
+</ul>
+
+<h3 id="その他のタグの配信タイミング">その他のタグの配信タイミング</h3>
+
+<p>デフォルトで用意されているトリガーは色々ある</p>
+
+<ul>
+<li><a href="https://support.google.com/tagmanager/topic/7679108">トリガーの種類 - タグマネージャ ヘルプ</a></li>
+<li><a href="https://support.google.com/tagmanager/answer/7679320?hl=ja&amp;ref_topic=7679108">クリック トリガー - タグマネージャ ヘルプ</a></li>
+<li><a href="https://support.google.com/tagmanager/answer/7679411?hl=ja&amp;ref_topic=7679108">JavaScript エラートリガー - タグマネージャ ヘルプ</a></li>
+</ul>
+
+<p>jsで制御しなくても「クリックされたリンクのURLが正規表現にマッチする場合」といった条件は管理画面から設定できるようで、大体の場合でjsで制御する必要はないかもしれない</p>
+
+<h3 id="ページ内のテキストを変数として使う">ページ内のテキストを変数として使う</h3>
+
+<p>pageのURLやクエリパラメータはデフォルトの機能で変数として使える。</p>
+
+<p>ページのtitleやh1要素も次のようにすれば変数として扱える。</p>
+
+<ul>
+<li>内容を変数として扱いたいDOMにid属性を払い出しておく</li>
+<li>変数の設定で目当てのDOM要素のIDを参照するように設定</li>
+</ul>
+
+<h5 id="参考-1">参考</h5>
+
+<ul>
+<li><a href="https://support.google.com/tagmanager/answer/7683362?hl=ja#dom_element">DOM要素 | ウェブ用のユーザー定義変数タイプ - タグマネージャ ヘルプ</a></li>
+</ul>
+
+<h3 id="gtmで使える変数をjsから登録する">gtmで使える変数をjsから登録する</h3>
+
+<p>jsからdataLayerというオブジェクトを通して変数が登録できる</p>
+
+<pre><code class="language-js">dataLayer.push({'Data Layer Name': 'value'}).
+</code></pre>
+
+<ul>
+<li><a href="https://support.google.com/tagmanager/answer/7683362?hl=ja#data_layer">dataLayer | ウェブ用のユーザー定義変数タイプ - タグマネージャ ヘルプ</a></li>
+</ul>
+
+<h3 id="仮想ページビューの計測">仮想ページビューの計測</h3>
+
+<p>たとえばpdfファイルの閲覧数など、タグが発火しないところのビュー数を計測したい場合、<strong>仮想ページビューの計測</strong> ということにして計測する。
+「このリンクがクリックされたとき」といったトリガーを設定して計測できる。</p>
+
+<h1 id="googleアナリティクス">Googleアナリティクス</h1>
+
+<p>gtm(Googleタグマネージャ)はgaをセットで使うのでgaの概念と連携する方法も書く</p>
+
+<h3 id="概念-1">概念</h3>
+
+<ul>
+<li>ディメンション</li>
+<li>指標</li>
+</ul>
+
+<p>ディメンションはSQLでいうところのGroupBy句に渡したくなる値で、
+指標はSQLでいうところのSUMとかの集計関数に入れたくなるような値と言える</p>
+
+<ul>
+<li><a href="https://support.google.com/analytics/answer/1033861?hl=ja">ディメンションと指標 - アナリティクス ヘルプ</a></li>
+</ul>
+
+<h3 id="連携方法">連携方法</h3>
+
+<p>gtmを使ってgaにデータを投げて、蓄積閲覧できるようにするということは
+gtmで設定したトリガーからgaのイベント計測タグを配信することになる</p>
+
+<p>gtmの管理UIはgaとよくインテグレーションされていて、
+gaのイベント計測タグを配信する際にはディメンションと指標の値を送信できるようになっている</p>
+
+<ul>
+<li><a href="https://support.google.com/tagmanager/answer/6164990?hl=ja">Google アナリティクスのカスタム ディメンション - タグマネージャ ヘルプ</a></li>
+</ul>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fgoogle-tag-manager-101%2f - Google%e3%82%bf%e3%82%b0%e3%83%9e%e3%83%8d%e3%83%bc%e3%82%b8%e3%83%a3%e5%85%a5%e9%96%80 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'your_disqus_short_name'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/dream-yt/sacre">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://twitter.com/FUTABA_SACRE">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2021 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="https://dream-yt.github.io/js/jquery-3.3.1.min.js"></script>
+<script src="https://dream-yt.github.io/js/main.js"></script>
+<script src="https://dream-yt.github.io/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+
+
+
+
+    </body>
+</html>

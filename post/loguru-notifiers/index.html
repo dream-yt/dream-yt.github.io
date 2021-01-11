@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.1" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>loguruとnotifiersを使ってslack通知をする &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,50 +83,67 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#前提">前提</a></li>
-    <li><a href="#それでもやる場合">それでもやる場合</a></li>
-    <li><a href="#その他">その他</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#前提">前提</a></li>
+<li><a href="#それでもやる場合">それでもやる場合</a></li>
+<li><a href="#その他">その他</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <h2 id="前提">前提</h2>
+                    
+
+<h2 id="前提">前提</h2>
+
 <ul>
 <li>slackはincomming webhookをdeprecateとしている</li>
 <li>notifiersはincomming webhookにしか対応していない</li>
 <li>本来はloguruに渡すhandlerをSlackApp経由の実装にした方がよい</li>
 </ul>
+
 <h2 id="それでもやる場合">それでもやる場合</h2>
+
 <p>かなり雑だが、以下のようなコードで通知まで出来る</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> notifiers.logging <span style="color:#f92672">import</span> NotificationHandler
-<span style="color:#f92672">from</span> loguru <span style="color:#f92672">import</span> logger
 
-SLACK_WEBHOOK_URL <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;https://hooks.slack.com/services/xxxxxxx&#39;</span>
+<pre><code class="language-python">from notifiers.logging import NotificationHandler
+from loguru import logger
 
-handler <span style="color:#f92672">=</span> NotificationHandler(
-    <span style="color:#e6db74">&#34;slack&#34;</span>, defaults<span style="color:#f92672">=</span>{<span style="color:#e6db74">&#34;webhook_url&#34;</span>: SLACK_WEBHOOK_URL})
-<span style="color:#75715e"># level:warning以上でslack通知をする</span>
-logger<span style="color:#f92672">.</span>add(handler, level<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;WARNING&#34;</span>)
+SLACK_WEBHOOK_URL = 'https://hooks.slack.com/services/xxxxxxx'
 
-<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_logger</span>():
-    <span style="color:#66d9ef">return</span> logger
-</code></pre></div><h2 id="その他">その他</h2>
+handler = NotificationHandler(
+    &quot;slack&quot;, defaults={&quot;webhook_url&quot;: SLACK_WEBHOOK_URL})
+# level:warning以上でslack通知をする
+logger.add(handler, level=&quot;WARNING&quot;)
+
+def get_logger():
+    return logger
+</code></pre>
+
+<h2 id="その他">その他</h2>
+
 <p><code>loguru.logger.catch</code> はデフォルトで例外を再送しない</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#a6e22e">@logger.catch</span>
-<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">err</span>(): <span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">0</span>
 
-<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;__main__&#39;</span>:
+<pre><code class="language-python">@logger.catch
+def err(): 1/0
+
+if __name__ == '__main__':
     err()
-    <span style="color:#75715e"># こちらも呼ばれる</span>
-    l <span style="color:#f92672">=</span> get_logger()
-    l<span style="color:#f92672">.</span>info(<span style="color:#e6db74">&#34;test&#34;</span>)
-</code></pre></div><p>例外を再送したい場合は <code>reraise=True</code> をつける</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#a6e22e">@logger.catch</span>(reraise<span style="color:#f92672">=</span>True)
-<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">err</span>(): <span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">0</span>
-</code></pre></div>
+    # こちらも呼ばれる
+    l = get_logger()
+    l.info(&quot;test&quot;)
+</code></pre>
+
+<p>例外を再送したい場合は <code>reraise=True</code> をつける</p>
+
+<pre><code class="language-python">@logger.catch(reraise=True)
+def err(): 1/0
+</code></pre>
+
                 </section>
             </article>
 

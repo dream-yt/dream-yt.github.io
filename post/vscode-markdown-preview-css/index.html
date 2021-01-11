@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.1" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>vscodeのMarkdownPreviewにカスタムCSSをあてる &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,55 +83,75 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#設定">設定</a></li>
-    <li><a href="#その他">その他</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#設定">設定</a></li>
+<li><a href="#その他">その他</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>vscodeのマークダウンプレビューは便利だけど、スタイリングをちょっと修正したかったので<br>
+                    
+
+<p>vscodeのマークダウンプレビューは便利だけど、スタイリングをちょっと修正したかったので<br />
 やりかたをググったら以下の記事が出てきた</p>
+
 <ul>
 <li><a href="https://qiita.com/08thse/items/205eea7ed85188ae38bf">Visual Studio Code の CSS を見やすくカスタマイズしてみました - Qiita</a></li>
 </ul>
-<p>スタイリングはこの記事に書いてあるので満足したが、vscodeの設定の仕様が変わっていて<br>
+
+<p>スタイリングはこの記事に書いてあるので満足したが、vscodeの設定の仕様が変わっていて<br />
 この記事通りに設定しても動作しなくなっていたので、仕様変更後の設定の仕方をメモ</p>
+
 <h2 id="設定">設定</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">    <span style="color:#e6db74">&#34;markdown.styles&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> [<span style="color:#e6db74">&#34;vscode-markdown-preview.css&#34;</span>]
-</code></pre></div><p>ファイル名を設定する条件が以下のようになっている</p>
+
+<pre><code class="language-json">    &quot;markdown.styles&quot;: [&quot;vscode-markdown-preview.css&quot;]
+</code></pre>
+
+<p>ファイル名を設定する条件が以下のようになっている</p>
+
 <ul>
 <li>プロジェクト内のファイルパスを指定しないといけない</li>
 <li>相対パスで指定しないといけない</li>
 <li>配列で指定</li>
 </ul>
-<p>パス云々はセキュリティ起因の仕様変更だったようだ<br>
+
+<p>パス云々はセキュリティ起因の仕様変更だったようだ<br />
 <code>プロジェクト内のファイルパス</code> とある通りグローバルでの設定はできなくなっている</p>
+
 <p>プロジェクトごとにcssファイルを設定しないといけなくなっていて面倒</p>
+
 <h2 id="その他">その他</h2>
+
 <p>元の記事で紹介されていたcssは以下のようなもの</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#f92672">h1</span> {
-    <span style="color:#66d9ef">padding-bottom</span>: <span style="color:#ae81ff">0.3</span><span style="color:#66d9ef">em</span>;
-    <span style="color:#66d9ef">line-height</span>: <span style="color:#ae81ff">1.2</span>;
-    <span style="color:#66d9ef">border-bottom-width</span>: <span style="color:#ae81ff">1</span><span style="color:#66d9ef">px</span>;
-    <span style="color:#66d9ef">border-bottom-style</span>: <span style="color:#66d9ef">solid</span>;
-    <span style="color:#66d9ef">border-bottom-color</span>: <span style="color:#66d9ef">whitesmoke</span>;
+
+<pre><code class="language-css">h1 {
+    padding-bottom: 0.3em;
+    line-height: 1.2;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: whitesmoke;
 }
 
-<span style="color:#f92672">h2</span> {
-    <span style="color:#66d9ef">padding-bottom</span>: <span style="color:#ae81ff">0.3</span><span style="color:#66d9ef">em</span>;
-    <span style="color:#66d9ef">line-height</span>: <span style="color:#ae81ff">1.2</span>;
-    <span style="color:#66d9ef">border-bottom-width</span>: <span style="color:#ae81ff">1</span><span style="color:#66d9ef">px</span>;
-    <span style="color:#66d9ef">border-bottom-style</span>: <span style="color:#66d9ef">solid</span>;
-    <span style="color:#66d9ef">border-bottom-color</span>: <span style="color:#66d9ef">whitesmoke</span>;
+h2 {
+    padding-bottom: 0.3em;
+    line-height: 1.2;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: whitesmoke;
 }
 
-<span style="color:#f92672">h3</span> {
-    <span style="color:#66d9ef">text-decoration</span>: <span style="color:#66d9ef">underline</span>;
+h3 {
+    text-decoration: underline;
 }
-</code></pre></div><p>以下の点がうれしかった</p>
+</code></pre>
+
+<p>以下の点がうれしかった</p>
+
 <ul>
 <li>h2 と h3 の区別がつきやすくなっている</li>
 <li>h3 に下線がひかれている</li>

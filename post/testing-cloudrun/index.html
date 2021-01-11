@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.1" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>Cloud Runの動作確認 (イメージのビルド、デプロイと削除) &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -81,17 +81,15 @@
                 </header>
                 
                   
-                    <div id="toc">
-                      <nav id="TableOfContents"></nav>
-                    </div>
-                  
                 
                 <section id="post-body">
                     <ul>
 <li><a href="https://cloud.google.com/run/docs/tutorials/system-packages">システム パッケージのチュートリアルを使用する  |  Cloud Run  |  Google Cloud</a></li>
 </ul>
+
 <p><code>$ gcloud builds submit</code> を叩くと、Dockerfileをもとにビルドが始まる</p>
-<pre><code class="language-console" data-lang="console">$ gcloud builds submit --tag gcr.io/$GOOGLE_PROJECT_ID/graphvizn
+
+<pre><code class="language-console">$ gcloud builds submit --tag gcr.io/$GOOGLE_PROJECT_ID/graphvizn
 
 ... snip ...
 
@@ -131,17 +129,24 @@ DONE
 
 ID                                    CREATE_TIME                DURATION  SOURCE                                                                                    IMAGES                                     STATUS
 959f914d-b05f-43c1-a1e7-1a66d4f080c6  2020-02-11T22:49:37+00:00  35S       gs://testes123456_cloudbuild/source/1581461344.82-4ddc74bd5d524f54ba32577e2c06d110.tgz  gcr.io/mcskpjt-192612/graphvizn (+1 more)  SUCCESS
-</code></pre><p><code>run deploy</code> でimageを指定してデプロイ</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ gcloud beta run deploy graphviz-web2 <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  --platform managed <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  --no-allow-unauthenticated <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  --region asia-northeast1 <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  --image gcr.io/mcskpjt-192612/graphvizn@sha256:0000df6c3d9f6c6f5a2876eccfcd4ebff014022d41b2e069a9108ccad9c0a532
-</code></pre></div><p><code>run services delete</code> で削除</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ gcloud beta run services delete <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  --platform managed <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  --region asia-northeast1 graphviz-web2
-</code></pre></div>
+</code></pre>
+
+<p><code>run deploy</code> でimageを指定してデプロイ</p>
+
+<pre><code class="language-bash">$ gcloud beta run deploy graphviz-web2 \
+  --platform managed \
+  --no-allow-unauthenticated \
+  --region asia-northeast1 \
+  --image gcr.io/mcskpjt-192612/graphvizn@sha256:0000df6c3d9f6c6f5a2876eccfcd4ebff014022d41b2e069a9108ccad9c0a532
+</code></pre>
+
+<p><code>run services delete</code> で削除</p>
+
+<pre><code class="language-bash">$ gcloud beta run services delete \
+  --platform managed \
+  --region asia-northeast1 graphviz-web2
+</code></pre>
+
                 </section>
             </article>
 

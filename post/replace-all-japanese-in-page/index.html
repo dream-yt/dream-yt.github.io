@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.1" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>ページ内の全ての日本語を○△□に置き換える &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -72,7 +72,7 @@
                     </h1>
                     <h2 class="headline">
                     Sep 5, 2020 12:07
-                    · 224 words
+                    · 200 words
                     · 1 minute read
                       <span class="tags">
                       
@@ -83,24 +83,35 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#参考">参考</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>nodejs/express で開発をしていて、画面内の日本語をすべて記号に置き換えたい時があったのでこのようにした</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">replace</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;stream-replace&#39;</span>);
-<span style="color:#a6e22e">stream</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">stream</span>
-    .<span style="color:#a6e22e">pipe</span>(<span style="color:#a6e22e">replace</span>(<span style="color:#e6db74">/[ぁ-ん]/g</span>, <span style="color:#e6db74">&#39;○&#39;</span>))
-    .<span style="color:#a6e22e">pipe</span>(<span style="color:#a6e22e">replace</span>(<span style="color:#e6db74">/[ァ-ヶ]/g</span>, <span style="color:#e6db74">&#39;△&#39;</span>))
-    .<span style="color:#a6e22e">pipe</span>(<span style="color:#a6e22e">replace</span>(<span style="color:#e6db74">/[一-龠]/g</span>, <span style="color:#e6db74">&#39;□&#39;</span>))
-<span style="color:#a6e22e">stream</span>.<span style="color:#a6e22e">pipe</span>(<span style="color:#a6e22e">response</span>);
-</code></pre></div><p>こんな見た目になるので、ある程度はなにがなんだかわからなくなる</p>
-<p><img src="https://raw.githubusercontent.com/sakamossan/image-bed/master/assets/ba731a1b-fd99-67e7-c2df-114ee42acb47.png" alt=""></p>
+                    
+
+<p>nodejs/express で開発をしていて、画面内の日本語をすべて記号に置き換えたい時があったのでこのようにした</p>
+
+<pre><code class="language-js">const replace = require('stream-replace');
+stream = stream
+    .pipe(replace(/[ぁ-ん]/g, '○'))
+    .pipe(replace(/[ァ-ヶ]/g, '△'))
+    .pipe(replace(/[一-龠]/g, '□'))
+stream.pipe(response);
+</code></pre>
+
+<p>こんな見た目になるので、ある程度はなにがなんだかわからなくなる</p>
+
+<p><img src="https://raw.githubusercontent.com/sakamossan/image-bed/master/assets/ba731a1b-fd99-67e7-c2df-114ee42acb47.png" alt="" /></p>
+
 <h2 id="参考">参考</h2>
+
 <ul>
 <li><a href="https://stabucky.com/wp/archives/7594">JavaScriptで漢字を表す正規表現 | You Look Too Cool</a></li>
 <li><a href="https://github.com/lxe/stream-replace">lxe/stream-replace: Replace text in a stream</a></li>

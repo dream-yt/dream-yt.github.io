@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.1" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>ffmpegコマンドの最小限の基本 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,46 +83,62 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li>
-      <ul>
-        <li><a href="#フィルタとは">フィルタとは</a></li>
-      </ul>
-    </li>
-    <li><a href="#動画ファイルの情報を見るだけ">動画ファイルの情報を見るだけ</a></li>
-    <li><a href="#参考">参考</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#フィルタとは">フィルタとは</a></li>
+</ul></li>
+<li><a href="#動画ファイルの情報を見るだけ">動画ファイルの情報を見るだけ</a></li>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>基本はこの順番</p>
+                    
+
+<p>基本はこの順番</p>
+
 <pre><code>ffmpeg -i {{ 入力ファイル }} {{ フィルタ }} {{ 出力ファイル }}
-</code></pre><h3 id="フィルタとは">フィルタとは</h3>
+</code></pre>
+
+<h3 id="フィルタとは">フィルタとは</h3>
+
 <ul>
 <li>動画、音声、または両方を加工するためのもの</li>
 <li>たとえばぼやかしたり、前後にフェードインフェードアウトを入れたりできる</li>
 <li>一度に複数重ねてかけることもできる (フィルタチェイン)</li>
 </ul>
+
 <h2 id="動画ファイルの情報を見るだけ">動画ファイルの情報を見るだけ</h2>
+
 <p>一番基本的なのは動画の情報を見るだけの使い方 (とくにフィルタは使わない)</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ ffmpeg -i ~/Desktop/mp4/test.mp4 -f null -
-</code></pre></div><ul>
+
+<pre><code class="language-bash">$ ffmpeg -i ~/Desktop/mp4/test.mp4 -f null -
+</code></pre>
+
+<ul>
 <li><code>-i</code>
+
 <ul>
 <li>入力ファイル</li>
-</ul>
-</li>
+</ul></li>
 <li><code>-f</code>
+
 <ul>
 <li>本来は出力の形式を指定するオプション</li>
 <li><code>-f null -</code>を指定すると出力ファイルを作らない挙動になる</li>
+</ul></li>
 </ul>
-</li>
-</ul>
+
 <h2 id="参考">参考</h2>
+
 <p>わかりやすい解説がたくさんある</p>
+
 <ul>
 <li><a href="https://yoshipc.net/how-to-use-ffmpeg/">ffmpeg使い方のまとめ | みんなのメモ帳</a></li>
 <li><a href="https://qiita.com/cha84rakanal/items/e84fe4eb6fbe2ae13fd8">それFFmpegで出来るよ！ - Qiita</a></li>

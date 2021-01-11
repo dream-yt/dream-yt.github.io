@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.1" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>StackDriverLoggingのログへのクエリ入門 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,33 +83,45 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li>
-      <ul>
-        <li><a href="#その他メモ">その他メモ</a></li>
-      </ul>
-    </li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#その他メモ">その他メモ</a></li>
+</ul></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <ul>
+                    
+
+<ul>
 <li>クエリ内の文字列にはダブルクオートを使う必要がある (シングルクオートはダメそう)</li>
 <li>ログがjson形式の場合は <code>jsonPayload.requestUrl</code> とかでペイロードを使ったクエリもかける</li>
 </ul>
+
 <p>こんなクエリを書くことになる</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">gcloud logging read <span style="color:#e6db74">&#39;
-</span><span style="color:#e6db74">  logName=&#34;projects/my-proj/logs/openresty&#34;
-</span><span style="color:#e6db74">  jsonPayload.requestUrl=&#34;http://example.com/api/&#34;
-</span><span style="color:#e6db74">  timestamp&gt;=&#34;2019-11-21T20:05:00+09:00&#34;
-</span><span style="color:#e6db74">  timestamp&lt;=&#34;2019-11-21T20:06:00+09:00&#34;
-</span><span style="color:#e6db74">  &#39;</span> --format<span style="color:#f92672">=</span>json --limit<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span> --order<span style="color:#f92672">=</span>asc
-</code></pre></div><p>クエリを別ファイルに書きたいならこんな感じ</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">gcloud logging read <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>cat ,/stackdriver/test.logquery<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  --format<span style="color:#f92672">=</span>json --order<span style="color:#f92672">=</span>asc
-</code></pre></div><h3 id="その他メモ">その他メモ</h3>
+
+<pre><code class="language-bash">gcloud logging read '
+  logName=&quot;projects/my-proj/logs/openresty&quot;
+  jsonPayload.requestUrl=&quot;http://example.com/api/&quot;
+  timestamp&gt;=&quot;2019-11-21T20:05:00+09:00&quot;
+  timestamp&lt;=&quot;2019-11-21T20:06:00+09:00&quot;
+  ' --format=json --limit=10 --order=asc
+</code></pre>
+
+<p>クエリを別ファイルに書きたいならこんな感じ</p>
+
+<pre><code class="language-bash">gcloud logging read &quot;$(cat ,/stackdriver/test.logquery)&quot; \
+  --format=json --order=asc
+</code></pre>
+
+<h3 id="その他メモ">その他メモ</h3>
+
 <ul>
 <li>なぜか <code>--order</code> のデフォルトがdescなので見慣れた形式にするならasc (普通は最新のログが下にくるよね)</li>
 <li>プロジェクト内のlogNameのリストを見るのは <code>$ gcloud logging logs list</code></li>

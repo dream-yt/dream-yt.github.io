@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.1" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>create-react-app と firebase の環境構築 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,41 +83,56 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li>
-      <ul>
-        <li><a href="#cra">CRA</a></li>
-        <li><a href="#firebaseのconsoleでいろいろ操作">Firebaseのconsoleでいろいろ操作</a></li>
-        <li><a href="#firebase-init">firebase init</a></li>
-      </ul>
-    </li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#cra">CRA</a></li>
+<li><a href="#firebaseのconsoleでいろいろ操作">Firebaseのconsoleでいろいろ操作</a></li>
+<li><a href="#firebase-init">firebase init</a></li>
+</ul></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>公式で案内されている手順だと先にCRAをやることになる。</p>
+                    
+
+<p>公式で案内されている手順だと先にCRAをやることになる。</p>
+
 <ul>
 <li><a href="https://create-react-app.dev/docs/deployment/#firebase">Deployment | Create React App</a></li>
 </ul>
+
 <h3 id="cra">CRA</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ npx create-react-app . --typescript --use-npm
-</code></pre></div><h3 id="firebaseのconsoleでいろいろ操作">Firebaseのconsoleでいろいろ操作</h3>
+
+<pre><code class="language-bash">$ npx create-react-app . --typescript --use-npm
+</code></pre>
+
+<h3 id="firebaseのconsoleでいろいろ操作">Firebaseのconsoleでいろいろ操作</h3>
+
 <p>先にいろいろつくらないと <code>firebase init</code> がコケる</p>
+
 <ul>
 <li>プロジェクトの作成</li>
 <li>リージョンの設定</li>
 <li>Functionsを使うならクレカを登録</li>
 <li>FireStoreを使うならデータベースを作成</li>
 </ul>
+
 <h3 id="firebase-init">firebase init</h3>
+
 <ul>
 <li><a href="https://firebase.google.com/docs/cli?hl=ja#windows-npm">Firebase CLI リファレンス</a></li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ firebase login
+
+<pre><code class="language-bash">$ firebase login
 $ firebaee init
-</code></pre></div>
+</code></pre>
+
                 </section>
             </article>
 

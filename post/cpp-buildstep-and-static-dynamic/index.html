@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.1" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>C&#43;&#43;のビルドステップと静的/動的ライブラリについて &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,75 +83,91 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#ビルドのステップ">ビルドのステップ</a></li>
-    <li><a href="#ライブラリの静的動的">ライブラリの静的/動的</a>
-      <ul>
-        <li><a href="#静的">静的</a></li>
-        <li><a href="#動的">動的</a></li>
-      </ul>
-    </li>
-    <li><a href="#参考">参考</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#ビルドのステップ">ビルドのステップ</a></li>
+<li><a href="#ライブラリの静的-動的">ライブラリの静的/動的</a>
+<ul>
+<li><a href="#静的">静的</a></li>
+<li><a href="#動的">動的</a></li>
+</ul></li>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <h2 id="ビルドのステップ">ビルドのステップ</h2>
+                    
+
+<h2 id="ビルドのステップ">ビルドのステップ</h2>
+
 <ul>
 <li>プリプロセッサ
+
 <ul>
 <li><code>#include</code> の処理</li>
 <li><code>#ifdef</code> とかの処理</li>
-</ul>
-</li>
+</ul></li>
 <li>コンパイラ
+
 <ul>
 <li>ソースファイルひとつからアセンブリファイルひとつを生成する</li>
-<li><code>#include</code> された関数などは、ヘッダファイルのみ使う
-<ul>
+<li><code>#include</code> された関数などは、ヘッダファイルのみ使う</li>
 <li>実装はここでは読み込まない</li>
-</ul>
-</li>
-</ul>
-</li>
+</ul></li>
 <li>アセンブラ
+
 <ul>
 <li>アセンブリファイルからオブジェクトファイルを生成</li>
 <li>ここでCPUのアーキテクチャごとのファイルが生成される</li>
-</ul>
-</li>
+</ul></li>
 <li>リンカ
+
 <ul>
 <li>ヘッダファイルのみで、実装を参照してなかったところを埋める</li>
 <li><code>main</code> 関数があるファイルから、呼び出されてる実装を
 再帰的に読み込みながらオブジェクトファイルを生成する</li>
+</ul></li>
 </ul>
-</li>
-</ul>
-<h2 id="ライブラリの静的動的">ライブラリの静的/動的</h2>
+
+<h2 id="ライブラリの静的-動的">ライブラリの静的/動的</h2>
+
 <p>ライブラリの読み込み方は動的と静的と二種類がある</p>
+
 <h3 id="静的">静的</h3>
+
 <p>静的にライブラリを読み込むと出力されるオブジェクトファイルに
 ライブラリファイルの実装が含まれたものができる</p>
+
 <p>静的にライブラリを参照する場合は、ビルド時にgccのオプションでパスを指定する必要がある</p>
+
 <ul>
 <li>ヘッダファイルのパス</li>
 <li>ライブラリファイル(バイナリ)へのパス</li>
 <li>ライブラリの名前</li>
 </ul>
+
 <h3 id="動的">動的</h3>
+
 <p>動的に読み込むライブラリは実行時にライブラリファイルを読み込む</p>
+
 <p><code>#include</code> はコード内に登場するが、実装はコンパイル結果に含まれず
 ライブラリファイルのパス情報を持ったオブジェクトファイルが生成される</p>
+
 <p>この方法だと実行ファイルにはライブラリのヘッダ情報しか含まれていないため、
 ライブラリファイルを更新(実装を変更)しても実行ファイルの再コンパイルをしないですむ</p>
+
 <h2 id="参考">参考</h2>
+
 <p>丁寧に説明されていてわかりやすかった</p>
+
 <ul>
 <li><a href="https://kamino.hatenablog.com/entry/c%2B%2B-principle-of-build-library">C/C++のビルドの仕組みとライブラリ - かみのメモ</a></li>
 </ul>
+
 <p>メモっておきたいのはビルドのステップと、ライブラリの静的/動的について</p>
 
                 </section>

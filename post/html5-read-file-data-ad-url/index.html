@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.1" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>html5のFileオブジェクトからimg/videoタグで使えるURLを取得する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,34 +83,43 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#参考">参考</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>こんな関数で取得できる</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">f</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">file</span>: <span style="color:#66d9ef">File</span>) <span style="color:#f92672">=&gt;</span> {
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">reader</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">FileReader</span>();
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">promise</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Promise</span>((<span style="color:#a6e22e">resolve</span>, <span style="color:#a6e22e">reject</span>) <span style="color:#f92672">=&gt;</span> {
-    <span style="color:#a6e22e">reader</span>.<span style="color:#a6e22e">onerror</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">e</span> <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">reject</span>(<span style="color:#a6e22e">e</span>);
-    <span style="color:#a6e22e">reader</span>.<span style="color:#a6e22e">onabort</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">e</span> <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">reject</span>(<span style="color:#a6e22e">e</span>);
-    <span style="color:#a6e22e">reader</span>.<span style="color:#a6e22e">onload</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">e</span> <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">resolve</span>(<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">target</span><span style="color:#f92672">?</span>.<span style="color:#a6e22e">result</span>);
+                    
+
+<p>こんな関数で取得できる</p>
+
+<pre><code class="language-ts">const f = (file: File) =&gt; {
+  const reader = new FileReader();
+  const promise = new Promise((resolve, reject) =&gt; {
+    reader.onerror = e =&gt; reject(e);
+    reader.onabort = e =&gt; reject(e);
+    reader.onload = e =&gt; resolve(e.target?.result);
   });
-  <span style="color:#a6e22e">reader</span>.<span style="color:#a6e22e">readAsDataURL</span>(<span style="color:#a6e22e">file</span>);
-  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">promise</span>;
+  reader.readAsDataURL(file);
+  return promise;
 };
 
 ...
 
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">url</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">f</span>(<span style="color:#a6e22e">event</span>.<span style="color:#a6e22e">currentTarget</span>.<span style="color:#a6e22e">files</span>[<span style="color:#ae81ff">0</span>]);
-<span style="color:#66d9ef">return</span> &lt;<span style="color:#f92672">video</span>&gt;&lt;<span style="color:#f92672">source</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">url</span>} /&gt;&lt;/<span style="color:#f92672">video</span>&gt;
-</code></pre></div><h2 id="参考">参考</h2>
+const url = f(event.currentTarget.files[0]);
+return &lt;video&gt;&lt;source src={url} /&gt;&lt;/video&gt;
+</code></pre>
+
+<h2 id="参考">参考</h2>
+
 <ul>
 <li><a href="https://developer.mozilla.org/ja/docs/Web/API/File/Using_files_from_web_applications">Web アプリケーションからのファイルの使用 - Web API | MDN</a></li>
-<li><a href="https://developer.mozilla.org/ja/docs/Web/HTML/Element/video"><!-- raw HTML omitted -->: 動画埋め込み要素 - HTML: HyperText Markup Language | MDN</a></li>
+<li><a href="https://developer.mozilla.org/ja/docs/Web/HTML/Element/video"><video>: 動画埋め込み要素 - HTML: HyperText Markup Language | MDN</a></li>
 <li><a href="https://developer.mozilla.org/ja/docs/Web/API/FileReader">FileReader - Web API | MDN</a></li>
 </ul>
 

@@ -14,7 +14,7 @@
   
   
   <meta name="twitter:title" content="redux-form (handleSubmit) 入門"/>
-  <meta name="twitter:description" content="redux-form (handleSubmit) 入門 MyFormコンポーネントを定義 自前で実装するフォーム const MyForm = ({ handleSubmit }) =&gt; ( &lt;form onSubmit={handleSubmit}&gt; &lt;div&gt; &lt;label htmlFor=&#34;firstName&#34;&gt;First Name&lt;/label&gt; &lt;Field component={renderTextField} name=&#34;firstName&#34; type=&#34;text&#34; /&gt; &lt;/div&gt; &lt;button type=&#34;submit&#34;&gt;Submit&lt;/button&gt; &lt;/form&gt; ); ({ handleSubmit }) =&gt; ( reduxFormか"/>
+  <meta name="twitter:description" content="redux-form (handleSubmit) 入門 MyFormコンポーネントを定義 自前で実装するフォーム const MyForm = ({ handleSubmit }) =&gt; ( &lt;form onSubmit={handleSubmit}&gt; &lt;div&gt; &lt;label htmlFor=&quot;firstName&quot;&gt;First Name&lt;/label&gt; &lt;Field component={renderTextField} name=&quot;firstName&quot; type=&quot;text&quot; /&gt; &lt;/div&gt; &lt;button type=&quot;submit&quot;&gt;Submit&lt;/button&gt; &lt;/form&gt; ); ({ handleSubmit }) =&gt; ( reduxFormか"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.1" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>redux-form (handleSubmit) 入門 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,67 +83,92 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#myformコンポーネントを定義">MyFormコンポーネントを定義</a></li>
-    <li><a href="#reduxform">reduxForm</a></li>
-    <li><a href="#使うところ">使うところ</a></li>
-    <li><a href="#参考">参考</a></li>
-  </ul>
+<ul>
+<li><a href="#redux-form-handlesubmit-入門">redux-form (handleSubmit) 入門</a>
+<ul>
+<li><a href="#myformコンポーネントを定義">MyFormコンポーネントを定義</a></li>
+<li><a href="#reduxform">reduxForm</a></li>
+<li><a href="#使うところ">使うところ</a></li>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <h1 id="redux-form-handlesubmit-入門">redux-form (handleSubmit) 入門</h1>
+                    
+
+<h1 id="redux-form-handlesubmit-入門">redux-form (handleSubmit) 入門</h1>
+
 <h2 id="myformコンポーネントを定義">MyFormコンポーネントを定義</h2>
+
 <p>自前で実装するフォーム</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">MyForm</span> <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">handleSubmit</span> }) =&gt; (
-  &lt;<span style="color:#f92672">form</span> <span style="color:#a6e22e">onSubmit</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">handleSubmit</span>}&gt;
-    &lt;<span style="color:#f92672">div</span>&gt;
-      &lt;<span style="color:#f92672">label</span> <span style="color:#a6e22e">htmlFor</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;firstName&#34;</span>&gt;<span style="color:#a6e22e">First</span> <span style="color:#a6e22e">Name</span>&lt;/<span style="color:#f92672">label</span>&gt;
-      &lt;<span style="color:#f92672">Field</span> <span style="color:#a6e22e">component</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">renderTextField</span>} <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;firstName&#34;</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text&#34;</span> /&gt;
-    &lt;/<span style="color:#f92672">div</span>&gt;
-    &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;submit&#34;</span>&gt;<span style="color:#a6e22e">Submit</span>&lt;/<span style="color:#f92672">button</span>&gt;
-  &lt;/<span style="color:#f92672">form</span>&gt;
+
+<pre><code class="language-jsx">const MyForm = ({ handleSubmit }) =&gt; (
+  &lt;form onSubmit={handleSubmit}&gt;
+    &lt;div&gt;
+      &lt;label htmlFor=&quot;firstName&quot;&gt;First Name&lt;/label&gt;
+      &lt;Field component={renderTextField} name=&quot;firstName&quot; type=&quot;text&quot; /&gt;
+    &lt;/div&gt;
+    &lt;button type=&quot;submit&quot;&gt;Submit&lt;/button&gt;
+  &lt;/form&gt;
 );
-</code></pre></div><blockquote>
+</code></pre>
+
+<blockquote>
 <p>({ handleSubmit }) =&gt; (</p>
 </blockquote>
+
 <ul>
 <li>reduxFormからhandleSubmitというpropsが渡される
+
 <ul>
 <li>formがsubmitされたときに実行されるべき関数 (後述)</li>
+</ul></li>
 </ul>
-</li>
-</ul>
+
 <blockquote>
 <p>component={renderTextField}</p>
 </blockquote>
+
 <p>自前のカスタムコンポーネントを渡すことができる
 <code>component=&quot;input&quot;</code> などと文字列で渡すと普通のデフォルトのinput要素で描画される</p>
+
 <h2 id="reduxform">reduxForm</h2>
+
 <ul>
 <li>reduxFormでMyFormをデコレートする
+
 <ul>
 <li>これをすることでredux-formの便利関数がMyFormにpropsとして使えるように</li>
 <li>handleSubmitもこれ経由でpropsに渡ってきている</li>
-</ul>
-</li>
+</ul></li>
 <li><code>sampleIt</code> はredux-form内でこのフォームを管理するときの名前
+
 <ul>
 <li>複数フォームにまたがった処理を書くときとかに使うのだろうか</li>
+</ul></li>
 </ul>
-</li>
-</ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">RDForm</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">reduxForm</span>({ <span style="color:#a6e22e">form</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;sampleIt&#39;</span> })(<span style="color:#a6e22e">MyForm</span>);
-</code></pre></div><h2 id="使うところ">使うところ</h2>
+
+<pre><code class="language-ts">const RDForm = reduxForm({ form: 'sampleIt' })(MyForm);
+</code></pre>
+
+<h2 id="使うところ">使うところ</h2>
+
 <p>onSubmit属性に好きな関数を渡して使う
 (多くの場合はサーバ側にPOSTしたりとか)</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx">&lt;<span style="color:#f92672">RDForm</span> <span style="color:#a6e22e">onSubmit</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>} /&gt;
-</code></pre></div><p>ここの <code>RDForm#onSubmit</code> propsとして渡した関数は
+
+<pre><code class="language-jsx">&lt;RDForm onSubmit={console.log} /&gt;
+</code></pre>
+
+<p>ここの <code>RDForm#onSubmit</code> propsとして渡した関数は
 <code>MyForm#handleSubmit</code> propsとして渡ってくることになる</p>
+
 <p>例だと単純に <code>組み込みform#onSubmit</code> に渡している</p>
+
 <h2 id="参考">参考</h2>
+
 <ul>
 <li><a href="https://qiita.com/yhosok/items/ab8e990403749690d846">Redux Form入門 - Qiita</a></li>
 </ul>

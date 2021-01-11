@@ -14,7 +14,7 @@
   
   
   <meta name="twitter:title" content="vscodeのformatOnSaveでPython/autopep8を使って整形する"/>
-  <meta name="twitter:description" content="自動でフォーマットを効かせる最低限の設定 &#34;settings&#34;: { &#34;[python]&#34;: { &#34;editor.formatOnSave&#34;: true }, &#34;python.formatting.autopep8Path&#34;: &#34;autopep8&#34;, &#34;python.formatting.autopep8Args&#34;: [ &#34;--aggressive&#34;, &#34;--aggressive&#34; ] 参考 公式のドキュメントがトラブルシューティングを提供していて親切だった Editing"/>
+  <meta name="twitter:description" content="自動でフォーマットを効かせる最低限の設定 &quot;settings&quot;: { &quot;[python]&quot;: { &quot;editor.formatOnSave&quot;: true }, &quot;python.formatting.autopep8Path&quot;: &quot;autopep8&quot;, &quot;python.formatting.autopep8Args&quot;: [ &quot;--aggressive&quot;, &quot;--aggressive&quot; ] 参考 公式のドキュメントがトラブルシューティングを提供していて親切だった Editing"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.1" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>vscodeのformatOnSaveでPython/autopep8を使って整形する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,26 +83,36 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#参考">参考</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>自動でフォーマットを効かせる最低限の設定</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">    <span style="color:#e6db74">&#34;settings&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> {
-      <span style="color:#f92672">&#34;[python]&#34;</span>: {
-        <span style="color:#f92672">&#34;editor.formatOnSave&#34;</span>: <span style="color:#66d9ef">true</span>
+                    
+
+<p>自動でフォーマットを効かせる最低限の設定</p>
+
+<pre><code class="language-json">    &quot;settings&quot;: {
+      &quot;[python]&quot;: {
+        &quot;editor.formatOnSave&quot;: true
     },
-    <span style="color:#f92672">&#34;python.formatting.autopep8Path&#34;</span>: <span style="color:#e6db74">&#34;autopep8&#34;</span>,
-    <span style="color:#f92672">&#34;python.formatting.autopep8Args&#34;</span>: [
-      <span style="color:#e6db74">&#34;--aggressive&#34;</span>,
-      <span style="color:#e6db74">&#34;--aggressive&#34;</span>
+    &quot;python.formatting.autopep8Path&quot;: &quot;autopep8&quot;,
+    &quot;python.formatting.autopep8Args&quot;: [
+      &quot;--aggressive&quot;,
+      &quot;--aggressive&quot;
     ]
-</code></pre></div><h2 id="参考">参考</h2>
+</code></pre>
+
+<h2 id="参考">参考</h2>
+
 <p>公式のドキュメントがトラブルシューティングを提供していて親切だった</p>
+
 <ul>
 <li><a href="https://code.visualstudio.com/docs/python/editing#_formatting">Editing Python Code in Visual Studio Code</a></li>
 <li><a href="https://pypi.org/project/autopep8/">autopep8 · PyPI</a></li>

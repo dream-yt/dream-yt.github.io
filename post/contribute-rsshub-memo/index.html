@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.1" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>RSSHubにPR出すときのメモ &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,33 +83,53 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li>
-      <ul>
-        <li></li>
-      </ul>
-    </li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#まず先にfetch">まず先にfetch</a></li>
+<li><a href="#開発者向けのドキュメント">開発者向けのドキュメント</a></li>
+<li><a href="#開発用のコマンド">開発用のコマンド</a></li>
+<li><a href="#過去のpr">過去のPR</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <ul>
+                    
+
+<ul>
 <li><a href="https://github.com/DIYgod/RSSHub">DIYgod/RSSHub: 🍰 Everything is RSSible</a></li>
 </ul>
+
 <h4 id="まず先にfetch">まず先にfetch</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git remote add upstream ssh://git@github.com/DIYgod/RSSHub.git
+
+<pre><code class="language-bash">$ git remote add upstream ssh://git@github.com/DIYgod/RSSHub.git
 $ git fetch upstream
-</code></pre></div><h4 id="開発者向けのドキュメント">開発者向けのドキュメント</h4>
+</code></pre>
+
+<h4 id="開発者向けのドキュメント">開発者向けのドキュメント</h4>
+
 <ul>
 <li><a href="https://docs.rsshub.app/en/joinus/">Join Us | RSSHub</a></li>
 </ul>
+
 <h4 id="開発用のコマンド">開発用のコマンド</h4>
+
 <p>使うのはこのへん</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ yarn dev
+
+<pre><code class="language-bash">$ yarn dev
 $ yarn docs:dev
-</code></pre></div><pre><code class="language-console" data-lang="console">$ cat package.json | jq .scripts
+</code></pre>
+
+<pre><code class="language-console">$ cat package.json | jq .scripts
 {
   &quot;start&quot;: &quot;node lib/index.js&quot;,
   &quot;dev&quot;: &quot;cross-env NODE_ENV=dev nodemon --inspect lib/index.js&quot;,
@@ -121,7 +141,10 @@ $ yarn docs:dev
   &quot;test&quot;: &quot;npm run format:check &amp;&amp; cross-env NODE_ENV=test jest --coverage --runInBand --forceExit&quot;,
   &quot;jest&quot;: &quot;cross-env NODE_ENV=test jest --runInBand --forceExit&quot;
 }
-</code></pre><h4 id="過去のpr">過去のPR</h4>
+</code></pre>
+
+<h4 id="過去のpr">過去のPR</h4>
+
 <ul>
 <li><a href="https://github.com/DIYgod/RSSHub/pull/4355">feat: add router twitter/trends by sakamossan · Pull Request #4355 · DIYgod/RSSHub</a></li>
 <li><a href="https://github.com/DIYgod/RSSHub/pull/3928">feat: add router yahoo-jp-tv by sakamossan · Pull Request #3928 · DIYgod/RSSHub</a></li>

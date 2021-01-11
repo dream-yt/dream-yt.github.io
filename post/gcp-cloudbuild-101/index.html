@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.1" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>GCPのCloud Build入門 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,65 +83,91 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#リポジトリ">リポジトリ</a>
-      <ul>
-        <li><a href="#checkout">checkout</a></li>
-      </ul>
-    </li>
-    <li><a href="#cloudbuildyamlの例">cloudbuild.yamlの例</a>
-      <ul>
-        <li><a href="#name">name</a></li>
-        <li><a href="#args">args</a></li>
-        <li><a href="#その他">その他</a></li>
-      </ul>
-    </li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#リポジトリ">リポジトリ</a>
+<ul>
+<li><a href="#checkout">checkout</a></li>
+</ul></li>
+<li><a href="#cloudbuild-yamlの例">cloudbuild.yamlの例</a>
+<ul>
+<li><a href="#name">name</a></li>
+<li><a href="#args">args</a></li>
+<li><a href="#その他">その他</a></li>
+</ul></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>circleciではシェルのコマンドを組み合わせてビルドを実施するが、
+                    
+
+<p>circleciではシェルのコマンドを組み合わせてビルドを実施するが、
 GCPのcloudbuildはdockerイメージを使ってビルドを実施していく</p>
+
 <ul>
 <li><a href="https://cloud.google.com/cloud-build/docs/cloud-builders?hl=ja">クラウド ビルダー  |  Cloud Build  |  Google Cloud</a></li>
 </ul>
+
 <p>たとえば、ビルド処理でdockerイメージbuildする必要があるなら、クラウドビルダーのdockerイメージを使ってdockerイメージをpullするところから始まる (紛らわしい)</p>
+
 <h2 id="リポジトリ">リポジトリ</h2>
+
 <p>ソースコードをビルドするとして、そのソースコードをもってくるリポジトリが必要になる
 デフォルトでCloud Buildは以下の3つのリポジトリに対応している</p>
+
 <ul>
 <li>CloudSourceRepository (GCP)</li>
 <li>BitBucket</li>
 <li>GitHub</li>
 </ul>
+
 <p>GitHubなどの外部リポジトリとミラーリングできたり、フックして色々処理を動かせたりする</p>
+
 <p>ビルドする場合はこんな処理順になる</p>
+
 <ol>
 <li>GitHubへのpush</li>
 <li>cloud build をトリガー、ビルドを実施</li>
 </ol>
+
 <h3 id="checkout">checkout</h3>
+
 <p>Cloud Build では設定したリポジトリのコードがすべてカレントディレクトリにある状態で処理が開始される</p>
-<h2 id="cloudbuildyamlの例">cloudbuild.yamlの例</h2>
+
+<h2 id="cloudbuild-yamlの例">cloudbuild.yamlの例</h2>
+
 <p>cloudbuild.yamlは以下のような形式になる</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">steps</span>:
-- <span style="color:#f92672">name</span>: <span style="color:#e6db74">&#39;gcr.io/cloud-builders/git&#39;</span>
-  <span style="color:#f92672">args</span>: [<span style="color:#e6db74">&#39;clone&#39;</span>, <span style="color:#e6db74">&#39;https://github.com/GoogleCloudPlatform/cloud-builders&#39;</span>]
-  <span style="color:#f92672">env</span>: [<span style="color:#e6db74">&#39;PROJECT_ROOT=hello&#39;</span>]
-- <span style="color:#f92672">name</span>: <span style="color:#e6db74">&#39;gcr.io/cloud-builders/docker&#39;</span>
-  <span style="color:#f92672">args</span>: [<span style="color:#e6db74">&#39;build&#39;</span>, <span style="color:#e6db74">&#39;-t&#39;</span>, <span style="color:#e6db74">&#39;gcr.io/my-project-id/myimage&#39;</span>, <span style="color:#e6db74">&#39;.&#39;</span>]
-</code></pre></div><h3 id="name">name</h3>
+
+<pre><code class="language-yaml">steps:
+- name: 'gcr.io/cloud-builders/git'
+  args: ['clone', 'https://github.com/GoogleCloudPlatform/cloud-builders']
+  env: ['PROJECT_ROOT=hello']
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'gcr.io/my-project-id/myimage', '.']
+</code></pre>
+
+<h3 id="name">name</h3>
+
 <p><code>docker run</code> するイメージ名を指定する</p>
+
 <p>デフォルトで使えるイメージはこちら</p>
+
 <ul>
 <li><a href="https://cloud.google.com/cloud-build/docs/cloud-builders?hl=ja">クラウド ビルダー  |  Cloud Build  |  Google Cloud</a></li>
 </ul>
+
 <h3 id="args">args</h3>
+
 <p><code>docker run</code> に渡す引数はここに指定する</p>
+
 <h3 id="その他">その他</h3>
+
 <p>他にもステップを並列実行したり、環境変数を設定したりできる</p>
+
 <ul>
 <li><a href="https://cloud.google.com/cloud-build/docs/configuring-builds/create-basic-configuration?hl=ja">基本的なビルド構成ファイルの作成  |  Cloud Build  |  Google Cloud</a></li>
 </ul>

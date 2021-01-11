@@ -14,7 +14,7 @@
   
   
   <meta name="twitter:title" content="ERROR: (gcloud.beta.scheduler.jobs.create.http) INVALID_ARGUMENT"/>
-  <meta name="twitter:description" content="GCPのCloudSchedulerの設定で以下のようなコマンドを叩いたところエラーとなった gcloud beta scheduler jobs create http subcommandtesting-out-job \ --schedule &#34;5 * * * *&#34; \ --http-method=GET \ --uri=&#39;https://test-iujvxwvxra-an.a.run.app/test/out&#39; \ --oidc-service-account-email=&#39;xxxxxxxx@gmail.com&#39; ERROR: (gcloud.beta.scheduler.jobs.create.http) INVALID_ARGUMENT: Request"/>
+  <meta name="twitter:description" content="GCPのCloudSchedulerの設定で以下のようなコマンドを叩いたところエラーとなった gcloud beta scheduler jobs create http subcommandtesting-out-job \ --schedule &quot;5 * * * *&quot; \ --http-method=GET \ --uri=&#39;https://test-iujvxwvxra-an.a.run.app/test/out&#39; \ --oidc-service-account-email=&#39;xxxxxxxx@gmail.com&#39; ERROR: (gcloud.beta.scheduler.jobs.create.http) INVALID_ARGUMENT: Request"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.1" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>ERROR: (gcloud.beta.scheduler.jobs.create.http) INVALID_ARGUMENT &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -81,23 +81,25 @@
                 </header>
                 
                   
-                    <div id="toc">
-                      <nav id="TableOfContents"></nav>
-                    </div>
-                  
                 
                 <section id="post-body">
                     <p>GCPのCloudSchedulerの設定で以下のようなコマンドを叩いたところエラーとなった</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">gcloud beta scheduler jobs create http subcommandtesting-out-job <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  --schedule <span style="color:#e6db74">&#34;5 * * * *&#34;</span> <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  --http-method<span style="color:#f92672">=</span>GET <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  --uri<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;https://test-iujvxwvxra-an.a.run.app/test/out&#39;</span> <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  --oidc-service-account-email<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;xxxxxxxx@gmail.com&#39;</span>
-</code></pre></div><blockquote>
+
+<pre><code class="language-bash">gcloud beta scheduler jobs create http subcommandtesting-out-job \
+  --schedule &quot;5 * * * *&quot; \
+  --http-method=GET \
+  --uri='https://test-iujvxwvxra-an.a.run.app/test/out' \
+  --oidc-service-account-email='xxxxxxxx@gmail.com'
+</code></pre>
+
+<blockquote>
 <p>ERROR: (gcloud.beta.scheduler.jobs.create.http) INVALID_ARGUMENT: Request contains an invalid argument.</p>
 </blockquote>
+
 <p>この場合、これは <code>xxxxxxxx@gmail.com</code> なメールアドレスを使ったのがよくない。<code>service-account-email</code> というパラメータ名なので&hellip;</p>
+
 <p>きちんとサービスアカウントのメールアドレスを使う必要がある</p>
+
 <ul>
 <li><code>xxxxxxxx@wwwwwwww-123456.iam.gserviceaccount.com</code></li>
 </ul>

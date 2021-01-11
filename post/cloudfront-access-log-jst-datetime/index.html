@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.1" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>athena(presto)で、dateとtimeからJSTを得る &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,51 +83,65 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li>
-      <ul>
-        <li><a href="#こんな感じでできる">こんな感じでできる</a></li>
-        <li><a href="#参考">参考</a></li>
-      </ul>
-    </li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#こんな感じでできる">こんな感じでできる</a></li>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>CloudFrontのログファイルをathenaでテーブルにすると、dateカラムとtimeカラムで別カラムになっている</p>
+                    
+
+<p>CloudFrontのログファイルをathenaでテーブルにすると、dateカラムとtimeカラムで別カラムになっている</p>
+
 <ul>
 <li><a href="https://docs.aws.amazon.com/ja_jp/athena/latest/ug/cloudfront-logs.html">Amazon CloudFront ログのクエリ - Amazon Athena</a></li>
 </ul>
+
 <p>この2つのカラムからdatetime (JST) のカラムを作りたい</p>
+
 <h3 id="こんな感じでできる">こんな感じでできる</h3>
+
 <p>この辺を組み合わせる</p>
+
 <ul>
 <li><code>date_format</code></li>
 <li><code>from_iso8601_timestamp</code></li>
 <li><code>AT TIME ZONE 'Asia/Tokyo'</code></li>
 </ul>
+
 <p>文字列結合でiso8601フォーマットを作っている</p>
+
 <ul>
 <li>eg: <code>2019-08-21T18:04:04Z</code></li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">WITH</span> t <span style="color:#66d9ef">AS</span> (
-  <span style="color:#66d9ef">SELECT</span>
-    cdn_access_log.<span style="color:#f92672">*</span>,
-    from_iso8601_timestamp(date_format(date, <span style="color:#e6db74">&#39;%Y-%m-%dT&#39;</span>) <span style="color:#f92672">||</span> time <span style="color:#f92672">||</span> <span style="color:#e6db74">&#39;Z&#39;</span>) <span style="color:#66d9ef">AT</span> TIME <span style="color:#66d9ef">ZONE</span> <span style="color:#e6db74">&#39;Asia/Tokyo&#39;</span> jst_datetime
-  <span style="color:#66d9ef">FROM</span>
+
+<pre><code class="language-sql">WITH t AS (
+  SELECT
+    cdn_access_log.*,
+    from_iso8601_timestamp(date_format(date, '%Y-%m-%dT') || time || 'Z') AT TIME ZONE 'Asia/Tokyo' jst_datetime
+  FROM
     myproj.cdn_access_log
 )
-<span style="color:#66d9ef">SELECT</span>
+SELECT
   date,
   time,
   jst_datetime
-<span style="color:#66d9ef">FROM</span>
+FROM
   t
-<span style="color:#66d9ef">LIMIT</span>
-  <span style="color:#ae81ff">3</span>
-</code></pre></div><table>
+LIMIT
+  3
+</code></pre>
+
+<table>
 <thead>
 <tr>
 <th>date</th>
@@ -135,17 +149,20 @@
 <th>jst_datetime</th>
 </tr>
 </thead>
+
 <tbody>
 <tr>
 <td>2019-08-21</td>
 <td>9:04:04</td>
 <td>2019-08-21 18:04:04.000 Asia/Tokyo</td>
 </tr>
+
 <tr>
 <td>2019-08-21</td>
 <td>9:04:01</td>
 <td>2019-08-21 18:04:01.000 Asia/Tokyo</td>
 </tr>
+
 <tr>
 <td>2019-08-21</td>
 <td>9:04:05</td>
@@ -153,7 +170,9 @@
 </tr>
 </tbody>
 </table>
+
 <h3 id="参考">参考</h3>
+
 <ul>
 <li><a href="https://docs.aws.amazon.com/ja_jp/athena/latest/ug/cloudfront-logs.html">Amazon CloudFront ログのクエリ - Amazon Athena</a></li>
 <li><a href="https://prestodb.github.io/docs/current/functions/datetime.html">6.13. Date and Time Functions and Operators — Presto 0.224 Documentation</a></li>

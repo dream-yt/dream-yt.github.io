@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.1" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>pythonの__del__ &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,50 +83,69 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li>
-      <ul>
-        <li><a href="#ドキュメントの記載">ドキュメントの記載</a></li>
-        <li><a href="#リファレンスカウント">リファレンスカウント</a></li>
-      </ul>
-    </li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#ドキュメントの記載">ドキュメントの記載</a></li>
+<li><a href="#リファレンスカウント">リファレンスカウント</a></li>
+</ul></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>軽くドキュメントを読んでメモ</p>
+                    
+
+<p>軽くドキュメントを読んでメモ</p>
+
 <p>次のような雰囲気のメソッドのようだ</p>
+
 <ul>
 <li>デストラクタとして使わない</li>
 <li>やむおえない時だけ使う</li>
 <li>変な使い方はしない</li>
 </ul>
+
 <h3 id="ドキュメントの記載">ドキュメントの記載</h3>
+
 <ul>
 <li><a href="https://docs.python.org/ja/3/reference/datamodel.html#object.__del__">3. データモデル — Python 3.7.1 ドキュメント</a></li>
 </ul>
+
 <p>デストラクタ的に<code>__del__</code>が定義できる</p>
+
 <blockquote>
 <p>インスタンスが破棄されるときに呼び出されます。 これはファイナライザや (適切ではありませんが) デストラクタとも呼ばれます。</p>
 </blockquote>
+
 <p>ただしインタプリタ終了時に呼ばれるとは限らない</p>
+
 <blockquote>
 <p>インタプリタが終了したときに、残存しているオブジェクトの <strong>del</strong>() メソッドが呼び出される保証はありません。</p>
 </blockquote>
+
 <p>辺な使い方が出来るが推奨されていない</p>
+
 <blockquote>
 <p><strong>del</strong>() メソッドが破棄しようとしているインスタンスへの新しい参照を作り、破棄を送らせることは (推奨されないものの) 可能です。</p>
 </blockquote>
+
 <h3 id="リファレンスカウント">リファレンスカウント</h3>
+
 <p>こちらの資料だとリファレンスカウントが0になったときに呼ばれると書いてある</p>
+
 <ul>
 <li><a href="https://emptypage.jp/notes/py-__del__-and-refcycle.html"><strong>del</strong>, gc, 循環参照, weakref</a></li>
 </ul>
+
 <blockquote>
 <p>オブジェクトの参照カウントが 0 になったとき、そのオブジェクトの <strong>del</strong> メソッドが（もし定義されていれば）呼ばれる。その意味で、<strong>del</strong> メソッドはデストラクタとも呼ばれる。このメソッドで、ファイルハンドルをクローズするとか、メンバ変数として保持していたリソースを解放するといった処理を行うことが想定されている。</p>
 </blockquote>
+
 <p>ただし、この資料は2010年のもので今(python3)は違うのかもしれない</p>
 
                 </section>

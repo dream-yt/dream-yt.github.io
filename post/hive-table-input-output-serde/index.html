@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.1" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>hive(athena)の InputFormat, OutputFormat, SerDe &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,35 +83,51 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#inputformat-outputformat">INPUTFORMAT, OUTPUTFORMAT</a>
-      <ul>
-        <li><a href="#serde">SerDe</a></li>
-      </ul>
-    </li>
-    <li><a href="#参考">参考</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#inputformat-outputformat">INPUTFORMAT, OUTPUTFORMAT</a>
+<ul>
+<li><a href="#serde">SerDe</a></li>
+</ul></li>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>hive の create table は次のようなものである</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">TABLE</span> test(id INT, name STRING) 
-<span style="color:#66d9ef">ROW</span> FORMAT SERDE <span style="color:#e6db74">&#39;org.apache.hadoop.hive.serde2.avro.AvroSerDe&#39;</span> 
-STORED <span style="color:#66d9ef">as</span> INPUTFORMAT <span style="color:#e6db74">&#39;org.apache.hadoop.hive.ql.io.avro.AvroContainerInputFormat&#39;</span> OUTPUTFORMAT <span style="color:#e6db74">&#39;org.apache.hadoop.hive.ql.io.avro.AvroContainerOutputFormat&#39;</span>
-</code></pre></div><p>このなかの SERDE, INPUTFORMAT, OUTPUTFORMAT についてメモ</p>
+                    
+
+<p>hive の create table は次のようなものである</p>
+
+<pre><code class="language-sql">CREATE TABLE test(id INT, name STRING) 
+ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.avro.AvroSerDe' 
+STORED as INPUTFORMAT 'org.apache.hadoop.hive.ql.io.avro.AvroContainerInputFormat' OUTPUTFORMAT 'org.apache.hadoop.hive.ql.io.avro.AvroContainerOutputFormat'
+</code></pre>
+
+<p>このなかの SERDE, INPUTFORMAT, OUTPUTFORMAT についてメモ</p>
+
 <h2 id="inputformat-outputformat">INPUTFORMAT, OUTPUTFORMAT</h2>
+
 <p>hive には external storage と hive warehouse 2種類のデータストアがある</p>
+
 <p>これらのストアされたデータの形式はcsvからparquetまで色んなものが使えるが、どのデータ構造でストアされているかを InputFormat, OutputFormat にて定義しておく</p>
+
 <ul>
 <li>データを読みだすときには InputFormat の定義が使われ</li>
 <li>データを書き出すときには OutputFormat の定義が使われる</li>
 </ul>
+
 <h3 id="serde">SerDe</h3>
+
 <p>Deserializer, Serializer のこと</p>
+
 <p>InputFormat によって 読みだしたファイルのレコードをどのようにパースしてRowオブジェクトにするかを定義するのが Deserializer であり、同様に結果のRowをどうシリアライズするかが Serializer である</p>
+
 <h2 id="参考">参考</h2>
+
 <ul>
 <li><a href="https://stackoverflow.com/questions/42416236/what-is-the-difference-between-inputformat-outputformat-stored-as-in-hive">hadoop - What is the difference between &lsquo;InputFormat, OutputFormat&rsquo; &amp; &lsquo;Stored as&rsquo; in Hive? - Stack Overflow</a></li>
 <li><a href="https://oyermolenko.blog/2017/02/16/structuring-hadoop-data-through-hive-and-sql/">Structuring Hadoop data through Hive and SQL – Diving into Hadoop</a></li>

@@ -14,7 +14,7 @@
   
   
   <meta name="twitter:title" content="serverless deploy を amazonlinuxイメージで行う"/>
-  <meta name="twitter:description" content="lambdaとnodeのネイティブモジュール周りで辛いことになった時用 Dockerfile FROMamazonlinux:latestRUN curl --silent --location https://dl.yarnpkg.com/rpm/yarn.repo &gt; /etc/yum.repos.d/yarn.repoRUN curl --silent --location https://rpm.nodesource.com/setup_10.x | bashRUN yum install -y nodejs gcc-c&#43;&#43; make git yarnRUN yarn global add serverless --silent --no-progressRUN mkdir /appWORKDIR/appADD package.json /app/package.jsonADD yarn.lock /app/yarn.lock# b"/>
+  <meta name="twitter:description" content="lambdaとnodeのネイティブモジュール周りで辛いことになった時用 Dockerfile FROM amazonlinux:latest RUN curl --silent --location https://dl.yarnpkg.com/rpm/yarn.repo &gt; /etc/yum.repos.d/yarn.repo RUN curl --silent --location https://rpm.nodesource.com/setup_10.x | bash RUN yum install -y nodejs gcc-c&#43;&#43; make git yarn RUN yarn global add serverless --silent --no-progress RUN mkdir"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.1" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>serverless deploy を amazonlinuxイメージで行う &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -72,7 +72,7 @@
                     </h1>
                     <h2 class="headline">
                     Aug 5, 2019 11:32
-                    · 154 words
+                    · 166 words
                     · 1 minute read
                       <span class="tags">
                       
@@ -83,56 +83,75 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#dockerfile">Dockerfile</a></li>
-    <li><a href="#dockerignore">.dockerignore</a></li>
-    <li><a href="#slswsh">slsw.sh</a>
-      <ul>
-        <li></li>
-      </ul>
-    </li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#dockerfile">Dockerfile</a></li>
+<li><a href="#dockerignore">.dockerignore</a></li>
+<li><a href="#slsw-sh">slsw.sh</a>
+<ul>
+<li>
+<ul>
+<li><a href="#eg">eg</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>lambdaとnodeのネイティブモジュール周りで辛いことになった時用</p>
+                    
+
+<p>lambdaとnodeのネイティブモジュール周りで辛いことになった時用</p>
+
 <h2 id="dockerfile">Dockerfile</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dockerfile" data-lang="dockerfile"><span style="color:#66d9ef">FROM</span><span style="color:#e6db74"> amazonlinux:latest</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> curl --silent --location https://dl.yarnpkg.com/rpm/yarn.repo &gt; /etc/yum.repos.d/yarn.repo<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> curl --silent --location https://rpm.nodesource.com/setup_10.x | bash<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> yum install -y nodejs gcc-c++ make git yarn<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> yarn global add serverless --silent --no-progress<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> mkdir /app<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">WORKDIR</span><span style="color:#e6db74"> /app</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">ADD</span> package.json /app/package.json<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">ADD</span> yarn.lock /app/yarn.lock<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># build用なのでdevDepsも必要</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> yarn install --silent --no-progress --frozen-lockfile<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">ADD</span> . /app<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">CMD</span> [<span style="color:#e6db74">&#34;/bin/bash&#34;</span>, <span style="color:#e6db74">&#34;-c&#34;</span>, <span style="color:#e6db74">&#34;node --version; yarn --version; serverless --version&#34;</span>]<span style="color:#960050;background-color:#1e0010">
-</span></code></pre></div><h2 id="dockerignore">.dockerignore</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">node_modules
+
+<pre><code class="language-dockerfile">FROM amazonlinux:latest
+
+RUN curl --silent --location https://dl.yarnpkg.com/rpm/yarn.repo &gt; /etc/yum.repos.d/yarn.repo
+RUN curl --silent --location https://rpm.nodesource.com/setup_10.x | bash
+RUN yum install -y nodejs gcc-c++ make git yarn
+RUN yarn global add serverless --silent --no-progress
+
+RUN mkdir /app
+WORKDIR /app
+
+ADD package.json /app/package.json
+ADD yarn.lock /app/yarn.lock
+# build用なのでdevDepsも必要
+RUN yarn install --silent --no-progress --frozen-lockfile
+
+ADD . /app
+CMD [&quot;/bin/bash&quot;, &quot;-c&quot;, &quot;node --version; yarn --version; serverless --version&quot;]
+</code></pre>
+
+<h2 id="dockerignore">.dockerignore</h2>
+
+<pre><code class="language-bash">node_modules
 .webpack
-<span style="color:#75715e"># AWSトークンなどの管理用</span>
+# AWSトークンなどの管理用
 .envrc
-</code></pre></div><h2 id="slswsh">slsw.sh</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/bash
-</span><span style="color:#75715e"></span>
+</code></pre>
+
+<h2 id="slsw-sh">slsw.sh</h2>
+
+<pre><code class="language-bash">#!/bin/bash
+
 docker build -t sls-amzn-build .
-docker run -it <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  --env AWS_ACCESS_KEY_ID<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$AWS_ACCESS_KEY_ID<span style="color:#e6db74">&#34;</span> <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  --env AWS_SECRET_ACCESS_KEY<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$AWS_SECRET_ACCESS_KEY<span style="color:#e6db74">&#34;</span> <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  sls-amzn-build:latest serverless $@
-</code></pre></div><h4 id="eg">eg</h4>
+docker run -it \
+  --env AWS_ACCESS_KEY_ID=&quot;$AWS_ACCESS_KEY_ID&quot; \
+  --env AWS_SECRET_ACCESS_KEY=&quot;$AWS_SECRET_ACCESS_KEY&quot; \
+  sls-amzn-build:latest serverless $@
+</code></pre>
+
+<h4 id="eg">eg</h4>
+
 <pre><code>slsw.sh logs --function MyFunc --stage dev
 slsw.sh deploy --stage dev
 </code></pre>
+
                 </section>
             </article>
 

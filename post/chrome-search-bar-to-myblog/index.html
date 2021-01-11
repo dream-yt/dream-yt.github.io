@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.1" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>Chromeの検索バーで特定のサイト配下を検索する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,37 +83,54 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#設定画面の例">設定画面の例</a></li>
-    <li><a href="#設定例">設定例</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#設定画面の例">設定画面の例</a></li>
+<li><a href="#設定例">設定例</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>Chromeの検索バーにはサイトを登録することができる。</p>
+                    
+
+<p>Chromeの検索バーにはサイトを登録することができる。</p>
+
 <p>検索窓に <code>duckduckgo.com</code> と入れてtabを押してから文言をいれて検索すると、Googleではなくduckduckgoの検索結果画面にいける。</p>
-<p><img src="https://raw.githubusercontent.com/sakamossan/image-bed/master/assets/79711023-07ba-590c-c303-319e551d1441.png" alt=""></p>
+
+<p><img src="https://raw.githubusercontent.com/sakamossan/image-bed/master/assets/79711023-07ba-590c-c303-319e551d1441.png" alt="" /></p>
+
 <p>duckduckgoのようなGoogle以外の検索はChromeの設定で追加することができる。
 今回は自分のブログ <code>blog.n-t.jp</code> から検索できるように検索メニューを追加した。</p>
+
 <h2 id="設定画面の例">設定画面の例</h2>
-<p><img src="https://raw.githubusercontent.com/sakamossan/image-bed/master/assets/b268254c-3738-8666-5301-f4b256f518d4.png" alt=""></p>
+
+<p><img src="https://raw.githubusercontent.com/sakamossan/image-bed/master/assets/b268254c-3738-8666-5301-f4b256f518d4.png" alt="" /></p>
+
 <p>設定項目は</p>
+
 <ul>
 <li>検索エンジンの名前</li>
 <li>キーワード (検索窓で呼び出すための名前)</li>
 <li>URL <code>%s</code> が検索文言に置換される。 <code>%s</code> のほかにも変数があるようだ (後述)</li>
 </ul>
+
 <p>この機能をつかって、特定のサイト配下のGoogle検索結果にいくためのショートカットが設定できる。</p>
+
 <h2 id="設定例">設定例</h2>
+
 <blockquote>
 <p>{google:baseURL}search?q=site:blog.n-t.jp %s</p>
 </blockquote>
+
 <ul>
 <li><code>{google:baseURL}</code> が <code>https://google.com/</code> に置換される</li>
 <li><code>site:blog.n-t.jp</code> で特定のドメイン配下の検索結果に絞ってくれる</li>
 </ul>
+
 <p>この機能があるので自分のブログに検索窓をつけなくてもよい。</p>
 
                 </section>

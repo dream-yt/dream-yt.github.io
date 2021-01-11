@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.1" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>Firebase Cloudfunction のデプロイに webpack を使ってビルドしようとするメモ &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,34 +83,45 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#どこにビルド結果を出せばよいか">どこにビルド結果を出せばよいか</a></li>
-    <li><a href="#ビルド結果をどの形式で出すか">ビルド結果をどの形式で出すか</a>
-      <ul>
-        <li><a href="#webpackconfigjsoutput">webpack.config.js#output</a></li>
-      </ul>
-    </li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#どこにビルド結果を出せばよいか">どこにビルド結果を出せばよいか</a></li>
+<li><a href="#ビルド結果をどの形式で出すか">ビルド結果をどの形式で出すか</a>
+<ul>
+<li><a href="#webpack-config-js-output">webpack.config.js#output</a></li>
+</ul></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>次のような理由で Cloudfunction のビルドに webpack が使いたくなった</p>
+                    
+
+<p>次のような理由で Cloudfunction のビルドに webpack が使いたくなった</p>
+
 <ul>
 <li>jsonファイルを require したい</li>
 <li>sqlファイルを raw-loader で require したい</li>
 </ul>
+
 <p>最終的に webpack は不要にしたが、調べたことをメモしておく</p>
+
 <h2 id="どこにビルド結果を出せばよいか">どこにビルド結果を出せばよいか</h2>
+
 <p><code>firebase init</code> を TypeScript でつくったプロジェクトだと、ソースコードのビルドは tsc コマンドになっている</p>
-<pre><code class="language-console" data-lang="console">$ cat firebase.json
+
+<pre><code class="language-console">$ cat firebase.json
 {
   &quot;functions&quot;: {
     &quot;predeploy&quot;: &quot;npm --prefix \&quot;$RESOURCE_DIR\&quot; run build&quot;
   }
 }
-</code></pre><pre><code class="language-console" data-lang="console">$ cat functions/package.json | jq .scripts
+</code></pre>
+
+<pre><code class="language-console">$ cat functions/package.json | jq .scripts
 {
   &quot;build&quot;: &quot;tsc&quot;,
   &quot;serve&quot;: &quot;npm run build &amp;&amp; firebase serve --only functions&quot;,
@@ -119,38 +130,58 @@
   &quot;deploy&quot;: &quot;firebase deploy --only functions&quot;,
   &quot;logs&quot;: &quot;firebase functions:log&quot;
 }
-</code></pre><ul>
+</code></pre>
+
+<ul>
 <li>tsconfig によるとtscの出力は lib/index.js となり</li>
 <li>package.json#main の設定では、その lib/index.js が指定されている</li>
 </ul>
-<pre><code class="language-console" data-lang="console">$ cat tsconfig.json | grep outDir
+
+<pre><code class="language-console">$ cat tsconfig.json | grep outDir
     &quot;outDir&quot;: &quot;lib&quot;,
-</code></pre><pre><code class="language-console" data-lang="console">$ cat ./package.json | jq . | grep main
+</code></pre>
+
+<pre><code class="language-console">$ cat ./package.json | jq . | grep main
   &quot;main&quot;: &quot;lib/index.js&quot;,
-</code></pre><p>この設定だと CloudFunction は lib/index.js を参照することになる</p>
+</code></pre>
+
+<p>この設定だと CloudFunction は lib/index.js を参照することになる</p>
+
 <blockquote>
 <p>In order to determine which module to load, Cloud Functions uses the main field in your package.json file. If the main field is not specified, Cloud Functions loads code from index.js.</p>
 </blockquote>
+
 <ul>
 <li><a href="https://cloud.google.com/functions/docs/writing#structuring_source_code">Writing Cloud Functions  |  Cloud Functions Documentation  |  Google Cloud</a></li>
 </ul>
+
 <h2 id="ビルド結果をどの形式で出すか">ビルド結果をどの形式で出すか</h2>
+
 <p>package.json#main で指定したモジュールを require されることになるので、それができる形式でビルドする必要がある</p>
+
 <blockquote>
 <p>For the Node.js runtimes, your function&rsquo;s source code must be exported from a Node.js module, which Cloud Functions loads using a require() call.</p>
 </blockquote>
+
 <ul>
 <li><a href="https://cloud.google.com/functions/docs/writing#structuring_source_code">Writing Cloud Functions  |  Cloud Functions Documentation  |  Google Cloud</a></li>
 </ul>
-<h3 id="webpackconfigjsoutput">webpack.config.js#output</h3>
+
+<h3 id="webpack-config-js-output">webpack.config.js#output</h3>
+
 <p>webpack.config.js#output をこんな感じにする</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">  <span style="color:#a6e22e">output</span><span style="color:#f92672">:</span> {
-    <span style="color:#a6e22e">libraryTarget</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;commonjs2&#39;</span>,
-    <span style="color:#a6e22e">filename</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;index.js&#39;</span>,
-    <span style="color:#a6e22e">path</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">path</span>.<span style="color:#a6e22e">resolve</span>(<span style="color:#a6e22e">__dirname</span>, <span style="color:#e6db74">&#39;lib&#39;</span>),
+
+<pre><code class="language-js">  output: {
+    libraryTarget: 'commonjs2',
+    filename: 'index.js',
+    path: path.resolve(__dirname, 'lib'),
   },
-</code></pre></div><p><code>filename</code>, <code>path</code> はビルド結果を出力するパス。 lib/index.js に出力する必要があるのでそのように設定する</p>
+</code></pre>
+
+<p><code>filename</code>, <code>path</code> はビルド結果を出力するパス。 lib/index.js に出力する必要があるのでそのように設定する</p>
+
 <p><code>libraryTarget</code> はビルド結果の実装をどのように export するかを指定する項目。今回はnodejsランタイム上で require されるので export したものを <code>module.exports</code> に代入してくれる <code>commonjs2</code> を選ぶ</p>
+
 <ul>
 <li><a href="https://webpack.js.org/configuration/output/#outputlibrarytarget">Output | webpack</a></li>
 </ul>

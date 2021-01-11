@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.1" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>fdでsrc配下のjsファイルをtsに一括でrenameする &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,40 +83,53 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#js-ts"><code>{//}/{/.}.js {//}/{/.}.ts</code></a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#js-ts"><code>{//}/{/.}.js {//}/{/.}.ts</code></a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>fdを使うとこんな塩梅になる</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">fd --glob <span style="color:#e6db74">&#39;*.js&#39;</span> ./src --exec mv <span style="color:#f92672">{</span>//<span style="color:#f92672">}</span>/<span style="color:#f92672">{</span>/.<span style="color:#f92672">}</span>.js <span style="color:#f92672">{</span>//<span style="color:#f92672">}</span>/<span style="color:#f92672">{</span>/.<span style="color:#f92672">}</span>.ts
-</code></pre></div><ul>
+                    
+
+<p>fdを使うとこんな塩梅になる</p>
+
+<pre><code class="language-bash">fd --glob '*.js' ./src --exec mv {//}/{/.}.js {//}/{/.}.ts
+</code></pre>
+
+<ul>
 <li><code>--glob '*.js'</code>
+
 <ul>
 <li>jsファイルのみを対象にする</li>
-</ul>
-</li>
+</ul></li>
 <li><code>./src</code>
+
 <ul>
 <li>ファイルを探すパス</li>
-</ul>
-</li>
+</ul></li>
 <li><code>--exec mv {//}/{/.}.js {//}/{/.}.ts</code>
+
 <ul>
 <li>見つかったファイル1つ1つに対して処理を実行する</li>
+</ul></li>
 </ul>
-</li>
-</ul>
+
 <h2 id="js-ts"><code>{//}/{/.}.js {//}/{/.}.ts</code></h2>
+
 <p><code>{//}</code>みたいなのはプレースホルダーであり、このように置換される</p>
+
 <ul>
 <li><code>{//}</code> がディレクトリ名</li>
 <li><code>{/.}</code> がファイル名</li>
 </ul>
+
 <p>helpでいつでもみられる</p>
+
 <pre><code>$ fd --help | grep -A7 '\-\-exec '
     -x, --exec &lt;cmd&gt;
             Execute a command for each search result.
@@ -129,6 +142,7 @@
               '{/.}': basename without file extension
 
 </code></pre>
+
                 </section>
             </article>
 

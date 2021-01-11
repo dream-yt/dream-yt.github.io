@@ -24,7 +24,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.1" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -72,6 +72,66 @@
 
     <section id="wrapper" class="home">
         <ul id="post-list">
+    
+    
+        
+            <li>
+                <aside class="dates">Nov 7</aside>
+                <a href='https://dream-yt.github.io/post/vscode-using-hardtab/'>
+                    VS Codeでインデントをハードタブにする
+                    
+                        
+                            <h2>この設定にするとTabキーでハードタブが挿入される &#34;editor.insertSpaces&#34;: false たとえば(pep8違反だが)Pythonだけで適用したい場合は下記のように書く &#34;settings&#34;: { &#34;[python]&#34;: {</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Nov 7</aside>
+                <a href='https://dream-yt.github.io/post/vscode-venv-python/'>
+                    vscode で python の virtualenv を認識させる
+                    
+                        
+                            <h2>Cmd&#43;Shift&#43;p で Python: Select interpreter を選択 下記のような選択肢が出てくるので、使いたいpython/venvを選択 これで fn&#43;F2 でライブラリの定義に飛べるようになる</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Nov 7</aside>
+                <a href='https://dream-yt.github.io/post/chalice-101/'>
+                    AWS Chalice でデプロイまで
+                    
+                        
+                            <h2>こちらに書いてある手順を踏んだだけ Quickstart — AWS Chalice $ python3 -m venv venv38 ... $ code .envrc ... $ pip install --upgrade pip $ pip install chalice $ chalice new-project sandbox $ chalice deploy Creating deployment package. Creating IAM role: sandbox-dev Creating lambda function: sandbox-dev Creating Rest API Resources deployed: - Lambda ARN: arn:aws:lambda:ap-northeast-1:xxxxxxxx:function:sandbox-dev - Rest API</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Nov 5</aside>
+                <a href='https://dream-yt.github.io/post/react-suspense-settimeout-minimum/'>
+                    React.SuspenseとsetTimeoutで最小限の非同期コンポーネントをつくる
+                    
+                        
+                            <h2>こんなコードで1秒後に helloworld と表示できるコンポーネントが作れる // 「1秒以内はPromiseがthrowされて、1秒後にはundefinedが返っ</h2>
+                        
+                    
+                </a>
+            </li>
+        
     
     
         
@@ -157,66 +217,6 @@
                     
                         
                             <h2>この文章がよく分からなかったので単語について調べたときのメモ USVString - Web API | MDN USVString は、Unicode スカラー値（unicode scalar values）のすべ</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Oct 13</aside>
-                <a href='https://dream-yt.github.io/post/bom-utf8-and-js/'>
-                    BOMつきUTF-8とjsについて
-                    
-                        
-                            <h2>まずBOMについて バイトオーダーマーク - Wikipedia BOMとはもともとはリトルエンディアンとビッグエンディアンのどちらかを判別するためにファイルの先頭</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Oct 7</aside>
-                <a href='https://dream-yt.github.io/post/create-bigquery-scheduled-query-from-cli-bq/'>
-                    BigQuery の Scheduled Query をCLIから登録/参照
-                    
-                        
-                            <h2>こんなコマンドで登録できる $ bq mk \ --transfer_config \ --data_source=scheduled_query \ --target_dataset=mydataset \ --display_name=&#39;daily_update/$tablename&#39; \ --schedule=&#39;every day 18:00&#39; \ --params=&#34;$(cat $filename)&#34; --schedule=&#39;every day 18:00&#39; ここで指定する時間はUTC --params=&#34;\$(cat $filename)&#34; {&#34;query&#34;:&#34;SELECT 1&#34;} みたいなJSONが入ってるファイルとす</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Sep 23</aside>
-                <a href='https://dream-yt.github.io/post/mysql-query-multibyte-string/'>
-                    MySQLでマルチバイト文字が入ったレコードだけ取得する
-                    
-                        
-                            <h2>マルチバイト文字が入ってそうなカラムの文字列を CONVERT(x USING ASCII) して、元の文字列と差分があれば NOT ASCII な文字列が入っていると判断できる。 例 t.s がマルチバイト文</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Sep 16</aside>
-                <a href='https://dream-yt.github.io/post/css-flex-horizontal-card/'>
-                    flexで横並びカードのレイアウト最小限
-                    
-                        
-                            <h2>画像が左、説明文が右というレイアウトの最小限の定義 &lt;div class=&#34;card&#34;&gt; &lt;div class=&#34;card-left&#34;&gt; &lt;img src=&#34;https://thumbnail.image.rakuten.co.jp/@0_mall/book/cabinet/1989/19892000.jpg?_ex=200x200&#34; /&gt; &lt;/div&gt; &lt;div class=&#34;card-right&#34;&gt; &lt;h3&gt;{book.title}&lt;/h3&gt; &lt;p&gt;{book.itemCaption}&lt;/p&gt; &lt;/div&gt; &lt;/div&gt; .card { display: flex; /* PCで閲覧された時に横幅を絞っておく */ width: 600px; } .card-left { width: 30%;</h2>
                         
                     
                 </a>

@@ -14,7 +14,7 @@
   
   
   <meta name="twitter:title" content="js 1 行でページ上部までスクロールする"/>
-  <meta name="twitter:description" content="こうするとできる。 document.getElementsByTagName(&#34;body&#34;)[0].scrollIntoView({ behavior: &#34;smooth&#34; }); 説明 モダンなブラウザでは scrollIntoView が使える。 Element.scrollIntoView() - Web API | MDN behavior: &quot;smooth&quot; と指定するとスルスルとアニメーションしながら上にスクロールする"/>
+  <meta name="twitter:description" content="こうするとできる。 document.getElementsByTagName(&quot;body&quot;)[0].scrollIntoView({ behavior: &quot;smooth&quot; }); 説明 モダンなブラウザでは scrollIntoView が使える。 Element.scrollIntoView() - Web API | MDN behavior: &quot;smooth&quot; と指定するとスルスルとアニメーションしながら上にスクロールする"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.1" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>js 1 行でページ上部までスクロールする &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,22 +83,34 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#説明">説明</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#説明">説明</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>こうするとできる。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">document.<span style="color:#a6e22e">getElementsByTagName</span>(<span style="color:#e6db74">&#34;body&#34;</span>)[<span style="color:#ae81ff">0</span>].<span style="color:#a6e22e">scrollIntoView</span>({ <span style="color:#a6e22e">behavior</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;smooth&#34;</span> });
-</code></pre></div><h2 id="説明">説明</h2>
+                    
+
+<p>こうするとできる。</p>
+
+<pre><code class="language-js">document.getElementsByTagName(&quot;body&quot;)[0].scrollIntoView({ behavior: &quot;smooth&quot; });
+</code></pre>
+
+<h2 id="説明">説明</h2>
+
 <p>モダンなブラウザでは <code>scrollIntoView</code> が使える。</p>
+
 <ul>
 <li><a href="https://developer.mozilla.org/ja/docs/Web/API/Element/scrollIntoView">Element.scrollIntoView() - Web API | MDN</a></li>
 </ul>
+
 <p><code>behavior: &quot;smooth&quot;</code> と指定するとスルスルとアニメーションしながら上にスクロールするが、<code>behavior: &quot;auto&quot;</code> と指定するとパッと一瞬で上に飛ぶ。</p>
+
 <p>一瞬で飛んでしまうと、ユーザーは別なページに飛んだように感じることがあるため、なるべくアニメーションでスクロールさせたほうがよい。なお Safari は <code>behavior=smooth</code> オプションを実装していないのでページ上部に飛ぶ挙動になる。</p>
 
                 </section>

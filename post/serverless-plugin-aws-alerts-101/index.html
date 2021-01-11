@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.1" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>serverless-plugin-aws-alertsでエラーを監視 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,82 +83,109 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li>
-      <ul>
-        <li></li>
-      </ul>
-    </li>
-    <li><a href="#設定例">設定例</a></li>
-    <li><a href="#通知について">通知について</a></li>
-    <li><a href="#参考">参考</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#cloudwatch-alarm">CloudWatch Alarm</a></li>
+<li><a href="#sns-topic">SNS Topic</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#設定例">設定例</a></li>
+<li><a href="#通知について">通知について</a></li>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>Serverless Framework を使っている場合、エラーやタイムアウトなどの検知をするためのリソースはプラグインで簡単に簡単に生成できる</p>
+                    
+
+<p>Serverless Framework を使っている場合、エラーやタイムアウトなどの検知をするためのリソースはプラグインで簡単に簡単に生成できる</p>
+
 <ul>
 <li><a href="https://github.com/ACloudGuru/serverless-plugin-aws-alerts">ACloudGuru/serverless-plugin-aws-alerts: A Serverless Framework plugin that creates CloudWatch alarms for functions.</a></li>
 </ul>
+
 <p>たとえば「エラー発生時には通知をうける」といった機能には以下のリソースを作る必要があるが、このプラグインはそれを(けっこう親切に)面倒みてくれる</p>
+
 <ul>
 <li>CloudWatch Alarm</li>
 <li>SNS Topic</li>
 </ul>
+
 <h4 id="cloudwatch-alarm">CloudWatch Alarm</h4>
+
 <ul>
 <li>CloudWatchでLambdaのエラーの発生数がわかっている</li>
 <li>CloudWatch Alarm はその発生数が域値以上かどうかを監視してくれるリソース</li>
 <li>エラーの発生数が指定以上となった場合にSNSへメッセージを送れる</li>
 </ul>
+
 <h4 id="sns-topic">SNS Topic</h4>
+
 <ul>
 <li>エラーが発生したときにメッセージがキューに入る</li>
 <li>キューがどんな処理をキックするかはその先の設定次第
+
 <ul>
 <li>だいたいAWSChatBotにSlack通知させることになる</li>
+</ul></li>
 </ul>
-</li>
-</ul>
+
 <h2 id="設定例">設定例</h2>
+
 <p>もともと serverless-plugin-aws-alerts はデフォルトの設定がしっかりしていて、なんも設定を書かなくてもエラーの監視はしてくれるようになっている</p>
+
 <ul>
 <li><a href="https://github.com/ACloudGuru/serverless-plugin-aws-alerts#default-definitions">serverless-plugin-aws-alerts#default-definitions</a></li>
 </ul>
+
 <p>ただ、デフォルトだと Duration や Invocation, Throttle など色々な状態を監視するAlarmができてしまうので、エラーだけ監視したいという場合は以下のような塩梅になる</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">custom</span>:
-  <span style="color:#75715e"># serverless-plugin-aws-alerts用の項目</span>
-  <span style="color:#f92672">alerts</span>:
-    <span style="color:#75715e"># どのstageでアラート用のリソースを作成するか [&#34;prod&#34;, &#34;dev&#34;] とかでもよい</span>
-    <span style="color:#f92672">stages</span>: [ <span style="color:#e6db74">&#34;prod&#34;</span> ]
-    <span style="color:#75715e"># ここに記述した数だけSNSTopicが生成される</span>
-    <span style="color:#f92672">topics</span>:
-      <span style="color:#75715e"># 異常が発生した場合にメッセージが送られるトピック</span>
-      <span style="color:#f92672">alarm</span>:
-        <span style="color:#f92672">topic</span>: <span style="color:#ae81ff">${self:service}-prod-alerts-alarm</span>
-      <span style="color:#75715e"># 発生した異常が収束した場合にメッセージが送られるトピック</span>
-      <span style="color:#f92672">ok</span>:
-        <span style="color:#f92672">topic</span>: <span style="color:#ae81ff">${self:service}-prod-alerts-ok</span>
-    <span style="color:#f92672">alarms</span>:
-      <span style="color:#75715e"># ここに書くのは監視する項目のリスト。他にもタイムアウトなどを監視できる</span>
-      <span style="color:#75715e"># 60秒間でエラーが一回以上あれば〜 の60秒のような閾値のデフォルト値はこちら</span>
-      <span style="color:#75715e"># https://github.com/ACloudGuru/serverless-plugin-aws-alerts#default-definitions</span>
-      - <span style="color:#ae81ff">functionErrors</span>
-    <span style="color:#75715e"># alarmに記述した監視項目のデフォルト設定を上書きするところ</span>
-    <span style="color:#f92672">definitions</span>:
-      <span style="color:#f92672">functionErrors</span>:
-        <span style="color:#75715e"># cronが5分に1回実行される処理なら、チェック間隔も5分に1回でよい</span>
-        <span style="color:#f92672">period</span>: <span style="color:#ae81ff">300</span>
-        <span style="color:#75715e"># 正常に戻った時にも通知が欲しい場合の設定</span>
-        <span style="color:#f92672">topics</span>:
-          <span style="color:#f92672">ok</span>: <span style="color:#ae81ff">${self:service}-prod-alerts-ok</span>
-</code></pre></div><h2 id="通知について">通知について</h2>
+
+<pre><code class="language-yaml">custom:
+  # serverless-plugin-aws-alerts用の項目
+  alerts:
+    # どのstageでアラート用のリソースを作成するか [&quot;prod&quot;, &quot;dev&quot;] とかでもよい
+    stages: [ &quot;prod&quot; ]
+    # ここに記述した数だけSNSTopicが生成される
+    topics:
+      # 異常が発生した場合にメッセージが送られるトピック
+      alarm:
+        topic: ${self:service}-prod-alerts-alarm
+      # 発生した異常が収束した場合にメッセージが送られるトピック
+      ok:
+        topic: ${self:service}-prod-alerts-ok
+    alarms:
+      # ここに書くのは監視する項目のリスト。他にもタイムアウトなどを監視できる
+      # 60秒間でエラーが一回以上あれば〜 の60秒のような閾値のデフォルト値はこちら
+      # https://github.com/ACloudGuru/serverless-plugin-aws-alerts#default-definitions
+      - functionErrors
+    # alarmに記述した監視項目のデフォルト設定を上書きするところ
+    definitions:
+      functionErrors:
+        # cronが5分に1回実行される処理なら、チェック間隔も5分に1回でよい
+        period: 300
+        # 正常に戻った時にも通知が欲しい場合の設定
+        topics:
+          ok: ${self:service}-prod-alerts-ok
+</code></pre>
+
+<h2 id="通知について">通知について</h2>
+
 <p>serverless-plugin-aws-alertsはSNSトピックをつくるところまでしかやってくれないので、そこから先にSlackへの通知は AWS ChatBot を使うと楽である (以前は通知するためのLambdaを実装する必要があった)</p>
+
 <p>AWS ChatBot は2020年7月時点だとコンソールからGUIでしか設定できないので、ポチポチ設定すればよい。ただ、AWSChatBotを利用するためのRoleを作る必要はある (AWSChatBotのコンソール画面内でこの権限の生成が促されている)</p>
+
 <h2 id="参考">参考</h2>
+
 <p>CloudWatch Alarm 周りの設定がよくわからなかったので以前に調べたメモ</p>
+
 <ul>
 <li><a href="https://blog.n-t.jp/cloudwatch-alarm-treatMissingData/">cloudwatch、アラームの設定 (period, treatMissingData) | Tech Weblog | blog.n-t.jp</a></li>
 </ul>
