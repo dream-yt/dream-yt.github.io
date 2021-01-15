@@ -6,10 +6,19 @@
     <description>Recent content in Posts on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Mon, 11 Jan 2021 10:57:42 +0900</lastBuildDate>
+    <lastBuildDate>Fri, 15 Jan 2021 12:14:13 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>perlで文字列内に式を埋め込みたい時</title>
+      <link>https://dream-yt.github.io/post/perl-string-interpolation-expression/</link>
+      <pubDate>Fri, 15 Jan 2021 12:14:13 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/perl-string-interpolation-expression/</guid>
+      <description>array (@) interpolation というものが使える Perlの文字列補間 - Wikipedia 例 文字列内に &amp;quot;baz&amp;quot; x 5 という式を埋め込みたい場合 $ perl -E &#39;say qq(hello! @{[&amp;quot;baz&amp;quot; x 5]} bye!)&#39; hello! bazbazbazbazbaz bye!</description>
+    </item>
     
     <item>
       <title>Googleタグマネージャ入門</title>
@@ -21,7 +30,7 @@
     </item>
     
     <item>
-      <title>Concat Pdf on Macos</title>
+      <title>macOSのターミナルで複数のPDFを1つにまとめる</title>
       <link>https://dream-yt.github.io/post/concat-pdf-on-macos/</link>
       <pubDate>Mon, 11 Jan 2021 10:51:02 +0900</pubDate>
       

@@ -13,8 +13,8 @@
     
   
   
-  <meta name="twitter:title" content="macOSのターミナルで複数のPDFを1つにまとめる"/>
-  <meta name="twitter:description" content="macだと以下の場所に結合してくれるスクリプトが置いてある。 /System/Library/Automator/Combine PDF Pages.action/Contents/Resources/join.py 使い方 $ PDFconcat --help Usage: join [--output &lt;file&gt;] [--shuffle] [--verbose] -o で出力先のパスを指定 そのあとに結合したいpdfフ"/>
+  <meta name="twitter:title" content="perlで文字列内に式を埋め込みたい時"/>
+  <meta name="twitter:description" content="array (@) interpolation というものが使える Perlの文字列補間 - Wikipedia 例 文字列内に &quot;baz&quot; x 5 という式を埋め込みたい場合 $ perl -E &#39;say qq(hello! @{[&quot;baz&quot; x 5]} bye!)&#39; hello! bazbazbazbazbaz bye!"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -30,7 +30,7 @@
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
 		<meta name="generator" content="Hugo 0.51" />
-		<title>macOSのターミナルで複数のPDFを1つにまとめる &middot; sacre</title>
+		<title>perlで文字列内に式を埋め込みたい時 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
@@ -68,11 +68,11 @@
             <article>
                 <header>
                     <h1>
-                        macOSのターミナルで複数のPDFを1つにまとめる
+                        perlで文字列内に式を埋め込みたい時
                     </h1>
                     <h2 class="headline">
-                    Jan 11, 2021 10:51
-                    · 147 words
+                    Jan 15, 2021 12:14
+                    · 58 words
                     · 1 minute read
                       <span class="tags">
                       
@@ -86,9 +86,7 @@
 <ul>
 <li>
 <ul>
-<li><a href="#使い方">使い方</a></li>
-<li><a href="#シンボリックリンク">シンボリックリンク</a></li>
-<li><a href="#参考">参考</a></li>
+<li><a href="#例">例</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -98,46 +96,25 @@
                 <section id="post-body">
                     
 
-<p>macだと以下の場所に結合してくれるスクリプトが置いてある。</p>
-
-<blockquote>
-<p>/System/Library/Automator/Combine PDF Pages.action/Contents/Resources/join.py</p>
-</blockquote>
-
-<h2 id="使い方">使い方</h2>
-
-<pre><code class="language-bash">$ PDFconcat --help
-Usage: join [--output &lt;file&gt;] [--shuffle] [--verbose]
-</code></pre>
+<p><code>array (@) interpolation</code> というものが使える</p>
 
 <ul>
-<li><code>-o</code> で出力先のパスを指定</li>
-<li>そのあとに結合したいpdfファイルのパスを列挙</li>
+<li><a href="https://ja.wikipedia.org/wiki/%E6%96%87%E5%AD%97%E5%88%97%E8%A3%9C%E9%96%93#Perl">Perlの文字列補間 - Wikipedia</a></li>
 </ul>
 
-<p>だいたいこんな使い方になる。</p>
+<h2 id="例">例</h2>
 
-<pre><code>$ PDFconcat -o ./all.pdf ./*.pdf
+<p>文字列内に <code>&quot;baz&quot; x 5</code> という式を埋め込みたい場合</p>
+
+<pre><code class="language-console">$ perl -E 'say qq(hello! @{[&quot;baz&quot; x 5]} bye!)'
+hello! bazbazbazbazbaz bye!
 </code></pre>
-
-<h2 id="シンボリックリンク">シンボリックリンク</h2>
-
-<p>シンポリックリンクを作っておくと楽。</p>
-
-<pre><code class="language-bash">sudo ln -s &quot;/System/Library/Automator/Combine PDF Pages.action/Contents/Resources/join.py&quot; /usr/local/bin/PDFconcat
-</code></pre>
-
-<h2 id="参考">参考</h2>
-
-<ul>
-<li><a href="https://gotofritz.net/blog/howto/joining-pdf-files-in-os-x-from-the-command-line/">Joining PDF files in OS X from the command line || Fritz Stelluto</a></li>
-</ul>
 
                 </section>
             </article>
 
             
-                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fconcat-pdf-on-macos%2f - macOS%e3%81%ae%e3%82%bf%e3%83%bc%e3%83%9f%e3%83%8a%e3%83%ab%e3%81%a7%e8%a4%87%e6%95%b0%e3%81%aePDF%e3%82%921%e3%81%a4%e3%81%ab%e3%81%be%e3%81%a8%e3%82%81%e3%82%8b by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fperl-string-interpolation-expression%2f - perl%e3%81%a7%e6%96%87%e5%ad%97%e5%88%97%e5%86%85%e3%81%ab%e5%bc%8f%e3%82%92%e5%9f%8b%e3%82%81%e8%be%bc%e3%81%bf%e3%81%9f%e3%81%84%e6%99%82 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
 
 <a class="facebook" href="#" onclick="
     window.open(
