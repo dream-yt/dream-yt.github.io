@@ -24,7 +24,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.79.0" />
 		<title>sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -76,12 +76,42 @@
     
         
             <li>
+                <aside class="dates">Jan 18</aside>
+                <a href='https://dream-yt.github.io/post/jq-regexp-filter/'>
+                    jqで正規表現を使ってフィルタする
+                    
+                        
+                            <h2>select と test をつかってフィルタする 例 こんなjsonがあったとして。 $ cat /tmp/_ { &#34;monitors&#34;: [ { &#34;id&#34;: &#34;mysql&#34;, &#34;name&#34;: &#34;mysql-freeable_memory&#34; }, { &#34;id&#34;: &#34;redis10&#34;, &#34;name&#34;: &#34;redis10-freeable_memory&#34; }, { &#34;id&#34;: &#34;redis11&#34;, &#34;name&#34;: &#34;redis11-freeable_memory&#34; } ] } たとえば monitorsオブ</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
                 <aside class="dates">Jan 15</aside>
                 <a href='https://dream-yt.github.io/post/perl-string-interpolation-expression/'>
                     perlで文字列内に式を埋め込みたい時
                     
                         
                             <h2>array (@) interpolation というものが使える Perlの文字列補間 - Wikipedia 例 文字列内に &#34;baz&#34; x 5 という式を埋め込みたい場合 $ perl -E &#39;say qq(hello! @{[&#34;baz&#34; x 5]} bye!)&#39; hello! bazbazbazbazbaz bye!</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Jan 13</aside>
+                <a href='https://dream-yt.github.io/post/show-mysql-disk-volume-by-table/'>
+                    MySQLでテーブルごとのデータ容量とインデックスの容量を一蘭する
+                    
+                        
+                            <h2>こんなクエリで出せる SELECT table_name, (data_length &#43; index_length) / 1000000 mb, data_length / 1000000 data_mb, -- 実データの容量 index_length / 1000000 idx_mb -- インデックスデータの容量 FROM information_schema.tables -- 後述 WHERE table_schema = database() -- ユーザー定義のテーブルに絞</h2>
                         
                     
                 </a>
@@ -171,7 +201,7 @@
                     GitHub Action で実行中のブランチ名とリビジョンを出す
                     
                         
-                            <h2>こんな感じで出力できる。 - name: Show Revision run: | echo -e &#34;Branch: ${GITHUB_REF##*/}&#34; echo -e &#34;Revision: ${GITHUB_SHA:0:8}&#34; 参考 git - Getting current branch and commit hash in GitHub action - Stack Overflow</h2>
+                            <h2>こんな感じで出力できる。 - name: Show Revision run: |echo -e &#34;Branch: ${GITHUB_REF##*/}&#34; echo -e &#34;Revision: ${GITHUB_SHA:0:8}&#34; 参考 git - Getting current branch and commit hash in GitHub action - Stack Overflow</h2>
                         
                     
                 </a>
@@ -187,36 +217,6 @@
                     
                         
                             <h2>myjob という workflow_dispatch イベントで定義した job を act で実行したい場合。 .act/stg.event.json というファイルを作成する { &#34;event&#34;: &#34;workflow_dispatch&#34;, &#34;inputs&#34;: { &#34;stage&#34;: &#34;stg&#34; } } --eventpath で実行するイベントを指定 $ act --job myjob --eventpath .act/stg.event.json 参考 how</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Dec 25</aside>
-                <a href='https://dream-yt.github.io/post/firebase-and-create-react-app/'>
-                    create-react-app と firebase の環境構築
-                    
-                        
-                            <h2>公式で案内されている手順だと先にCRAをやることになる。 Deployment | Create React App CRA $ npx create-react-app . --typescript --use-npm Firebaseのconsoleでいろいろ操作 先にいろいろつ</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Dec 24</aside>
-                <a href='https://dream-yt.github.io/post/perl-monkey-patch-subroutine/'>
-                    perlでサブルーチンにモンキーパッチをあてる
-                    
-                        
-                            <h2>ライブラリ内部の挙動を一時的に変更したい時、以下のように書いてメソッドを上書きすることができる。 sub f { # 警告の抑制 no warnings &#39;redefine&#39;; # Foo::Bar クラスの roo メソッ</h2>
                         
                     
                 </a>
