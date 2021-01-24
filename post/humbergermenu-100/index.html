@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="https://dream-yt.github.io/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="tailwindでハンバーガーメニューをつくる"/>
+  <meta name="twitter:description" content="途中までやったところのメモ 初めてでもわかるTailwindcss入門(2)ナビゲーションバー | アールエフェクト const Nav = () =&gt; ( &lt;header className=&quot;container mx-auto text-black&quot;&gt; &lt;nav className=&quot;flex justify-between items-center&quot;&gt; &lt;div"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@site_author"/>
+  
+
+
+
+		
+		<meta name="author" content="site_author">
+		<meta name="description" content="Site Description">
+		<meta name="generator" content="Hugo 0.51" />
+		<title>tailwindでハンバーガーメニューをつくる &middot; sacre</title>
+		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/font-awesome.min.css">
+		
+
+		
+		<link href="https://dream-yt.github.io/index.xml" rel="alternate" type="application/rss+xml" title="sacre" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='https://dream-yt.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://dream-yt.github.io/posts'>Archive</a>
+	<a href='https://dream-yt.github.io/tags'>Tags</a>
+	<a href='https://dream-yt.github.io/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="https://dream-yt.github.io/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        tailwindでハンバーガーメニューをつくる
+                    </h1>
+                    <h2 class="headline">
+                    Jan 22, 2021 23:21
+                    · 521 words
+                    · 2 minute read
+                      <span class="tags">
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#nav-items-center">nav. items-center</a></li>
+<li><a href="#nav-flex-justify-between">nav. flex justify-between</a></li>
+<li><a href="#li-hover-bg-gray-100-rounded">li. hover:bg-gray-100 rounded</a></li>
+<li><a href="#li-border-b">li. border-b</a></li>
+<li><a href="#ul-md-flex-md-justify-end">ul. md:flex md:justify-end</a></li>
+<li><a href="#button-md-hidden">button. md:hidden</a></li>
+<li><a href="#span-md-px-2-md-text-sm">span. md:px-2 md:text-sm</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#残りtodo">残りTODO</a></li>
+</ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    
+
+<p>途中までやったところのメモ</p>
+
+<ul>
+<li><a href="https://reffect.co.jp/html/tailwind-for-beginners-navigation-menu">初めてでもわかるTailwindcss入門(2)ナビゲーションバー | アールエフェクト</a></li>
+</ul>
+
+<pre><code class="language-jsx">const Nav = () =&gt; (
+  &lt;header className=&quot;container mx-auto text-black&quot;&gt;
+    &lt;nav className=&quot;flex justify-between items-center&quot;&gt;
+      &lt;div className=&quot;p-3&quot;&gt;
+        &lt;Link href=&quot;/&quot;&gt;
+          &lt;img src=&quot;/image/logo.png&quot; width=&quot;250&quot; height=&quot;30&quot; /&gt;
+        &lt;/Link&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+        &lt;button className=&quot;md:hidden&quot;&gt;
+          &lt;svg className=&quot;h-6 w-6 fill-current&quot; viewBox=&quot;0 0 24 24&quot;&gt;
+            &lt;path d=&quot;M24 6h-24v-4h24v4zm0 4h-24v4h24v-4zm0 8h-24v4h24v-4z&quot; /&gt;
+          &lt;/svg&gt;
+        &lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/nav&gt;
+    &lt;div&gt;
+      &lt;ul className=&quot;md:flex md:justify-end&quot;&gt;
+        &lt;MenuItem url=&quot;/foo&quot;&gt;FOO&lt;/MenuItem&gt;
+        &lt;MenuItem url=&quot;/bar&quot;&gt;BAR&lt;/MenuItem&gt;
+        &lt;MenuItem url=&quot;/baz&quot;&gt;BAZ&lt;/MenuItem&gt;
+      &lt;/ul&gt;
+    &lt;/div&gt;
+  &lt;/header&gt;
+)
+const MenuItem = ({ url, children, isLast }) =&gt; (
+  &lt;li className={isLast ? &quot;&quot; : &quot;border-b&quot;}&gt;
+    &lt;span className=&quot;block px-8 py-2 my-2 hover:bg-gray-100 rounded md:px-2 md:text-xs&quot;&gt;
+      &lt;Link href={url}&gt;{children}&lt;/Link&gt;
+    &lt;/span&gt;
+  &lt;/li&gt;
+);
+</code></pre>
+
+<h3 id="nav-items-center">nav. items-center</h3>
+
+<blockquote>
+<p>items-center(align-items:center;)で揃えることができます。</p>
+</blockquote>
+
+<p><code>items-center</code> はフォントの高さを揃えるために入っている</p>
+
+<h3 id="nav-flex-justify-between">nav. flex justify-between</h3>
+
+<p><code>flex justify-between</code> によって、<code>nav</code> タグの中身が縦でなく横に並ぶようになる。
+<code>justify-between</code> は端から端の範囲で要素が等間隔で並ぶ指定。</p>
+
+<blockquote>
+<p>Use justify-between to justify items along the container&rsquo;s main axis such that there is an equal amount of space between each item:</p>
+</blockquote>
+
+<ul>
+<li><a href="https://tailwindcss.com/docs/justify-content#space-between">Justify Content - Tailwind CSS</a></li>
+</ul>
+
+<h3 id="li-hover-bg-gray-100-rounded">li. hover:bg-gray-100 rounded</h3>
+
+<ul>
+<li>リンクがホバーで色がつくように</li>
+<li>どうせなら角丸で色がつくように</li>
+</ul>
+
+<h3 id="li-border-b">li. border-b</h3>
+
+<ul>
+<li>区切り線のために下線をひく</li>
+<li>margin/paddingの外につけたいのでspanでなくliに</li>
+</ul>
+
+<h3 id="ul-md-flex-md-justify-end">ul. md:flex md:justify-end</h3>
+
+<ul>
+<li>iPad以上の大きさの画面(PC画面)でリンクアイテムを横並びに</li>
+<li>リンクアイテムは右に寄せたいのでjustify-end</li>
+</ul>
+
+<h3 id="button-md-hidden">button. md:hidden</h3>
+
+<p>ハンバーガーを非表示に。</p>
+
+<h3 id="span-md-px-2-md-text-sm">span. md:px-2 md:text-sm</h3>
+
+<p>リンクアイテムの余白と文字サイズを調整</p>
+
+<h1 id="残りtodo">残りTODO</h1>
+
+<ul>
+<li>PC画面のときだけリンクアイテムをロゴと同じ高さにしたい</li>
+<li>ハンバーガーメニューの開閉</li>
+</ul>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fhumbergermenu-100%2f - tailwind%e3%81%a7%e3%83%8f%e3%83%b3%e3%83%90%e3%83%bc%e3%82%ac%e3%83%bc%e3%83%a1%e3%83%8b%e3%83%a5%e3%83%bc%e3%82%92%e3%81%a4%e3%81%8f%e3%82%8b by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'your_disqus_short_name'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/dream-yt/sacre">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://twitter.com/FUTABA_SACRE">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2021 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="https://dream-yt.github.io/js/jquery-3.3.1.min.js"></script>
+<script src="https://dream-yt.github.io/js/main.js"></script>
+<script src="https://dream-yt.github.io/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+
+
+
+
+    </body>
+</html>

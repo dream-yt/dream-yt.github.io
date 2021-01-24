@@ -24,7 +24,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -76,6 +76,36 @@
     
         
             <li>
+                <aside class="dates">Sep 11</aside>
+                <a href='https://dream-yt.github.io/post/generate-bigquery-schema-from-mysql-create-table/'>
+                    MySQL の CREATE TABLE から BigQuery のスキーマ(json)を生成する
+                    
+                        
+                            <h2>ddlparseというモジュールを使うと簡単だった shinichi-takii/ddlparse: DDL parase and Convert to BigQuery JSON schema and DDL statements コードはこれだけでよい import sys from ddlparse import DdlParse sql = sys.stdin.read() table = DdlParse().parse(sql) print(table.to_bigquery_fields()) こんな感じで生成さ</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Sep 6</aside>
+                <a href='https://dream-yt.github.io/post/add-next-ssg-ts/'>
+                    既存のtypescriptプロジェクトにnextjsのSSGを導入する
+                    
+                        
+                            <h2>簡単に追加できる。 準備 nextを入れる $ npm install next src/pages配下にtsxを作成 $ touch ./src/pages/index.tsx なお、nextはトップレベルではなくsrc配下にpa</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
                 <aside class="dates">Sep 6</aside>
                 <a href='https://dream-yt.github.io/post/cookiecutter-typescript-jest-eslint/'>
                     cookiecutterでtypescript/jest/eslintのテンプレートを作った
@@ -111,7 +141,7 @@
                     ReactでレンダリングしているページにGoogleAnalyticsを入れる&#34;
                     
                         
-                            <h2>なんかいろんなプラグインがnpmにあったが、自分で dangerouslySetInnerHTML で直接書いてしまうのが楽だった</h2>
+                            <h2>なんかいろんなプラグインがnpmにあったが、自分で dangerouslySetInnerHTML で直接書いてしまうのが楽だった import React from ‘react’; export const GoogleAnalytics: React.FC = () =&gt; ( &lt;&gt; &lt;/&gt; );</h2>
                         
                     
                 </a>
@@ -187,36 +217,6 @@
                     
                         
                             <h2>トランスパイルされる元のコードはこんな感じ index.ts import { f } from &#39;./A&#39;; console.log(&#34;this is index&#34;); f(); A.ts export const f = () =&gt; console.log(&#34;this is A.f&#34;) このコードを以下の4パターンでトランスパイルしてみて、出</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Aug 29</aside>
-                <a href='https://dream-yt.github.io/post/gitignore-gibo-101/'>
-                    gitignoreを生成してくれるgiboを使う
-                    
-                        
-                            <h2>giboは .gitignoreファイルを生成するソフトウェア VSCode や Node、 Rails などを引数で指定してそのプロジェクトに必要そうなgitignor</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Aug 28</aside>
-                <a href='https://dream-yt.github.io/post/ansible-raspbian-install-golang/'>
-                    [ansible x Raspbian] golang のインストール
-                    
-                        
-                            <h2>ansible-role-golang を使うとこのロールの設定だけで入る fubarhouse/ansible-role-golang: Installs the Go programming language and packages on Mac &amp; Linux (Ubuntu, CentOS) vars: # golang go_version: 1.13.5 GOPATH: /usr/local/lib/go GOOS: linux GOARCH: arm # ソースからインストールするためにいったんgo1.4を</h2>
                         
                     
                 </a>
