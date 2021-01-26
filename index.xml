@@ -6,10 +6,28 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sun, 24 Jan 2021 11:02:50 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 26 Jan 2021 22:07:33 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>athena(presto)のテーブル定義に出てくるSerdeとは?</title>
+      <link>https://dream-yt.github.io/post/what-is-serde/</link>
+      <pubDate>Tue, 26 Jan 2021 22:07:33 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/what-is-serde/</guid>
+      <description>athena(hive)のテーブル定義で出てくる。JsonSerDeみたいなもの。 ROW FORMAT SERDE &#39;org.openx.data.jsonserde.JsonSerDe&#39; WITH SERDEPROPERTIES ( &#39;serialization.format&#39; = &#39;1&#39; ) LOCATION &#39;s3://bucketistyu/data/&#39; 調べたらシリアライザ(SERia</description>
+    </item>
+    
+    <item>
+      <title>DiskへのWriteが重そうな処理を特定する</title>
+      <link>https://dream-yt.github.io/post/survey-disk-write/</link>
+      <pubDate>Tue, 26 Jan 2021 10:54:23 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/survey-disk-write/</guid>
+      <description>やたら処理が遅い場合の調査で、writeが頻繁に走ってないかを確認する。 まず疑わしい処理が本当にwriteが多いことを確認する $ dstat --top-io -d 5 をた</description>
+    </item>
     
     <item>
       <title>curlでURLが200以外を返した場合にシェルの終了コードを1以上にする</title>

@@ -3,6 +3,16 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://dream-yt.github.io/post/what-is-serde/</loc>
+    <lastmod>2021-01-26T22:07:33+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://dream-yt.github.io/post/survey-disk-write/</loc>
+    <lastmod>2021-01-26T10:54:23+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://dream-yt.github.io/post/curl-exitcode-gt1-on-404/</loc>
     <lastmod>2021-01-24T11:02:50+09:00</lastmod>
   </url>
@@ -1378,7 +1388,7 @@
   
   <url>
     <loc>https://dream-yt.github.io/post/</loc>
-    <lastmod>2021-01-24T11:02:50+09:00</lastmod>
+    <lastmod>2021-01-26T22:07:33+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -1390,7 +1400,7 @@
   
   <url>
     <loc>https://dream-yt.github.io/</loc>
-    <lastmod>2021-01-24T11:02:50+09:00</lastmod>
+    <lastmod>2021-01-26T22:07:33+09:00</lastmod>
     <priority>0</priority>
   </url>
   

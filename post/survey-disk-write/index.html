@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="https://dream-yt.github.io/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="DiskへのWriteが重そうな処理を特定する"/>
+  <meta name="twitter:description" content="やたら処理が遅い場合の調査で、writeが頻繁に走ってないかを確認する。 まず疑わしい処理が本当にwriteが多いことを確認する $ dstat --top-io -d 5 をた"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@site_author"/>
+  
+
+
+
+		
+		<meta name="author" content="site_author">
+		<meta name="description" content="Site Description">
+		<meta name="generator" content="Hugo 0.51" />
+		<title>DiskへのWriteが重そうな処理を特定する &middot; sacre</title>
+		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/font-awesome.min.css">
+		
+
+		
+		<link href="https://dream-yt.github.io/index.xml" rel="alternate" type="application/rss+xml" title="sacre" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='https://dream-yt.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://dream-yt.github.io/posts'>Archive</a>
+	<a href='https://dream-yt.github.io/tags'>Tags</a>
+	<a href='https://dream-yt.github.io/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="https://dream-yt.github.io/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        DiskへのWriteが重そうな処理を特定する
+                    </h1>
+                    <h2 class="headline">
+                    Jan 26, 2021 10:54
+                    · 344 words
+                    · 1 minute read
+                      <span class="tags">
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#まず疑わしい処理が本当にwriteが多いことを確認する">まず疑わしい処理が本当にwriteが多いことを確認する</a></li>
+<li><a href="#どんなwriteをしているか">どんなwriteをしているか</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    
+
+<p>やたら処理が遅い場合の調査で、writeが頻繁に走ってないかを確認する。</p>
+
+<h3 id="まず疑わしい処理が本当にwriteが多いことを確認する">まず疑わしい処理が本当にwriteが多いことを確認する</h3>
+
+<ul>
+<li><code>$ dstat --top-io -d 5</code> をたたいておいて</li>
+<li>目星をつけたプロセスを走らせる</li>
+</ul>
+
+<p>ioしている容量が見れるようになる</p>
+
+<pre><code>$ dstat --top-io -d 5
+----most-expensive---- -dsk/total-
+     i/o process      | read  writ
+bash       3681B  230B| 182k 4174k
+                      |   0     0
+mysqld     2499k   39M|   0  5734B
+perl       2558k   73M|   0  6554B
+mysqld     2548k   52M|   0  6554B
+perl       2556k   73M|   0     0
+perl       4025k   97M|   0    42k
+mysqld     2548k   51M|   0     0
+                      |   0  1638B
+                      |   0  5734B
+                      |   0     0
+                      |   0  4915B
+mysql_insta 345k   23M|   0    25M
+mysqld     2499k   39M|   0    58M
+mysqld       50k   26M|   0    51M
+perl       2556k   73M|   0    42M
+mysqld     2548k   51M| 819B   81M
+perl       2556k   73M|   0    69M
+mysqld     1038k   26M|   0    37M
+mysqld     1510k   37M|   0    69M
+</code></pre>
+
+<h3 id="どんなwriteをしているか">どんなwriteをしているか</h3>
+
+<p>straceでとっておいて、あとからgrepする</p>
+
+<pre><code>$ sudo strace -f -p {{ pid }} -o /tmp/strace.log
+</code></pre>
+
+<pre><code>$ grep 'write' mysql.strace.log | less
+13047 write(1, &quot;/usr/bin/mysql_install_db\n&quot;, 26 &lt;unfinished ...&gt;
+12879 write(3, &quot;[mysqld]\ndatadir=/tmp/z6B56Iok0v&quot;..., 158) = 158
+13054 &lt;... write resumed&gt; )             = 159
+13055 write(1, &quot;IP address of localdev.fout.loca&quot;..., 47 &lt;unfinished ...&gt;
+13053 write(5, &quot;'Y') COLLATE utf8_general_ci DEF&quot;..., 4096 &lt;unfinished ...&gt;
+13053 &lt;... write resumed&gt; )             = 4096
+13053 &lt;... write resumed&gt; )             = 4096
+13053 &lt;... write resumed&gt; )             = 4096
+13053 write(5, &quot;d,\&quot;\n  \&quot;MYSQL_ERRNO INTEGER,\&quot;\n  \&quot;&quot;..., 4096 &lt;unfinished ...&gt;
+13053 write(5, &quot;e_pfs = 1, @cmd, 'SET @dummy = 0&quot;..., 4096 &lt;unfinished ...&gt;
+</code></pre>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fsurvey-disk-write%2f - Disk%e3%81%b8%e3%81%aeWrite%e3%81%8c%e9%87%8d%e3%81%9d%e3%81%86%e3%81%aa%e5%87%a6%e7%90%86%e3%82%92%e7%89%b9%e5%ae%9a%e3%81%99%e3%82%8b by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'your_disqus_short_name'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/dream-yt/sacre">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://twitter.com/FUTABA_SACRE">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2021 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="https://dream-yt.github.io/js/jquery-3.3.1.min.js"></script>
+<script src="https://dream-yt.github.io/js/main.js"></script>
+<script src="https://dream-yt.github.io/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+
+
+
+
+    </body>
+</html>
