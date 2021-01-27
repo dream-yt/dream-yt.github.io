@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="https://dream-yt.github.io/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="[gcloud] module &#39;importlib&#39; has no attribute &#39;util&#39;"/>
+  <meta name="twitter:description" content="gcloudでこんなエラーがでる $ gcloud components update Traceback (most recent call last): File &quot;/Users/mossan/google-cloud-sdk/lib/gcloud.py&quot;, line 104, in &lt;module&gt; main() File &quot;/Users/mossan/google-cloud-sdk/lib/gcloud.py&quot;, line 62, in main from googlecloudsdk.core.util import encoding File &quot;/Users/mossan/google-cloud-sdk/lib/googlecloudsdk/__init__.py&quot;, line 23, in &lt;module&gt; from googlecloudsdk.core.util import importing File &quot;/Users/mossan/google-cloud-sdk/lib/googlecloudsdk/core/util/importing.py&quot;, line 23, in &lt;module&gt; import imp File &quot;/usr/local/Cellar/python@3.9/3.9.1/Frameworks/Python.framework/Versions/3.9/lib/python3.9/imp.py&quot;, line 23, in &lt;module&gt; from importlib import util"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@site_author"/>
+  
+
+
+
+		
+		<meta name="author" content="site_author">
+		<meta name="description" content="Site Description">
+		<meta name="generator" content="Hugo 0.79.0" />
+		<title>[gcloud] module &#39;importlib&#39; has no attribute &#39;util&#39; &middot; sacre</title>
+		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/font-awesome.min.css">
+		
+
+		
+		<link href="https://dream-yt.github.io/index.xml" rel="alternate" type="application/rss+xml" title="sacre" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='https://dream-yt.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://dream-yt.github.io/posts'>Archive</a>
+	<a href='https://dream-yt.github.io/tags'>Tags</a>
+	<a href='https://dream-yt.github.io/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="https://dream-yt.github.io/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        [gcloud] module &#39;importlib&#39; has no attribute &#39;util&#39;
+                    </h1>
+                    <h2 class="headline">
+                    Jan 27, 2021 12:06
+                    · 354 words
+                    · 1 minute read
+                      <span class="tags">
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#解決方法">解決方法</a></li>
+  </ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    <p>gcloudでこんなエラーがでる</p>
+<pre><code>$ gcloud components update
+Traceback (most recent call last):
+  File &quot;/Users/mossan/google-cloud-sdk/lib/gcloud.py&quot;, line 104, in &lt;module&gt;
+    main()
+  File &quot;/Users/mossan/google-cloud-sdk/lib/gcloud.py&quot;, line 62, in main
+    from googlecloudsdk.core.util import encoding
+  File &quot;/Users/mossan/google-cloud-sdk/lib/googlecloudsdk/__init__.py&quot;, line 23, in &lt;module&gt;
+    from googlecloudsdk.core.util import importing
+  File &quot;/Users/mossan/google-cloud-sdk/lib/googlecloudsdk/core/util/importing.py&quot;, line 23, in &lt;module&gt;
+    import imp
+  File &quot;/usr/local/Cellar/python@3.9/3.9.1/Frameworks/Python.framework/Versions/3.9/lib/python3.9/imp.py&quot;, line 23, in &lt;module&gt;
+    from importlib import util
+  File &quot;/usr/local/Cellar/python@3.9/3.9.1/Frameworks/Python.framework/Versions/3.9/lib/python3.9/importlib/util.py&quot;, line 2, in &lt;module&gt;
+    from . import abc
+  File &quot;/usr/local/Cellar/python@3.9/3.9.1/Frameworks/Python.framework/Versions/3.9/lib/python3.9/importlib/abc.py&quot;, line 17, in &lt;module&gt;
+    from typing import Protocol, runtime_checkable
+  File &quot;/usr/local/Cellar/python@3.9/3.9.1/Frameworks/Python.framework/Versions/3.9/lib/python3.9/typing.py&quot;, line 26, in &lt;module&gt;
+    import re as stdlib_re  # Avoid confusion with the re we export.
+  File &quot;/usr/local/Cellar/python@3.9/3.9.1/Frameworks/Python.framework/Versions/3.9/lib/python3.9/re.py&quot;, line 124, in &lt;module&gt;
+    import enum
+  File &quot;/Users/mossan/google-cloud-sdk/lib/third_party/enum/__init__.py&quot;, line 26, in &lt;module&gt;
+    spec = importlib.util.find_spec('enum')
+AttributeError: module 'importlib' has no attribute 'util'
+</code></pre><p>サポートフォーラムによるとPython3.9の破壊的変更でgcloudコマンドが動かなくなってるとのこと</p>
+<blockquote>
+<p>To enable gcloud to work with Python 2.7.x as well as Python 3+ a shim was introduced to enable the enum module years ago. This shim breaks with Python 3.9 because of this commit <a href="https://github.com/python/cpython/commit/7f7e706d78ab968a1221c6179dfdba714860bd12,">https://github.com/python/cpython/commit/7f7e706d78ab968a1221c6179dfdba714860bd12,</a> it looks like the root cause has already been removed in commit <a href="https://github.com/python/cpython/commit/9e09849d20987c131b28bcdd252e53440d4cd1b3">https://github.com/python/cpython/commit/9e09849d20987c131b28bcdd252e53440d4cd1b3</a> which looks to be scheduled to be released in Python 3.10.</p>
+</blockquote>
+<ul>
+<li><a href="https://issuetracker.google.com/issues/170125513">Add support for python 3.9 [170125513] - Visible to Public - Issue Tracker</a></li>
+</ul>
+<h2 id="解決方法">解決方法</h2>
+<p>いまはgcloudをアップグレードすればなおる。</p>
+<p>gcloudをアップグレードするためのgcloudコマンドを動かすために <code>CLOUDSDK_PYTHON=python2</code> をつけて古いpythonを使って実行できるようにする。</p>
+<pre><code>$ CLOUDSDK_PYTHON=python2 gcloud components update
+</code></pre>
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fgcloud-python39-import-lib-error%2f - %5bgcloud%5d%20module%20%27importlib%27%20has%20no%20attribute%20%27util%27 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'your_disqus_short_name'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/dream-yt/sacre">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://twitter.com/FUTABA_SACRE">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2021 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="https://dream-yt.github.io/js/jquery-3.3.1.min.js"></script>
+<script src="https://dream-yt.github.io/js/main.js"></script>
+<script src="https://dream-yt.github.io/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+
+
+
+
+    </body>
+</html>

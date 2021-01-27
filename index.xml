@@ -6,7 +6,16 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 27 Jan 2021 11:48:27 +0900</lastBuildDate><atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 27 Jan 2021 12:06:06 +0900</lastBuildDate><atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[gcloud] module &#39;importlib&#39; has no attribute &#39;util&#39;</title>
+      <link>https://dream-yt.github.io/post/gcloud-python39-import-lib-error/</link>
+      <pubDate>Wed, 27 Jan 2021 12:06:06 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/gcloud-python39-import-lib-error/</guid>
+      <description>gcloudでこんなエラーがでる $ gcloud components update Traceback (most recent call last): File &amp;quot;/Users/mossan/google-cloud-sdk/lib/gcloud.py&amp;quot;, line 104, in &amp;lt;module&amp;gt; main() File &amp;quot;/Users/mossan/google-cloud-sdk/lib/gcloud.py&amp;quot;, line 62, in main from googlecloudsdk.core.util import encoding File &amp;quot;/Users/mossan/google-cloud-sdk/lib/googlecloudsdk/__init__.py&amp;quot;, line 23, in &amp;lt;module&amp;gt; from googlecloudsdk.core.util import importing File &amp;quot;/Users/mossan/google-cloud-sdk/lib/googlecloudsdk/core/util/importing.py&amp;quot;, line 23, in &amp;lt;module&amp;gt; import imp File &amp;quot;/usr/local/Cellar/python@3.9/3.9.1/Frameworks/Python.framework/Versions/3.9/lib/python3.9/imp.py&amp;quot;, line 23, in &amp;lt;module&amp;gt; from importlib import util</description>
+    </item>
+    
     <item>
       <title>gitconfig alias の &#39;!&#39; の意味</title>
       <link>https://dream-yt.github.io/post/git-config-alias-prefixed-bang/</link>
