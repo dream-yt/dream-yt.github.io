@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="https://dream-yt.github.io/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="lsofでプロセスが開いてるfdを一覧する"/>
+  <meta name="twitter:description" content="ほとんどコンテナとかFaasでの作業になるとこういうのはどんどん忘れていく。 たとえば iTerm のプロセスが触ってるファイルディスクリプタを見たい場合"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@site_author"/>
+  
+
+
+
+		
+		<meta name="author" content="site_author">
+		<meta name="description" content="Site Description">
+		<meta name="generator" content="Hugo 0.79.0" />
+		<title>lsofでプロセスが開いてるfdを一覧する &middot; sacre</title>
+		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/font-awesome.min.css">
+		
+
+		
+		<link href="https://dream-yt.github.io/index.xml" rel="alternate" type="application/rss+xml" title="sacre" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='https://dream-yt.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://dream-yt.github.io/posts'>Archive</a>
+	<a href='https://dream-yt.github.io/tags'>Tags</a>
+	<a href='https://dream-yt.github.io/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="https://dream-yt.github.io/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        lsofでプロセスが開いてるfdを一覧する
+                    </h1>
+                    <h2 class="headline">
+                    Jan 18, 2021 15:03
+                    · 225 words
+                    · 1 minute read
+                      <span class="tags">
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents"></nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    <p>ほとんどコンテナとかFaasでの作業になるとこういうのはどんどん忘れていく。</p>
+<p>たとえば iTerm のプロセスが触ってるファイルディスクリプタを見たい場合。</p>
+<pre><code class="language-console" data-lang="console">$ sudo lsof -c iTerm2 | tail
+iTerm2  512 mossan   37      PIPE 0x2766560a9b355b8c     16384                     -&gt;0xe4dac32420839ea8
+iTerm2  512 mossan   38u      REG                1,7    167936            30430764 /private/var/folders/qx/k9kjj2sj36v87g5zndb0j72r0000gp/C/com.googlecode.iterm2/com.apple.metal/31001/libraries.data
+iTerm2  512 mossan   39u      REG                1,7      1780            30749410 /private/var/folders/qx/k9kjj2sj36v87g5zndb0j72r0000gp/C/com.googlecode.iterm2/com.apple.metal/31001/libraries.list
+iTerm2  512 mossan   40      PIPE 0xbcaff721142d0d16     16384                     -&gt;0xb42da808f8919f05
+iTerm2  512 mossan   41      PIPE 0xb42da808f8919f05     16384                     -&gt;0xbcaff721142d0d16
+iTerm2  512 mossan   42u      REG                1,7     13328            30749501 /Users/mossan/Library/Saved Application State/com.googlecode.iterm2.savedState/window_1.data
+iTerm2  512 mossan   43w      REG                1,7      5044            30749509 /Users/mossan/Library/Saved Application State/com.googlecode.iterm2.savedState/windows.plist
+iTerm2  512 mossan   44u      REG                1,7    360272            30749573 /Users/mossan/Library/Saved Application State/com.googlecode.iterm2.savedState/window_2.data
+iTerm2  512 mossan   45u      CHR               15,1    0t7740                 586 /dev/ptmx
+iTerm2  512 mossan   46u      CHR               15,2  0t144325                 586 /dev/ptmx
+</code></pre><p>fdのタイプ(uとかwとか)についてはこちらにまとまっていた</p>
+<ul>
+<li><a href="https://siguniang.wordpress.com/2012/02/29/lsof-and-open-file/#%E5%87%BA%E5%8A%9B%E7%B5%90%E6%9E%9C%E3%81%AE%E7%A2%BA%E8%AA%8D">lsof:オープンしているファイルを調べる – Siguniang&rsquo;s Blog</a></li>
+</ul>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2flsof-101-proc%2f - lsof%e3%81%a7%e3%83%97%e3%83%ad%e3%82%bb%e3%82%b9%e3%81%8c%e9%96%8b%e3%81%84%e3%81%a6%e3%82%8bfd%e3%82%92%e4%b8%80%e8%a6%a7%e3%81%99%e3%82%8b by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'your_disqus_short_name'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/dream-yt/sacre">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://twitter.com/FUTABA_SACRE">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2021 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="https://dream-yt.github.io/js/jquery-3.3.1.min.js"></script>
+<script src="https://dream-yt.github.io/js/main.js"></script>
+<script src="https://dream-yt.github.io/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+
+
+
+
+    </body>
+</html>

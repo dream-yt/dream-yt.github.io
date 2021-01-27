@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.79.0" />
 		<title>git grepで探すファイルの拡張子を指定 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,45 +83,31 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#参考">参考</a></li>
-</ul></li>
-</ul></li>
-</ul>
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#参考">参考</a></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p>こんな感じでできる</p>
-
-<pre><code class="language-console">$ git grep cache -- '*.java'
-</code></pre>
-
-<p>git grepでは <code>--</code> 以降が対象パスの指定となっているので、そこにglobを書くと探索するファイルを指定できる</p>
-
+                    <p>こんな感じでできる</p>
+<pre><code class="language-console" data-lang="console">$ git grep cache -- '*.java'
+</code></pre><p>git grepでは <code>--</code> 以降が対象パスの指定となっているので、そこにglobを書くと探索するファイルを指定できる</p>
 <blockquote>
-<p>&ndash; <pathspec>…​
-Signals the end of options; the rest of the parameters are <pathspec> limiters.</p>
+<p>&ndash; <!-- raw HTML omitted -->…​
+Signals the end of options; the rest of the parameters are <!-- raw HTML omitted --> limiters.</p>
 </blockquote>
-
 <p>ちなみにexcludeするときは以下のように書くようだ</p>
-
-<pre><code class="language-console">$ git grep solution -- :^Documentation
-</code></pre>
-
-<blockquote>
+<pre><code class="language-console" data-lang="console">$ git grep solution -- :^Documentation
+</code></pre><blockquote>
 <p>Looks for solution, excluding files in Documentation.</p>
 </blockquote>
-
 <h3 id="参考">参考</h3>
-
 <ul>
 <li><a href="https://stackoverflow.com/questions/13867705/git-grep-by-file-extensions">git grep by file extensions - Stack Overflow</a></li>
 <li><a href="https://git-scm.com/docs/git-grep#Documentation/git-grep.txt-ltpathspecgt82308203">Git - git-grep Documentation</a></li>

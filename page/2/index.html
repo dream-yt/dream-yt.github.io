@@ -24,7 +24,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.79.0" />
 		<title>sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -76,6 +76,51 @@
     
         
             <li>
+                <aside class="dates">Jan 11</aside>
+                <a href='https://dream-yt.github.io/post/google-tag-manager-101/'>
+                    Googleタグマネージャ入門
+                    
+                        
+                            <h2>Googleタグマネージャ(gtm)はタグを管理するツール 条件、イベントを設定して任意のタイミングでタグを発火させるツール 多くの場合はGoo</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Jan 11</aside>
+                <a href='https://dream-yt.github.io/post/concat-pdf-on-macos/'>
+                    macOSのターミナルで複数のPDFを1つにまとめる
+                    
+                        
+                            <h2>macだと以下の場所に結合してくれるスクリプトが置いてある。 /System/Library/Automator/Combine PDF Pages.action/Contents/Resources/join.py 使い方 $ PDFconcat --help Usage: join [--output &lt;file&gt;] [--shuffle] [--verbose] -o で出力先のパスを指定 そのあとに結合したいpdfフ</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Jan 11</aside>
+                <a href='https://dream-yt.github.io/post/cleanup-go-gotten/'>
+                    go get したものを消す
+                    
+                        
+                            <h2>go clean で入れたものを消すことができる。 $ go clean -i -n github.com/sakamossan/mymy cd /Users/sakamossan/go/src/github.com/sakamossan/mymy rm -f mymy mymy.exe mymy.test mymy.test.exe main main.exe rm -f /Users/sakamossan/go/bin/mymy それぞれのフラグはこんな役割。 The -i flag causes clean to remove the corresponding installed archive or binary (what ‘go install’ would create).</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
                 <aside class="dates">Jan 2</aside>
                 <a href='https://dream-yt.github.io/post/encrypt-decrypt-text-script/'>
                     文字列をopensslで暗号化/復号するbashスクリプト
@@ -111,7 +156,7 @@
                     GitHub Action で実行中のブランチ名とリビジョンを出す
                     
                         
-                            <h2>こんな感じで出力できる。 - name: Show Revision run: | echo -e &#34;Branch: ${GITHUB_REF##*/}&#34; echo -e &#34;Revision: ${GITHUB_SHA:0:8}&#34; 参考 git - Getting current branch and commit hash in GitHub action - Stack Overflow</h2>
+                            <h2>こんな感じで出力できる。 - name: Show Revision run: |echo -e &#34;Branch: ${GITHUB_REF##*/}&#34; echo -e &#34;Revision: ${GITHUB_SHA:0:8}&#34; 参考 git - Getting current branch and commit hash in GitHub action - Stack Overflow</h2>
                         
                     
                 </a>
@@ -172,51 +217,6 @@
                     
                         
                             <h2>Chromeの検索バーにはサイトを登録することができる。 検索窓に duckduckgo.com と入れてtabを押してから文言をいれて検索すると、Googleではなくdu</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Dec 22</aside>
-                <a href='https://dream-yt.github.io/post/mysql-generate-testdata-macos-sqlmaker/'>
-                    perlでmysqlに接続してデータを入れる
-                    
-                        
-                            <h2>SQL::Maker::Plugin::InsertMulti を使ってテストデータをmysqlに入れたい場合に困ったのでメモ。 macOSで普通にやると DBD::mysql が入らないのだが、これは環境変数から設定してなん</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Dec 20</aside>
-                <a href='https://dream-yt.github.io/post/tailwindcss-horizontal-scroll/'>
-                    tailwindcss で横スクロール UI
-                    
-                        
-                            <h2>よくある横スクロールの UI を tailwind で実装する。 こんな感じで実現する。 &lt;ul className=&#34;flex overflow-x-auto&#34;&gt; {list.map((g) =&gt; ( &lt;li className=&#34;flex-none w-2/5&#34; key={g.id}&gt; &lt;Card imgSrc={g.imageUrl()} imgAlt={g.name}&gt; &lt;p&gt;{g.name}&lt;/p&gt; &lt;/Card&gt; &lt;/li&gt; ))} &lt;/ul&gt; 参考 css - Overflow-x not working - Stack Overflow</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Dec 20</aside>
-                <a href='https://dream-yt.github.io/post/terraform-error-invalid-legacy-provider-address/'>
-                    [terraform] Error: Invalid legacy provider address
-                    
-                        
-                            <h2>ひさしぶりに terraform をアップグレードしたら以下のようなエラーが出るようになった。 Error: Invalid legacy provider address This configuration or its associated state refers to the unqualified provider “aws”. You must complete the Terraform 0.13 upgrade process before upgrading to later versions. これは</h2>
                         
                     
                 </a>

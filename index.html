@@ -24,7 +24,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.79.0" />
 		<title>sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -72,6 +72,21 @@
 
     <section id="wrapper" class="home">
         <ul id="post-list">
+    
+    
+        
+            <li>
+                <aside class="dates">Jan 27</aside>
+                <a href='https://dream-yt.github.io/post/git-config-alias-prefixed-bang/'>
+                    gitconfig alias の &#39;!&#39; の意味
+                    
+                        
+                            <h2>aliasを設定する時の ! は「以下をシェルコマンドとして扱って」という意味。 例 パイプもできる $ git config --global alias.ack &#39;! git ls-files --others --cached --exclude-standard | ack -x&#39; この例はgit管理さ</h2>
+                        
+                    
+                </a>
+            </li>
+        
     
     
         
@@ -137,6 +152,36 @@
         
             <li>
                 <aside class="dates">Jan 18</aside>
+                <a href='https://dream-yt.github.io/post/chrome-urlbar-add-deepl-mode/'>
+                    ChromeでURLバーからdeepl翻訳をする
+                    
+                        
+                            <h2>deeplのサイトはURLに翻訳文言を埋め込める chromeのタブに翻訳したい文章をいれるとdeeplの検索結果ページにいけるように設定でき</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Jan 18</aside>
+                <a href='https://dream-yt.github.io/post/lsof-101-proc/'>
+                    lsofでプロセスが開いてるfdを一覧する
+                    
+                        
+                            <h2>ほとんどコンテナとかFaasでの作業になるとこういうのはどんどん忘れていく。 たとえば iTerm のプロセスが触ってるファイルディスクリプタを見たい場合</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Jan 18</aside>
                 <a href='https://dream-yt.github.io/post/jq-regexp-filter/'>
                     jqで正規表現を使ってフィルタする
                     
@@ -172,51 +217,6 @@
                     
                         
                             <h2>こんなクエリで出せる SELECT table_name, (data_length &#43; index_length) / 1000000 mb, data_length / 1000000 data_mb, -- 実データの容量 index_length / 1000000 idx_mb -- インデックスデータの容量 FROM information_schema.tables -- 後述 WHERE table_schema = database() -- ユーザー定義のテーブルに絞</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jan 11</aside>
-                <a href='https://dream-yt.github.io/post/google-tag-manager-101/'>
-                    Googleタグマネージャ入門
-                    
-                        
-                            <h2>Googleタグマネージャ(gtm)はタグを管理するツール 条件、イベントを設定して任意のタイミングでタグを発火させるツール 多くの場合はGoo</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jan 11</aside>
-                <a href='https://dream-yt.github.io/post/concat-pdf-on-macos/'>
-                    macOSのターミナルで複数のPDFを1つにまとめる
-                    
-                        
-                            <h2>macだと以下の場所に結合してくれるスクリプトが置いてある。 /System/Library/Automator/Combine PDF Pages.action/Contents/Resources/join.py 使い方 $ PDFconcat --help Usage: join [--output &lt;file&gt;] [--shuffle] [--verbose] -o で出力先のパスを指定 そのあとに結合したいpdfフ</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jan 11</aside>
-                <a href='https://dream-yt.github.io/post/cleanup-go-gotten/'>
-                    go get したものを消す
-                    
-                        
-                            <h2>go clean で入れたものを消すことができる。 $ go clean -i -n github.com/sakamossan/mymy cd /Users/sakamossan/go/src/github.com/sakamossan/mymy rm -f mymy mymy.exe mymy.test mymy.test.exe main main.exe rm -f /Users/sakamossan/go/bin/mymy それぞれのフラグはこんな役割。 The -i flag causes clean to remove the corresponding installed archive or binary (what ‘go install’ would create).</h2>
                         
                     
                 </a>
