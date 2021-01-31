@@ -24,7 +24,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -72,6 +72,51 @@
 
     <section id="wrapper" class="home">
         <ul id="post-list">
+    
+    
+        
+            <li>
+                <aside class="dates">Jan 31</aside>
+                <a href='https://dream-yt.github.io/post/python-seek-pipe-or-stdin/'>
+                    pipeされた標準入力がseekできなかった話
+                    
+                        
+                            <h2>こんなコードを書こうとした。 if filepath == &#39;-&#39;: fo = sys.stdin else: fo = open(filepath, mode=read_mode) ファイルパスの引数に - を渡したら標準入力の内容を使うというもの。 標準入力のシノニムとして</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Jan 30</aside>
+                <a href='https://dream-yt.github.io/post/python-csv-writer/'>
+                    Python Csv Writer
+                    
+                        
+                            <h2>pythonでcsvファイルを作るときに毎回調べているのでメモ。 だいたいデータはJSONとかなはずなので csv.DictWriter を使いたくなるが、普通の csv.writer を使って</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Jan 30</aside>
+                <a href='https://dream-yt.github.io/post/dump-sitemap-xml/'>
+                    sitemap.xmlをダンプする
+                    
+                        
+                            <h2>あるサイト配下のページを全部一覧したいときはsitemap.xmlを参照することになるが、sitemapがツリー構造になってたり、マイナーな</h2>
+                        
+                    
+                </a>
+            </li>
+        
     
     
         
@@ -172,51 +217,6 @@
                     
                         
                             <h2>deeplのサイトはURLに翻訳文言を埋め込める chromeのタブに翻訳したい文章をいれるとdeeplの検索結果ページにいけるように設定でき</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jan 18</aside>
-                <a href='https://dream-yt.github.io/post/lsof-101-proc/'>
-                    lsofでプロセスが開いてるfdを一覧する
-                    
-                        
-                            <h2>ほとんどコンテナとかFaasでの作業になるとこういうのはどんどん忘れていく。 たとえば iTerm のプロセスが触ってるファイルディスクリプタを見たい場合</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jan 18</aside>
-                <a href='https://dream-yt.github.io/post/jq-regexp-filter/'>
-                    jqで正規表現を使ってフィルタする
-                    
-                        
-                            <h2>select と test をつかってフィルタする 例 こんなjsonがあったとして。 $ cat /tmp/_ { &#34;monitors&#34;: [ { &#34;id&#34;: &#34;mysql&#34;, &#34;name&#34;: &#34;mysql-freeable_memory&#34; }, { &#34;id&#34;: &#34;redis10&#34;, &#34;name&#34;: &#34;redis10-freeable_memory&#34; }, { &#34;id&#34;: &#34;redis11&#34;, &#34;name&#34;: &#34;redis11-freeable_memory&#34; } ] } たとえば monitorsオブ</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jan 15</aside>
-                <a href='https://dream-yt.github.io/post/perl-string-interpolation-expression/'>
-                    perlで文字列内に式を埋め込みたい時
-                    
-                        
-                            <h2>array (@) interpolation というものが使える Perlの文字列補間 - Wikipedia 例 文字列内に &#34;baz&#34; x 5 という式を埋め込みたい場合 $ perl -E &#39;say qq(hello! @{[&#34;baz&#34; x 5]} bye!)&#39; hello! bazbazbazbazbaz bye!</h2>
                         
                     
                 </a>
