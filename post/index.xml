@@ -6,16 +6,7 @@
     <description>Recent content in Posts on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 17 Feb 2021 14:59:42 +0900</lastBuildDate><atom:link href="https://dream-yt.github.io/post/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Formikで A component is changing an uncontrolled input of type text to be controlled</title>
-      <link>https://dream-yt.github.io/post/formik-uncontrolled-error/</link>
-      <pubDate>Wed, 17 Feb 2021 14:59:42 +0900</pubDate>
-      
-      <guid>https://dream-yt.github.io/post/formik-uncontrolled-error/</guid>
-      <description>Formik を使いはじめたらこのエラーが出た。 Warning: A component is changing an uncontrolled input to be controlled. This is likely caused by the value changing from undefined to a defined value, which should not happen. Decide between using a controlled or uncontrolled input element for the lifetime of the component. More info: https://reactjs.org/link/controlled-components このエラー</description>
-    </item>
-    
+    <lastBuildDate>Fri, 12 Feb 2021 14:26:02 +0900</lastBuildDate><atom:link href="https://dream-yt.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>MySQLでWhere句に正規表現を使う</title>
       <link>https://dream-yt.github.io/post/mysql-regexp/</link>
