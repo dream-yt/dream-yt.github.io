@@ -14,7 +14,7 @@
   
   
   <meta name="twitter:title" content="Formikで A component is changing an uncontrolled input of type text to be controlled"/>
-  <meta name="twitter:description" content="Formik を使いはじめたらこのエラーが出た。 Warning: A component is changing an uncontrolled input to be controlled. This is likely caused by the value changing from undefined to a defined value, which should not happen. Decide between using a controlled or uncontrolled input element for the lifetime of the component. More info: https://reactjs.org/link/controlled-components このエラー"/>
+  <meta name="twitter:description" content="Formik を使ったらこのエラーが出た。 Warning: A component is changing an uncontrolled input to be controlled. This is likely caused by the value changing from undefined to a defined value, which should not happen. Decide between using a controlled or uncontrolled input element for the lifetime of the component. More info: https://reactjs.org/link/controlled-components これは操作した input#name"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -71,8 +71,8 @@
                         Formikで A component is changing an uncontrolled input of type text to be controlled
                     </h1>
                     <h2 class="headline">
-                    Feb 17, 2021 14:59
-                    · 179 words
+                    Feb 17, 2021 15:07
+                    · 122 words
                     · 1 minute read
                       <span class="tags">
                       
@@ -84,7 +84,6 @@
                     <div id="toc">
                       <nav id="TableOfContents">
   <ul>
-    <li><a href="#つまり">つまり</a></li>
     <li><a href="#参考">参考</a></li>
   </ul>
 </nav>
@@ -92,26 +91,12 @@
                   
                 
                 <section id="post-body">
-                    <p>Formik を使いはじめたらこのエラーが出た。</p>
+                    <p>Formik を使ったらこのエラーが出た。</p>
 <blockquote>
 <p>Warning: A component is changing an uncontrolled input to be controlled. This is likely caused by the value changing from undefined to a defined value, which should not happen. Decide between using a controlled or uncontrolled input element for the lifetime of the component. More info: <a href="https://reactjs.org/link/controlled-components">https://reactjs.org/link/controlled-components</a></p>
 </blockquote>
-<p>このエラーが出ないように Formik を使っているのだが、使い方が間違っていた。
-initialValue には変数を入れないとダメだった。</p>
-<h2 id="つまり">つまり</h2>
-<p>こうではなく</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx">  <span style="color:#a6e22e">ReactDOM</span>.<span style="color:#a6e22e">render</span>(
-    &lt;<span style="color:#f92672">Formik</span> <span style="color:#a6e22e">initialValues</span><span style="color:#f92672">=</span>{{}}&gt;
-        ...
-</code></pre></div><p>こうする必要があった</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx">  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">initialValue</span> <span style="color:#f92672">=</span> {}
-  <span style="color:#a6e22e">ReactDOM</span>.<span style="color:#a6e22e">render</span>(
-    &lt;<span style="color:#f92672">Formik</span> <span style="color:#a6e22e">initialValues</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">initialValue</span>}&gt;
-        ...
-</code></pre></div><h2 id="参考">参考</h2>
-<blockquote>
-<p>Need to create dynamic initialValues for formik as -</p>
-</blockquote>
+<p>これは操作した <code>input#name</code> に <code>initialValue</code> に対応する属性がなかった場合に発生した。のタイポ注意。</p>
+<h2 id="参考">参考</h2>
 <ul>
 <li><a href="https://stackoverflow.com/questions/61048254/formik-warning-a-component-is-changing-an-uncontrolled-input-of-type-text-to-be">react web - formik warning, A component is changing an uncontrolled input of type text to be controlled - Stack Overflow</a></li>
 </ul>
