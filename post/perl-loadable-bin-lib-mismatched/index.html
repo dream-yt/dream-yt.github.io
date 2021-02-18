@@ -13,8 +13,8 @@
     
   
   
-  <meta name="twitter:title" content="Formikで A component is changing an uncontrolled input of type text to be controlled"/>
-  <meta name="twitter:description" content="Formik を使ったらこのエラーが出た。 Warning: A component is changing an uncontrolled input to be controlled. This is likely caused by the value changing from undefined to a defined value, which should not happen. Decide between using a controlled or uncontrolled input element for the lifetime of the component. More info: https://reactjs.org/link/controlled-components これは操作した input#name"/>
+  <meta name="twitter:title" content="perl の XS.c: loadable library and perl binaries are mismatched"/>
+  <meta name="twitter:description" content="開発環境を docker-compose でやっていて、perlのバージョンをあげた時に発生。 XS.c: loadable library and perl binaries are mismatched (got handshake key 0xc180000, needed 0xe180000) exited with code 1 書いてある通り、perlのバージョンと入"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -30,7 +30,7 @@
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
 		<meta name="generator" content="Hugo 0.79.0" />
-		<title>Formikで A component is changing an uncontrolled input of type text to be controlled &middot; sacre</title>
+		<title>perl の XS.c: loadable library and perl binaries are mismatched &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
@@ -68,11 +68,11 @@
             <article>
                 <header>
                     <h1>
-                        Formikで A component is changing an uncontrolled input of type text to be controlled
+                        perl の XS.c: loadable library and perl binaries are mismatched
                     </h1>
                     <h2 class="headline">
-                    Feb 17, 2021 15:07
-                    · 121 words
+                    Feb 18, 2021 14:29
+                    · 284 words
                     · 1 minute read
                       <span class="tags">
                       
@@ -91,21 +91,26 @@
                   
                 
                 <section id="post-body">
-                    <p>Formik を使ったらこのエラーが出た。</p>
+                    <p>開発環境を docker-compose でやっていて、perlのバージョンをあげた時に発生。</p>
 <blockquote>
-<p>Warning: A component is changing an uncontrolled input to be controlled. This is likely caused by the value changing from undefined to a defined value, which should not happen. Decide between using a controlled or uncontrolled input element for the lifetime of the component. More info: <a href="https://reactjs.org/link/controlled-components">https://reactjs.org/link/controlled-components</a></p>
+<p>XS.c: loadable library and perl binaries are mismatched (got handshake key 0xc180000, needed 0xe180000)
+exited with code 1</p>
 </blockquote>
-<p>これは操作した <code>input#name</code> に <code>initialValue</code> に対応する属性がなかった場合に発生した。タイポ注意。</p>
-<h2 id="参考">参考</h2>
+<p>書いてある通り、perlのバージョンと入れているライブラリのバージョンが合わないので発生している。</p>
+<p>依存ライブラリは carton で管理しているが、carton は perl 自体のバージョンには感知しないので carton install しても carton は「すでにご指定のライブラリは入ってますよ」と言い、perl は「入ってるライブラリ(のビルド成果物)はうちのバージョンと違いますよ」となっている</p>
+<p>docker-compose で volume を共有しているディレクトリを消して、再度入れ直したら動くようになる。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ rm -rf ./docker/app/local/*
+$ docker build . 
+</code></pre></div><h2 id="参考">参考</h2>
 <ul>
-<li><a href="https://stackoverflow.com/questions/61048254/formik-warning-a-component-is-changing-an-uncontrolled-input-of-type-text-to-be">react web - formik warning, A component is changing an uncontrolled input of type text to be controlled - Stack Overflow</a></li>
+<li><a href="https://stackoverflow.com/questions/61003436/xs-c-loadable-library-and-perl-binaries-are-mismatched-got-handshake-key-0xce0">XS.c: loadable library and perl binaries are mismatched (got handshake key 0xce00080, needed 0xdb80080) - Stack Overflow</a></li>
 </ul>
 
                 </section>
             </article>
 
             
-                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fformik-uncontrolled-error%2f - Formik%e3%81%a7%20A%20component%20is%20changing%20an%20uncontrolled%20input%20of%20type%20text%20to%20be%20controlled by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fperl-loadable-bin-lib-mismatched%2f - perl%20%e3%81%ae%20XS.c%3a%20loadable%20library%20and%20perl%20binaries%20are%20mismatched by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
 
 <a class="facebook" href="#" onclick="
     window.open(

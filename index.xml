@@ -6,7 +6,25 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 17 Feb 2021 15:07:25 +0900</lastBuildDate><atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 18 Feb 2021 16:29:10 +0900</lastBuildDate><atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Redis::Fast の sentinel 引数ってなに?</title>
+      <link>https://dream-yt.github.io/post/pl5-redis-fast-redis-sentinel/</link>
+      <pubDate>Thu, 18 Feb 2021 16:29:10 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/pl5-redis-fast-redis-sentinel/</guid>
+      <description>プロジェクトでこんな設定でRedisを動かしていたが、なんで動いているか分からなかった。 Redis::Fast のPODにはsentinelsのことは記載がない。</description>
+    </item>
+    
+    <item>
+      <title>perl の XS.c: loadable library and perl binaries are mismatched</title>
+      <link>https://dream-yt.github.io/post/perl-loadable-bin-lib-mismatched/</link>
+      <pubDate>Thu, 18 Feb 2021 14:29:16 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/perl-loadable-bin-lib-mismatched/</guid>
+      <description>開発環境を docker-compose でやっていて、perlのバージョンをあげた時に発生。 XS.c: loadable library and perl binaries are mismatched (got handshake key 0xc180000, needed 0xe180000) exited with code 1 書いてある通り、perlのバージョンと入</description>
+    </item>
+    
     <item>
       <title>Formikで A component is changing an uncontrolled input of type text to be controlled</title>
       <link>https://dream-yt.github.io/post/formik-uncontrolled-error/</link>
