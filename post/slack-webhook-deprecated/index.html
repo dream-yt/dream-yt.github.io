@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>最近払い出した Slackの Incoming Webhooks で通知チャンネルを変更する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,52 +83,71 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li>
-      <ul>
-        <li><a href="#残念">残念</a></li>
-        <li><a href="#deprecated">Deprecated</a></li>
-        <li><a href="#どうすればいいの">どうすればいいの</a></li>
-        <li><a href="#その他">その他</a></li>
-      </ul>
-    </li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#残念">残念</a></li>
+<li><a href="#deprecated">Deprecated</a></li>
+<li><a href="#どうすればいいの">どうすればいいの</a></li>
+<li><a href="#その他">その他</a></li>
+</ul></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <h3 id="残念">残念</h3>
+                    
+
+<h3 id="残念">残念</h3>
+
 <p>変更できないので調べたところ、
 もうIncoming Webhooksでは通知チャンネルが変更できなくなっている</p>
+
 <h3 id="deprecated">Deprecated</h3>
+
 <p>ドキュメントを見に行ったらそういうことが書いてあった</p>
+
 <blockquote>
 <p>You&rsquo;re reading this because you&rsquo;re looking for info on legacy custom integrations - an outdated way for teams to integrate with Slack. These integrations lack newer features and they will be deprecated and possibly removed in the future. We do not recommend their use.</p>
 </blockquote>
+
 <ul>
 <li><a href="https://api.slack.com/custom-integrations/incoming-webhooks#legacy-info">https://api.slack.com/custom-integrations/incoming-webhooks#legacy-info</a></li>
 </ul>
+
 <h3 id="どうすればいいの">どうすればいいの</h3>
+
 <p><code>Slack apps</code> を使ってくださいということ</p>
+
 <ul>
 <li><a href="https://api.slack.com/slack-apps">Building Slack apps | Slack</a></li>
 </ul>
+
 <blockquote>
 <p>Instead, we suggest that you read about their replacement - Slack apps. Slack apps can be built just for your own workspace or distributed through the App Directory, and they can use the latest and greatest APIs and UI features.</p>
 </blockquote>
+
 <p>とは言ってもIncoming Webhooks対応してないライブラリあるしなぁ&hellip;</p>
+
 <ul>
 <li><a href="https://pypi.org/project/notifiers/">notifiers · PyPI</a></li>
 </ul>
+
 <h3 id="その他">その他</h3>
+
 <p>もう使えないパラメータをわたしてたら、
 レスポンスのボディになんらか警告を出して欲しいですよね</p>
+
 <pre><code>$ curl -X POST -H 'Content-type: application/json' --data '
     {&quot;channel&quot;: &quot;alert&quot;, &quot;icon_emoji&quot;: &quot;:t-rex:&quot;, &quot;username&quot;: &quot;mossan&quot;, &quot;text&quot;: &quot;test&quot;}
 ' https://hooks.slack.com/services/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
 ok
 </code></pre>
+
                 </section>
             </article>
 

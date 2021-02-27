@@ -24,7 +24,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -72,6 +72,21 @@
 
     <section id="wrapper" class="home">
         <ul id="post-list">
+    
+    
+        
+            <li>
+                <aside class="dates">Mar 29</aside>
+                <a href='https://dream-yt.github.io/post/contribute-rsshub-memo/'>
+                    RSSHubにPR出すときのメモ
+                    
+                        
+                            <h2>DIYgod/RSSHub: 🍰 Everything is RSSible まず先にfetch $ git remote add upstream ssh://git@github.com/DIYgod/RSSHub.git $ git fetch upstream 開発者向けのドキュメント Join Us | RSSHub 開発用のコマンド 使うのはこのへん $ yarn dev $ yarn docs:dev $ cat package.json | jq .scripts { &#34;start&#34;:</h2>
+                        
+                    
+                </a>
+            </li>
+        
     
     
         
@@ -186,7 +201,7 @@
                     alpine に gcloud をインストールする Dockerfile
                     
                         
-                            <h2>curl, bash, python, が必要 PATHを通す (root配下にインストールされた) FROMnode:10-alpineRUN apk --no-cache add curl bash pythonRUN curl -sSL https://sdk.cloud.google.com | bashENV PATH $PATH:/root/google-cloud-s</h2>
+                            <h2>curl, bash, python, が必要 PATHを通す (root配下にインストールされた) FROM node:10-alpine RUN apk --no-cache add curl bash python RUN curl -sSL https://sdk.cloud.google.com | bash ENV PATH $PATH:/root/google-cloud-sdk/bin 参考 How to install the Google Cloud SDK in a Docker Image? - Stack Overflow Push an image on google</h2>
                         
                     
                 </a>
@@ -202,21 +217,6 @@
                     
                         
                             <h2>毎日決まった時間にスクリプトを実行したい要求があったので、マネージドの環境で実行できるcloudrun/cloudschedulerを試して</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Feb 17</aside>
-                <a href='https://dream-yt.github.io/post/cloudscheduler-error-invalid_argument/'>
-                    ERROR: (gcloud.beta.scheduler.jobs.create.http) INVALID_ARGUMENT
-                    
-                        
-                            <h2>GCPのCloudSchedulerの設定で以下のようなコマンドを叩いたところエラーとなった gcloud beta scheduler jobs create http subcommandtesting-out-job \ --schedule &#34;5 * * * *&#34; \ --http-method=GET \ --uri=&#39;https://test-iujvxwvxra-an.a.run.app/test/out&#39; \ --oidc-service-account-email=&#39;xxxxxxxx@gmail.com&#39; ERROR: (gcloud.beta.scheduler.jobs.create.http) INVALID_ARGUMENT: Request</h2>
                         
                     
                 </a>

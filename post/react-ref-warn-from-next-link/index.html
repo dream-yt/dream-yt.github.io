@@ -13,8 +13,8 @@
     
   
   
-  <meta name="twitter:title" content="emojiで肌とか性別とか髪の色が変えられる仕組み"/>
-  <meta name="twitter:description" content="unicodeでは肌の色を変えられる仕組みが2015年から入っている。これは skin tone modifiers と呼ばれるもので、結合文字のようにベースとなる絵文字の後ろ"/>
+  <meta name="twitter:title" content="Next の Link コンポーネントで Warning: Function components cannot be given refs"/>
+  <meta name="twitter:description" content="next/link の Link コンポーネントは、children に関数コンポーネントを入れると警告が出る import Link from &quot;next/link&quot;; &lt;Link href=&quot;/&quot;&gt; &lt;MyButton /&gt; &lt;/Link&gt;; Warning: Function components cannot be given refs. Attempts to access this ref will fail. Did you mean to use React.forwardRef()? Link"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -30,7 +30,7 @@
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
 		<meta name="generator" content="Hugo 0.51" />
-		<title>emojiで肌とか性別とか髪の色が変えられる仕組み &middot; sacre</title>
+		<title>Next の Link コンポーネントで Warning: Function components cannot be given refs &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
@@ -68,11 +68,11 @@
             <article>
                 <header>
                     <h1>
-                        emojiで肌とか性別とか髪の色が変えられる仕組み
+                        Next の Link コンポーネントで Warning: Function components cannot be given refs
                     </h1>
                     <h2 class="headline">
-                    Aug 6, 2020 12:05
-                    · 209 words
+                    Feb 27, 2021 11:43
+                    · 326 words
                     · 1 minute read
                       <span class="tags">
                       
@@ -86,9 +86,7 @@
 <ul>
 <li>
 <ul>
-<li><a href="#zero-width-joiner-zwj">Zero Width Joiner (ZWJ)</a></li>
 <li><a href="#参考">参考</a></li>
-<li><a href="#仕様">仕様</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -98,37 +96,62 @@
                 <section id="post-body">
                     
 
-<p>unicodeでは肌の色を変えられる仕組みが2015年から入っている。これは <code>skin tone modifiers</code> と呼ばれるもので、結合文字のようにベースとなる絵文字の後ろにコードポイントを従えることで実現している</p>
+<p><code>next/link</code> の <code>Link</code> コンポーネントは、children に関数コンポーネントを入れると警告が出る</p>
 
-<pre><code>$ node
-&gt; &quot;\u{1F466}&quot;
-'👦'
-&gt; &quot;\u{1F466}\u{1F3FE}&quot;
-'👦🏾'
+<pre><code class="language-jsx">import Link from &quot;next/link&quot;;
+
+&lt;Link href=&quot;/&quot;&gt;
+  &lt;MyButton /&gt;
+&lt;/Link&gt;;
 </code></pre>
 
-<h2 id="zero-width-joiner-zwj">Zero Width Joiner (ZWJ)</h2>
+<blockquote>
+<p>Warning: Function components cannot be given refs. Attempts to access this ref will fail. Did you mean to use React.forwardRef()?</p>
+</blockquote>
 
-<p>Zero Width Joiner (ZWJ) という仕組みがあり、これは複数の絵文字を1文字にまとめるための仕組み。emojiの人物の性別を変えたり、カップルの性別を指示したりとかはこの仕組みを使っている</p>
+<p>Link は子要素に ref を渡す実装になっているので、関数コンポーネントに ref を渡してしまって警告が出ている。</p>
+
+<ul>
+<li><a href="https://github.com/vercel/next.js/blob/55e4a3d1add44aede18f4bc9f604f59ba49cc0b0/packages/next/client/link.tsx#L279">https://github.com/vercel/next.js/blob/55e4a3d1add44aede18f4bc9f604f59ba49cc0b0/packages/next/client/link.tsx#L279</a></li>
+</ul>
+
+<p>これは仕様ということになっているが、サクッと修正できる方法が存在しない、バグのような挙動だと言われている。</p>
+
+<ul>
+<li><a href="https://github.com/vercel/next.js/issues/7915">Next 9 - Using functional components as child of <Link/> causes ref-warnings · Issue #7915 · vercel/next.js</a></li>
+</ul>
+
+<p>修正する方法の 1 つはメッセージ通りに <code>React.forwardRef</code> を使う方法。</p>
+
+<pre><code class="language-jsx">const CustomComponent = React.forwardRef(function CustomComponent(props, ref) {
+  return &lt;div /&gt;;
+});
+</code></pre>
+
+<p>とりあえず警告をでないようにしたいなら一番手軽なのは Fragment で囲ってしまうという方法がある、ただしこれだと Link が子要素に Click イベントが渡せなくなってしまうのでそういう子要素のときは使えない。</p>
+
+<pre><code class="language-jsx">&lt;Link href=&quot;/&quot;&gt;
+  &lt;&gt;
+    &lt;MyButton /&gt;
+  &lt;/&gt;
+&lt;/Link&gt;
+</code></pre>
+
+<ul>
+<li><a href="https://github.com/vercel/next.js/issues/7915#issuecomment-514864334">https://github.com/vercel/next.js/issues/7915#issuecomment-514864334</a></li>
+</ul>
 
 <h2 id="参考">参考</h2>
 
 <ul>
-<li><a href="https://eng.getwisdom.io/emoji-modifiers-and-sequence-combinations/">Emoji Modifiers and Sequence Combinations</a></li>
-</ul>
-
-<h2 id="仕様">仕様</h2>
-
-<ul>
-<li><a href="https://unicode.org/emoji/charts/full-emoji-modifiers.html">Full Emoji Modifier Sequences, v13.0</a></li>
-<li><a href="http://unicode.org/reports/tr51/">UTS #51: Unicode Emoji</a></li>
+<li><a href="https://nextjs.org/docs/api-reference/next/link#if-the-child-is-a-custom-component-that-wraps-an-a-tag">next/link | Next.js</a></li>
 </ul>
 
                 </section>
             </article>
 
             
-                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2funicode-emoji-modifier-zwj%2f - emoji%e3%81%a7%e8%82%8c%e3%81%a8%e3%81%8b%e6%80%a7%e5%88%a5%e3%81%a8%e3%81%8b%e9%ab%aa%e3%81%ae%e8%89%b2%e3%81%8c%e5%a4%89%e3%81%88%e3%82%89%e3%82%8c%e3%82%8b%e4%bb%95%e7%b5%84%e3%81%bf by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2freact-ref-warn-from-next-link%2f - Next%20%e3%81%ae%20Link%20%e3%82%b3%e3%83%b3%e3%83%9d%e3%83%bc%e3%83%8d%e3%83%b3%e3%83%88%e3%81%a7%20Warning%3a%20Function%20components%20cannot%20be%20given%20refs by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
 
 <a class="facebook" href="#" onclick="
     window.open(
