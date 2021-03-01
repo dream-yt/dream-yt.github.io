@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.79.0" />
 		<title>Firebase Hosting のサイトを削除する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,43 +83,31 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#まずはdisableに">まずはdisableに</a></li>
-<li><a href="#リリースを削除">リリースを削除</a></li>
-</ul></li>
-<li><a href="#参考">参考</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#まずはdisableに">まずはdisableに</a></li>
+        <li><a href="#リリースを削除">リリースを削除</a></li>
+      </ul>
+    </li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p>firebase hosting は以下の要領でサイトを消すことができる</p>
-
+                    <p>firebase hosting は以下の要領でサイトを消すことができる</p>
 <h3 id="まずはdisableに">まずはdisableに</h3>
-
-<pre><code class="language-console">$ firebase hosting:disable
+<pre><code class="language-console" data-lang="console">$ firebase hosting:disable
 ? Are you sure you want to disable Firebase Hosting?
   This will immediately make your site inaccessible! Yes
 ✔  Hosting has been disabled for pjx-112312. Deploy a new version to re-enable.
 
-</code></pre>
-
-<h3 id="リリースを削除">リリースを削除</h3>
-
+</code></pre><h3 id="リリースを削除">リリースを削除</h3>
 <p>このコマンド実施後に <code>リリース履歴</code> のリストから直前のリリースを削除</p>
-
 <p>ただ、サイトは閲覧できなくできるが、デプロイ履歴などは消せないようだ</p>
-
 <h2 id="参考">参考</h2>
-
 <ul>
 <li><a href="https://stackoverflow.com/questions/42591099/how-do-i-remove-a-hosted-site-from-firebase">How do I remove a hosted site from firebase - Stack Overflow</a></li>
 </ul>
