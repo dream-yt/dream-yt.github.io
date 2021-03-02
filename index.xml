@@ -6,7 +6,34 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Mon, 01 Mar 2021 18:16:20 +0900</lastBuildDate><atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 02 Mar 2021 14:58:39 +0900</lastBuildDate><atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ドメインからIPアドレスを引くときに、使うDNSサーバを指定する</title>
+      <link>https://dream-yt.github.io/post/specify-dns-server-from-host/</link>
+      <pubDate>Tue, 02 Mar 2021 14:58:39 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/specify-dns-server-from-host/</guid>
+      <description>hostコマンドの第二引数にDNSサーバを指定できる $ host -a amazon.co.jp 8.8.8.8 Using domain server: Name: 8.8.8.8 Address: 8.8.8.8#53 Aliases: amazon.co.jp has address 52.119.168.48 amazon.co.jp has address 52.119.164.121 amazon.co.jp has address 52.119.161.5 amazon.co.jp mail is handled by 10 amazon-smtp.amazon.com. IPアドレスからドメイン</description>
+    </item>
+    
+    <item>
+      <title>perlでjsの分割代入 (Destructuring assignment) みたいなことをする</title>
+      <link>https://dream-yt.github.io/post/perl-destructuring-assignment/</link>
+      <pubDate>Tue, 02 Mar 2021 12:14:12 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/perl-destructuring-assignment/</guid>
+      <description>jsほどスマートじゃないが、それっぽいことはできる 例 こんなデータがあるとして my $h = { a =&amp;gt; 1, b =&amp;gt; 2, }; こうやって取り出す my ($a, $b) = @$h{qw/a b/};</description>
+    </item>
+    
+    <item>
+      <title>CSVダウンロードのときにつけるヘッダ</title>
+      <link>https://dream-yt.github.io/post/browser-download-http-header/</link>
+      <pubDate>Tue, 02 Mar 2021 12:11:23 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/browser-download-http-header/</guid>
+      <description>Content-Type: text/csv; charset=cp932 Content-Disposition: attachment;filename=your_filename.csv CSVファイルはエクセルで開かれることが多いのでエンコーディングはcp932を使う ダウンロードファイルなことを明示するために Content-Disposition を明</description>
+    </item>
+    
     <item>
       <title>basename と末尾のスラッシュなど</title>
       <link>https://dream-yt.github.io/post/basename-101/</link>
