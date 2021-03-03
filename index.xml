@@ -6,7 +6,25 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Tue, 02 Mar 2021 14:58:39 +0900</lastBuildDate><atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 03 Mar 2021 18:57:50 +0900</lastBuildDate><atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>SNIについて調べたことをメモ</title>
+      <link>https://dream-yt.github.io/post/sni-101/</link>
+      <pubDate>Wed, 03 Mar 2021 18:57:50 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/sni-101/</guid>
+      <description>AnyEvent::HTTP を使っている処理でエラーが出て、ホストと接続できなくなった。 596 - errors during TLS negotiation, request sending and header processing. AnyEvent::HTTP - simple but non-blocking HTTP/HTTPS client - metacpan.org 原因 AnyEvent をアップグレードしたら接続できる</description>
+    </item>
+    
+    <item>
+      <title>jqのselectでフィルタする</title>
+      <link>https://dream-yt.github.io/post/jq-pipe-select-samples/</link>
+      <pubDate>Wed, 03 Mar 2021 17:04:20 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/jq-pipe-select-samples/</guid>
+      <description>selectはsqlのwhere句みたいに使う。こんな感じでつかう。 # foo配列の中のオブジェクトでbar属性が存在するものだけ表示 .foo[] | select(has(&amp;#39;bar&amp;#39;)) 配</description>
+    </item>
+    
     <item>
       <title>ドメインからIPアドレスを引くときに、使うDNSサーバを指定する</title>
       <link>https://dream-yt.github.io/post/specify-dns-server-from-host/</link>

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="https://dream-yt.github.io/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="SNIについて調べたことをメモ"/>
+  <meta name="twitter:description" content="AnyEvent::HTTP を使っている処理でエラーが出て、ホストと接続できなくなった。 596 - errors during TLS negotiation, request sending and header processing. AnyEvent::HTTP - simple but non-blocking HTTP/HTTPS client - metacpan.org 原因 AnyEvent をアップグレードしたら接続できる"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@site_author"/>
+  
+
+
+
+		
+		<meta name="author" content="site_author">
+		<meta name="description" content="Site Description">
+		<meta name="generator" content="Hugo 0.79.0" />
+		<title>SNIについて調べたことをメモ &middot; sacre</title>
+		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/font-awesome.min.css">
+		
+
+		
+		<link href="https://dream-yt.github.io/index.xml" rel="alternate" type="application/rss+xml" title="sacre" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='https://dream-yt.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://dream-yt.github.io/posts'>Archive</a>
+	<a href='https://dream-yt.github.io/tags'>Tags</a>
+	<a href='https://dream-yt.github.io/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="https://dream-yt.github.io/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        SNIについて調べたことをメモ
+                    </h1>
+                    <h2 class="headline">
+                    Mar 3, 2021 18:57
+                    · 1424 words
+                    · 3 minute read
+                      <span class="tags">
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#原因">原因</a></li>
+    <li><a href="#sniについてメモ">SNIについてメモ</a></li>
+  </ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    <p>AnyEvent::HTTP を使っている処理でエラーが出て、ホストと接続できなくなった。</p>
+<blockquote>
+<p>596 - errors during TLS negotiation, request sending and header processing.</p>
+</blockquote>
+<ul>
+<li><a href="https://metacpan.org/pod/release/MLEHMANN/AnyEvent-HTTP-2.22/HTTP.pm">AnyEvent::HTTP - simple but non-blocking HTTP/HTTPS client - metacpan.org</a></li>
+</ul>
+<h2 id="原因">原因</h2>
+<p>AnyEvent をアップグレードしたら接続できるようになったので、それをヒントに調査。</p>
+<p>TLS ネゴシエーション周りの変更を探すと、AnyEvent は 7.12 から <code>Net::SSLeay::set_tlsext_host_name</code> を呼ぶようになっているのが見つかった。</p>
+<ul>
+<li><a href="https://metacpan.org/changes/distribution/AnyEvent#L87">Changes - metacpan.org</a></li>
+</ul>
+<p><code>set_tlsext_host_name</code>とは「リクエストしたいドメイン名をセットする」処理であり、ここでドメイン名をセットできていなかったのでエラーになっていた。</p>
+<ul>
+<li><a href="https://metacpan.org/pod/distribution/Net-SSLeay/lib/Net/SSLeay.pod">Net::SSLeay - Perl extension for using OpenSSL - metacpan.org</a></li>
+</ul>
+<h2 id="sniについてメモ">SNIについてメモ</h2>
+<p>SNI(Server_Name_Indication)とは、TLSハンドシェイク時の手続き。</p>
+<p>リクエスト時にクライアントから接続したいホスト名を伝えることで、サーバ側がグローバルIPの証明書ではなく、クライアントが接続したいホスト名の証明書を使ってくれるという機能。</p>
+<p><a href="https://ja.wikipedia.org/wiki/Server_Name_Indication">https://ja.wikipedia.org/wiki/Server_Name_Indication</a></p>
+<blockquote>
+<p>Server Name Indication (SNI, サーバー ネーム インディケーション, サーバ名表示)は、SSL/TLSの拡張仕様の一つである。SSLハンドシェイク時にクライアントがアクセスしたいホスト名を伝えることで、サーバ側がグローバルIPごとではなくホスト名によって異なる証明書を使い分けることを可能にする</p>
+</blockquote>
+<p>これがなぜ嬉しいかというと、この機能があると1つのIPに複数のホスト名が設定できるようになるため。</p>
+<blockquote>
+<p>SSL/TLS接続のはじめに、クライアントはSSL/TLSのサーバから（サーバとCAの）証明書を受け取り、証明書の改ざんされていないことなどを確認する。サーバ証明書にはホスト名が書かれており、それが今接続しようとしているホスト名と一致することをクライアントは確認する。そうでない場合、なりすましや中間者攻撃の恐れがあるため、クライアントはユーザに警告をする。ユーザの責任で証明書を信用し、警告を迂回することができるアプリケーションも存在する。
+HTTPの場合、名前ベースバーチャルホストを使うと、複数のホスト名（同一のドメインであれ、異なるドメインであれ）を単一のサーバと単一のグローバルIPで運用できる。これは、ブラウザ側がHTTPヘッダによって希望のホスト名を指定することで働く。しかし、HTTPSの場合、HTTP要求をやりとりする前にSSL/TLSハンドシェイクを行う必要がある。このため、ブラウザがどのホストを訪問するかを、ハンドシェイク時点でサーバ側には予測できず、HTTPヘッダのホスト名によって複数枚のサーバ証明書を使い分けることができない。したがって、単一のサーバで複数枚のサーバ証明書を使い分けるには名前ベースバーチャルホストは利用できず、ホスト名ごとに異なるグローバルIPを使う必要があった(IPベースバーチャルホスト)。</p>
+</blockquote>
+<p>ただし、SNIをつかうとTLS通信なのにホスト名の通信は平文で行われるため誰がどのサイトにアクセスしているかがバレてしまう</p>
+<blockquote>
+<p>Server Name Indication (SNI) では、TLSに拡張を加えることでこの問題に対処する。TLSのハンドシェイク手続きで、HTTPSクライアントが希望するドメイン名を伝える（この部分は平文となる）[3]。それによってサーバが対応するドメイン名を記した証明書を使うことが可能になる。サーバとクライアントが共にSNIに対応していれば、一つのIPで複数のドメインにHTTPSサーバを提供することが可能になる。</p>
+</blockquote>
+<p>この問題に対処するのに、<code>ESNI</code> という方式がある</p>
+<ul>
+<li><a href="https://qiita.com/testnin2/items/4a5310c7562875032142#3-tls-session%E3%81%9D%E3%81%AE%EF%BC%91">最近のDNSのセキュリティー事情(DOH, DNSSEC, ESNI, TLS1.3) - Qiita</a></li>
+</ul>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fsni-101%2f - SNI%e3%81%ab%e3%81%a4%e3%81%84%e3%81%a6%e8%aa%bf%e3%81%b9%e3%81%9f%e3%81%93%e3%81%a8%e3%82%92%e3%83%a1%e3%83%a2 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'your_disqus_short_name'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/dream-yt/sacre">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://twitter.com/FUTABA_SACRE">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2021 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="https://dream-yt.github.io/js/jquery-3.3.1.min.js"></script>
+<script src="https://dream-yt.github.io/js/main.js"></script>
+<script src="https://dream-yt.github.io/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+
+
+
+
+    </body>
+</html>

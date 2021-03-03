@@ -76,6 +76,36 @@
     
         
             <li>
+                <aside class="dates">Feb 23</aside>
+                <a href='https://dream-yt.github.io/post/express-serverless-typescript/'>
+                    lambda/typescriptでexpressを使う
+                    
+                        
+                            <h2>express普通に便利なのでawslabs謹製のツールから使う awslabs/aws-serverless-express Run serverless applications and REST APIs using your existing Node.js application framework, on top of AWS Lambda and Amazon API Gateway 使い方 expressのappを生</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Feb 14</aside>
+                <a href='https://dream-yt.github.io/post/invisible-char-in-textfile/'>
+                    テキストに不可視な文字が入っている場合の対処
+                    
+                        
+                            <h2>不可視文字には \t (タブ) や \f (改ページ)など色々ある 環境によってトーフが表示されたりする 例 エディタでは大丈夫なのにGitHubに投稿するとト</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
                 <aside class="dates">Feb 13</aside>
                 <a href='https://dream-yt.github.io/post/ffmpeg-for-bitrate/'>
                     macで動画のビットレートを変更したい
@@ -187,36 +217,6 @@
                     
                         
                             <h2>以下のコマンドで取得できる aws cloudwatch --profile mossan get-metric-statistics \ --namespace &#39;AWS/ApplicationELB&#39; \ --metric-name &#39;RequestCount&#39; \ --dimensions &#39;Name=LoadBalancer,Value=app/sakamoto-alb/xxxxxxxxx&#39; \ --statistics &#39;Sum&#39; \ --start-time $(date -v -1H -u &#43;&#34;%Y-%m-%dT%H:%M&#34;) \ --end-time $(date -u &#43;&#34;%Y-%m-%dT%H:%M&#34;) \ --period 3600 --dimensions RequestCountのSumをどの軸でGro</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jan 20</aside>
-                <a href='https://dream-yt.github.io/post/list-alb-names/'>
-                    AWSでプロジェクトに存在するALBを一覧する
-                    
-                        
-                            <h2>aws cloudwatch list-metrics \ --namespace AWS/ApplicationELB \ --metric-name RequestCount \ | jq -r &#39;.Metrics[].Dimensions[] | select(.Name | test(&#34;LoadBalancer&#34;)) | .Value&#39; \ | sort \ | uniq jq の部分はjsonから必要な部分を抜き出すためのもの 配列を Name=LoadBalancer なオブジェクトにフィルタして</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jan 20</aside>
-                <a href='https://dream-yt.github.io/post/athena-before-yesterday-utc-jst/'>
-                    athenaのUNIXタイムスタンプなカラムをJSTで一昨日から昨日の範囲でとる場合
-                    
-                        
-                            <h2>下記の図でJSTでの18日〜19日のデータが欲しい場合のこと 前提 日本で使いたいデータなので「日本時間での一昨日から昨日」 カラムにはunixタ</h2>
                         
                     
                 </a>
