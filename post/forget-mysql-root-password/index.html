@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="https://dream-yt.github.io/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="MySQLのrootパスワードを忘れてしまった時になんとかする方法"/>
+  <meta name="twitter:description" content="当該サーバでMySQLを再起動できる権限は必要 手順 rootのpasswordをUPDATEするDMLが書いてあるファイルを用意する MySQL"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@site_author"/>
+  
+
+
+
+		
+		<meta name="author" content="site_author">
+		<meta name="description" content="Site Description">
+		<meta name="generator" content="Hugo 0.79.0" />
+		<title>MySQLのrootパスワードを忘れてしまった時になんとかする方法 &middot; sacre</title>
+		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/font-awesome.min.css">
+		
+
+		
+		<link href="https://dream-yt.github.io/index.xml" rel="alternate" type="application/rss+xml" title="sacre" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='https://dream-yt.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://dream-yt.github.io/posts'>Archive</a>
+	<a href='https://dream-yt.github.io/tags'>Tags</a>
+	<a href='https://dream-yt.github.io/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="https://dream-yt.github.io/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        MySQLのrootパスワードを忘れてしまった時になんとかする方法
+                    </h1>
+                    <h2 class="headline">
+                    Mar 4, 2021 17:39
+                    · 234 words
+                    · 1 minute read
+                      <span class="tags">
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#手順">手順</a>
+      <ul>
+        <li><a href="#コマンド">コマンド</a></li>
+      </ul>
+    </li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    <p>当該サーバでMySQLを再起動できる権限は必要</p>
+<h2 id="手順">手順</h2>
+<ul>
+<li>rootのpasswordをUPDATEするDMLが書いてあるファイルを用意する</li>
+<li>MySQLを一度止める</li>
+<li>mysqld_safeから<code>--init-file</code>オプション付きで起動する</li>
+</ul>
+<h3 id="コマンド">コマンド</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ echo <span style="color:#e6db74">&#34;UPDATE mysql.user SET Password=PASSWORD(&#39;fuckofftaro&#39;) WHERE User=&#39;root&#39;;&#34;</span> &gt;&gt; /tmp/myinit
+$ echo <span style="color:#e6db74">&#34;FLUSH PRIVILEGES;&#34;</span> &gt;&gt; /tmp/myinit
+$ mysqld_safe --init-file<span style="color:#f92672">=</span>/tmp/myinit &amp;
+mysqld_safe Logging to <span style="color:#e6db74">&#39;/usr/local/var/mysql/Mac-137.err&#39;</span>.
+mysqld_safe Logging to <span style="color:#e6db74">&#39;/usr/local/var/mysql/Mac-137.err&#39;</span>.
+mysqld_safe Starting mysqld daemon with databases from /usr/local/var/mysql
+$ mysql -uroot -pfuckofftaro -e <span style="color:#e6db74">&#39;status&#39;</span>
+mysql: <span style="color:#f92672">[</span>Warning<span style="color:#f92672">]</span> Using a password on the command line interface can be insecure.
+--------------
+mysql  Ver 14.14 Distrib 5.7.17, <span style="color:#66d9ef">for</span> osx10.10 <span style="color:#f92672">(</span>x86_64<span style="color:#f92672">)</span> using  EditLine wrapper
+
+Connection id:		<span style="color:#ae81ff">5</span>
+
+... <span style="color:#f92672">(</span>中略<span style="color:#f92672">)</span> ...
+
+<span style="color:#ae81ff">60</span>  Queries per second avg: 0.203
+--------------
+</code></pre></div><h2 id="参考">参考</h2>
+<ul>
+<li><a href="https://dev.mysql.com/doc/refman/5.6/ja/resetting-permissions.html#resetting-permissions-unix">MySQL :: MySQL 5.6 リファレンスマニュアル :: B.5.4.1 root のパスワードをリセットする方法</a></li>
+</ul>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fforget-mysql-root-password%2f - MySQL%e3%81%aeroot%e3%83%91%e3%82%b9%e3%83%af%e3%83%bc%e3%83%89%e3%82%92%e5%bf%98%e3%82%8c%e3%81%a6%e3%81%97%e3%81%be%e3%81%a3%e3%81%9f%e6%99%82%e3%81%ab%e3%81%aa%e3%82%93%e3%81%a8%e3%81%8b%e3%81%99%e3%82%8b%e6%96%b9%e6%b3%95 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'your_disqus_short_name'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/dream-yt/sacre">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://twitter.com/FUTABA_SACRE">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2021 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="https://dream-yt.github.io/js/jquery-3.3.1.min.js"></script>
+<script src="https://dream-yt.github.io/js/main.js"></script>
+<script src="https://dream-yt.github.io/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+
+
+
+
+    </body>
+</html>

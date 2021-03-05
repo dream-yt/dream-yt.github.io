@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="https://dream-yt.github.io/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="Google Api Auth Term"/>
+  <meta name="twitter:description" content="サンプルコード内でそれっぽい変数名が出てくる Node.js Quickstart | Google Calendar API | Google Developers token client_secret.json client_secret.json UI: https://console.developers.google.com/apis/credentials GoogleのUIをポチポチやってファイルダウンロードするもの jso"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@site_author"/>
+  
+
+
+
+		
+		<meta name="author" content="site_author">
+		<meta name="description" content="Site Description">
+		<meta name="generator" content="Hugo 0.79.0" />
+		<title>Google Api Auth Term &middot; sacre</title>
+		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/font-awesome.min.css">
+		
+
+		
+		<link href="https://dream-yt.github.io/index.xml" rel="alternate" type="application/rss+xml" title="sacre" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='https://dream-yt.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://dream-yt.github.io/posts'>Archive</a>
+	<a href='https://dream-yt.github.io/tags'>Tags</a>
+	<a href='https://dream-yt.github.io/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="https://dream-yt.github.io/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        Google Api Auth Term
+                    </h1>
+                    <h2 class="headline">
+                    Mar 4, 2021 18:06
+                    · 166 words
+                    · 1 minute read
+                      <span class="tags">
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    <p>サンプルコード内でそれっぽい変数名が出てくる</p>
+<ul>
+<li>
+<p><a href="https://developers.google.com/google-apps/calendar/quickstart/nodejs">Node.js Quickstart  |  Google Calendar API  |  Google Developers</a></p>
+</li>
+<li>
+<p>token</p>
+</li>
+<li>
+<p>client_secret.json</p>
+</li>
+</ul>
+<h4 id="client_secretjson">client_secret.json</h4>
+<p>UI: <code>https://console.developers.google.com/apis/credentials</code></p>
+<ul>
+<li>GoogleのUIをポチポチやってファイルダウンロードするもの</li>
+<li>json形式</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+  <span style="color:#f92672">&#34;installed&#34;</span>: {
+    <span style="color:#f92672">&#34;client_id&#34;</span>: <span style="color:#e6db74">&#34;0000000000-4m2rmmkhsd4n6pp4o5oj0957ot89f1m3.apps.googleusercontent.com&#34;</span>,
+    <span style="color:#f92672">&#34;project_id&#34;</span>: <span style="color:#e6db74">&#34;penguin-2343219&#34;</span>,
+    <span style="color:#f92672">&#34;auth_uri&#34;</span>: <span style="color:#e6db74">&#34;https://accounts.google.com/o/oauth2/auth&#34;</span>,
+    <span style="color:#f92672">&#34;token_uri&#34;</span>: <span style="color:#e6db74">&#34;https://accounts.google.com/o/oauth2/token&#34;</span>,
+    <span style="color:#f92672">&#34;auth_provider_x509_cert_url&#34;</span>: <span style="color:#e6db74">&#34;https://www.googleapis.com/oauth2/v1/certs&#34;</span>,
+    <span style="color:#f92672">&#34;client_secret&#34;</span>: <span style="color:#e6db74">&#34;SAHafsgwgmpfKoxxxxxxxxxxxx&#34;</span>,
+    <span style="color:#f92672">&#34;redirect_uris&#34;</span>: [
+      <span style="color:#e6db74">&#34;urn:ietf:wg:oauth:2.0:oob&#34;</span>,
+      <span style="color:#e6db74">&#34;http://localhost&#34;</span>
+    ]
+  }
+}
+</code></pre></div><h4 id="token">token</h4>
+<ul>
+<li>oauthで取得する認証情報</li>
+<li>これもjson形式</li>
+<li>時限でexpireしないtokenとしてこれをサーバに置いて認証してもらう</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+  <span style="color:#f92672">&#34;access_token&#34;</span>: <span style="color:#e6db74">&#34;ya29.GlvVBG-Gxf3XcW5cSoshNle1jm93dlx3LRwJkFrIayQkdiTPyQGyviRVR5ds95lvBA_ejZyIJUYrx3f1Q8QbU6fKYtdwpMxqntQvuWn51RtdAPW3S4BJrs3o-EEP&#34;</span>,
+  <span style="color:#f92672">&#34;refresh_token&#34;</span>: <span style="color:#e6db74">&#34;1/-V3j2lT1cnYBehEdetqu8y3zPzNTL7KZKicr35-q_Ic&#34;</span>,
+  <span style="color:#f92672">&#34;token_type&#34;</span>: <span style="color:#e6db74">&#34;Bearer&#34;</span>,
+  <span style="color:#f92672">&#34;expiry_date&#34;</span>: <span style="color:#ae81ff">1506678724861</span>
+}
+</code></pre></div>
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fgoogle-api-auth-term%2f - Google%20Api%20Auth%20Term by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'your_disqus_short_name'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/dream-yt/sacre">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://twitter.com/FUTABA_SACRE">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2021 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="https://dream-yt.github.io/js/jquery-3.3.1.min.js"></script>
+<script src="https://dream-yt.github.io/js/main.js"></script>
+<script src="https://dream-yt.github.io/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+
+
+
+
+    </body>
+</html>

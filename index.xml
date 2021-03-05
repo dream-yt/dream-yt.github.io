@@ -6,7 +6,43 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 03 Mar 2021 18:57:50 +0900</lastBuildDate><atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 05 Mar 2021 18:55:22 +0900</lastBuildDate><atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>bennojoy/mysqlを読みながらMySQLの設定の初歩</title>
+      <link>https://dream-yt.github.io/post/mysql-conf-101/</link>
+      <pubDate>Fri, 05 Mar 2021 18:55:22 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/mysql-conf-101/</guid>
+      <description>mysql/my.cnf.Debian.j2 at master · bennojoy/mysql 見た目で動作が分からなかったものについてメモ [mysqld] [mysqld] のようにブラケットでかこんでる部分はセクションと呼ばれる セクションにはいろいろあっ</description>
+    </item>
+    
+    <item>
+      <title>Google のAPIを叩く時の認証処理周りの変数名について</title>
+      <link>https://dream-yt.github.io/post/google-auth-varnames/</link>
+      <pubDate>Fri, 05 Mar 2021 12:49:18 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/google-auth-varnames/</guid>
+      <description>Node.js Quickstart | Google Calendar API | Google Developers サンプルコード内でそれっぽい変数名が出てくるけど、初見だと何を指しているのかわからなかったのでメモ client_secret.json token client_secret.json UI: https://console.developers.google.com/apis/credentials Googleの</description>
+    </item>
+    
+    <item>
+      <title>Google Api Auth Term</title>
+      <link>https://dream-yt.github.io/post/google-api-auth-term/</link>
+      <pubDate>Thu, 04 Mar 2021 18:06:16 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/google-api-auth-term/</guid>
+      <description>サンプルコード内でそれっぽい変数名が出てくる Node.js Quickstart | Google Calendar API | Google Developers token client_secret.json client_secret.json UI: https://console.developers.google.com/apis/credentials GoogleのUIをポチポチやってファイルダウンロードするもの jso</description>
+    </item>
+    
+    <item>
+      <title>MySQLのrootパスワードを忘れてしまった時になんとかする方法</title>
+      <link>https://dream-yt.github.io/post/forget-mysql-root-password/</link>
+      <pubDate>Thu, 04 Mar 2021 17:39:58 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/forget-mysql-root-password/</guid>
+      <description>当該サーバでMySQLを再起動できる権限は必要 手順 rootのpasswordをUPDATEするDMLが書いてあるファイルを用意する MySQL</description>
+    </item>
+    
     <item>
       <title>SNIについて調べたことをメモ</title>
       <link>https://dream-yt.github.io/post/sni-101/</link>
