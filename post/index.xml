@@ -26,15 +26,6 @@
     </item>
     
     <item>
-      <title>Google Api Auth Term</title>
-      <link>https://dream-yt.github.io/post/google-api-auth-term/</link>
-      <pubDate>Thu, 04 Mar 2021 18:06:16 +0900</pubDate>
-      
-      <guid>https://dream-yt.github.io/post/google-api-auth-term/</guid>
-      <description>サンプルコード内でそれっぽい変数名が出てくる Node.js Quickstart | Google Calendar API | Google Developers token client_secret.json client_secret.json UI: https://console.developers.google.com/apis/credentials GoogleのUIをポチポチやってファイルダウンロードするもの jso</description>
-    </item>
-    
-    <item>
       <title>MySQLのrootパスワードを忘れてしまった時になんとかする方法</title>
       <link>https://dream-yt.github.io/post/forget-mysql-root-password/</link>
       <pubDate>Thu, 04 Mar 2021 17:39:58 +0900</pubDate>
