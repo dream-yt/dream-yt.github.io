@@ -6,7 +6,16 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 10 Mar 2021 15:38:49 +0900</lastBuildDate><atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 12 Mar 2021 18:17:07 +0900</lastBuildDate><atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>HTTPのVaryヘッダについて</title>
+      <link>https://dream-yt.github.io/post/http-header-vary/</link>
+      <pubDate>Fri, 12 Mar 2021 18:17:07 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/http-header-vary/</guid>
+      <description>Varyは中間のキャッシュサーバで活用することが期待されてるヘッダ nginx や h20 などのオリジンサーバがレスポンスヘッダに入れてキャッシュサーバを制御</description>
+    </item>
+    
     <item>
       <title>つくられてから1時間以上経った未圧縮のファイルだけを削除する</title>
       <link>https://dream-yt.github.io/post/find-and-delete-compressed-file-60min-ago/</link>
