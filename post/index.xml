@@ -6,7 +6,16 @@
     <description>Recent content in Posts on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Fri, 12 Mar 2021 18:17:07 +0900</lastBuildDate><atom:link href="https://dream-yt.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 19 Mar 2021 16:32:13 +0900</lastBuildDate><atom:link href="https://dream-yt.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>BigQueryでアクセスログを掘るときのtips</title>
+      <link>https://dream-yt.github.io/post/bigquery-log-digging-tips/</link>
+      <pubDate>Fri, 19 Mar 2021 16:32:13 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/bigquery-log-digging-tips/</guid>
+      <description>毎回ググるところがあるのでメモをしておく。 たとえばこんなクエリでアクセス履歴を見ることが多い。 SELECT user_id, FORMAT_TIMESTAMP(&amp;#39;%Y-%m-%d %H:%M:%S&amp;#39;, time, &amp;#39;Asia/Tokyo&amp;#39;) AS jst, status_code, SUBSTR(url, 0, 50) url, JSON_EXTRACT(parameters, &amp;#39;$.started_at&amp;#39;) started_at, JSON_EXTRACT(parameters, &amp;#39;$.ended_at&amp;#39;) ended_at, SUBSTR(parameters, 0, 50) snipped_param</description>
+    </item>
+    
     <item>
       <title>HTTPのVaryヘッダについて</title>
       <link>https://dream-yt.github.io/post/http-header-vary/</link>
