@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://dream-yt.github.io/post/prisma-101-generate-client/</loc>
+    <lastmod>2021-03-21T23:48:14+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://dream-yt.github.io/post/get-fullpath-on-macos-commandline/</loc>
     <lastmod>2021-03-21T22:37:46+09:00</lastmod>
   </url>
@@ -1518,7 +1523,7 @@
   
   <url>
     <loc>https://dream-yt.github.io/post/</loc>
-    <lastmod>2021-03-21T22:37:46+09:00</lastmod>
+    <lastmod>2021-03-21T23:48:14+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -1530,7 +1535,7 @@
   
   <url>
     <loc>https://dream-yt.github.io/</loc>
-    <lastmod>2021-03-21T22:37:46+09:00</lastmod>
+    <lastmod>2021-03-21T23:48:14+09:00</lastmod>
     <priority>0</priority>
   </url>
   

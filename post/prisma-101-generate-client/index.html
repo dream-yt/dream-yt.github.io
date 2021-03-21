@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="https://dream-yt.github.io/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="prisma でアプリが使うClientのコードを生成する"/>
+  <meta name="twitter:description" content="もともとテーブル定義があって、そこからORMのコードを生成するまでのメモ。 手順はドキュメントの通り。 Add to existing project (TypeScript &amp; PostgreSQL) | Prisma Docs インストール npm install prisma --save-dev"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@site_author"/>
+  
+
+
+
+		
+		<meta name="author" content="site_author">
+		<meta name="description" content="Site Description">
+		<meta name="generator" content="Hugo 0.51" />
+		<title>prisma でアプリが使うClientのコードを生成する &middot; sacre</title>
+		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/font-awesome.min.css">
+		
+
+		
+		<link href="https://dream-yt.github.io/index.xml" rel="alternate" type="application/rss+xml" title="sacre" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='https://dream-yt.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://dream-yt.github.io/posts'>Archive</a>
+	<a href='https://dream-yt.github.io/tags'>Tags</a>
+	<a href='https://dream-yt.github.io/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="https://dream-yt.github.io/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        prisma でアプリが使うClientのコードを生成する
+                    </h1>
+                    <h2 class="headline">
+                    Mar 21, 2021 23:48
+                    · 626 words
+                    · 2 minute read
+                      <span class="tags">
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#インストール">インストール</a></li>
+<li><a href="#init">init</a></li>
+<li><a href="#introspect">introspect</a></li>
+<li><a href="#schema-prisma-の修正">schema.prisma の修正</a></li>
+<li><a href="#generate">generate</a></li>
+<li><a href="#update">update</a></li>
+<li><a href="#その他">その他</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    
+
+<p>もともとテーブル定義があって、そこからORMのコードを生成するまでのメモ。
+手順はドキュメントの通り。</p>
+
+<ul>
+<li><a href="https://www.prisma.io/docs/getting-started/setup-prisma/add-to-existing-project-typescript-postgres">Add to existing project (TypeScript &amp; PostgreSQL) | Prisma Docs</a></li>
+</ul>
+
+<h3 id="インストール">インストール</h3>
+
+<pre><code>npm install prisma --save-dev
+</code></pre>
+
+<h3 id="init">init</h3>
+
+<pre><code>npx prisma init
+</code></pre>
+
+<ul>
+<li>prismaディレクトリが生成される</li>
+<li><code>.env</code> ファイルと <code>schema.prisma</code> ファイルの雛形が生成される</li>
+<li><code>schema.prisma</code> ファイルとはスキーマ定義からTypeScriptのコードを生成するための中間表現のようなファイルで、自動的に生成されるが人間も読み書きする。</li>
+</ul>
+
+<h3 id="introspect">introspect</h3>
+
+<p><code>schema.prisma</code> ファイルのDBとのコネクション情報を管理する <code>datasource</code> の設定を埋めたら、<code>prisma introspect</code> を叩く。</p>
+
+<pre><code>npx prisma introspect
+</code></pre>
+
+<p>prismaがDBに接続して、テーブル定義を読んで <code>schema.prisma</code> ファイルを更新してくれる。</p>
+
+<h3 id="schema-prisma-の修正">schema.prisma の修正</h3>
+
+<p>自動生成された内容を人間がコードを書きやすいように修正する。たとえばカラム名を直したり、relation定義を明確にしたりといった作業。</p>
+
+<p>もしカラム名がスネークケースだったりするなら修正するのはこのタイミング。</p>
+
+<ul>
+<li><a href="https://www.prisma.io/docs/getting-started/setup-prisma/add-to-existing-project-typescript-postgres#introspect-your-database-with-prisma">#introspect-your-database-with-prisma</a></li>
+</ul>
+
+<h3 id="generate">generate</h3>
+
+<p><code>schema.prisma</code> が修正できたら、それをもとにTypeScriptのコードを生成する。</p>
+
+<pre><code>npm install @prisma/client
+npx prisma generate
+</code></pre>
+
+<p>コードは <code>node_modules/.prisma/client</code> に生成される。</p>
+
+<p><img src="https://www.prisma.io/docs/static/23697e3841e07a262f2e2eae70d11b19/a6d36/prisma-client-node-module.png" alt="prisma-client-node-module" /></p>
+
+<p>↑の図がわかりやすいが、ここに吐き出されたコードを <code>@prisma/client</code> モジュールが参照する形になっている。</p>
+
+<h3 id="update">update</h3>
+
+<p>スキーマ定義が変更されたら、 <code>introspect</code> と <code>generate</code> をその度に叩いてアプリが参照するORMのコードを更新しながら使う。</p>
+
+<p><img src="https://imgur.com/ToNkpb2.png" alt="update" /></p>
+
+<p>デプロイとスキーマ定義変更のミスマッチ期間についてはこちらに記載されていた(試していない)</p>
+
+<ul>
+<li><a href="https://www.prisma.io/docs/guides/deployment/deployment#deploying-database-changes-with-prisma-migrate">Deploying projects using Prisma to the cloud | Prisma Docs</a></li>
+</ul>
+
+<h3 id="その他">その他</h3>
+
+<p><code>studio</code> コマンドで管理画面みたいなものが立ち上がって、簡単なデータ操作ができる。</p>
+
+<pre><code>npx prisma studio
+</code></pre>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fprisma-101-generate-client%2f - prisma%20%e3%81%a7%e3%82%a2%e3%83%97%e3%83%aa%e3%81%8c%e4%bd%bf%e3%81%86Client%e3%81%ae%e3%82%b3%e3%83%bc%e3%83%89%e3%82%92%e7%94%9f%e6%88%90%e3%81%99%e3%82%8b by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'your_disqus_short_name'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/dream-yt/sacre">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://twitter.com/FUTABA_SACRE">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2021 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="https://dream-yt.github.io/js/jquery-3.3.1.min.js"></script>
+<script src="https://dream-yt.github.io/js/main.js"></script>
+<script src="https://dream-yt.github.io/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+
+
+
+
+    </body>
+</html>
