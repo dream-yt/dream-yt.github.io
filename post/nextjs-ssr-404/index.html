@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.79.0" />
 		<title>nextjs で 404 を返す方法 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,37 +83,25 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#参考">参考</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#参考">参考</a></li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p>nextjs の SSR で 404 を返すには、<code>getServerSideProps</code> でこうする</p>
-
-<pre><code class="language-ts">const getServerSideProps: GetServerSideProps = async (context) =&gt; {
-  context.res.statusCode = 404;
-  return { props: { errorCode: 404 } };
+                    <p>nextjs の SSR で 404 を返すには、<code>getServerSideProps</code> でこうする</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">getServerSideProps</span>: <span style="color:#66d9ef">GetServerSideProps</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">async</span> (<span style="color:#a6e22e">context</span>) <span style="color:#f92672">=&gt;</span> {
+  <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">statusCode</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">404</span>;
+  <span style="color:#66d9ef">return</span> { <span style="color:#a6e22e">props</span><span style="color:#f92672">:</span> { <span style="color:#a6e22e">errorCode</span>: <span style="color:#66d9ef">404</span> } };
 };
-</code></pre>
-
-<p>あとはコンポーネント側でよしなに 404 ページをレンダリングすればよい</p>
-
+</code></pre></div><p>あとはコンポーネント側でよしなに 404 ページをレンダリングすればよい</p>
 <p>とりあえず動かす段階なら next ビルトインの Error ページを使ってもいいだろう</p>
-
 <ul>
 <li><a href="https://nextjs.org/docs/advanced-features/custom-error-page#reusing-the-built-in-error-page">reusing-the-built-in-error-page</a></li>
 </ul>
-
 <h2 id="参考">参考</h2>
-
 <ul>
 <li><a href="https://nextjs.org/docs/advanced-features/custom-error-page">Advanced Features: Custom Error Page | Next.js</a></li>
 <li><a href="https://ironeko.com/posts/how-to-return-a-404-error-in-getserversideprops-with-next-js?ref=last_articles">How to return a 404 error in getServerSideProps with Next.js - Ironeko</a></li>

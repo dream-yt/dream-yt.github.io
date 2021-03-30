@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.79.0" />
 		<title>ドメインからIPアドレスを引くときに、使うDNSサーバを指定する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,22 +83,16 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#参考">参考</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#参考">参考</a></li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p>hostコマンドの第二引数にDNSサーバを指定できる</p>
-
-<pre><code class="language-console">$ host -a amazon.co.jp 8.8.8.8
+                    <p>hostコマンドの第二引数にDNSサーバを指定できる</p>
+<pre><code class="language-console" data-lang="console">$ host -a amazon.co.jp 8.8.8.8
 Using domain server:
 Name: 8.8.8.8
 Address: 8.8.8.8#53
@@ -108,15 +102,9 @@ amazon.co.jp has address 52.119.168.48
 amazon.co.jp has address 52.119.164.121
 amazon.co.jp has address 52.119.161.5
 amazon.co.jp mail is handled by 10 amazon-smtp.amazon.com.
-</code></pre>
-
-<p>IPアドレスからドメインを引くときはdigで調べられる</p>
-
+</code></pre><p>IPアドレスからドメインを引くときはdigで調べられる</p>
 <pre><code>dig -x 52.119.168.48
-</code></pre>
-
-<h2 id="参考">参考</h2>
-
+</code></pre><h2 id="参考">参考</h2>
 <ul>
 <li><a href="https://www.atmarkit.co.jp/ait/articles/1711/02/news017.html#:~:text=host%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E3%81%A8%E3%81%AF%EF%BC%9F,%E3%81%AA%E8%A1%A8%E7%A4%BA%E3%81%8C%E7%89%B9%E5%BE%B4%E3%81%A7%E3%81%99%E3%80%82">【 host 】コマンド――ドメイン名からIPアドレスを調べる：Linux基本コマンドTips（157） - ＠IT</a></li>
 <li><a href="https://www.atmarkit.co.jp/ait/articles/1711/09/news020.html">【 dig 】コマンド――ドメイン名からIPアドレスを調べる：Linux基本コマンドTips（158） - ＠IT</a></li>

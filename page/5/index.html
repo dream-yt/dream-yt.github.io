@@ -24,7 +24,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.79.0" />
 		<title>sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -72,6 +72,66 @@
 
     <section id="wrapper" class="home">
         <ul id="post-list">
+    
+    
+        
+            <li>
+                <aside class="dates">Jan 11</aside>
+                <a href='https://dream-yt.github.io/post/cleanup-go-gotten/'>
+                    go get したものを消す
+                    
+                        
+                            <h2>go clean で入れたものを消すことができる。 $ go clean -i -n github.com/sakamossan/mymy cd /Users/sakamossan/go/src/github.com/sakamossan/mymy rm -f mymy mymy.exe mymy.test mymy.test.exe main main.exe rm -f /Users/sakamossan/go/bin/mymy それぞれのフラグはこんな役割。 The -i flag causes clean to remove the corresponding installed archive or binary (what ‘go install’ would create).</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Jan 2</aside>
+                <a href='https://dream-yt.github.io/post/encrypt-decrypt-text-script/'>
+                    文字列をopensslで暗号化/復号するbashスクリプト
+                    
+                        
+                            <h2>セキュリティ的にあんまり褒められたものではないが、 気持ち平文で保存したくないデータを手元に置いとくのとかには便利。 処理のコア部分はこんな感じ</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Dec 31</aside>
+                <a href='https://dream-yt.github.io/post/vscode-suppress-golint-warning/'>
+                    vscodeでgolintの警告を抑制する
+                    
+                        
+                            <h2>vscodeでgolangをgolintしながら書いていると、以下のようなwarningが出る。 exported type Expression should have comment or be unexportedgo-lint publicなコードには説</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Dec 27</aside>
+                <a href='https://dream-yt.github.io/post/github-action-revision-and-branch/'>
+                    GitHub Action で実行中のブランチ名とリビジョンを出す
+                    
+                        
+                            <h2>こんな感じで出力できる。 - name: Show Revision run: |echo -e &#34;Branch: ${GITHUB_REF##*/}&#34; echo -e &#34;Revision: ${GITHUB_SHA:0:8}&#34; 参考 git - Getting current branch and commit hash in GitHub action - Stack Overflow</h2>
+                        
+                    
+                </a>
+            </li>
+        
     
     
         
@@ -157,66 +217,6 @@
                     
                         
                             <h2>よくある横スクロールの UI を tailwind で実装する。 こんな感じで実現する。 &lt;ul className=&#34;flex overflow-x-auto&#34;&gt; {list.map((g) =&gt; ( &lt;li className=&#34;flex-none w-2/5&#34; key={g.id}&gt; &lt;Card imgSrc={g.imageUrl()} imgAlt={g.name}&gt; &lt;p&gt;{g.name}&lt;/p&gt; &lt;/Card&gt; &lt;/li&gt; ))} &lt;/ul&gt; 参考 css - Overflow-x not working - Stack Overflow</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Dec 20</aside>
-                <a href='https://dream-yt.github.io/post/terraform-error-invalid-legacy-provider-address/'>
-                    [terraform] Error: Invalid legacy provider address
-                    
-                        
-                            <h2>ひさしぶりに terraform をアップグレードしたら以下のようなエラーが出るようになった。 Error: Invalid legacy provider address This configuration or its associated state refers to the unqualified provider “aws”. You must complete the Terraform 0.13 upgrade process before upgrading to later versions. これは</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Dec 19</aside>
-                <a href='https://dream-yt.github.io/post/tailwindcss-fix-image-aspect-ratio/'>
-                    tailwindcssで画像のアス比を固定する
-                    
-                        
-                            <h2>object-contain を使えばよい。 &lt;img class=&#34;object-contain&#34; src=&#34;/image.jpg&#34; /&gt; どうなっているのか css の object-fit: contain を使っている。 置換コンテンツはアスペクト比を維持したまま、要素のコンテンツボックスに収まる</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Dec 10</aside>
-                <a href='https://dream-yt.github.io/post/js-1line-scroll-to-top/'>
-                    js 1 行でページ上部までスクロールする
-                    
-                        
-                            <h2>こうするとできる。 document.getElementsByTagName(&#34;body&#34;)[0].scrollIntoView({ behavior: &#34;smooth&#34; }); 説明 モダンなブラウザでは scrollIntoView が使える。 Element.scrollIntoView() - Web API | MDN behavior: &#34;smooth&#34; と指定するとスルスルとアニメーションしながら上にスクロールする</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Dec 6</aside>
-                <a href='https://dream-yt.github.io/post/chalice-generate-pipeline-use-github/'>
-                    Chalice の generate pipeline を試す (コードはGitHub)
-                    
-                        
-                            <h2>chalice pipeline の動作検証 私用のAWSアカウントで chalice pipeline コマンドを試してみた。 デフォルトだとソースコードの管理は AWS Code Commit になるが、GitHubが使いたいので</h2>
                         
                     
                 </a>

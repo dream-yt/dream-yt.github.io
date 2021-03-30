@@ -24,7 +24,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.79.0" />
 		<title>sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -72,6 +72,66 @@
 
     <section id="wrapper" class="home">
         <ul id="post-list">
+    
+    
+        
+            <li>
+                <aside class="dates">Sep 23</aside>
+                <a href='https://dream-yt.github.io/post/mysql-query-multibyte-string/'>
+                    MySQLでマルチバイト文字が入ったレコードだけ取得する
+                    
+                        
+                            <h2>マルチバイト文字が入ってそうなカラムの文字列を CONVERT(x USING ASCII) して、元の文字列と差分があれば NOT ASCII な文字列が入っていると判断できる。 例 t.s がマルチバイト文</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Sep 16</aside>
+                <a href='https://dream-yt.github.io/post/css-flex-horizontal-card/'>
+                    flexで横並びカードのレイアウト最小限
+                    
+                        
+                            <h2>画像が左、説明文が右というレイアウトの最小限の定義 &lt;div class=&#34;card&#34;&gt; &lt;div class=&#34;card-left&#34;&gt; &lt;img src=&#34;https://thumbnail.image.rakuten.co.jp/@0_mall/book/cabinet/1989/19892000.jpg?_ex=200x200&#34; /&gt; &lt;/div&gt; &lt;div class=&#34;card-right&#34;&gt; &lt;h3&gt;{book.title}&lt;/h3&gt; &lt;p&gt;{book.itemCaption}&lt;/p&gt; &lt;/div&gt; &lt;/div&gt; .card { display: flex; /* PCで閲覧された時に横幅を絞っておく */ width: 600px; } .card-left { width: 30%;</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Sep 12</aside>
+                <a href='https://dream-yt.github.io/post/ffmpeg-cutout-mp3/'>
+                    ffmpegを使ってmp3をカットする
+                    
+                        
+                            <h2>こんな感じで切り出せる ffmpeg -ss 7 -to 00:00:12 -i ./source.mp3 ./output.mp3 -ss 切り出す開始時点の秒数 -to 切り出す終了時点。ffmpegは秒数で指定するとわかりにくいのでこの形式 -i 元</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Sep 11</aside>
+                <a href='https://dream-yt.github.io/post/generate-bigquery-schema-from-mysql-create-table/'>
+                    MySQL の CREATE TABLE から BigQuery のスキーマ(json)を生成する
+                    
+                        
+                            <h2>ddlparseというモジュールを使うと簡単だった shinichi-takii/ddlparse: DDL parase and Convert to BigQuery JSON schema and DDL statements コードはこれだけでよい import sys from ddlparse import DdlParse sql = sys.stdin.read() table = DdlParse().parse(sql) print(table.to_bigquery_fields()) こんな感じで生成さ</h2>
+                        
+                    
+                </a>
+            </li>
+        
     
     
         
@@ -126,7 +186,7 @@
                     ReactでレンダリングしているページにGoogleAnalyticsを入れる&#34;
                     
                         
-                            <h2>なんかいろんなプラグインがnpmにあったが、自分で dangerouslySetInnerHTML で直接書いてしまうのが楽だった import React from ‘react’; export const GoogleAnalytics: React.FC = () =&gt; ( &lt;&gt; &lt;/&gt; );</h2>
+                            <h2>なんかいろんなプラグインがnpmにあったが、自分で dangerouslySetInnerHTML で直接書いてしまうのが楽だった</h2>
                         
                     
                 </a>
@@ -157,66 +217,6 @@
                     
                         
                             <h2>だいたいドキュメント通りにやればできる カスタム ドメインを接続する | Firebase 手順 UIからポチポチやる場合の手順 (AWS) まずドメインを取得 (Firebase) カスタムドメイン</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Aug 30</aside>
-                <a href='https://dream-yt.github.io/post/http-10-proxy/'>
-                    httpリクエスト(v1.0で)のProxy
-                    
-                        
-                            <h2>読書メモ いままで「プロキシ」というのがhttp標準の技術だってことを知らなかった。httpsの場合だとCONNECTメソッドが出てきたりする</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Aug 30</aside>
-                <a href='https://dream-yt.github.io/post/i-use-iclouddrive/'>
-                    iCloudドライブを使うようになった
-                    
-                        
-                            <h2>最近iCloudドライブをちゃんと使っている。もともとは新しいMacをプロビジョニングするための設定ファイルを入れていたのみだが、以下のリン</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Aug 29</aside>
-                <a href='https://dream-yt.github.io/post/tsc-webpack-tsloader-code-diff/'>
-                    webpack&#43;ts-loaderとtscで同じコードをトランスパイルした結果の違いをみてみる
-                    
-                        
-                            <h2>トランスパイルされる元のコードはこんな感じ index.ts import { f } from &#39;./A&#39;; console.log(&#34;this is index&#34;); f(); A.ts export const f = () =&gt; console.log(&#34;this is A.f&#34;) このコードを以下の4パターンでトランスパイルしてみて、出</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Aug 29</aside>
-                <a href='https://dream-yt.github.io/post/gitignore-gibo-101/'>
-                    gitignoreを生成してくれるgiboを使う
-                    
-                        
-                            <h2>giboは .gitignoreファイルを生成するソフトウェア VSCode や Node、 Rails などを引数で指定してそのプロジェクトに必要そうなgitignor</h2>
                         
                     
                 </a>

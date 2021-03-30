@@ -24,7 +24,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.79.0" />
 		<title>sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -76,12 +76,72 @@
     
         
             <li>
+                <aside class="dates">Dec 7</aside>
+                <a href='https://dream-yt.github.io/post/sql-groupby-5minute-window/'>
+                    SQLで5分ごとの平均を出す
+                    
+                        
+                            <h2>こんな2カラムがあるテーブルで5分ごとのdurationの平均とかMAXとかをサマりたい duration doubleが入っている レスポンスを返すまでにかか</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Dec 4</aside>
+                <a href='https://dream-yt.github.io/post/gcs-upload-static-public-file/'>
+                    nodejsで Google Cloud Storage にファイルをアップロードしてCDNで配信する
+                    
+                        
+                            <h2>こんな場合のスニペット データをJSON形式でアップロードしたい 静的ファイルをアップロードしてCDNがわりに使うようなヘッダを付与したい gcs</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Dec 1</aside>
+                <a href='https://dream-yt.github.io/post/python-simple-s3client/'>
+                    Python Simple S3client
+                    
+                        
+                            <h2></h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Nov 26</aside>
+                <a href='https://dream-yt.github.io/post/stack-driver-log-query-101/'>
+                    StackDriverLoggingのログへのクエリ入門
+                    
+                        
+                            <h2>クエリ内の文字列にはダブルクオートを使う必要がある (シングルクオートはダメそう) ログがjson形式の場合は jsonPayload.requestUrl とかでペイロードを使ったクエリも</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
                 <aside class="dates">Nov 24</aside>
                 <a href='https://dream-yt.github.io/post/jq-object-array-object/'>
                     jqで変形 (オブジェクト =&gt; 配列 =&gt; オブジェクト)
                     
                         
-                            <h2>こんなデータ構造のjsonがあるとして { &#34;APP1&#34;: { &#34;name&#34;: &#34;旧App&#34;, &#34;monId&#34;: 277013 }, &#34;APP2&#34;: { &#34;name&#34;: &#34;App&#34;, &#34;monId&#34;: 241736 }, &#34;DB&#34;: { &#34;name&#34;: &#34;Database&#34;, &#34;monId&#34;: 234737 }, &#34;S&#34;: { &#34;name&#34;: &#34;Static&#34;, &#34;monId&#34;: 221738 } } この形式に</h2>
+                            <h2>こんなデータ構造のjsonがあるとして { &#34;APP1&#34;: { &#34;name&#34;: &#34;旧App&#34;, &#34;monId&#34;: 277013 }, &#34;APP2&#34;: { &#34;name&#34;: &#34;App&#34;, &#34;monId&#34;: 241736 }, &#34;DB&#34;: { &#34;name&#34;: &#34;Database&#34;, &#34;monId&#34;: 234737 }, &#34;S&#34;: { &#34;name&#34;: &#34;Static&#34;, &#34;monId&#34;: 221738 } } この形式にjq</h2>
                         
                     
                 </a>
@@ -141,7 +201,7 @@
                     一定期間で自分がGitHubでマージしたブランチを取得する
                     
                         
-                            <h2>こんな感じ $ git log \ --format=&#39;%h %an (%ai) %s&#39; --since=&#39;2019-10-25&#39; \ --author=sakamossan \ --grep=&#39;Merge pull request #\d&#43;&#39; -P こんな出力が得られる 3fc6ed727 sakamossan (2019-11-11 14:04:54 &#43;0900) Merge pull request #4573 ... 87daf1614 sakamossan (2019-11-06 17:59:30 &#43;0900) Merge pull request #4557 ... 47e68edfc sakamossan (2019-11-06 11:22:41 &#43;0900) Merge pull request #4542 ... –format=‘%h %an (%ai) %s’ 出力フォ</h2>
+                            <h2>こんな感じ $ git log \ --format=&#39;%h %an (%ai) %s&#39; --since=&#39;2019-10-25&#39; \ --author=sakamossan \ --grep=&#39;Merge pull request #\d&#43;&#39; -P こんな出力が得られる 3fc6ed727 sakamossan (2019-11-11 14:04:54 &#43;0900) Merge pull request #4573 ... 87daf1614 sakamossan (2019-11-06 17:59:30 &#43;0900) Merge pull request #4557 ... 47e68edfc sakamossan (2019-11-06 11:22:41 &#43;0900) Merge pull request #4542 ... –format=&#39;%h %an (%ai) %s&#39; 出力フォ</h2>
                         
                     
                 </a>
@@ -157,66 +217,6 @@
                     
                         
                             <h2>gcsを介して行う export from firestore gcloud beta firestore export \ gs://[BUCKET_NAME] \ --collection-ids=[COLLECTION_ID_1],[COLLECTION_ID_2] データのエクスポートとインポート | Firebase import to bigquery bq --location=[LOCATION] load \ --source_format=[FORMAT] \ [DATASET].[TABLE] \ [PATH_TO_SOURCE] Loading data from Cloud Firestore exports | BigQuery | Google Cloud</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Nov 9</aside>
-                <a href='https://dream-yt.github.io/post/firebase-cloudfunctions-cron/'>
-                    firebaseでスケジュール(cron)実行
-                    
-                        
-                            <h2>まず、事前にfirebaseのコンソール画面で リソースロケーション を選ぶ必要がある コンソール Project Overview の隣の ⚙ マーク Google Cloud Platform（GCP）</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Nov 4</aside>
-                <a href='https://dream-yt.github.io/post/firebase-circleci-cron-deploy/'>
-                    circleciのcronトリガーでfirebase/hostingをアップデートする
-                    
-                        
-                            <h2>こんな前提の場合の設定 静的サイトをfirebase/hostingに置いている circleciのjob上 (dockerコンテナ内) でサイトの</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Nov 2</aside>
-                <a href='https://dream-yt.github.io/post/awscli-create-user-and-policy/'>
-                    IAM権限を絞ったuserでserverlessを使う
-                    
-                        
-                            <h2>Serverless framework は sls deploy コマンドを叩くAWSユーザには admin アクセスを推奨している Attach existing policies directly. Search for and select AdministratorAccess then click Next: Review. Check to make sure everything looks good and click Create user. Serverless Framework - AWS Lambda Guide - Credentials しかし、SI</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Nov 1</aside>
-                <a href='https://dream-yt.github.io/post/ts-type-guard/'>
-                    TypeScript の Type Guard を使う
-                    
-                        
-                            <h2>typescriptでは型をチェックするような分岐を書くことができる その分岐の中だと「この変数はこの型」というのをコンパイラ/エディタが認識</h2>
                         
                     
                 </a>

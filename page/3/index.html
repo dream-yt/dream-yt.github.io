@@ -24,7 +24,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.79.0" />
 		<title>sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -72,6 +72,66 @@
 
     <section id="wrapper" class="home">
         <ul id="post-list">
+    
+    
+        
+            <li>
+                <aside class="dates">Feb 18</aside>
+                <a href='https://dream-yt.github.io/post/pl5-redis-fast-redis-sentinel/'>
+                    Redis::Fast の sentinel 引数ってなに?
+                    
+                        
+                            <h2>プロジェクトでこんな設定でRedisを動かしていたが、なんで動いているか分からなかった。 Redis::Fast のPODにはsentinelsのことは記載がない。</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Feb 18</aside>
+                <a href='https://dream-yt.github.io/post/perl-loadable-bin-lib-mismatched/'>
+                    perl の XS.c: loadable library and perl binaries are mismatched
+                    
+                        
+                            <h2>開発環境を docker-compose でやっていて、perlのバージョンをあげた時に発生。 XS.c: loadable library and perl binaries are mismatched (got handshake key 0xc180000, needed 0xe180000) exited with code 1 書いてある通り、perlのバージョンと入</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Feb 17</aside>
+                <a href='https://dream-yt.github.io/post/formik-uncontrolled-error/'>
+                    Formikで A component is changing an uncontrolled input of type text to be controlled
+                    
+                        
+                            <h2>Formik を使ったらこのエラーが出た。 Warning: A component is changing an uncontrolled input to be controlled. This is likely caused by the value changing from undefined to a defined value, which should not happen. Decide between using a controlled or uncontrolled input element for the lifetime of the component. More info: https://reactjs.org/link/controlled-components これは操作した input#name</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Feb 12</aside>
+                <a href='https://dream-yt.github.io/post/mysql-regexp/'>
+                    MySQLでWhere句に正規表現を使う
+                    
+                        
+                            <h2>こんな構文で正規表現で検索することができる SELECT * FROM t WHERE url REGEXP &#39;https://.&#43;:.&#43;@.&#43;&#39; ただし PCRE ではないので最低限のものしか使えない 正規表現が期待通りに書けてるかのテスト</h2>
+                        
+                    
+                </a>
+            </li>
+        
     
     
         
@@ -157,66 +217,6 @@
                     
                         
                             <h2>athena(hive)のテーブル定義で出てくる。JsonSerDeみたいなもの。 ROW FORMAT SERDE &#39;org.openx.data.jsonserde.JsonSerDe&#39; WITH SERDEPROPERTIES ( &#39;serialization.format&#39; = &#39;1&#39; ) LOCATION &#39;s3://bucketistyu/data/&#39; 調べたらシリアライザ(SERia</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jan 26</aside>
-                <a href='https://dream-yt.github.io/post/survey-disk-write/'>
-                    DiskへのWriteが重そうな処理を特定する
-                    
-                        
-                            <h2>やたら処理が遅い場合の調査で、writeが頻繁に走ってないかを確認する。 まず疑わしい処理が本当にwriteが多いことを確認する $ dstat --top-io -d 5 をた</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jan 24</aside>
-                <a href='https://dream-yt.github.io/post/curl-exitcode-gt1-on-404/'>
-                    curlでURLが200以外を返した場合にシェルの終了コードを1以上にする
-                    
-                        
-                            <h2>--fail をつければよい こんなコマンドでURLが200を返すかどうか確認するだけのコマンドになる $ curl --silent --fail --output /dev/null --head {{ URL }} 参考 stdout - Can I make cURL fail with an exitCode different than 0 if</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jan 22</aside>
-                <a href='https://dream-yt.github.io/post/humbergermenu-100/'>
-                    tailwindでハンバーガーメニューをつくる
-                    
-                        
-                            <h2>途中までやったところのメモ 初めてでもわかるTailwindcss入門(2)ナビゲーションバー | アールエフェクト const Nav = () =&gt; ( &lt;header className=&#34;container mx-auto text-black&#34;&gt; &lt;nav className=&#34;flex justify-between items-center&#34;&gt; &lt;div</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jan 18</aside>
-                <a href='https://dream-yt.github.io/post/chrome-urlbar-add-deepl-mode/'>
-                    ChromeでURLバーからdeepl翻訳をする
-                    
-                        
-                            <h2>deeplのサイトはURLに翻訳文言を埋め込める chromeのタブに翻訳したい文章をいれるとdeeplの検索結果ページにいけるように設定でき</h2>
                         
                     
                 </a>
