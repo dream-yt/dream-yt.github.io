@@ -76,6 +76,21 @@
     
         
             <li>
+                <aside class="dates">Aug 4</aside>
+                <a href='https://dream-yt.github.io/post/typescript-lambda-shellscript/'>
+                    TypescriptでLambdaのハンドラーを書いてbashでアップロードする
+                    
+                        
+                            <h2>普通だとlambdaのアップロードはserverlessなどフレームワークを使うが、package.jsonを別に作りたくない場合があり、デ</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
                 <aside class="dates">Jul 30</aside>
                 <a href='https://dream-yt.github.io/post/perl-use-strict-utf8-flag/'>
                     perlのstrict/utf8フラグについて
@@ -202,21 +217,6 @@
                     
                         
                             <h2>SSLさせてくれるhttpサーバのコード こちらから拝借 simple-https-server.py import http.server import ssl server_address = (&#39;127.0.0.1&#39;, 443) httpd = http.server.HTTPServer(server_address, http.server.SimpleHTTPRequestHandler) httpd.socket = ssl.wrap_socket(httpd.socket, server_side=True, certfile=&#34;server.pem&#34;, keyfile=&#34;key.pem&#34;, ssl_version=ssl.PROTOCOL_TLS) httpd.serve_forever() 証明書を作ってserver start $ mkdir /tmp/$(pwgen) &amp;&amp; cd $_ $ pbpaste</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jul 5</aside>
-                <a href='https://dream-yt.github.io/post/docker-image-history/'>
-                    dockerイメージの、レイヤーとサイズの関係をみる
-                    
-                        
-                            <h2>docker history を使うとみられる 例 $ docker history --no-trunc --format=&#34;{{.Size}}\t{{.CreatedBy}}&#34; perl:5.20.0 0B /bin/sh -c #(nop) CMD [perl5.20.0 -de0] 0B /bin/sh -c #(nop) WORKDIR /root 6.55MB /bin/sh -c curl -LO https://raw.githubusercontent.com/miyagawa/cpanminus/master/cpanm &amp;&amp; chmod &#43;x cpanm &amp;&amp; ./cpanm App::cpanminus &amp;&amp; rm ./cpanm 0B /bin/sh -c #(nop) WORKDIR /usr/src 55MB /bin/sh -c ./Configure -Duse64bitall -des &amp;&amp; make -j$(nproc) &amp;&amp; TEST_JOBS=$(nproc) make test_harness &amp;&amp; make install &amp;&amp; make</h2>
                         
                     
                 </a>

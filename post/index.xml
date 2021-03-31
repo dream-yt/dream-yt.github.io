@@ -6,9 +6,18 @@
     <description>Recent content in Posts on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 31 Mar 2021 18:12:23 +0900</lastBuildDate><atom:link href="https://dream-yt.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 31 Mar 2021 18:14:26 +0900</lastBuildDate><atom:link href="https://dream-yt.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>React Admin Tutorial</title>
+      <title>React-admin のAPIリクエストと認証について</title>
+      <link>https://dream-yt.github.io/post/react-admin-api-request/</link>
+      <pubDate>Wed, 31 Mar 2021 18:14:26 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/react-admin-api-request/</guid>
+      <description>こちらの続き React-admin のチュートリアルを読んだメモ 管理画面の表示を認証認可で切り盛りするのはチュートリアルに書いてあったが、APIにリクエストすると</description>
+    </item>
+    
+    <item>
+      <title>React-admin のチュートリアルを読んだメモ</title>
       <link>https://dream-yt.github.io/post/react-admin-tutorial/</link>
       <pubDate>Wed, 31 Mar 2021 18:12:23 +0900</pubDate>
       
