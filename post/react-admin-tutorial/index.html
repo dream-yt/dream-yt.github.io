@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="https://dream-yt.github.io/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="React Admin Tutorial"/>
+  <meta name="twitter:description" content="読んだのでメモ React-admin - My First Project Tutorial 一覧画面 React-admin では一覧表は管理画面によくあるテーブル形式で表示する。 dataProvider // in src/App.js import * as React from &#34;react&#34;; import { Admin } from &#39;react-admin&#39;; import jsonServerProvider from &#39;ra-data-json-server&#39;; const dataProvider = jsonServerProvider(&#39;https://jsonplaceholder.typicode.com&#39;); const"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@site_author"/>
+  
+
+
+
+		
+		<meta name="author" content="site_author">
+		<meta name="description" content="Site Description">
+		<meta name="generator" content="Hugo 0.79.0" />
+		<title>React Admin Tutorial &middot; sacre</title>
+		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/font-awesome.min.css">
+		
+
+		
+		<link href="https://dream-yt.github.io/index.xml" rel="alternate" type="application/rss+xml" title="sacre" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='https://dream-yt.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://dream-yt.github.io/posts'>Archive</a>
+	<a href='https://dream-yt.github.io/tags'>Tags</a>
+	<a href='https://dream-yt.github.io/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="https://dream-yt.github.io/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        React Admin Tutorial
+                    </h1>
+                    <h2 class="headline">
+                    Mar 31, 2021 18:12
+                    · 1448 words
+                    · 3 minute read
+                      <span class="tags">
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#dataprovider">dataProvider</a></li>
+    <li><a href="#resource">Resource</a>
+      <ul>
+        <li><a href="#listguesser">ListGuesser</a></li>
+      </ul>
+    </li>
+    <li><a href="#カスタムフィールド">カスタムフィールド</a></li>
+    <li><a href="#relationships">Relationships</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#一覧画面のフィルタ">一覧画面のフィルタ</a></li>
+  </ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    <p>読んだのでメモ</p>
+<ul>
+<li><a href="https://marmelab.com/react-admin/Tutorial.html">React-admin - My First Project Tutorial</a></li>
+</ul>
+<h1 id="一覧画面">一覧画面</h1>
+<p>React-admin では一覧表は管理画面によくあるテーブル形式で表示する。</p>
+<p><img src="https://raw.githubusercontent.com/sakamossan/image-bed/master/assets/9fb449a8-451f-4c30-a3d3-84bccf7785cb.png" alt=""></p>
+<h2 id="dataprovider">dataProvider</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">// in src/App.js
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;react&#34;</span>;
+<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Admin</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-admin&#39;</span>;
+<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">jsonServerProvider</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;ra-data-json-server&#39;</span>;
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">dataProvider</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">jsonServerProvider</span>(<span style="color:#e6db74">&#39;https://jsonplaceholder.typicode.com&#39;</span>);
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">App</span> <span style="color:#f92672">=</span> () =&gt; <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Admin</span> <span style="color:#a6e22e">dataProvider</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">dataProvider</span>} <span style="color:#f92672">/&gt;</span>;
+
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">App</span>;
+</code></pre></div><p>Adminコンポーネントの引数で、サーバサイドのWebAPIがどんな仕様かを定義するもの。</p>
+<blockquote>
+<p>a function capable of fetching data from an API. Since there is no standard for data exchanges between computers, you will probably have to write a custom provider to connect react-admin to your own APIs</p>
+</blockquote>
+<p>ReactAdminは基本的にはAPIにはRESTを期待していて、デフォルトで用意されているdataProviderはRESTのAPIをやりとりするためのモジュールとなっている。</p>
+<h2 id="resource">Resource</h2>
+<p>Adminコンポーネントの子要素にResourceコンポーネントを定義することで、リソースの管理画面が生成される。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-diff" data-lang="diff">import { Admin, Resource, ListGuesser } from &#39;react-admin&#39;;
+
+<span style="color:#f92672">-const App = () =&gt; &lt;Admin dataProvider={dataProvider} /&gt;;
+</span><span style="color:#f92672"></span><span style="color:#a6e22e">+const App = () =&gt; (
+</span><span style="color:#a6e22e">+    &lt;Admin dataProvider={dataProvider}&gt;
+</span><span style="color:#a6e22e">+        &lt;Resource name=&#34;users&#34; list={ListGuesser} /&gt;
+</span><span style="color:#a6e22e">+    &lt;/Admin&gt;
+</span><span style="color:#a6e22e">+);
+</span></code></pre></div><blockquote>
+<p>The line <!-- raw HTML omitted --> informs react-admin to fetch the “users” records from the <a href="https://jsonplaceholder.typicode.com/users">https://jsonplaceholder.typicode.com/users</a> URL. <!-- raw HTML omitted --> also defines the React components to use for each CRUD operation (list, create, edit, and show).</p>
+</blockquote>
+<p><code>name=&quot;users&quot;</code> というのはdataProviderに渡したURLのパスを参照してくれる。</p>
+<h3 id="listguesser">ListGuesser</h3>
+<blockquote>
+<p>The list={ListGuesser} prop means that react-admin should use the <!-- raw HTML omitted --> component to display the list of posts. This component guesses the format to use for the columns of the list based on the data fetched from the API.</p>
+</blockquote>
+<p>ListGuesser とは、名前の通り値からカラムの型を推定していい感じにリスト表示してくれるもの。</p>
+<p><img src="https://raw.githubusercontent.com/sakamossan/image-bed/master/assets/4320a6d2-88e6-cf0c-3217-68cabd851ef1.png" alt=""></p>
+<p>ListGuesser はそのままプロダクションで使うものではない。が、かなり気が利いていて、自分がいまどんな定義のコンポーネントを吐き出しているかのソースコードをブラウザのコンソールログに出してくれる。ユーザはいまの見た目で満足していればでているログをコピペすれば実装が済むようになっている。</p>
+<p><img src="https://raw.githubusercontent.com/sakamossan/image-bed/master/assets/bd629101-9ee3-2f06-c119-61d059190f84.png" alt=""></p>
+<h2 id="カスタムフィールド">カスタムフィールド</h2>
+<p>リスト表示で呼ばれるコンポーネントはカスタムのフィールドが簡単に作れるようになっている。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;react&#34;</span>;
+
+<span style="color:#75715e">// recordは行のデータで、sourceが表示しようとしているカラム名
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">MyUrlField</span> <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">record</span> <span style="color:#f92672">=</span> {}, <span style="color:#a6e22e">source</span> }) =&gt;
+    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">record</span>[<span style="color:#a6e22e">source</span>]}<span style="color:#f92672">&gt;</span>
+        {<span style="color:#a6e22e">record</span>[<span style="color:#a6e22e">source</span>]}
+    <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/a&gt;;</span>
+
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">MyUrlField</span>;
+</code></pre></div><h2 id="relationships">Relationships</h2>
+<p>関連するデータを使って表示をリッチにすることができる。
+チュートリアルであげられている例は投稿(post)を一覧する画面で、post.userId をもとに user.name を表示するものだった。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#75715e">// in src/posts.js
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;react&#34;</span>;
+<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">List</span>, <span style="color:#a6e22e">Datagrid</span>, <span style="color:#a6e22e">TextField</span>, <span style="color:#a6e22e">ReferenceField</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-admin&#39;</span>;
+
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">PostList</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">props</span> =&gt; (
+    &lt;<span style="color:#f92672">List</span> {<span style="color:#a6e22e">...props</span>}&gt;
+        &lt;<span style="color:#f92672">Datagrid</span> <span style="color:#a6e22e">rowClick</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;edit&#34;</span>&gt;
+            &lt;<span style="color:#f92672">ReferenceField</span> <span style="color:#a6e22e">source</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;userId&#34;</span> <span style="color:#a6e22e">reference</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;users&#34;</span>&gt;
+                &lt;<span style="color:#f92672">TextField</span> <span style="color:#a6e22e">source</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;name&#34;</span> /&gt;
+            &lt;/<span style="color:#f92672">ReferenceField</span>&gt;
+            &lt;<span style="color:#f92672">TextField</span> <span style="color:#a6e22e">source</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;id&#34;</span> /&gt;
+            &lt;<span style="color:#f92672">TextField</span> <span style="color:#a6e22e">source</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;title&#34;</span> /&gt;
+            &lt;<span style="color:#f92672">TextField</span> <span style="color:#a6e22e">source</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;body&#34;</span> /&gt;
+        &lt;/<span style="color:#f92672">Datagrid</span>&gt;
+    &lt;/<span style="color:#f92672">List</span>&gt;
+);
+</code></pre></div><p>N+1回でAPIを叩かないような最適化が施されているそうだ</p>
+<blockquote>
+<p>Look at the network tab of your browser again: react-admin deduplicates requests for users, and aggregates them in order to make only one HTTP request to the /users endpoint for the whole Datagrid. That’s one of many optimizations that keep the UI fast and responsive.</p>
+</blockquote>
+<h1 id="更新画面">更新画面</h1>
+<p><img src="https://raw.githubusercontent.com/sakamossan/image-bed/master/assets/00721a43-c6e0-76e0-d7f5-dd8c0e6a1f24.png" alt=""></p>
+<p>リソースの更新画面もGuesserを使ってまず簡単に作り始めることができる。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-diff" data-lang="diff">// in src/App.js
+<span style="color:#f92672">-import { Admin, Resource } from &#39;react-admin&#39;;
+</span><span style="color:#f92672"></span><span style="color:#a6e22e">+import { Admin, Resource, EditGuesser } from &#39;react-admin&#39;;
+</span><span style="color:#a6e22e"></span>import { PostList } from &#39;./posts&#39;;
+import { UserList } from &#39;./users&#39;;
+
+const App = () =&gt; (
+    &lt;Admin dataProvider={dataProvider}&gt;
+<span style="color:#f92672">-       &lt;Resource name=&#34;posts&#34; list={PostList} /&gt;
+</span><span style="color:#f92672"></span><span style="color:#a6e22e">+       &lt;Resource name=&#34;posts&#34; list={PostList} edit={EditGuesser} /&gt;
+</span><span style="color:#a6e22e"></span>        &lt;Resource name=&#34;users&#34; list={UserList} /&gt;
+    &lt;/Admin&gt;
+);
+</code></pre></div><p>更新画面のコンポーネント実装はこんな感じになる。
+(これもGuesserがconsoleにコードを吐いてくれるのでコピペするだけで済む)</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">PostEdit</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">props</span> =&gt; (
+    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Edit</span> {...<span style="color:#a6e22e">props</span>}<span style="color:#f92672">&gt;</span>
+        <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">SimpleForm</span><span style="color:#f92672">&gt;</span>
+            <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">ReferenceInput</span> <span style="color:#a6e22e">source</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;userId&#34;</span> <span style="color:#a6e22e">reference</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;users&#34;</span><span style="color:#f92672">&gt;</span>
+                <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">SelectInput</span> <span style="color:#a6e22e">optionText</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;id&#34;</span> <span style="color:#f92672">/&gt;</span>
+            <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/ReferenceInput&gt;</span>
+            <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">TextInput</span> <span style="color:#a6e22e">source</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;id&#34;</span> <span style="color:#f92672">/&gt;</span>
+            <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">TextInput</span> <span style="color:#a6e22e">source</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;title&#34;</span> <span style="color:#f92672">/&gt;</span>
+            <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">TextInput</span> <span style="color:#a6e22e">source</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;body&#34;</span> <span style="color:#f92672">/&gt;</span>
+        <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/SimpleForm&gt;</span>
+    <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/Edit&gt;</span>
+);
+</code></pre></div><p>編集画面だけでなく、新規作成画面の実装はこんな感じ。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-diff" data-lang="diff">const App = () =&gt; (
+<span style="color:#f92672">-       &lt;Resource name=&#34;posts&#34; list={PostList} edit={EditGuesser} /&gt;
+</span><span style="color:#f92672"></span><span style="color:#a6e22e">+       &lt;Resource name=&#34;posts&#34; list={PostList} edit={PostEdit} create={PostCreate} /&gt;
+</span><span style="color:#a6e22e"></span>);
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">PostCreate</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">props</span> =&gt; (
+    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Create</span> {...<span style="color:#a6e22e">props</span>}<span style="color:#f92672">&gt;</span>
+        <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">SimpleForm</span><span style="color:#f92672">&gt;</span>
+            <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">ReferenceInput</span> <span style="color:#a6e22e">source</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;userId&#34;</span> <span style="color:#a6e22e">reference</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;users&#34;</span><span style="color:#f92672">&gt;</span>
+                <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">SelectInput</span> <span style="color:#a6e22e">optionText</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;name&#34;</span> <span style="color:#f92672">/&gt;</span>
+            <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/ReferenceInput&gt;</span>
+            <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">TextInput</span> <span style="color:#a6e22e">source</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;title&#34;</span> <span style="color:#f92672">/&gt;</span>
+            <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">TextInput</span> <span style="color:#a6e22e">multiline</span> <span style="color:#a6e22e">source</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;body&#34;</span> <span style="color:#f92672">/&gt;</span>
+        <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/SimpleForm&gt;</span>
+    <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/Create&gt;</span>
+);
+</code></pre></div><h2 id="一覧画面のフィルタ">一覧画面のフィルタ</h2>
+<p>管理画面によくある機能として一覧からフィルタする機能が追加できる。</p>
+<p><img src="https://raw.githubusercontent.com/sakamossan/image-bed/master/assets/523e7daa-8bc1-2b4b-b1ac-2ba67dde389c.png" alt=""></p>
+<p>実装側は投稿の名前などからフィルタする意外にも、ユーザをselectboxから選んでフィルタできるようになっている。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#75715e">// in src/posts.js
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Filter</span>, <span style="color:#a6e22e">ReferenceInput</span>, <span style="color:#a6e22e">SelectInput</span>, <span style="color:#a6e22e">TextInput</span>, <span style="color:#a6e22e">List</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-admin&#39;</span>;
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">PostFilter</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">props</span>) =&gt; (
+    &lt;<span style="color:#f92672">Filter</span> {<span style="color:#a6e22e">...props</span>}&gt;
+        &lt;<span style="color:#f92672">TextInput</span> <span style="color:#a6e22e">label</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Search&#34;</span> <span style="color:#a6e22e">source</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;q&#34;</span> <span style="color:#a6e22e">alwaysOn</span> /&gt;
+        &lt;<span style="color:#f92672">ReferenceInput</span> <span style="color:#a6e22e">label</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;User&#34;</span> <span style="color:#a6e22e">source</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;userId&#34;</span> <span style="color:#a6e22e">reference</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;users&#34;</span> <span style="color:#a6e22e">allowEmpty</span>&gt;
+            &lt;<span style="color:#f92672">SelectInput</span> <span style="color:#a6e22e">optionText</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;name&#34;</span> /&gt;
+        &lt;/<span style="color:#f92672">ReferenceInput</span>&gt;
+    &lt;/<span style="color:#f92672">Filter</span>&gt;
+);
+
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">PostList</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">props</span>) =&gt; (
+    &lt;<span style="color:#f92672">List</span> <span style="color:#a6e22e">filters</span><span style="color:#f92672">=</span>{&lt;<span style="color:#f92672">PostFilter</span> /&gt;} {<span style="color:#a6e22e">...props</span>}&gt;
+        <span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>    &lt;/<span style="color:#f92672">List</span>&gt;
+);
+</code></pre></div><h1 id="認証">認証</h1>
+<p><code>authProvider</code> を実装して <code>Admin</code> コンポーネントの引数に渡すことで認証されているときのみ一覧を表示するという挙動にすることができる。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">authProvider</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./authProvider&#39;</span>;
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">App</span> <span style="color:#f92672">=</span> () =&gt; (
+    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Admin</span> <span style="color:#a6e22e">dashboard</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">Dashboard</span>} <span style="color:#a6e22e">authProvider</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">authProvider</span>} <span style="color:#a6e22e">dataProvider</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">dataProvider</span>}<span style="color:#f92672">&gt;</span>
+        <span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/Admin&gt;</span>
+);
+</code></pre></div>
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2freact-admin-tutorial%2f - React%20Admin%20Tutorial by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'your_disqus_short_name'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/dream-yt/sacre">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://twitter.com/FUTABA_SACRE">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2021 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="https://dream-yt.github.io/js/jquery-3.3.1.min.js"></script>
+<script src="https://dream-yt.github.io/js/main.js"></script>
+<script src="https://dream-yt.github.io/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+
+
+
+
+    </body>
+</html>
