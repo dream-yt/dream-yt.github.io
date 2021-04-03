@@ -24,7 +24,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -72,6 +72,66 @@
 
     <section id="wrapper" class="home">
         <ul id="post-list">
+    
+    
+        
+            <li>
+                <aside class="dates">Mar 3</aside>
+                <a href='https://dream-yt.github.io/post/js-date-utc/'>
+                    jsでローカルのタイムゾーンに関係なく、日付っぽい文字列をUTCで評価したい
+                    
+                        
+                            <h2>jsのDateオブジェクトはデフォルトで色々な日付っぽい文字列を受け取るが、受け取った日付っぽい文字列をローカルのタイムゾーンとして評価して</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Mar 3</aside>
+                <a href='https://dream-yt.github.io/post/lodash-wrapper-jsx/'>
+                    lodashのchain/wrapperオブジェクトをjsxで使う
+                    
+                        
+                            <h2>lodashのchainに配列を渡すとlodashWrapperオブジェクトが得られる。これはlodashの便利メソッドを色々持っているAr</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Feb 28</aside>
+                <a href='https://dream-yt.github.io/post/find-non-200pk-url-oneliner/'>
+                    200が返ってこないURLを見つけるワンライナー
+                    
+                        
+                            <h2>./urllist.txt にはURLのリストが入ってるとして そのなかから404とかになってるURLを見つけたい場合 以下のコマンドでダメなURLだけ表示してくれる $ cat</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Feb 26</aside>
+                <a href='https://dream-yt.github.io/post/adhoc-formdata-logging/'>
+                    htmlで、雑にformから送信される値を見たい
+                    
+                        
+                            <h2>submitイベントを途中で止める FormDataクラスをつかう こんなコードを仕込めば値が一覧できる const form = document.querySelector(&#39;form&#39;); form.addEventListener(&#39;submit&#39;, (event) =&gt; { const formData = new FormData(form); for (let i of formData.entries()) { console.log(i.join(&#34;\t&#34;));</h2>
+                        
+                    
+                </a>
+            </li>
+        
     
     
         
@@ -157,66 +217,6 @@
                     
                         
                             <h2>不可視文字には \t (タブ) や \f (改ページ)など色々ある 環境によってトーフが表示されたりする 例 エディタでは大丈夫なのにGitHubに投稿するとト</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Feb 13</aside>
-                <a href='https://dream-yt.github.io/post/ffmpeg-for-bitrate/'>
-                    macで動画のビットレートを変更したい
-                    
-                        
-                            <h2>ffmpegを使う $ brew install ffmpeg こんな感じで使う $ ffmpeg -i ./inputfile.mp4 -b:v 2M -bufsize 10M ./outfile.mp4 -b:v 2M 指定したいbitrate。KBで指定したい場合は 320K のようにKを使う -bufsize 10M どれく</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jan 29</aside>
-                <a href='https://dream-yt.github.io/post/bigquery-show-data-transfer-service/'>
-                    BigQueryのtransfer_configを表示する
-                    
-                        
-                            <h2>以下の要領で表示できる $ bq --format=json ls --transfer_config --transfer_location=&#39;us&#39; $ bq show --transfer_config projects/123456789/locations/us/transferConfigs/xxxxxx 出力される設定はこんな感じ ( --format=json ) bq mk にこの形式のjsonを食わせると設定できるのだろうか? 🤔 $ bq</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jan 29</aside>
-                <a href='https://dream-yt.github.io/post/bigquery-data-transfer-service/'>
-                    Bigquery Data Transfer Service について
-                    
-                        
-                            <h2>$ bq mk --table --help で今まで知らなかったオプションを見つけた --[no]transfer_config: Create transfer config. --[no]transfer_run: Creates transfer runs for a time range. アドタグやGAのデータを自動的にBigQueryに取り込める設定の</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jan 25</aside>
-                <a href='https://dream-yt.github.io/post/git-log-deleted-file/'>
-                    特定のファイルを消したコミットを確認する
-                    
-                        
-                            <h2>以下のコマンドで確認できる $ git log --diff-filter=D -- path/to/targetfile.pl -- 以降にファイル名を渡すとそのファイルの履歴だけ見ることが出来る [--] &lt;path&gt;... Show only commits that are enough to explain how the files that match the specified paths came</h2>
                         
                     
                 </a>

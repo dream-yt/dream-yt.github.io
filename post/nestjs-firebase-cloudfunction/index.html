@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="https://dream-yt.github.io/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="NestJS を Firebase Cloudfunction 上で動かす"/>
+  <meta name="twitter:description" content="NestJS を Firebase Cloudfunction 上で動かした時のメモ。公式のリポジトリで example とか issue を探したけどパッと出てこなかったので、野良の実装を参考にしてやっている。 fireba"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@site_author"/>
+  
+
+
+
+		
+		<meta name="author" content="site_author">
+		<meta name="description" content="Site Description">
+		<meta name="generator" content="Hugo 0.51" />
+		<title>NestJS を Firebase Cloudfunction 上で動かす &middot; sacre</title>
+		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/font-awesome.min.css">
+		
+
+		
+		<link href="https://dream-yt.github.io/index.xml" rel="alternate" type="application/rss+xml" title="sacre" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='https://dream-yt.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://dream-yt.github.io/posts'>Archive</a>
+	<a href='https://dream-yt.github.io/tags'>Tags</a>
+	<a href='https://dream-yt.github.io/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="https://dream-yt.github.io/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        NestJS を Firebase Cloudfunction 上で動かす
+                    </h1>
+                    <h2 class="headline">
+                    Apr 4, 2021 00:06
+                    · 458 words
+                    · 1 minute read
+                      <span class="tags">
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#firebaseの準備">firebaseの準備</a>
+<ul>
+<li>
+<ul>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    
+
+<p>NestJS を Firebase Cloudfunction 上で動かした時のメモ。公式のリポジトリで example とか issue を探したけどパッと出てこなかったので、野良の実装を参考にしてやっている。</p>
+
+<h2 id="firebaseの準備">firebaseの準備</h2>
+
+<pre><code class="language-bash">$ npm install -g firebase-tools
+$ firebase login
+$ firebase init  # ビルドは typescript で生成するように
+$ rm -rf ./functions # この生成されたコードは消してしまってよい
+$ (cd my-nestapp; npm install firebase-admin firebase-functions)
+</code></pre>
+
+<p>firebase.json を変更して firebase deploy が参照するパスを変更する</p>
+
+<ul>
+<li><a href="https://firebase.google.com/docs/functions/manage-functions">Manage functions deployment and runtime options  |  Firebase</a></li>
+</ul>
+
+<pre><code class="language-diff">--- a/firebase.json
++++ b/firebase.json
+@@ -1,5 +1,6 @@
+ {
+   &quot;functions&quot;: {
++    &quot;source&quot;: &quot;my-nestapp&quot;,
+     &quot;predeploy&quot;: [
+</code></pre>
+
+<p>typescript/firebase の仕様に沿うよう <code>package.json#main</code> も変更。</p>
+
+<pre><code class="language-diff">--- a/package.json
++++ b/package.json
+@@ -8,6 +8,7 @@
+   &quot;engines&quot;: {
+     &quot;node&quot;: &quot;14&quot;
+   },
++  &quot;main&quot;: &quot;dist/index.js&quot;,
+   &quot;scripts&quot;: {
+</code></pre>
+
+<p>変更したパスに index.ts を配備。
+この例だと <code>./my-nestapp/src/index.ts</code> となる。</p>
+
+<pre><code class="language-ts">import { NestFactory } from '@nestjs/core';
+import { ExpressAdapter } from '@nestjs/platform-express';
+import * as express from 'express';
+import * as functions from 'firebase-functions';
+import { AppModule } from './app.module';
+
+const server = express();
+
+const promiseApplicationReady = NestFactory.create(
+  AppModule,
+  new ExpressAdapter(server),
+).then((app) =&gt; app.init());
+
+export const api = functions
+  .region('asia-northeast1')
+  .https.onRequest(async (...args) =&gt; {
+    // https://qiita.com/chelproc/items/37ed6ed27ee599b586bf
+    await promiseApplicationReady;
+    server(...args);
+  });
+</code></pre>
+
+<p>動作確認に <code>firebase emulators</code> を使う。
+ちゃんとレスポンスが返ってくるならここまではOK。</p>
+
+<pre><code class="language-bash">$ npx firebase emulators:start --only functions
+$ curl -I http://localhost:5001/my-nestapp/us-central1/api/myitem
+</code></pre>
+
+<p>firebaseのコンソールで支払いをBlazeに変更したらデプロイ。</p>
+
+<pre><code class="language-bash">$ (cd my-nestapp/; npm run build; cd ../; firebase deploy --only functions)
+</code></pre>
+
+<h4 id="参考">参考</h4>
+
+<ul>
+<li><a href="https://github.com/fireship-io/nest-cloud-functions/blob/master/B-functions/functions/src/index.ts">nest-cloud-functions/index.ts at master · fireship-io/nest-cloud-functions</a></li>
+<li><a href="https://qiita.com/0622okakyo/items/d69209b8b01c474c36be">NestJS をFirebase Functions で動かすための環境構築について - Qiita</a></li>
+<li><a href="https://qiita.com/chelproc/items/37ed6ed27ee599b586bf">Nest.jsのアプリケーションをCloud Functionsにデプロイする - Qiita</a></li>
+</ul>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fnestjs-firebase-cloudfunction%2f - NestJS%20%e3%82%92%20Firebase%20Cloudfunction%20%e4%b8%8a%e3%81%a7%e5%8b%95%e3%81%8b%e3%81%99 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'your_disqus_short_name'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/dream-yt/sacre">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://twitter.com/FUTABA_SACRE">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2021 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="https://dream-yt.github.io/js/jquery-3.3.1.min.js"></script>
+<script src="https://dream-yt.github.io/js/main.js"></script>
+<script src="https://dream-yt.github.io/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+
+
+
+
+    </body>
+</html>

@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="https://dream-yt.github.io/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="NestJSのDI/モジュール周りについてメモ"/>
+  <meta name="twitter:description" content="nestjsの特徴と嬉しい点はDIの仕組みがしっかりしているところのようだ。 どのようにDIが機能しているかについて、ドキュメントとか記事をみ"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@site_author"/>
+  
+
+
+
+		
+		<meta name="author" content="site_author">
+		<meta name="description" content="Site Description">
+		<meta name="generator" content="Hugo 0.51" />
+		<title>NestJSのDI/モジュール周りについてメモ &middot; sacre</title>
+		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/font-awesome.min.css">
+		
+
+		
+		<link href="https://dream-yt.github.io/index.xml" rel="alternate" type="application/rss+xml" title="sacre" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='https://dream-yt.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://dream-yt.github.io/posts'>Archive</a>
+	<a href='https://dream-yt.github.io/tags'>Tags</a>
+	<a href='https://dream-yt.github.io/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="https://dream-yt.github.io/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        NestJSのDI/モジュール周りについてメモ
+                    </h1>
+                    <h2 class="headline">
+                    Apr 3, 2021 23:52
+                    · 965 words
+                    · 2 minute read
+                      <span class="tags">
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#モジュール">モジュール</a>
+<ul>
+<li><a href="#moduleの引数">@Moduleの引数</a>
+<ul>
+<li><a href="#imports">imports</a></li>
+<li><a href="#controllers">controllers</a></li>
+<li><a href="#providers">providers</a></li>
+<li><a href="#exports">exports</a></li>
+</ul></li>
+<li><a href="#例">例</a>
+<ul>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#コントローラ">コントローラ</a></li>
+</ul></li>
+</ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    
+
+<p>nestjsの特徴と嬉しい点はDIの仕組みがしっかりしているところのようだ。
+どのようにDIが機能しているかについて、ドキュメントとか記事をみてみたところをメモ。</p>
+
+<h2 id="モジュール">モジュール</h2>
+
+<ul>
+<li><a href="https://docs.nestjs.com/modules">Modules | NestJS - A progressive Node.js framework</a></li>
+</ul>
+
+<p><code>@Injectable</code> デコレータをサービスクラスにつけて定義すると、フレームワーク側の仕組みがよしなにコントローラにDIしてくれる。依存関係を宣言し、この仕組みを制御するために定義するのが <code>@Module</code> デコレータ。</p>
+
+<h3 id="moduleの引数">@Moduleの引数</h3>
+
+<p><code>@Module</code> デコレータは以下の引数をとる</p>
+
+<h4 id="imports">imports</h4>
+
+<blockquote>
+<p>the list of imported modules that export the providers which are required in this module</p>
+</blockquote>
+
+<p>モジュールが、どのモジュールに依存しているかを定義する</p>
+
+<h4 id="controllers">controllers</h4>
+
+<blockquote>
+<p>the set of controllers defined in this module which have to be instantiated</p>
+</blockquote>
+
+<p>nestjsでは最終的にコントローラがリクエストをハンドリングするので、エントリポイントはコントローラである。
+定義した依存関係に沿ってコントローラにDIがされる。DIを受けるコントローラを定義している。</p>
+
+<h4 id="providers">providers</h4>
+
+<blockquote>
+<p>the providers that will be instantiated by the Nest injector and that may be shared at least across this module</p>
+</blockquote>
+
+<p>ここで定義したものは同じモジュール内で共用される。とくにサービスクラスがここに定義される。</p>
+
+<p>なお、providers に定義するためにはクラスに <code>@Injectable</code> デコレータをつける必要がある。</p>
+
+<h4 id="exports">exports</h4>
+
+<blockquote>
+<p>the subset of providers that are provided by this module and should be available in other modules which import this module</p>
+</blockquote>
+
+<p>providers の一種だが、他のモジュールでも使われるものはこちらに定義する。</p>
+
+<h3 id="例">例</h3>
+
+<pre><code class="language-ts">@Module({
+  imports: [],
+  controllers: [AmodController],
+  providers: [AmodService],
+  exports: [AmodService],
+})
+</code></pre>
+
+<pre><code class="language-ts">@Module({
+  imports: [AmodModule],
+  controllers: [BmodController],
+  providers: [BmodService],
+})
+export class BmodModule {}
+</code></pre>
+
+<ul>
+<li><code>BmodModule</code> が <code>AmodModule</code> に依存してることを定義している</li>
+<li>こう定義すると依存された側でexportsしているServiceを依存した側にDIされる
+
+<ul>
+<li>つまり <code>BmodController</code> が <code>AmodService</code> を呼び出せるようになる</li>
+<li><code>this.amodService</code> という按配</li>
+</ul></li>
+</ul>
+
+<h4 id="参考">参考</h4>
+
+<ul>
+<li><a href="https://qiita.com/teracy55/items/0002033786db3543f4c2">【NestJS】他のモジュールにあるサービスを使いたい（SharedModuleを作る） - Qiita</a></li>
+</ul>
+
+<h2 id="コントローラ">コントローラ</h2>
+
+<p>最終的にコントローラがエントリポイントであり、作った実装を走らせるところなので、つまり注入した依存性はコントローラで使うために注入されているということになる。</p>
+
+<p>コントローラのコンストラクタ引数の定義をフレームワーク側が参照して、初期化時にDIしてくれる仕組みがある。</p>
+
+<blockquote>
+<p>特徴的なのはコンストラクタ。 NestJS では、フレームワークの機能により、コンストラクタにてクラスの型をもったインスタンスを引数に定義すると、自動的にそのインスタンスを this に格納してくれます。この場合、 this.appService に AppService が生えてきます。</p>
+</blockquote>
+
+<ul>
+<li><a href="https://qiita.com/potato4d/items/aabb78fd201592352d64">触って覚える NestJS のアーキテクチャの基本 - Qiita</a></li>
+</ul>
+
+<pre><code class="language-ts">export class AppController {
+  constructor(private readonly appService: AppService) {}
+
+  @Get()
+  getHello(): string {
+    return this.appService.getHello();
+  }
+}
+</code></pre>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fnestjs-module-injection-101%2f - NestJS%e3%81%aeDI%2f%e3%83%a2%e3%82%b8%e3%83%a5%e3%83%bc%e3%83%ab%e5%91%a8%e3%82%8a%e3%81%ab%e3%81%a4%e3%81%84%e3%81%a6%e3%83%a1%e3%83%a2 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'your_disqus_short_name'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/dream-yt/sacre">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://twitter.com/FUTABA_SACRE">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2021 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="https://dream-yt.github.io/js/jquery-3.3.1.min.js"></script>
+<script src="https://dream-yt.github.io/js/main.js"></script>
+<script src="https://dream-yt.github.io/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+
+
+
+
+    </body>
+</html>

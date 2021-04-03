@@ -24,7 +24,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -76,12 +76,72 @@
     
         
             <li>
+                <aside class="dates">Nov 24</aside>
+                <a href='https://dream-yt.github.io/post/jq-object-array-object/'>
+                    jqで変形 (オブジェクト =&gt; 配列 =&gt; オブジェクト)
+                    
+                        
+                            <h2>こんなデータ構造のjsonがあるとして { &#34;APP1&#34;: { &#34;name&#34;: &#34;旧App&#34;, &#34;monId&#34;: 277013 }, &#34;APP2&#34;: { &#34;name&#34;: &#34;App&#34;, &#34;monId&#34;: 241736 }, &#34;DB&#34;: { &#34;name&#34;: &#34;Database&#34;, &#34;monId&#34;: 234737 }, &#34;S&#34;: { &#34;name&#34;: &#34;Static&#34;, &#34;monId&#34;: 221738 } } この形式に</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Nov 18</aside>
+                <a href='https://dream-yt.github.io/post/ui-101-principles/'>
+                    [読書メモ] インターフェイスデザインのお約束
+                    
+                        
+                            <h2>O’Reilly Japan - インタフェースデザインのお約束 2章 文字と言葉 010 log-in より sign-in log-in ではなく sign-in を使った方がよい ただし、日本語では「ログイン」のほうが一般的なのでそ</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Nov 17</aside>
+                <a href='https://dream-yt.github.io/post/axios-allows-404-statuscode/'>
+                    axiosでステータスコード404のときに例外をあげなくする
+                    
+                        
+                            <h2>axiosはレスポンスのステータスが500でも404でも例外を投げてしまう Don’t throw error / catch on 400-level responses · Issue #41 · axios/axios それで困る時、たとえば4xx系は許容した</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Nov 17</aside>
+                <a href='https://dream-yt.github.io/post/axios-non-utf8-website/'>
+                    UTF-8じゃないサイトをaxiosで取得する
+                    
+                        
+                            <h2>axiosはデフォルトでサイトの文字コードをUTF-8決め打ちでデコードしてしまう なのでUTF-8じゃないサイトを取得すると文字化けする how to</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
                 <aside class="dates">Nov 13</aside>
                 <a href='https://dream-yt.github.io/post/gitlog-mymerge/'>
                     一定期間で自分がGitHubでマージしたブランチを取得する
                     
                         
-                            <h2>こんな感じ $ git log \ --format=&#39;%h %an (%ai) %s&#39; --since=&#39;2019-10-25&#39; \ --author=sakamossan \ --grep=&#39;Merge pull request #\d&#43;&#39; -P こんな出力が得られる 3fc6ed727 sakamossan (2019-11-11 14:04:54 &#43;0900) Merge pull request #4573 ... 87daf1614 sakamossan (2019-11-06 17:59:30 &#43;0900) Merge pull request #4557 ... 47e68edfc sakamossan (2019-11-06 11:22:41 &#43;0900) Merge pull request #4542 ... –format=&#39;%h %an (%ai) %s&#39; 出力フォ</h2>
+                            <h2>こんな感じ $ git log \ --format=&#39;%h %an (%ai) %s&#39; --since=&#39;2019-10-25&#39; \ --author=sakamossan \ --grep=&#39;Merge pull request #\d&#43;&#39; -P こんな出力が得られる 3fc6ed727 sakamossan (2019-11-11 14:04:54 &#43;0900) Merge pull request #4573 ... 87daf1614 sakamossan (2019-11-06 17:59:30 &#43;0900) Merge pull request #4557 ... 47e68edfc sakamossan (2019-11-06 11:22:41 &#43;0900) Merge pull request #4542 ... –format=‘%h %an (%ai) %s’ 出力フォ</h2>
                         
                     
                 </a>
@@ -157,66 +217,6 @@
                     
                         
                             <h2>typescriptでは型をチェックするような分岐を書くことができる その分岐の中だと「この変数はこの型」というのをコンパイラ/エディタが認識</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Oct 30</aside>
-                <a href='https://dream-yt.github.io/post/start-ngrok/'>
-                    ngrokを使いはじめる
-                    
-                        
-                            <h2>サインアップ アカウントをつくる必要がある (GitHubアカウントでサインアップできる) ngrok - secure introspectable tunnels to localhost インストール/認証 サインアップするとng</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Oct 23</aside>
-                <a href='https://dream-yt.github.io/post/ffmpeg-101/'>
-                    ffmpegコマンドの最小限の基本
-                    
-                        
-                            <h2>基本はこの順番 ffmpeg -i {{ 入力ファイル }} {{ フィルタ }} {{ 出力ファイル }} フィルタとは 動画、音声、または両方を加工するためのもの たとえばぼやかしたり、前</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Oct 23</aside>
-                <a href='https://dream-yt.github.io/post/bash-watch-or-notify/'>
-                    watchで出力が変化したら通知が欲しい
-                    
-                        
-                            <h2>watchコマンドにはエラー時にビープするオプションはあるが、コマンドが正常終了した場合にビープして気がつく手段がないのでそれをなんとかする</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Oct 22</aside>
-                <a href='https://dream-yt.github.io/post/react-embedd-json-innerhtml/'>
-                    reactでhtml内にjsonを埋め込む
-                    
-                        
-                            <h2>reactのVDOMにJSONを埋め込もうとすると、htmlサニタイズされてしまう サニタイズされた文字列を読み込むのは面倒 サニタイズされない</h2>
                         
                     
                 </a>

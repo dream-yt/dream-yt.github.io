@@ -24,7 +24,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -72,6 +72,66 @@
 
     <section id="wrapper" class="home">
         <ul id="post-list">
+    
+    
+        
+            <li>
+                <aside class="dates">Mar 2</aside>
+                <a href='https://dream-yt.github.io/post/specify-dns-server-from-host/'>
+                    ドメインからIPアドレスを引くときに、使うDNSサーバを指定する
+                    
+                        
+                            <h2>hostコマンドの第二引数にDNSサーバを指定できる $ host -a amazon.co.jp 8.8.8.8 Using domain server: Name: 8.8.8.8 Address: 8.8.8.8#53 Aliases: amazon.co.jp has address 52.119.168.48 amazon.co.jp has address 52.119.164.121 amazon.co.jp has address 52.119.161.5 amazon.co.jp mail is handled by 10 amazon-smtp.amazon.com. IPアドレスからドメイン</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Mar 2</aside>
+                <a href='https://dream-yt.github.io/post/perl-destructuring-assignment/'>
+                    perlでjsの分割代入 (Destructuring assignment) みたいなことをする
+                    
+                        
+                            <h2>jsほどスマートじゃないが、それっぽいことはできる 例 こんなデータがあるとして my $h = { a =&gt; 1, b =&gt; 2, }; こうやって取り出す my ($a, $b) = @$h{qw/a b/};</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Mar 2</aside>
+                <a href='https://dream-yt.github.io/post/browser-download-http-header/'>
+                    CSVダウンロードのときにつけるヘッダ
+                    
+                        
+                            <h2>Content-Type: text/csv; charset=cp932 Content-Disposition: attachment;filename=your_filename.csv CSVファイルはエクセルで開かれることが多いのでエンコーディングはcp932を使う ダウンロードファイルなことを明示するために Content-Disposition を明</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Mar 1</aside>
+                <a href='https://dream-yt.github.io/post/basename-101/'>
+                    basename と末尾のスラッシュなど
+                    
+                        
+                            <h2>basenameはシェルスクリプトとかでパスからファイル名を取り出す時に使う。 文字列が / で終端してるかどうかにかからわずうまいことやってくれ</h2>
+                        
+                    
+                </a>
+            </li>
+        
     
     
         
@@ -157,66 +217,6 @@
                     
                         
                             <h2>こんな構文で正規表現で検索することができる SELECT * FROM t WHERE url REGEXP &#39;https://.&#43;:.&#43;@.&#43;&#39; ただし PCRE ではないので最低限のものしか使えない 正規表現が期待通りに書けてるかのテスト</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jan 31</aside>
-                <a href='https://dream-yt.github.io/post/python-seek-pipe-or-stdin/'>
-                    pipeされた標準入力がseekできなかった話
-                    
-                        
-                            <h2>こんなコードを書こうとした。 if filepath == &#39;-&#39;: fo = sys.stdin else: fo = open(filepath, mode=read_mode) ファイルパスの引数に - を渡したら標準入力の内容を使うというもの。 標準入力のシノニムとして</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jan 30</aside>
-                <a href='https://dream-yt.github.io/post/python-csv-writer/'>
-                    Python Csv Writer
-                    
-                        
-                            <h2>pythonでcsvファイルを作るときに毎回調べているのでメモ。 だいたいデータはJSONとかなはずなので csv.DictWriter を使いたくなるが、普通の csv.writer を使って</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jan 30</aside>
-                <a href='https://dream-yt.github.io/post/dump-sitemap-xml/'>
-                    sitemap.xmlをダンプする
-                    
-                        
-                            <h2>あるサイト配下のページを全部一覧したいときはsitemap.xmlを参照することになるが、sitemapがツリー構造になってたり、マイナーな</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jan 27</aside>
-                <a href='https://dream-yt.github.io/post/gcloud-python39-import-lib-error/'>
-                    [gcloud] module &#39;importlib&#39; has no attribute &#39;util&#39;
-                    
-                        
-                            <h2>gcloudでこんなエラーがでる $ gcloud components update Traceback (most recent call last): File &#34;/Users/mossan/google-cloud-sdk/lib/gcloud.py&#34;, line 104, in &lt;module&gt; main() File &#34;/Users/mossan/google-cloud-sdk/lib/gcloud.py&#34;, line 62, in main from googlecloudsdk.core.util import encoding File &#34;/Users/mossan/google-cloud-sdk/lib/googlecloudsdk/__init__.py&#34;, line 23, in &lt;module&gt; from googlecloudsdk.core.util import importing File &#34;/Users/mossan/google-cloud-sdk/lib/googlecloudsdk/core/util/importing.py&#34;, line 23, in &lt;module&gt; import imp File &#34;/usr/local/Cellar/python@3.9/3.9.1/Frameworks/Python.framework/Versions/3.9/lib/python3.9/imp.py&#34;, line 23, in &lt;module&gt; from importlib import util</h2>
                         
                     
                 </a>
