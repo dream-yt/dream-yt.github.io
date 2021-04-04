@@ -6,10 +6,19 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sun, 04 Apr 2021 00:06:54 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 04 Apr 2021 11:51:56 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Prisma の NestJS へのつなぎ込み</title>
+      <link>https://dream-yt.github.io/post/nestjs-prisma-integlation/</link>
+      <pubDate>Sun, 04 Apr 2021 11:51:56 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/nestjs-prisma-integlation/</guid>
+      <description>$ yarn add prisma @prisma/client $ npx prisma init # TODO CI/本番など実行環境ごとに .env を切り替える方法が欲しい スキーマの編集 $ code prisma/schema.prisma まずは sqlite で動作させる。 generator client { provider = &amp;quot;prisma-client-js&amp;quot; } datasource db { provider</description>
+    </item>
     
     <item>
       <title>NestJS を Firebase Cloudfunction 上で動かす</title>
