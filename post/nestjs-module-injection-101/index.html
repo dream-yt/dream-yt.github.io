@@ -72,8 +72,8 @@
                     </h1>
                     <h2 class="headline">
                     Apr 3, 2021 23:52
-                    · 965 words
-                    · 2 minute read
+                    · 1011 words
+                    · 3 minute read
                       <span class="tags">
                       
                       </span>
@@ -131,7 +131,8 @@
 <p>the list of imported modules that export the providers which are required in this module</p>
 </blockquote>
 
-<p>モジュールが、どのモジュールに依存しているかを定義する</p>
+<p>モジュールが、どのモジュールに依存しているかを定義する。
+引数には Module を渡すので、Service クラスを記述するところではない。</p>
 
 <h4 id="controllers">controllers</h4>
 
@@ -148,7 +149,8 @@
 <p>the providers that will be instantiated by the Nest injector and that may be shared at least across this module</p>
 </blockquote>
 
-<p>ここで定義したものは同じモジュール内で共用される。とくにサービスクラスがここに定義される。</p>
+<p>ここで定義したものがモジュール内でインスタンス化されて使えるようになる。
+とくにサービスクラスがここに定義される。</p>
 
 <p>なお、providers に定義するためにはクラスに <code>@Injectable</code> デコレータをつける必要がある。</p>
 

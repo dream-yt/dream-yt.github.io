@@ -72,7 +72,7 @@
                     </h1>
                     <h2 class="headline">
                     Apr 4, 2021 11:51
-                    · 438 words
+                    · 494 words
                     · 1 minute read
                       <span class="tags">
                       
@@ -92,6 +92,7 @@
 <li><a href="#nestjsのサービスにする">NestJSのサービスにする</a>
 <ul>
 <li><a href="#prisma-service-ts">prisma.service.ts</a></li>
+<li><a href="#テストが落ちる">テストが落ちる</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -214,6 +215,14 @@ export class PrismaService
 +    return this.prisma.Denylist.create({data});
    }
 </code></pre>
+
+<h3 id="テストが落ちる">テストが落ちる</h3>
+
+<p>テストで依存性が解決できないというエラーになるのでそちらも直す。</p>
+
+<ul>
+<li><a href="https://mydaytodo.com/make-sure-that-the-argument-httpservice-at-index-0-nestjs/">&ldquo;make sure that the argument HttpService at index [0] is available&rdquo; NestJS error - My Day To-Do</a></li>
+</ul>
 
                 </section>
             </article>
