@@ -6,10 +6,37 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sat, 17 Apr 2021 11:31:49 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 18 Apr 2021 17:24:01 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>FirebaseCloudfunction上でPrismaを動かしてCloudSQLProxy経由でデータベースに接続する</title>
+      <link>https://dream-yt.github.io/post/firebase-cloudfunction-prisma-cloudsqlproxy/</link>
+      <pubDate>Sun, 18 Apr 2021 17:24:01 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/firebase-cloudfunction-prisma-cloudsqlproxy/</guid>
+      <description>CloudFunction はランタイム上から CloudSQLProxy 経由で MySQL と接続することができるようになっている。 Cloud Functions から Cloud SQL への接続 | Cloud SQL for MySQL | Google Cloud もちろん Firebase の CloudFunctions でもこの機能は使うこ</description>
+    </item>
+    
+    <item>
+      <title>FirebaseCloudFunction で環境変数を設定する(.env経由)</title>
+      <link>https://dream-yt.github.io/post/firebase-cloudfunction-dot-env/</link>
+      <pubDate>Sun, 18 Apr 2021 16:50:15 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/firebase-cloudfunction-dot-env/</guid>
+      <description>Firebase CloudFunction では通常のOSの環境変数の使用は制限されている。ランタイムに変数を注入したい場合はOSの環境変数ではなく、 Firebase独特の環境変数</description>
+    </item>
+    
+    <item>
+      <title>prisma-client と MySQL を unix socket で接続する</title>
+      <link>https://dream-yt.github.io/post/prisma-mysql-unix-socket/</link>
+      <pubDate>Sat, 17 Apr 2021 21:38:14 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/prisma-mysql-unix-socket/</guid>
+      <description>ドキュメントには「ディレクトリを指定する」という書き方になっているが、もちろん実際はファイルのフルパスを入れないとつながらない。 socket Points to a directory that</description>
+    </item>
     
     <item>
       <title>FirebaseCloudFunctions のデプロイ設定を書くところ</title>
