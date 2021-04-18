@@ -6,10 +6,19 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sun, 18 Apr 2021 17:24:01 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 18 Apr 2021 22:10:01 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Prisma でスキーマ変更を本番に反映する</title>
+      <link>https://dream-yt.github.io/post/prisma-apply-migration/</link>
+      <pubDate>Sun, 18 Apr 2021 22:10:01 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/prisma-apply-migration/</guid>
+      <description>.env.migrate というファイルに本番DBにDDLを流せる接続情報が記述されているとして。 確認 どこまでマイグレーションファイルが適用されているかを確認。 npx dotenv</description>
+    </item>
     
     <item>
       <title>FirebaseCloudfunction上でPrismaを動かしてCloudSQLProxy経由でデータベースに接続する</title>
