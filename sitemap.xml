@@ -3,6 +3,16 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://dream-yt.github.io/post/react-admin-cant-handle-natural-key/</loc>
+    <lastmod>2021-04-25T15:10:37+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://dream-yt.github.io/post/typescript-utility-type-parameters/</loc>
+    <lastmod>2021-04-24T18:38:44+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://dream-yt.github.io/post/prisma-apply-migration/</loc>
     <lastmod>2021-04-18T22:10:01+09:00</lastmod>
   </url>
@@ -1613,7 +1623,7 @@
   
   <url>
     <loc>https://dream-yt.github.io/post/</loc>
-    <lastmod>2021-04-18T22:10:01+09:00</lastmod>
+    <lastmod>2021-04-25T15:10:37+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -1625,7 +1635,7 @@
   
   <url>
     <loc>https://dream-yt.github.io/</loc>
-    <lastmod>2021-04-18T22:10:01+09:00</lastmod>
+    <lastmod>2021-04-25T15:10:37+09:00</lastmod>
     <priority>0</priority>
   </url>
   
