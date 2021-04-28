@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.79.0" />
 		<title>TypeScript で、関数の引数の型をtypeとして宣言したい場合 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -81,16 +81,16 @@
                 </header>
                 
                   
+                    <div id="toc">
+                      <nav id="TableOfContents"></nav>
+                    </div>
+                  
                 
                 <section id="post-body">
                     <p>Utility Type の <code>Parameters</code> を <code>typeof</code> と一緒に使えばよい。</p>
-
-<pre><code class="language-ts">const f = ({ a, b }) =&gt; {};
-type FArg = Parameters&lt;typeof f&gt;;  //  type FArg = [{ a: any; b: any; }]
-</code></pre>
-
-<p>公式ドキュメントで紹介されている。</p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">f</span> <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">b</span> }) <span style="color:#f92672">=&gt;</span> {};
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">FArg</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Parameters</span>&lt;<span style="color:#f92672">typeof</span> <span style="color:#a6e22e">f</span>&gt;;  <span style="color:#75715e">//  type FArg = [{ a: any; b: any; }]
+</span></code></pre></div><p>公式ドキュメントで紹介されている。</p>
 <ul>
 <li><a href="https://www.typescriptlang.org/docs/handbook/utility-types.html#parameterstype">TypeScript: Documentation - Utility Types</a></li>
 </ul>

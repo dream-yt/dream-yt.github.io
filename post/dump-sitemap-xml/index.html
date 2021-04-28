@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.79.0" />
 		<title>sitemap.xmlをダンプする &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,56 +83,43 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#注意点">注意点</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#注意点">注意点</a></li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p>あるサイト配下のページを全部一覧したいときはsitemap.xmlを参照することになるが、sitemapがツリー構造になってたり、マイナーな場所にxmlファイルが配置されてたりとやっかいなこともある。そういうときはライブラリに頼ってしまうと手っ取り早い。</p>
-
+                    <p>あるサイト配下のページを全部一覧したいときはsitemap.xmlを参照することになるが、sitemapがツリー構造になってたり、マイナーな場所にxmlファイルが配置されてたりとやっかいなこともある。そういうときはライブラリに頼ってしまうと手っ取り早い。</p>
 <p>sitemap.xmlを抜いてくるのにはこれを使えばよい。</p>
-
 <ul>
 <li><a href="https://github.com/mediacloud/ultimate-sitemap-parser">mediacloud/ultimate-sitemap-parser: Ultimate Website Sitemap Parser</a></li>
 </ul>
-
 <p>抜いてきた情報を保存するのにはtinydbが便利。</p>
-
 <ul>
 <li><a href="https://tinydb.readthedocs.io/en/latest/">Welcome to TinyDB! — TinyDB 4.3.0 documentation</a></li>
 </ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e">#!/usr/bin/env python</span>
+<span style="color:#f92672">from</span> tinydb <span style="color:#f92672">import</span> TinyDB
+<span style="color:#f92672">from</span> usp.tree <span style="color:#f92672">import</span> sitemap_tree_for_homepage
 
-<pre><code class="language-python">#!/usr/bin/env python
-from tinydb import TinyDB
-from usp.tree import sitemap_tree_for_homepage
 
-
-db = TinyDB('tinydb/sitemap.json')
-table = db.table('sitemap')
-tree = sitemap_tree_for_homepage('https://example.com/')
-li = []
-for idx, page in enumerate(tree.all_pages()):
-    li.append({
-        &quot;url&quot;: page.url,
-        &quot;last_modified&quot;: page.last_modified.isoformat() if page.last_modified else None,
-        &quot;priority&quot;: float(page.priority) if page.priority else None,
+db <span style="color:#f92672">=</span> TinyDB(<span style="color:#e6db74">&#39;tinydb/sitemap.json&#39;</span>)
+table <span style="color:#f92672">=</span> db<span style="color:#f92672">.</span>table(<span style="color:#e6db74">&#39;sitemap&#39;</span>)
+tree <span style="color:#f92672">=</span> sitemap_tree_for_homepage(<span style="color:#e6db74">&#39;https://example.com/&#39;</span>)
+li <span style="color:#f92672">=</span> []
+<span style="color:#66d9ef">for</span> idx, page <span style="color:#f92672">in</span> enumerate(tree<span style="color:#f92672">.</span>all_pages()):
+    li<span style="color:#f92672">.</span>append({
+        <span style="color:#e6db74">&#34;url&#34;</span>: page<span style="color:#f92672">.</span>url,
+        <span style="color:#e6db74">&#34;last_modified&#34;</span>: page<span style="color:#f92672">.</span>last_modified<span style="color:#f92672">.</span>isoformat() <span style="color:#66d9ef">if</span> page<span style="color:#f92672">.</span>last_modified <span style="color:#66d9ef">else</span> None,
+        <span style="color:#e6db74">&#34;priority&#34;</span>: float(page<span style="color:#f92672">.</span>priority) <span style="color:#66d9ef">if</span> page<span style="color:#f92672">.</span>priority <span style="color:#66d9ef">else</span> None,
     })
-    if 50000 &lt; len(li):
-        table.insert_multiple(li)
-        li = []
-        print(idx)
-</code></pre>
-
-<h2 id="注意点">注意点</h2>
-
+    <span style="color:#66d9ef">if</span> <span style="color:#ae81ff">50000</span> <span style="color:#f92672">&lt;</span> len(li):
+        table<span style="color:#f92672">.</span>insert_multiple(li)
+        li <span style="color:#f92672">=</span> []
+        <span style="color:#66d9ef">print</span>(idx)
+</code></pre></div><h2 id="注意点">注意点</h2>
 <ul>
 <li>数万行入れるときtinydbは <code>insert_multiple</code> を使わないとかなり遅い。</li>
 <li><code>ultimate-sitemap-parser</code> は <code>priority</code> をDecimalで返してくるので、JSONにするときはfloatに丸めてしまう。</li>
