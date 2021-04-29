@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>誰かのnpmパッケージに機能追加して、本番で動作確認してからプルリクエストを出す &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,52 +83,66 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li>
-      <ul>
-        <li><a href="#api-client-で機能追加">api-client で機能追加</a></li>
-        <li><a href="#開発した機能を-service-でつかう">開発した機能を service でつかう</a></li>
-        <li><a href="#プルリクエスト">プルリクエスト</a></li>
-      </ul>
-    </li>
-    <li><a href="#参考">参考</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#api-client-で機能追加">api-client で機能追加</a></li>
+<li><a href="#開発した機能を-service-でつかう">開発した機能を service でつかう</a></li>
+<li><a href="#プルリクエスト">プルリクエスト</a></li>
+</ul></li>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>たとえばつぎのような場合</p>
+                    
+
+<p>たとえばつぎのような場合</p>
+
 <ul>
 <li>プロジェクト <code>service</code> でつかっている <code>api-client</code> パッケージを使っている</li>
 <li><code>api-client</code> に機能を追加したくなった</li>
 </ul>
+
 <h3 id="api-client-で機能追加">api-client で機能追加</h3>
+
 <ul>
 <li>まず <code>api-client</code> を GitHub で fork してローカルに clone</li>
 <li>masterブランチのまま欲しい機能を開発して(自分のmasterに)push
+
 <ul>
 <li>開発中には npm link を使う</li>
+</ul></li>
 </ul>
-</li>
-</ul>
+
 <h3 id="開発した機能を-service-でつかう">開発した機能を service でつかう</h3>
+
 <ul>
 <li><code>service</code> の package.json にはこういう風に書く
+
 <ul>
 <li><code>&quot;api-client&quot;: &quot;git+https://github.com/myaccount/api-client.git&quot;,</code></li>
-</ul>
-</li>
+</ul></li>
 <li><code>service</code> で npm install すると自分のforkしたコードが降りてくる</li>
 <li><code>service</code> 側でテスト/動作確認などをする</li>
 </ul>
+
 <p>OKならプルリクエストをだす</p>
+
 <h3 id="プルリクエスト">プルリクエスト</h3>
+
 <ul>
 <li><code>api-client</code> で機能を追加する前のコミットからブランチ切る</li>
 <li>実装した機能をcherry-pickしてプルリクエスト</li>
 </ul>
+
 <h2 id="参考">参考</h2>
+
 <ul>
 <li><a href="https://qiita.com/DQNEO/items/28535b17ca263a0d2b71">npmのモジュールを自分でforkした版のやつに差し替える - Qiita</a></li>
 </ul>
