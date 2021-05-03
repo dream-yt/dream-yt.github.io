@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.82.1" />
 		<title>jqのselectでフィルタする &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,48 +83,37 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#例">例</a></li>
-</ul></li>
-</ul></li>
-</ul>
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#例">例</a></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p>selectはsqlのwhere句みたいに使う。こんな感じでつかう。</p>
-
-<pre><code class="language-bash"># foo配列の中のオブジェクトでbar属性が存在するものだけ表示
-.foo[] | select(has('bar'))
-</code></pre>
-
-<ul>
+                    <p>selectはsqlのwhere句みたいに使う。こんな感じでつかう。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># foo配列の中のオブジェクトでbar属性が存在するものだけ表示</span>
+.foo<span style="color:#f92672">[]</span> | <span style="color:#66d9ef">select</span><span style="color:#f92672">(</span>has<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;bar&#39;</span><span style="color:#f92672">))</span>
+</code></pre></div><ul>
 <li>配列の中身をリストの状態でパイプに渡す</li>
 <li>パイプの先では <code>.</code> がリストの1要素になっている
-
 <ul>
 <li>has関数には <code>.</code> 自体が引数で渡り、キーを検査されている</li>
-</ul></li>
+</ul>
+</li>
 <li>select(true)なものだけ出力に出る</li>
 </ul>
-
 <h3 id="例">例</h3>
-
 <p>インスタンスのタグの配列から Key属性が <code>ENVIRONMENT</code> なオブジェクトになっているものを絞る場合</p>
-
-<pre><code class="language-bash">$ aws ec2 describe-instances --instance-ids i-05b2 &gt; ./_
-$ cat ./_ \
-    | jq '.Reservations[0].Instances[0].Tags[] \
-    | select(.Key==&quot;ENVIRONMENT&quot;)'
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ aws ec2 describe-instances --instance-ids i-05b2 &gt; ./_
+$ cat ./_ <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    | jq <span style="color:#e6db74">&#39;.Reservations[0].Instances[0].Tags[] \
+</span><span style="color:#e6db74">    | select(.Key==&#34;ENVIRONMENT&#34;)&#39;</span>
+</code></pre></div>
                 </section>
             </article>
 

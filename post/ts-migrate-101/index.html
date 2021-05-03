@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.82.1" />
 		<title>ts-migrateをつかった &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,66 +83,47 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#ts-migrate-がやってくれること">ts-migrate がやってくれること</a></li>
-<li><a href="#コマンド">コマンド</a></li>
-<li><a href="#tsconfig-include-exclude">tsconfig#{include/exclude}</a></li>
-<li><a href="#参考">参考</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#ts-migrate-がやってくれること">ts-migrate がやってくれること</a></li>
+    <li><a href="#コマンド">コマンド</a></li>
+    <li><a href="#tsconfigincludeexclude">tsconfig#{include/exclude}</a></li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p>ちょうど ts に移行する雰囲気があったので使ってみた</p>
-
+                    <p>ちょうど ts に移行する雰囲気があったので使ってみた</p>
 <ul>
 <li><a href="https://github.com/airbnb/ts-migrate">airbnb/ts-migrate: A tool to help migrate JavaScript code quickly and conveniently to TypeScript</a></li>
 </ul>
-
 <h2 id="ts-migrate-がやってくれること">ts-migrate がやってくれること</h2>
-
 <p>主な機能は以下の2つ</p>
-
 <ul>
 <li><code>$ ts-migrate rename</code>
-
 <ul>
 <li>js =&gt; ts のリネーム</li>
-</ul></li>
+</ul>
+</li>
 <li><code>$ ts-migrate migrate</code>
-
 <ul>
 <li>コンパイルエラーが出る箇所を <code>any</code>, <code>@ts-expect-error</code> で抑制</li>
 <li>もちろん機械的な変換なのでロジックは変更されない</li>
-</ul></li>
 </ul>
-
+</li>
+</ul>
 <p>ts-migrateを使うと <code>allowJs</code> をつけてjsとtsを共存させながら徐々に移行するというのをしないで済む。jsファイルを型定義/チェックもなにもないめちゃユルいtsファイルに一括変換できてしまうのがこのツールの便利なところ</p>
-
 <h2 id="コマンド">コマンド</h2>
-
 <p>最低限で使うのならこんなコマンドから機械的に{js=&gt;ts}に変換できてしまう</p>
-
-<pre><code class="language-bash"># jsファイルからtsファイルにrename
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># jsファイルからtsファイルにrename</span>
 $ npx ts-migrate rename .
-# コンパイルエラーを抑制
+<span style="color:#75715e"># コンパイルエラーを抑制</span>
 $ npx ts-migrate migrate .
-</code></pre>
-
-<p>webpackとかjestの設定を直すだけで移行が済んでしまう</p>
-
-<h2 id="tsconfig-include-exclude">tsconfig#{include/exclude}</h2>
-
+</code></pre></div><p>webpackとかjestの設定を直すだけで移行が済んでしまう</p>
+<h2 id="tsconfigincludeexclude">tsconfig#{include/exclude}</h2>
 <p>特定のディレクトリを移行対象から外したい/含めたいというコントロールは <code>tsconfig.json</code> の include, exclude の項目を ts-migrate が参照してくれるのでそれを使う。 <code>build</code> とかのディレクトリは exclude しておく。</p>
-
 <h2 id="参考">参考</h2>
-
 <ul>
 <li><a href="https://medium.com/airbnb-engineering/ts-migrate-a-tool-for-migrating-to-typescript-at-scale-cd23bfeb5cc">ts-migrate: A Tool for Migrating to TypeScript at Scale | by Sergii Rudenko | Airbnb Engineering &amp; Data Science | Aug, 2020 | Medium</a></li>
 </ul>

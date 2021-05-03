@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.82.1" />
 		<title>TypescriptでLambdaのハンドラーを書いてbashでアップロードする &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -81,33 +81,34 @@
                 </header>
                 
                   
+                    <div id="toc">
+                      <nav id="TableOfContents"></nav>
+                    </div>
+                  
                 
                 <section id="post-body">
                     <p>普通だとlambdaのアップロードはserverlessなどフレームワークを使うが、package.jsonを別に作りたくない場合があり、デプロイをシェルスクリプトでやったのでメモ</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/bash
+</span><span style="color:#75715e"></span>set -eu
+cd <span style="color:#66d9ef">$(</span>dirname $0<span style="color:#66d9ef">)</span>
 
-<pre><code class="language-bash">#!/bin/bash
-set -eu
-cd $(dirname $0)
+<span style="color:#66d9ef">$(</span>npm bin<span style="color:#66d9ef">)</span>/tsc --build --clean <span style="color:#f92672">&amp;&amp;</span> <span style="color:#66d9ef">$(</span>npm bin<span style="color:#66d9ef">)</span>/tsc --build
 
-$(npm bin)/tsc --build --clean &amp;&amp; $(npm bin)/tsc --build
+zip -qr ~/Desktop/lambda.zip <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  ./index.js <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  <span style="color:#66d9ef">$(</span>find ./src -name <span style="color:#e6db74">&#39;*.js&#39;</span> -o -name <span style="color:#e6db74">&#39;*.js.map&#39;</span> -type f<span style="color:#66d9ef">)</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  ./node_modules
 
-zip -qr ~/Desktop/lambda.zip \
-  ./index.js \
-  $(find ./src -name '*.js' -o -name '*.js.map' -type f) \
-  ./node_modules
-
-aws lambda update-function-code \
-  --function-name MyLambda \
-  --zip-file fileb://~/Desktop/lambda.zip
-</code></pre>
-
-<ul>
+aws lambda update-function-code <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  --function-name MyLambda <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  --zip-file fileb://~/Desktop/lambda.zip
+</code></pre></div><ul>
 <li><code>./node_modules</code> 配下のdevDepsがzipに入り込んでしまうのが微妙</li>
 <li>zipファイルが10MB以上の場合はs3デプロイが推奨されている
-
 <ul>
 <li>ロールバックとかを考えると、本当はs3デプロイのほうがよいようだ</li>
-</ul></li>
+</ul>
+</li>
 </ul>
 
                 </section>

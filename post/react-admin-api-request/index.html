@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.82.1" />
 		<title>React-admin のAPIリクエストと認証について &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -81,45 +81,41 @@
                 </header>
                 
                   
+                    <div id="toc">
+                      <nav id="TableOfContents"></nav>
+                    </div>
+                  
                 
                 <section id="post-body">
                     <p>こちらの続き</p>
-
 <ul>
 <li><a href="https://blog.n-t.jp/tech/react-admin-tutorial/">React-admin のチュートリアルを読んだメモ</a></li>
 </ul>
-
 <p>管理画面の表示を認証認可で切り盛りするのはチュートリアルに書いてあったが、APIにリクエストするときのクレデンシャルの渡し方が説明されていなかったのでそれについて調べた。</p>
-
 <p>ドキュメントにはちゃんと記載があって <code>simpleRestProvider</code> のコンストラクタの引数に httpClient を渡すことができる。
 これにヘッダをいじる処理を実装して使うことでローカルで持っているクレデンシャルをAPIにヘッダとして送ることができるようになる。</p>
-
 <ul>
 <li><a href="https://github.com/marmelab/react-admin/blob/master/docs/Authentication.md#sending-credentials-to-the-api">react-admin/Authentication.md at master · marmelab/react-admin</a></li>
 </ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">fetchUtils</span>, <span style="color:#a6e22e">Admin</span>, <span style="color:#a6e22e">Resource</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-admin&#39;</span>;
+<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">simpleRestProvider</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;ra-data-simple-rest&#39;</span>;
 
-<pre><code class="language-js">import { fetchUtils, Admin, Resource } from 'react-admin';
-import simpleRestProvider from 'ra-data-simple-rest';
-
-const httpClient = (url, options = {}) =&gt; {
-    if (!options.headers) {
-        options.headers = new Headers({ Accept: 'application/json' });
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">httpClient</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">url</span>, <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {}) =&gt; {
+    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">options</span>.<span style="color:#a6e22e">headers</span>) {
+        <span style="color:#a6e22e">options</span>.<span style="color:#a6e22e">headers</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Headers</span>({ <span style="color:#a6e22e">Accept</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;application/json&#39;</span> });
     }
-    const { token } = JSON.parse(localStorage.getItem('auth'));
-    options.headers.set('Authorization', `Bearer ${token}`);
-    return fetchUtils.fetchJson(url, options);
+    <span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">token</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">parse</span>(<span style="color:#a6e22e">localStorage</span>.<span style="color:#a6e22e">getItem</span>(<span style="color:#e6db74">&#39;auth&#39;</span>));
+    <span style="color:#a6e22e">options</span>.<span style="color:#a6e22e">headers</span>.<span style="color:#a6e22e">set</span>(<span style="color:#e6db74">&#39;Authorization&#39;</span>, <span style="color:#e6db74">`Bearer </span><span style="color:#e6db74">${</span><span style="color:#a6e22e">token</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>);
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">fetchUtils</span>.<span style="color:#a6e22e">fetchJson</span>(<span style="color:#a6e22e">url</span>, <span style="color:#a6e22e">options</span>);
 };
-const dataProvider = simpleRestProvider('http://localhost:3000', httpClient);
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">dataProvider</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">simpleRestProvider</span>(<span style="color:#e6db74">&#39;http://localhost:3000&#39;</span>, <span style="color:#a6e22e">httpClient</span>);
 
-const App = () =&gt; (
-    &lt;Admin dataProvider={dataProvider} authProvider={authProvider}&gt;
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">App</span> <span style="color:#f92672">=</span> () =&gt; (
+    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Admin</span> <span style="color:#a6e22e">dataProvider</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">dataProvider</span>} <span style="color:#a6e22e">authProvider</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">authProvider</span>}<span style="color:#f92672">&gt;</span>
         ...
-    &lt;/Admin&gt;
+    <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/Admin&gt;</span>
 );
-</code></pre>
-
-<p>なお、<code>simpleRestProvider</code> の実装はこのようになっている。サーバ側を実装する際にはここの処理を参照して、極力このプロバイダを使い倒せるようなAPIとして実装すればクライアントの実装をかなり楽にすることができるはず。</p>
-
+</code></pre></div><p>なお、<code>simpleRestProvider</code> の実装はこのようになっている。サーバ側を実装する際にはここの処理を参照して、極力このプロバイダを使い倒せるようなAPIとして実装すればクライアントの実装をかなり楽にすることができるはず。</p>
 <ul>
 <li><a href="https://github.com/marmelab/react-admin/blob/master/packages/ra-data-simple-rest/src/index.ts">react-admin/index.ts at master · marmelab/react-admin</a></li>
 </ul>

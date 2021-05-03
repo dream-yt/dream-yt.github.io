@@ -14,7 +14,7 @@
   
   
   <meta name="twitter:title" content="つくられてから1時間以上経った未圧縮のファイルだけを削除する"/>
-  <meta name="twitter:description" content="こんなことをしたい場合 最終更新が60分前になっているファイル 名前が&rdquo;*.zst&rdquo;という形式ではないファイル (未圧縮)"/>
+  <meta name="twitter:description" content="こんなことをしたい場合 最終更新が60分前になっているファイル 名前が&quot;*.zst&quot;という形式ではないファイル (未圧縮) それ"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.82.1" />
 		<title>つくられてから1時間以上経った未圧縮のファイルだけを削除する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -72,7 +72,7 @@
                     </h1>
                     <h2 class="headline">
                     Mar 10, 2021 15:38
-                    · 297 words
+                    · 295 words
                     · 1 minute read
                       <span class="tags">
                       
@@ -83,83 +83,65 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#オプション">オプション</a></li>
-</ul></li>
-<li><a href="#cron">cron</a></li>
-</ul></li>
-<li><a href="#参考">参考</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li>
+      <ul>
+        <li></li>
+        <li><a href="#cron">cron</a></li>
+      </ul>
+    </li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p>こんなことをしたい場合</p>
-
+                    <p>こんなことをしたい場合</p>
 <ul>
 <li>最終更新が60分前になっているファイル</li>
-<li>名前が&rdquo;*.zst&rdquo;という<strong>形式ではない</strong>ファイル (未圧縮)</li>
+<li>名前が&quot;*.zst&quot;という<strong>形式ではない</strong>ファイル (未圧縮)</li>
 <li>それらに対して <code>/usr/local/bin/zstd --rm</code> を実行する</li>
 </ul>
-
-<pre><code class="language-bash">/usr/bin/find /path/to/files \
-  -type f \
-  -mmin +60 \
-  ! -name &quot;*.zst&quot; \
-  -exec /usr/local/bin/zstd --rm {} \; \
-</code></pre>
-
-<h4 id="オプション">オプション</h4>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">/usr/bin/find /path/to/files <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  -type f <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  -mmin +60 <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  ! -name <span style="color:#e6db74">&#34;*.zst&#34;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  -exec /usr/local/bin/zstd --rm <span style="color:#f92672">{}</span> <span style="color:#ae81ff">\;</span> <span style="color:#ae81ff">\
+</span></code></pre></div><h4 id="オプション">オプション</h4>
 <ul>
 <li><code>-type f</code>
-
 <ul>
 <li>ディレクトリでなくファイルだけを対象にする</li>
-</ul></li>
+</ul>
+</li>
 <li><code>-mmin +60</code>
-
 <ul>
 <li>最後に内容が変わったのが60分以上過去のファイルを対象とする</li>
-</ul></li>
+</ul>
+</li>
 <li><code>! -name &quot;*.zst&quot;</code>
-
 <ul>
 <li>名前が <code>*.zst</code> <strong>でない</strong>ファイルを対象とする</li>
-</ul></li>
+</ul>
+</li>
 <li><code>-exec /usr/local/bin/zstd --rm {}</code>
-
 <ul>
 <li>それらのファイルに <code>zstd --rm</code> を実行する</li>
 <li>実行時には <code>{}</code> がファイル名に置き換わる</li>
-</ul></li>
 </ul>
-
+</li>
+</ul>
 <h3 id="cron">cron</h3>
-
 <p>cronするなら <code>/bin/bash -c</code> とすると手っ取り早い</p>
-
-<pre><code class="language-bash">*/10 * * * * appuser /bin/bash -c '\
-  /usr/bin/find /path/to/files \
-    -type f \
-    -mmin +60 \
-    ! -name &quot;*.zst&quot; \
-    -exec /usr/local/bin/zstd --rm {} \; \
-'
-</code></pre>
-
-<h2 id="参考">参考</h2>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">*/10 * * * * appuser /bin/bash -c <span style="color:#e6db74">&#39;\
+</span><span style="color:#e6db74">  /usr/bin/find /path/to/files \
+</span><span style="color:#e6db74">    -type f \
+</span><span style="color:#e6db74">    -mmin +60 \
+</span><span style="color:#e6db74">    ! -name &#34;*.zst&#34; \
+</span><span style="color:#e6db74">    -exec /usr/local/bin/zstd --rm {} \; \
+</span><span style="color:#e6db74">&#39;</span>
+</code></pre></div><h2 id="参考">参考</h2>
 <ul>
 <li><a href="https://qiita.com/narumi_/items/9ea27362a1eb502e2dbc">findコマンドのmtimeオプションまとめ - Qiita</a></li>
 </ul>

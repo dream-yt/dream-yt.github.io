@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.82.1" />
 		<title>Googleタグマネージャ入門 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,237 +83,157 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#概念">概念</a>
-<ul>
-<li><a href="#タグ">タグ</a></li>
-<li><a href="#トリガー">トリガー</a></li>
-<li><a href="#変数">変数</a>
-<ul>
-<li>
-<ul>
-<li><a href="#変数をつかうとこんなことができる例">変数をつかうとこんなことができる例</a></li>
-</ul></li>
-</ul></li>
-<li><a href="#コンテナ">コンテナ</a></li>
-<li><a href="#タグマネージャで管理できないタグ">タグマネージャで管理できないタグ</a></li>
-<li><a href="#jsの処理でタグの配信タイミングを制御する">jsの処理でタグの配信タイミングを制御する</a>
-<ul>
-<li>
-<ul>
-<li><a href="#参考">参考</a></li>
-</ul></li>
-</ul></li>
-<li><a href="#その他のタグの配信タイミング">その他のタグの配信タイミング</a></li>
-<li><a href="#ページ内のテキストを変数として使う">ページ内のテキストを変数として使う</a>
-<ul>
-<li>
-<ul>
-<li><a href="#参考-1">参考</a></li>
-</ul></li>
-</ul></li>
-<li><a href="#gtmで使える変数をjsから登録する">gtmで使える変数をjsから登録する</a></li>
-<li><a href="#仮想ページビューの計測">仮想ページビューの計測</a></li>
-</ul></li>
-</ul></li>
-<li><a href="#googleアナリティクス">Googleアナリティクス</a>
-<ul>
-<li>
-<ul>
-<li><a href="#概念-1">概念</a></li>
-<li><a href="#連携方法">連携方法</a></li>
-</ul></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#概念">概念</a>
+      <ul>
+        <li><a href="#タグ">タグ</a></li>
+        <li><a href="#トリガー">トリガー</a></li>
+        <li><a href="#変数">変数</a></li>
+        <li><a href="#コンテナ">コンテナ</a></li>
+        <li><a href="#タグマネージャで管理できないタグ">タグマネージャで管理できないタグ</a></li>
+        <li><a href="#jsの処理でタグの配信タイミングを制御する">jsの処理でタグの配信タイミングを制御する</a></li>
+        <li><a href="#その他のタグの配信タイミング">その他のタグの配信タイミング</a></li>
+        <li><a href="#ページ内のテキストを変数として使う">ページ内のテキストを変数として使う</a></li>
+        <li><a href="#gtmで使える変数をjsから登録する">gtmで使える変数をjsから登録する</a></li>
+        <li><a href="#仮想ページビューの計測">仮想ページビューの計測</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#概念-1">概念</a></li>
+        <li><a href="#連携方法">連携方法</a></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<ul>
+                    <ul>
 <li>Googleタグマネージャ(gtm)はタグを管理するツール</li>
 <li>条件、イベントを設定して任意のタイミングでタグを発火させるツール</li>
 <li>多くの場合はGoogleアナリティクス(ga)のタグを発火させる
-
 <ul>
 <li>データの蓄積と閲覧はga側でやる</li>
-</ul></li>
 </ul>
-
+</li>
+</ul>
 <h2 id="概念">概念</h2>
-
 <p>Googleタグマネージャの説明では以下の概念が出てくる。</p>
-
 <ul>
 <li>タグ</li>
 <li>トリガー</li>
 <li>変数</li>
 <li>コンテナ</li>
 </ul>
-
 <h3 id="タグ">タグ</h3>
-
 <p>タグとは普通にhtmlタグのこと。</p>
-
 <p>DMP事業者のトラッキングタグをUIから登録してよしなに配信されるようにする。
 ( <code>配信</code> とはユーザのブラウザ上で発火させるということ)</p>
-
 <p>gaやyahooなどよく使うタグなどは登録しないでも使えるようになっている。</p>
-
 <h3 id="トリガー">トリガー</h3>
-
 <p>トリガーとは「どういう条件のときにタグを配信するか」という条件のこと。
 たとえばデフォルトで用意されているものでもたくさんある。</p>
-
 <ul>
 <li><a href="https://support.google.com/tagmanager/topic/7679108">トリガーの種類 - タグマネージャ ヘルプ</a></li>
 </ul>
-
 <h3 id="変数">変数</h3>
-
 <p>トリガーで使ったり、gaに投げたりするときに使う変数。
 計測されたデータを集計するときに役にたつような変数を上手く使うと便利になる。</p>
-
 <p>たとえば現在ユーザが閲覧しているページのURLは <code>Page URL</code> という変数として設定できる。
 この値をトリガーの条件などに使える。</p>
-
 <ul>
 <li><a href="https://support.google.com/tagmanager/topic/7182737">組み込み変数 - タグマネージャ ヘルプ</a></li>
 <li><a href="https://support.google.com/tagmanager/topic/9125128?hl=ja&amp;ref_topic=7683268">ユーザー定義変数 - タグマネージャ ヘルプ</a></li>
 </ul>
-
 <h5 id="変数をつかうとこんなことができる例">変数をつかうとこんなことができる例</h5>
-
 <ul>
 <li>このページのh1要素のテキスト(変数)が <code>.+詳細</code> という正規表現にマッチする場合にタグを出す</li>
 <li>ページ閲覧時にjsのdataLayer.myvalの値(変数)をgaに投げる
-
 <ul>
 <li>jsのdataLayerオブジェクトの中身を変数として使うことができる</li>
-</ul></li>
 </ul>
-
+</li>
+</ul>
 <h3 id="コンテナ">コンテナ</h3>
-
 <p>複数ドメインにまたがったタグ制御ももちろんできる。
 いったんgaでいう <strong>サイト</strong> のことという理解で良い。</p>
-
 <p>管理上の概念なのでそんなに意味はない。</p>
-
-<hr />
-
+<hr>
 <p>以下はその他のtips</p>
-
 <h3 id="タグマネージャで管理できないタグ">タグマネージャで管理できないタグ</h3>
-
 <ul>
 <li>同期処理が必要になるもの (基本は非同期処理をするタグが想定されている)</li>
 <li>画面の表示を変更するもの
-
 <ul>
 <li>例: SNSのシェアボタン</li>
-</ul></li>
 </ul>
-
+</li>
+</ul>
 <h3 id="jsの処理でタグの配信タイミングを制御する">jsの処理でタグの配信タイミングを制御する</h3>
-
 <p>gtmでは任意のタイミングでタグを配信したい場合は以下の手順になる</p>
-
 <ul>
 <li>イベント名を変更する処理を実装</li>
 <li>「イベント名が <code>[[ event_name ]]</code> になったとき」というトリガーを作成しておく</li>
 <li>配信したいタグとトリガーを紐付け</li>
 </ul>
-
 <p>イベント名を変更する処理は以下の通り</p>
-
-<pre><code class="language-js">dataLayer.push({'event': '[[ event_name ]]'});
-</code></pre>
-
-<h5 id="参考">参考</h5>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">dataLayer</span>.<span style="color:#a6e22e">push</span>({<span style="color:#e6db74">&#39;event&#39;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;[[ event_name ]]&#39;</span>});
+</code></pre></div><h5 id="参考">参考</h5>
 <p>公式でも紹介されている方法となっている</p>
-
 <ul>
 <li><a href="https://developers.google.com/tag-manager/devguide">Developer Guide  |  Google Tag Manager for Web Tracking  |  Google Developers</a></li>
 <li><a href="https://webtan.impress.co.jp/e/2015/03/18/18983">Googleタグマネージャに自在にデータを渡す「データレイヤー変数」（全20回の19） | 実践 Googleタグマネージャ入門 | Web担当者Forum</a></li>
 </ul>
-
 <h3 id="その他のタグの配信タイミング">その他のタグの配信タイミング</h3>
-
 <p>デフォルトで用意されているトリガーは色々ある</p>
-
 <ul>
 <li><a href="https://support.google.com/tagmanager/topic/7679108">トリガーの種類 - タグマネージャ ヘルプ</a></li>
 <li><a href="https://support.google.com/tagmanager/answer/7679320?hl=ja&amp;ref_topic=7679108">クリック トリガー - タグマネージャ ヘルプ</a></li>
 <li><a href="https://support.google.com/tagmanager/answer/7679411?hl=ja&amp;ref_topic=7679108">JavaScript エラートリガー - タグマネージャ ヘルプ</a></li>
 </ul>
-
 <p>jsで制御しなくても「クリックされたリンクのURLが正規表現にマッチする場合」といった条件は管理画面から設定できるようで、大体の場合でjsで制御する必要はないかもしれない</p>
-
 <h3 id="ページ内のテキストを変数として使う">ページ内のテキストを変数として使う</h3>
-
 <p>pageのURLやクエリパラメータはデフォルトの機能で変数として使える。</p>
-
 <p>ページのtitleやh1要素も次のようにすれば変数として扱える。</p>
-
 <ul>
 <li>内容を変数として扱いたいDOMにid属性を払い出しておく</li>
 <li>変数の設定で目当てのDOM要素のIDを参照するように設定</li>
 </ul>
-
 <h5 id="参考-1">参考</h5>
-
 <ul>
 <li><a href="https://support.google.com/tagmanager/answer/7683362?hl=ja#dom_element">DOM要素 | ウェブ用のユーザー定義変数タイプ - タグマネージャ ヘルプ</a></li>
 </ul>
-
 <h3 id="gtmで使える変数をjsから登録する">gtmで使える変数をjsから登録する</h3>
-
 <p>jsからdataLayerというオブジェクトを通して変数が登録できる</p>
-
-<pre><code class="language-js">dataLayer.push({'Data Layer Name': 'value'}).
-</code></pre>
-
-<ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">dataLayer</span>.<span style="color:#a6e22e">push</span>({<span style="color:#e6db74">&#39;Data Layer Name&#39;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;value&#39;</span>}).
+</code></pre></div><ul>
 <li><a href="https://support.google.com/tagmanager/answer/7683362?hl=ja#data_layer">dataLayer | ウェブ用のユーザー定義変数タイプ - タグマネージャ ヘルプ</a></li>
 </ul>
-
 <h3 id="仮想ページビューの計測">仮想ページビューの計測</h3>
-
 <p>たとえばpdfファイルの閲覧数など、タグが発火しないところのビュー数を計測したい場合、<strong>仮想ページビューの計測</strong> ということにして計測する。
 「このリンクがクリックされたとき」といったトリガーを設定して計測できる。</p>
-
 <h1 id="googleアナリティクス">Googleアナリティクス</h1>
-
 <p>gtm(Googleタグマネージャ)はgaをセットで使うのでgaの概念と連携する方法も書く</p>
-
 <h3 id="概念-1">概念</h3>
-
 <ul>
 <li>ディメンション</li>
 <li>指標</li>
 </ul>
-
 <p>ディメンションはSQLでいうところのGroupBy句に渡したくなる値で、
 指標はSQLでいうところのSUMとかの集計関数に入れたくなるような値と言える</p>
-
 <ul>
 <li><a href="https://support.google.com/analytics/answer/1033861?hl=ja">ディメンションと指標 - アナリティクス ヘルプ</a></li>
 </ul>
-
 <h3 id="連携方法">連携方法</h3>
-
 <p>gtmを使ってgaにデータを投げて、蓄積閲覧できるようにするということは
 gtmで設定したトリガーからgaのイベント計測タグを配信することになる</p>
-
 <p>gtmの管理UIはgaとよくインテグレーションされていて、
 gaのイベント計測タグを配信する際にはディメンションと指標の値を送信できるようになっている</p>
-
 <ul>
 <li><a href="https://support.google.com/tagmanager/answer/6164990?hl=ja">Google アナリティクスのカスタム ディメンション - タグマネージャ ヘルプ</a></li>
 </ul>

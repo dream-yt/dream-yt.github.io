@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.82.1" />
 		<title>既存のtypescriptプロジェクトにnextjsのSSGを導入する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,79 +83,57 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#準備">準備</a></li>
-<li><a href="#index-tsx">index.tsx</a></li>
-<li><a href="#動作確認">動作確認</a></li>
-<li><a href="#その他">その他</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#準備">準備</a></li>
+    <li><a href="#indextsx">index.tsx</a></li>
+    <li><a href="#動作確認">動作確認</a></li>
+    <li><a href="#その他">その他</a></li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p>簡単に追加できる。</p>
-
+                    <p>簡単に追加できる。</p>
 <h2 id="準備">準備</h2>
-
 <p>nextを入れる</p>
-
-<pre><code class="language-bash">$ npm install next
-</code></pre>
-
-<p>src/pages配下にtsxを作成</p>
-
-<pre><code class="language-bash">$ touch ./src/pages/index.tsx
-</code></pre>
-
-<p>なお、nextはトップレベルではなくsrc配下にpagesディレクトリを作ってもちゃんとそこを認識してくれるようだ。</p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ npm install next
+</code></pre></div><p>src/pages配下にtsxを作成</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ touch ./src/pages/index.tsx
+</code></pre></div><p>なお、nextはトップレベルではなくsrc配下にpagesディレクトリを作ってもちゃんとそこを認識してくれるようだ。</p>
 <blockquote>
 <p>Pages can also be added under src/pages as an alternative to the root pages directory.
 The src directory is very common in many apps and Next.js supports it by default.</p>
 </blockquote>
-
 <ul>
 <li><a href="https://nextjs.org/docs/advanced-features/src-directory">Advanced Features: <code>src</code> Directory | Next.js</a></li>
 </ul>
-
-<h2 id="index-tsx">index.tsx</h2>
-
+<h2 id="indextsx">index.tsx</h2>
 <p>index.tsxはこんな感じ</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">GetStaticProps</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;next&#34;</span>;
+<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;react&#34;</span>;
 
-<pre><code class="language-jsx">import { GetStaticProps } from &quot;next&quot;;
-import React from &quot;react&quot;;
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> ({ <span style="color:#a6e22e">hello</span> }<span style="color:#f92672">:</span> { <span style="color:#a6e22e">hello</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">string</span> }) =&gt; &lt;<span style="color:#f92672">h1</span>&gt;{<span style="color:#a6e22e">hello</span>}&lt;/<span style="color:#f92672">h1</span>&gt;;
 
-export default ({ hello }: { hello: string }) =&gt; &lt;h1&gt;{hello}&lt;/h1&gt;;
-
-// 
-export const getStaticProps: GetStaticProps = async () =&gt; {
-  const hello = &quot;helloworld&quot;;
-  return { props: { hello } };
+<span style="color:#75715e">// 
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">getStaticProps</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">GetStaticProps</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">async</span> () =&gt; {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">hello</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;helloworld&#34;</span>;
+  <span style="color:#66d9ef">return</span> { <span style="color:#a6e22e">props</span><span style="color:#f92672">:</span> { <span style="color:#a6e22e">hello</span> } };
 };
-</code></pre>
-
-<ul>
+</code></pre></div><ul>
 <li><code>getStaticProps</code>
-
 <ul>
 <li><code>next export</code> の時に呼ばれて、結果がdefault関数にpropsとして渡される</li>
-</ul></li>
+</ul>
+</li>
 <li>default関数
-
 <ul>
 <li>このページのhtmlを生成するコンポーネント</li>
-</ul></li>
 </ul>
-
+</li>
+</ul>
 <h2 id="動作確認">動作確認</h2>
-
-<pre><code class="language-console">$ npx next build &amp;&amp; npx next export &amp;&amp; npx next start &amp;
+<pre><code class="language-console" data-lang="console">$ npx next build &amp;&amp; npx next export &amp;&amp; npx next start &amp;
 
 ...
 
@@ -164,34 +142,23 @@ $ curl http://localhost:3000
 &lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;&lt;meta charSet=&quot;utf-8&quot;/&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width&quot;/&gt;&lt;meta name=&quot;next-head-count&quot; content=&quot;2&quot;/&gt;&lt;noscript data-n-css=&quot;true&quot;&gt;&lt;/noscript&gt;&lt;link rel=&quot;preload&quot; href=&quot;/_next/static/chunks/main-087f27b04f4c732ab1a1.js&quot; as=&quot;script&quot;/&gt;&lt;link rel=&quot;preload&quot; href=&quot;/_next/static/chunks/webpack-e067438c4cf4ef2ef178.js&quot; as=&quot;script&quot;/&gt;&lt;link rel=&quot;preload&quot; href=&quot;/_next/static/chunks/framework.cb05d56be993eb6b088a.js&quot; as=&quot;script&quot;/&gt;&lt;link rel=&quot;preload&quot; href=&quot;/_next/static/chunks/f6078781a05fe1bcb0902d23dbbb2662c8d200b3.00aaea69a4bfc61676f6.js&quot; as=&quot;script&quot;/&gt;&lt;link rel=&quot;preload&quot; href=&quot;/_next/static/chunks/pages/_app-af1b8e54567fd58d71e4.js&quot; as=&quot;script&quot;/&gt;&lt;link rel=&quot;preload&quot; href=&quot;/_next/static/chunks/pages/index-cc4f0e2bbac07be32208.js&quot; as=&quot;script&quot;/&gt;&lt;/head&gt;&lt;body&gt;&lt;div id=&quot;__next&quot;&gt;&lt;h1&gt;helloworld&lt;/h1&gt;
 
 ...
-</code></pre>
-
-<h2 id="その他">その他</h2>
-
+</code></pre><h2 id="その他">その他</h2>
 <p>typescript環境で動かすとnextが勝手にtsconfig.jsonを変更する。</p>
-
-<pre><code class="language-diff">+    &quot;allowJs&quot;: true,
-+    &quot;skipLibCheck&quot;: true,
-+    &quot;forceConsistentCasingInFileNames&quot;: true,
-+    &quot;noEmit&quot;: true,
-+    &quot;isolatedModules&quot;: true
-</code></pre>
-
-<p>また、<code>next-env.d.ts</code> というファイルがトップレベルに作成される。</p>
-
-<pre><code class="language-diff">/next-env.d.ts
-@@ -0,0 +1,2 @@
-+/// &lt;reference types=&quot;next&quot; /&gt;
-+/// &lt;reference types=&quot;next/types/global&quot; /&gt;
-</code></pre>
-
-<p>デフォルトだと以下にビルド結果のファイルが作られるので .gitignore に追加しておく。</p>
-
-<pre><code class="language-diff">+# next
-+/out
-+/.next
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-diff" data-lang="diff"><span style="color:#a6e22e">+    &#34;allowJs&#34;: true,
+</span><span style="color:#a6e22e">+    &#34;skipLibCheck&#34;: true,
+</span><span style="color:#a6e22e">+    &#34;forceConsistentCasingInFileNames&#34;: true,
+</span><span style="color:#a6e22e">+    &#34;noEmit&#34;: true,
+</span><span style="color:#a6e22e">+    &#34;isolatedModules&#34;: true
+</span></code></pre></div><p>また、<code>next-env.d.ts</code> というファイルがトップレベルに作成される。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-diff" data-lang="diff">/next-env.d.ts
+<span style="color:#75715e">@@ -0,0 +1,2 @@
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">+/// &lt;reference types=&#34;next&#34; /&gt;
+</span><span style="color:#a6e22e">+/// &lt;reference types=&#34;next/types/global&#34; /&gt;
+</span></code></pre></div><p>デフォルトだと以下にビルド結果のファイルが作られるので .gitignore に追加しておく。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-diff" data-lang="diff"><span style="color:#a6e22e">+# next
+</span><span style="color:#a6e22e">+/out
+</span><span style="color:#a6e22e">+/.next
+</span></code></pre></div>
                 </section>
             </article>
 

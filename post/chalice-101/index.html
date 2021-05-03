@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.82.1" />
 		<title>AWS Chalice でデプロイまで &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,35 +83,26 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#生成されるファイル">生成されるファイル</a></li>
-<li><a href="#メモ">メモ</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#生成されるファイル">生成されるファイル</a></li>
+    <li><a href="#メモ">メモ</a></li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p>こちらに書いてある手順を踏んだだけ</p>
-
+                    <p>こちらに書いてある手順を踏んだだけ</p>
 <ul>
 <li><a href="https://aws.github.io/chalice/quickstart.html">Quickstart — AWS Chalice</a></li>
 </ul>
-
-<pre><code class="language-console">$ python3 -m venv venv38
+<pre><code class="language-console" data-lang="console">$ python3 -m venv venv38
 ...
 $ code .envrc
 ...
 $ pip install --upgrade pip
 $ pip install chalice
-</code></pre>
-
-<pre><code class="language-console">$ chalice new-project sandbox
+</code></pre><pre><code class="language-console" data-lang="console">$ chalice new-project sandbox
 $ chalice deploy
 Creating deployment package.
 Creating IAM role: sandbox-dev
@@ -120,11 +111,8 @@ Creating Rest API
 Resources deployed:
   - Lambda ARN: arn:aws:lambda:ap-northeast-1:xxxxxxxx:function:sandbox-dev
   - Rest API URL: https://xxxxxxxx.execute-api.ap-northeast-1.amazonaws.com/api/
-</code></pre>
-
-<h2 id="生成されるファイル">生成されるファイル</h2>
-
-<pre><code class="language-console">$ tree -a .
+</code></pre><h2 id="生成されるファイル">生成されるファイル</h2>
+<pre><code class="language-console" data-lang="console">$ tree -a .
 .
 ├── .chalice
 │   ├── config.json
@@ -137,61 +125,54 @@ Resources deployed:
 └── requirements.txt
 
 3 directories, 6 files
-</code></pre>
-
-<pre><code class="language-json">$ cat ./.chalice/config.json
+</code></pre><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#960050;background-color:#1e0010">$</span> <span style="color:#960050;background-color:#1e0010">cat</span> <span style="color:#960050;background-color:#1e0010">./.chalice/config.json</span>
 {
-  &quot;version&quot;: &quot;2.0&quot;,
-  &quot;app_name&quot;: &quot;sandbox&quot;,
-  &quot;stages&quot;: {
-    &quot;dev&quot;: {
-      &quot;api_gateway_stage&quot;: &quot;api&quot;
+  <span style="color:#f92672">&#34;version&#34;</span>: <span style="color:#e6db74">&#34;2.0&#34;</span>,
+  <span style="color:#f92672">&#34;app_name&#34;</span>: <span style="color:#e6db74">&#34;sandbox&#34;</span>,
+  <span style="color:#f92672">&#34;stages&#34;</span>: {
+    <span style="color:#f92672">&#34;dev&#34;</span>: {
+      <span style="color:#f92672">&#34;api_gateway_stage&#34;</span>: <span style="color:#e6db74">&#34;api&#34;</span>
     }
   }
 }
-</code></pre>
-
-<pre><code class="language-json">$ cat ./.chalice/deployed/dev.json
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#960050;background-color:#1e0010">$</span> <span style="color:#960050;background-color:#1e0010">cat</span> <span style="color:#960050;background-color:#1e0010">./.chalice/deployed/dev.json</span>
 {
-  &quot;resources&quot;: [
+  <span style="color:#f92672">&#34;resources&#34;</span>: [
     {
-      &quot;name&quot;: &quot;default-role&quot;,
-      &quot;resource_type&quot;: &quot;iam_role&quot;,
-      &quot;role_arn&quot;: &quot;arn:aws:iam::xxxxxxxxxx:role/sandbox-dev&quot;,
-      &quot;role_name&quot;: &quot;sandbox-dev&quot;
+      <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;default-role&#34;</span>,
+      <span style="color:#f92672">&#34;resource_type&#34;</span>: <span style="color:#e6db74">&#34;iam_role&#34;</span>,
+      <span style="color:#f92672">&#34;role_arn&#34;</span>: <span style="color:#e6db74">&#34;arn:aws:iam::xxxxxxxxxx:role/sandbox-dev&#34;</span>,
+      <span style="color:#f92672">&#34;role_name&#34;</span>: <span style="color:#e6db74">&#34;sandbox-dev&#34;</span>
     },
     {
-      &quot;name&quot;: &quot;api_handler&quot;,
-      &quot;resource_type&quot;: &quot;lambda_function&quot;,
-      &quot;lambda_arn&quot;: &quot;arn:aws:lambda:ap-northeast-1:xxxxxxxxxx:function:sandbox-dev&quot;
+      <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;api_handler&#34;</span>,
+      <span style="color:#f92672">&#34;resource_type&#34;</span>: <span style="color:#e6db74">&#34;lambda_function&#34;</span>,
+      <span style="color:#f92672">&#34;lambda_arn&#34;</span>: <span style="color:#e6db74">&#34;arn:aws:lambda:ap-northeast-1:xxxxxxxxxx:function:sandbox-dev&#34;</span>
     },
     {
-      &quot;name&quot;: &quot;rest_api&quot;,
-      &quot;resource_type&quot;: &quot;rest_api&quot;,
-      &quot;rest_api_id&quot;: &quot;xxxxcllgsl&quot;,
-      &quot;rest_api_url&quot;: &quot;https://xxxxcllgsl.execute-api.ap-northeast-1.amazonaws.com/api/&quot;
+      <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;rest_api&#34;</span>,
+      <span style="color:#f92672">&#34;resource_type&#34;</span>: <span style="color:#e6db74">&#34;rest_api&#34;</span>,
+      <span style="color:#f92672">&#34;rest_api_id&#34;</span>: <span style="color:#e6db74">&#34;xxxxcllgsl&#34;</span>,
+      <span style="color:#f92672">&#34;rest_api_url&#34;</span>: <span style="color:#e6db74">&#34;https://xxxxcllgsl.execute-api.ap-northeast-1.amazonaws.com/api/&#34;</span>
     }
   ],
-  &quot;schema_version&quot;: &quot;2.0&quot;,
-  &quot;backend&quot;: &quot;api&quot;
+  <span style="color:#f92672">&#34;schema_version&#34;</span>: <span style="color:#e6db74">&#34;2.0&#34;</span>,
+  <span style="color:#f92672">&#34;backend&#34;</span>: <span style="color:#e6db74">&#34;api&#34;</span>
 }
-</code></pre>
-
-<h2 id="メモ">メモ</h2>
-
+</code></pre></div><h2 id="メモ">メモ</h2>
 <ul>
 <li>ChaliceはデフォルトだとAWS-SDKでリソースを作るだけである</li>
 <li>CloudFormationするには chalice package などして色々する必要がある
-
 <ul>
 <li><a href="https://aws.github.io/chalice/topics/cfn.html?highlight=config%20json">AWS CloudFormation Support — AWS Chalice</a></li>
 <li><a href="https://aws.amazon.com/jp/blogs/developer/deploying-aws-chalice-application-using-aws-cloud-development-kit/">Deploying AWS Chalice application using AWS Cloud Development Kit | AWS Developer Blog</a></li>
-</ul></li>
+</ul>
+</li>
 <li><code>deployed/dev.json</code> に書いてある以外にもリソースは生成されている
-
 <ul>
 <li>LambdaのCloudWatchLogsなどはつくられる</li>
-</ul></li>
+</ul>
+</li>
 <li>ローカルでちょっと確認したいときは <code>$ chalice local</code> が使える</li>
 </ul>
 

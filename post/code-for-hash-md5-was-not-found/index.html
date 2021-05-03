@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.82.1" />
 		<title>ERROR:root:code for hash md5 was not found &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,38 +83,24 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#原因">原因</a></li>
-<li><a href="#対応">対応</a></li>
-<li><a href="#参考">参考</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#原因">原因</a></li>
+    <li><a href="#対応">対応</a></li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p>僕のPCはbrewがopensslがアップデートするたびにこのエラーがでる。1年毎くらいに発生するので毎回発生するたびに原因と対処方法は忘れている</p>
-
+                    <p>僕のPCはbrewがopensslがアップデートするたびにこのエラーがでる。1年毎くらいに発生するので毎回発生するたびに原因と対処方法は忘れている</p>
 <h2 id="原因">原因</h2>
-
 <p>pythonがlinkしていたopensslがなくなってしまって発生している</p>
-
 <h2 id="対応">対応</h2>
-
 <p>pythonをリビルドすれば直る</p>
-
-<pre><code class="language-bash">$ brew reinstall python@2
-</code></pre>
-
-<p>ただ、この方法だと付随してcsvkitやansibleなどの依存が上がってしまう</p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ brew reinstall python@2
+</code></pre></div><p>ただ、この方法だと付随してcsvkitやansibleなどの依存が上がってしまう</p>
 <h2 id="参考">参考</h2>
-
 <ul>
 <li><a href="https://stackoverflow.com/questions/59269208/errorrootcode-for-hash-md5-was-not-found-not-able-to-use-any-hg-mercurial-co">python - ERROR:root:code for hash md5 was not found - not able to use any hg mercurial commands - Stack Overflow</a></li>
 </ul>

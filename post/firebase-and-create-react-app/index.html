@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.82.1" />
 		<title>create-react-app と firebase の環境構築 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,117 +83,90 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#cra">CRA</a></li>
-<li><a href="#firebaseのconsoleでいろいろ操作">Firebaseのconsoleでいろいろ操作</a></li>
-<li><a href="#firebase-init">firebase init</a></li>
-</ul></li>
-<li><a href="#その他">その他</a>
-<ul>
-<li><a href="#public-build"><code>&quot;public&quot;: &quot;build&quot;</code></a></li>
-<li><a href="#root-true"><code>root: true</code></a></li>
-</ul></li>
-</ul></li>
-</ul>
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#cra">CRA</a></li>
+        <li><a href="#firebaseのconsoleでいろいろ操作">Firebaseのconsoleでいろいろ操作</a></li>
+        <li><a href="#firebase-init">firebase init</a></li>
+      </ul>
+    </li>
+    <li><a href="#その他">その他</a>
+      <ul>
+        <li><a href="#public-build"><code>&quot;public&quot;: &quot;build&quot;</code></a></li>
+        <li><a href="#root-true"><code>root: true</code></a></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p>公式で案内されている手順だと先にCRAをやることになる。</p>
-
+                    <p>公式で案内されている手順だと先にCRAをやることになる。</p>
 <ul>
 <li><a href="https://create-react-app.dev/docs/deployment/#firebase">Deployment | Create React App</a></li>
 </ul>
-
 <h3 id="cra">CRA</h3>
-
-<pre><code class="language-bash">$ npx create-react-app . --typescript --use-npm
-</code></pre>
-
-<h3 id="firebaseのconsoleでいろいろ操作">Firebaseのconsoleでいろいろ操作</h3>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ npx create-react-app . --typescript --use-npm
+</code></pre></div><h3 id="firebaseのconsoleでいろいろ操作">Firebaseのconsoleでいろいろ操作</h3>
 <p>先にいろいろつくらないと <code>firebase init</code> がコケる</p>
-
 <ul>
 <li>プロジェクトの作成</li>
 <li>リージョンの設定</li>
 <li>Functionsを使うならクレカを登録</li>
 <li>FireStoreを使うならデータベースを作成</li>
 </ul>
-
 <h3 id="firebase-init">firebase init</h3>
-
 <ul>
 <li><a href="https://firebase.google.com/docs/cli?hl=ja#windows-npm">Firebase CLI リファレンス</a></li>
 </ul>
-
-<pre><code class="language-bash">$ firebase login
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ firebase login
 $ firebaee init
-</code></pre>
-
-<h2 id="その他">その他</h2>
-
+</code></pre></div><h2 id="その他">その他</h2>
 <h3 id="public-build"><code>&quot;public&quot;: &quot;build&quot;</code></h3>
-
 <p>CRAがデフォルトでbuild配下に静的ファイルを吐き出すので、firebaseが参照する静的ファイルのディレクトリを<code>{public =&gt; build}</code>と変更</p>
-
-<pre><code class="language-diff">diff --git a/firebase.json b/firebase.json
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-diff" data-lang="diff">diff --git a/firebase.json b/firebase.json
 index 66b75cd..a84a947 100644
---- a/firebase.json
-+++ b/firebase.json
-@@ -10,7 +10,7 @@
-     ]
+<span style="color:#f92672">--- a/firebase.json
+</span><span style="color:#f92672"></span><span style="color:#a6e22e">+++ b/firebase.json
+</span><span style="color:#a6e22e"></span><span style="color:#75715e">@@ -10,7 +10,7 @@
+</span><span style="color:#75715e"></span>     ]
    },
-   &quot;hosting&quot;: {
--    &quot;public&quot;: &quot;&quot;,
-+    &quot;public&quot;: &quot;build&quot;,
-     &quot;ignore&quot;: [
-       &quot;firebase.json&quot;,
-       &quot;**/.*&quot;,
-</code></pre>
-
-<h3 id="root-true"><code>root: true</code></h3>
-
+   &#34;hosting&#34;: {
+<span style="color:#f92672">-    &#34;public&#34;: &#34;&#34;,
+</span><span style="color:#f92672"></span><span style="color:#a6e22e">+    &#34;public&#34;: &#34;build&#34;,
+</span><span style="color:#a6e22e"></span>     &#34;ignore&#34;: [
+       &#34;firebase.json&#34;,
+       &#34;**/.*&#34;,
+</code></pre></div><h3 id="root-true"><code>root: true</code></h3>
 <p>CRAのeslintの設定がfunctions配下のeslintの設定とぶつかるので、functions配下のeslintの設定に <code>root: true</code> を追加。eslintが親ディレクトリ(CRA側)の設定をみないように。</p>
-
 <ul>
 <li><a href="https://github.com/eslint/eslint/issues/13385#issuecomment-641252879">ESLint couldn&rsquo;t determine the plugin uniquely. · Issue #13385 · eslint/eslint</a></li>
 </ul>
-
-<pre><code class="language-diff">diff --git a/functions/.eslintrc.js b/functions/.eslintrc.js
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-diff" data-lang="diff">diff --git a/functions/.eslintrc.js b/functions/.eslintrc.js
 index 821e48b..9735185 100644
---- a/functions/.eslintrc.js
-+++ b/functions/.eslintrc.js
-@@ -14,10 +14,8 @@ module.exports = {
-     project: &quot;tsconfig.json&quot;,
-     sourceType: &quot;module&quot;,
+<span style="color:#f92672">--- a/functions/.eslintrc.js
+</span><span style="color:#f92672"></span><span style="color:#a6e22e">+++ b/functions/.eslintrc.js
+</span><span style="color:#a6e22e"></span><span style="color:#75715e">@@ -14,10 +14,8 @@ module.exports = {
+</span><span style="color:#75715e"></span>     project: &#34;tsconfig.json&#34;,
+     sourceType: &#34;module&#34;,
    },
--  plugins: [
--    &quot;@typescript-eslint&quot;,
--    &quot;import&quot;,
--  ],
-+  root: true,
-+  plugins: [&quot;@typescript-eslint&quot;, &quot;import&quot;],
-</code></pre>
-
-<p>あとは .gitignore</p>
-
-<pre><code class="language-diff">--- a/.gitignore
-+++ b/.gitignore
-@@ -23,3 +23,4 @@ yarn-debug.log*
- yarn-error.log*
+<span style="color:#f92672">-  plugins: [
+</span><span style="color:#f92672">-    &#34;@typescript-eslint&#34;,
+</span><span style="color:#f92672">-    &#34;import&#34;,
+</span><span style="color:#f92672">-  ],
+</span><span style="color:#f92672"></span><span style="color:#a6e22e">+  root: true,
+</span><span style="color:#a6e22e">+  plugins: [&#34;@typescript-eslint&#34;, &#34;import&#34;],
+</span></code></pre></div><p>あとは .gitignore</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-diff" data-lang="diff"><span style="color:#f92672">--- a/.gitignore
+</span><span style="color:#f92672"></span><span style="color:#a6e22e">+++ b/.gitignore
+</span><span style="color:#a6e22e"></span><span style="color:#75715e">@@ -23,3 +23,4 @@ yarn-debug.log*
+</span><span style="color:#75715e"></span> yarn-error.log*
 
  .eslintcach
-+.firebase
-</code></pre>
-
+<span style="color:#a6e22e">+.firebase
+</span></code></pre></div>
                 </section>
             </article>
 

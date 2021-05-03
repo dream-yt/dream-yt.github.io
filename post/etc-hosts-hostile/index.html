@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.82.1" />
 		<title>hostileで/etc/hostsをテキスト管理する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,55 +83,37 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#install">install</a></li>
-<li><a href="#load">load</a></li>
-<li><a href="#unload">unload</a></li>
-</ul></li>
-</ul></li>
-</ul>
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#install">install</a></li>
+        <li><a href="#load">load</a></li>
+        <li><a href="#unload">unload</a></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<ul>
+                    <ul>
 <li><a href="https://github.com/feross/hostile">feross/hostile: Simple, programmatic <code>/etc/hosts</code> manipulation (in node.js)</a></li>
 </ul>
-
 <h3 id="install">install</h3>
-
 <p>インストールはyarnで入る (brewとかは用意されてなさそう)</p>
-
-<pre><code class="language-bash">$ yarn global add hostile
-</code></pre>
-
-<h3 id="load">load</h3>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ yarn global add hostile
+</code></pre></div><h3 id="load">load</h3>
 <p><code>hostile load</code> コマンドで引数に渡した定義が/etc/hostsに入ってくれる</p>
-
 <pre><code>sudo hostile load local-dns-records.hostile
-</code></pre>
-
-<p><code>local-dns-records.hostile</code> の中身はこんな感じ</p>
-
-<pre><code class="language-bash"># コメントが書ける
+</code></pre><p><code>local-dns-records.hostile</code> の中身はこんな感じ</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># コメントが書ける</span>
 127.0.0.1 localhost localunixsocket localunixsocket.local
 255.255.255.255 broadcasthost
 ::1 localhost
-</code></pre>
-
-<h3 id="unload">unload</h3>
-
+</code></pre></div><h3 id="unload">unload</h3>
 <p>使っていないがloadの逆のunloadも出来るようだ
 (複数ファイルに分けて環境ごとに使えそう)</p>
-
 <ul>
 <li><a href="https://github.com/feross/hostile#unload-remove-a-set-of-hosts-from-a-file">unload</a></li>
 </ul>

@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.82.1" />
 		<title>MySQL の CREATE TABLE から BigQuery のスキーマ(json)を生成する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -81,27 +81,25 @@
                 </header>
                 
                   
+                    <div id="toc">
+                      <nav id="TableOfContents"></nav>
+                    </div>
+                  
                 
                 <section id="post-body">
                     <p>ddlparseというモジュールを使うと簡単だった</p>
-
 <ul>
 <li><a href="https://github.com/shinichi-takii/ddlparse">shinichi-takii/ddlparse: DDL parase and Convert to BigQuery JSON schema and DDL statements</a></li>
 </ul>
-
 <p>コードはこれだけでよい</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> sys
+<span style="color:#f92672">from</span> ddlparse <span style="color:#f92672">import</span> DdlParse
 
-<pre><code class="language-python">import sys
-from ddlparse import DdlParse
-
-sql = sys.stdin.read()
-table = DdlParse().parse(sql)
-print(table.to_bigquery_fields())
-</code></pre>
-
-<p>こんな感じで生成される</p>
-
-<pre><code class="language-console">$ cat /tmp/__.sql | python ./generate-bigquery-schema-from-mysql-create-table.py  | jq . | head
+sql <span style="color:#f92672">=</span> sys<span style="color:#f92672">.</span>stdin<span style="color:#f92672">.</span>read()
+table <span style="color:#f92672">=</span> DdlParse()<span style="color:#f92672">.</span>parse(sql)
+<span style="color:#66d9ef">print</span>(table<span style="color:#f92672">.</span>to_bigquery_fields())
+</code></pre></div><p>こんな感じで生成される</p>
+<pre><code class="language-console" data-lang="console">$ cat /tmp/__.sql | python ./generate-bigquery-schema-from-mysql-create-table.py  | jq . | head
 [
   {
     &quot;name&quot;: &quot;id&quot;,
@@ -113,7 +111,6 @@ print(table.to_bigquery_fields())
     &quot;type&quot;: &quot;string&quot;,
     &quot;mode&quot;: &quot;REQUIRED&quot;
 </code></pre>
-
                 </section>
             </article>
 

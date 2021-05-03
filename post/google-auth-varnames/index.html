@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.82.1" />
 		<title>Google のAPIを叩く時の認証処理周りの変数名について &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,74 +83,55 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#client-secret-json">client_secret.json</a></li>
-<li><a href="#token">token</a></li>
-</ul></li>
-</ul></li>
-</ul></li>
-</ul>
+  <ul>
+    <li>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<ul>
+                    <ul>
 <li><a href="https://developers.google.com/google-apps/calendar/quickstart/nodejs">Node.js Quickstart  |  Google Calendar API  |  Google Developers</a></li>
 </ul>
-
 <p>サンプルコード内でそれっぽい変数名が出てくるけど、初見だと何を指しているのかわからなかったのでメモ</p>
-
 <ul>
 <li>client_secret.json</li>
 <li>token</li>
 </ul>
-
-<h4 id="client-secret-json">client_secret.json</h4>
-
+<h4 id="client_secretjson">client_secret.json</h4>
 <p>UI: <code>https://console.developers.google.com/apis/credentials</code></p>
-
 <ul>
 <li>GoogleのUIからダウンロードするファイル</li>
 <li>json形式で秘密鍵とかが入っている</li>
 </ul>
-
-<pre><code class="language-json">{
-  &quot;installed&quot;: {
-    &quot;client_id&quot;: &quot;0000000000-4m2rmmkhsd4n6pp4o5oj0957ot89f1m3.apps.googleusercontent.com&quot;,
-    &quot;project_id&quot;: &quot;app-2343219&quot;,
-    &quot;auth_uri&quot;: &quot;https://accounts.google.com/o/oauth2/auth&quot;,
-    &quot;token_uri&quot;: &quot;https://accounts.google.com/o/oauth2/token&quot;,
-    &quot;auth_provider_x509_cert_url&quot;: &quot;https://www.googleapis.com/oauth2/v1/certs&quot;,
-    &quot;client_secret&quot;: &quot;SAHafsgwgmpfKoxxxxxxxxxxxx&quot;,
-    &quot;redirect_uris&quot;: [
-      &quot;urn:ietf:wg:oauth:2.0:oob&quot;,
-      &quot;http://localhost&quot;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+  <span style="color:#f92672">&#34;installed&#34;</span>: {
+    <span style="color:#f92672">&#34;client_id&#34;</span>: <span style="color:#e6db74">&#34;0000000000-4m2rmmkhsd4n6pp4o5oj0957ot89f1m3.apps.googleusercontent.com&#34;</span>,
+    <span style="color:#f92672">&#34;project_id&#34;</span>: <span style="color:#e6db74">&#34;app-2343219&#34;</span>,
+    <span style="color:#f92672">&#34;auth_uri&#34;</span>: <span style="color:#e6db74">&#34;https://accounts.google.com/o/oauth2/auth&#34;</span>,
+    <span style="color:#f92672">&#34;token_uri&#34;</span>: <span style="color:#e6db74">&#34;https://accounts.google.com/o/oauth2/token&#34;</span>,
+    <span style="color:#f92672">&#34;auth_provider_x509_cert_url&#34;</span>: <span style="color:#e6db74">&#34;https://www.googleapis.com/oauth2/v1/certs&#34;</span>,
+    <span style="color:#f92672">&#34;client_secret&#34;</span>: <span style="color:#e6db74">&#34;SAHafsgwgmpfKoxxxxxxxxxxxx&#34;</span>,
+    <span style="color:#f92672">&#34;redirect_uris&#34;</span>: [
+      <span style="color:#e6db74">&#34;urn:ietf:wg:oauth:2.0:oob&#34;</span>,
+      <span style="color:#e6db74">&#34;http://localhost&#34;</span>
     ]
   }
 }
-</code></pre>
-
-<h4 id="token">token</h4>
-
+</code></pre></div><h4 id="token">token</h4>
 <p>oauthで取得する認証情報で、JWTのこと</p>
-
-<pre><code class="language-json">{
-  &quot;access_token&quot;: &quot;ya29.GlvVBG-Gxf3XcW5cSoshNle1jm93dlxxxxxxxxxs3o-EEP&quot;,
-  &quot;refresh_token&quot;: &quot;xxxxx3j2lTxxxxxxxxx_Ic&quot;,
-  &quot;token_type&quot;: &quot;Bearer&quot;,
-  &quot;expiry_date&quot;: 1506123424861
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+  <span style="color:#f92672">&#34;access_token&#34;</span>: <span style="color:#e6db74">&#34;ya29.GlvVBG-Gxf3XcW5cSoshNle1jm93dlxxxxxxxxxs3o-EEP&#34;</span>,
+  <span style="color:#f92672">&#34;refresh_token&#34;</span>: <span style="color:#e6db74">&#34;xxxxx3j2lTxxxxxxxxx_Ic&#34;</span>,
+  <span style="color:#f92672">&#34;token_type&#34;</span>: <span style="color:#e6db74">&#34;Bearer&#34;</span>,
+  <span style="color:#f92672">&#34;expiry_date&#34;</span>: <span style="color:#ae81ff">1506123424861</span>
 }
-</code></pre>
-
+</code></pre></div>
                 </section>
             </article>
 

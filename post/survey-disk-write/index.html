@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.82.1" />
 		<title>DiskへのWriteが重そうな処理を特定する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,34 +83,26 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#まず疑わしい処理が本当にwriteが多いことを確認する">まず疑わしい処理が本当にwriteが多いことを確認する</a></li>
-<li><a href="#どんなwriteをしているか">どんなwriteをしているか</a></li>
-</ul></li>
-</ul></li>
-</ul>
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#まず疑わしい処理が本当にwriteが多いことを確認する">まず疑わしい処理が本当にwriteが多いことを確認する</a></li>
+        <li><a href="#どんなwriteをしているか">どんなwriteをしているか</a></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p>やたら処理が遅い場合の調査で、writeが頻繁に走ってないかを確認する。</p>
-
+                    <p>やたら処理が遅い場合の調査で、writeが頻繁に走ってないかを確認する。</p>
 <h3 id="まず疑わしい処理が本当にwriteが多いことを確認する">まず疑わしい処理が本当にwriteが多いことを確認する</h3>
-
 <ul>
 <li><code>$ dstat --top-io -d 5</code> をたたいておいて</li>
 <li>目星をつけたプロセスを走らせる</li>
 </ul>
-
 <p>ioしている容量が見れるようになる</p>
-
 <pre><code>$ dstat --top-io -d 5
 ----most-expensive---- -dsk/total-
      i/o process      | read  writ
@@ -134,16 +126,10 @@ mysqld     2548k   51M| 819B   81M
 perl       2556k   73M|   0    69M
 mysqld     1038k   26M|   0    37M
 mysqld     1510k   37M|   0    69M
-</code></pre>
-
-<h3 id="どんなwriteをしているか">どんなwriteをしているか</h3>
-
+</code></pre><h3 id="どんなwriteをしているか">どんなwriteをしているか</h3>
 <p>straceでとっておいて、あとからgrepする</p>
-
 <pre><code>$ sudo strace -f -p {{ pid }} -o /tmp/strace.log
-</code></pre>
-
-<pre><code>$ grep 'write' mysql.strace.log | less
+</code></pre><pre><code>$ grep 'write' mysql.strace.log | less
 13047 write(1, &quot;/usr/bin/mysql_install_db\n&quot;, 26 &lt;unfinished ...&gt;
 12879 write(3, &quot;[mysqld]\ndatadir=/tmp/z6B56Iok0v&quot;..., 158) = 158
 13054 &lt;... write resumed&gt; )             = 159
@@ -155,7 +141,6 @@ mysqld     1510k   37M|   0    69M
 13053 write(5, &quot;d,\&quot;\n  \&quot;MYSQL_ERRNO INTEGER,\&quot;\n  \&quot;&quot;..., 4096 &lt;unfinished ...&gt;
 13053 write(5, &quot;e_pfs = 1, @cmd, 'SET @dummy = 0&quot;..., 4096 &lt;unfinished ...&gt;
 </code></pre>
-
                 </section>
             </article>
 

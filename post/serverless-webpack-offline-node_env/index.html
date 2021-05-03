@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.82.1" />
 		<title>serverless-webpack のプロジェクトで serverless-offline 実行時に NODE_ENV を設定する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,74 +83,47 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#つまり原因は">つまり原因は</a></li>
-</ul></li>
-<li><a href="#差分">差分</a>
-<ul>
-<li>
-<ul>
-<li><a href="#envrc">.envrc</a></li>
-<li><a href="#serverless-yml">serverless.yml</a>
-<ul>
-<li><a href="#webpack-config-js">webpack.config.js</a></li>
-</ul></li>
-</ul></li>
-</ul></li>
-</ul></li>
-</ul>
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#つまり原因は">つまり原因は</a></li>
+      </ul>
+    </li>
+    <li><a href="#差分">差分</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p>地味だがハマった。ちょうどおんなじことをしていた人の解決策が見つかって助かった</p>
-
+                    <p>地味だがハマった。ちょうどおんなじことをしていた人の解決策が見つかって助かった</p>
 <ul>
 <li><a href="https://blog.70-10.net/2019/06/20/serverless-webpack-node_env/">MNML</a></li>
 </ul>
-
 <p>↑の方法でうまくいった</p>
-
 <h3 id="つまり原因は">つまり原因は</h3>
-
 <p>こういうことらしい</p>
-
 <ul>
 <li>webpack はNODE_ENVをデフォルトで <code>development</code> にする</li>
 <li>serverless-offline は webpack をキックする時に NODE_ENV をセットせず、デフォルトになっている?</li>
 </ul>
-
 <p>しかし、シェル変数でなく環境変数( <code>export NODE_ENV</code> )として設定していたので、環境変数NODE_ENVは引き継がれそうなものだが、serverless-offline がunsetしているのだろうか?</p>
-
 <h2 id="差分">差分</h2>
-
 <p>とにかくにも、こんな感じでNODE_ENVを設定できるようになる</p>
-
 <h4 id="envrc">.envrc</h4>
-
-<pre><code class="language-diff">+ export NODE_ENV=local
-</code></pre>
-
-<h4 id="serverless-yml">serverless.yml</h4>
-
-<pre><code class="language-diff">  stage: ${opt:stage, 'dev'}
-+  environment:
-+    NODE_ENV: ${env:NODE_ENV}
-</code></pre>
-
-<h5 id="webpack-config-js">webpack.config.js</h5>
-
-<pre><code class="language-diff">+  plugins: [new webpack.EnvironmentPlugin(slsw.lib.serverless.service.provider.environment)],
-}
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-diff" data-lang="diff"><span style="color:#a6e22e">+ export NODE_ENV=local
+</span></code></pre></div><h4 id="serverlessyml">serverless.yml</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-diff" data-lang="diff">  stage: ${opt:stage, &#39;dev&#39;}
+<span style="color:#a6e22e">+  environment:
+</span><span style="color:#a6e22e">+    NODE_ENV: ${env:NODE_ENV}
+</span></code></pre></div><h5 id="webpackconfigjs">webpack.config.js</h5>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-diff" data-lang="diff"><span style="color:#a6e22e">+  plugins: [new webpack.EnvironmentPlugin(slsw.lib.serverless.service.provider.environment)],
+</span><span style="color:#a6e22e"></span>}
+</code></pre></div>
                 </section>
             </article>
 

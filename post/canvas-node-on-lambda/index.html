@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.82.1" />
 		<title>node-canvasをlambdaで動かす &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -72,7 +72,7 @@
                     </h1>
                     <h2 class="headline">
                     Jun 22, 2019 13:00
-                    · 624 words
+                    · 631 words
                     · 2 minute read
                       <span class="tags">
                       
@@ -83,81 +83,61 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#手順">手順</a></li>
-<li><a href="#dockerfile作成">Dockerfile作成</a>
-<ul>
-<li><a href="#docker-build">docker build</a></li>
-</ul></li>
-<li><a href="#docker-run-v">docker run -v</a></li>
-<li><a href="#zip-して-lambda-にアップロード">zip して lambda にアップロード</a></li>
-<li><a href="#動作確認">動作確認</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#手順">手順</a></li>
+    <li><a href="#dockerfile作成">Dockerfile作成</a>
+      <ul>
+        <li><a href="#docker-build">docker build</a></li>
+      </ul>
+    </li>
+    <li><a href="#docker-run--v">docker run -v</a></li>
+    <li><a href="#zip-して-lambda-にアップロード">zip して lambda にアップロード</a></li>
+    <li><a href="#動作確認">動作確認</a></li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p>node-canvasは内部でネイティブモジュールを使用しているため、macos上でコンパイルしたものをlambdaにアップロードしても動作しない。AmazonLinux上でコンパイルしたものをlambdaへアップロードすることになる。</p>
-
+                    <p>node-canvasは内部でネイティブモジュールを使用しているため、macos上でコンパイルしたものをlambdaにアップロードしても動作しない。AmazonLinux上でコンパイルしたものをlambdaへアップロードすることになる。</p>
 <h2 id="手順">手順</h2>
-
 <ul>
 <li>Dockerfile作成</li>
 <li>docker run で yarn install を実行する
-
 <ul>
 <li>AmazonLinuz上でコンパイルする</li>
 <li>ボリュームをマウントして macos で node_modules を受け取る</li>
-</ul></li>
+</ul>
+</li>
 <li>zip して lambda にアップロード</li>
 </ul>
-
 <h2 id="dockerfile作成">Dockerfile作成</h2>
-
 <p>こちらから拝借</p>
-
 <ul>
 <li><a href="https://gist.github.com/jakelazaroff/29e3e6d81c6cba1c6a8a10c09324c888">node-canvas error | gist.github.com/jakelazaroff</a></li>
 </ul>
-
-<pre><code class="language-dockerfile">FROM amazonlinux:latest
-
-RUN curl --silent --location https://rpm.nodesource.com/setup_8.x | bash -
-RUN yum install -y nodejs zip
-RUN npm install -g yarn
-
-RUN mkdir /build
-COPY ./package.json /build/
-COPY ./yarn.lock /build/
-
-WORKDIR /build
-
-ENTRYPOINT [&quot;yarn&quot;]
-CMD [&quot;install&quot;]
-</code></pre>
-
-<p>なお、nodeのversionを10系にするとuuidがstatic linkされてないとのことで動かなかった</p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dockerfile" data-lang="dockerfile"><span style="color:#66d9ef">FROM</span><span style="color:#e6db74"> amazonlinux:latest</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> curl --silent --location https://rpm.nodesource.com/setup_8.x | bash -<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> yum install -y nodejs zip<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> npm install -g yarn<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> mkdir /build<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">COPY</span> ./package.json /build/<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">COPY</span> ./yarn.lock /build/<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">WORKDIR</span><span style="color:#e6db74"> /build</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">ENTRYPOINT</span> [<span style="color:#e6db74">&#34;yarn&#34;</span>]<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">CMD</span> [<span style="color:#e6db74">&#34;install&#34;</span>]<span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><p>なお、nodeのversionを10系にするとuuidがstatic linkされてないとのことで動かなかった</p>
 <h3 id="docker-build">docker build</h3>
-
-<pre><code class="language-bash">$ docker build -t lambda-build .
-</code></pre>
-
-<h2 id="docker-run-v">docker run -v</h2>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ docker build -t lambda-build .
+</code></pre></div><h2 id="docker-run--v">docker run -v</h2>
 <p>buildディレクトリを作成して、そこに作ってもらう</p>
-
-<pre><code class="language-bash">$ mkdir build
-$ docker run -v $(pwd)/build/node_modules:/build/node_modules lambda-build
-</code></pre>
-
-<pre><code class="language-console">$ ll ./build/node_modules/ | head
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ mkdir build
+$ docker run -v <span style="color:#66d9ef">$(</span>pwd<span style="color:#66d9ef">)</span>/build/node_modules:/build/node_modules lambda-build
+</code></pre></div><pre><code class="language-console" data-lang="console">$ ll ./build/node_modules/ | head
 total 32
 drwxr-xr-x  75 sakamossan  staff   2.3K  6 22 12:30 .
 drwxr-xr-x   4 sakamossan  staff   128B  6 22 12:31 ..
@@ -168,45 +148,32 @@ drwxr-xr-x   6 sakamossan  staff   192B  6 22 12:30 ansi-regex
 drwxr-xr-x   6 sakamossan  staff   192B  6 22 12:30 aproba
 drwxr-xr-x  11 sakamossan  staff   352B  6 22 12:30 are-we-there-yet
 drwxr-xr-x   7 sakamossan  staff   224B  6 22 12:30 balanced-match
-</code></pre>
-
-<h2 id="zip-して-lambda-にアップロード">zip して lambda にアップロード</h2>
-
-<pre><code class="language-bash">$ cd ./build
+</code></pre><h2 id="zip-して-lambda-にアップロード">zip して lambda にアップロード</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cd ./build
 $ cp ../handler.js .
 $ zip ~/Desktop/function.zip -r *
-$ aws lambda update-function-code \
-    --function-name chart-endpoint-dev-ChartEndpoint \
-    --zip-file fileb://~/Desktop/function.zip
-</code></pre>
-
-<p>アップロードの部分はawscliでなく、serverlessを使った方がよさそう
+$ aws lambda update-function-code <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --function-name chart-endpoint-dev-ChartEndpoint <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --zip-file fileb://~/Desktop/function.zip
+</code></pre></div><p>アップロードの部分はawscliでなく、serverlessを使った方がよさそう
 serverless deploy には zipファイルを指定できるようだ</p>
-
 <pre><code>$ serverless deploy --help  | grep package
     --package / -p ..................... Path of the deployment package
-</code></pre>
-
-<h2 id="動作確認">動作確認</h2>
-
+</code></pre><h2 id="動作確認">動作確認</h2>
 <p>requireしたcanvasオブジェクトをJSONにしたものを返すとこんな感じ</p>
-
-<pre><code class="language-bash">$ serverless invoke --function ChartEndpoint | jq -r .body | jq .
-</code></pre>
-
-<pre><code class="language-json">{
-  &quot;canvas&quot;: {
-    &quot;backends&quot;: {},
-    &quot;version&quot;: &quot;2.5.0&quot;,
-    &quot;cairoVersion&quot;: &quot;1.16.0&quot;,
-    &quot;jpegVersion&quot;: &quot;6b&quot;,
-    &quot;gifVersion&quot;: &quot;5.1.4&quot;,
-    &quot;freetypeVersion&quot;: &quot;2.9.1&quot;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ serverless invoke --function ChartEndpoint | jq -r .body | jq .
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+  <span style="color:#f92672">&#34;canvas&#34;</span>: {
+    <span style="color:#f92672">&#34;backends&#34;</span>: {},
+    <span style="color:#f92672">&#34;version&#34;</span>: <span style="color:#e6db74">&#34;2.5.0&#34;</span>,
+    <span style="color:#f92672">&#34;cairoVersion&#34;</span>: <span style="color:#e6db74">&#34;1.16.0&#34;</span>,
+    <span style="color:#f92672">&#34;jpegVersion&#34;</span>: <span style="color:#e6db74">&#34;6b&#34;</span>,
+    <span style="color:#f92672">&#34;gifVersion&#34;</span>: <span style="color:#e6db74">&#34;5.1.4&#34;</span>,
+    <span style="color:#f92672">&#34;freetypeVersion&#34;</span>: <span style="color:#e6db74">&#34;2.9.1&#34;</span>
   },
-  &quot;input&quot;: {}
+  <span style="color:#f92672">&#34;input&#34;</span>: {}
 }
-</code></pre>
-
+</code></pre></div>
                 </section>
             </article>
 

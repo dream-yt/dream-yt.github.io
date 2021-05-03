@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.82.1" />
 		<title>bennojoy/mysqlを読みながらMySQLの設定の初歩 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,72 +83,48 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#mysqld">[mysqld]</a>
-<ul>
-<li>
-<ul>
-<li><a href="#bind-address">bind-address</a></li>
-<li><a href="#character-set-server">character_set_server</a></li>
-<li><a href="#skip-external-locking">skip-external-locking</a></li>
-</ul></li>
-</ul></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#mysqld">[mysqld]</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<ul>
+                    <ul>
 <li><a href="https://github.com/bennojoy/mysql/blob/master/templates/my.cnf.Debian.j2">mysql/my.cnf.Debian.j2 at master · bennojoy/mysql</a></li>
 </ul>
-
 <p>見た目で動作が分からなかったものについてメモ</p>
-
 <h2 id="mysqld">[mysqld]</h2>
-
 <p><code>[mysqld]</code> のようにブラケットでかこんでる部分はセクションと呼ばれる
 セクションにはいろいろあって、それぞれの設定をそこの下に書いていく</p>
-
 <ul>
 <li>mysqld</li>
 <li>client</li>
 <li>mysqldump</li>
 <li>mysqld_safe &hellip;</li>
 </ul>
-
 <p>たとえばmysqlのサーバ側の設定は<code>[mysqld]</code>に記載する
 また、たとえばライアントのパスワードを設定したい場合は <code>[client]</code> のセクションに書く</p>
-
 <h4 id="bind-address">bind-address</h4>
-
 <ul>
 <li>MySQLサーバへの接続元を絞るためのオプション</li>
 <li>127.0.0.1 に設定すると外部からは接続できなくなる(localhostからのみつながる)</li>
 <li>設定しないと デフォルトで <code>*</code> と同じになり、どこからでも接続できるようになる</li>
 </ul>
-
-<h4 id="character-set-server">character_set_server</h4>
-
+<h4 id="character_set_server">character_set_server</h4>
 <p>どの符号化方式でデータを格納するかを指定する
 <code>[mysqld]</code> セクションに書く</p>
-
 <pre><code>character_set_server = utf8mb4
-</code></pre>
-
-<h4 id="skip-external-locking">skip-external-locking</h4>
-
+</code></pre><h4 id="skip-external-locking">skip-external-locking</h4>
 <p>設定例の記事を見るとだいたいで設定されてる項目</p>
-
 <ul>
 <li><a href="https://dev.mysql.com/doc/refman/5.6/ja/external-locking.html">MySQL :: MySQL 5.6 リファレンスマニュアル :: 8.10.5 外部ロック</a></li>
 </ul>
-
 <p>MyISAMが1つのデータを複数のDBサーバプロセスが触るようなシステムを想定していてロック機構が存在しているが、それを無効にする設定のようだ</p>
 
                 </section>

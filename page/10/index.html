@@ -24,7 +24,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.82.1" />
 		<title>sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -72,6 +72,66 @@
 
     <section id="wrapper" class="home">
         <ul id="post-list">
+    
+    
+        
+            <li>
+                <aside class="dates">Nov 7</aside>
+                <a href='https://dream-yt.github.io/post/vscode-python-autopep8/'>
+                    vscodeのformatOnSaveでPython/autopep8を使って整形する
+                    
+                        
+                            <h2>自動でフォーマットを効かせる最低限の設定 &#34;settings&#34;: { &#34;[python]&#34;: { &#34;editor.formatOnSave&#34;: true }, &#34;python.formatting.autopep8Path&#34;: &#34;autopep8&#34;, &#34;python.formatting.autopep8Args&#34;: [ &#34;--aggressive&#34;, &#34;--aggressive&#34; ] 参考 公式のドキュメントがトラブルシューティングを提供していて親切だった Editing</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Nov 7</aside>
+                <a href='https://dream-yt.github.io/post/vscode-using-hardtab/'>
+                    VS Codeでインデントをハードタブにする
+                    
+                        
+                            <h2>この設定にするとTabキーでハードタブが挿入される &#34;editor.insertSpaces&#34;: false たとえば(pep8違反だが)Pythonだけで適用したい場合は下記のように書く &#34;settings&#34;: { &#34;[python]&#34;: {</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Nov 7</aside>
+                <a href='https://dream-yt.github.io/post/vscode-venv-python/'>
+                    vscode で python の virtualenv を認識させる
+                    
+                        
+                            <h2>Cmd&#43;Shift&#43;p で Python: Select interpreter を選択 下記のような選択肢が出てくるので、使いたいpython/venvを選択 これで fn&#43;F2 でライブラリの定義に飛べるようになる</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Nov 7</aside>
+                <a href='https://dream-yt.github.io/post/chalice-101/'>
+                    AWS Chalice でデプロイまで
+                    
+                        
+                            <h2>こちらに書いてある手順を踏んだだけ Quickstart — AWS Chalice $ python3 -m venv venv38 ... $ code .envrc ... $ pip install --upgrade pip $ pip install chalice $ chalice new-project sandbox $ chalice deploy Creating deployment package. Creating IAM role: sandbox-dev Creating lambda function: sandbox-dev Creating Rest API Resources deployed: - Lambda ARN: arn:aws:lambda:ap-northeast-1:xxxxxxxx:function:sandbox-dev - Rest API</h2>
+                        
+                    
+                </a>
+            </li>
+        
     
     
         
@@ -157,66 +217,6 @@
                     
                         
                             <h2>半年に1回くらい設定してるのでメモ settingsからworkspaceの設定を開き、以下のように設定すればよい &#34;settings&#34;: { &#34;[python]&#34;: { &#34;editor.formatOnSave&#34;: false } } Turn off auto formatting for json</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Oct 13</aside>
-                <a href='https://dream-yt.github.io/post/read-usvstring-doc/'>
-                    Unicodeスカラー値と、対になっていないサロゲートコードポイントについてメモ
-                    
-                        
-                            <h2>この文章がよく分からなかったので単語について調べたときのメモ USVString - Web API | MDN USVString は、Unicode スカラー値（unicode scalar values）のすべ</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Oct 13</aside>
-                <a href='https://dream-yt.github.io/post/bom-utf8-and-js/'>
-                    BOMつきUTF-8とjsについて
-                    
-                        
-                            <h2>まずBOMについて バイトオーダーマーク - Wikipedia BOMとはもともとはリトルエンディアンとビッグエンディアンのどちらかを判別するためにファイルの先頭</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Oct 7</aside>
-                <a href='https://dream-yt.github.io/post/create-bigquery-scheduled-query-from-cli-bq/'>
-                    BigQuery の Scheduled Query をCLIから登録/参照
-                    
-                        
-                            <h2>こんなコマンドで登録できる $ bq mk \ --transfer_config \ --data_source=scheduled_query \ --target_dataset=mydataset \ --display_name=&#39;daily_update/$tablename&#39; \ --schedule=&#39;every day 18:00&#39; \ --params=&#34;$(cat $filename)&#34; --schedule=&#39;every day 18:00&#39; ここで指定する時間はUTC --params=&#34;\$(cat $filename)&#34; {&#34;query&#34;:&#34;SELECT 1&#34;} みたいなJSONが入ってるファイルとす</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Sep 23</aside>
-                <a href='https://dream-yt.github.io/post/mysql-query-multibyte-string/'>
-                    MySQLでマルチバイト文字が入ったレコードだけ取得する
-                    
-                        
-                            <h2>マルチバイト文字が入ってそうなカラムの文字列を CONVERT(x USING ASCII) して、元の文字列と差分があれば NOT ASCII な文字列が入っていると判断できる。 例 t.s がマルチバイト文</h2>
                         
                     
                 </a>

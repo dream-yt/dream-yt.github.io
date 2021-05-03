@@ -24,7 +24,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.82.1" />
 		<title>sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -72,6 +72,66 @@
 
     <section id="wrapper" class="home">
         <ul id="post-list">
+    
+    
+        
+            <li>
+                <aside class="dates">Apr 10</aside>
+                <a href='https://dream-yt.github.io/post/vscode-eslint-v2/'>
+                    vscode-eslint(v2)の設定をする
+                    
+                        
+                            <h2>こんな設定になった { &#34;[javascript]&#34;: { &#34;editor.codeActionsOnSave&#34;: { &#34;source.fixAll.eslint&#34;: true }, &#34;editor.tabSize&#34;: 2 }, &#34;eslint.enable&#34;: true, &#34;eslint.alwaysShowStatus&#34;: true, &#34;eslint.debug&#34;: false, &#34;eslint.format.enable&#34;: true, &#34;eslint.lintTask.enable&#34;: true, &#34;eslint.workingDirectories&#34;: [ { &#34;mode&#34;: &#34;auto&#34; } ] } editor.codeActionsOnSave vscode-eslintはv2からこんな設定になっている https://github.com/microsoft/vscode-eslint#release-notes &#34;editor.codeActionsOnSave&#34;:</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Mar 29</aside>
+                <a href='https://dream-yt.github.io/post/contribute-rsshub-memo/'>
+                    RSSHubにPR出すときのメモ
+                    
+                        
+                            <h2>DIYgod/RSSHub: 🍰 Everything is RSSible まず先にfetch $ git remote add upstream ssh://git@github.com/DIYgod/RSSHub.git $ git fetch upstream 開発者向けのドキュメント Join Us | RSSHub 開発用のコマンド 使うのはこのへん $ yarn dev $ yarn docs:dev $ cat package.json | jq .scripts { &#34;start&#34;:</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Mar 28</aside>
+                <a href='https://dream-yt.github.io/post/charactors-allowed-on-s3tag/'>
+                    s3オブジェクトのタグに使える文字
+                    
+                        
+                            <h2>パッとググっても出てこなかったので Tagging Your Amazon EC2 Resources - Amazon Elastic Compute Cloud The allowed characters across services are: letters, numbers, and spaces representable in UTF-8, and the following characters: &#43; - = . _ : / @. % が使えないのでURLエスケープはで</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Mar 28</aside>
+                <a href='https://dream-yt.github.io/post/what-is-tty/'>
+                    ttyとは
+                    
+                        
+                            <h2>プロセスは2種類に分けられる シェルなど、ユーザのインタラクションを受け付けるプロセス そうではないデーモンプロセス この2つを区別するのが、「プ</h2>
+                        
+                    
+                </a>
+            </li>
+        
     
     
         
@@ -156,67 +216,7 @@
                     alpine に gcloud をインストールする Dockerfile
                     
                         
-                            <h2>curl, bash, python, が必要 PATHを通す (root配下にインストールされた) FROM node:10-alpine RUN apk --no-cache add curl bash python RUN curl -sSL https://sdk.cloud.google.com | bash ENV PATH $PATH:/root/google-cloud-sdk/bin 参考 How to install the Google Cloud SDK in a Docker Image? - Stack Overflow Push an image on google</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Feb 18</aside>
-                <a href='https://dream-yt.github.io/post/cloudrun-cloudscheduler-101/'>
-                    cloudrun/cloudscheduler入門
-                    
-                        
-                            <h2>毎日決まった時間にスクリプトを実行したい要求があったので、マネージドの環境で実行できるcloudrun/cloudschedulerを試して</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Feb 17</aside>
-                <a href='https://dream-yt.github.io/post/cloudscheduler-error-invalid_argument/'>
-                    ERROR: (gcloud.beta.scheduler.jobs.create.http) INVALID_ARGUMENT
-                    
-                        
-                            <h2>GCPのCloudSchedulerの設定で以下のようなコマンドを叩いたところエラーとなった gcloud beta scheduler jobs create http subcommandtesting-out-job \ --schedule &#34;5 * * * *&#34; \ --http-method=GET \ --uri=&#39;https://test-iujvxwvxra-an.a.run.app/test/out&#39; \ --oidc-service-account-email=&#39;xxxxxxxx@gmail.com&#39; ERROR: (gcloud.beta.scheduler.jobs.create.http) INVALID_ARGUMENT: Request</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Feb 17</aside>
-                <a href='https://dream-yt.github.io/post/cloudrun-error-permission-denied/'>
-                    ERROR: (gcloud.beta.run.deploy) PERMISSION_DENIED
-                    
-                        
-                            <h2>CloudRunのデプロイ時にこんなログが出た ERROR: (gcloud.beta.run.deploy) PERMISSION_DENIED: Permission denied on ‘locations/asia-northeast1-a’ (or it may not exist) フル権限のユーザで作業しているはずなので PERMISSION_DENIED といわれても原因がピンとこな</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Feb 14</aside>
-                <a href='https://dream-yt.github.io/post/nodejs-spawn-inherit-stdout-stderr/'>
-                    nodejsで標準入出力/エラーを共有した子プロセスを作る
-                    
-                        
-                            <h2>cloudrunを使う際に必要になった cloudrunはhttpエンドポイントから処理がキックされるので、コンテナでbashコマンドを実行し</h2>
+                            <h2>curl, bash, python, が必要 PATHを通す (root配下にインストールされた) FROMnode:10-alpineRUN apk --no-cache add curl bash pythonRUN curl -sSL https://sdk.cloud.google.com | bashENV PATH $PATH:/root/google-cloud-s</h2>
                         
                     
                 </a>

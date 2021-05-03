@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.82.1" />
 		<title>TypeScriptで外部スクリプトからロードされたグローバル変数のエラーを無視する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,49 +83,31 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#宿題">宿題</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#宿題">宿題</a></li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p>GoogleChartはnpmパッケージになっておらず、またローカルにファイルを置くことが許可されていない</p>
-
+                    <p>GoogleChartはnpmパッケージになっておらず、またローカルにファイルを置くことが許可されていない</p>
 <blockquote>
 <p>Sorry; our terms of service do not allow you to download and save or host the google.charts.load or google.visualization code. However, if you don&rsquo;t need the interactivity of Google Charts, you can screenshot the charts and use them as you wish.</p>
 </blockquote>
-
 <ul>
 <li><a href="https://chrome.google.com/webstore/detail/copy-as-markdown/fkeaekngjflipcockcnpobkpbbfbhmdn?hl=ja">Copy as Markdown - Chrome ウェブストア</a></li>
 </ul>
-
 <p>なのでこのように外部jsファイルとして読み込むことになっている</p>
-
-<pre><code class="language-html">&lt;script type=&quot;text/javascript&quot; src=&quot;https://www.gstatic.com/charts/loader.js&quot;&gt;&lt;/script&gt; 
-</code></pre>
-
-<p>これはTypeScriptでは知らないグローバル変数として怒られる</p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://www.gstatic.com/charts/loader.js&#34;</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt; 
+</code></pre></div><p>これはTypeScriptでは知らないグローバル変数として怒られる</p>
 <blockquote>
 <p>Cannot find name &lsquo;google&rsquo;.ts(2304)</p>
 </blockquote>
-
 <p>このエラーは以下の宣言で無視することができる</p>
-
-<pre><code class="language-ts">declare var google;
-</code></pre>
-
-<h2 id="宿題">宿題</h2>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">declare</span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">google</span>;
+</code></pre></div><h2 id="宿題">宿題</h2>
 <p>型定義もあるようなので、型定義をつかって解決する方がよい</p>
-
 <ul>
 <li><a href="https://stackoverflow.com/questions/54738588/how-can-i-use-google-visualization-typings-with-angular-cli">typescript - How can I use google.visualization typings with Angular CLI? - Stack Overflow</a></li>
 <li><a href="https://www.typescriptlang.org/docs/handbook/tsconfig-json.html#types-typeroots-and-types">TypeScript: Handbook - tsconfig.json</a></li>

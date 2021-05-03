@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.82.1" />
 		<title>cエクステンションを使っているpythonパッケージをlambdaで動くようビルドする &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -81,25 +81,23 @@
                 </header>
                 
                   
+                    <div id="toc">
+                      <nav id="TableOfContents"></nav>
+                    </div>
+                  
                 
                 <section id="post-body">
                     <p>cエクステンションを使っているpythonパッケージをビルドするとビルドしたプラットフォーム固有のwheelファイルが生成される。
 つまりLambda(Linux)上で動かしたいバイナリをビルドするときにmacOS上でやってしまうとうまくいかないということである。</p>
-
 <p>macを使いながらLambda向けのwheelを得るには、Lambda環境に似せたDockerイメージを使ってそのなかでビルドする。</p>
-
 <ul>
 <li><a href="https://github.com/lambci/docker-lambda">lambci/docker-lambda: Docker images and test runners that replicate the live AWS Lambda environment</a></li>
 </ul>
-
 <p>このコマンドでLambda向けのwheelファイルを作ることができる。</p>
-
-<pre><code class="language-bash">$ docker run --rm --volume $(pwd):/var/task \
-    lambci/lambda:build-python3.8 \
-    pip wheel {{ modulename }} -w /var/task
-</code></pre>
-
-<p><code>--volume $(pwd):/var/task</code> でコンテナ内:/var/taskに生成したファイルがホスト側の今いるディレクトリに置かれるのがミソ。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ docker run --rm --volume <span style="color:#66d9ef">$(</span>pwd<span style="color:#66d9ef">)</span>:/var/task <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    lambci/lambda:build-python3.8 <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    pip wheel <span style="color:#f92672">{{</span> modulename <span style="color:#f92672">}}</span> -w /var/task
+</code></pre></div><p><code>--volume $(pwd):/var/task</code> でコンテナ内:/var/taskに生成したファイルがホスト側の今いるディレクトリに置かれるのがミソ。</p>
 
                 </section>
             </article>

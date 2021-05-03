@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.82.1" />
 		<title>WordPressをdocker-composeでサッとたてる &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,53 +83,43 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#参考">参考</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#参考">参考</a></li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p>wordpressを手元でさくっと立ち上げたい時があったので、docker-composeでたててみた</p>
-
+                    <p>wordpressを手元でさくっと立ち上げたい時があったので、docker-composeでたててみた</p>
 <p><code>.docker</code> 配下にボリュームをつくってデータを永続化している</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">version</span>: <span style="color:#e6db74">&#34;2&#34;</span>
+<span style="color:#f92672">services</span>:
+  <span style="color:#f92672">wp</span>:
+    <span style="color:#f92672">image</span>: <span style="color:#ae81ff">wordpress:latest</span>
+    <span style="color:#f92672">restart</span>: <span style="color:#ae81ff">always</span>
+    <span style="color:#f92672">volumes</span>:
+      - <span style="color:#e6db74">&#34;.docker/wp/var/www/html:/var/www/html&#34;</span>
+    <span style="color:#f92672">ports</span>:
+      - <span style="color:#e6db74">&#34;127.0.0.1:8000:80&#34;</span>
+    <span style="color:#f92672">depends_on</span>:
+      - <span style="color:#ae81ff">db</span>
+    <span style="color:#f92672">environment</span>:
+      <span style="color:#f92672">WORDPRESS_DB_HOST</span>: <span style="color:#e6db74">&#34;db:3306&#34;</span>
+      <span style="color:#f92672">WORDPRESS_DB_USER</span>: <span style="color:#ae81ff">wordpress</span>
+      <span style="color:#f92672">WORDPRESS_DB_PASSWORD</span>: <span style="color:#ae81ff">wordpress</span>
 
-<pre><code class="language-yaml">version: &quot;2&quot;
-services:
-  wp:
-    image: wordpress:latest
-    restart: always
-    volumes:
-      - &quot;.docker/wp/var/www/html:/var/www/html&quot;
-    ports:
-      - &quot;127.0.0.1:8000:80&quot;
-    depends_on:
-      - db
-    environment:
-      WORDPRESS_DB_HOST: &quot;db:3306&quot;
-      WORDPRESS_DB_USER: wordpress
-      WORDPRESS_DB_PASSWORD: wordpress
-
-  db:
-    image: mysql:5.7
-    restart: always
-    volumes:
-      - &quot;.docker/db/var/lib/mysql:/var/lib/mysql&quot;
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: wordpress
-      MYSQL_USER: wordpress
-      MYSQL_PASSWORD: wordpress
-</code></pre>
-
-<h2 id="参考">参考</h2>
-
+  <span style="color:#f92672">db</span>:
+    <span style="color:#f92672">image</span>: <span style="color:#ae81ff">mysql:5.7</span>
+    <span style="color:#f92672">restart</span>: <span style="color:#ae81ff">always</span>
+    <span style="color:#f92672">volumes</span>:
+      - <span style="color:#e6db74">&#34;.docker/db/var/lib/mysql:/var/lib/mysql&#34;</span>
+    <span style="color:#f92672">environment</span>:
+      <span style="color:#f92672">MYSQL_ROOT_PASSWORD</span>: <span style="color:#ae81ff">root</span>
+      <span style="color:#f92672">MYSQL_DATABASE</span>: <span style="color:#ae81ff">wordpress</span>
+      <span style="color:#f92672">MYSQL_USER</span>: <span style="color:#ae81ff">wordpress</span>
+      <span style="color:#f92672">MYSQL_PASSWORD</span>: <span style="color:#ae81ff">wordpress</span>
+</code></pre></div><h2 id="参考">参考</h2>
 <ul>
 <li><a href="https://docs.docker.jp/compose/wordpress.html">クィックスタート: Compose と WordPress — Docker-docs-ja 17.06 ドキュメント</a></li>
 <li><a href="https://docs.docker.jp/compose/compose-file.html#volumes-volume-driver">Compose ファイル・リファレンス — Docker-docs-ja 17.06 ドキュメント</a></li>

@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.82.1" />
 		<title>React の Synthetic Event &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,45 +83,32 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#event-pooling">event pooling</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#event-pooling">event pooling</a></li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p>Reactに標準でついてくるEventオブジェクト
+                    <p>Reactに標準でついてくるEventオブジェクト
 Syntheticは合成という意味</p>
-
 <p>ブラウザごとの差異を吸収してくれている</p>
-
 <ul>
 <li><a href="https://reactjs.org/docs/events.html">SyntheticEvent – React</a></li>
 </ul>
-
 <h2 id="event-pooling">event pooling</h2>
-
 <p>なお、Reactにはevent poolingという仕組みがある
 シングルトンのSynthetic Eventをアプリ内で使いまわしている</p>
-
 <p>なので、onClickなどのイベントハンドラの関数内でしか
 イベントオブジェクトへアクセスできないことになっている</p>
-
 <p>たとえば以下のように、非同期でEventを触るコードはエラーになる</p>
-
-<pre><code class="language-js">function clickHandler(event) {
-  this.setState({ foo: 'bar' }, () =&gt; {
-    console.log(event.target.value); // error
-  });
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">clickHandler</span>(<span style="color:#a6e22e">event</span>) {
+  <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">setState</span>({ <span style="color:#a6e22e">foo</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;bar&#39;</span> }, () =&gt; {
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">event</span>.<span style="color:#a6e22e">target</span>.<span style="color:#a6e22e">value</span>); <span style="color:#75715e">// error
+</span><span style="color:#75715e"></span>  });
 }
-</code></pre>
-
+</code></pre></div>
                 </section>
             </article>
 

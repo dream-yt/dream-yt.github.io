@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.82.1" />
 		<title>bigqueryのクエリ結果をgcsに出力するスクリプト &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -81,47 +81,47 @@
                 </header>
                 
                   
+                    <div id="toc">
+                      <nav id="TableOfContents"></nav>
+                    </div>
+                  
                 
                 <section id="post-body">
                     <p>こんな段取りで行う</p>
-
 <ul>
 <li>テンポラリなテーブルを作って、そこにクエリの結果を入れる</li>
 <li>そのテンポラリなテーブルを、データエクスポート機能を使ってgcsに送る</li>
 </ul>
-
-<pre><code class="language-python">import os
-import datetime
-from google.cloud import bigquery
-
-
-DATASET_ID = os.getenv(&quot;BQ_DATASET_ID&quot;)
-
-def export_to_gcs(query: str, destination_uri: str):
-    client = bigquery.Client()
-    temp_table_name = 'temp_to_gcs_' + datetime.datetime.now().strftime(&quot;%Y%m%d_%H%M&quot;)
-    temp_table_ref = client.dataset(DATASET_ID).table(temp_table_name)
-
-    # query configuration
-    job_config = bigquery.QueryJobConfig()
-    job_config.destination = temp_table_ref
-    job_config.write_disposition = 'WRITE_TRUNCATE'
-    query_job = client.query(query, job_config=job_config)
-
-    try:
-        query_job.result()  # waiting
-        # transport to gcs
-        client.extract_table(temp_table_ref, destination_uri)
-    finally:
-        client.delete_table(temp_table_ref)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> os
+<span style="color:#f92672">import</span> datetime
+<span style="color:#f92672">from</span> google.cloud <span style="color:#f92672">import</span> bigquery
 
 
-if __name__ == '__main__':
-    query = &quot;SELECT * FROM testds20180123.testable&quot;
-    export_to_gcs(query, 'gs://xxxx-bq-output/public/test/test2.csv')
-</code></pre>
+DATASET_ID <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>getenv(<span style="color:#e6db74">&#34;BQ_DATASET_ID&#34;</span>)
 
-<ul>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">export_to_gcs</span>(query: str, destination_uri: str):
+    client <span style="color:#f92672">=</span> bigquery<span style="color:#f92672">.</span>Client()
+    temp_table_name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;temp_to_gcs_&#39;</span> <span style="color:#f92672">+</span> datetime<span style="color:#f92672">.</span>datetime<span style="color:#f92672">.</span>now()<span style="color:#f92672">.</span>strftime(<span style="color:#e6db74">&#34;%Y%m</span><span style="color:#e6db74">%d</span><span style="color:#e6db74">_%H%M&#34;</span>)
+    temp_table_ref <span style="color:#f92672">=</span> client<span style="color:#f92672">.</span>dataset(DATASET_ID)<span style="color:#f92672">.</span>table(temp_table_name)
+
+    <span style="color:#75715e"># query configuration</span>
+    job_config <span style="color:#f92672">=</span> bigquery<span style="color:#f92672">.</span>QueryJobConfig()
+    job_config<span style="color:#f92672">.</span>destination <span style="color:#f92672">=</span> temp_table_ref
+    job_config<span style="color:#f92672">.</span>write_disposition <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;WRITE_TRUNCATE&#39;</span>
+    query_job <span style="color:#f92672">=</span> client<span style="color:#f92672">.</span>query(query, job_config<span style="color:#f92672">=</span>job_config)
+
+    <span style="color:#66d9ef">try</span>:
+        query_job<span style="color:#f92672">.</span>result()  <span style="color:#75715e"># waiting</span>
+        <span style="color:#75715e"># transport to gcs</span>
+        client<span style="color:#f92672">.</span>extract_table(temp_table_ref, destination_uri)
+    <span style="color:#66d9ef">finally</span>:
+        client<span style="color:#f92672">.</span>delete_table(temp_table_ref)
+
+
+<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;__main__&#39;</span>:
+    query <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;SELECT * FROM testds20180123.testable&#34;</span>
+    export_to_gcs(query, <span style="color:#e6db74">&#39;gs://xxxx-bq-output/public/test/test2.csv&#39;</span>)
+</code></pre></div><ul>
 <li><a href="https://cloud.google.com/bigquery/docs/exporting-data?hl=ja">テーブルデータのエクスポート  |  BigQuery  |  Google Cloud</a></li>
 <li><a href="https://google-cloud.readthedocs.io/en/latest/bigquery/generated/google.cloud.bigquery.client.Client.extract_table.html">google.cloud.bigquery.client.Client.extract_table — google-cloud 0.28.1 documentation</a></li>
 </ul>

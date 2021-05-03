@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.82.1" />
 		<title>Formikで A component is changing an uncontrolled input of type text to be controlled &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,29 +83,20 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#参考">参考</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#参考">参考</a></li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p>Formik を使ったらこのエラーが出た。</p>
-
+                    <p>Formik を使ったらこのエラーが出た。</p>
 <blockquote>
 <p>Warning: A component is changing an uncontrolled input to be controlled. This is likely caused by the value changing from undefined to a defined value, which should not happen. Decide between using a controlled or uncontrolled input element for the lifetime of the component. More info: <a href="https://reactjs.org/link/controlled-components">https://reactjs.org/link/controlled-components</a></p>
 </blockquote>
-
 <p>これは操作した <code>input#name</code> に <code>initialValue</code> に対応する属性がなかった場合に発生した。タイポ注意。</p>
-
 <h2 id="参考">参考</h2>
-
 <ul>
 <li><a href="https://stackoverflow.com/questions/61048254/formik-warning-a-component-is-changing-an-uncontrolled-input-of-type-text-to-be">react web - formik warning, A component is changing an uncontrolled input of type text to be controlled - Stack Overflow</a></li>
 </ul>

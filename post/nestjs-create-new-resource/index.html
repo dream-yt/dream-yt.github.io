@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.82.1" />
 		<title>NestJS でエンドポイント(リソース)を追加する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -81,33 +81,32 @@
                 </header>
                 
                   
+                    <div id="toc">
+                      <nav id="TableOfContents"></nav>
+                    </div>
+                  
                 
                 <section id="post-body">
                     <p>エンドポイント新規に追加するときは generate コマンドを使う。
 <code>generate resource</code> とすると、ひとそろい作ってくれる。</p>
-
 <blockquote>
 <p>nest generate resource [resource-name]</p>
 </blockquote>
-
 <p>たとえば、<code>denylist</code> というリソースのためのRESTAPIを作りたいときはこのようになる。</p>
-
-<pre><code class="language-bash">$ npx nest generate resource denylist --dry-run
-? What transport layer do you use? REST API
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ npx nest generate resource denylist --dry-run
+? What transport layer <span style="color:#66d9ef">do</span> you use? REST API
 ? Would you like to generate CRUD entry points? Yes
-CREATE src/denylist/denylist.controller.spec.ts (638 bytes)
-CREATE src/denylist/denylist.controller.ts (1055 bytes)
-CREATE src/denylist/denylist.module.ts (298 bytes)
-CREATE src/denylist/denylist.service.spec.ts (503 bytes)
-CREATE src/denylist/denylist.service.ts (721 bytes)
-CREATE src/denylist/dto/create-denylist.dto.ts (38 bytes)
-CREATE src/denylist/dto/update-denylist.dto.ts (202 bytes)
-CREATE src/denylist/entities/denylist.entity.ts (29 bytes)
-UPDATE package.json (2001 bytes)
-UPDATE src/app.module.ts (342 bytes)
-</code></pre>
-
-<ul>
+CREATE src/denylist/denylist.controller.spec.ts <span style="color:#f92672">(</span><span style="color:#ae81ff">638</span> bytes<span style="color:#f92672">)</span>
+CREATE src/denylist/denylist.controller.ts <span style="color:#f92672">(</span><span style="color:#ae81ff">1055</span> bytes<span style="color:#f92672">)</span>
+CREATE src/denylist/denylist.module.ts <span style="color:#f92672">(</span><span style="color:#ae81ff">298</span> bytes<span style="color:#f92672">)</span>
+CREATE src/denylist/denylist.service.spec.ts <span style="color:#f92672">(</span><span style="color:#ae81ff">503</span> bytes<span style="color:#f92672">)</span>
+CREATE src/denylist/denylist.service.ts <span style="color:#f92672">(</span><span style="color:#ae81ff">721</span> bytes<span style="color:#f92672">)</span>
+CREATE src/denylist/dto/create-denylist.dto.ts <span style="color:#f92672">(</span><span style="color:#ae81ff">38</span> bytes<span style="color:#f92672">)</span>
+CREATE src/denylist/dto/update-denylist.dto.ts <span style="color:#f92672">(</span><span style="color:#ae81ff">202</span> bytes<span style="color:#f92672">)</span>
+CREATE src/denylist/entities/denylist.entity.ts <span style="color:#f92672">(</span><span style="color:#ae81ff">29</span> bytes<span style="color:#f92672">)</span>
+UPDATE package.json <span style="color:#f92672">(</span><span style="color:#ae81ff">2001</span> bytes<span style="color:#f92672">)</span>
+UPDATE src/app.module.ts <span style="color:#f92672">(</span><span style="color:#ae81ff">342</span> bytes<span style="color:#f92672">)</span>
+</code></pre></div><ul>
 <li><a href="https://docs.nestjs.com/cli/usages#nest-generate">Usage - CLI | NestJS - A progressive Node.js framework</a></li>
 </ul>
 

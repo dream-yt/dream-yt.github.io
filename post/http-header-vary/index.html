@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.82.1" />
 		<title>HTTPのVaryヘッダについて &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,46 +83,36 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#例">例</a></li>
-</ul></li>
-<li><a href="#参考">参考</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#例">例</a></li>
+      </ul>
+    </li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<ul>
+                    <ul>
 <li>Varyは中間のキャッシュサーバで活用することが期待されてるヘッダ</li>
 <li>nginx や h20 などのオリジンサーバがレスポンスヘッダに入れてキャッシュサーバを制御するために使う</li>
 <li>キャッシュサーバは Vary の指定を参照して、キャッシュをいくつかに分けて保持する
-
 <ul>
 <li><code>Vary: HOGEHOGE</code> と指定した場合はHOGEHOGEヘッダの値を参照してキャッシュを複数もつことになる</li>
-</ul></li>
 </ul>
-
+</li>
+</ul>
 <h3 id="例">例</h3>
-
 <p><code>Vary: Accept-Encoding</code> とすると、キャッシュサーバは同じURLでも次の2種類のキャッシュを保持してくれる</p>
-
 <ul>
 <li><code>Accept-Encoding: gzip</code></li>
 <li><code>Accept-Encoding: plain</code></li>
 </ul>
-
 <p>たとえば、古いガラケーでは gzip が inflate できなかったので、gzip 圧縮されたキャッシュをクライアントに返してしまうと表示ができない。 <code>Vary: Accept-Encoding</code> と指定して、ガラケーの場合はガラケー用のキャッシュを保持/返答するようにしないといけない。</p>
-
 <h2 id="参考">参考</h2>
-
 <ul>
 <li><a href="http://qiita.com/cubicdaiya/items/09c8f23891bfc07b14d3">コンテンツキャッシュとVaryヘッダとnginx - Qiita</a></li>
 </ul>

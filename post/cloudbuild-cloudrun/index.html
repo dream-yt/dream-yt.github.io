@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.82.1" />
 		<title>cloudrun にデプロイする cloudbuild.yaml &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,78 +83,61 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#トリガー">トリガー</a></li>
-<li><a href="#cloudbuild-yaml">cloudbuild.yaml</a>
-<ul>
-<li><a href="#注意">注意</a></li>
-</ul></li>
-<li><a href="#権限">権限</a></li>
-</ul></li>
-</ul></li>
-</ul>
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#トリガー">トリガー</a></li>
+        <li><a href="#cloudbuildyaml">cloudbuild.yaml</a></li>
+        <li><a href="#権限">権限</a></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<h3 id="トリガー">トリガー</h3>
-
+                    <h3 id="トリガー">トリガー</h3>
 <p>まず、cloudbuildのトリガーをこんな感じで登録しておく</p>
-
 <ul>
 <li><code>^master$</code> のときに変数が <code>_SERVICE=service</code> となるように</li>
 <li><code>^canary/</code> のときに変数が <code>_SERVICE=service-canary</code> となるように</li>
 </ul>
-
-<h3 id="cloudbuild-yaml">cloudbuild.yaml</h3>
-
-<pre><code class="language-yaml">timeout: '900s'
-steps:
-  - name: 'gcr.io/cloud-builders/docker'
-    id: 'docker-pull'
-    args: ['pull', 'asia.gcr.io/$PROJECT_ID/$_SERVICE:latest']
-  - name: 'gcr.io/cloud-builders/docker'
-    id: 'docker-build'
-    args: [ 'build',
-      '--cache-from', 'asia.gcr.io/$PROJECT_ID/$_SERVICE:latest',
-      '--tag', 'asia.gcr.io/$PROJECT_ID/$_SERVICE:$REVISION_ID',
-      'app'  # Dockerfile がルートディレクトリ以外の場所にあったので
+<h3 id="cloudbuildyaml">cloudbuild.yaml</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">timeout</span>: <span style="color:#e6db74">&#39;900s&#39;</span>
+<span style="color:#f92672">steps</span>:
+  - <span style="color:#f92672">name</span>: <span style="color:#e6db74">&#39;gcr.io/cloud-builders/docker&#39;</span>
+    <span style="color:#f92672">id</span>: <span style="color:#e6db74">&#39;docker-pull&#39;</span>
+    <span style="color:#f92672">args</span>: [<span style="color:#e6db74">&#39;pull&#39;</span>, <span style="color:#e6db74">&#39;asia.gcr.io/$PROJECT_ID/$_SERVICE:latest&#39;</span>]
+  - <span style="color:#f92672">name</span>: <span style="color:#e6db74">&#39;gcr.io/cloud-builders/docker&#39;</span>
+    <span style="color:#f92672">id</span>: <span style="color:#e6db74">&#39;docker-build&#39;</span>
+    <span style="color:#f92672">args</span>: [ <span style="color:#e6db74">&#39;build&#39;</span>,
+      <span style="color:#e6db74">&#39;--cache-from&#39;</span>, <span style="color:#e6db74">&#39;asia.gcr.io/$PROJECT_ID/$_SERVICE:latest&#39;</span>,
+      <span style="color:#e6db74">&#39;--tag&#39;</span>, <span style="color:#e6db74">&#39;asia.gcr.io/$PROJECT_ID/$_SERVICE:$REVISION_ID&#39;</span>,
+      <span style="color:#e6db74">&#39;app&#39;</span>  <span style="color:#75715e"># Dockerfile がルートディレクトリ以外の場所にあったので</span>
     ]
-  - name: 'gcr.io/cloud-builders/docker'
-    id: 'docker-tag'
-    args: ['tag',
-      'asia.gcr.io/$PROJECT_ID/$_SERVICE:$REVISION_ID',
-      'asia.gcr.io/$PROJECT_ID/$_SERVICE:latest'
+  - <span style="color:#f92672">name</span>: <span style="color:#e6db74">&#39;gcr.io/cloud-builders/docker&#39;</span>
+    <span style="color:#f92672">id</span>: <span style="color:#e6db74">&#39;docker-tag&#39;</span>
+    <span style="color:#f92672">args</span>: [<span style="color:#e6db74">&#39;tag&#39;</span>,
+      <span style="color:#e6db74">&#39;asia.gcr.io/$PROJECT_ID/$_SERVICE:$REVISION_ID&#39;</span>,
+      <span style="color:#e6db74">&#39;asia.gcr.io/$PROJECT_ID/$_SERVICE:latest&#39;</span>
     ]
-  - name: 'gcr.io/cloud-builders/docker'
-    id: 'docker-push'
-    args: ['push', 'asia.gcr.io/$PROJECT_ID/$_SERVICE']
-  - name: 'gcr.io/cloud-builders/gcloud'
-    id: 'cloudrun-deploy'
-    args: ['beta', 'run', 'deploy', '$_SERVICE',
-      '--image', 'asia.gcr.io/$PROJECT_ID/$_SERVICE:$REVISION_ID',
-      '--region', 'asia-northeast1',
-      '--platform', 'managed',
-      '--allow-unauthenticated'  # publicなリクエストを受け付ける場合
+  - <span style="color:#f92672">name</span>: <span style="color:#e6db74">&#39;gcr.io/cloud-builders/docker&#39;</span>
+    <span style="color:#f92672">id</span>: <span style="color:#e6db74">&#39;docker-push&#39;</span>
+    <span style="color:#f92672">args</span>: [<span style="color:#e6db74">&#39;push&#39;</span>, <span style="color:#e6db74">&#39;asia.gcr.io/$PROJECT_ID/$_SERVICE&#39;</span>]
+  - <span style="color:#f92672">name</span>: <span style="color:#e6db74">&#39;gcr.io/cloud-builders/gcloud&#39;</span>
+    <span style="color:#f92672">id</span>: <span style="color:#e6db74">&#39;cloudrun-deploy&#39;</span>
+    <span style="color:#f92672">args</span>: [<span style="color:#e6db74">&#39;beta&#39;</span>, <span style="color:#e6db74">&#39;run&#39;</span>, <span style="color:#e6db74">&#39;deploy&#39;</span>, <span style="color:#e6db74">&#39;$_SERVICE&#39;</span>,
+      <span style="color:#e6db74">&#39;--image&#39;</span>, <span style="color:#e6db74">&#39;asia.gcr.io/$PROJECT_ID/$_SERVICE:$REVISION_ID&#39;</span>,
+      <span style="color:#e6db74">&#39;--region&#39;</span>, <span style="color:#e6db74">&#39;asia-northeast1&#39;</span>,
+      <span style="color:#e6db74">&#39;--platform&#39;</span>, <span style="color:#e6db74">&#39;managed&#39;</span>,
+      <span style="color:#e6db74">&#39;--allow-unauthenticated&#39;</span>  <span style="color:#75715e"># publicなリクエストを受け付ける場合</span>
     ]
-</code></pre>
-
-<h4 id="注意">注意</h4>
-
+</code></pre></div><h4 id="注意">注意</h4>
 <p>一番最初は事前に <code>asia.gcr.io/$PROJECT_ID/$_SERVICE:latest</code> に
 何らかのイメージをpushしておく必要がある</p>
-
 <h3 id="権限">権限</h3>
-
 <p>なお、cloudbuild から cloudrun にデプロイするときの権限についてはこちらの記事が参考になった</p>
-
 <ul>
 <li><a href="https://phpnews.io/feeditem/google-cloud-build-google-cloud-run-fixing-error-gcloud-run-deploy-permission-denied-the-caller-does-not-have-permission">Google Cloud Build + Google Cloud Run: Fixing “ERROR: (gcloud.run.deploy) PERMISSION_DENIED: The caller does not have permission” | PHPnews.io</a></li>
 </ul>

@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.82.1" />
 		<title>VLOOKUPの使い方をメモ &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,94 +83,70 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#概要">概要</a></li>
-<li><a href="#それぞれの引数の意味">それぞれの引数の意味</a></li>
-<li><a href="#相対参照-絶対参照">相対参照/絶対参照</a>
-<ul>
-<li>
-<ul>
-<li><a href="#絶対参照にしかた">絶対参照にしかた</a></li>
-</ul></li>
-</ul></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#概要">概要</a></li>
+    <li><a href="#それぞれの引数の意味">それぞれの引数の意味</a></li>
+    <li><a href="#相対参照絶対参照">相対参照/絶対参照</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p>自分で使ったことがなかったので勉強</p>
-
+                    <p>自分で使ったことがなかったので勉強</p>
 <h2 id="概要">概要</h2>
-
 <p>指定した表のなかから条件にマッチした行の、指定したカラムの値を返してくれる</p>
-
 <blockquote>
 <p>VLOOKUP(検索キー, 範囲, 番号, [並べ替え済み])</p>
 </blockquote>
-
 <p>ドキュメントの具体的な使い方が分かりやすかった</p>
-
 <ul>
 <li><a href="https://support.google.com/docs/answer/3093318?hl=ja">VLOOKUP - ドキュメント エディタ ヘルプ</a></li>
 </ul>
-
 <h2 id="それぞれの引数の意味">それぞれの引数の意味</h2>
-
 <ul>
 <li>範囲
-
 <ul>
 <li>検索をかけるテーブル</li>
 <li>一番左のカラムがwhere句の比較対象になっている</li>
-</ul></li>
+</ul>
+</li>
 <li>番号
-
 <ul>
 <li>とってくるカラム</li>
-</ul></li>
+</ul>
+</li>
 <li>検索キー
-
 <ul>
 <li>範囲の一番左のカラムと付き合わせる値</li>
-</ul></li>
+</ul>
+</li>
 <li>並べ替え済み
-
 <ul>
 <li>範囲がソート済みだと便利な場合があるらしい</li>
 <li>慣れてきたら使い方調べる</li>
-</ul></li>
 </ul>
-
+</li>
+</ul>
 <p>1カラムごとにこんなSQLがフェッチしてくれるイメージだろうか</p>
-
-<pre><code class="language-sql">select 範囲.番号
-from 範囲
-where 範囲.一番左のカラム = 検索キー
-</code></pre>
-
-<p>以下のあたり引数名から自明でないような&hellip;</p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">select</span> <span style="color:#960050;background-color:#1e0010">範囲</span>.<span style="color:#960050;background-color:#1e0010">番号</span>
+<span style="color:#66d9ef">from</span> <span style="color:#960050;background-color:#1e0010">範囲</span>
+<span style="color:#66d9ef">where</span> <span style="color:#960050;background-color:#1e0010">範囲</span>.<span style="color:#960050;background-color:#1e0010">一番左のカラム</span> <span style="color:#f92672">=</span> <span style="color:#960050;background-color:#1e0010">検索キー</span>
+</code></pre></div><p>以下のあたり引数名から自明でないような&hellip;</p>
 <ul>
 <li><code>検索キー</code>が検索するのは、<code>範囲.一番左</code>のカラムから検索する</li>
 <li><code>番号</code>ってのは<code>範囲</code>の中からカラム左から何個目、という指定</li>
 </ul>
-
-<h2 id="相対参照-絶対参照">相対参照/絶対参照</h2>
-
+<h2 id="相対参照絶対参照">相対参照/絶対参照</h2>
 <p><code>=A1</code> みたいな式を下(行の)方向にコピペすると <code>=A2</code> のようによしなに行の数値を増やしてくれるが、
 これは相対参照の働き。VLOOKUPの<code>検索範囲</code>の部分は固定の表を参照したいはずなので絶対参照にする
 (絶対参照にするとコピペしてもよしなに範囲をずらしたりしなくなる)</p>
-
 <h4 id="絶対参照にしかた">絶対参照にしかた</h4>
-
 <p>固定したいほうの前に<code>$</code>をつけると絶対参照になる</p>
-
 <ul>
 <li><code>=$A1</code> 列方向は固定</li>
 <li><code>=A$1</code> 行方向は固定</li>

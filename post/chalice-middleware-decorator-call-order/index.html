@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.82.1" />
 		<title>chalice.Middleware の呼ばれる順番について &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,97 +83,76 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#例">例</a></li>
-</ul></li>
-<li><a href="#実験用のコード">実験用のコード</a></li>
-<li><a href="#結果">結果</a></li>
-<li><a href="#つまり">つまり</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#例">例</a></li>
+      </ul>
+    </li>
+    <li><a href="#実験用のコード">実験用のコード</a></li>
+    <li><a href="#結果">結果</a></li>
+    <li><a href="#つまり">つまり</a></li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p>chaliceにはMiddlewareと呼ばれる仕組みがある</p>
-
+                    <p>chaliceにはMiddlewareと呼ばれる仕組みがある</p>
 <ul>
 <li><a href="https://aws.github.io/chalice/topics/middleware.html">Middleware — AWS Chalice</a></li>
 </ul>
-
 <p>これを使うと、すべての関数に処理を挟み込むことができる。たとえば認証をしてダメだったら400を返したり、パラメータをログ出力したり。</p>
-
 <h3 id="例">例</h3>
-
-<pre><code class="language-python">@app.middleware('http')
-def require_header(event, get_response):
-    if 'X-Custom-Header' not in event.headers:
-        return Response(status_code=400)
-    else:
-        print(&quot;here!&quot;)
-        return get_response(event)
-</code></pre>
-
-<p>そういった処理はこれまではデコレータを使って実現していたが、両方使った場合に処理が呼ばれる順番はどうなるのか確認してみた。</p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#a6e22e">@app.middleware</span>(<span style="color:#e6db74">&#39;http&#39;</span>)
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">require_header</span>(event, get_response):
+    <span style="color:#66d9ef">if</span> <span style="color:#e6db74">&#39;X-Custom-Header&#39;</span> <span style="color:#f92672">not</span> <span style="color:#f92672">in</span> event<span style="color:#f92672">.</span>headers:
+        <span style="color:#66d9ef">return</span> Response(status_code<span style="color:#f92672">=</span><span style="color:#ae81ff">400</span>)
+    <span style="color:#66d9ef">else</span>:
+        <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;here!&#34;</span>)
+        <span style="color:#66d9ef">return</span> get_response(event)
+</code></pre></div><p>そういった処理はこれまではデコレータを使って実現していたが、両方使った場合に処理が呼ばれる順番はどうなるのか確認してみた。</p>
 <p>ついでに2つMiddlewareを宣言した時にそれらもどういう順番になるかもみてみた。</p>
-
 <h2 id="実験用のコード">実験用のコード</h2>
-
 <p>Middlwwareを2つ宣言して、Decoratorも使った</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#a6e22e">@app.middleware</span>(<span style="color:#e6db74">&#39;http&#39;</span>)
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">middleware1</span>(event, get_response):
+    <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;middleware1&#39;</span>)
+    <span style="color:#66d9ef">return</span> get_response(event)
 
-<pre><code class="language-python">@app.middleware('http')
-def middleware1(event, get_response):
-    print('middleware1')
-    return get_response(event)
-
-@app.middleware('http')
-def middleware1(event, get_response):
-    print('middleware2')
-    return get_response(event)
+<span style="color:#a6e22e">@app.middleware</span>(<span style="color:#e6db74">&#39;http&#39;</span>)
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">middleware1</span>(event, get_response):
+    <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;middleware2&#39;</span>)
+    <span style="color:#66d9ef">return</span> get_response(event)
     
-def decorator(func):
-    @functools.wraps(func)
-    def wrapper(*args, **kwargs):
-        print(&quot;decorator&quot;)
-        return func(*args, **kwargs)
-    return wrapper
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">decorator</span>(func):
+    <span style="color:#a6e22e">@functools.wraps</span>(func)
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">wrapper</span>(<span style="color:#f92672">*</span>args, <span style="color:#f92672">**</span>kwargs):
+        <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;decorator&#34;</span>)
+        <span style="color:#66d9ef">return</span> func(<span style="color:#f92672">*</span>args, <span style="color:#f92672">**</span>kwargs)
+    <span style="color:#66d9ef">return</span> wrapper
 
-@app.route('/')
-@decorator
-def index():
-    return {'hello': 'world'}
-</code></pre>
-
-<h2 id="結果">結果</h2>
-
+<span style="color:#a6e22e">@app.route</span>(<span style="color:#e6db74">&#39;/&#39;</span>)
+<span style="color:#a6e22e">@decorator</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">index</span>():
+    <span style="color:#66d9ef">return</span> {<span style="color:#e6db74">&#39;hello&#39;</span>: <span style="color:#e6db74">&#39;world&#39;</span>}
+</code></pre></div><h2 id="結果">結果</h2>
 <p>ログが出る順番はこうなった</p>
-
 <pre><code>middleware1
 middleware2
 decorator
-</code></pre>
-
-<h2 id="つまり">つまり</h2>
-
+</code></pre><h2 id="つまり">つまり</h2>
 <ul>
 <li>MiddlewareはDecoratorよりも先に呼ばれる
-
 <ul>
 <li>外側にデコレートされるとも言える</li>
-</ul></li>
+</ul>
+</li>
 <li>Middlewareは宣言した順番に呼ばれる
-
 <ul>
 <li><code>@app.middleware</code> した順番</li>
-</ul></li>
+</ul>
+</li>
 </ul>
 
                 </section>

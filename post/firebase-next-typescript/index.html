@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.82.1" />
 		<title>firebase上でtypescriptで書かれたnextjsを動かす &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -72,7 +72,7 @@
                     </h1>
                     <h2 class="headline">
                     Jul 18, 2019 09:21
-                    · 1238 words
+                    · 1235 words
                     · 3 minute read
                       <span class="tags">
                       
@@ -83,205 +83,151 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#deploy">deploy</a>
-<ul>
-<li><a href="#deployがやっていること">deployがやっていること</a></li>
-<li><a href="#nextとcloudfunction関数のつなぎこみ">nextとcloudfunction関数のつなぎこみ</a></li>
-<li><a href="#cpx">cpx</a></li>
-<li><a href="#rimraf">rimraf</a></li>
-</ul></li>
-<li><a href="#firebaserc">.firebaserc</a></li>
-</ul></li>
-<li><a href="#typescript-に書き換える">TypeScript に書き換える</a>
-<ul>
-<li><a href="#必要だったpackage">必要だったpackage</a></li>
-<li><a href="#ファイルのリネーム">ファイルのリネーム</a></li>
-<li><a href="#tsconfig-json">tsconfig.json</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#deploy">deploy</a>
+      <ul>
+        <li><a href="#deployがやっていること">deployがやっていること</a></li>
+        <li><a href="#nextとcloudfunction関数のつなぎこみ">nextとcloudfunction関数のつなぎこみ</a></li>
+        <li><a href="#cpx">cpx</a></li>
+        <li><a href="#rimraf">rimraf</a></li>
+      </ul>
+    </li>
+    <li><a href="#firebaserc">.firebaserc</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#必要だったpackage">必要だったpackage</a></li>
+    <li><a href="#ファイルのリネーム">ファイルのリネーム</a></li>
+    <li><a href="#tsconfigjson">tsconfig.json</a></li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p>こちらのexampleを動かしながらデプロイまでの流れをみる</p>
-
+                    <p>こちらのexampleを動かしながらデプロイまでの流れをみる</p>
 <ul>
 <li><a href="https://github.com/zeit/next.js/tree/master/examples/with-firebase-hosting">next.js/examples/with-firebase-hosting at master · zeit/next.js</a></li>
 </ul>
-
 <p>できればtypescriptで開発したいので、それでどのへんをいじればいいのかも確認する</p>
-
 <h2 id="deploy">deploy</h2>
-
 <p>predeployで以下のコマンドが走る</p>
-
-<pre><code class="language-bash">npm run build-public
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">npm run build-public
 npm run build-funcs
 npm run build-app
 npm run copy-deps
-</code></pre>
-
-<p>これはそれぞれpackage.jsonでの定義がこうなっている</p>
-
-<pre><code class="language-bash"># publicディレクトリには画像などの静的ファイルを置く
-cpx &quot;src/public/**/*.*&quot; &quot;dist/public&quot; -C
-# cloud function のエントリポイントになる処理をbuild
-babel &quot;src/functions&quot; --out-dir &quot;dist/functions&quot;
-# next.config.jsによればbuild先はdist/functions/next
-# exports.next している index.js はここのビルド結果を使っている
-next build &quot;src/app/&quot;
-# cloud function のデプロイに必要なファイルをdist配下へ
-cpx &quot;*{package.json,package-lock.json,yarn.lock}&quot; &quot;dist/functions&quot; -C
-</code></pre>
-
-<h3 id="deployがやっていること">deployがやっていること</h3>
-
+</code></pre></div><p>これはそれぞれpackage.jsonでの定義がこうなっている</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># publicディレクトリには画像などの静的ファイルを置く</span>
+cpx <span style="color:#e6db74">&#34;src/public/**/*.*&#34;</span> <span style="color:#e6db74">&#34;dist/public&#34;</span> -C
+<span style="color:#75715e"># cloud function のエントリポイントになる処理をbuild</span>
+babel <span style="color:#e6db74">&#34;src/functions&#34;</span> --out-dir <span style="color:#e6db74">&#34;dist/functions&#34;</span>
+<span style="color:#75715e"># next.config.jsによればbuild先はdist/functions/next</span>
+<span style="color:#75715e"># exports.next している index.js はここのビルド結果を使っている</span>
+next build <span style="color:#e6db74">&#34;src/app/&#34;</span>
+<span style="color:#75715e"># cloud function のデプロイに必要なファイルをdist配下へ</span>
+cpx <span style="color:#e6db74">&#34;*{package.json,package-lock.json,yarn.lock}&#34;</span> <span style="color:#e6db74">&#34;dist/functions&#34;</span> -C
+</code></pre></div><h3 id="deployがやっていること">deployがやっていること</h3>
 <p><code>next build</code> と <code>babel</code> の2つのビルドコマンドを発行してるのが斬新</p>
-
 <ul>
 <li><code>dist/</code> 配下にcloudfunctionへアップロードするコードを集約
-
 <ul>
-<li>firebase.json</li>
+<li>firebase.json
+<ul>
 <li>hosting: <code>dist/public</code></li>
 <li>functions: <code>dist/functions</code></li>
-</ul></li>
+</ul>
+</li>
+</ul>
+</li>
 <li><code>npm run deploy</code> で <code>firebase deploy</code> を実行
-
 <ul>
 <li>public (静的ファイル) と functions (WebAPI) の両方をアップロード</li>
-</ul></li>
 </ul>
-
+</li>
+</ul>
 <h3 id="nextとcloudfunction関数のつなぎこみ">nextとcloudfunction関数のつなぎこみ</h3>
-
 <ul>
 <li><code>dist/functions/index.js</code> が cloud function から参照されるファイル</li>
 <li><code>dist/functions/index.js</code> が <code>dist/functions/next</code> 配下をloadしている</li>
 </ul>
-
-<pre><code class="language-js">var app = next({
-  dev,
-  conf: { distDir: `${path.relative(process.cwd(), __dirname)}/next` }
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">app</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">next</span>({
+  <span style="color:#a6e22e">dev</span>,
+  <span style="color:#a6e22e">conf</span><span style="color:#f92672">:</span> { <span style="color:#a6e22e">distDir</span><span style="color:#f92672">:</span> <span style="color:#e6db74">`</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">path</span>.<span style="color:#a6e22e">relative</span>(<span style="color:#a6e22e">process</span>.<span style="color:#a6e22e">cwd</span>(), <span style="color:#a6e22e">__dirname</span>)<span style="color:#e6db74">}</span><span style="color:#e6db74">/next`</span> }
 })
-</code></pre>
-
-<h3 id="cpx">cpx</h3>
-
+</code></pre></div><h3 id="cpx">cpx</h3>
 <p>cpxはrsync的なことをしてくれるコマンド
 package.jsonで使われている</p>
-
-<pre><code class="language-bash">cpx &quot;src/public/**/*.*&quot; &quot;dist/public&quot; -C
-</code></pre>
-
-<p><code>-C</code> オプションはコピーする前に<code>dist/public</code>の中身を空にするもの</p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cpx <span style="color:#e6db74">&#34;src/public/**/*.*&#34;</span> <span style="color:#e6db74">&#34;dist/public&#34;</span> -C
+</code></pre></div><p><code>-C</code> オプションはコピーする前に<code>dist/public</code>の中身を空にするもの</p>
 <blockquote>
-<p>-C, &ndash;clean               Clean files that matches <source> like pattern in
-                             <dest> directory before the first copying.</p>
+<p>-C, &ndash;clean               Clean files that matches <!-- raw HTML omitted --> like pattern in
+<!-- raw HTML omitted --> directory before the first copying.</p>
 </blockquote>
-
 <h3 id="rimraf">rimraf</h3>
-
 <p><code>rm -rf</code> と同じことをしてくれる</p>
-
 <p>この辺が便利なようだ</p>
-
 <ul>
 <li>windowsでも動く</li>
 <li>対象ファイルがなくてもエラーにならない</li>
 </ul>
-
 <h2 id="firebaserc">.firebaserc</h2>
-
 <p><code>project-name</code>って書いてあるけど入れるのはprojectId</p>
-
 <blockquote>
-<p>&ldquo;default&rdquo;: &ldquo;<project-name-here>&ldquo;</p>
+<p>&ldquo;default&rdquo;: &ldquo;<!-- raw HTML omitted -->&rdquo;</p>
 </blockquote>
-
-<pre><code class="language-bash">$ firebase list
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ firebase list
 ┌─────────┬───────────────────────┬─────────────┐
 │ Name    │ Project ID / Instance │ Permissions │
 ├─────────┼───────────────────────┼─────────────┤
 │ testpjt │ testpjt-534512        │ Owner       │
 └─────────┴───────────────────────┴─────────────┘
-</code></pre>
-
-<h1 id="typescript-に書き換える">TypeScript に書き換える</h1>
-
+</code></pre></div><h1 id="typescript-に書き換える">TypeScript に書き換える</h1>
 <p><del>このあたりを書き換えたらよさそう</del></p>
-
 <blockquote>
-<p>&ldquo;build-funcs&rdquo;: &ldquo;babel \&ldquo;src/functions\&rdquo; &ndash;out-dir \&ldquo;dist/functions\&ldquo;&rdquo;,</p>
+<p>&ldquo;build-funcs&rdquo;: &ldquo;babel &quot;src/functions&quot; &ndash;out-dir &quot;dist/functions&quot;&rdquo;,</p>
 </blockquote>
-
 <p>nextがbabelを使う設定になってるようなので、ここはそのままにしてbabelでtypescriptをコンパイルする方式にした。babelの設定を書き換えている</p>
-
-<pre><code class="language-json">{
-  &quot;presets&quot;: [
-    &quot;next/babel&quot;,
-    &quot;@babel/preset-typescript&quot;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+  <span style="color:#f92672">&#34;presets&#34;</span>: [
+    <span style="color:#e6db74">&#34;next/babel&#34;</span>,
+    <span style="color:#e6db74">&#34;@babel/preset-typescript&#34;</span>
   ]
 }
-</code></pre>
-
-<p>babelでtypescriptをコンパイルしているので、ビルド時の型チェックなどは提供されない</p>
-
+</code></pre></div><p>babelでtypescriptをコンパイルしているので、ビルド時の型チェックなどは提供されない</p>
 <h2 id="必要だったpackage">必要だったpackage</h2>
-
 <p>この辺のインストールが必要だった</p>
-
 <pre><code>yarn add @types/react @babel/preset-typescript --dev
-</code></pre>
-
-<ul>
+</code></pre><ul>
 <li><code>@types/react</code> はreactの型定義</li>
 <li><code>@babel/preset-typescript</code> はbabelでtsをコンパイルするためのpreset
-
 <ul>
 <li>ビルド時に型チェックとかはしてくれる</li>
-</ul></li>
 </ul>
-
+</li>
+</ul>
 <h2 id="ファイルのリネーム">ファイルのリネーム</h2>
-
 <p>こんな感じで一括リネーム</p>
-
-<pre><code class="language-bash">$ find ./src -name '*.js' -type f \
-    | perl -wnlE '/(\S+).js/ and say &quot;$1.js $1.tsx&quot;' \
-    | xargs -n2 mv
-</code></pre>
-
-<h2 id="tsconfig-json">tsconfig.json</h2>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ find ./src -name <span style="color:#e6db74">&#39;*.js&#39;</span> -type f <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    | perl -wnlE <span style="color:#e6db74">&#39;/(\S+).js/ and say &#34;$1.js $1.tsx&#34;&#39;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    | xargs -n2 mv
+</code></pre></div><h2 id="tsconfigjson">tsconfig.json</h2>
 <p>babel越しにビルドするとtsconfigが自動で書き換えられる</p>
-
 <blockquote>
-<p>The following changes are being made to your tsconfig.json file:
- - compilerOptions.strict to be suggested value: false (this can be changed)
- - compilerOptions.esModuleInterop must be true (requirement for babel)
- - compilerOptions.resolveJsonModule must be true</p>
+<p>The following changes are being made to your tsconfig.json file:</p>
+<ul>
+<li>compilerOptions.strict to be suggested value: false (this can be changed)</li>
+<li>compilerOptions.esModuleInterop must be true (requirement for babel)</li>
+<li>compilerOptions.resolveJsonModule must be true</li>
+</ul>
 </blockquote>
-
 <p>babelに都合がよいような設定になる</p>
-
-<hr />
-
+<hr>
 <p>ここまでで</p>
-
 <ul>
 <li>firebase cloud function 上で</li>
 <li>typescript で書かれた</li>
 <li>nextjs を動かす</li>
 </ul>
-
 <p>が出来た</p>
 
                 </section>

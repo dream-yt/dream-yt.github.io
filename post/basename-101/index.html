@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.82.1" />
 		<title>basename と末尾のスラッシュなど &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -81,27 +81,29 @@
                 </header>
                 
                   
+                    <div id="toc">
+                      <nav id="TableOfContents"></nav>
+                    </div>
+                  
                 
                 <section id="post-body">
                     <p>basenameはシェルスクリプトとかでパスからファイル名を取り出す時に使う。
 文字列が <code>/</code> で終端してるかどうかにかからわずうまいことやってくれるのが便利。</p>
-
-<pre><code class="language-bash">$ pwd .
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ pwd .
 /Users/sakamoto/apps/learn
 
-# 末端部分を切り出す
+<span style="color:#75715e"># 末端部分を切り出す</span>
 $ basename /Users/sakamoto/apps/learn
 learn
 
-# / で終端してた場合は/を取り除いて取得
+<span style="color:#75715e"># / で終端してた場合は/を取り除いて取得</span>
 $ basename /Users/sakamoto/apps/
 apps
 
-# 存在しないファイルでもbasename出来る
+<span style="color:#75715e"># 存在しないファイルでもbasename出来る</span>
 $ basename /Users/sakamoto/apps/learn/READ
 READ
-</code></pre>
-
+</code></pre></div>
                 </section>
             </article>
 

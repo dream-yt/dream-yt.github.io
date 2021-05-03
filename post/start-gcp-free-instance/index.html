@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.82.1" />
 		<title>Start Gcp Free Instance &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,58 +83,40 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li><a href="#gcpで無料のインスタンスを立ち上げてsshするまで">gcpで無料のインスタンスを立ち上げてsshするまで</a>
-<ul>
-<li>
-<ul>
-<li><a href="#gcpアカウントのセットアップ">gcpアカウントのセットアップ</a></li>
-<li><a href="#インスタンスの立ち上げ">インスタンスの立ち上げ</a></li>
-<li><a href="#インスタンスへのログイン">インスタンスへのログイン</a></li>
-<li><a href="#スタートアップスクリプトのログをtail">スタートアップスクリプトのログをtail</a></li>
-</ul></li>
-</ul></li>
-</ul>
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#gcpアカウントのセットアップ">gcpアカウントのセットアップ</a></li>
+        <li><a href="#インスタンスの立ち上げ">インスタンスの立ち上げ</a></li>
+        <li><a href="#インスタンスへのログイン">インスタンスへのログイン</a></li>
+        <li><a href="#スタートアップスクリプトのログをtail">スタートアップスクリプトのログをtail</a></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<h1 id="gcpで無料のインスタンスを立ち上げてsshするまで">gcpで無料のインスタンスを立ち上げてsshするまで</h1>
-
+                    <h1 id="gcpで無料のインスタンスを立ち上げてsshするまで">gcpで無料のインスタンスを立ち上げてsshするまで</h1>
 <h3 id="gcpアカウントのセットアップ">gcpアカウントのセットアップ</h3>
-
-<pre><code class="language-bash">$ gcloud config set project penguin-xxxxxxxxxx
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ gcloud config set project penguin-xxxxxxxxxx
 $ gcloud config set account penguin@gmail.com
 $ gcloud auth login
-</code></pre>
-
-<p>ブラウザが立ち上がるのでログイン</p>
-
+</code></pre></div><p>ブラウザが立ち上がるのでログイン</p>
 <h3 id="インスタンスの立ち上げ">インスタンスの立ち上げ</h3>
-
 <p>f1-microをUSリージョンで立てる分には無料</p>
-
-<pre><code class="language-bash">$ gcloud compute instances create island \
-    --image-family ubuntu-1804-lts \
-    --image-project gce-uefi-images \
-    --machine-type f1-micro \
-    --zone us-east1-b \
-    --metadata-from-file startup-script=./startup-script.sh
-</code></pre>
-
-<h3 id="インスタンスへのログイン">インスタンスへのログイン</h3>
-
-<pre><code class="language-bash">$ gcloud compute ssh root@island --zone us-east1-b
-</code></pre>
-
-<h3 id="スタートアップスクリプトのログをtail">スタートアップスクリプトのログをtail</h3>
-
-<pre><code class="language-bash">$ tail -F /var/log/syslog
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ gcloud compute instances create island <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --image-family ubuntu-1804-lts <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --image-project gce-uefi-images <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --machine-type f1-micro <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --zone us-east1-b <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --metadata-from-file startup-script<span style="color:#f92672">=</span>./startup-script.sh
+</code></pre></div><h3 id="インスタンスへのログイン">インスタンスへのログイン</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ gcloud compute ssh root@island --zone us-east1-b
+</code></pre></div><h3 id="スタートアップスクリプトのログをtail">スタートアップスクリプトのログをtail</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ tail -F /var/log/syslog
+</code></pre></div>
                 </section>
             </article>
 

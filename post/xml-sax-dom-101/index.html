@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.82.1" />
 		<title>XMLパーサーの Sax と Dom の一長一短について &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -72,7 +72,7 @@
                     </h1>
                     <h2 class="headline">
                     Feb 22, 2021 18:19
-                    · 565 words
+                    · 561 words
                     · 2 minute read
                       <span class="tags">
                       
@@ -83,61 +83,44 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#一長一短">一長一短</a>
-<ul>
-<li><a href="#domパーサ">DOMパーサ</a></li>
-<li><a href="#saxパーサ">SAXパーサ</a></li>
-</ul></li>
-<li><a href="#参考">参考</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#一長一短">一長一短</a>
+      <ul>
+        <li><a href="#domパーサ">DOMパーサ</a></li>
+        <li><a href="#saxパーサ">SAXパーサ</a></li>
+      </ul>
+    </li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p>XMLのパーサにはイベントドリブンの方式とオブジェクトベースの2つのやりかたがある</p>
-
+                    <p>XMLのパーサにはイベントドリブンの方式とオブジェクトベースの2つのやりかたがある</p>
 <ul>
 <li>DOMはオブジェクトベース</li>
 <li>SAXパーサはイベントドリブン</li>
 </ul>
-
 <p>イベントドリブンにxmlをパースする場合は以下のようなイベントで処理をキックすることになる</p>
-
 <ul>
-<li>タグの開始 <code>&lt;</code> や終了 <code>/&gt;</code>に当たった時</li>
+<li>タグの開始 <code>&lt;</code> や終了 <code>/&gt; </code>に当たった時</li>
 <li>エレメントの内容/エンティティーを読み込んだ時</li>
 <li>構文解析などエラーが発生した時</li>
 </ul>
-
 <p>パーサーは読み込みながらイベントにあたって登録された処理を実行していく</p>
-
 <h2 id="一長一短">一長一短</h2>
-
 <h3 id="domパーサ">DOMパーサ</h3>
-
 <p>DOMパーサのほうは、ツリーを生成するためXML文書をすべてメモリに置くことになるので、
 文書が1GBとか大きい場合はメモリの使用量が大きくなってしまう。</p>
-
 <p>htmlはメモリを圧迫するほど大きいことがあんまりないのでブラウザではDOMが使われている。</p>
-
 <h3 id="saxパーサ">SAXパーサ</h3>
-
 <p>SAXパーサは読んでイベントを生成するだけなのでメモリに置くデータ量が小さくて済む。
 しかし、SAXは逆にXMLを読み込んだ位置から前に戻るという操作が出来ない。
 上から下に一方向に読んで、読み終わったら処理が終了しているという作りにする必要がある。</p>
-
 <p>UIの操作に応じてXMLを変化させるといった操作に向かないためブラウザではSAXは使われていない。
 SAXは巨大なXMLを上から下に読んでいくバッチ処理などで使い所がある。</p>
-
 <h2 id="参考">参考</h2>
-
 <ul>
 <li><a href="https://www.ibm.com/developerworks/jp/xml/library/x-saxapi-index/index.html">強力なAPI、SAX</a></li>
 </ul>

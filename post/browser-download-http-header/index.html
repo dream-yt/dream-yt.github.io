@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.82.1" />
 		<title>CSVダウンロードのときにつけるヘッダ &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,39 +83,30 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#参考">参考</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#参考">参考</a></li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<pre><code>Content-Type: text/csv; charset=cp932
+                    <pre><code>Content-Type: text/csv; charset=cp932
 Content-Disposition: attachment;filename=your_filename.csv
-</code></pre>
-
-<ul>
+</code></pre><ul>
 <li>CSVファイルはエクセルで開かれることが多いのでエンコーディングはcp932を使う</li>
 <li>ダウンロードファイルなことを明示するために <code>Content-Disposition</code> を明示する</li>
 <li><code>Content-Transfer-Encoding</code> というヘッダを設定する例がでてくるけど、これは電子メール用のヘッダなのでつけてもブラウザはこれを無視する。つけないでよい</li>
 </ul>
-
 <h2 id="参考">参考</h2>
-
 <ul>
 <li><a href="https://weblabo.oscasierra.net/shift_jis-windows31j/">Shift_JIS と Windows-31J (MS932) の違いを整理してみよう |</a></li>
 <li><a href="https://developer.mozilla.org/ja/docs/Web/HTTP/Headers/Content-Disposition">Content-Disposition - HTTP | MDN</a></li>
 <li><a href="https://stackoverflow.com/questions/7285372/is-content-transfer-encoding-an-http-header">base64 - Is Content-Transfer-Encoding an HTTP header? - Stack Overflow</a>
-
 <ul>
 <li><a href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html">HTTP/1.1: Header Field Definitions</a></li>
-</ul></li>
+</ul>
+</li>
 </ul>
 
                 </section>

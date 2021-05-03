@@ -14,7 +14,7 @@
   
   
   <meta name="twitter:title" content="tailwindcss で横スクロール UI"/>
-  <meta name="twitter:description" content="よくある横スクロールの UI を tailwind で実装する。 こんな感じで実現する。 &lt;ul className=&quot;flex overflow-x-auto&quot;&gt; {list.map((g) =&gt; ( &lt;li className=&quot;flex-none w-2/5&quot; key={g.id}&gt; &lt;Card imgSrc={g.imageUrl()} imgAlt={g.name}&gt; &lt;p&gt;{g.name}&lt;/p&gt; &lt;/Card&gt; &lt;/li&gt; ))} &lt;/ul&gt; 参考 css - Overflow-x not working - Stack Overflow"/>
+  <meta name="twitter:description" content="よくある横スクロールの UI を tailwind で実装する。 こんな感じで実現する。 &lt;ul className=&#34;flex overflow-x-auto&#34;&gt; {list.map((g) =&gt; ( &lt;li className=&#34;flex-none w-2/5&#34; key={g.id}&gt; &lt;Card imgSrc={g.imageUrl()} imgAlt={g.name}&gt; &lt;p&gt;{g.name}&lt;/p&gt; &lt;/Card&gt; &lt;/li&gt; ))} &lt;/ul&gt; 参考 css - Overflow-x not working - Stack Overflow"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.82.1" />
 		<title>tailwindcss で横スクロール UI &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,38 +83,27 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#参考">参考</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#参考">参考</a></li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p>よくある横スクロールの UI を tailwind で実装する。</p>
-
-<p><img src="https://raw.githubusercontent.com/sakamossan/image-bed/master/assets/474e5647-92a5-9431-c9b5-dd4cc2dba247.png" alt="" /></p>
-
+                    <p>よくある横スクロールの UI を tailwind で実装する。</p>
+<p><img src="https://raw.githubusercontent.com/sakamossan/image-bed/master/assets/474e5647-92a5-9431-c9b5-dd4cc2dba247.png" alt=""></p>
 <p>こんな感じで実現する。</p>
-
-<pre><code class="language-jsx">&lt;ul className=&quot;flex overflow-x-auto&quot;&gt;
-  {list.map((g) =&gt; (
-    &lt;li className=&quot;flex-none w-2/5&quot; key={g.id}&gt;
-      &lt;Card imgSrc={g.imageUrl()} imgAlt={g.name}&gt;
-        &lt;p&gt;{g.name}&lt;/p&gt;
-      &lt;/Card&gt;
-    &lt;/li&gt;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx">&lt;<span style="color:#f92672">ul</span> <span style="color:#a6e22e">className</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;flex overflow-x-auto&#34;</span>&gt;
+  {<span style="color:#a6e22e">list</span>.<span style="color:#a6e22e">map</span>((<span style="color:#a6e22e">g</span>) =&gt; (
+    &lt;<span style="color:#f92672">li</span> <span style="color:#a6e22e">className</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;flex-none w-2/5&#34;</span> <span style="color:#a6e22e">key</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">g</span>.<span style="color:#a6e22e">id</span>}&gt;
+      &lt;<span style="color:#f92672">Card</span> <span style="color:#a6e22e">imgSrc</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">g</span>.<span style="color:#a6e22e">imageUrl</span>()} <span style="color:#a6e22e">imgAlt</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">g</span>.<span style="color:#a6e22e">name</span>}&gt;
+        &lt;<span style="color:#f92672">p</span>&gt;{<span style="color:#a6e22e">g</span>.<span style="color:#a6e22e">name</span>}&lt;/<span style="color:#f92672">p</span>&gt;
+      &lt;/<span style="color:#f92672">Card</span>&gt;
+    &lt;/<span style="color:#f92672">li</span>&gt;
   ))}
-&lt;/ul&gt;
-</code></pre>
-
-<h2 id="参考">参考</h2>
-
+&lt;/<span style="color:#f92672">ul</span>&gt;
+</code></pre></div><h2 id="参考">参考</h2>
 <ul>
 <li><a href="https://stackoverflow.com/questions/24132943/overflow-x-not-working#answer-24133053">css - Overflow-x not working - Stack Overflow</a></li>
 </ul>

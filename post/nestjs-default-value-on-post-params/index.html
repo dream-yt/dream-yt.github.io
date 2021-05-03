@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="https://dream-yt.github.io/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="NestJS/class-transformer でPOSTされなかったパラメータにデフォルトを設定する"/>
+  <meta name="twitter:description" content="前回までのあらすじ NestJSでPOSTパラメータをクラスのインスタンスに変換して受け取る 文字列で渡ってきた &quot;2011-01-01 12:34:56&quot; という文字列を new Date(&quot;2011-01-01 12:34:56&quot;) された状"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@site_author"/>
+  
+
+
+
+		
+		<meta name="author" content="site_author">
+		<meta name="description" content="Site Description">
+		<meta name="generator" content="Hugo 0.82.1" />
+		<title>NestJS/class-transformer でPOSTされなかったパラメータにデフォルトを設定する &middot; sacre</title>
+		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/font-awesome.min.css">
+		
+
+		
+		<link href="https://dream-yt.github.io/index.xml" rel="alternate" type="application/rss+xml" title="sacre" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='https://dream-yt.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://dream-yt.github.io/posts'>Archive</a>
+	<a href='https://dream-yt.github.io/tags'>Tags</a>
+	<a href='https://dream-yt.github.io/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="https://dream-yt.github.io/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        NestJS/class-transformer でPOSTされなかったパラメータにデフォルトを設定する
+                    </h1>
+                    <h2 class="headline">
+                    May 2, 2021 13:11
+                    · 564 words
+                    · 2 minute read
+                      <span class="tags">
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#caveat">Caveat</a></li>
+  </ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    <p>前回までのあらすじ</p>
+<ul>
+<li><a href="https://blog.n-t.jp/tech/nestjs-class-transformer-pipe/">NestJSでPOSTパラメータをクラスのインスタンスに変換して受け取る</a></li>
+</ul>
+<p>文字列で渡ってきた <code>&quot;2011-01-01 12:34:56&quot;</code> という文字列を <code>new Date(&quot;2011-01-01 12:34:56&quot;)</code> された状態で扱うことはできるようになったが、今度はこれにデフォルト値を入れた状態でコントローラが受け取るための方法。</p>
+<p>たとえば、<code>expireAt</code> というフィールドがあって、これが <code>null</code> でPOSTされてきたときに二ヶ月後のDateが入った状態で処理を開始したい場合はこんなコードを書けばよい。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-tsx" data-lang="tsx"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">addMonths</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;date-fns&#39;</span>;
+<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Type</span>, <span style="color:#a6e22e">Transform</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;class-transformer&#39;</span>;
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CreateSampleDto</span> {
+  <span style="color:#66d9ef">@IsDate</span>()
+  <span style="color:#66d9ef">@IsNotEmpty</span>()
+  <span style="color:#66d9ef">@Type</span>(() <span style="color:#f92672">=&gt;</span> Date)
+  <span style="color:#66d9ef">@Transform</span>(({ <span style="color:#a6e22e">value</span> }) <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">value</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">addMonths</span>(<span style="color:#66d9ef">new</span> Date(), <span style="color:#ae81ff">1</span>), {
+    <span style="color:#a6e22e">toClassOnly</span>: <span style="color:#66d9ef">true</span>,
+  })
+  <span style="color:#a6e22e">expireAt</span>: <span style="color:#66d9ef">Date</span>;
+}
+</code></pre></div><ul>
+<li><a href="https://github.com/typestack/class-transformer/issues/129">feat: use default value for property when doing plainToClass · Issue #129 · typestack/class-transformer</a></li>
+</ul>
+<h2 id="caveat">Caveat</h2>
+<p>NestJS の <code>ValidationPipe</code> が <code>undefined</code> だったフィールドは処理してくれないので、falsyな値をつけてPOSTしないと期待通りに動作しない。</p>
+<p>つまり、この値をPOSTした場合は期待通り二ヶ月後の日付が入るが</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{<span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">1</span>, <span style="color:#f92672">&#34;expireAt&#34;</span>: <span style="color:#66d9ef">null</span>}
+{<span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">1</span>, <span style="color:#f92672">&#34;expireAt&#34;</span>: <span style="color:#e6db74">&#34;0&#34;</span>}
+</code></pre></div><p>こんな値をPOSTした場合は、そもそもデフォルト値を入れるための処理が呼ばれない。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{<span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">1</span>}
+{<span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">1</span>, <span style="color:#f92672">&#34;expireAt&#34;</span>: <span style="color:#960050;background-color:#1e0010">undefined</span>}
+</code></pre></div><p>意図せぬ値がDBに入らないように <code>class-validator</code> の <code>IsNotEmpty</code> を使うと、<code>undefined</code> をPOSTした場合は弾いて、<code>null</code> をPOSTした場合は期待通りに動作するようになる。<code>IsNotEmpty</code> は <code>Transform</code> よりも後に呼ばれるようだ。</p>
+<p>苦しい感じでなんとかしているが、クライアント側からするとよくわからない仕様なので本当は <code>undefined</code> を投げられた場合もなんとかしたい。</p>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fnestjs-default-value-on-post-params%2f - NestJS%2fclass-transformer%20%e3%81%a7POST%e3%81%95%e3%82%8c%e3%81%aa%e3%81%8b%e3%81%a3%e3%81%9f%e3%83%91%e3%83%a9%e3%83%a1%e3%83%bc%e3%82%bf%e3%81%ab%e3%83%87%e3%83%95%e3%82%a9%e3%83%ab%e3%83%88%e3%82%92%e8%a8%ad%e5%ae%9a%e3%81%99%e3%82%8b by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'your_disqus_short_name'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/dream-yt/sacre">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://twitter.com/FUTABA_SACRE">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2021 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="https://dream-yt.github.io/js/jquery-3.3.1.min.js"></script>
+<script src="https://dream-yt.github.io/js/main.js"></script>
+<script src="https://dream-yt.github.io/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+
+
+
+
+    </body>
+</html>

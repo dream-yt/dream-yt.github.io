@@ -14,7 +14,7 @@
   
   
   <meta name="twitter:title" content="workflow_dispatch イベントを act でローカルで実行する場合"/>
-  <meta name="twitter:description" content="myjob という workflow_dispatch イベントで定義した job を act で実行したい場合。 .act/stg.event.json というファイルを作成する { &quot;event&quot;: &quot;workflow_dispatch&quot;, &quot;inputs&quot;: { &quot;stage&quot;: &quot;stg&quot; } } --eventpath で実行するイベントを指定 $ act --job myjob --eventpath .act/stg.event.json 参考 how"/>
+  <meta name="twitter:description" content="myjob という workflow_dispatch イベントで定義した job を act で実行したい場合。 .act/stg.event.json というファイルを作成する { &#34;event&#34;: &#34;workflow_dispatch&#34;, &#34;inputs&#34;: { &#34;stage&#34;: &#34;stg&#34; } } --eventpath で実行するイベントを指定 $ act --job myjob --eventpath .act/stg.event.json 参考 how"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.82.1" />
 		<title>workflow_dispatch イベントを act でローカルで実行する場合 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,38 +83,25 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#参考">参考</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#参考">参考</a></li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p>myjob という workflow_dispatch イベントで定義した job を act で実行したい場合。</p>
-
+                    <p>myjob という workflow_dispatch イベントで定義した job を act で実行したい場合。</p>
 <p><code>.act/stg.event.json</code> というファイルを作成する</p>
-
-<pre><code class="language-json">{
-    &quot;event&quot;: &quot;workflow_dispatch&quot;,
-    &quot;inputs&quot;: {
-        &quot;stage&quot;: &quot;stg&quot;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+    <span style="color:#f92672">&#34;event&#34;</span>: <span style="color:#e6db74">&#34;workflow_dispatch&#34;</span>,
+    <span style="color:#f92672">&#34;inputs&#34;</span>: {
+        <span style="color:#f92672">&#34;stage&#34;</span>: <span style="color:#e6db74">&#34;stg&#34;</span>
     }
 }
-</code></pre>
-
-<p><code>--eventpath</code> で実行するイベントを指定</p>
-
-<pre><code class="language-bash">$ act --job myjob --eventpath .act/stg.event.json
-</code></pre>
-
-<h2 id="参考">参考</h2>
-
+</code></pre></div><p><code>--eventpath</code> で実行するイベントを指定</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ act --job myjob --eventpath .act/stg.event.json
+</code></pre></div><h2 id="参考">参考</h2>
 <ul>
 <li><a href="https://github.com/nektos/act/issues/179">how to trigger a tag event locally · Issue #179 · nektos/act</a></li>
 </ul>
