@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="https://dream-yt.github.io/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="NestJS の認証で、一部のルートだけ認証不要でアクセスさせたい"/>
+  <meta name="twitter:description" content="こちらの続編。 passport 入門と NestJS で使う場合のメモ NestJS の App#useGlobalGuards を使うと、すべてのルート(エンドポイント)に対して認証をかけることができる。ルートを実装するご"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@site_author"/>
+  
+
+
+
+		
+		<meta name="author" content="site_author">
+		<meta name="description" content="Site Description">
+		<meta name="generator" content="Hugo 0.82.1" />
+		<title>NestJS の認証で、一部のルートだけ認証不要でアクセスさせたい &middot; sacre</title>
+		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/font-awesome.min.css">
+		
+
+		
+		<link href="https://dream-yt.github.io/index.xml" rel="alternate" type="application/rss+xml" title="sacre" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='https://dream-yt.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://dream-yt.github.io/posts'>Archive</a>
+	<a href='https://dream-yt.github.io/tags'>Tags</a>
+	<a href='https://dream-yt.github.io/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="https://dream-yt.github.io/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        NestJS の認証で、一部のルートだけ認証不要でアクセスさせたい
+                    </h1>
+                    <h2 class="headline">
+                    May 4, 2021 22:06
+                    · 690 words
+                    · 2 minute read
+                      <span class="tags">
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#方法">方法</a>
+      <ul>
+        <li><a href="#認証をしないためのデコレータ">認証をしないためのデコレータ</a></li>
+        <li><a href="#認証処理でルートのメタデータを参照する">認証処理でルートのメタデータを参照する</a></li>
+        <li><a href="#パブリックにしたいルートにデコレータを設定する">パブリックにしたいルートにデコレータを設定する</a></li>
+      </ul>
+    </li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    <p>こちらの続編。</p>
+<ul>
+<li><a href="https://blog.n-t.jp/tech/nestjs-passport-101/">passport 入門と NestJS で使う場合のメモ</a></li>
+</ul>
+<p>NestJS の <code>App#useGlobalGuards</code> を使うと、すべてのルート(エンドポイント)に対して認証をかけることができる。ルートを実装するごとにいちいち依存を定義してデコレータでGuardをつけるのは面倒なのでこの機能はとても便利である。
+しかし、一部のルートだけ認証せずにアクセスさせたい場合がある。たとえば、Prometheus からアクセスされるスコアボードなどは認証をかけたくない。</p>
+<p>そういうときに一部のルートだけ明示的にPublicにするための方法が GitHub issue で案内されていた。</p>
+<ul>
+<li><a href="https://github.com/nestjs/nest/issues/964">Add exclude feature for useGlobalGuards · Issue #964 · nestjs/nest</a></li>
+</ul>
+<h2 id="方法">方法</h2>
+<ul>
+<li><code>@nestjs/common</code> の <code>SetMetadata</code> を使い、ルートがパブリックであることを明示できるデコレータを実装する</li>
+<li>認証を行うGuardの中でルートのコンテキストを参照し、もしルートがパブリックなら認証処理をせずにコントローラに処理を受け渡す実装をする</li>
+<li>認証を不要にしたいルートに件のデコレータを設定する</li>
+</ul>
+<h3 id="認証をしないためのデコレータ">認証をしないためのデコレータ</h3>
+<p><code>SetMetadata</code> はルートにかけるデコレータをつくるためのヘルパーである。ここで設定されたメタデータは して、Reflector</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">SetMetadata</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;@nestjs/common&#39;</span>;
+
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">IS_PUBLIC_KEY</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;isPublic&#39;</span>;
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Public</span> <span style="color:#f92672">=</span> () <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">SetMetadata</span>(<span style="color:#a6e22e">IS_PUBLIC_KEY</span>, <span style="color:#66d9ef">true</span>);
+</code></pre></div><ul>
+<li><a href="https://docs.nestjs.com/fundamentals/execution-context#reflection-and-metadata">Execution context | NestJS - A progressive Node.js framework</a></li>
+</ul>
+<h3 id="認証処理でルートのメタデータを参照する">認証処理でルートのメタデータを参照する</h3>
+<p>Guard の canActivate を override して、Reflector からルートに設定されたコンテキストを参照する。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">@Injectable</span>()
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">JwtAuthGuard</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">AuthGuard</span>(<span style="color:#e6db74">&#39;jwt&#39;</span>) {
+  <span style="color:#66d9ef">constructor</span>(<span style="color:#66d9ef">private</span> <span style="color:#a6e22e">reflector</span>: <span style="color:#66d9ef">Reflector</span>) {
+    <span style="color:#66d9ef">super</span>();
+  }
+
+  <span style="color:#75715e">// override
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">canActivate</span>(<span style="color:#a6e22e">context</span>: <span style="color:#66d9ef">ExecutionContext</span>) {
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">isPublic</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">reflector</span>.<span style="color:#a6e22e">getAllAndOverride</span>&lt;<span style="color:#f92672">boolean</span>&gt;(<span style="color:#a6e22e">IS_PUBLIC_KEY</span>, [
+      <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">getHandler</span>(),
+      <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">getClass</span>(),
+    ]);
+    <span style="color:#75715e">// ルートの `IS_PUBLIC_KEY` フラグがたっていたらtrueを返してしまう
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">isPublic</span>) {
+      <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>;
+    }
+    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">super</span>.<span style="color:#a6e22e">canActivate</span>(<span style="color:#a6e22e">context</span>);
+  }
+}
+</code></pre></div><h4 id="reflector-を-guard-に渡す">Reflector を Guard に渡す</h4>
+<p><code>JwtAuthGuard</code> のコンストラクタで <code>Reflector</code> が必要になったので引数で渡すようにする。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts">  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">reflector</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">app</span>.<span style="color:#66d9ef">get</span>(<span style="color:#a6e22e">Reflector</span>);
+  <span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">useGlobalGuards</span>(<span style="color:#66d9ef">new</span> <span style="color:#a6e22e">JwtAuthGuard</span>(<span style="color:#a6e22e">reflector</span>));
+</code></pre></div><h3 id="パブリックにしたいルートにデコレータを設定する">パブリックにしたいルートにデコレータを設定する</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Public</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;./auth/public&#39;</span>;
+
+...
+
+  <span style="color:#66d9ef">@Public</span>()
+  <span style="color:#66d9ef">@Get</span>()
+  <span style="color:#a6e22e">getHello</span>()<span style="color:#f92672">:</span> <span style="color:#66d9ef">string</span> {
+    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">appService</span>.<span style="color:#a6e22e">getHello</span>();
+  }
+</code></pre></div><h2 id="参考">参考</h2>
+<ul>
+<li><a href="https://docs.nestjs.com/security/authentication">Authentication | NestJS - A progressive Node.js framework</a></li>
+</ul>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fnestjs-avoid-global-authguard-in-some-routes%2f - NestJS%20%e3%81%ae%e8%aa%8d%e8%a8%bc%e3%81%a7%e3%80%81%e4%b8%80%e9%83%a8%e3%81%ae%e3%83%ab%e3%83%bc%e3%83%88%e3%81%a0%e3%81%91%e8%aa%8d%e8%a8%bc%e4%b8%8d%e8%a6%81%e3%81%a7%e3%82%a2%e3%82%af%e3%82%bb%e3%82%b9%e3%81%95%e3%81%9b%e3%81%9f%e3%81%84 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'your_disqus_short_name'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/dream-yt/sacre">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://twitter.com/FUTABA_SACRE">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2021 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="https://dream-yt.github.io/js/jquery-3.3.1.min.js"></script>
+<script src="https://dream-yt.github.io/js/main.js"></script>
+<script src="https://dream-yt.github.io/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+
+
+
+
+    </body>
+</html>
