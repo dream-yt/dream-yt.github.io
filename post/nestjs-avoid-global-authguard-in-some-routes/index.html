@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.82.1" />
+		<meta name="generator" content="Hugo 0.79.0" />
 		<title>NestJS の認証で、一部のルートだけ認証不要でアクセスさせたい &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -72,7 +72,7 @@
                     </h1>
                     <h2 class="headline">
                     May 4, 2021 22:06
-                    · 690 words
+                    · 697 words
                     · 2 minute read
                       <span class="tags">
                       
@@ -115,7 +115,7 @@
 <li>認証を不要にしたいルートに件のデコレータを設定する</li>
 </ul>
 <h3 id="認証をしないためのデコレータ">認証をしないためのデコレータ</h3>
-<p><code>SetMetadata</code> はルートにかけるデコレータをつくるためのヘルパーである。ここで設定されたメタデータは して、Reflector</p>
+<p><code>SetMetadata</code> はルートにかけるデコレータをつくるためのヘルパーである。ここで設定されたメタデータは Reflector を通してGuardの中で参照される。</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">SetMetadata</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;@nestjs/common&#39;</span>;
 
 <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">IS_PUBLIC_KEY</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;isPublic&#39;</span>;

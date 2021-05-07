@@ -6,7 +6,16 @@
     <description>Recent content in Posts on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Tue, 04 May 2021 22:06:35 +0900</lastBuildDate><atom:link href="https://dream-yt.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 07 May 2021 11:32:05 +0900</lastBuildDate><atom:link href="https://dream-yt.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>xargs にシェルの関数を渡して並列処理してもらう</title>
+      <link>https://dream-yt.github.io/post/pass-xargs-shell-function/</link>
+      <pubDate>Fri, 07 May 2021 11:32:05 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/pass-xargs-shell-function/</guid>
+      <description>普通にやると xargs にはシェルの関数を渡すことはできないが、ちょっと頑張れば xargs で関数を並列で処理させることができる。 普通は xargs ではなく for ループで処理</description>
+    </item>
+    
     <item>
       <title>NestJS の認証で、一部のルートだけ認証不要でアクセスさせたい</title>
       <link>https://dream-yt.github.io/post/nestjs-avoid-global-authguard-in-some-routes/</link>
