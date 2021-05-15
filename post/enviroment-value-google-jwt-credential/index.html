@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>環境変数にセットしてあるGoogleのJWTを使って認証する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,55 +83,67 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li>
-      <ul>
-        <li><a href="#googleapis-と-google-auth-library"><code>googleapis</code> と <code>google-auth-library</code></a></li>
-      </ul>
-    </li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#googleapis-と-google-auth-library"><code>googleapis</code> と <code>google-auth-library</code></a></li>
+</ul></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>GoogleのAPIを叩く際に、<code>GOOGLE_APPLICATION_CREDENTIALS</code>を使ってファイルから認証情報を読み取る例は書いてあったが、環境変数に入ってるJWT文字列を認証情報として使う方法が見つからなかったのでメモ</p>
+                    
+
+<p>GoogleのAPIを叩く際に、<code>GOOGLE_APPLICATION_CREDENTIALS</code>を使ってファイルから認証情報を読み取る例は書いてあったが、環境変数に入ってるJWT文字列を認証情報として使う方法が見つからなかったのでメモ</p>
+
 <p>こちらに書いてある<code>fromJSON</code> を使う方法を試したら通った</p>
+
 <ul>
 <li><a href="https://github.com/googleapis/google-auth-library-nodejs#loading-credentials-from-environment-variables">google-auth-library-nodejs#Loading credentials from environment variables</a></li>
 </ul>
+
 <blockquote>
 <p>Instead of loading credentials from a key file, you can also provide them using an environment variable and the GoogleAuth.fromJSON() method. This is particularly convenient for systems that deploy directly from source control (Heroku, App Engine, etc).</p>
 </blockquote>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">google</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;googleapis&#39;</span>);
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">sheets</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">google</span>.<span style="color:#a6e22e">sheets</span>(<span style="color:#e6db74">&#39;v4&#39;</span>);
 
-<span style="color:#66d9ef">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">getSpreadsheetData</span> (<span style="color:#a6e22e">spreadsheetId</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">string</span>, <span style="color:#a6e22e">range</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">string</span>) {
-    <span style="color:#75715e">// `CREDJSON` 環境変数にJWTが入ってるとして
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">cred</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">parse</span>(<span style="color:#a6e22e">process</span>.<span style="color:#a6e22e">env</span>.<span style="color:#a6e22e">CREDJSON</span>);
-    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">auth</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">google</span>.<span style="color:#a6e22e">auth</span>.<span style="color:#a6e22e">fromJSON</span>(<span style="color:#a6e22e">cred</span>);
-    <span style="color:#a6e22e">auth</span>.<span style="color:#a6e22e">scopes</span> <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#39;https://www.googleapis.com/auth/spreadsheets&#39;</span>];
+<pre><code class="language-js">const { google } = require('googleapis');
+const sheets = google.sheets('v4');
 
-    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> Promise((<span style="color:#a6e22e">resolve</span>, <span style="color:#a6e22e">reject</span>) =&gt; {
-        <span style="color:#a6e22e">sheets</span>.<span style="color:#a6e22e">spreadsheets</span>.<span style="color:#a6e22e">values</span>.<span style="color:#a6e22e">get</span>(
-            { <span style="color:#a6e22e">auth</span>, <span style="color:#a6e22e">spreadsheetId</span>, <span style="color:#a6e22e">range</span> }
-            (<span style="color:#a6e22e">err</span>, <span style="color:#a6e22e">resp</span>) =&gt; (<span style="color:#a6e22e">err</span> <span style="color:#f92672">?</span> <span style="color:#a6e22e">reject</span>(<span style="color:#a6e22e">err</span>) <span style="color:#f92672">:</span> <span style="color:#a6e22e">resolve</span>(<span style="color:#a6e22e">resp</span>.<span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">values</span>)),
+async function getSpreadsheetData (spreadsheetId: string, range: string) {
+    // `CREDJSON` 環境変数にJWTが入ってるとして
+    const cred = JSON.parse(process.env.CREDJSON);
+    const auth = google.auth.fromJSON(cred);
+    auth.scopes = ['https://www.googleapis.com/auth/spreadsheets'];
+
+    return new Promise((resolve, reject) =&gt; {
+        sheets.spreadsheets.values.get(
+            { auth, spreadsheetId, range }
+            (err, resp) =&gt; (err ? reject(err) : resolve(resp.data.values)),
         );
     });
 }
-</code></pre></div><h3 id="googleapis-と-google-auth-library"><code>googleapis</code> と <code>google-auth-library</code></h3>
+</code></pre>
+
+<h3 id="googleapis-と-google-auth-library"><code>googleapis</code> と <code>google-auth-library</code></h3>
+
 <p>以下のオブジェクトは同じ実装なんだろうか 🤔</p>
+
 <ul>
 <li><code>require('googleapis').google.auth</code>
+
 <ul>
 <li><a href="https://github.com/googleapis/google-api-nodejs-client">googleapis/google-api-nodejs-client: Google&rsquo;s officially supported Node.js client</a></li>
-</ul>
-</li>
+</ul></li>
 <li><code>require('google-auth-library')</code>
+
 <ul>
 <li><a href="https://github.com/googleapis/google-auth-library-nodejs">googleapis/google-auth-library-nodejs: 🔑 Google Auth Library for Node.js</a></li>
-</ul>
-</li>
+</ul></li>
 </ul>
 
                 </section>

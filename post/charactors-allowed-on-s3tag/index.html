@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>s3オブジェクトのタグに使える文字 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -81,19 +81,18 @@
                 </header>
                 
                   
-                    <div id="toc">
-                      <nav id="TableOfContents"></nav>
-                    </div>
-                  
                 
                 <section id="post-body">
                     <p>パッとググっても出てこなかったので</p>
+
 <ul>
 <li><a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html#tag-restrictions">Tagging Your Amazon EC2 Resources - Amazon Elastic Compute Cloud</a></li>
 </ul>
+
 <blockquote>
 <p>The allowed characters across services are: letters, numbers, and spaces representable in UTF-8, and the following characters: + - = . _ : / @.</p>
 </blockquote>
+
 <ul>
 <li><code>%</code> が使えないのでURLエスケープはできない</li>
 <li>ただし、<code>+</code>, <code>=</code> は使えるので base64 は使える</li>

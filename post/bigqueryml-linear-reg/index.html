@@ -13,8 +13,8 @@
     
   
   
-  <meta name="twitter:title" content="emojiで肌とか性別とか髪の色が変えられる仕組み"/>
-  <meta name="twitter:description" content="unicodeでは肌の色を変えられる仕組みが2015年から入っている。これは skin tone modifiers と呼ばれるもので、結合文字のようにベースとなる絵文字の後ろ"/>
+  <meta name="twitter:title" content="BigQueryML で回帰分析をする"/>
+  <meta name="twitter:description" content="単回帰分析で済む単純な分析をするときに BigQueryML が便利だった。 やりたいこと オートインクリメントなユーザテーブルがあるとして、ユーザ ID からその登録時期"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -30,7 +30,7 @@
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
 		<meta name="generator" content="Hugo 0.51" />
-		<title>emojiで肌とか性別とか髪の色が変えられる仕組み &middot; sacre</title>
+		<title>BigQueryML で回帰分析をする &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
@@ -68,11 +68,11 @@
             <article>
                 <header>
                     <h1>
-                        emojiで肌とか性別とか髪の色が変えられる仕組み
+                        BigQueryML で回帰分析をする
                     </h1>
                     <h2 class="headline">
-                    Aug 6, 2020 12:05
-                    · 209 words
+                    May 15, 2021 14:22
+                    · 291 words
                     · 1 minute read
                       <span class="tags">
                       
@@ -86,9 +86,10 @@
 <ul>
 <li>
 <ul>
-<li><a href="#zero-width-joiner-zwj">Zero Width Joiner (ZWJ)</a></li>
-<li><a href="#参考">参考</a></li>
-<li><a href="#仕様">仕様</a></li>
+<li><a href="#やりたいこと">やりたいこと</a></li>
+<li><a href="#クエリを書く">クエリを書く</a></li>
+<li><a href="#create-model-する">create model する</a></li>
+<li><a href="#結果を眺める">結果を眺める</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -98,37 +99,43 @@
                 <section id="post-body">
                     
 
-<p>unicodeでは肌の色を変えられる仕組みが2015年から入っている。これは <code>skin tone modifiers</code> と呼ばれるもので、結合文字のようにベースとなる絵文字の後ろにコードポイントを従えることで実現している</p>
+<p>単回帰分析で済む単純な分析をするときに BigQueryML が便利だった。</p>
 
-<pre><code>$ node
-&gt; &quot;\u{1F466}&quot;
-'👦'
-&gt; &quot;\u{1F466}\u{1F3FE}&quot;
-'👦🏾'
+<h2 id="やりたいこと">やりたいこと</h2>
+
+<p>オートインクリメントなユーザテーブルがあるとして、ユーザ ID からその登録時期を予測したいとして、どれくらい相関性があるのかをみたい。
+もちろんユーザテーブルには登録日 ( <code>created</code> )も入っている。</p>
+
+<h2 id="クエリを書く">クエリを書く</h2>
+
+<p>2 カラムの結果を返すクエリを書く。今回は説明変数が user_id で、目的変数は created となるが、目的変数のカラム名を <code>label</code> にする必要がある。</p>
+
+<pre><code class="language-sql">SELECT created as label,
+    user_id
+FROM `pjt-123345.ds.users`
+ORDER BY label
 </code></pre>
 
-<h2 id="zero-width-joiner-zwj">Zero Width Joiner (ZWJ)</h2>
+<h2 id="create-model-する">create model する</h2>
 
-<p>Zero Width Joiner (ZWJ) という仕組みがあり、これは複数の絵文字を1文字にまとめるための仕組み。emojiの人物の性別を変えたり、カップルの性別を指示したりとかはこの仕組みを使っている</p>
+<p>クエリはそのまま <code>CREATE MODEL</code> を足す。今回は線系回帰を使うので <code>model_type = 'linear_reg'</code></p>
 
-<h2 id="参考">参考</h2>
+<pre><code class="language-sql">CREATE MODEL `misc.kaiki_sample` OPTIONS(model_type = 'linear_reg') AS
+SELECT created as label,
+    user_id
+FROM `pjt-123345.ds.users`
+ORDER BY label
+</code></pre>
 
-<ul>
-<li><a href="https://eng.getwisdom.io/emoji-modifiers-and-sequence-combinations/">Emoji Modifiers and Sequence Combinations</a></li>
-</ul>
+<h2 id="結果を眺める">結果を眺める</h2>
 
-<h2 id="仕様">仕様</h2>
-
-<ul>
-<li><a href="https://unicode.org/emoji/charts/full-emoji-modifiers.html">Full Emoji Modifier Sequences, v13.0</a></li>
-<li><a href="http://unicode.org/reports/tr51/">UTS #51: Unicode Emoji</a></li>
-</ul>
+<p>しばらくすると計算が終わる。モデルの <code>評価</code> タブをみると <code>決定係数</code> がみられる。</p>
 
                 </section>
             </article>
 
             
-                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2funicode-emoji-modifier-zwj%2f - emoji%e3%81%a7%e8%82%8c%e3%81%a8%e3%81%8b%e6%80%a7%e5%88%a5%e3%81%a8%e3%81%8b%e9%ab%aa%e3%81%ae%e8%89%b2%e3%81%8c%e5%a4%89%e3%81%88%e3%82%89%e3%82%8c%e3%82%8b%e4%bb%95%e7%b5%84%e3%81%bf by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fbigqueryml-linear-reg%2f - BigQueryML%20%e3%81%a7%e5%9b%9e%e5%b8%b0%e5%88%86%e6%9e%90%e3%82%92%e3%81%99%e3%82%8b by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
 
 <a class="facebook" href="#" onclick="
     window.open(

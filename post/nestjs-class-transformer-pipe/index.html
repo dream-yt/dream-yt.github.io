@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>NestJSでPOSTパラメータをクラスのインスタンスに変換して受け取る &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,71 +83,97 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li>
-      <ul>
-        <li><a href="#必要な作業">必要な作業</a></li>
-      </ul>
-    </li>
-    <li><a href="#依存パッケージのインストール">依存パッケージのインストール</a></li>
-    <li><a href="#dtoクラスにデコレーターで定義を行う">DTOクラスにデコレーターで定義を行う</a></li>
-    <li><a href="#validationpipe-を-useglobalpipes-に登録する"><code>ValidationPipe</code> を <code>useGlobalPipes</code> に登録する</a></li>
-    <li><a href="#参考">参考</a></li>
-    <li><a href="#所感">所感</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#必要な作業">必要な作業</a></li>
+</ul></li>
+<li><a href="#依存パッケージのインストール">依存パッケージのインストール</a></li>
+<li><a href="#dtoクラスにデコレーターで定義を行う">DTOクラスにデコレーターで定義を行う</a></li>
+<li><a href="#validationpipe-を-useglobalpipes-に登録する"><code>ValidationPipe</code> を <code>useGlobalPipes</code> に登録する</a></li>
+<li><a href="#参考">参考</a></li>
+<li><a href="#所感">所感</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>NestJS では <code>class-transformer</code> を使って、クライアントから渡されたデータを、jsのクラスのインスタンスにした状態で受け取ることができる。たとえば、日時のデータを文字列からDate型にしてくれるのは便利なのだが、これがびっくりするほど簡単に実現できる。</p>
+                    
+
+<p>NestJS では <code>class-transformer</code> を使って、クライアントから渡されたデータを、jsのクラスのインスタンスにした状態で受け取ることができる。たとえば、日時のデータを文字列からDate型にしてくれるのは便利なのだが、これがびっくりするほど簡単に実現できる。</p>
+
 <h3 id="必要な作業">必要な作業</h3>
+
 <ul>
 <li>依存パッケージのインストール</li>
 <li>DTOクラスにデコレーターで定義を行う</li>
 <li><code>ValidationPipe</code> を <code>useGlobalPipes</code> に登録する</li>
 </ul>
+
 <h2 id="依存パッケージのインストール">依存パッケージのインストール</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ yarn add class-validator class-transformer
-</code></pre></div><p>ついでで <code>class-validator</code> でのバリデーションも有効にできるので、ついでで入れる。</p>
+
+<pre><code class="language-bash">$ yarn add class-validator class-transformer
+</code></pre>
+
+<p>ついでで <code>class-validator</code> でのバリデーションも有効にできるので、ついでで入れる。</p>
+
 <h2 id="dtoクラスにデコレーターで定義を行う">DTOクラスにデコレーターで定義を行う</h2>
+
 <p>この例はコントローラの更新処理の定義。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts">  <span style="color:#66d9ef">@Put</span>(<span style="color:#e6db74">&#39;:id&#39;</span>)
-  <span style="color:#a6e22e">update</span>(
-    <span style="color:#66d9ef">@Param</span>(<span style="color:#e6db74">&#39;id&#39;</span>) <span style="color:#a6e22e">id</span>: <span style="color:#66d9ef">string</span>,
-    <span style="color:#66d9ef">@Body</span>() <span style="color:#a6e22e">updateUserDto</span>: <span style="color:#66d9ef">UpdateUserDto</span>,
+
+<pre><code class="language-ts">  @Put(':id')
+  update(
+    @Param('id') id: string,
+    @Body() updateUserDto: UpdateUserDto,
   ) {
-    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">service</span>.<span style="color:#a6e22e">update</span>(<span style="color:#f92672">+</span><span style="color:#a6e22e">id</span>, <span style="color:#a6e22e">updateUserDto</span>);
+    return this.service.update(+id, updateUserDto);
   }
-</code></pre></div><p><code>UpdateUserDto</code> を以下のように定義する。</p>
+</code></pre>
+
+<p><code>UpdateUserDto</code> を以下のように定義する。</p>
+
 <p><code>expireAt</code> は日時を表すデータだが、POSTされた文字列をDateにしてくれるよう <code>class-transformer#Type</code> に指定する。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">IsDate</span>, <span style="color:#a6e22e">IsString</span>, <span style="color:#a6e22e">IsNotEmpty</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;class-validator&#39;</span>;
-<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Type</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;class-transformer&#39;</span>;
 
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CreateUserDto</span> {
-  <span style="color:#66d9ef">@IsString</span>()
-  <span style="color:#66d9ef">@IsNotEmpty</span>()
-  <span style="color:#66d9ef">readonly</span> <span style="color:#a6e22e">name</span>: <span style="color:#66d9ef">string</span>;
+<pre><code class="language-ts">import { IsDate, IsString, IsNotEmpty } from 'class-validator';
+import { Type } from 'class-transformer';
 
-  <span style="color:#66d9ef">@IsDate</span>()
-  <span style="color:#66d9ef">@Type</span>(() <span style="color:#f92672">=&gt;</span> Date)
-  <span style="color:#66d9ef">readonly</span> <span style="color:#a6e22e">expireAt</span>: <span style="color:#66d9ef">Date</span>;
+export class CreateUserDto {
+  @IsString()
+  @IsNotEmpty()
+  readonly name: string;
+
+  @IsDate()
+  @Type(() =&gt; Date)
+  readonly expireAt: Date;
 }
 
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">UpdateUserDto</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">PartialType</span>(<span style="color:#a6e22e">CreateUserDto</span>) {}
-</code></pre></div><h2 id="validationpipe-を-useglobalpipes-に登録する"><code>ValidationPipe</code> を <code>useGlobalPipes</code> に登録する</h2>
-<p><code>main.ts</code> で処理を挟み込む。<code>{transform: true}</code> のオプションを渡す。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">ValidationPipe</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;@nestjs/common&#39;</span>;
+export class UpdateUserDto extends PartialType(CreateUserDto) {}
+</code></pre>
 
-<span style="color:#66d9ef">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">bootstrap() {</span>
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">app</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">NestFactory</span>.<span style="color:#a6e22e">create</span>(<span style="color:#a6e22e">AppModule</span>);
-  <span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">useGlobalPipes</span>(<span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ValidationPipe</span>({ <span style="color:#a6e22e">transform</span>: <span style="color:#66d9ef">true</span> }));
-</code></pre></div><h2 id="参考">参考</h2>
+<h2 id="validationpipe-を-useglobalpipes-に登録する"><code>ValidationPipe</code> を <code>useGlobalPipes</code> に登録する</h2>
+
+<p><code>main.ts</code> で処理を挟み込む。<code>{transform: true}</code> のオプションを渡す。</p>
+
+<pre><code class="language-ts">import { ValidationPipe } from '@nestjs/common';
+
+async function bootstrap() {
+  const app = await NestFactory.create(AppModule);
+  app.useGlobalPipes(new ValidationPipe({ transform: true }));
+</code></pre>
+
+<h2 id="参考">参考</h2>
+
 <ul>
 <li><a href="https://docs.nestjs.com/pipes">Pipes | NestJS - A progressive Node.js framework</a></li>
 <li><a href="https://github.com/typestack/class-transformer">typestack/class-transformer: Decorator-based transformation, serialization, and deserialization between objects and classes.</a></li>
 </ul>
+
 <h2 id="所感">所感</h2>
+
 <p>いままでデコレータって仕様も決まってないし使わない方がいいんじゃないかなと思っていたが、こんなことができるなら仕様変更で多少面倒な思いをしてでも使った方がいいなってなった。</p>
 
                 </section>
