@@ -72,7 +72,7 @@
                     </h1>
                     <h2 class="headline">
                     May 15, 2021 14:22
-                    · 291 words
+                    · 365 words
                     · 1 minute read
                       <span class="tags">
                       
@@ -90,6 +90,7 @@
 <li><a href="#クエリを書く">クエリを書く</a></li>
 <li><a href="#create-model-する">create model する</a></li>
 <li><a href="#結果を眺める">結果を眺める</a></li>
+<li><a href="#predict-させる">predict させる</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -130,6 +131,20 @@ ORDER BY label
 <h2 id="結果を眺める">結果を眺める</h2>
 
 <p>しばらくすると計算が終わる。モデルの <code>評価</code> タブをみると <code>決定係数</code> がみられる。</p>
+
+<h2 id="predict-させる">predict させる</h2>
+
+<p>こんなクエリでつくったモデルに predict をさせることができる。</p>
+
+<pre><code class="language-sql">-- 1970-01-01 からの日数が predicted_label から返ってくるのでキャスとして Date に戻す
+SELECT DATE_FROM_UNIX_DATE(CAST(predicted_label AS INT64))
+FROM ML.PREDICT(
+        MODEL `misc.kaiki_user_id__date`,
+        (
+            SELECT 123456 as user_id
+        )
+    )
+</code></pre>
 
                 </section>
             </article>
