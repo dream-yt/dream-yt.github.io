@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.79.0" />
 		<title>go get したものを消す &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,50 +83,34 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#参考">参考</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#参考">参考</a></li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p>go clean で入れたものを消すことができる。</p>
-
-<pre><code class="language-console">$ go clean -i -n github.com/sakamossan/mymy
+                    <p>go clean で入れたものを消すことができる。</p>
+<pre><code class="language-console" data-lang="console">$ go clean -i -n github.com/sakamossan/mymy
 cd /Users/sakamossan/go/src/github.com/sakamossan/mymy
 rm -f mymy mymy.exe mymy.test mymy.test.exe main main.exe
 rm -f /Users/sakamossan/go/bin/mymy
-</code></pre>
-
-<p>それぞれのフラグはこんな役割。</p>
-
+</code></pre><p>それぞれのフラグはこんな役割。</p>
 <blockquote>
 <p>The -i flag causes clean to remove the corresponding installed
 archive or binary (what &lsquo;go install&rsquo; would create).</p>
-
+</blockquote>
+<blockquote>
 <p>The -n flag causes clean to print the remove commands it would execute,
 but not run them.</p>
 </blockquote>
-
 <p><code>-n</code> オプションはdryrunのような役割。
 これを実行してから <code>-i</code> オプションだけで実行すれば安心。</p>
-
-<pre><code class="language-console">$ go clean -i github.com/sakamossan/mymy
-</code></pre>
-
-<p>なお、<code>$GOPATH</code> 配下のソースは消してくれないのでそっちは自分で消す。</p>
-
-<pre><code class="language-console">$ rm -rf $GOPATH/src/github.com/sakamossan/mymy
-</code></pre>
-
-<h2 id="参考">参考</h2>
-
+<pre><code class="language-console" data-lang="console">$ go clean -i github.com/sakamossan/mymy
+</code></pre><p>なお、<code>$GOPATH</code> 配下のソースは消してくれないのでそっちは自分で消す。</p>
+<pre><code class="language-console" data-lang="console">$ rm -rf $GOPATH/src/github.com/sakamossan/mymy
+</code></pre><h2 id="参考">参考</h2>
 <ul>
 <li><a href="https://qiita.com/Asya-kawai/items/4883a554ec50eaade51a">Go get でインストールしたパッケージをきれいに削除する方法 - Qiita</a></li>
 </ul>

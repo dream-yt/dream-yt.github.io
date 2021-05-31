@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="https://dream-yt.github.io/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="perlでモジュール検索パスの追加に `FindBin` を使う"/>
+  <meta name="twitter:description" content="まず FindBin とは FindBin を use したスクリプトのディレクトリ名(絶対パス)を取得してくれる 「実行しているスクリプトの所在がわかる」とも言える FindBin で取得したパス"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@site_author"/>
+  
+
+
+
+		
+		<meta name="author" content="site_author">
+		<meta name="description" content="Site Description">
+		<meta name="generator" content="Hugo 0.79.0" />
+		<title>perlでモジュール検索パスの追加に `FindBin` を使う &middot; sacre</title>
+		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/font-awesome.min.css">
+		
+
+		
+		<link href="https://dream-yt.github.io/index.xml" rel="alternate" type="application/rss+xml" title="sacre" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='https://dream-yt.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://dream-yt.github.io/posts'>Archive</a>
+	<a href='https://dream-yt.github.io/tags'>Tags</a>
+	<a href='https://dream-yt.github.io/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="https://dream-yt.github.io/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        perlでモジュール検索パスの追加に `FindBin` を使う
+                    </h1>
+                    <h2 class="headline">
+                    May 31, 2021 11:15
+                    · 476 words
+                    · 1 minute read
+                      <span class="tags">
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#まず-findbin-とは">まず <code>FindBin</code> とは</a></li>
+      </ul>
+    </li>
+    <li><a href="#findbinlibs-とは">FindBin::libs とは</a></li>
+    <li><a href="#動作">動作</a>
+      <ul>
+        <li><a href="#まず使わない場合">まず使わない場合</a></li>
+        <li><a href="#まず使った場合">まず使った場合</a></li>
+      </ul>
+    </li>
+    <li><a href="#その他">その他</a></li>
+  </ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    <h3 id="まず-findbin-とは">まず <code>FindBin</code> とは</h3>
+<ul>
+<li><code>FindBin</code> を use したスクリプトのディレクトリ名(絶対パス)を取得してくれる</li>
+<li>「実行しているスクリプトの所在がわかる」とも言える</li>
+</ul>
+<p><code>FindBin</code> で取得したパスを使って、モジュール読み込みパスにlib配下を追加する</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl"><span style="color:#66d9ef">use</span> FindBin;
+<span style="color:#66d9ef">use</span> lib <span style="color:#e6db74">&#34;$FindBin::Bin/lib&#34;</span>;
+</code></pre></div><h2 id="findbinlibs-とは">FindBin::libs とは</h2>
+<blockquote>
+<p>FindBin::libs - locate and a &lsquo;use lib&rsquo; or export directories based on $FindBin::Bin.</p>
+</blockquote>
+<p>↑で示した読み込みパスへの <code>lib</code> ディレクトリの追加ごとやってくれるパッケージ。
+探してくれるディレクトリ名はオプションで指定することができるが、デフォルトは <code>lib</code> となっている。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl"><span style="color:#75715e"># same as above with explicit defaults.</span>
+<span style="color:#66d9ef">use</span> FindBin::libs <span style="color:#e6db74">qw( base=lib use=1 noexport noprint )</span>;
+</code></pre></div><h2 id="動作">動作</h2>
+<p><code>FindBin::libs</code> を使うと <code>@INC</code> がどのように変わるかを確認する</p>
+<h3 id="まず使わない場合">まず使わない場合</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl"><span style="color:#75715e">#!/usr/bin/env perl</span>
+<span style="color:#66d9ef">print</span> join(<span style="color:#e6db74">&#34;\n&#34;</span>, @INC);
+</code></pre></div><pre><code class="language-console" data-lang="console">/usr/local/lib/perl5/site_perl/5.32.1/x86_64-linux-gnu
+/usr/local/lib/perl5/site_perl/5.32.1
+/usr/local/lib/perl5/vendor_perl/5.32.1/x86_64-linux-gnu
+/usr/local/lib/perl5/vendor_perl/5.32.1
+/usr/local/lib/perl5/5.32.1/x86_64-linux-gnu
+/usr/local/lib/perl5/5.32.1
+</code></pre><h3 id="まず使った場合">まず使った場合</h3>
+<p><code>/proj/app/tools/_.pl</code> を実行した場合</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl"><span style="color:#75715e">#!/usr/bin/env perl</span>
+<span style="color:#66d9ef">use</span> FindBin::libs;
+<span style="color:#66d9ef">print</span> join(<span style="color:#e6db74">&#34;\n&#34;</span>, @INC);
+</code></pre></div><pre><code class="language-console" data-lang="console">/proj/app/lib
+/usr/local/lib/perl5/site_perl/5.32.1/x86_64-linux-gnu
+/usr/local/lib/perl5/site_perl/5.32.1
+/usr/local/lib/perl5/vendor_perl/5.32.1/x86_64-linux-gnu
+/usr/local/lib/perl5/vendor_perl/5.32.1
+/usr/local/lib/perl5/5.32.1/x86_64-linux-gnu
+/usr/local/lib/perl5/5.32.1
+</code></pre><p><code>/proj/app/lib</code> というパスが <code>@INC</code> に追加されているのがわかる。</p>
+<h2 id="その他">その他</h2>
+<p>モジュールの検索パスを <code>@INC</code> に追加する方法は以下の3つがある</p>
+<ul>
+<li>コード上で <code>@INC</code> を操作する</li>
+<li>perlの起動オプション <code>-I</code></li>
+<li>環境変数 <code>PERL5LIB</code></li>
+</ul>
+<p>意図しないパスが <code>@INC</code> に追加されている場合は環境変数 <code>PERL5LIB</code> が使われてるかもしれない。</p>
+<h1 id="参考">参考</h1>
+<ul>
+<li><a href="https://perl-users.jp/articles/advent-calendar/2010/casual/18">@INC にみる Perl のやりかたがいっぱい - Articles Advent Calendar 2010 Casual</a></li>
+<li><a href="https://metacpan.org/pod/release/LEMBARK/FindBin-libs-1.8/lib/FindBin/libs_curr.pm">FindBin::libs - locate and a &lsquo;use lib&rsquo; or export directories based on $FindBin::Bin. - metacpan.org</a></li>
+<li><a href="https://tutorial.perlzemi.com/blog/20100524127696.html">FindBin - スクリプトが存在するディレクトリのパスを取得 - Perlゼミ</a></li>
+</ul>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fperl-findbin-101%2f - perl%e3%81%a7%e3%83%a2%e3%82%b8%e3%83%a5%e3%83%bc%e3%83%ab%e6%a4%9c%e7%b4%a2%e3%83%91%e3%82%b9%e3%81%ae%e8%bf%bd%e5%8a%a0%e3%81%ab%20%60FindBin%60%20%e3%82%92%e4%bd%bf%e3%81%86 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'your_disqus_short_name'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/dream-yt/sacre">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://twitter.com/FUTABA_SACRE">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2021 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="https://dream-yt.github.io/js/jquery-3.3.1.min.js"></script>
+<script src="https://dream-yt.github.io/js/main.js"></script>
+<script src="https://dream-yt.github.io/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+
+
+
+
+    </body>
+</html>

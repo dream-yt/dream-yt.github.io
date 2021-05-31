@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.79.0" />
 		<title>Python Csv Writer &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -82,36 +82,25 @@
                 
                   
                     <div id="toc">
-                      <nav id="TableOfContents">
-<ul>
-<li><a href="#参考">参考</a></li>
-</ul>
-</nav>
+                      <nav id="TableOfContents"></nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p>pythonでcsvファイルを作るときに毎回調べているのでメモ。</p>
-
+                    <p>pythonでcsvファイルを作るときに毎回調べているのでメモ。</p>
 <p>だいたいデータはJSONとかなはずなので <code>csv.DictWriter</code> を使いたくなるが、普通の <code>csv.writer</code> を使って2次元配列を作るやりかたのほうがオプション等々覚えることが少なくて済む。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> csv
 
-<pre><code class="language-python">import csv
+<span style="color:#75715e"># header行は1つめに入れてしまうのがわかりやすい</span>
+li <span style="color:#f92672">=</span> [[<span style="color:#e6db74">&#34;id&#34;</span>, <span style="color:#e6db74">&#34;name&#34;</span>, <span style="color:#e6db74">&#34;age&#34;</span>]]
 
-# header行は1つめに入れてしまうのがわかりやすい
-li = [[&quot;id&quot;, &quot;name&quot;, &quot;age&quot;]]
+<span style="color:#75715e"># ... 中略 ... リストにデータを入れる</span>
 
-# ... 中略 ... リストにデータを入れる
-
-with open('./data.csv', 'w') as f:
-    # 全ての非数値フィールドをクオートする
-    writer = csv.writer(f, quoting=csv.QUOTE_NONNUMERIC)
-    writer.writerows(li)
-</code></pre>
-
-<h1 id="参考">参考</h1>
-
+<span style="color:#66d9ef">with</span> open(<span style="color:#e6db74">&#39;./data.csv&#39;</span>, <span style="color:#e6db74">&#39;w&#39;</span>) <span style="color:#66d9ef">as</span> f:
+    <span style="color:#75715e"># 全ての非数値フィールドをクオートする</span>
+    writer <span style="color:#f92672">=</span> csv<span style="color:#f92672">.</span>writer(f, quoting<span style="color:#f92672">=</span>csv<span style="color:#f92672">.</span>QUOTE_NONNUMERIC)
+    writer<span style="color:#f92672">.</span>writerows(li)
+</code></pre></div><h1 id="参考">参考</h1>
 <ul>
 <li><a href="https://docs.python.org/ja/3/library/csv.html#csv.QUOTE_NONNUMERIC">csv &mdash; CSV ファイルの読み書き — Python 3.9.1 ドキュメント</a></li>
 </ul>
