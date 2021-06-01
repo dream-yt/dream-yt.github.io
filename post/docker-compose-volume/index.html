@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="https://dream-yt.github.io/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="docker-compose でデバッグ用のボリュームマウントを行う"/>
+  <meta name="twitter:description" content="プロジェクトのローカル開発に docker-compose を使っているとして、個人的なデバッグや動作検証で使うためのディスク領域を作りたい時のメモ。 Docker では --mount オプションで"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@site_author"/>
+  
+
+
+
+		
+		<meta name="author" content="site_author">
+		<meta name="description" content="Site Description">
+		<meta name="generator" content="Hugo 0.79.0" />
+		<title>docker-compose でデバッグ用のボリュームマウントを行う &middot; sacre</title>
+		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/font-awesome.min.css">
+		
+
+		
+		<link href="https://dream-yt.github.io/index.xml" rel="alternate" type="application/rss+xml" title="sacre" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='https://dream-yt.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://dream-yt.github.io/posts'>Archive</a>
+	<a href='https://dream-yt.github.io/tags'>Tags</a>
+	<a href='https://dream-yt.github.io/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="https://dream-yt.github.io/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        docker-compose でデバッグ用のボリュームマウントを行う
+                    </h1>
+                    <h2 class="headline">
+                    Jun 1, 2021 12:05
+                    · 468 words
+                    · 1 minute read
+                      <span class="tags">
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#docker-composeoverrideyml">docker-compose.override.yml</a></li>
+      </ul>
+    </li>
+    <li><a href="#その他">その他</a></li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    <p>プロジェクトのローカル開発に docker-compose を使っているとして、個人的なデバッグや動作検証で使うためのディスク領域を作りたい時のメモ。</p>
+<p>Docker では <code>--mount</code> オプションでホストOSとDocker上のファイルシステムで共用できるディスクを作れるが、<code>docker-compose exec</code> コマンドにはそのようなオプションがない。(いちおう <code>docker run</code> には <code>--volume</code> オプションが存在するようだ)</p>
+<h3 id="docker-composeoverrideyml">docker-compose.override.yml</h3>
+<p>オプションで指定できないので <code>docker-compose.yml</code> で指定することになるが、複数人で開発しているプロジェクトなので個人的なデバッグ用のコードをさし挟むことはできない。 <code>docker-compose.override.yml</code> を使うことになる。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">version</span>: <span style="color:#e6db74">&#39;3&#39;</span>
+<span style="color:#f92672">services</span>:
+  <span style="color:#f92672">rfp</span>:
+    <span style="color:#f92672">volumes</span>:
+      - <span style="color:#f92672">type</span>: <span style="color:#ae81ff">bind</span>
+        <span style="color:#f92672">source</span>: <span style="color:#ae81ff">/var/tmp/audio</span>
+        <span style="color:#f92672">target</span>: <span style="color:#ae81ff">/hostos/audio</span>
+</code></pre></div><p><code>volumes</code> オプションは配列であるが、overrideファイルで定義すると append したような挙動になってくれる。</p>
+<h2 id="その他">その他</h2>
+<p><code>docker-compose</code> コマンドは未知のオプションをつけると、エラーを出力せず、またリターンコードも0でプロセスが終了する。
+<code>docker-compose exec</code> に <code>--mount</code> オプションをつけて実行していたときは「よくわからないがコマンドが実行されない」という状態になり少し戸惑った。</p>
+<pre><code class="language-console" data-lang="console">$ docker-compose exec \
+&gt;     --mount \
+&gt;         type=bind \
+&gt;         src=/var/tmp/audio \
+&gt;         dst=/hostos/audio \
+&gt;     app carton exec perl tools/,/_.pl
+$ echo $?
+0
+</code></pre><h2 id="参考">参考</h2>
+<ul>
+<li><a href="https://qiita.com/aki_55p/items/63c47214cab7bcb027e0">Docker の Volume がよくわからないから調べた - Qiita</a></li>
+</ul>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fdocker-compose-volume%2f - docker-compose%20%e3%81%a7%e3%83%87%e3%83%90%e3%83%83%e3%82%b0%e7%94%a8%e3%81%ae%e3%83%9c%e3%83%aa%e3%83%a5%e3%83%bc%e3%83%a0%e3%83%9e%e3%82%a6%e3%83%b3%e3%83%88%e3%82%92%e8%a1%8c%e3%81%86 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'your_disqus_short_name'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/dream-yt/sacre">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://twitter.com/FUTABA_SACRE">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2021 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="https://dream-yt.github.io/js/jquery-3.3.1.min.js"></script>
+<script src="https://dream-yt.github.io/js/main.js"></script>
+<script src="https://dream-yt.github.io/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+
+
+
+
+    </body>
+</html>
