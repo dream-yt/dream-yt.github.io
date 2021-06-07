@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>[terraform] Error: Invalid legacy provider address &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,35 +83,51 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#参考">参考</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>ひさしぶりに terraform をアップグレードしたら以下のようなエラーが出るようになった。</p>
+                    
+
+<p>ひさしぶりに terraform をアップグレードしたら以下のようなエラーが出るようになった。</p>
+
 <blockquote>
 <p>Error: Invalid legacy provider address
 This configuration or its associated state refers to the unqualified provider &ldquo;aws&rdquo;.
 You must complete the Terraform 0.13 upgrade process before upgrading to later versions.</p>
 </blockquote>
+
 <p>これは tfstate の形式が古くなっていて、v0.14 で読めなくなってしまったということらしい。
 案内の通りに terraform を一度 v0.13 に戻す。</p>
+
 <p>brew で入れていたので指定したバージョンにするのは少し面倒だった</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ brew info terraform
+
+<pre><code class="language-bash">$ brew info terraform
 $ cd /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core/Formula
 $ git log terraform.rb
 $ git checkout c67b17cb80b042825f00f1768c422a1df637ad4b terraform.rb
 $ brew unlink terraform
 $ brew install terraform
-</code></pre></div><p>v0.13だと問題なく通った</p>
+</code></pre>
+
+<p>v0.13だと問題なく通った</p>
+
 <pre><code>$ terraform init
 $ terraform plan -out=tf-plan.out
 $ terraform apply tf-plan.out
-</code></pre><p>v0.13 で terraform apply すると、tfstate が新しい形式で更新されて v0.14 にあげてもこのエラーは出なくなるそうだ。</p>
+</code></pre>
+
+<p>v0.13 で terraform apply すると、tfstate が新しい形式で更新されて v0.14 にあげてもこのエラーは出なくなるそうだ。</p>
+
 <h2 id="参考">参考</h2>
+
 <ul>
 <li><a href="https://discuss.hashicorp.com/t/unqualified-provider-aws/18554">Unqualified provider &ldquo;aws&rdquo; - Terraform - HashiCorp Discuss</a></li>
 <li><a href="https://www.meganii.com/blog/2019/12/03/how-to-install-an-older-version-of-a-homebrew-package/">Homebrewで過去バージョンのパッケージをインストールする方法 - SIS Lab</a></li>

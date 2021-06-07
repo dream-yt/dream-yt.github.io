@@ -24,7 +24,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -72,6 +72,36 @@
 
     <section id="wrapper" class="home">
         <ul id="post-list">
+    
+    
+        
+            <li>
+                <aside class="dates">Feb 24</aside>
+                <a href='https://dream-yt.github.io/post/query-google-spreadsheet-with-bigquery/'>
+                    GoogleSpreadSheetへBigQueryからクエリできるようにする
+                    
+                        
+                            <h2>こんなコマンドでspreadsheetをbigqueryのテーブルのように使うことができる $ bq mk --external_table_definition=[SCHEMA]@[SOURCE_FORMAT]=[GOOGLE_DRIVE_URL] \ [DATASET_ID].[TABLE_NAME] 実際の値をいれるとこんな感じ $ export GOOGLE_SHEETS=&#39;https://docs.google.com/spreadsheets/d/1r--MIJGEuZSgx9KMQxyAOL9S80cZaV8BM/edit#gid=1436148405&#39; $ export</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Feb 24</aside>
+                <a href='https://dream-yt.github.io/post/bigquery-transfer-log/'>
+                    bigqueryのtransfer_configの実行履歴の確認の仕方
+                    
+                        
+                            <h2>transfer_config 設定されているtransfer_configを一覧 $ bq --format=json ls --transfer_config --transfer_location=&#39;us&#39; | jq . transfer_run name を引数に渡してtransfer_runを一覧 $ bq --format=json ls --transfer_run --transfer_location=&#39;us&#39; \ projects/987573330809/locations/us/transferConfigs/5c5aff8c-0000-285b-bf15-089e08324cf4 summary 実行</h2>
+                        
+                    
+                </a>
+            </li>
+        
     
     
         
@@ -187,36 +217,6 @@
                     
                         
                             <h2>同じ関数を相対参照で一番下の行までコピペしたいとき ＋マークをダブルクリックすると下まで行く その他 コピペと呼んでいるものにも2種類ある セルのコ</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jan 23</aside>
-                <a href='https://dream-yt.github.io/post/spreadsheet-vlookup/'>
-                    VLOOKUPの使い方をメモ
-                    
-                        
-                            <h2>自分で使ったことがなかったので勉強 概要 指定した表のなかから条件にマッチした行の、指定したカラムの値を返してくれる VLOOKUP(検索キー, 範</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jan 22</aside>
-                <a href='https://dream-yt.github.io/post/vscode-sql-formatter-stun/'>
-                    There is no document formatter for &#39;sql&#39;-files installed
-                    
-                        
-                            <h2>vscodeを使っている。SQLファイルは保存時にフォーマットされるようしているが、 ある日突然保存時フォーマットが聞かなくなった vscode</h2>
                         
                     
                 </a>

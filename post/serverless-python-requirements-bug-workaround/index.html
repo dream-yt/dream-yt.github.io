@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>Serverless Python Requirements Bug Workaround &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -81,35 +81,40 @@
                 </header>
                 
                   
-                    <div id="toc">
-                      <nav id="TableOfContents"></nav>
-                    </div>
-                  
                 
                 <section id="post-body">
                     <p>pythonのコードを serverless でデプロイしているときに以下のエラーが出た。</p>
+
 <blockquote>
 <p>TypeError: Cannot read property &lsquo;artifact&rsquo; of undefined</p>
 </blockquote>
+
 <p>serverless-python-requirements のバグのようだ。
 issueになっていて、1年以上直っていない。</p>
+
 <ul>
 <li><a href="https://github.com/serverless/serverless/issues/6752">Unable to deploy single lambda function for version 1.52.1 · Issue #6752 · serverless/serverless</a></li>
 </ul>
+
 <p>とりあえずエラーにならないワークアラウンドとして以下の設定が言及されていた。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">functions</span>:
-  <span style="color:#f92672">scrapeWorkStatus</span>:
-    <span style="color:#f92672">package</span>: {}  <span style="color:#75715e"># これを追加</span>
-    <span style="color:#f92672">handler</span>: <span style="color:#ae81ff">handler.scrapeWorkStatus</span>
-    <span style="color:#ae81ff">...</span>
-</code></pre></div><blockquote>
+
+<pre><code class="language-yaml">functions:
+  scrapeWorkStatus:
+    package: {}  # これを追加
+    handler: handler.scrapeWorkStatus
+    ...
+</code></pre>
+
+<blockquote>
 <p>I found a workaround but I&rsquo;m not sure about the side effects.
 The problem is the following line (line # 176 in my version) in serverless-python-requirements/index.js file:</p>
 </blockquote>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">hello</span>:
-    <span style="color:#75715e"># ...</span>
-    <span style="color:#f92672">package</span>: {}
-</code></pre></div>
+
+<pre><code class="language-yaml">hello:
+    # ...
+    package: {}
+</code></pre>
+
                 </section>
             </article>
 

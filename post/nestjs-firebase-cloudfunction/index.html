@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>NestJS を Firebase Cloudfunction 上で動かす &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,74 +83,102 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#firebaseの準備">firebaseの準備</a>
-      <ul>
-        <li></li>
-      </ul>
-    </li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#firebaseの準備">firebaseの準備</a>
+<ul>
+<li>
+<ul>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>NestJS を Firebase Cloudfunction 上で動かした時のメモ。公式のリポジトリで example とか issue を探したけどパッと出てこなかったので、野良の実装を参考にしてやっている。</p>
+                    
+
+<p>NestJS を Firebase Cloudfunction 上で動かした時のメモ。公式のリポジトリで example とか issue を探したけどパッと出てこなかったので、野良の実装を参考にしてやっている。</p>
+
 <h2 id="firebaseの準備">firebaseの準備</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ npm install -g firebase-tools
+
+<pre><code class="language-bash">$ npm install -g firebase-tools
 $ firebase login
-$ firebase init  <span style="color:#75715e"># ビルドは typescript で生成するように</span>
-$ rm -rf ./functions <span style="color:#75715e"># この生成されたコードは消してしまってよい</span>
-$ <span style="color:#f92672">(</span>cd my-nestapp; npm install firebase-admin firebase-functions<span style="color:#f92672">)</span>
-</code></pre></div><p>firebase.json を変更して firebase deploy が参照するパスを変更する</p>
+$ firebase init  # ビルドは typescript で生成するように
+$ rm -rf ./functions # この生成されたコードは消してしまってよい
+$ (cd my-nestapp; npm install firebase-admin firebase-functions)
+</code></pre>
+
+<p>firebase.json を変更して firebase deploy が参照するパスを変更する</p>
+
 <ul>
 <li><a href="https://firebase.google.com/docs/functions/manage-functions">Manage functions deployment and runtime options  |  Firebase</a></li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-diff" data-lang="diff"><span style="color:#f92672">--- a/firebase.json
-</span><span style="color:#f92672"></span><span style="color:#a6e22e">+++ b/firebase.json
-</span><span style="color:#a6e22e"></span><span style="color:#75715e">@@ -1,5 +1,6 @@
-</span><span style="color:#75715e"></span> {
-   &#34;functions&#34;: {
-<span style="color:#a6e22e">+    &#34;source&#34;: &#34;my-nestapp&#34;,
-</span><span style="color:#a6e22e"></span>     &#34;predeploy&#34;: [
-</code></pre></div><p>typescript/firebase の仕様に沿うよう <code>package.json#main</code> も変更。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-diff" data-lang="diff"><span style="color:#f92672">--- a/package.json
-</span><span style="color:#f92672"></span><span style="color:#a6e22e">+++ b/package.json
-</span><span style="color:#a6e22e"></span><span style="color:#75715e">@@ -8,6 +8,7 @@
-</span><span style="color:#75715e"></span>   &#34;engines&#34;: {
-     &#34;node&#34;: &#34;14&#34;
+
+<pre><code class="language-diff">--- a/firebase.json
++++ b/firebase.json
+@@ -1,5 +1,6 @@
+ {
+   &quot;functions&quot;: {
++    &quot;source&quot;: &quot;my-nestapp&quot;,
+     &quot;predeploy&quot;: [
+</code></pre>
+
+<p>typescript/firebase の仕様に沿うよう <code>package.json#main</code> も変更。</p>
+
+<pre><code class="language-diff">--- a/package.json
++++ b/package.json
+@@ -8,6 +8,7 @@
+   &quot;engines&quot;: {
+     &quot;node&quot;: &quot;14&quot;
    },
-<span style="color:#a6e22e">+  &#34;main&#34;: &#34;dist/index.js&#34;,
-</span><span style="color:#a6e22e"></span>   &#34;scripts&#34;: {
-</code></pre></div><p>変更したパスに index.ts を配備。
++  &quot;main&quot;: &quot;dist/index.js&quot;,
+   &quot;scripts&quot;: {
+</code></pre>
+
+<p>変更したパスに index.ts を配備。
 この例だと <code>./my-nestapp/src/index.ts</code> となる。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">NestFactory</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;@nestjs/core&#39;</span>;
-<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">ExpressAdapter</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;@nestjs/platform-express&#39;</span>;
-<span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">as</span> <span style="color:#a6e22e">express</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;express&#39;</span>;
-<span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">as</span> <span style="color:#a6e22e">functions</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;firebase-functions&#39;</span>;
-<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">AppModule</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;./app.module&#39;</span>;
 
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">server</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">express</span>();
+<pre><code class="language-ts">import { NestFactory } from '@nestjs/core';
+import { ExpressAdapter } from '@nestjs/platform-express';
+import * as express from 'express';
+import * as functions from 'firebase-functions';
+import { AppModule } from './app.module';
 
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">promiseApplicationReady</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">NestFactory</span>.<span style="color:#a6e22e">create</span>(
-  <span style="color:#a6e22e">AppModule</span>,
-  <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ExpressAdapter</span>(<span style="color:#a6e22e">server</span>),
-).<span style="color:#a6e22e">then</span>((<span style="color:#a6e22e">app</span>) <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">init</span>());
+const server = express();
 
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">api</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">functions</span>
-  .<span style="color:#a6e22e">region</span>(<span style="color:#e6db74">&#39;asia-northeast1&#39;</span>)
-  .<span style="color:#a6e22e">https</span>.<span style="color:#a6e22e">onRequest</span>(<span style="color:#66d9ef">async</span> (...<span style="color:#a6e22e">args</span>) <span style="color:#f92672">=&gt;</span> {
-    <span style="color:#75715e">// https://qiita.com/chelproc/items/37ed6ed27ee599b586bf
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">promiseApplicationReady</span>;
-    <span style="color:#a6e22e">server</span>(...<span style="color:#a6e22e">args</span>);
+const promiseApplicationReady = NestFactory.create(
+  AppModule,
+  new ExpressAdapter(server),
+).then((app) =&gt; app.init());
+
+export const api = functions
+  .region('asia-northeast1')
+  .https.onRequest(async (...args) =&gt; {
+    // https://qiita.com/chelproc/items/37ed6ed27ee599b586bf
+    await promiseApplicationReady;
+    server(...args);
   });
-</code></pre></div><p>動作確認に <code>firebase emulators</code> を使う。
+</code></pre>
+
+<p>動作確認に <code>firebase emulators</code> を使う。
 ちゃんとレスポンスが返ってくるならここまではOK。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ npx firebase emulators:start --only functions
+
+<pre><code class="language-bash">$ npx firebase emulators:start --only functions
 $ curl -I http://localhost:5001/my-nestapp/us-central1/api/myitem
-</code></pre></div><p>firebaseのコンソールで支払いをBlazeに変更したらデプロイ。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ <span style="color:#f92672">(</span>cd my-nestapp/; npm run build; cd ../; firebase deploy --only functions<span style="color:#f92672">)</span>
-</code></pre></div><h4 id="参考">参考</h4>
+</code></pre>
+
+<p>firebaseのコンソールで支払いをBlazeに変更したらデプロイ。</p>
+
+<pre><code class="language-bash">$ (cd my-nestapp/; npm run build; cd ../; firebase deploy --only functions)
+</code></pre>
+
+<h4 id="参考">参考</h4>
+
 <ul>
 <li><a href="https://github.com/fireship-io/nest-cloud-functions/blob/master/B-functions/functions/src/index.ts">nest-cloud-functions/index.ts at master · fireship-io/nest-cloud-functions</a></li>
 <li><a href="https://qiita.com/0622okakyo/items/d69209b8b01c474c36be">NestJS をFirebase Functions で動かすための環境構築について - Qiita</a></li>
