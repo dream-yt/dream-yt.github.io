@@ -6,10 +6,19 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Mon, 07 Jun 2021 23:05:28 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 08 Jun 2021 22:37:21 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Firebase Hosting の一部のエンドポイントを CloudRun で受ける</title>
+      <link>https://dream-yt.github.io/post/firebase-hosting-receive-cloudrun/</link>
+      <pubDate>Tue, 08 Jun 2021 22:37:21 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/firebase-hosting-receive-cloudrun/</guid>
+      <description>こんな設定でできる。CloudFunctionで受けるのとほとんど一緒。 { &amp;quot;hosting&amp;quot;: { &amp;quot;public&amp;quot;: &amp;quot;public&amp;quot;, &amp;quot;rewrites&amp;quot;: [ { &amp;quot;source&amp;quot;: &amp;quot;/**&amp;quot;, &amp;quot;run&amp;quot;: { &amp;quot;serviceId&amp;quot;: &amp;quot;myappcloudrun-servicename&amp;quot;, &amp;quot;region&amp;quot;: &amp;quot;asia-northeast1&amp;quot; } } ] } } 参考 ホスティング動作を構成</description>
+    </item>
     
     <item>
       <title>CloudBuild で CloudRun のデプロイをする。ブランチ名によってはstagingにデプロイされるようにする。</title>
