@@ -24,7 +24,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.79.0" />
 		<title>sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -72,6 +72,21 @@
 
     <section id="wrapper" class="home">
         <ul id="post-list">
+    
+    
+        
+            <li>
+                <aside class="dates">Jan 13</aside>
+                <a href='https://dream-yt.github.io/post/show-mysql-disk-volume-by-table/'>
+                    MySQLでテーブルごとのデータ容量とインデックスの容量を一蘭する
+                    
+                        
+                            <h2>こんなクエリで出せる SELECT table_name, (data_length &#43; index_length) / 1000000 mb, data_length / 1000000 data_mb, -- 実データの容量 index_length / 1000000 idx_mb -- インデックスデータの容量 FROM information_schema.tables -- 後述 WHERE table_schema = database() -- ユーザー定義のテーブルに絞</h2>
+                        
+                    
+                </a>
+            </li>
+        
     
     
         
@@ -156,7 +171,7 @@
                     GitHub Action で実行中のブランチ名とリビジョンを出す
                     
                         
-                            <h2>こんな感じで出力できる。 - name: Show Revision run: | echo -e &#34;Branch: ${GITHUB_REF##*/}&#34; echo -e &#34;Revision: ${GITHUB_SHA:0:8}&#34; 参考 git - Getting current branch and commit hash in GitHub action - Stack Overflow</h2>
+                            <h2>こんな感じで出力できる。 - name: Show Revision run: |echo -e &#34;Branch: ${GITHUB_REF##*/}&#34; echo -e &#34;Revision: ${GITHUB_SHA:0:8}&#34; 参考 git - Getting current branch and commit hash in GitHub action - Stack Overflow</h2>
                         
                     
                 </a>
@@ -202,21 +217,6 @@
                     
                         
                             <h2>ライブラリ内部の挙動を一時的に変更したい時、以下のように書いてメソッドを上書きすることができる。 sub f { # 警告の抑制 no warnings &#39;redefine&#39;; # Foo::Bar クラスの roo メソッ</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Dec 24</aside>
-                <a href='https://dream-yt.github.io/post/chrome-search-bar-to-myblog/'>
-                    Chromeの検索バーで特定のサイト配下を検索する
-                    
-                        
-                            <h2>Chromeの検索バーにはサイトを登録することができる。 検索窓に duckduckgo.com と入れてtabを押してから文言をいれて検索すると、Googleではなくdu</h2>
                         
                     
                 </a>
