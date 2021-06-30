@@ -6,7 +6,16 @@
     <description>Recent content in Posts on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Fri, 18 Jun 2021 14:26:22 +0900</lastBuildDate><atom:link href="https://dream-yt.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 30 Jun 2021 16:43:48 +0900</lastBuildDate><atom:link href="https://dream-yt.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CAP定理のメモ</title>
+      <link>https://dream-yt.github.io/post/cap-theory-memo/</link>
+      <pubDate>Wed, 30 Jun 2021 16:43:48 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/cap-theory-memo/</guid>
+      <description>CAP定理とは有名な3つの特性があり、これらをすべて満たすDBを作ることは出来ないというもの。 一貫性 (整合性) 可用性 分断耐性 3つと書いてある</description>
+    </item>
+    
     <item>
       <title>seq の出力を printf 形式でフォーマットする -f オプション</title>
       <link>https://dream-yt.github.io/post/seq-format-option/</link>
