@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>Chalice の generate pipeline を試す (コードはGitHub) &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,53 +83,85 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#aws--github-へのアクセストークン">AWS =&gt; GitHub へのアクセストークン</a></li>
-    <li><a href="#設定ファイルの生成">設定ファイルの生成</a></li>
-    <li><a href="#cloudformation-deploy">cloudformation deploy</a>
-      <ul>
-        <li><a href="#オプション">オプション</a></li>
-      </ul>
-    </li>
-    <li><a href="#実行">実行</a></li>
-  </ul>
+<ul>
+<li><a href="#chalice-pipeline-の動作検証">chalice pipeline の動作検証</a>
+<ul>
+<li><a href="#aws-github-へのアクセストークン">AWS =&gt; GitHub へのアクセストークン</a></li>
+<li><a href="#設定ファイルの生成">設定ファイルの生成</a></li>
+<li><a href="#cloudformation-deploy">cloudformation deploy</a>
+<ul>
+<li><a href="#オプション">オプション</a>
+<ul>
+<li>
+<ul>
+<li><a href="#githubowner">GithubOwner</a></li>
+<li><a href="#githubreponame">GithubRepoName</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li><a href="#実行">実行</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <h1 id="chalice-pipeline-の動作検証">chalice pipeline の動作検証</h1>
+                    
+
+<h1 id="chalice-pipeline-の動作検証">chalice pipeline の動作検証</h1>
+
 <p>私用のAWSアカウントで chalice pipeline コマンドを試してみた。
 デフォルトだとソースコードの管理は AWS Code Commit になるが、GitHubが使いたいのでそのようにした。</p>
-<h2 id="aws--github-へのアクセストークン">AWS =&gt; GitHub へのアクセストークン</h2>
+
+<h2 id="aws-github-へのアクセストークン">AWS =&gt; GitHub へのアクセストークン</h2>
+
 <p>GitHubからソースコードを取得できるように、GitHubのアクセストークンを払い出す。権限はreposが読めればよい。</p>
+
 <ul>
 <li><a href="https://github.com/settings/tokens">Personal Access Tokens</a></li>
 </ul>
+
 <p>トークンをこんな感じのJSONに格納して、AWS Secrets Manager に置く。</p>
+
 <pre><code>$ cat /tmp/secrets.json
 {&quot;OAuthToken&quot;: &quot;xxxxxxxx&quot;}
-</code></pre><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ aws secretsmanager create-secret --name GithubRepoAccess <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  --description <span style="color:#e6db74">&#34;Token for Github Repo Access&#34;</span> <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  --secret-string file:///tmp/secrets.json
-</code></pre></div><ul>
+</code></pre>
+
+<pre><code class="language-bash">$ aws secretsmanager create-secret --name GithubRepoAccess \
+  --description &quot;Token for Github Repo Access&quot; \
+  --secret-string file:///tmp/secrets.json
+</code></pre>
+
+<ul>
 <li><a href="https://docs.aws.amazon.com/ja_jp/secretsmanager/latest/userguide/intro.html">AWS Secrets Manager とは - AWS Secrets Manager</a></li>
 </ul>
+
 <h2 id="設定ファイルの生成">設定ファイルの生成</h2>
+
 <p><code>chalice generate-pipeline</code> でパイプラインをつくるためのcloudformationテンプレートを生成する。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ chalice generate-pipeline <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    --pipeline-version v2 <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    --source github <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    --buildspec-file buildspec.yml <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    pipeline.json
-</code></pre></div><p>自分の場合はjsonだとコメントがつけられなくて不便だったのでyamlに変換した。</p>
+
+<pre><code class="language-bash">$ chalice generate-pipeline \
+    --pipeline-version v2 \
+    --source github \
+    --buildspec-file buildspec.yml \
+    pipeline.json
+</code></pre>
+
+<p>自分の場合はjsonだとコメントがつけられなくて不便だったのでyamlに変換した。</p>
+
 <pre><code>cat ./pipeline.json | yq -y . | tee ./pipeline.yaml
 rm ./pipeline.json
-</code></pre><ul>
+</code></pre>
+
+<ul>
 <li><a href="https://github.com/mikefarah/yq">mikefarah/yq: yq is a portable command-line YAML processor</a></li>
 </ul>
+
 <h2 id="cloudformation-deploy">cloudformation deploy</h2>
+
 <p>cloudformationのテンプレートを適用する。</p>
+
 <pre><code>aws cloudformation deploy \
     --template-file pipeline.json \
     --capabilities CAPABILITY_IAM \
@@ -137,59 +169,78 @@ rm ./pipeline.json
     --parameter-overrides \
         GithubOwner={{ }} \
         GithubRepoName={{  }} \
-</code></pre><p><code>--capabilities</code> オプションは、AWSの仕様で承認していることを示すためにつける必要があるオプション。</p>
+</code></pre>
+
+<p><code>--capabilities</code> オプションは、AWSの仕様で承認していることを示すためにつける必要があるオプション。</p>
+
 <blockquote>
 <p>CloudFormation の仕様として、AWSアカウントのアクセス権限に影響するリソース（Roleの作成など）を含む可能性があるテンプレートを指定する場合、明示的に &ndash;capabilities を使ってテンプレート機能の承認を行う必要があります。</p>
 </blockquote>
+
 <ul>
 <li><a href="https://www.techscore.com/blog/2018/12/07/aws-sam-tips/">TECHSCORE｜知っておきたかったAWS SAM の小ネタ4選 | TECHSCORE BLOG</a></li>
 </ul>
+
 <h3 id="オプション">オプション</h3>
+
 <p>自動生成されるpipeline.yamlに用意されているオプションは以下の通り</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#ae81ff">$ cat ./pipeline.yaml | yq -y .Parameters</span>
-<span style="color:#f92672">ApplicationName</span>:
-  <span style="color:#f92672">Default</span>: <span style="color:#ae81ff">sandbox</span>
-  <span style="color:#f92672">Type</span>: <span style="color:#ae81ff">String</span>
-  <span style="color:#f92672">Description</span>: <span style="color:#ae81ff">Enter the name of your application</span>
-<span style="color:#f92672">CodeBuildImage</span>:
-  <span style="color:#f92672">Default</span>: <span style="color:#ae81ff">aws/codebuild/amazonlinux2-x86_64-standard:3.0</span>
-  <span style="color:#f92672">Type</span>: <span style="color:#ae81ff">String</span>
-  <span style="color:#f92672">Description</span>: <span style="color:#ae81ff">Name of codebuild image to use.</span>
-<span style="color:#f92672">GithubOwner</span>:
-  <span style="color:#f92672">Type</span>: <span style="color:#ae81ff">String</span>
-  <span style="color:#f92672">Description</span>: <span style="color:#ae81ff">The github owner or org name of the repository.</span>
-<span style="color:#f92672">GithubRepoName</span>:
-  <span style="color:#f92672">Type</span>: <span style="color:#ae81ff">String</span>
-  <span style="color:#f92672">Description</span>: <span style="color:#ae81ff">The name of the github repository.</span>
-<span style="color:#f92672">GithubRepoSecretId</span>:
-  <span style="color:#f92672">Type</span>: <span style="color:#ae81ff">String</span>
-  <span style="color:#f92672">Default</span>: <span style="color:#ae81ff">GithubRepoAccess</span>
-  <span style="color:#f92672">Description</span>: <span style="color:#ae81ff">The name/ID of the SecretsManager secret that contains the personal</span>
-    <span style="color:#ae81ff">access token for the github repo.</span>
-<span style="color:#f92672">GithubRepoSecretJSONKey</span>:
-  <span style="color:#f92672">Type</span>: <span style="color:#ae81ff">String</span>
-  <span style="color:#f92672">Default</span>: <span style="color:#ae81ff">OAuthToken</span>
-  <span style="color:#f92672">Description</span>: <span style="color:#ae81ff">The name of the JSON key in the SecretsManager secret that contains</span>
-    <span style="color:#ae81ff">the personal access token for the github repo.</span>
-</code></pre></div><p>この2つは必須のオプション</p>
+
+<pre><code class="language-yaml">$ cat ./pipeline.yaml | yq -y .Parameters
+ApplicationName:
+  Default: sandbox
+  Type: String
+  Description: Enter the name of your application
+CodeBuildImage:
+  Default: aws/codebuild/amazonlinux2-x86_64-standard:3.0
+  Type: String
+  Description: Name of codebuild image to use.
+GithubOwner:
+  Type: String
+  Description: The github owner or org name of the repository.
+GithubRepoName:
+  Type: String
+  Description: The name of the github repository.
+GithubRepoSecretId:
+  Type: String
+  Default: GithubRepoAccess
+  Description: The name/ID of the SecretsManager secret that contains the personal
+    access token for the github repo.
+GithubRepoSecretJSONKey:
+  Type: String
+  Default: OAuthToken
+  Description: The name of the JSON key in the SecretsManager secret that contains
+    the personal access token for the github repo.
+</code></pre>
+
+<p>この2つは必須のオプション</p>
+
 <h5 id="githubowner">GithubOwner</h5>
+
 <blockquote>
 <p>The github owner or org name of the repository.</p>
 </blockquote>
+
 <h5 id="githubreponame">GithubRepoName</h5>
+
 <blockquote>
 <p>The name of the github repository.</p>
 </blockquote>
+
 <p>GitHubのURLはこうなってるので</p>
+
 <blockquote>
 <p>/repos/:owner/:repo/git/trees/:sha</p>
 </blockquote>
+
 <p>たとえば<a href="https://github.com/aws/chalice">chalice</a>の場合はこうなる</p>
+
 <ul>
 <li><code>GithubOwner=aws</code></li>
 <li><code>GithubRepoName=chalice</code></li>
 </ul>
+
 <h2 id="実行">実行</h2>
+
 <p>circleciのように buildspec.yml に定義したスクリプトが実行される。</p>
 
                 </section>

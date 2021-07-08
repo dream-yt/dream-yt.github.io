@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>Fluentd→Bigquery タグごとに別テーブルにinsert &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,40 +83,53 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#プレースホルダー">プレースホルダー</a></li>
-    <li><a href="#time_key">time_key</a>
-      <ul>
-        <li></li>
-      </ul>
-    </li>
-    <li><a href="#buffer-tag">buffer tag</a>
-      <ul>
-        <li></li>
-      </ul>
-    </li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#プレースホルダー">プレースホルダー</a></li>
+<li><a href="#time-key">time_key</a>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#例">例</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li><a href="#buffer-tag">buffer tag</a>
+<ul>
+<li>
+<ul>
+<li><a href="#その他">その他</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>こんな設定でできる</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;source&gt;</span>
-  @type forward
-<span style="color:#f92672">&lt;/source&gt;</span>
+                    
 
-<span style="color:#f92672">&lt;match</span> <span style="color:#960050;background-color:#1e0010">bigquery.**</span><span style="color:#f92672">&gt;</span>
+<p>こんな設定でできる</p>
+
+<pre><code class="language-xml">&lt;source&gt;
+  @type forward
+&lt;/source&gt;
+
+&lt;match bigquery.**&gt;
   @type bigquery_insert
 
-  <span style="color:#f92672">&lt;buffer</span> <span style="color:#960050;background-color:#1e0010">tag</span><span style="color:#f92672">&gt;</span>
+  &lt;buffer tag&gt;
     flush_interval 10
-  <span style="color:#f92672">&lt;/buffer&gt;</span>
+  &lt;/buffer&gt;
 
-  <span style="color:#f92672">&lt;inject&gt;</span>
+  &lt;inject&gt;
     time_key time
     utc true
-  <span style="color:#f92672">&lt;/inject&gt;</span>
+  &lt;/inject&gt;
 
   auth_method json_key
   json_key /home/jibun/fluentd/xxxxxx-123456-35640a504591.json
@@ -124,56 +137,91 @@
   project myprj-135512
   dataset ${tag[1]}
   table ${tag[2]}
-<span style="color:#f92672">&lt;/match&gt;</span>
-</code></pre></div><h2 id="プレースホルダー">プレースホルダー</h2>
+&lt;/match&gt;
+</code></pre>
+
+<h2 id="プレースホルダー">プレースホルダー</h2>
+
 <p>この部分の設定で、タグごとに別テーブルへとinsertしている</p>
+
 <pre><code>  dataset ${tag[1]}
   table ${tag[2]}
-</code></pre><p>fluentdは現在のバージョンでは <code>${tag[1]}</code> というようなプレースホルダーを設定に使うことができる</p>
+</code></pre>
+
+<p>fluentdは現在のバージョンでは <code>${tag[1]}</code> というようなプレースホルダーを設定に使うことができる</p>
+
 <ul>
 <li><a href="https://docs.fluentd.org/configuration/buffer-section#placeholders">Config: Buffer Section - Fluentd</a></li>
 </ul>
+
 <p>たとえば <code>bigquery.mydataset.temperature</code> タグを渡すと、
 mydatasetというデータセットのtemperatureテーブルにデータを入れてくれる</p>
-<h2 id="time_key">time_key</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml">  <span style="color:#f92672">&lt;inject&gt;</span>
+
+<h2 id="time-key">time_key</h2>
+
+<pre><code class="language-xml">  &lt;inject&gt;
     time_key time
-</code></pre></div><p><code>time_key time</code> という設定をいれておくと、
+</code></pre>
+
+<p><code>time_key time</code> という設定をいれておくと、
 時間を指定せずにメッセージを送ってもtimeカラムに送信日時が入ってくれる</p>
+
 <h5 id="例">例</h5>
+
 <p>こんなコマンドを何回か叩いたとして</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># timeカラムをメッセージに含めていない</span>
-echo <span style="color:#e6db74">&#34;{\&#34;value\&#34;: </span>$RANDOM<span style="color:#e6db74">}&#34;</span> | fluent-cat bigquery.mydataset.temperature
-</code></pre></div><p>これでちゃんと時間が入ってくれる</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#f92672">+</span><span style="color:#75715e">---------------------+-------+
-</span><span style="color:#75715e"></span><span style="color:#f92672">|</span>        time         <span style="color:#f92672">|</span> value <span style="color:#f92672">|</span>
-<span style="color:#f92672">+</span><span style="color:#75715e">---------------------+-------+
-</span><span style="color:#75715e"></span><span style="color:#f92672">|</span> <span style="color:#ae81ff">2019</span><span style="color:#f92672">-</span><span style="color:#ae81ff">12</span><span style="color:#f92672">-</span><span style="color:#ae81ff">28</span> <span style="color:#ae81ff">02</span>:<span style="color:#ae81ff">11</span>:<span style="color:#ae81ff">26</span> <span style="color:#f92672">|</span> <span style="color:#ae81ff">25425</span> <span style="color:#f92672">|</span>
-<span style="color:#f92672">|</span> <span style="color:#ae81ff">2019</span><span style="color:#f92672">-</span><span style="color:#ae81ff">12</span><span style="color:#f92672">-</span><span style="color:#ae81ff">28</span> <span style="color:#ae81ff">02</span>:<span style="color:#ae81ff">11</span>:<span style="color:#ae81ff">28</span> <span style="color:#f92672">|</span> <span style="color:#ae81ff">13507</span> <span style="color:#f92672">|</span>
-<span style="color:#f92672">|</span> <span style="color:#ae81ff">2019</span><span style="color:#f92672">-</span><span style="color:#ae81ff">12</span><span style="color:#f92672">-</span><span style="color:#ae81ff">28</span> <span style="color:#ae81ff">02</span>:<span style="color:#ae81ff">11</span>:<span style="color:#ae81ff">33</span> <span style="color:#f92672">|</span> <span style="color:#ae81ff">31525</span> <span style="color:#f92672">|</span>
-<span style="color:#f92672">+</span><span style="color:#75715e">---------------------+-------+
-</span></code></pre></div><h2 id="buffer-tag">buffer tag</h2>
+
+<pre><code class="language-bash"># timeカラムをメッセージに含めていない
+echo &quot;{\&quot;value\&quot;: $RANDOM}&quot; | fluent-cat bigquery.mydataset.temperature
+</code></pre>
+
+<p>これでちゃんと時間が入ってくれる</p>
+
+<pre><code class="language-sql">+---------------------+-------+
+|        time         | value |
++---------------------+-------+
+| 2019-12-28 02:11:26 | 25425 |
+| 2019-12-28 02:11:28 | 13507 |
+| 2019-12-28 02:11:33 | 31525 |
++---------------------+-------+
+</code></pre>
+
+<h2 id="buffer-tag">buffer tag</h2>
+
 <p>この設定がないと</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"> <span style="color:#f92672">&lt;buffer</span> <span style="color:#960050;background-color:#1e0010">tag</span><span style="color:#f92672">&gt;</span>
-</code></pre></div><p>こんなエラーが出る</p>
+
+<pre><code class="language-xml"> &lt;buffer tag&gt;
+</code></pre>
+
+<p>こんなエラーが出る</p>
+
 <blockquote>
 <p>Parameter &lsquo;bigquery_insert: project=xxxxxx-123456/dataset=${tag[1]}/table=${tag[2]}/fetch_schema_table=/template_suffix=&rsquo; has tag placeholders, but chunk key &lsquo;tag&rsquo; is not configured</p>
 </blockquote>
+
 <p>ちゃんとプレースホルダーのドキュメントに書いてあった</p>
+
 <blockquote>
 <p>When the chunk keys are specified, these values can be extracted in configuration parameter values.</p>
 </blockquote>
+
 <ul>
 <li><a href="https://docs.fluentd.org/configuration/buffer-section#placeholders">Config: Buffer Section - Fluentd</a></li>
 </ul>
+
 <p>タグプレースホルダーを使うときはchunk-key(bufferの設定)のところでtagを指定しないとダメ</p>
-<hr>
+
+<hr />
+
 <h4 id="その他">その他</h4>
+
 <p><code>@type bigquery_load</code> を使う場合、 サービスアカウントに <code>bigquery.jobs.create</code> 権限が必要 (BigQuery編集者だとその権限はついていなかった)</p>
+
 <p>また、<code>bigquery_load</code> ではデータが少量すぎると以下のようなエラーが出ていた</p>
+
 <blockquote>
 <p>failed to poll load job error_class=Fluent::BigQuery::UnRetryableError error=&ldquo;notFound: Not found: Job penguin-171212:job_H555BgtYLRUQpxq-bnSBH3uAbBfn&rdquo;</p>
 </blockquote>
+
 <p>データはbigqueryに入っていたので、おそらく初回のポーリングまでに処理が終わってしまうような量だと発生するエラーかも</p>
 
                 </section>

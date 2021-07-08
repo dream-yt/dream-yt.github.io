@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>athenacliを使う &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,60 +83,86 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#install">install</a></li>
-    <li><a href="#設定">設定</a></li>
-    <li><a href="#実行">実行</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#install">install</a></li>
+<li><a href="#設定">設定</a></li>
+<li><a href="#実行">実行</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>awscliにはathenaサブコマンドが用意されているが、gcpのbqコマンドのように便利な雰囲気ではない</p>
+                    
+
+<p>awscliにはathenaサブコマンドが用意されているが、gcpのbqコマンドのように便利な雰囲気ではない</p>
+
 <ul>
 <li><a href="https://docs.aws.amazon.com/cli/latest/reference/athena/">athena — AWS CLI 1.16.47 Command Reference</a></li>
 </ul>
+
 <p>シェルスクリプトにするのにもちょっと面倒な感じ</p>
+
 <ol>
 <li>start-query-executionして、</li>
 <li>get-query-executionしながらsleepしたりして</li>
 <li>get-query-resultで結果を取得</li>
 <li>結果csvをs3から取ってくる</li>
 </ol>
+
 <p>この面倒な部分をやってくれる便利なツールがあった</p>
+
 <ul>
 <li><a href="https://athenacli.readthedocs.io/en/latest/">AthenaCLI — AthenaCLI documentation</a></li>
 </ul>
+
 <h2 id="install">install</h2>
+
 <p>pipで入る</p>
-<pre><code class="language-console" data-lang="console">$ pip install athenacli
+
+<pre><code class="language-console">$ pip install athenacli
 Collecting athenacli
 ...
 $ which athenacli
 /usr/local/bin/athenacli
-</code></pre><h2 id="設定">設定</h2>
+</code></pre>
+
+<h2 id="設定">設定</h2>
+
 <p>athenaにクエリをかけるのには以下のような設定情報が必要となる</p>
+
 <ul>
 <li>aws-access-key-id</li>
 <li>aws-secret-access-key</li>
 <li>region</li>
 <li>s3-staging-dir (クエリの実行結果を置く場所)</li>
 </ul>
+
 <p>これらをAthenaCLIに渡す方法はいろんな種類がサポートされている</p>
+
 <ul>
 <li><a href="https://athenacli.readthedocs.io/en/latest/awsconfig.html?highlight=athenaclirc#available-configs">AWS Configs — AthenaCLI documentation</a></li>
 </ul>
+
 <p>環境変数を使うならこんな感じになる</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">export AWS_ACCESS_KEY_ID<span style="color:#f92672">=</span>xxxxxx
-export AWS_SECRET_ACCESS_KEY<span style="color:#f92672">=</span>xxxxxx/xxxxxxxxxx
-export AWS_DEFAULT_REGION<span style="color:#f92672">=</span>ap-northeast-1
-export AWS_ATHENA_S3_STAGING_DIR<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;s3://thisisyourbucket/athenacli/&#34;</span>
-</code></pre></div><h2 id="実行">実行</h2>
+
+<pre><code class="language-bash">export AWS_ACCESS_KEY_ID=xxxxxx
+export AWS_SECRET_ACCESS_KEY=xxxxxx/xxxxxxxxxx
+export AWS_DEFAULT_REGION=ap-northeast-1
+export AWS_ATHENA_S3_STAGING_DIR=&quot;s3://thisisyourbucket/athenacli/&quot;
+</code></pre>
+
+<h2 id="実行">実行</h2>
+
 <p>ファイル名を渡しても、クエリを文字列で渡しても良い
 結果は標準出力にcsvで出力される</p>
+
 <pre><code>$ athenacli -e src/queries/_.sql &gt; /tmp/_.csv
 </code></pre>
+
                 </section>
             </article>
 

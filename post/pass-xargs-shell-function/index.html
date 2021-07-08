@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>xargs にシェルの関数を渡して並列処理してもらう &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,63 +83,101 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#シェルの関数を渡す">シェルの関数を渡す</a></li>
-    <li><a href="#並列で処理させる">並列で処理させる</a>
-      <ul>
-        <li></li>
-      </ul>
-    </li>
-    <li><a href="#bash-が必要">bash が必要</a></li>
-    <li><a href="#参考">参考</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#シェルの関数を渡す">シェルの関数を渡す</a></li>
+<li><a href="#並列で処理させる">並列で処理させる</a>
+<ul>
+<li>
+<ul>
+<li><a href="#linux">Linux</a></li>
+<li><a href="#macos">macos</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#bash-が必要">bash が必要</a></li>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>普通にやると xargs にはシェルの関数を渡すことはできないが、ちょっと頑張れば xargs で関数を並列で処理させることができる。
+                    
+
+<p>普通にやると xargs にはシェルの関数を渡すことはできないが、ちょっと頑張れば xargs で関数を並列で処理させることができる。
 普通は xargs ではなく for ループで処理すればいいのだが「この部分の処理だけ並列処理させたい」という場合には、その処理を関数にまとめて xargs に並列化してもらうと手軽で便利だ。</p>
+
 <h2 id="シェルの関数を渡す">シェルの関数を渡す</h2>
+
 <p>まずシェルで関数を定義する。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">myfunc <span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
-  local arg1<span style="color:#f92672">=</span>$1
+
+<pre><code class="language-bash">myfunc () {
+  local arg1=$1
   ...
-<span style="color:#f92672">}</span>
-</code></pre></div><p>それを export してサブシェルでも <code>myfunc</code> を使えるようにする。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">export -f myfunc
-</code></pre></div><ul>
+}
+</code></pre>
+
+<p>それを export してサブシェルでも <code>myfunc</code> を使えるようにする。</p>
+
+<pre><code class="language-bash">export -f myfunc
+</code></pre>
+
+<ul>
 <li><a href="http://linuxcommand.org/lc3_man_pages/exporth.html">export man page</a></li>
 </ul>
+
 <p>xargs に <code>-c</code>オプションを伴ったbashコマンドとして渡す。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">... | xargs -I<span style="color:#f92672">{}</span> bash -c <span style="color:#e6db74">&#34;myfunc {}&#34;</span>
-</code></pre></div><p><code>bash -c</code> で渡すコマンドはサブシェル扱いになるので export が必要。</p>
+
+<pre><code class="language-bash">... | xargs -I{} bash -c &quot;myfunc {}&quot;
+</code></pre>
+
+<p><code>bash -c</code> で渡すコマンドはサブシェル扱いになるので export が必要。</p>
+
 <h2 id="並列で処理させる">並列で処理させる</h2>
+
 <p>xargs には <code>-P</code> オプションがあり、これを指定すると渡した行をそれぞれ並列で処理してくれるようになる。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">... | xargs -P4 -I<span style="color:#f92672">{}</span> bash -c <span style="color:#e6db74">&#34;myfunc {}&#34;</span>
-</code></pre></div><ul>
+
+<pre><code class="language-bash">... | xargs -P4 -I{} bash -c &quot;myfunc {}&quot;
+</code></pre>
+
+<ul>
 <li><a href="https://www.atmarkit.co.jp/ait/articles/1801/19/news014.html">【 xargs 】コマンド――コマンドラインを作成して実行する：Linux基本コマンドTips（176） - ＠IT</a></li>
 </ul>
+
 <p>マシンのCPUコア数はOSごとにそれぞれ以下のコマンドで調べられる。</p>
+
 <h4 id="linux">Linux</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cat /proc/cpuinfo | grep processor
-processor	: <span style="color:#ae81ff">0</span>
-processor	: <span style="color:#ae81ff">1</span>
-processor	: <span style="color:#ae81ff">2</span>
-processor	: <span style="color:#ae81ff">3</span>
-</code></pre></div><h4 id="macos">macos</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ system_profiler SPHardwareDataType  | grep Cores
-      Total Number of Cores: <span style="color:#ae81ff">4</span>
-</code></pre></div><ul>
+
+<pre><code class="language-bash">$ cat /proc/cpuinfo | grep processor
+processor	: 0
+processor	: 1
+processor	: 2
+processor	: 3
+</code></pre>
+
+<h4 id="macos">macos</h4>
+
+<pre><code class="language-bash">$ system_profiler SPHardwareDataType  | grep Cores
+      Total Number of Cores: 4
+</code></pre>
+
+<ul>
 <li><a href="https://itneko.com/mac-cpu-core/">MacのターミナルでCPUのコア数を確認する方法｜茶トラ猫のエンジニア日記</a></li>
 </ul>
+
 <h2 id="bash-が必要">bash が必要</h2>
+
 <p><code>export -f</code> は <code>/bin/sh</code> の機能にないので <code>bash</code> でスクリプトを実行する必要がある。
 コンテナ環境とかで <code>bash</code> が入っていない場合は使えない。</p>
+
 <ul>
 <li><a href="https://stackoverflow.com/questions/29239806/how-to-export-a-function-in-bourne-shell">bash - How to export a function in Bourne shell? - Stack Overflow</a></li>
 </ul>
+
 <h2 id="参考">参考</h2>
+
 <ul>
 <li><a href="https://unix.stackexchange.com/questions/158564/how-to-use-defined-function-with-xargs">bash - How to use defined function with xargs - Unix &amp; Linux Stack Exchange</a></li>
 </ul>

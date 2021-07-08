@@ -14,7 +14,7 @@
   
   
   <meta name="twitter:title" content="BigQuery の Scheduled Query をCLIから登録/参照"/>
-  <meta name="twitter:description" content="こんなコマンドで登録できる $ bq mk \ --transfer_config \ --data_source=scheduled_query \ --target_dataset=mydataset \ --display_name=&#39;daily_update/$tablename&#39; \ --schedule=&#39;every day 18:00&#39; \ --params=&#34;$(cat $filename)&#34; --schedule=&#39;every day 18:00&#39; ここで指定する時間はUTC --params=&quot;\$(cat $filename)&quot; {&quot;query&quot;:&quot;SELECT 1&quot;} みたいなJSONが入ってるファイルとす"/>
+  <meta name="twitter:description" content="こんなコマンドで登録できる $ bq mk \ --transfer_config \ --data_source=scheduled_query \ --target_dataset=mydataset \ --display_name=&#39;daily_update/$tablename&#39; \ --schedule=&#39;every day 18:00&#39; \ --params=&quot;$(cat $filename)&quot; --schedule=&#39;every day 18:00&#39; ここで指定する時間はUTC --params=&quot;\$(cat $filename)&quot; {&quot;query&quot;:&quot;SELECT 1&quot;} みたいなJSONが入ってるファイルとす"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>BigQuery の Scheduled Query をCLIから登録/参照 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,43 +83,57 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#参考">参考</a></li>
-    <li><a href="#なお">なお</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#参考">参考</a></li>
+<li><a href="#なお">なお</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>こんなコマンドで登録できる</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ bq mk <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    --transfer_config <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    --data_source<span style="color:#f92672">=</span>scheduled_query <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    --target_dataset<span style="color:#f92672">=</span>mydataset <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    --display_name<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;daily_update/$tablename&#39;</span> <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    --schedule<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;every day 18:00&#39;</span> <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    --params<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>cat $filename<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
-</code></pre></div><ul>
+                    
+
+<p>こんなコマンドで登録できる</p>
+
+<pre><code class="language-bash">$ bq mk \
+    --transfer_config \
+    --data_source=scheduled_query \
+    --target_dataset=mydataset \
+    --display_name='daily_update/$tablename' \
+    --schedule='every day 18:00' \
+    --params=&quot;$(cat $filename)&quot;
+</code></pre>
+
+<ul>
 <li><code>--schedule='every day 18:00'</code>
+
 <ul>
 <li>ここで指定する時間はUTC</li>
-</ul>
-</li>
+</ul></li>
 <li><code>--params=&quot;\$(cat $filename)&quot;</code>
+
 <ul>
 <li><code>{&quot;query&quot;:&quot;SELECT 1&quot;}</code> みたいなJSONが入ってるファイルとする</li>
+</ul></li>
 </ul>
-</li>
-</ul>
+
 <h2 id="参考">参考</h2>
+
 <ul>
 <li><a href="https://stackoverflow.com/questions/56636336/bigquery-scheduled-query-through-cli">BigQuery - scheduled query through CLI - Stack Overflow</a></li>
 </ul>
+
 <h2 id="なお">なお</h2>
+
 <p>作ったスケジュールクエリをCLIで取得するのはこんな感じ</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ bq --format<span style="color:#f92672">=</span>json ls --transfer_config --transfer_location<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;asia-northeast1&#39;</span> | jq .
-</code></pre></div>
+
+<pre><code class="language-bash">$ bq --format=json ls --transfer_config --transfer_location='asia-northeast1' | jq .
+</code></pre>
+
                 </section>
             </article>
 

@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>NestJS/class-transformer でPOSTされなかったパラメータにデフォルトを設定する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,43 +83,64 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#caveat">Caveat</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#caveat">Caveat</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>前回までのあらすじ</p>
+                    
+
+<p>前回までのあらすじ</p>
+
 <ul>
 <li><a href="https://blog.n-t.jp/tech/nestjs-class-transformer-pipe/">NestJSでPOSTパラメータをクラスのインスタンスに変換して受け取る</a></li>
 </ul>
+
 <p>文字列で渡ってきた <code>&quot;2011-01-01 12:34:56&quot;</code> という文字列を <code>new Date(&quot;2011-01-01 12:34:56&quot;)</code> された状態で扱うことはできるようになったが、今度はこれにデフォルト値を入れた状態でコントローラが受け取るための方法。</p>
+
 <p>たとえば、<code>expireAt</code> というフィールドがあって、これが <code>null</code> でPOSTされてきたときに二ヶ月後のDateが入った状態で処理を開始したい場合はこんなコードを書けばよい。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-tsx" data-lang="tsx"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">addMonths</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;date-fns&#39;</span>;
-<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Type</span>, <span style="color:#a6e22e">Transform</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;class-transformer&#39;</span>;
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CreateSampleDto</span> {
-  <span style="color:#66d9ef">@IsDate</span>()
-  <span style="color:#66d9ef">@IsNotEmpty</span>()
-  <span style="color:#66d9ef">@Type</span>(() <span style="color:#f92672">=&gt;</span> Date)
-  <span style="color:#66d9ef">@Transform</span>(({ <span style="color:#a6e22e">value</span> }) <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">value</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">addMonths</span>(<span style="color:#66d9ef">new</span> Date(), <span style="color:#ae81ff">1</span>), {
-    <span style="color:#a6e22e">toClassOnly</span>: <span style="color:#66d9ef">true</span>,
+
+<pre><code class="language-tsx">import { addMonths } from 'date-fns';
+import { Type, Transform } from 'class-transformer';
+export class CreateSampleDto {
+  @IsDate()
+  @IsNotEmpty()
+  @Type(() =&gt; Date)
+  @Transform(({ value }) =&gt; value || addMonths(new Date(), 1), {
+    toClassOnly: true,
   })
-  <span style="color:#a6e22e">expireAt</span>: <span style="color:#66d9ef">Date</span>;
+  expireAt: Date;
 }
-</code></pre></div><ul>
+</code></pre>
+
+<ul>
 <li><a href="https://github.com/typestack/class-transformer/issues/129">feat: use default value for property when doing plainToClass · Issue #129 · typestack/class-transformer</a></li>
 </ul>
+
 <h2 id="caveat">Caveat</h2>
+
 <p>NestJS の <code>ValidationPipe</code> が <code>undefined</code> だったフィールドは処理してくれないので、falsyな値をつけてPOSTしないと期待通りに動作しない。</p>
+
 <p>つまり、この値をPOSTした場合は期待通り二ヶ月後の日付が入るが</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{<span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">1</span>, <span style="color:#f92672">&#34;expireAt&#34;</span>: <span style="color:#66d9ef">null</span>}
-{<span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">1</span>, <span style="color:#f92672">&#34;expireAt&#34;</span>: <span style="color:#e6db74">&#34;0&#34;</span>}
-</code></pre></div><p>こんな値をPOSTした場合は、そもそもデフォルト値を入れるための処理が呼ばれない。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{<span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">1</span>}
-{<span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">1</span>, <span style="color:#f92672">&#34;expireAt&#34;</span>: <span style="color:#960050;background-color:#1e0010">undefined</span>}
-</code></pre></div><p>意図せぬ値がDBに入らないように <code>class-validator</code> の <code>IsNotEmpty</code> を使うと、<code>undefined</code> をPOSTした場合は弾いて、<code>null</code> をPOSTした場合は期待通りに動作するようになる。<code>IsNotEmpty</code> は <code>Transform</code> よりも後に呼ばれるようだ。</p>
+
+<pre><code class="language-json">{&quot;id&quot;: 1, &quot;expireAt&quot;: null}
+{&quot;id&quot;: 1, &quot;expireAt&quot;: &quot;0&quot;}
+</code></pre>
+
+<p>こんな値をPOSTした場合は、そもそもデフォルト値を入れるための処理が呼ばれない。</p>
+
+<pre><code class="language-json">{&quot;id&quot;: 1}
+{&quot;id&quot;: 1, &quot;expireAt&quot;: undefined}
+</code></pre>
+
+<p>意図せぬ値がDBに入らないように <code>class-validator</code> の <code>IsNotEmpty</code> を使うと、<code>undefined</code> をPOSTした場合は弾いて、<code>null</code> をPOSTした場合は期待通りに動作するようになる。<code>IsNotEmpty</code> は <code>Transform</code> よりも後に呼ばれるようだ。</p>
+
 <p>苦しい感じでなんとかしているが、クライアント側からするとよくわからない仕様なので本当は <code>undefined</code> を投げられた場合もなんとかしたい。</p>
 
                 </section>
