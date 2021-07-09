@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.79.0" />
 		<title>CORSやSOPについての基礎的な知識 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,77 +83,57 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#オリジンの判定ルール">オリジンの判定ルール</a></li>
-<li><a href="#オリジンが違う場合の制限">オリジンが違う場合の制限</a></li>
-<li><a href="#制限を回避するための方法">制限を回避するための方法</a></li>
-<li><a href="#参考">参考</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#オリジンの判定ルール">オリジンの判定ルール</a></li>
+    <li><a href="#オリジンが違う場合の制限">オリジンが違う場合の制限</a></li>
+    <li><a href="#制限を回避するための方法">制限を回避するための方法</a></li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p>CORS(Cross-Origin Resource Sharing)や、SOP(Same-Origin Policy) については知っておくべきことは3種類。</p>
-
+                    <p>CORS(Cross-Origin Resource Sharing)や、SOP(Same-Origin Policy) については知っておくべきことは3種類。</p>
 <ul>
 <li>オリジンの判定ルール</li>
 <li>オリジンが違う場合の制限</li>
 <li>制限を回避するための方法</li>
 </ul>
-
 <h2 id="オリジンの判定ルール">オリジンの判定ルール</h2>
-
 <p>以下が3つとも同じなら、ブラウザは同じオリジン(Same-Origin)と判断する。</p>
-
 <ul>
 <li>ホスト
-
 <ul>
 <li>サブドメインが違う場合も異なるオリジンとなる</li>
-</ul></li>
+</ul>
+</li>
 <li>ポート</li>
 <li>スキーム
-
 <ul>
 <li>http or https</li>
-</ul></li>
 </ul>
-
+</li>
+</ul>
 <h2 id="オリジンが違う場合の制限">オリジンが違う場合の制限</h2>
-
 <p>下記の場合にはブラウザはSOPに従う(制限をかける)</p>
-
 <ul>
 <li>異なるオリジンへはXMLHttpRequestでリクエスト出来ない</li>
 <li>異なるオリジンのiframeオブジェクトをjsから触ることが出来ない</li>
 <li>異なるオリジンのlocalStorageを参照することは出来ない</li>
 </ul>
-
 <p>他にも細かい制限は存在するが、よく遭遇するのはこの3つである。</p>
-
 <p>cookieはまたもうちょっと色々あるので注意。</p>
-
 <h2 id="制限を回避するための方法">制限を回避するための方法</h2>
-
 <p>制限を抜けたい場合はクロスオリジン先(サーバ側)に協力してもらう必要がある。
 サーバ側にCORSヘッダを返してもらうようにして、ヘッダ情報からクロスオリジンを信頼してもいいという指示がある場合、
 ブラウザは制限を解除して動作してくれる。</p>
-
 <h2 id="参考">参考</h2>
-
 <ul>
 <li><a href="https://developer.mozilla.org/ja/docs/Web/Security/Same-origin_policy">同一オリジンポリシー - Web セキュリティ | MDN</a></li>
 <li><a href="https://developer.mozilla.org/ja/docs/Web/HTTP/HTTP_access_control">HTTP アクセス制御 (CORS) - HTTP | MDN</a></li>
 </ul>
-
 <p>wikipediaもわかりやすかった。</p>
-
 <ul>
 <li><a href="https://ja.wikipedia.org/wiki/%E5%90%8C%E4%B8%80%E7%94%9F%E6%88%90%E5%85%83%E3%83%9D%E3%83%AA%E3%82%B7%E3%83%BC">同一生成元ポリシー - Wikipedia</a></li>
 </ul>

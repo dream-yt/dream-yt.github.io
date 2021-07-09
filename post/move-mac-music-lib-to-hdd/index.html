@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.79.0" />
 		<title>[CLI] iTunes のライブラリを外付け HDD に zip で保存する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,43 +83,29 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#ライブラリの統合">ライブラリの統合</a></li>
-<li><a href="#外付け-hdd-へ書き出し">外付け HDD へ書き出し</a></li>
-<li><a href="#参考">参考</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#ライブラリの統合">ライブラリの統合</a></li>
+    <li><a href="#外付け-hdd-へ書き出し">外付け HDD へ書き出し</a></li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<h2 id="ライブラリの統合">ライブラリの統合</h2>
-
+                    <h2 id="ライブラリの統合">ライブラリの統合</h2>
 <p>iTunes のライブラリを別のコンピュータに移行するには、<code>iTunes Media のファイルの統合</code> を事前に行っておく必要がある。
 これは PC のいろんなところに散逸している音楽ファイルを iTunes ディレクトリ配下で管理するオプション。</p>
-
 <ul>
 <li>iTunes Media のファイルを統合する</li>
 <li>古い Mac から「iTunes フォルダ」を外付けドライブ（外付けハードディスクや USB ドライブなど）にコピーする</li>
 <li>新しい Mac に入っている音楽ファイルをバックアップする</li>
 </ul>
-
 <p>いちど統合が完了したライブラリは、iTunes ディレクトリを新しい PC にポン置きするだけで移行が完了する。</p>
-
 <h2 id="外付け-hdd-へ書き出し">外付け HDD へ書き出し</h2>
-
 <p>GUI(Finder)から iTunes ディレクトリを zip しようとしたら PC の空き容量がなくてそれが無理だったので、zip の書き出し先を直接外付け HDD に指定する。</p>
-
-<pre><code class="language-bash">$ zip -r /Volumes/HD-PNTU3/Music/iTunes_$(date +&quot;%F&quot;) ~/Music/iTunes
-</code></pre>
-
-<h2 id="参考">参考</h2>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ zip -r /Volumes/HD-PNTU3/Music/iTunes_<span style="color:#66d9ef">$(</span>date +<span style="color:#e6db74">&#34;%F&#34;</span><span style="color:#66d9ef">)</span> ~/Music/iTunes
+</code></pre></div><h2 id="参考">参考</h2>
 <ul>
 <li><a href="https://support.apple.com/ja-jp/guide/itunes/itns3230/windows">iTunes ライブラリを別のコンピュータに移動する - Apple サポート</a></li>
 <li><a href="https://qiita.com/griffin3104/items/948e38aab62bbb0d0610">【mac】zip ファイル操作コマンド - Qiita</a></li>
