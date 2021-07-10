@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>NestJSのDI/モジュール周りについてメモ &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,97 +83,143 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#モジュール">モジュール</a>
-      <ul>
-        <li><a href="#moduleの引数">@Moduleの引数</a></li>
-        <li><a href="#例">例</a></li>
-      </ul>
-    </li>
-    <li><a href="#コントローラ">コントローラ</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#モジュール">モジュール</a>
+<ul>
+<li><a href="#moduleの引数">@Moduleの引数</a>
+<ul>
+<li><a href="#imports">imports</a></li>
+<li><a href="#controllers">controllers</a></li>
+<li><a href="#providers">providers</a></li>
+<li><a href="#exports">exports</a></li>
+</ul></li>
+<li><a href="#例">例</a>
+<ul>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#コントローラ">コントローラ</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>nestjsの特徴と嬉しい点はDIの仕組みがしっかりしているところのようだ。
+                    
+
+<p>nestjsの特徴と嬉しい点はDIの仕組みがしっかりしているところのようだ。
 どのようにDIが機能しているかについて、ドキュメントとか記事をみてみたところをメモ。</p>
+
 <h2 id="モジュール">モジュール</h2>
+
 <ul>
 <li><a href="https://docs.nestjs.com/modules">Modules | NestJS - A progressive Node.js framework</a></li>
 </ul>
+
 <p><code>@Injectable</code> デコレータをサービスクラスにつけて定義すると、フレームワーク側の仕組みがよしなにコントローラにDIしてくれる。依存関係を宣言し、この仕組みを制御するために定義するのが <code>@Module</code> デコレータ。</p>
+
 <h3 id="moduleの引数">@Moduleの引数</h3>
+
 <p><code>@Module</code> デコレータは以下の引数をとる</p>
+
 <h4 id="imports">imports</h4>
+
 <blockquote>
 <p>the list of imported modules that export the providers which are required in this module</p>
 </blockquote>
+
 <p>モジュールが、どのモジュールに依存しているかを定義する。
 引数には Module を渡すので、Service クラスを記述するところではない。</p>
+
 <h4 id="controllers">controllers</h4>
+
 <blockquote>
 <p>the set of controllers defined in this module which have to be instantiated</p>
 </blockquote>
+
 <p>nestjsでは最終的にコントローラがリクエストをハンドリングするので、エントリポイントはコントローラである。
 定義した依存関係に沿ってコントローラにDIがされる。DIを受けるコントローラを定義している。</p>
+
 <h4 id="providers">providers</h4>
+
 <blockquote>
 <p>the providers that will be instantiated by the Nest injector and that may be shared at least across this module</p>
 </blockquote>
+
 <p>ここで定義したものがモジュール内でインスタンス化されて使えるようになる。
 とくにサービスクラスがここに定義される。</p>
+
 <p>なお、providers に定義するためにはクラスに <code>@Injectable</code> デコレータをつける必要がある。</p>
+
 <h4 id="exports">exports</h4>
+
 <blockquote>
 <p>the subset of providers that are provided by this module and should be available in other modules which import this module</p>
 </blockquote>
+
 <p>providers の一種だが、他のモジュールでも使われるものはこちらに定義する。</p>
+
 <h3 id="例">例</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">@Module</span>({
-  <span style="color:#a6e22e">imports</span><span style="color:#f92672">:</span> [],
-  <span style="color:#a6e22e">controllers</span><span style="color:#f92672">:</span> [<span style="color:#a6e22e">AmodController</span>],
-  <span style="color:#a6e22e">providers</span><span style="color:#f92672">:</span> [<span style="color:#a6e22e">AmodService</span>],
-  <span style="color:#a6e22e">exports</span><span style="color:#f92672">:</span> [<span style="color:#a6e22e">AmodService</span>],
+
+<pre><code class="language-ts">@Module({
+  imports: [],
+  controllers: [AmodController],
+  providers: [AmodService],
+  exports: [AmodService],
 })
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">@Module</span>({
-  <span style="color:#a6e22e">imports</span><span style="color:#f92672">:</span> [<span style="color:#a6e22e">AmodModule</span>],
-  <span style="color:#a6e22e">controllers</span><span style="color:#f92672">:</span> [<span style="color:#a6e22e">BmodController</span>],
-  <span style="color:#a6e22e">providers</span><span style="color:#f92672">:</span> [<span style="color:#a6e22e">BmodService</span>],
+</code></pre>
+
+<pre><code class="language-ts">@Module({
+  imports: [AmodModule],
+  controllers: [BmodController],
+  providers: [BmodService],
 })
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">BmodModule</span> {}
-</code></pre></div><ul>
+export class BmodModule {}
+</code></pre>
+
+<ul>
 <li><code>BmodModule</code> が <code>AmodModule</code> に依存してることを定義している</li>
 <li>こう定義すると依存された側でexportsしているServiceを依存した側にDIされる
+
 <ul>
 <li>つまり <code>BmodController</code> が <code>AmodService</code> を呼び出せるようになる</li>
 <li><code>this.amodService</code> という按配</li>
+</ul></li>
 </ul>
-</li>
-</ul>
+
 <h4 id="参考">参考</h4>
+
 <ul>
 <li><a href="https://qiita.com/teracy55/items/0002033786db3543f4c2">【NestJS】他のモジュールにあるサービスを使いたい（SharedModuleを作る） - Qiita</a></li>
 </ul>
+
 <h2 id="コントローラ">コントローラ</h2>
+
 <p>最終的にコントローラがエントリポイントであり、作った実装を走らせるところなので、つまり注入した依存性はコントローラで使うために注入されているということになる。</p>
+
 <p>コントローラのコンストラクタ引数の定義をフレームワーク側が参照して、初期化時にDIしてくれる仕組みがある。</p>
+
 <blockquote>
 <p>特徴的なのはコンストラクタ。 NestJS では、フレームワークの機能により、コンストラクタにてクラスの型をもったインスタンスを引数に定義すると、自動的にそのインスタンスを this に格納してくれます。この場合、 this.appService に AppService が生えてきます。</p>
 </blockquote>
+
 <ul>
 <li><a href="https://qiita.com/potato4d/items/aabb78fd201592352d64">触って覚える NestJS のアーキテクチャの基本 - Qiita</a></li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">AppController</span> {
-  <span style="color:#66d9ef">constructor</span>(<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">readonly</span> <span style="color:#a6e22e">appService</span>: <span style="color:#66d9ef">AppService</span>) {}
 
-  <span style="color:#66d9ef">@Get</span>()
-  <span style="color:#a6e22e">getHello</span>()<span style="color:#f92672">:</span> <span style="color:#66d9ef">string</span> {
-    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">appService</span>.<span style="color:#a6e22e">getHello</span>();
+<pre><code class="language-ts">export class AppController {
+  constructor(private readonly appService: AppService) {}
+
+  @Get()
+  getHello(): string {
+    return this.appService.getHello();
   }
 }
-</code></pre></div>
+</code></pre>
+
                 </section>
             </article>
 

@@ -13,8 +13,8 @@
     
   
   
-  <meta name="twitter:title" content="emojiで肌とか性別とか髪の色が変えられる仕組み"/>
-  <meta name="twitter:description" content="unicodeでは肌の色を変えられる仕組みが2015年から入っている。これは skin tone modifiers と呼ばれるもので、結合文字のようにベースとなる絵文字の後ろ"/>
+  <meta name="twitter:title" content="perl で windows の改行文字を chomp する"/>
+  <meta name="twitter:description" content="ファイル内の改行コードはOSごとに異なる。 Windows: CR&#43;LF （\r&#43;\n） Linux（UNIX系OS）: LF （\n） MacOS X: LF （\n） Linux &lt;&gt; MacOS で作業をしているわり"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -30,7 +30,7 @@
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
 		<meta name="generator" content="Hugo 0.51" />
-		<title>emojiで肌とか性別とか髪の色が変えられる仕組み &middot; sacre</title>
+		<title>perl で windows の改行文字を chomp する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
@@ -68,11 +68,11 @@
             <article>
                 <header>
                     <h1>
-                        emojiで肌とか性別とか髪の色が変えられる仕組み
+                        perl で windows の改行文字を chomp する
                     </h1>
                     <h2 class="headline">
-                    Aug 6, 2020 12:05
-                    · 209 words
+                    Jul 10, 2021 10:17
+                    · 334 words
                     · 1 minute read
                       <span class="tags">
                       
@@ -86,9 +86,11 @@
 <ul>
 <li>
 <ul>
-<li><a href="#zero-width-joiner-zwj">Zero Width Joiner (ZWJ)</a></li>
+<li>
+<ul>
+<li><a href="#こんな感じ">こんな感じ</a></li>
+</ul></li>
 <li><a href="#参考">参考</a></li>
-<li><a href="#仕様">仕様</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -98,37 +100,41 @@
                 <section id="post-body">
                     
 
-<p>unicodeでは肌の色を変えられる仕組みが2015年から入っている。これは <code>skin tone modifiers</code> と呼ばれるもので、結合文字のようにベースとなる絵文字の後ろにコードポイントを従えることで実現している</p>
+<p>ファイル内の改行コードはOSごとに異なる。</p>
 
-<pre><code>$ node
-&gt; &quot;\u{1F466}&quot;
-'👦'
-&gt; &quot;\u{1F466}\u{1F3FE}&quot;
-'👦🏾'
+<ul>
+<li>Windows: CR+LF （\r+\n）</li>
+<li>Linux（UNIX系OS）: LF （\n）</li>
+<li>MacOS X: LF （\n）</li>
+</ul>
+
+<p>Linux &lt;&gt; MacOS で作業をしているわりには perl の chomp で問題がないが、
+MacOS 上で windows のエクセルで生成された csv を扱い場合などはこのあたりを気にする必要がある。</p>
+
+<p>chomp は改行の区切り文字を格納する特殊文字 <code>$/</code> を参照するので、これに Windows 向けの改行文字を入れてあげればよい。</p>
+
+<h3 id="こんな感じ">こんな感じ</h3>
+
+<pre><code class="language-perl">local $/=&quot;\r\n&quot;;
+while (&lt;&gt;) {
+    chomp;
+    ...
 </code></pre>
 
-<h2 id="zero-width-joiner-zwj">Zero Width Joiner (ZWJ)</h2>
-
-<p>Zero Width Joiner (ZWJ) という仕組みがあり、これは複数の絵文字を1文字にまとめるための仕組み。emojiの人物の性別を変えたり、カップルの性別を指示したりとかはこの仕組みを使っている</p>
+<p>だいたいのページだと <code>s/\r\n//</code> の例で書いてあるが、<code>$/</code> と chomp を使うと変更箇所がちらばらなくていいんじゃないかなと思う。perlの仕様を知らないと直観的ではないのだが自分用のスクリプトなら問題ないだろう。</p>
 
 <h2 id="参考">参考</h2>
 
 <ul>
-<li><a href="https://eng.getwisdom.io/emoji-modifiers-and-sequence-combinations/">Emoji Modifiers and Sequence Combinations</a></li>
-</ul>
-
-<h2 id="仕様">仕様</h2>
-
-<ul>
-<li><a href="https://unicode.org/emoji/charts/full-emoji-modifiers.html">Full Emoji Modifier Sequences, v13.0</a></li>
-<li><a href="http://unicode.org/reports/tr51/">UTS #51: Unicode Emoji</a></li>
+<li><a href="https://www.tohoho-web.com/wwwperl1.htm">とほほのperl入門（概要編） - とほほのWWW入門</a></li>
+<li><a href="https://hacknote.jp/archives/22105/">ファイル内の改行コード変換（Perl） | ハックノート</a></li>
 </ul>
 
                 </section>
             </article>
 
             
-                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2funicode-emoji-modifier-zwj%2f - emoji%e3%81%a7%e8%82%8c%e3%81%a8%e3%81%8b%e6%80%a7%e5%88%a5%e3%81%a8%e3%81%8b%e9%ab%aa%e3%81%ae%e8%89%b2%e3%81%8c%e5%a4%89%e3%81%88%e3%82%89%e3%82%8c%e3%82%8b%e4%bb%95%e7%b5%84%e3%81%bf by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fperl-chomp-windows-newline%2f - perl%20%e3%81%a7%20windows%20%e3%81%ae%e6%94%b9%e8%a1%8c%e6%96%87%e5%ad%97%e3%82%92%20chomp%20%e3%81%99%e3%82%8b by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
 
 <a class="facebook" href="#" onclick="
     window.open(

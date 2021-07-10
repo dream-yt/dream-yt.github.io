@@ -14,7 +14,7 @@
   
   
   <meta name="twitter:title" content="ReactでレンダリングしているページにGoogleAnalyticsを入れる&#34;"/>
-  <meta name="twitter:description" content="なんかいろんなプラグインがnpmにあったが、自分で dangerouslySetInnerHTML で直接書いてしまうのが楽だった"/>
+  <meta name="twitter:description" content="なんかいろんなプラグインがnpmにあったが、自分で dangerouslySetInnerHTML で直接書いてしまうのが楽だった import React from &lsquo;react&rsquo;; export const GoogleAnalytics: React.FC = () =&gt; ( &lt;&gt; &lt;/&gt; );"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>ReactでレンダリングしているページにGoogleAnalyticsを入れる&#34; &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -72,7 +72,7 @@
                     </h1>
                     <h2 class="headline">
                     Sep 5, 2020 12:03
-                    · 41 words
+                    · 56 words
                     · 1 minute read
                       <span class="tags">
                       
@@ -81,14 +81,29 @@
                 </header>
                 
                   
-                    <div id="toc">
-                      <nav id="TableOfContents"></nav>
-                    </div>
-                  
                 
                 <section id="post-body">
                     <p>なんかいろんなプラグインがnpmにあったが、自分で <code>dangerouslySetInnerHTML</code> で直接書いてしまうのが楽だった</p>
-<!-- raw HTML omitted -->
+
+<p><pre>
+import React from &lsquo;react&rsquo;;</p>
+
+<p>export const GoogleAnalytics: React.FC = () =&gt; (
+  &lt;&gt;
+      <script src="https://www.googletagmanager.com/gtag/js?id=UA-123456789" />
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'UA-123456789');
+        `,
+        }}
+      />
+  &lt;/&gt;
+);
+<pre></p>
 
                 </section>
             </article>
