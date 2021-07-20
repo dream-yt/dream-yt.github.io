@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.79.0" />
 		<title>vscodeのextensionをvsixファイルからインストールする &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,60 +83,39 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#再起動">再起動</a></li>
-</ul></li>
-</ul></li>
-<li><a href="#参考">参考</a></li>
-<li><a href="#その他">その他</a></li>
-</ul></li>
-</ul></li>
-</ul>
+  <ul>
+    <li>
+      <ul>
+        <li></li>
+        <li><a href="#参考">参考</a></li>
+        <li><a href="#その他">その他</a></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p>コマンドラインからcodeコマンドでできる</p>
-
-<pre><code class="language-bash">$ code --install-extension ./auto-collapse-explorer-0.0.2.vsix
-</code></pre>
-
-<ul>
+                    <p>コマンドラインからcodeコマンドでできる</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ code --install-extension ./auto-collapse-explorer-0.0.2.vsix
+</code></pre></div><ul>
 <li><code>--install-extension</code> オプションが必要</li>
 <li><code>.vsix</code> ファイルを引数にとる</li>
 </ul>
-
 <h5 id="再起動">再起動</h5>
-
 <p>vscodeの再起動が必要(コマンドパレットからやるとラク)</p>
-
 <ul>
 <li><code>&gt; Reload Window</code></li>
 </ul>
-
 <h3 id="参考">参考</h3>
-
 <ul>
 <li><a href="https://github.com/hoovercj/vscode-api-playground/issues/6">How to install? · Issue #6 · hoovercj/vscode-api-playground</a></li>
 <li><a href="https://stackoverflow.com/questions/42002852/how-to-restart-vscode-after-editing-extensions-config">visual studio code - How to restart VScode after editing extension&rsquo;s config? - Stack Overflow</a></li>
 </ul>
-
 <h3 id="その他">その他</h3>
-
 <p>ファイルツリービューで、node_module配下のファイルが多くて鬱陶しかったんですけど、以下のプラグインが便利でよかった
 ファイルを閉じたらツリービューでもそのディレクトリを閉じてくれる</p>
-
 <ul>
 <li><a href="https://github.com/hoovercj/vscode-api-playground/tree/master/AutoCollapseExplorer">vscode-api-playground/AutoCollapseExplorer at master · hoovercj/vscode-api-playground</a></li>
 </ul>

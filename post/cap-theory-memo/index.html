@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.79.0" />
 		<title>CAP定理のメモ &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,59 +83,42 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#一貫性-整合性">一貫性 (整合性)</a></li>
-<li><a href="#可用性">可用性</a></li>
-<li><a href="#分断耐性">分断耐性</a></li>
-</ul></li>
-<li><a href="#参考">参考</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#一貫性-整合性">一貫性 (整合性)</a></li>
+        <li><a href="#可用性">可用性</a></li>
+        <li><a href="#分断耐性">分断耐性</a></li>
+      </ul>
+    </li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p>CAP定理とは有名な3つの特性があり、これらをすべて満たすDBを作ることは出来ないというもの。</p>
-
+                    <p>CAP定理とは有名な3つの特性があり、これらをすべて満たすDBを作ることは出来ないというもの。</p>
 <ul>
 <li>一貫性 (整合性)</li>
 <li>可用性</li>
 <li>分断耐性</li>
 </ul>
-
 <p>3つと書いてあるが、実際には分断耐性は「分散DBか否か」ということであり、CAP定理が登場する文脈はだいたい分散DBの話なので「分散DBでは一貫性と可用性どちらかを諦める必要があるよ」という話である。</p>
-
 <h3 id="一貫性-整合性">一貫性 (整合性)</h3>
-
 <p>書き込みがアトミックに行われるという意味で、
 レコードを書き込んだ直後にそのレコードを参照しても書き込んだ値が読めることをいう。</p>
-
 <p>DynamoDBは「結果整合性(弱い整合性)」というモードを使うことが出来る。
 これを使う場合はレコードを書いた後の数百msはreadしたときに書き込み以前の値が取れる場合がある。</p>
-
 <h3 id="可用性">可用性</h3>
-
 <p>クエリを投げたらきちんと結果が帰ってくること。</p>
-
 <p>DynamoDBの「弱い整合性」の例では一貫性を犠牲にして可用性を優先していることになる。
 逆にいうと一貫性(強い整合性)を担保しようとするDBではクエリが返すのが遅くなるということ。</p>
-
 <h3 id="分断耐性">分断耐性</h3>
-
 <p>データを分散して格納すること。これを諦めると一貫性と可用性を両方満たせる。
 MySQLなどのRDBMSはこの特性を持っていないのでデータを更新した直後も正しいデータが素早く返ってくる。</p>
-
 <h2 id="参考">参考</h2>
-
 <p>こちらで引用されてるビヨンセのアルバム数の例はとても役にたった</p>
-
 <ul>
 <li><a href="http://namihira.hatenablog.com/entry/2013/12/19/233853">CAP定理 - なみひらブログ</a></li>
 </ul>

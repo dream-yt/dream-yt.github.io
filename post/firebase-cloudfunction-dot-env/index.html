@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.79.0" />
 		<title>FirebaseCloudFunction で環境変数を設定する(.env経由) &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,69 +83,49 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#osの環境変数が使いたい場合">OSの環境変数が使いたい場合</a></li>
-<li><a href="#なんとかosの環境変数を使う">なんとかOSの環境変数を使う</a></li>
-</ul></li>
-</ul></li>
-</ul>
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#osの環境変数が使いたい場合">OSの環境変数が使いたい場合</a></li>
+        <li><a href="#なんとかosの環境変数を使う">なんとかOSの環境変数を使う</a></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p>Firebase CloudFunction では通常のOSの環境変数の使用は制限されている。ランタイムに変数を注入したい場合はOSの環境変数ではなく、 Firebase独特の環境変数を使う必要があることになっている。</p>
-
+                    <p>Firebase CloudFunction では通常のOSの環境変数の使用は制限されている。ランタイムに変数を注入したい場合はOSの環境変数ではなく、 Firebase独特の環境変数を使う必要があることになっている。</p>
 <blockquote>
 <p>サードパーティの API キーや調整可能な設定など、関数の追加構成が必要になることがよくあります。Firebase SDK for Cloud Functions では、プロジェクトのこのタイプのデータを簡単に保存および取得できるように、組み込み環境構成が提供されています</p>
 </blockquote>
-
 <ul>
 <li><a href="https://firebase.google.com/docs/functions/config-env?hl=ja">環境の構成  |  Firebase</a></li>
 </ul>
-
 <p>GCPの CloudFunction ではデプロイ時に一緒に環境変数を指示するオプションが存在するがFirebaseの CloudFunction にはそのオプションは存在しない。</p>
-
 <h3 id="osの環境変数が使いたい場合">OSの環境変数が使いたい場合</h3>
-
 <p>Firebase独特の環境変数はOSの環境変数ではないので、使用するモジュールがOSの環境変数を期待している場合に困ったことになる。たとえばdebugパッケージなどは環境変数に色々な値を設定して使うものなので、こういうのが使いたい時はOSの環境変数が使えないと困る。</p>
-
 <ul>
 <li><a href="https://www.npmjs.com/package/debug">debug - npm</a></li>
 </ul>
-
 <p>今回の場合だと Prisma を使っており、Prismaはデータベースサーバとの接続情報をOSの環境変数経由で指定することになっているので、OSの環境変数を使う方法はないかなぁということになった。</p>
-
 <blockquote>
 <p>It is common to load your database connection URL from an environment variable:</p>
 </blockquote>
-
-<pre><code class="language-js">datasource db {
-  provider = &quot;postgresql&quot;
-  url      = env(&quot;DATABASE_URL&quot;)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">datasource</span> <span style="color:#a6e22e">db</span> {
+  <span style="color:#a6e22e">provider</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;postgresql&#34;</span>
+  <span style="color:#a6e22e">url</span>      <span style="color:#f92672">=</span> <span style="color:#a6e22e">env</span>(<span style="color:#e6db74">&#34;DATABASE_URL&#34;</span>)
 }
-</code></pre>
-
-<ul>
+</code></pre></div><ul>
 <li><a href="https://www.prisma.io/docs/concepts/components/prisma-schema#manage-env-files-manually">Prisma schema (Reference) | Prisma Docs</a></li>
 </ul>
-
 <h3 id="なんとかosの環境変数を使う">なんとかOSの環境変数を使う</h3>
-
 <p>ただ、調べたところまったくOSの環境変数が使えないわけではなく、プロセス内で <code>process.env</code> にセットすればOSの環境変数を設定することができることになっていた。
 dotenvを使ってこんなコードをエントリポイントの先頭に置いておけばOSの環境変数が入った状態で関数を実行できた(PrismaはDBに接続できた)。</p>
-
-<pre><code class="language-ts">import { config } from 'dotenv';
-config({ path: '.env.prod' });
-</code></pre>
-
-<ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">config</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;dotenv&#39;</span>;
+<span style="color:#a6e22e">config</span>({ <span style="color:#a6e22e">path</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;.env.prod&#39;</span> });
+</code></pre></div><ul>
 <li><a href="https://github.com/motdotla/dotenv#readme">motdotla/dotenv: Loads environment variables from .env for nodejs projects.</a></li>
 </ul>
 

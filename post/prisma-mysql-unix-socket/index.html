@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.79.0" />
 		<title>prisma-client と MySQL を unix socket で接続する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,47 +83,31 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#その他">その他</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#その他">その他</a></li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p>ドキュメントには「ディレクトリを指定する」という書き方になっているが、もちろん実際はファイルのフルパスを入れないとつながらない。</p>
-
+                    <p>ドキュメントには「ディレクトリを指定する」という書き方になっているが、もちろん実際はファイルのフルパスを入れないとつながらない。</p>
 <blockquote>
-<p>socket    Points to a directory that contains a socket to be used for the connection</p>
+<p>socket	Points to a directory that contains a socket to be used for the connection</p>
 </blockquote>
-
 <ul>
 <li><a href="https://www.prisma.io/docs/concepts/database-connectors/mysql">MySQL database connector (Reference) | Prisma Docs</a></li>
 </ul>
-
 <p>たとえばこんな設定で接続できる。</p>
-
-<pre><code class="language-s">DATABASE_URL=mysql://root:@localhost:3306/myappdb?socket=/tmp/mysql.sock
-</code></pre>
-
-<p>ホスト名は 127.0.0.1 ではなく localhost である必要がある。
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-s" data-lang="s">DATABASE_URL<span style="color:#f92672">=</span>mysql<span style="color:#f92672">://</span>root<span style="color:#f92672">:@</span>localhost<span style="color:#f92672">:</span><span style="color:#ae81ff">3306</span><span style="color:#f92672">/</span>myappdb<span style="color:#f92672">?</span>socket<span style="color:#f92672">=/</span>tmp<span style="color:#f92672">/</span>mysql.sock
+</code></pre></div><p>ホスト名は 127.0.0.1 ではなく localhost である必要がある。
 MySQL は 127.0.0.1 と指定されるとTCP接続を取ろうとするため。</p>
-
 <h2 id="その他">その他</h2>
-
 <p>下記のissueで当初間違った情報が案内されてちょっと困った(最後まで読まないとダメ)。MySQL だと <code>socket</code> というパラメータ名だが、Postgres だと <code>host</code> なんだそうだ。</p>
-
 <ul>
 <li><a href="https://github.com/prisma/prisma/issues/1508">Error in google cloud run connecting with cloud SQL · Issue #1508 · prisma/prisma</a></li>
 </ul>
-
 <p>コード的にはここ (括弧はあってもなくてもよい)</p>
-
 <ul>
 <li><a href="https://github.com/prisma/quaint/blob/8c45441/src/connector/mysql.rs#L166">quaint/mysql.rs at 8c4544130e1fe1cbc0f95ec3b21e616763774808 · prisma/quaint</a></li>
 </ul>
