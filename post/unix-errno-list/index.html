@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>nodejsで開発をしているとあたるエラーコード &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,31 +83,50 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li>
-      <ul>
-        <li></li>
-      </ul>
-    </li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#econnrefused">ECONNREFUSED</a></li>
+<li><a href="#econnreset">ECONNRESET</a></li>
+<li><a href="#eclient">ECLIENT</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>nodejsで開発をしているとUNIXのerrnoにあたることがよくある。いろいろあるが見覚えがあるものだけメモ。</p>
+                    
+
+<p>nodejsで開発をしているとUNIXのerrnoにあたることがよくある。いろいろあるが見覚えがあるものだけメモ。</p>
+
 <ul>
 <li><a href="http://software.fujitsu.com/jp/manual/manualfiles/M060085/J2X14850/01Z200/sdusr03/sdusr150.html">3.2.1 メッセージに出力されるエラーコード一覧</a></li>
 </ul>
+
 <h5 id="econnrefused">ECONNREFUSED</h5>
+
 <ul>
 <li>相手先サーバとのセション接続が拒否されました</li>
 </ul>
+
 <h5 id="econnreset">ECONNRESET</h5>
+
 <ul>
 <li>サーバまたはクライアントとのセションが切断されました</li>
 </ul>
+
 <h5 id="eclient">ECLIENT</h5>
+
 <ul>
 <li>クライアント側からセションが切断されました</li>
 </ul>

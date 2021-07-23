@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>cloudrun/cloudscheduler入門 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,86 +83,140 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li>
-      <ul>
-        <li></li>
-      </ul>
-    </li>
-    <li><a href="#ログの確認">ログの確認</a>
-      <ul>
-        <li></li>
-      </ul>
-    </li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#docker-build">docker build</a></li>
+<li><a href="#ローカルで動作確認">ローカルで動作確認</a></li>
+<li><a href="#docker-push">docker push</a></li>
+<li><a href="#gcloud-run">gcloud run</a></li>
+<li><a href="#gcloud-scheduler">gcloud scheduler</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#ログの確認">ログの確認</a>
+<ul>
+<li>
+<ul>
+<li><a href="#stackdriverのログをクエリ">stackdriverのログをクエリ</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>毎日決まった時間にスクリプトを実行したい要求があったので、マネージドの環境で実行できるcloudrun/cloudschedulerを試してみた</p>
+                    
+
+<p>毎日決まった時間にスクリプトを実行したい要求があったので、マネージドの環境で実行できるcloudrun/cloudschedulerを試してみた</p>
+
 <p>ちなみに、シェルスクリプトを動かしたいだけだったのだがcloudrunはhttpサーバとしてしかデプロイできない。なのでnodejsのexpressサーバが、リクエストを受け取ったら子プロセスでスクリプトを実行するようなやつを用意した</p>
+
 <p><code>子プロセスでシェルスクリプトを起動する</code> コードはこんなようなもの</p>
+
 <ul>
 <li><a href="https://dream-yt.github.io/post/nodejs-spawn-inherit-stdout-stderr/">nodejsで標準入出力/エラーを共有した子プロセスを作る · sacre</a></li>
 </ul>
+
 <p>今回GCPにやってほしいのは以下の2つ</p>
+
 <ul>
 <li>cloudrunでコンテナをホスティング</li>
 <li>そのコンテナを決まった時間にcloudschedulerでキックする</li>
 </ul>
+
 <h4 id="docker-build">docker build</h4>
+
 <p>環境変数を.envrcでセットしてbuild</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">docker build . --tag gcr.io/$GOOGLE_PROJECT_ID/$IMAGE_NAME:$IMAGE_TAG
-</code></pre></div><h4 id="ローカルで動作確認">ローカルで動作確認</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">PORT<span style="color:#f92672">=</span><span style="color:#ae81ff">8080</span> <span style="color:#f92672">&amp;&amp;</span> docker run <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  -p 8080:<span style="color:#e6db74">${</span>PORT<span style="color:#e6db74">}</span> <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  -e PORT<span style="color:#f92672">=</span><span style="color:#e6db74">${</span>PORT<span style="color:#e6db74">}</span> <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  gcr.io/$GOOGLE_PROJECT_ID/$IMAGE_NAME:$IMAGE_TAG
-</code></pre></div><p>ローカルで実行するやりかたについては公式のドキュメントが参考になった
+
+<pre><code class="language-bash">docker build . --tag gcr.io/$GOOGLE_PROJECT_ID/$IMAGE_NAME:$IMAGE_TAG
+</code></pre>
+
+<h4 id="ローカルで動作確認">ローカルで動作確認</h4>
+
+<pre><code class="language-bash">PORT=8080 &amp;&amp; docker run \
+  -p 8080:${PORT} \
+  -e PORT=${PORT} \
+  gcr.io/$GOOGLE_PROJECT_ID/$IMAGE_NAME:$IMAGE_TAG
+</code></pre>
+
+<p>ローカルで実行するやりかたについては公式のドキュメントが参考になった
 <code>GOOGLE_APPLICATION_CREDENTIALS</code> を <code>--volume</code> でマウントする扱いも参考になる</p>
+
 <ul>
 <li><a href="https://cloud.google.com/run/docs/testing/local">コンテナ イメージをローカルでテストする  |  Cloud Run  |  Google Cloud</a></li>
 </ul>
+
 <h4 id="docker-push">docker push</h4>
+
 <p>認証をしてから</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">gcloud auth configure-docker
-</code></pre></div><p>GoogleContainerRegistryにpushする</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">docker push gcr.io/$GOOGLE_PROJECT_ID/$IMAGE_NAME:$IMAGE_TAG
-</code></pre></div><h4 id="gcloud-run">gcloud run</h4>
+
+<pre><code class="language-bash">gcloud auth configure-docker
+</code></pre>
+
+<p>GoogleContainerRegistryにpushする</p>
+
+<pre><code class="language-bash">docker push gcr.io/$GOOGLE_PROJECT_ID/$IMAGE_NAME:$IMAGE_TAG
+</code></pre>
+
+<h4 id="gcloud-run">gcloud run</h4>
+
 <p>以下のコマンドでcloudrunにてコンテナがホストされるようになる</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">gcloud beta run deploy $IMAGE_NAME <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  --image gcr.io/$GOOGLE_PROJECT_ID/$IMAGE_NAME:$IMAGE_TAG <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  --platform managed <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  --region asia-northeast1
-</code></pre></div><h4 id="gcloud-scheduler">gcloud scheduler</h4>
+
+<pre><code class="language-bash">gcloud beta run deploy $IMAGE_NAME \
+  --image gcr.io/$GOOGLE_PROJECT_ID/$IMAGE_NAME:$IMAGE_TAG \
+  --platform managed \
+  --region asia-northeast1
+</code></pre>
+
+<h4 id="gcloud-scheduler">gcloud scheduler</h4>
+
 <p>serviceアカウントの権限でコンテナをキックするよう設定</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">gcloud beta scheduler jobs create http subcommandtesting-sleep-job <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  --schedule <span style="color:#e6db74">&#34;0 */6 * * *&#34;</span> <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  --http-method<span style="color:#f92672">=</span>GET <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  --uri<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;https://subcommandtesting-xxxxxx-an.a.run.app/subcommand/sleep&#39;</span> <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  --oidc-service-account-email<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;sakamoto@pjt-123456.iam.gserviceaccount.com&#39;</span>
-</code></pre></div><p>同じコンテナに対してURLのパスを変えて違うサブコマンドを実行させてみる</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">gcloud beta scheduler jobs create http subcommandtesting-die-job <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  --schedule <span style="color:#e6db74">&#34;15 * * * *&#34;</span> <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  --http-method<span style="color:#f92672">=</span>GET <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  --uri<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;https://subcommandtesting-xxxxxx-an.a.run.app/subcommand/die&#39;</span> <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  --oidc-service-account-email<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;sakamoto@pjt-123456.iam.gserviceaccount.com&#39;</span>
-</code></pre></div><ul>
+
+<pre><code class="language-bash">gcloud beta scheduler jobs create http subcommandtesting-sleep-job \
+  --schedule &quot;0 */6 * * *&quot; \
+  --http-method=GET \
+  --uri='https://subcommandtesting-xxxxxx-an.a.run.app/subcommand/sleep' \
+  --oidc-service-account-email='sakamoto@pjt-123456.iam.gserviceaccount.com'
+</code></pre>
+
+<p>同じコンテナに対してURLのパスを変えて違うサブコマンドを実行させてみる</p>
+
+<pre><code class="language-bash">gcloud beta scheduler jobs create http subcommandtesting-die-job \
+  --schedule &quot;15 * * * *&quot; \
+  --http-method=GET \
+  --uri='https://subcommandtesting-xxxxxx-an.a.run.app/subcommand/die' \
+  --oidc-service-account-email='sakamoto@pjt-123456.iam.gserviceaccount.com'
+</code></pre>
+
+<ul>
 <li><a href="https://cloud.google.com/sdk/gcloud/reference/beta/scheduler/jobs/create/http">gcloud beta scheduler jobs create http  |  Cloud SDK のドキュメント</a></li>
 <li><a href="https://cloud.google.com/pubsub/docs/reference/rest/v1/projects.subscriptions#OidcToken">oidc-service-account-email についての説明</a></li>
 </ul>
+
 <h2 id="ログの確認">ログの確認</h2>
+
 <p>しばらくしてきちんと動作しているかログを確認した</p>
+
 <h4 id="stackdriverのログをクエリ">stackdriverのログをクエリ</h4>
+
 <pre><code>logName=&quot;projects/xxxxx/logs/run.googleapis.com%2Fstdout&quot;
 # `:` はLIKE検索になる
 textPayload:&quot;sleep&quot;  
 timestamp&gt;=&quot;2020-02-18T00:00:00+09:00&quot;
-</code></pre><p>期待通り子プロセスのログがstackdriverに出ていた</p>
-<pre><code class="language-console" data-lang="console">$ gcloud logging read &quot;$(cat ~/develop/cloudrun.logquery)&quot; --format json | jq -r '.[] | &quot;\(.timestamp) - \(.textPayload)&quot;'
+</code></pre>
+
+<p>期待通り子プロセスのログがstackdriverに出ていた</p>
+
+<pre><code class="language-console">$ gcloud logging read &quot;$(cat ~/develop/cloudrun.logquery)&quot; --format json | jq -r '.[] | &quot;\(.timestamp) - \(.textPayload)&quot;'
 2020-02-17T18:00:00.350374Z - sleep...
 </code></pre>
+
                 </section>
             </article>
 

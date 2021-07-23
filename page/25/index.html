@@ -24,7 +24,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -72,6 +72,21 @@
 
     <section id="wrapper" class="home">
         <ul id="post-list">
+    
+    
+        
+            <li>
+                <aside class="dates">Aug 25</aside>
+                <a href='https://dream-yt.github.io/post/import-withat-mark-in-typescript-vscode-jest/'>
+                    webpackで、プロジェクトのファイルを@ディレクトリ配下でimportできるような設定
+                    
+                        
+                            <h2>webpackだとsymlink貼ったり NODE_PATH をいじったりする必要はない 差分 webpack.config.js を変更しないとビルドできない resolve: { &#43; alias: { &#39;@&#39;: path.resolve(__dirname, &#39;./src/&#39;) }, extensions: [&#39;.ts&#39;, &#39;.tsx&#39;, &#39;.js&#39;] }, 正常にビル</h2>
+                        
+                    
+                </a>
+            </li>
+        
     
     
         
@@ -156,7 +171,7 @@
                     serverless deploy を amazonlinuxイメージで行う
                     
                         
-                            <h2>lambdaとnodeのネイティブモジュール周りで辛いことになった時用 Dockerfile FROMamazonlinux:latestRUN curl --silent --location https://dl.yarnpkg.com/rpm/yarn.repo &gt; /etc/yum.repos.d/yarn.repoRUN curl --silent --location https://rpm.nodesource.com/setup_10.x | bashRUN yum install -y nodejs gcc-c&#43;&#43; make git yarnRUN yarn global add serverless --silent --no-progressRUN mkdir /appWORKDIR/appADD package.json /app/package.jsonADD yarn.lock /app/yarn.lock# b</h2>
+                            <h2>lambdaとnodeのネイティブモジュール周りで辛いことになった時用 Dockerfile FROM amazonlinux:latest RUN curl --silent --location https://dl.yarnpkg.com/rpm/yarn.repo &gt; /etc/yum.repos.d/yarn.repo RUN curl --silent --location https://rpm.nodesource.com/setup_10.x | bash RUN yum install -y nodejs gcc-c&#43;&#43; make git yarn RUN yarn global add serverless --silent --no-progress RUN mkdir</h2>
                         
                     
                 </a>
@@ -202,21 +217,6 @@
                     
                         
                             <h2>なんとなく知識では知っていたけど試したことがなかったのでメモ perlにはstrictフラグというものがあって、 構文エラーにならないけど変な式</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jul 28</aside>
-                <a href='https://dream-yt.github.io/post/aws-iam-101/'>
-                    AWS、LambdaまわりのIAM入門
-                    
-                        
-                            <h2>lambda を使っていて、権限周りが分からなかったのでメモ 用語 IAM IAMロール ポリシー IAMポリシー リソースポリシー IAM 権限周りを管理しているエンティティ</h2>
                         
                     
                 </a>

@@ -24,7 +24,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -72,6 +72,21 @@
 
     <section id="wrapper" class="home">
         <ul id="post-list">
+    
+    
+        
+            <li>
+                <aside class="dates">Mar 28</aside>
+                <a href='https://dream-yt.github.io/post/what-is-tty/'>
+                    ttyとは
+                    
+                        
+                            <h2>プロセスは2種類に分けられる シェルなど、ユーザのインタラクションを受け付けるプロセス そうではないデーモンプロセス この2つを区別するのが、「プ</h2>
+                        
+                    
+                </a>
+            </li>
+        
     
     
         
@@ -156,7 +171,7 @@
                     alpine に gcloud をインストールする Dockerfile
                     
                         
-                            <h2>curl, bash, python, が必要 PATHを通す (root配下にインストールされた) FROMnode:10-alpineRUN apk --no-cache add curl bash pythonRUN curl -sSL https://sdk.cloud.google.com | bashENV PATH $PATH:/root/google-cloud-s</h2>
+                            <h2>curl, bash, python, が必要 PATHを通す (root配下にインストールされた) FROM node:10-alpine RUN apk --no-cache add curl bash python RUN curl -sSL https://sdk.cloud.google.com | bash ENV PATH $PATH:/root/google-cloud-sdk/bin 参考 How to install the Google Cloud SDK in a Docker Image? - Stack Overflow Push an image on google</h2>
                         
                     
                 </a>
@@ -202,21 +217,6 @@
                     
                         
                             <h2>CloudRunのデプロイ時にこんなログが出た ERROR: (gcloud.beta.run.deploy) PERMISSION_DENIED: Permission denied on ‘locations/asia-northeast1-a’ (or it may not exist) フル権限のユーザで作業しているはずなので PERMISSION_DENIED といわれても原因がピンとこな</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Feb 14</aside>
-                <a href='https://dream-yt.github.io/post/nodejs-spawn-inherit-stdout-stderr/'>
-                    nodejsで標準入出力/エラーを共有した子プロセスを作る
-                    
-                        
-                            <h2>cloudrunを使う際に必要になった cloudrunはhttpエンドポイントから処理がキックされるので、コンテナでbashコマンドを実行し</h2>
                         
                     
                 </a>

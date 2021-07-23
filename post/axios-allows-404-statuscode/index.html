@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>axiosでステータスコード404のときに例外をあげなくする &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -81,27 +81,30 @@
                 </header>
                 
                   
-                    <div id="toc">
-                      <nav id="TableOfContents"></nav>
-                    </div>
-                  
                 
                 <section id="post-body">
                     <p>axiosはレスポンスのステータスが500でも404でも例外を投げてしまう</p>
+
 <ul>
 <li><a href="https://github.com/axios/axios/issues/41">Don&rsquo;t throw error / catch on 400-level responses · Issue #41 · axios/axios</a></li>
 </ul>
-<p>それで困る時、たとえば4xx系は許容したいときとかには<br>
+
+<p>それで困る時、たとえば4xx系は許容したいときとかには<br />
 <code>validateStatus</code>というオプションがある</p>
+
 <p>デフォルトだと以下のようなチェックになっているようだ</p>
+
 <ul>
 <li><a href="https://github.com/axios/axios/blob/1b07fb9365d38a1a8ce7427130bf9db8101daf09/lib/defaults.js#L78-L80">https://github.com/axios/axios/blob/1b07fb9365d38a1a8ce7427130bf9db8101daf09/lib/defaults.js#L78-L80</a></li>
 </ul>
+
 <p>これを404は許容したいとカスタマイズする場合は以下のようにする</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#a6e22e">axios</span>.<span style="color:#a6e22e">create</span>({
-  <span style="color:#a6e22e">validateStatus</span>: <span style="color:#66d9ef">status</span> <span style="color:#f92672">=&gt;</span> (<span style="color:#a6e22e">status</span> <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">200</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">status</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">300</span>) <span style="color:#f92672">||</span> <span style="color:#a6e22e">status</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">404</span>
+
+<pre><code class="language-ts">axios.create({
+  validateStatus: status =&gt; (status &gt;= 200 &amp;&amp; status &lt; 300) || status == 404
 });
-</code></pre></div>
+</code></pre>
+
                 </section>
             </article>
 

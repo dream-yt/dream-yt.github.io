@@ -13,8 +13,8 @@
     
   
   
-  <meta name="twitter:title" content="emojiで肌とか性別とか髪の色が変えられる仕組み"/>
-  <meta name="twitter:description" content="unicodeでは肌の色を変えられる仕組みが2015年から入っている。これは skin tone modifiers と呼ばれるもので、結合文字のようにベースとなる絵文字の後ろ"/>
+  <meta name="twitter:title" content="P Map Err Require Esm"/>
+  <meta name="twitter:description" content="p-map でエラーが出るようになった。 ⚠ Error [ERR_REQUIRE_ESM]: Must use import to load ES Module: /Users//node_modules/p-map/index.js require() of ES modules is not supported. require() of /Users//node_modules/p-map/index.js from /Users//lib/job/scrape-work-status/worker.js is an ES module file as it is a .js file whose nearest parent package.json contains &quot;type&quot;: &quot;module&quot; which defines all .js files in that package scope as ES modules. Instead rename"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -30,7 +30,7 @@
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
 		<meta name="generator" content="Hugo 0.51" />
-		<title>emojiで肌とか性別とか髪の色が変えられる仕組み &middot; sacre</title>
+		<title>P Map Err Require Esm &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
@@ -68,11 +68,11 @@
             <article>
                 <header>
                     <h1>
-                        emojiで肌とか性別とか髪の色が変えられる仕組み
+                        P Map Err Require Esm
                     </h1>
                     <h2 class="headline">
-                    Aug 6, 2020 12:05
-                    · 209 words
+                    Jul 23, 2021 23:51
+                    · 272 words
                     · 1 minute read
                       <span class="tags">
                       
@@ -86,9 +86,8 @@
 <ul>
 <li>
 <ul>
-<li><a href="#zero-width-joiner-zwj">Zero Width Joiner (ZWJ)</a></li>
+<li><a href="#対応">対応</a></li>
 <li><a href="#参考">参考</a></li>
-<li><a href="#仕様">仕様</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -98,37 +97,55 @@
                 <section id="post-body">
                     
 
-<p>unicodeでは肌の色を変えられる仕組みが2015年から入っている。これは <code>skin tone modifiers</code> と呼ばれるもので、結合文字のようにベースとなる絵文字の後ろにコードポイントを従えることで実現している</p>
+<p><code>p-map</code> でエラーが出るようになった。</p>
 
-<pre><code>$ node
-&gt; &quot;\u{1F466}&quot;
-'👦'
-&gt; &quot;\u{1F466}\u{1F3FE}&quot;
-'👦🏾'
+<pre><code class="language-console">⚠  Error [ERR_REQUIRE_ESM]: Must use import to load ES Module: /Users//node_modules/p-map/index.js
+require() of ES modules is not supported.
+require() of /Users//node_modules/p-map/index.js from /Users//lib/job/scrape-work-status/worker.js is an ES module file as it is a .js file whose nearest parent package.json contains &quot;type&quot;: &quot;module&quot; which defines all .js files in that package scope as ES modules.
+Instead rename index.js to end in .cjs, change
 </code></pre>
 
-<h2 id="zero-width-joiner-zwj">Zero Width Joiner (ZWJ)</h2>
+<p>issueになっているが、とてもそっけない</p>
 
-<p>Zero Width Joiner (ZWJ) という仕組みがあり、これは複数の絵文字を1文字にまとめるための仕組み。emojiの人物の性別を変えたり、カップルの性別を指示したりとかはこの仕組みを使っている</p>
+<ul>
+<li><a href="https://github.com/sindresorhus/p-map/issues/35">Must use import to load ES Module · Issue #35 · sindresorhus/p-map</a></li>
+</ul>
+
+<blockquote>
+<p>Please read the release notes.</p>
+</blockquote>
+
+<p>リリースノートに書いてあった。 <code>Please read this</code> とのこと。</p>
+
+<ul>
+<li><a href="https://github.com/sindresorhus/p-map/releases">Releases · sindresorhus/p-map</a></li>
+</ul>
+
+<blockquote>
+<p>Breaking
+This package is now pure ESM. Please read this.</p>
+</blockquote>
+
+<h2 id="対応">対応</h2>
+
+<p>これ自体は悪い決断ではないと思うが、パッケージの利用者にはtree-shakingとか以外には大きなメリットはないはず。
+そもそもとてもシンプルなライブラリなので機能追加もない。過去のバージョンにて利用を続ければよい。</p>
+
+<pre><code class="language-console">yarn add p-map@4
+</code></pre>
 
 <h2 id="参考">参考</h2>
 
 <ul>
-<li><a href="https://eng.getwisdom.io/emoji-modifiers-and-sequence-combinations/">Emoji Modifiers and Sequence Combinations</a></li>
-</ul>
-
-<h2 id="仕様">仕様</h2>
-
-<ul>
-<li><a href="https://unicode.org/emoji/charts/full-emoji-modifiers.html">Full Emoji Modifier Sequences, v13.0</a></li>
-<li><a href="http://unicode.org/reports/tr51/">UTS #51: Unicode Emoji</a></li>
+<li><a href="https://github.com/sindresorhus/p-map/compare/v4.0.0...v5.0.0">Comparing v4.0.0&hellip;v5.0.0 · sindresorhus/p-map</a></li>
+<li><a href="https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c">Pure ESM package</a></li>
 </ul>
 
                 </section>
             </article>
 
             
-                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2funicode-emoji-modifier-zwj%2f - emoji%e3%81%a7%e8%82%8c%e3%81%a8%e3%81%8b%e6%80%a7%e5%88%a5%e3%81%a8%e3%81%8b%e9%ab%aa%e3%81%ae%e8%89%b2%e3%81%8c%e5%a4%89%e3%81%88%e3%82%89%e3%82%8c%e3%82%8b%e4%bb%95%e7%b5%84%e3%81%bf by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fp-map-err-require-esm%2f - P%20Map%20Err%20Require%20Esm by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
 
 <a class="facebook" href="#" onclick="
     window.open(
