@@ -6,16 +6,7 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Fri, 30 Jul 2021 18:28:40 +0900</lastBuildDate><atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>perlでデータクラスを7行で定義する</title>
-      <link>https://dream-yt.github.io/post/perl-dataclass-7line/</link>
-      <pubDate>Fri, 30 Jul 2021 18:28:40 +0900</pubDate>
-      
-      <guid>https://dream-yt.github.io/post/perl-dataclass-7line/</guid>
-      <description>テストのモック役をしてもらうために作った。 package Klass; sub new { my ($class, %hash) = @_; for my $k (keys %hash) { no strict &amp;#39;refs&amp;#39;; *{$k} = sub { $hash{$k} }; }; bless {}, $class; }; package main; my $obj = Klass-&amp;gt;new(one =&amp;gt; 1, two =&amp;gt; 2); warn $obj-&amp;gt;one; warn $obj-&amp;gt;two; プロダク</description>
-    </item>
-    
+    <lastBuildDate>Fri, 30 Jul 2021 12:23:08 +0900</lastBuildDate><atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>tail コマンドで1行目をスキップする</title>
       <link>https://dream-yt.github.io/post/tail-skip-header-row/</link>
