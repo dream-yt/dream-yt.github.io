@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.79.0" />
 		<title>MySQLのrootパスワードを忘れてしまった時になんとかする方法 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,56 +83,45 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#手順">手順</a>
-<ul>
-<li><a href="#コマンド">コマンド</a></li>
-</ul></li>
-<li><a href="#参考">参考</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#手順">手順</a>
+      <ul>
+        <li><a href="#コマンド">コマンド</a></li>
+      </ul>
+    </li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p>当該サーバでMySQLを再起動できる権限は必要</p>
-
+                    <p>当該サーバでMySQLを再起動できる権限は必要</p>
 <h2 id="手順">手順</h2>
-
 <ul>
 <li>rootのpasswordをUPDATEするDMLが書いてあるファイルを用意する</li>
 <li>MySQLを一度止める</li>
 <li>mysqld_safeから<code>--init-file</code>オプション付きで起動する</li>
 </ul>
-
 <h3 id="コマンド">コマンド</h3>
-
-<pre><code class="language-bash">$ echo &quot;UPDATE mysql.user SET Password=PASSWORD('fuckofftaro') WHERE User='root';&quot; &gt;&gt; /tmp/myinit
-$ echo &quot;FLUSH PRIVILEGES;&quot; &gt;&gt; /tmp/myinit
-$ mysqld_safe --init-file=/tmp/myinit &amp;
-mysqld_safe Logging to '/usr/local/var/mysql/Mac-137.err'.
-mysqld_safe Logging to '/usr/local/var/mysql/Mac-137.err'.
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ echo <span style="color:#e6db74">&#34;UPDATE mysql.user SET Password=PASSWORD(&#39;fuckofftaro&#39;) WHERE User=&#39;root&#39;;&#34;</span> &gt;&gt; /tmp/myinit
+$ echo <span style="color:#e6db74">&#34;FLUSH PRIVILEGES;&#34;</span> &gt;&gt; /tmp/myinit
+$ mysqld_safe --init-file<span style="color:#f92672">=</span>/tmp/myinit &amp;
+mysqld_safe Logging to <span style="color:#e6db74">&#39;/usr/local/var/mysql/Mac-137.err&#39;</span>.
+mysqld_safe Logging to <span style="color:#e6db74">&#39;/usr/local/var/mysql/Mac-137.err&#39;</span>.
 mysqld_safe Starting mysqld daemon with databases from /usr/local/var/mysql
-$ mysql -uroot -pfuckofftaro -e 'status'
-mysql: [Warning] Using a password on the command line interface can be insecure.
+$ mysql -uroot -pfuckofftaro -e <span style="color:#e6db74">&#39;status&#39;</span>
+mysql: <span style="color:#f92672">[</span>Warning<span style="color:#f92672">]</span> Using a password on the command line interface can be insecure.
 --------------
-mysql  Ver 14.14 Distrib 5.7.17, for osx10.10 (x86_64) using  EditLine wrapper
+mysql  Ver 14.14 Distrib 5.7.17, <span style="color:#66d9ef">for</span> osx10.10 <span style="color:#f92672">(</span>x86_64<span style="color:#f92672">)</span> using  EditLine wrapper
 
-Connection id:		5
+Connection id:		<span style="color:#ae81ff">5</span>
 
-... (中略) ...
+... <span style="color:#f92672">(</span>中略<span style="color:#f92672">)</span> ...
 
-60  Queries per second avg: 0.203
+<span style="color:#ae81ff">60</span>  Queries per second avg: 0.203
 --------------
-</code></pre>
-
-<h2 id="参考">参考</h2>
-
+</code></pre></div><h2 id="参考">参考</h2>
 <ul>
 <li><a href="https://dev.mysql.com/doc/refman/5.6/ja/resetting-permissions.html#resetting-permissions-unix">MySQL :: MySQL 5.6 リファレンスマニュアル :: B.5.4.1 root のパスワードをリセットする方法</a></li>
 </ul>

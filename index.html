@@ -24,7 +24,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.79.0" />
 		<title>sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -76,9 +76,39 @@
     
         
             <li>
+                <aside class="dates">Jul 30</aside>
+                <a href='https://dream-yt.github.io/post/perl-dataclass-7line/'>
+                    perlでデータクラスを7行で定義する
+                    
+                        
+                            <h2>テストのモック役をしてもらうために作った。 package Klass; sub new { my ($class, %hash) = @_; for my $k (keys %hash) { no strict &#39;refs&#39;; *{$k} = sub { $hash{$k} }; }; bless {}, $class; }; package main; my $obj = Klass-&gt;new(one =&gt; 1, two =&gt; 2); warn $obj-&gt;one; warn $obj-&gt;two; プロダク</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Jul 30</aside>
+                <a href='https://dream-yt.github.io/post/tail-skip-header-row/'>
+                    tail コマンドで1行目をスキップする
+                    
+                        
+                            <h2>こんなファイルがあるとして、ヘッダ行の id だけ取り除きたいという場合。 $ cat /tmp/_ id 1 2 3 tail コマンドでできる。 $ cat /tmp/_ | tail -n &#43;2 1 2 3 tailコマンドは</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
                 <aside class="dates">Jul 23</aside>
                 <a href='https://dream-yt.github.io/post/p-map-err-require-esm/'>
-                    P Map Err Require Esm
+                    p-map で Error [ERR_REQUIRE_ESM]: Must use import to load ES Module
                     
                         
                             <h2>p-map でエラーが出るようになった。 ⚠ Error [ERR_REQUIRE_ESM]: Must use import to load ES Module: /Users//node_modules/p-map/index.js require() of ES modules is not supported. require() of /Users//node_modules/p-map/index.js from /Users//lib/job/scrape-work-status/worker.js is an ES module file as it is a .js file whose nearest parent package.json contains &#34;type&#34;: &#34;module&#34; which defines all .js files in that package scope as ES modules. Instead rename</h2>
@@ -187,36 +217,6 @@
                     
                         
                             <h2>こんな文字列が欲しい時。 2021-06-01 2021-06-02 2021-06-03 2021-06-04 2021-06-05 2021-06-06 2021-06-07 2021-06-08 2021-06-09 2021-06-10 いままでは seq に xargs をパイプしたりしていたが、seq にフォーマットオプションがあることを知ったのでそ</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jun 8</aside>
-                <a href='https://dream-yt.github.io/post/firebase-hosting-receive-cloudrun/'>
-                    Firebase Hosting の一部のエンドポイントを CloudRun で受ける
-                    
-                        
-                            <h2>こんな設定でできる。CloudFunctionで受けるのとほとんど一緒。 { &#34;hosting&#34;: { &#34;public&#34;: &#34;public&#34;, &#34;rewrites&#34;: [ { &#34;source&#34;: &#34;/**&#34;, &#34;run&#34;: { &#34;serviceId&#34;: &#34;myappcloudrun-servicename&#34;, &#34;region&#34;: &#34;asia-northeast1&#34; } } ] } } 参考 ホスティング動作を構成</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jun 7</aside>
-                <a href='https://dream-yt.github.io/post/cloudbuild-trigger-prod-or-stg-cloudrun/'>
-                    CloudBuild で CloudRun のデプロイをする。ブランチ名によってはstagingにデプロイされるようにする。
-                    
-                        
-                            <h2>Cloud Build には Build と Trigger の2種類のエンティティがある。 Build は step の設定に沿って実行した実行履歴1つ分 Trigger は、どういうときに Build が実行されるかを設定するもの トリ</h2>
                         
                     
                 </a>

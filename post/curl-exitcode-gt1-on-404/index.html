@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.79.0" />
 		<title>curlでURLが200以外を返した場合にシェルの終了コードを1以上にする &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,28 +83,18 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#参考">参考</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#参考">参考</a></li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p><code>--fail</code> をつければよい</p>
-
+                    <p><code>--fail</code> をつければよい</p>
 <p>こんなコマンドでURLが200を返すかどうか確認するだけのコマンドになる</p>
-
 <pre><code>$ curl --silent --fail --output /dev/null --head {{ URL }}
-</code></pre>
-
-<h2 id="参考">参考</h2>
-
+</code></pre><h2 id="参考">参考</h2>
 <ul>
 <li><a href="https://superuser.com/questions/590099/can-i-make-curl-fail-with-an-exitcode-different-than-0-if-the-http-status-code-i">stdout - Can I make cURL fail with an exitCode different than 0 if the HTTP status code is not 200? - Super User</a></li>
 </ul>

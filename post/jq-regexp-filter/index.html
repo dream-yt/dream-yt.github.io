@@ -14,7 +14,7 @@
   
   
   <meta name="twitter:title" content="jqで正規表現を使ってフィルタする"/>
-  <meta name="twitter:description" content="select と test をつかってフィルタする 例 こんなjsonがあったとして。 $ cat /tmp/_ { &quot;monitors&quot;: [ { &quot;id&quot;: &quot;mysql&quot;, &quot;name&quot;: &quot;mysql-freeable_memory&quot; }, { &quot;id&quot;: &quot;redis10&quot;, &quot;name&quot;: &quot;redis10-freeable_memory&quot; }, { &quot;id&quot;: &quot;redis11&quot;, &quot;name&quot;: &quot;redis11-freeable_memory&quot; } ] } たとえば monitorsオブ"/>
+  <meta name="twitter:description" content="select と test をつかってフィルタする 例 こんなjsonがあったとして。 $ cat /tmp/_ { &#34;monitors&#34;: [ { &#34;id&#34;: &#34;mysql&#34;, &#34;name&#34;: &#34;mysql-freeable_memory&#34; }, { &#34;id&#34;: &#34;redis10&#34;, &#34;name&#34;: &#34;redis10-freeable_memory&#34; }, { &#34;id&#34;: &#34;redis11&#34;, &#34;name&#34;: &#34;redis11-freeable_memory&#34; } ] } たとえば monitorsオブ"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.79.0" />
 		<title>jqで正規表現を使ってフィルタする &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,60 +83,46 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#例">例</a></li>
-<li><a href="#参考">参考</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#例">例</a></li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p><code>select</code> と <code>test</code> をつかってフィルタする</p>
-
+                    <p><code>select</code> と <code>test</code> をつかってフィルタする</p>
 <h2 id="例">例</h2>
-
 <p>こんなjsonがあったとして。</p>
-
-<pre><code class="language-json">$ cat /tmp/_
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#960050;background-color:#1e0010">$</span> <span style="color:#960050;background-color:#1e0010">cat</span> <span style="color:#960050;background-color:#1e0010">/tmp/_</span>
 {
-  &quot;monitors&quot;: [
+  <span style="color:#f92672">&#34;monitors&#34;</span>: [
     {
-      &quot;id&quot;: &quot;mysql&quot;,
-      &quot;name&quot;: &quot;mysql-freeable_memory&quot;
+      <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;mysql&#34;</span>,
+      <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;mysql-freeable_memory&#34;</span>
     },
     {
-      &quot;id&quot;: &quot;redis10&quot;,
-      &quot;name&quot;: &quot;redis10-freeable_memory&quot;
+      <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;redis10&#34;</span>,
+      <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;redis10-freeable_memory&#34;</span>
     },
     {
-      &quot;id&quot;: &quot;redis11&quot;,
-      &quot;name&quot;: &quot;redis11-freeable_memory&quot;
+      <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;redis11&#34;</span>,
+      <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;redis11-freeable_memory&#34;</span>
     }
   ]
 }
-</code></pre>
-
-<p>たとえば monitorsオブジェクトのname属性を正規表現で絞って数値を見たいとき。</p>
-
-<pre><code class="language-json">$ cat /tmp/_ | jq '.monitors[] | select(.name | test(&quot;^redis.+freeable_memory&quot;))'
+</code></pre></div><p>たとえば monitorsオブジェクトのname属性を正規表現で絞って数値を見たいとき。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#960050;background-color:#1e0010">$</span> <span style="color:#960050;background-color:#1e0010">cat</span> <span style="color:#960050;background-color:#1e0010">/tmp/_</span> <span style="color:#960050;background-color:#1e0010">|</span> <span style="color:#960050;background-color:#1e0010">jq</span> <span style="color:#960050;background-color:#1e0010">&#39;.monitors</span>[] <span style="color:#960050;background-color:#1e0010">|</span> <span style="color:#960050;background-color:#1e0010">select(.name</span> <span style="color:#960050;background-color:#1e0010">|</span> <span style="color:#960050;background-color:#1e0010">test(</span><span style="color:#e6db74">&#34;^redis.+freeable_memory&#34;</span><span style="color:#960050;background-color:#1e0010">))&#39;</span>
 {
-  &quot;id&quot;: &quot;redis10&quot;,
-  &quot;name&quot;: &quot;redis10-freeable_memory&quot;
+  <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;redis10&#34;</span>,
+  <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;redis10-freeable_memory&#34;</span>
 }
 {
-  &quot;id&quot;: &quot;redis11&quot;,
-  &quot;name&quot;: &quot;redis11-freeable_memory&quot;
+  <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;redis11&#34;</span>,
+  <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;redis11-freeable_memory&#34;</span>
 }
-</code></pre>
-
-<h2 id="参考">参考</h2>
-
+</code></pre></div><h2 id="参考">参考</h2>
 <ul>
 <li><a href="https://stedolan.github.io/jq/manual/#RegularexpressionsPCRE">Regular expressions (PCRE) | jq Manual (development version) </a></li>
 </ul>
