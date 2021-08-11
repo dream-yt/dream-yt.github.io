@@ -6,7 +6,16 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Fri, 06 Aug 2021 16:59:58 +0900</lastBuildDate><atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 11 Aug 2021 11:58:52 +0900</lastBuildDate><atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Pythonのインストールで 「&#39;sendfile&#39; is invalid in C99」</title>
+      <link>https://dream-yt.github.io/post/install-py36-sendfile-error/</link>
+      <pubDate>Wed, 11 Aug 2021 11:58:52 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/install-py36-sendfile-error/</guid>
+      <description>python3.6 を pyenv で入れようとしたら以下のエラーで入らなかった。 error: implicit declaration of function &amp;lsquo;sendfile&amp;rsquo; is invalid in C99 もろもろビルドフラグをつける必要があった。以前にはこんな色々やらなく</description>
+    </item>
+    
     <item>
       <title>htmlをフォーマットするのにhtml-beautifyを使う</title>
       <link>https://dream-yt.github.io/post/html-beautify-101/</link>
