@@ -13,8 +13,8 @@
     
   
   
-  <meta name="twitter:title" content="jqで改行区切りなど連続したjsonを配列にする"/>
-  <meta name="twitter:description" content="jq でselectとかで色々やったあと配列に戻したいときがある jq -s をパイプすると改行区切りのjsonを1つの配列にしてくれる cat ./src/resources/test/ranking-latest.json \ | jq &#39;.[] | select(.shopId |"/>
+  <meta name="twitter:title" content="git で定義がいつ消されたかを log から検索する"/>
+  <meta name="twitter:description" content="たとえば package.json から puppeteer を取り除いたのはいつだったかなと調べたいときがある。 もう消えてしまっている文字列は grep では探せないが、git は知っている。 -S オ"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -30,7 +30,7 @@
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
 		<meta name="generator" content="Hugo 0.79.0" />
-		<title>jqで改行区切りなど連続したjsonを配列にする &middot; sacre</title>
+		<title>git で定義がいつ消されたかを log から検索する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
@@ -68,11 +68,11 @@
             <article>
                 <header>
                     <h1>
-                        jqで改行区切りなど連続したjsonを配列にする
+                        git で定義がいつ消されたかを log から検索する
                     </h1>
                     <h2 class="headline">
-                    Sep 18, 2019 22:47
-                    · 102 words
+                    Aug 16, 2021 17:29
+                    · 309 words
                     · 1 minute read
                       <span class="tags">
                       
@@ -86,30 +86,52 @@
   <ul>
     <li>
       <ul>
-        <li><a href="#参考">参考</a></li>
+        <li><a href="#例">例</a></li>
       </ul>
     </li>
+    <li><a href="#参考">参考</a></li>
   </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>jq でselectとかで色々やったあと配列に戻したいときがある</p>
-<p><code>jq -s</code> をパイプすると改行区切りのjsonを1つの配列にしてくれる</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cat ./src/resources/test/ranking-latest.json <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  | jq <span style="color:#e6db74">&#39;.[] | select(.shopId | test(&#34;^hi&#34;)) | select(.ranking &lt;= 3)&#39;</span> <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  | jq -s
-</code></pre></div><h3 id="参考">参考</h3>
+                    <p>たとえば package.json から puppeteer を取り除いたのはいつだったかなと調べたいときがある。
+もう消えてしまっている文字列は grep では探せないが、git は知っている。</p>
+<p><code>-S</code> オプションで探してくれる。</p>
+<pre><code>$ git log -S {{ 探したい文字列 }} ./探したいファイル
+</code></pre><pre><code>-S&lt;string&gt;
+    Look for differences that change the number of occurrences of the specified string (i.e. addition/deletion) in a file. Intended for the scripter's use.
+
+    It is useful when you're looking for an exact block of code (like a struct), and want to know the history of that block since it first came into being: use the feature iteratively to feed the interesting block in the preimage back
+    into -S, and keep going until you get the very first version of the block.
+
+    Binary files are searched as well.
+</code></pre><h3 id="例">例</h3>
+<p>たとえば <code>puppeteer</code> の依存を取り除いたのはいつだったかなと探すときはこんな感じで探せる。</p>
+<pre><code>$ git log -S puppeteer ./package.json
+commit 0f1010450322779aa3b77db6bfe36260e0e92a91
+Author: sakamossan &lt;mild7caloriemategreentea@gmail.com&gt;
+Date:   Tue Apr 28 13:49:38 2020 +0900
+
+    [#5021] remove mocha
+
+commit 2aaad15ac13d872cc3fc4051a063946ab7d4808f
+Author: sakamossan &lt;mild7caloriemategreentea@gmail.com&gt;
+Date:   Tue Mar 13 18:46:21 2018 +0900
+
+    [#1609] add mocha
+</code></pre><p>コミットがわかればそこから git show したりチケット番号で検索したりできる。</p>
+<h2 id="参考">参考</h2>
 <ul>
-<li><a href="https://qiita.com/eielh/items/aff045e1689be8e89972">jqで連続するオブジェクトを配列にする - Qiita</a></li>
+<li><a href="https://git-scm.com/docs/git-log#Documentation/git-log.txt--Sltstringgt">Git - git-log Documentation</a></li>
 </ul>
 
                 </section>
             </article>
 
             
-                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fjq-list-json-into-array%2f - jq%e3%81%a7%e6%94%b9%e8%a1%8c%e5%8c%ba%e5%88%87%e3%82%8a%e3%81%aa%e3%81%a9%e9%80%a3%e7%b6%9a%e3%81%97%e3%81%9fjson%e3%82%92%e9%85%8d%e5%88%97%e3%81%ab%e3%81%99%e3%82%8b by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2ffind-when-i-remove-this-definition-from-gitlog%2f - git%20%e3%81%a7%e5%ae%9a%e7%be%a9%e3%81%8c%e3%81%84%e3%81%a4%e6%b6%88%e3%81%95%e3%82%8c%e3%81%9f%e3%81%8b%e3%82%92%20log%20%e3%81%8b%e3%82%89%e6%a4%9c%e7%b4%a2%e3%81%99%e3%82%8b by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
 
 <a class="facebook" href="#" onclick="
     window.open(

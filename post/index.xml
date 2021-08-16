@@ -6,7 +6,16 @@
     <description>Recent content in Posts on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 11 Aug 2021 11:58:52 +0900</lastBuildDate><atom:link href="https://dream-yt.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 16 Aug 2021 17:29:06 +0900</lastBuildDate><atom:link href="https://dream-yt.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>git で定義がいつ消されたかを log から検索する</title>
+      <link>https://dream-yt.github.io/post/find-when-i-remove-this-definition-from-gitlog/</link>
+      <pubDate>Mon, 16 Aug 2021 17:29:06 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/find-when-i-remove-this-definition-from-gitlog/</guid>
+      <description>たとえば package.json から puppeteer を取り除いたのはいつだったかなと調べたいときがある。 もう消えてしまっている文字列は grep では探せないが、git は知っている。 -S オ</description>
+    </item>
+    
     <item>
       <title>Pythonのインストールで 「&#39;sendfile&#39; is invalid in C99」</title>
       <link>https://dream-yt.github.io/post/install-py36-sendfile-error/</link>
