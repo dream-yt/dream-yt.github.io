@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="https://dream-yt.github.io/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="ts-node で型定義にパスが通らないときに力ずくで通す方法ともう少しマシな方法"/>
+  <meta name="twitter:description" content="tsconfig.json で baseUrl を指定しているときに ts-node はそれを解決してくれない。 tsconfig.json/paths not working with ts-node · Issue #138 · TypeStrong/ts-node 型定義がないパッケージを使っていて index.d.ts などにせこせこ型定義をしている"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@site_author"/>
+  
+
+
+
+		
+		<meta name="author" content="site_author">
+		<meta name="description" content="Site Description">
+		<meta name="generator" content="Hugo 0.79.0" />
+		<title>ts-node で型定義にパスが通らないときに力ずくで通す方法ともう少しマシな方法 &middot; sacre</title>
+		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/font-awesome.min.css">
+		
+
+		
+		<link href="https://dream-yt.github.io/index.xml" rel="alternate" type="application/rss+xml" title="sacre" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='https://dream-yt.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://dream-yt.github.io/posts'>Archive</a>
+	<a href='https://dream-yt.github.io/tags'>Tags</a>
+	<a href='https://dream-yt.github.io/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="https://dream-yt.github.io/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        ts-node で型定義にパスが通らないときに力ずくで通す方法ともう少しマシな方法
+                    </h1>
+                    <h2 class="headline">
+                    Aug 24, 2021 15:04
+                    · 468 words
+                    · 1 minute read
+                      <span class="tags">
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#力ずくで通す">力ずくで通す</a></li>
+    <li><a href="#もうすこしマシな方法">もうすこしマシな方法</a></li>
+  </ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    <p>tsconfig.json で baseUrl を指定しているときに ts-node はそれを解決してくれない。</p>
+<ul>
+<li><a href="https://github.com/TypeStrong/ts-node/issues/138">tsconfig.json/paths not working with ts-node · Issue #138 · TypeStrong/ts-node</a></li>
+</ul>
+<p>型定義がないパッケージを使っていて index.d.ts などにせこせこ型定義をしていると ts-node がそれを見てくれないので実行できない。</p>
+<p>これは issue になっているが、ts-node 単体ではまだ修正されていない。</p>
+<ul>
+<li><a href="https://github.com/TypeStrong/ts-node/issues/138">tsconfig.json/paths not working with ts-node · Issue #138 · TypeStrong/ts-node</a></li>
+</ul>
+<p>これは mackerel パッケージの型定義がないので実行に失敗したときのログ。 <code>tsconfig.json#baseUrl:&quot;src&quot;</code> として <code>./src/@types/index.d.ts</code> に型定義を置いているので tsc だとコンパイルは通るが ts-node だと通らない。</p>
+<pre><code>$ npx ts-node index.ts
+
+/Users/myuser/.ghq/github.com/myuser/app/node_modules/ts-node/src/index.ts:434
+    return new TSError(diagnosticText, diagnosticCodes)
+           ^
+TSError: ⨯ Unable to compile TypeScript:
+job/scrape-work-status/manager.ts(2,42): error TS7016: Could not find a declaration file for module 'mackerel'. '/Users/myuser/.ghq/github.com/myuser/app/node_modules/mackerel/lib/mackerel.js' implicitly has an 'any' type.
+  Try `npm i --save-dev @types/mackerel` if it exists or add a new declaration (.d.ts) file containing `declare module 'mackerel';`
+
+    at createTSError (/Users/myuser/.ghq/github.com/myuser/app/node_modules/ts-node/src/index.ts:434:12)
+</code></pre><h2 id="力ずくで通す">力ずくで通す</h2>
+<p>とりあえず実行したかったので index.d.ts を node_modules 配下に撒いて動くようにした。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cp ./src/@types/index.d.ts ./node_modules/mackerel/
+</code></pre></div><h2 id="もうすこしマシな方法">もうすこしマシな方法</h2>
+<p><code>tsconfig-paths</code> というパッケージがあり、これは <code>tsconfig.json#path</code> に指定したものはなんとかしてくれるので、これを使っている人もいるようだった。こっちだと node_modules に妙なことをする必要はない。</p>
+<ul>
+<li><a href="https://github.com/TypeStrong/ts-node/issues/138#issuecomment-296765802">tsconfig.json/paths not working with ts-node · Issue #138 · TypeStrong/ts-node</a></li>
+<li><a href="https://www.npmjs.com/package/tsconfig-paths">tsconfig-paths - npm</a></li>
+</ul>
+<p>ただし、path の書き換えはようやらないので個人的には使いたくない感じがある。ためしに実行したかっただけなので力ずくでなんとかしてしまった。</p>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fts-node-baseurl-issue-nobrain%2f - ts-node%20%e3%81%a7%e5%9e%8b%e5%ae%9a%e7%be%a9%e3%81%ab%e3%83%91%e3%82%b9%e3%81%8c%e9%80%9a%e3%82%89%e3%81%aa%e3%81%84%e3%81%a8%e3%81%8d%e3%81%ab%e5%8a%9b%e3%81%9a%e3%81%8f%e3%81%a7%e9%80%9a%e3%81%99%e6%96%b9%e6%b3%95%e3%81%a8%e3%82%82%e3%81%86%e5%b0%91%e3%81%97%e3%83%9e%e3%82%b7%e3%81%aa%e6%96%b9%e6%b3%95 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'your_disqus_short_name'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/dream-yt/sacre">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://twitter.com/FUTABA_SACRE">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2021 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="https://dream-yt.github.io/js/jquery-3.3.1.min.js"></script>
+<script src="https://dream-yt.github.io/js/main.js"></script>
+<script src="https://dream-yt.github.io/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+
+
+
+
+    </body>
+</html>
