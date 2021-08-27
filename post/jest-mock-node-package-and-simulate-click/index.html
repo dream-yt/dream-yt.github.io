@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="https://dream-yt.github.io/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="jest でパッケージをモックしながら react-test-utils でクリックイベントをテストする"/>
+  <meta name="twitter:description" content="こんな実装になった。 import React from &#34;react&#34;; import ReactDOM from &#34;react-dom&#34;; import { act, Simulate } from &#34;react-dom/test-utils&#34;; import { Button } from &#34;./Button&#34;; const fn = jest.fn(); jest.mock(&#34;mocked-packagejs&#34;, () =&gt; (...args: any) =&gt; { fn(...args); }); test(&#34;basic&#34;, async () =&gt; { const container = document.createElement(&#34;div&#34;); document.body.appendChild(container); act(() =&gt; ReactDOM.render(&lt;Button /&gt;, container)); const button = container.querySelector(&#34;button&#34;)!; await act(async () =&gt; Simulate.click(button)); const args"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@site_author"/>
+  
+
+
+
+		
+		<meta name="author" content="site_author">
+		<meta name="description" content="Site Description">
+		<meta name="generator" content="Hugo 0.79.0" />
+		<title>jest でパッケージをモックしながら react-test-utils でクリックイベントをテストする &middot; sacre</title>
+		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/font-awesome.min.css">
+		
+
+		
+		<link href="https://dream-yt.github.io/index.xml" rel="alternate" type="application/rss+xml" title="sacre" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='https://dream-yt.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://dream-yt.github.io/posts'>Archive</a>
+	<a href='https://dream-yt.github.io/tags'>Tags</a>
+	<a href='https://dream-yt.github.io/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="https://dream-yt.github.io/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        jest でパッケージをモックしながら react-test-utils でクリックイベントをテストする
+                    </h1>
+                    <h2 class="headline">
+                    Aug 27, 2021 17:22
+                    · 341 words
+                    · 1 minute read
+                      <span class="tags">
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#jestmock">jest.mock</a></li>
+    <li><a href="#simulateclick">Simulate.click</a></li>
+  </ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    <p>こんな実装になった。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">React</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#34;react&#34;</span>;
+<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">ReactDOM</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#34;react-dom&#34;</span>;
+<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">act</span>, <span style="color:#a6e22e">Simulate</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#34;react-dom/test-utils&#34;</span>;
+<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Button</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#34;./Button&#34;</span>;
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">fn</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">jest</span>.<span style="color:#a6e22e">fn</span>();
+<span style="color:#a6e22e">jest</span>.<span style="color:#a6e22e">mock</span>(<span style="color:#e6db74">&#34;mocked-packagejs&#34;</span>, () <span style="color:#f92672">=&gt;</span> (...<span style="color:#a6e22e">args</span>: <span style="color:#66d9ef">any</span>) <span style="color:#f92672">=&gt;</span> {
+  <span style="color:#a6e22e">fn</span>(...<span style="color:#a6e22e">args</span>);
+});
+
+<span style="color:#a6e22e">test</span>(<span style="color:#e6db74">&#34;basic&#34;</span>, <span style="color:#66d9ef">async</span> () <span style="color:#f92672">=&gt;</span> {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">container</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">createElement</span>(<span style="color:#e6db74">&#34;div&#34;</span>);
+  document.<span style="color:#a6e22e">body</span>.<span style="color:#a6e22e">appendChild</span>(<span style="color:#a6e22e">container</span>);
+  <span style="color:#a6e22e">act</span>(() <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">ReactDOM</span>.<span style="color:#a6e22e">render</span>(&lt;<span style="color:#f92672">Button</span> /&gt;, <span style="color:#a6e22e">container</span>));
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">button</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">container</span>.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">&#34;button&#34;</span>)<span style="color:#f92672">!</span>;
+  <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">act</span>(<span style="color:#66d9ef">async</span> () <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">Simulate</span>.<span style="color:#a6e22e">click</span>(<span style="color:#a6e22e">button</span>));
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">args</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">fn</span>.<span style="color:#a6e22e">mock</span>.<span style="color:#a6e22e">calls</span>[<span style="color:#ae81ff">0</span>];
+  <span style="color:#a6e22e">expect</span>(<span style="color:#f92672">!</span><span style="color:#a6e22e">args</span>).<span style="color:#a6e22e">toBe</span>(<span style="color:#66d9ef">true</span>);
+});
+</code></pre></div><h2 id="jestmock">jest.mock</h2>
+<p>jest.mock は import などと同じ scope に置かなくてはならない。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#a6e22e">jest</span>.<span style="color:#a6e22e">mock</span>(<span style="color:#e6db74">&#34;mocked-packagejs&#34;</span>, () <span style="color:#f92672">=&gt;</span> (...<span style="color:#a6e22e">args</span>: <span style="color:#66d9ef">any</span>) <span style="color:#f92672">=&gt;</span> {
+  <span style="color:#a6e22e">fn</span>(...<span style="color:#a6e22e">args</span>);
+});
+</code></pre></div><blockquote>
+<p>Note: In order to mock properly, Jest needs jest.mock(&lsquo;moduleName&rsquo;) to be in the same scope as the require/import statement.</p>
+</blockquote>
+<ul>
+<li><a href="https://jestjs.io/docs/manual-mocks#mocking-user-modules">Manual Mocks · Jest</a></li>
+</ul>
+<p>この制約があって <code>mocked-packagejs</code> が返す値をテストにて変更しながらテストを回すことができなかった。やろうとするとなんらかのオブジェクトにラップして <code>mockFn.mockReturnValue</code> とかでやる必要があるのだろう。</p>
+<h2 id="simulateclick">Simulate.click</h2>
+<p>Clickイベントなので当然のことながら処理が非同期になる。
+await してあげないと処理がタスクキューにのってるうちにテストのassertが呼ばれてしまう。</p>
+<p>ただし、単純に await をつけるだけだと以下の warn がでる。</p>
+<blockquote>
+<p>Warning: Do not await the result of calling act(&hellip;) with sync logic, it is not a Promise.</p>
+</blockquote>
+<p>なので async もつけておく。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">await</span> <span style="color:#a6e22e">act</span>(<span style="color:#66d9ef">async</span> () <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">Simulate</span>.<span style="color:#a6e22e">click</span>(<span style="color:#a6e22e">button</span>));
+</code></pre></div>
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fjest-mock-node-package-and-simulate-click%2f - jest%20%e3%81%a7%e3%83%91%e3%83%83%e3%82%b1%e3%83%bc%e3%82%b8%e3%82%92%e3%83%a2%e3%83%83%e3%82%af%e3%81%97%e3%81%aa%e3%81%8c%e3%82%89%20react-test-utils%20%e3%81%a7%e3%82%af%e3%83%aa%e3%83%83%e3%82%af%e3%82%a4%e3%83%99%e3%83%b3%e3%83%88%e3%82%92%e3%83%86%e3%82%b9%e3%83%88%e3%81%99%e3%82%8b by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'your_disqus_short_name'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/dream-yt/sacre">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://twitter.com/FUTABA_SACRE">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2021 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="https://dream-yt.github.io/js/jquery-3.3.1.min.js"></script>
+<script src="https://dream-yt.github.io/js/main.js"></script>
+<script src="https://dream-yt.github.io/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+
+
+
+
+    </body>
+</html>
