@@ -6,7 +6,16 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Fri, 27 Aug 2021 17:22:46 +0900</lastBuildDate><atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 30 Aug 2021 15:10:56 +0900</lastBuildDate><atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>nodejsのBigQuery#insertに失敗したときに原因の行だけログに出す</title>
+      <link>https://dream-yt.github.io/post/logging-only-nodejs-bigquery-insert-error/</link>
+      <pubDate>Mon, 30 Aug 2021 15:10:56 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/logging-only-nodejs-bigquery-insert-error/</guid>
+      <description>nodejs で BigQuery に insert するとき、1行でも不正な行があると全体が失敗する。そしてどの行がなぜ失敗したのかを確認するのにはちょっと工夫が必要である。 まず、不</description>
+    </item>
+    
     <item>
       <title>jest でパッケージをモックしながら react-test-utils でクリックイベントをテストする</title>
       <link>https://dream-yt.github.io/post/jest-mock-node-package-and-simulate-click/</link>
