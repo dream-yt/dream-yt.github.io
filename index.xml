@@ -6,7 +6,16 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Mon, 30 Aug 2021 15:10:56 +0900</lastBuildDate><atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 04 Oct 2021 15:12:48 +0900</lastBuildDate><atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>元祖からforkしてきたリポジトリに元祖の最新のコードを取り込む</title>
+      <link>https://dream-yt.github.io/post/merge-upstream-onto-forked-repos/</link>
+      <pubDate>Mon, 04 Oct 2021 15:12:48 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/merge-upstream-onto-forked-repos/</guid>
+      <description>リポジトリをまたぐときはこのようにしてpullできる $ cd github.com/myname/bar $ git pull git@github.com:foo/bar.git master master はブランチ名なので main などになっていたら適宜変更する。 参考 上流リポジトリ</description>
+    </item>
+    
     <item>
       <title>nodejsのBigQuery#insertに失敗したときに原因の行だけログに出す</title>
       <link>https://dream-yt.github.io/post/logging-only-nodejs-bigquery-insert-error/</link>
