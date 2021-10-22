@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="https://dream-yt.github.io/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="MySQLでmasterにDDLを発行したらslaveがクエリを返さなくなったときの対応"/>
+  <meta name="twitter:description" content="MySQLでマスターにカラム追加のDDLを発行したら、スレーブ側でそのカラムを追加したテーブルが読めなくなってしまった。 対応 スレーブ側が以下"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@site_author"/>
+  
+
+
+
+		
+		<meta name="author" content="site_author">
+		<meta name="description" content="Site Description">
+		<meta name="generator" content="Hugo 0.79.0" />
+		<title>MySQLでmasterにDDLを発行したらslaveがクエリを返さなくなったときの対応 &middot; sacre</title>
+		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/font-awesome.min.css">
+		
+
+		
+		<link href="https://dream-yt.github.io/index.xml" rel="alternate" type="application/rss+xml" title="sacre" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='https://dream-yt.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://dream-yt.github.io/posts'>Archive</a>
+	<a href='https://dream-yt.github.io/tags'>Tags</a>
+	<a href='https://dream-yt.github.io/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="https://dream-yt.github.io/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        MySQLでmasterにDDLを発行したらslaveがクエリを返さなくなったときの対応
+                    </h1>
+                    <h2 class="headline">
+                    Oct 22, 2021 15:12
+                    · 719 words
+                    · 2 minute read
+                      <span class="tags">
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#対応">対応</a></li>
+    <li><a href="#おさらい">おさらい</a></li>
+    <li><a href="#謎に思ったこと">謎に思ったこと</a></li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    <p>MySQLでマスターにカラム追加のDDLを発行したら、スレーブ側でそのカラムを追加したテーブルが読めなくなってしまった。</p>
+<h2 id="対応">対応</h2>
+<p>スレーブ側が以下のような単純なクエリでも返ってこなくなってしまった。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">select</span> id <span style="color:#66d9ef">from</span> mytable <span style="color:#66d9ef">where</span> id <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</code></pre></div><p>PK でひいても、数十秒返ってこない。ctrl+c で kill</p>
+<p>DDLがスレーブに届いているかを確認する。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">show</span> <span style="color:#66d9ef">create</span> <span style="color:#66d9ef">table</span> mytable<span style="color:#960050;background-color:#1e0010">\</span><span style="color:#66d9ef">G</span>
+....
+  <span style="color:#f92672">`</span>rate<span style="color:#f92672">`</span> decimal(<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">2</span>) <span style="color:#66d9ef">DEFAULT</span> <span style="color:#66d9ef">NULL</span>,
+  <span style="color:#f92672">`</span>is_enabled<span style="color:#f92672">`</span> tinyint(<span style="color:#ae81ff">1</span>) unsigned <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">NULL</span> <span style="color:#66d9ef">DEFAULT</span> <span style="color:#e6db74">&#39;0&#39;</span>,
+
+</code></pre></div><p>カラム追加がまだスレーブでは適用できていないようだ。</p>
+<p>processlist を見てみたところ、<code>Waiting for table metadata lock</code> で止まっているクエリが確認できた。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">show</span> processlist ;
+
+<span style="color:#f92672">+</span><span style="color:#75715e">---------+----------+-----------------------+-----+---------+------+---------------------------------+----------------------------------------------------------------------------------------------------------+
+</span><span style="color:#75715e"></span><span style="color:#f92672">|</span> Id      <span style="color:#f92672">|</span> <span style="color:#66d9ef">User</span>     <span style="color:#f92672">|</span> <span style="color:#66d9ef">Host</span>                  <span style="color:#f92672">|</span> db  <span style="color:#f92672">|</span> Command <span style="color:#f92672">|</span> Time <span style="color:#f92672">|</span> <span style="color:#66d9ef">State</span>                           <span style="color:#f92672">|</span> Info                                                                                                     <span style="color:#f92672">|</span>
+<span style="color:#f92672">+</span><span style="color:#75715e">---------+----------+-----------------------+-----+---------+------+---------------------------------+----------------------------------------------------------------------------------------------------------+
+</span><span style="color:#75715e"></span><span style="color:#f92672">|</span> <span style="color:#ae81ff">3172084</span> <span style="color:#f92672">|</span> readonly <span style="color:#f92672">|</span> <span style="color:#ae81ff">10</span>.<span style="color:#ae81ff">136</span>.<span style="color:#ae81ff">3</span>.<span style="color:#ae81ff">143</span>:<span style="color:#ae81ff">60522</span>     <span style="color:#f92672">|</span> myproj <span style="color:#f92672">|</span> Query   <span style="color:#f92672">|</span> <span style="color:#ae81ff">611</span>  <span style="color:#f92672">|</span> Waiting <span style="color:#66d9ef">for</span> <span style="color:#66d9ef">table</span> metadata <span style="color:#66d9ef">lock</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">SELECT</span>....<span style="color:#f92672">|</span>
+<span style="color:#f92672">|</span> <span style="color:#ae81ff">3172167</span> <span style="color:#f92672">|</span> readonly <span style="color:#f92672">|</span> <span style="color:#ae81ff">118</span>.<span style="color:#ae81ff">38</span>.<span style="color:#ae81ff">203</span>.<span style="color:#ae81ff">205</span>:<span style="color:#ae81ff">49244</span> <span style="color:#f92672">|</span> myproj <span style="color:#f92672">|</span> Query   <span style="color:#f92672">|</span> <span style="color:#ae81ff">980</span>  <span style="color:#f92672">|</span> Writing <span style="color:#66d9ef">to</span> net                  <span style="color:#f92672">|</span> <span style="color:#66d9ef">SELECT</span> <span style="color:#75715e">/*!40001 SQL_NO_CACHE */</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> <span style="color:#f92672">`</span>mytable<span style="color:#f92672">`</span>                                                           <span style="color:#f92672">|</span>
+<span style="color:#f92672">|</span> <span style="color:#ae81ff">3172260</span> <span style="color:#f92672">|</span> readonly <span style="color:#f92672">|</span> <span style="color:#ae81ff">10</span>.<span style="color:#ae81ff">136</span>.<span style="color:#ae81ff">1</span>.<span style="color:#ae81ff">229</span>:<span style="color:#ae81ff">48626</span>     <span style="color:#f92672">|</span> myproj <span style="color:#f92672">|</span> Query   <span style="color:#f92672">|</span> <span style="color:#ae81ff">630</span>  <span style="color:#f92672">|</span> Waiting <span style="color:#66d9ef">for</span> <span style="color:#66d9ef">table</span> metadata <span style="color:#66d9ef">lock</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">SELECT</span>.... <span style="color:#f92672">|</span>
+<span style="color:#f92672">|</span> <span style="color:#ae81ff">3172329</span> <span style="color:#f92672">|</span> readonly <span style="color:#f92672">|</span> <span style="color:#ae81ff">202</span>.<span style="color:#ae81ff">32</span>.<span style="color:#ae81ff">238</span>.<span style="color:#ae81ff">73</span>:<span style="color:#ae81ff">40228</span>  <span style="color:#f92672">|</span> myproj <span style="color:#f92672">|</span> Sleep   <span style="color:#f92672">|</span> <span style="color:#ae81ff">31</span>   <span style="color:#f92672">|</span>                                 <span style="color:#f92672">|</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">null</span><span style="color:#f92672">&gt;</span>                                                                                                   <span style="color:#f92672">|</span>
+</code></pre></div><p>これは分析用のクエリということがわかっていたので、これらをkillしたところ、その他のクエリも無事に流れるようになった。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#f92672">&gt;</span> kill <span style="color:#ae81ff">3172084</span>
+</code></pre></div><h2 id="おさらい">おさらい</h2>
+<ul>
+<li>まずスレーブがどこまでマスターに追随できているかを確認する
+<ul>
+<li>今回の場合はカラム追加なので <code>SHOW CREATE TABLE</code></li>
+</ul>
+</li>
+<li>追随できていないことが分かったら、そのスレッドのせいで詰まったかを確認。</li>
+<li>原因のクエリをkill</li>
+</ul>
+<h2 id="謎に思ったこと">謎に思ったこと</h2>
+<p>マスターからスレーブに流しているクエリはシングルスレッドで動いているというのは理解できて、そのシングルスレッドが詰まってしまった場合には後続の処理も詰まってしまうというのは理解できるのだが、それではなぜ「ローカルからつないで叩いた <code>select id from mytable where id = 1</code>」も返ってこなかったのかはちょっと気になる。</p>
+<p>マスターで <code>LOCK NONE</code> で流しても、スレーブでは適用されなかったりとかがあるのだろうか。</p>
+<h2 id="参考">参考</h2>
+<ul>
+<li><a href="https://atsuizo.hatenadiary.jp/entry/2018/12/08/090000">Waiting for table metadata lockの対処の仕方、おさらい。 - なからなLife</a></li>
+</ul>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fmysql-repli-trouble-shooting%2f - MySQL%e3%81%a7master%e3%81%abDDL%e3%82%92%e7%99%ba%e8%a1%8c%e3%81%97%e3%81%9f%e3%82%89slave%e3%81%8c%e3%82%af%e3%82%a8%e3%83%aa%e3%82%92%e8%bf%94%e3%81%95%e3%81%aa%e3%81%8f%e3%81%aa%e3%81%a3%e3%81%9f%e3%81%a8%e3%81%8d%e3%81%ae%e5%af%be%e5%bf%9c by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'your_disqus_short_name'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/dream-yt/sacre">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://twitter.com/FUTABA_SACRE">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2021 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="https://dream-yt.github.io/js/jquery-3.3.1.min.js"></script>
+<script src="https://dream-yt.github.io/js/main.js"></script>
+<script src="https://dream-yt.github.io/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+
+
+
+
+    </body>
+</html>

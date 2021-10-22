@@ -6,7 +6,16 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Mon, 04 Oct 2021 15:12:48 +0900</lastBuildDate><atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 22 Oct 2021 15:12:08 +0900</lastBuildDate><atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>MySQLでmasterにDDLを発行したらslaveがクエリを返さなくなったときの対応</title>
+      <link>https://dream-yt.github.io/post/mysql-repli-trouble-shooting/</link>
+      <pubDate>Fri, 22 Oct 2021 15:12:08 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/mysql-repli-trouble-shooting/</guid>
+      <description>MySQLでマスターにカラム追加のDDLを発行したら、スレーブ側でそのカラムを追加したテーブルが読めなくなってしまった。 対応 スレーブ側が以下</description>
+    </item>
+    
     <item>
       <title>元祖からforkしてきたリポジトリに元祖の最新のコードを取り込む</title>
       <link>https://dream-yt.github.io/post/merge-upstream-onto-forked-repos/</link>
