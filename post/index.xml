@@ -6,7 +6,16 @@
     <description>Recent content in Posts on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Fri, 22 Oct 2021 15:12:08 +0900</lastBuildDate><atom:link href="https://dream-yt.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 29 Oct 2021 12:14:48 +0900</lastBuildDate><atom:link href="https://dream-yt.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Bootstrap に detail/summary タグの「▶︎」が消されてしまう時の対応</title>
+      <link>https://dream-yt.github.io/post/revive-bootstrap-suppressed-summary-tag-triangle/</link>
+      <pubDate>Fri, 29 Oct 2021 12:14:48 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/revive-bootstrap-suppressed-summary-tag-triangle/</guid>
+      <description>Bootstrapのバージョンが上げられていないと発生する事象。 Bootstrapの reset.css が悪さをしていて、detail/summary タグの「</description>
+    </item>
+    
     <item>
       <title>MySQLでmasterにDDLを発行したらslaveがクエリを返さなくなったときの対応</title>
       <link>https://dream-yt.github.io/post/mysql-repli-trouble-shooting/</link>
