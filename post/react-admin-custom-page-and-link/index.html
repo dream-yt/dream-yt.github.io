@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>react-admin で、react-admin の機能を使わないページを作りたいときの方法 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,86 +83,111 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#ルーティング">ルーティング</a></li>
-    <li><a href="#つくったルーティングへのリンクmenu">つくったルーティングへのリンク(Menu)</a></li>
-    <li><a href="#つくった-menu-を-admin-コンポーネントに渡す">つくった Menu を Admin コンポーネントに渡す</a></li>
-    <li><a href="#参考">参考</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#ルーティング">ルーティング</a></li>
+<li><a href="#つくったルーティングへのリンク-menu">つくったルーティングへのリンク(Menu)</a></li>
+<li><a href="#つくった-menu-を-admin-コンポーネントに渡す">つくった Menu を Admin コンポーネントに渡す</a></li>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>react-admin で、完全にカスタマイズされたページを作りたいときの方法。</p>
+                    
+
+<p>react-admin で、完全にカスタマイズされたページを作りたいときの方法。</p>
+
 <p>けっこういろいろ実装が必要になる方法しかなくて、マジかよとなるが、これは公式のドキュメントに書いてある方式で、GitHubのissueなどもこのやり方に沿ってやりとりされている。</p>
+
 <h2 id="ルーティング">ルーティング</h2>
+
 <p>まず、ルーティングを定義する</p>
+
 <ul>
 <li><code>customRoutes</code> を定義して、<code>Admin</code> タグの引数に渡す</li>
 <li>リクエストできるパスと、そのパスで表示されるコンポーネントを追加</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">as</span> <span style="color:#a6e22e">React</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#34;react&#34;</span>;
-<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Route</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;react-router-dom&#39;</span>;
-<span style="color:#66d9ef">import</span> {<span style="color:#a6e22e">SampleQueryInput</span>} <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;./Sample&#39;</span>
 
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> [
-  &lt;<span style="color:#f92672">Route</span> <span style="color:#a6e22e">exact</span> <span style="color:#a6e22e">path</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/sample&#34;</span> <span style="color:#a6e22e">component</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">SampleQueryInput</span>} /&gt;,
+<pre><code class="language-ts">import * as React from &quot;react&quot;;
+import { Route } from 'react-router-dom';
+import {SampleQueryInput} from './Sample'
+
+export default [
+  &lt;Route exact path=&quot;/sample&quot; component={SampleQueryInput} /&gt;,
 ];
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-diff" data-lang="diff">const App = () =&gt; (
-<span style="color:#f92672">-   &lt;Admin dataProvider={dataProvider}&gt;
-</span><span style="color:#f92672"></span><span style="color:#a6e22e">+   &lt;Admin customRoutes={customRoutes} dataProvider={dataProvider}&gt;
-</span></code></pre></div><h2 id="つくったルーティングへのリンクmenu">つくったルーティングへのリンク(Menu)</h2>
-<p>これだけだと、できたページへのリンクがないので、つぎに、そのルーティングへのリンクを、サイドバー( <code>Menu</code> と呼ばれる)に追加する。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">as</span> <span style="color:#a6e22e">React</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
-<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useSelector</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;react-redux&#39;</span>;
-<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Menu</span>, <span style="color:#a6e22e">MenuItemLink</span>, <span style="color:#a6e22e">getResources</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;react-admin&#39;</span>;
-<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">DefaultIcon</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;@material-ui/icons/ViewList&#39;</span>;
+</code></pre>
 
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">CustomMenu</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">props</span>: <span style="color:#66d9ef">any</span>) <span style="color:#f92672">=&gt;</span> {
-    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">resources</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useSelector</span>(<span style="color:#a6e22e">getResources</span>);
-    <span style="color:#66d9ef">return</span> (
-        &lt;<span style="color:#f92672">Menu</span> {<span style="color:#a6e22e">...props</span>}&gt;
-            {<span style="color:#a6e22e">resources</span>.<span style="color:#a6e22e">map</span>(<span style="color:#a6e22e">resource</span> <span style="color:#f92672">=&gt;</span> (
-                &lt;<span style="color:#f92672">ItemLinkFromResource</span> <span style="color:#a6e22e">key</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">resource</span>.<span style="color:#a6e22e">name</span>} <span style="color:#a6e22e">resource</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">resource</span>} /&gt;
+<pre><code class="language-diff">const App = () =&gt; (
+-   &lt;Admin dataProvider={dataProvider}&gt;
++   &lt;Admin customRoutes={customRoutes} dataProvider={dataProvider}&gt;
+</code></pre>
+
+<h2 id="つくったルーティングへのリンク-menu">つくったルーティングへのリンク(Menu)</h2>
+
+<p>これだけだと、できたページへのリンクがないので、つぎに、そのルーティングへのリンクを、サイドバー( <code>Menu</code> と呼ばれる)に追加する。</p>
+
+<pre><code class="language-ts">import * as React from 'react';
+import { useSelector } from 'react-redux';
+import { Menu, MenuItemLink, getResources } from 'react-admin';
+import DefaultIcon from '@material-ui/icons/ViewList';
+
+export const CustomMenu = (props: any) =&gt; {
+    const resources = useSelector(getResources);
+    return (
+        &lt;Menu {...props}&gt;
+            {resources.map(resource =&gt; (
+                &lt;ItemLinkFromResource key={resource.name} resource={resource} /&gt;
             ))}
-            &lt;<span style="color:#f92672">MenuItemLink</span>
-                <span style="color:#a6e22e">key</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;sample&#39;</span>
-                <span style="color:#a6e22e">to</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/sample&#34;</span>
-                <span style="color:#a6e22e">primaryText</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;sample&#34;</span>
-                <span style="color:#a6e22e">leftIcon</span><span style="color:#f92672">=</span>{&lt;<span style="color:#f92672">DefaultIcon</span> /&gt;}
+            &lt;MenuItemLink
+                key='sample'
+                to=&quot;/sample&quot;
+                primaryText=&quot;sample&quot;
+                leftIcon={&lt;DefaultIcon /&gt;}
             /&gt;
-        &lt;/<span style="color:#f92672">Menu</span>&gt;
+        &lt;/Menu&gt;
     );
 };
 
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ItemLinkFromResource</span> <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">resource</span> }<span style="color:#f92672">:</span> <span style="color:#66d9ef">any</span>) <span style="color:#f92672">=&gt;</span> (
-    &lt;<span style="color:#f92672">MenuItemLink</span>
-        <span style="color:#a6e22e">to</span><span style="color:#f92672">=</span>{<span style="color:#e6db74">`/</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">resource</span>.<span style="color:#a6e22e">name</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>}
-        <span style="color:#a6e22e">primaryText</span><span style="color:#f92672">=</span>{
-            (<span style="color:#a6e22e">resource</span>.<span style="color:#a6e22e">options</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">resource</span>.<span style="color:#a6e22e">options</span>.<span style="color:#a6e22e">label</span>) <span style="color:#f92672">||</span>
-            <span style="color:#a6e22e">resource</span>.<span style="color:#a6e22e">name</span>
+const ItemLinkFromResource = ({ resource }: any) =&gt; (
+    &lt;MenuItemLink
+        to={`/${resource.name}`}
+        primaryText={
+            (resource.options &amp;&amp; resource.options.label) ||
+            resource.name
         }
-        <span style="color:#a6e22e">leftIcon</span><span style="color:#f92672">=</span>{
-            <span style="color:#a6e22e">resource</span>.<span style="color:#a6e22e">icon</span> <span style="color:#f92672">?</span> &lt;<span style="color:#f92672">resource.icon</span> /&gt; <span style="color:#f92672">:</span> &lt;<span style="color:#f92672">DefaultIcon</span> /&gt;
+        leftIcon={
+            resource.icon ? &lt;resource.icon /&gt; : &lt;DefaultIcon /&gt;
         }
     /&gt;
 );
-</code></pre></div><h2 id="つくった-menu-を-admin-コンポーネントに渡す">つくった Menu を Admin コンポーネントに渡す</h2>
+</code></pre>
+
+<h2 id="つくった-menu-を-admin-コンポーネントに渡す">つくった Menu を Admin コンポーネントに渡す</h2>
+
 <ul>
 <li>できた CustomMenu コンポーネントを、</li>
 <li>CustomLayout コンポーネントに渡し、</li>
 <li>Layout コンポーネントを Admin に渡す。</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Layout</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;react-admin&#39;</span>;
-<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">CustomMenu</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;./Menu&#39;</span>;
 
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">CustomLayout</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">props</span>: <span style="color:#66d9ef">any</span>) <span style="color:#f92672">=&gt;</span> &lt;<span style="color:#f92672">Layout</span> {<span style="color:#a6e22e">...props</span>} <span style="color:#a6e22e">menu</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">CustomMenu</span>} /&gt;;
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">CustomLayout</span>;
+<pre><code class="language-ts">import { Layout } from 'react-admin';
+import { CustomMenu } from './Menu';
 
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-diff" data-lang="diff"><span style="color:#f92672">- &lt;Admin customRoutes={customRoutes} dataProvider={dataProvider}&gt;
-</span><span style="color:#f92672"></span><span style="color:#a6e22e">+ &lt;Admin customRoutes={customRoutes} layout={layout} dataProvider={dataProvider}&gt;
-</span></code></pre></div><h2 id="参考">参考</h2>
+const CustomLayout = (props: any) =&gt; &lt;Layout {...props} menu={CustomMenu} /&gt;;
+export default CustomLayout;
+
+</code></pre>
+
+<pre><code class="language-diff">- &lt;Admin customRoutes={customRoutes} dataProvider={dataProvider}&gt;
++ &lt;Admin customRoutes={customRoutes} layout={layout} dataProvider={dataProvider}&gt;
+</code></pre>
+
+<h2 id="参考">参考</h2>
+
 <ul>
 <li><a href="https://marmelab.com/react-admin/Admin.html#menu">menu | React-admin - Admin and Resource Components</a></li>
 <li><a href="https://marmelab.com/react-admin/Admin.html#customroutes">customRoute | React-admin - Admin and Resource Components</a></li>

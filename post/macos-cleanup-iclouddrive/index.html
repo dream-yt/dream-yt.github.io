@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>MacOS の du コマンドで iCloud Drive を掃除する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,47 +83,67 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#コマンド">コマンド</a></li>
-    <li><a href="#オプション">オプション</a></li>
-    <li><a href="#参考">参考</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#コマンド">コマンド</a></li>
+<li><a href="#オプション">オプション</a></li>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>iCloud Drive は無料で5GBまで使えるが、それを超えるとサブスクリプションが必要になる。
+                    
+
+<p>iCloud Drive は無料で5GBまで使えるが、それを超えるとサブスクリプションが必要になる。
 つねに更新されていて同期が必要になるファイルはそんなに多くないし、テキストファイルとか容量が小さいファイルばかりなので、定期的に掃除をしていれば5GBの容量で十分かなと思う。</p>
+
 <p>5GBに近づくとmacOSから警告が出るが、どのディレクトリ、どのファイルが容量を食っているかを手動で調べるのはなかなか辛いのでCLIで調べることにする。</p>
+
 <h2 id="コマンド">コマンド</h2>
+
 <p>こんなコマンドでiCloudドライブ配下のディレクトリが、容量が多い順で表示できる。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ du -m -d <span style="color:#ae81ff">2</span> ~/iCloudDrive/ | sort -nr | head -30
-</code></pre></div><pre><code>2255	/Users/myuser/iCloudDrive/
+
+<pre><code class="language-bash">$ du -m -d 2 ~/iCloudDrive/ | sort -nr | head -30
+</code></pre>
+
+<pre><code>2255	/Users/myuser/iCloudDrive/
 1335	/Users/myuser/iCloudDrive//pdf
 420	    /Users/myuser/iCloudDrive//MyMusic
 383	    /Users/myuser/iCloudDrive/,
 370	    /Users/myuser/iCloudDrive//,/mysqldump
 ...
-</code></pre><p>なお、iCloudドライブには以下のコマンドでsymlinkを作っている。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ ln -s <span style="color:#e6db74">&#34;~/Library/Mobile Documents/com~apple~CloudDocs&#34;</span> ~/iCloudDrive
-</code></pre></div><h2 id="オプション">オプション</h2>
+</code></pre>
+
+<p>なお、iCloudドライブには以下のコマンドでsymlinkを作っている。</p>
+
+<pre><code class="language-bash">$ ln -s &quot;~/Library/Mobile Documents/com~apple~CloudDocs&quot; ~/iCloudDrive
+</code></pre>
+
+<h2 id="オプション">オプション</h2>
+
 <p>duコマンドのオプションはこれをつかっている</p>
+
 <ul>
 <li><code>-m</code>
+
 <ul>
 <li>容量をメガバイト単位で表示する</li>
 <li>出力を sort コマンドでソートするので単位を揃える必要がある</li>
-</ul>
-</li>
+</ul></li>
 <li><code>-d 2</code>
+
 <ul>
 <li>ディレクトリの深さを2階層まで探索する</li>
 <li>だいたいどのディレクトリが重いのかわかったら、さらにそのディレクトリを調べる</li>
+</ul></li>
 </ul>
-</li>
-</ul>
+
 <h2 id="参考">参考</h2>
+
 <ul>
 <li><a href="https://blog.n-t.jp/tech/i-use-iclouddrive/">iCloudドライブを使うようになった</a></li>
 <li><a href="https://qiita.com/twipg/items/4cf763aa0a09ca1e387f">Macで容量の大きなフォルダをduコマンドで確認する - Qiita</a></li>

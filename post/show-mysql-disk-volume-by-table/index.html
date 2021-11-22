@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>MySQLでテーブルごとのデータ容量とインデックスの容量を一蘭する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,60 +83,74 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#information_schematables">information_schema.tables</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#information-schema-tables">information_schema.tables</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>こんなクエリで出せる</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> <span style="color:#66d9ef">table_name</span>,
-    (data_length <span style="color:#f92672">+</span> index_length) <span style="color:#f92672">/</span> <span style="color:#ae81ff">1000000</span> mb,
-    data_length <span style="color:#f92672">/</span> <span style="color:#ae81ff">1000000</span> data_mb,  <span style="color:#75715e">-- 実データの容量
-</span><span style="color:#75715e"></span>    index_length <span style="color:#f92672">/</span> <span style="color:#ae81ff">1000000</span> idx_mb   <span style="color:#75715e">-- インデックスデータの容量
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">FROM</span> information_schema.tables <span style="color:#75715e">-- 後述
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">WHERE</span> table_schema <span style="color:#f92672">=</span> <span style="color:#66d9ef">database</span>() <span style="color:#75715e">-- ユーザー定義のテーブルに絞る
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> data_length <span style="color:#66d9ef">DESC</span>;
-</code></pre></div><p>データベース内の合計だとこんな感じ</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> <span style="color:#66d9ef">table_name</span>,
-    <span style="color:#66d9ef">SUM</span>(data_length <span style="color:#f92672">+</span> index_length) <span style="color:#f92672">/</span> <span style="color:#ae81ff">1000000</span> mb,
-    <span style="color:#66d9ef">SUM</span>(data_length) <span style="color:#f92672">/</span> <span style="color:#ae81ff">1000000</span> data_mb,
-    <span style="color:#66d9ef">SUM</span>(index_length) <span style="color:#f92672">/</span> <span style="color:#ae81ff">1000000</span> idx_mb
-<span style="color:#66d9ef">FROM</span> information_schema.tables <span style="color:#75715e">-- 後述
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">WHERE</span> table_schema <span style="color:#f92672">=</span> <span style="color:#66d9ef">database</span>() <span style="color:#75715e">-- ユーザー定義のテーブルに絞る
-</span><span style="color:#75715e"></span>
-</code></pre></div><h2 id="information_schematables">information_schema.tables</h2>
+                    
+
+<p>こんなクエリで出せる</p>
+
+<pre><code class="language-sql">SELECT table_name,
+    (data_length + index_length) / 1000000 mb,
+    data_length / 1000000 data_mb,  -- 実データの容量
+    index_length / 1000000 idx_mb   -- インデックスデータの容量
+FROM information_schema.tables -- 後述
+WHERE table_schema = database() -- ユーザー定義のテーブルに絞る
+ORDER BY data_length DESC;
+</code></pre>
+
+<p>データベース内の合計だとこんな感じ</p>
+
+<pre><code class="language-sql">SELECT table_name,
+    SUM(data_length + index_length) / 1000000 mb,
+    SUM(data_length) / 1000000 data_mb,
+    SUM(index_length) / 1000000 idx_mb
+FROM information_schema.tables -- 後述
+WHERE table_schema = database() -- ユーザー定義のテーブルに絞る
+
+</code></pre>
+
+<h2 id="information-schema-tables">information_schema.tables</h2>
+
 <p>この他にも <code>AVG_ROW_LENGTH</code> とかパッと見れるとよさそうなカラムがある</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#f92672">+</span><span style="color:#75715e">-----------------+---------------------+------+-----+---------+-------+
-</span><span style="color:#75715e"></span><span style="color:#f92672">|</span> Field           <span style="color:#f92672">|</span> <span style="color:#66d9ef">Type</span>                <span style="color:#f92672">|</span> <span style="color:#66d9ef">Null</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">Key</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">Default</span> <span style="color:#f92672">|</span> Extra <span style="color:#f92672">|</span>
-<span style="color:#f92672">+</span><span style="color:#75715e">-----------------+---------------------+------+-----+---------+-------+
-</span><span style="color:#75715e"></span><span style="color:#f92672">|</span> TABLE_CATALOG   <span style="color:#f92672">|</span> varchar(<span style="color:#ae81ff">512</span>)        <span style="color:#f92672">|</span> <span style="color:#66d9ef">NO</span>   <span style="color:#f92672">|</span>     <span style="color:#f92672">|</span>         <span style="color:#f92672">|</span>       <span style="color:#f92672">|</span>
-<span style="color:#f92672">|</span> TABLE_SCHEMA    <span style="color:#f92672">|</span> varchar(<span style="color:#ae81ff">64</span>)         <span style="color:#f92672">|</span> <span style="color:#66d9ef">NO</span>   <span style="color:#f92672">|</span>     <span style="color:#f92672">|</span>         <span style="color:#f92672">|</span>       <span style="color:#f92672">|</span>
-<span style="color:#f92672">|</span> <span style="color:#66d9ef">TABLE_NAME</span>      <span style="color:#f92672">|</span> varchar(<span style="color:#ae81ff">64</span>)         <span style="color:#f92672">|</span> <span style="color:#66d9ef">NO</span>   <span style="color:#f92672">|</span>     <span style="color:#f92672">|</span>         <span style="color:#f92672">|</span>       <span style="color:#f92672">|</span>
-<span style="color:#f92672">|</span> TABLE_TYPE      <span style="color:#f92672">|</span> varchar(<span style="color:#ae81ff">64</span>)         <span style="color:#f92672">|</span> <span style="color:#66d9ef">NO</span>   <span style="color:#f92672">|</span>     <span style="color:#f92672">|</span>         <span style="color:#f92672">|</span>       <span style="color:#f92672">|</span>
-<span style="color:#f92672">|</span> ENGINE          <span style="color:#f92672">|</span> varchar(<span style="color:#ae81ff">64</span>)         <span style="color:#f92672">|</span> YES  <span style="color:#f92672">|</span>     <span style="color:#f92672">|</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">null</span><span style="color:#f92672">&gt;</span>  <span style="color:#f92672">|</span>       <span style="color:#f92672">|</span>
-<span style="color:#f92672">|</span> <span style="color:#66d9ef">VERSION</span>         <span style="color:#f92672">|</span> bigint(<span style="color:#ae81ff">21</span>) unsigned <span style="color:#f92672">|</span> YES  <span style="color:#f92672">|</span>     <span style="color:#f92672">|</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">null</span><span style="color:#f92672">&gt;</span>  <span style="color:#f92672">|</span>       <span style="color:#f92672">|</span>
-<span style="color:#f92672">|</span> ROW_FORMAT      <span style="color:#f92672">|</span> varchar(<span style="color:#ae81ff">10</span>)         <span style="color:#f92672">|</span> YES  <span style="color:#f92672">|</span>     <span style="color:#f92672">|</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">null</span><span style="color:#f92672">&gt;</span>  <span style="color:#f92672">|</span>       <span style="color:#f92672">|</span>
-<span style="color:#f92672">|</span> TABLE_ROWS      <span style="color:#f92672">|</span> bigint(<span style="color:#ae81ff">21</span>) unsigned <span style="color:#f92672">|</span> YES  <span style="color:#f92672">|</span>     <span style="color:#f92672">|</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">null</span><span style="color:#f92672">&gt;</span>  <span style="color:#f92672">|</span>       <span style="color:#f92672">|</span>
-<span style="color:#f92672">|</span> AVG_ROW_LENGTH  <span style="color:#f92672">|</span> bigint(<span style="color:#ae81ff">21</span>) unsigned <span style="color:#f92672">|</span> YES  <span style="color:#f92672">|</span>     <span style="color:#f92672">|</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">null</span><span style="color:#f92672">&gt;</span>  <span style="color:#f92672">|</span>       <span style="color:#f92672">|</span>
-<span style="color:#f92672">|</span> DATA_LENGTH     <span style="color:#f92672">|</span> bigint(<span style="color:#ae81ff">21</span>) unsigned <span style="color:#f92672">|</span> YES  <span style="color:#f92672">|</span>     <span style="color:#f92672">|</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">null</span><span style="color:#f92672">&gt;</span>  <span style="color:#f92672">|</span>       <span style="color:#f92672">|</span>
-<span style="color:#f92672">|</span> MAX_DATA_LENGTH <span style="color:#f92672">|</span> bigint(<span style="color:#ae81ff">21</span>) unsigned <span style="color:#f92672">|</span> YES  <span style="color:#f92672">|</span>     <span style="color:#f92672">|</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">null</span><span style="color:#f92672">&gt;</span>  <span style="color:#f92672">|</span>       <span style="color:#f92672">|</span>
-<span style="color:#f92672">|</span> INDEX_LENGTH    <span style="color:#f92672">|</span> bigint(<span style="color:#ae81ff">21</span>) unsigned <span style="color:#f92672">|</span> YES  <span style="color:#f92672">|</span>     <span style="color:#f92672">|</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">null</span><span style="color:#f92672">&gt;</span>  <span style="color:#f92672">|</span>       <span style="color:#f92672">|</span>
-<span style="color:#f92672">|</span> DATA_FREE       <span style="color:#f92672">|</span> bigint(<span style="color:#ae81ff">21</span>) unsigned <span style="color:#f92672">|</span> YES  <span style="color:#f92672">|</span>     <span style="color:#f92672">|</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">null</span><span style="color:#f92672">&gt;</span>  <span style="color:#f92672">|</span>       <span style="color:#f92672">|</span>
-<span style="color:#f92672">|</span> AUTO_INCREMENT  <span style="color:#f92672">|</span> bigint(<span style="color:#ae81ff">21</span>) unsigned <span style="color:#f92672">|</span> YES  <span style="color:#f92672">|</span>     <span style="color:#f92672">|</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">null</span><span style="color:#f92672">&gt;</span>  <span style="color:#f92672">|</span>       <span style="color:#f92672">|</span>
-<span style="color:#f92672">|</span> CREATE_TIME     <span style="color:#f92672">|</span> datetime            <span style="color:#f92672">|</span> YES  <span style="color:#f92672">|</span>     <span style="color:#f92672">|</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">null</span><span style="color:#f92672">&gt;</span>  <span style="color:#f92672">|</span>       <span style="color:#f92672">|</span>
-<span style="color:#f92672">|</span> UPDATE_TIME     <span style="color:#f92672">|</span> datetime            <span style="color:#f92672">|</span> YES  <span style="color:#f92672">|</span>     <span style="color:#f92672">|</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">null</span><span style="color:#f92672">&gt;</span>  <span style="color:#f92672">|</span>       <span style="color:#f92672">|</span>
-<span style="color:#f92672">|</span> CHECK_TIME      <span style="color:#f92672">|</span> datetime            <span style="color:#f92672">|</span> YES  <span style="color:#f92672">|</span>     <span style="color:#f92672">|</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">null</span><span style="color:#f92672">&gt;</span>  <span style="color:#f92672">|</span>       <span style="color:#f92672">|</span>
-<span style="color:#f92672">|</span> TABLE_COLLATION <span style="color:#f92672">|</span> varchar(<span style="color:#ae81ff">32</span>)         <span style="color:#f92672">|</span> YES  <span style="color:#f92672">|</span>     <span style="color:#f92672">|</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">null</span><span style="color:#f92672">&gt;</span>  <span style="color:#f92672">|</span>       <span style="color:#f92672">|</span>
-<span style="color:#f92672">|</span> CHECKSUM        <span style="color:#f92672">|</span> bigint(<span style="color:#ae81ff">21</span>) unsigned <span style="color:#f92672">|</span> YES  <span style="color:#f92672">|</span>     <span style="color:#f92672">|</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">null</span><span style="color:#f92672">&gt;</span>  <span style="color:#f92672">|</span>       <span style="color:#f92672">|</span>
-<span style="color:#f92672">|</span> CREATE_OPTIONS  <span style="color:#f92672">|</span> varchar(<span style="color:#ae81ff">255</span>)        <span style="color:#f92672">|</span> YES  <span style="color:#f92672">|</span>     <span style="color:#f92672">|</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">null</span><span style="color:#f92672">&gt;</span>  <span style="color:#f92672">|</span>       <span style="color:#f92672">|</span>
-<span style="color:#f92672">|</span> TABLE_COMMENT   <span style="color:#f92672">|</span> varchar(<span style="color:#ae81ff">2048</span>)       <span style="color:#f92672">|</span> <span style="color:#66d9ef">NO</span>   <span style="color:#f92672">|</span>     <span style="color:#f92672">|</span>         <span style="color:#f92672">|</span>       <span style="color:#f92672">|</span>
-<span style="color:#f92672">+</span><span style="color:#75715e">-----------------+---------------------+------+-----+---------+-------+
-</span><span style="color:#75715e"></span><span style="color:#ae81ff">21</span> <span style="color:#66d9ef">rows</span> <span style="color:#66d9ef">in</span> <span style="color:#66d9ef">set</span>
-Time: <span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">026</span>s
-</code></pre></div>
+
+<pre><code class="language-sql">+-----------------+---------------------+------+-----+---------+-------+
+| Field           | Type                | Null | Key | Default | Extra |
++-----------------+---------------------+------+-----+---------+-------+
+| TABLE_CATALOG   | varchar(512)        | NO   |     |         |       |
+| TABLE_SCHEMA    | varchar(64)         | NO   |     |         |       |
+| TABLE_NAME      | varchar(64)         | NO   |     |         |       |
+| TABLE_TYPE      | varchar(64)         | NO   |     |         |       |
+| ENGINE          | varchar(64)         | YES  |     | &lt;null&gt;  |       |
+| VERSION         | bigint(21) unsigned | YES  |     | &lt;null&gt;  |       |
+| ROW_FORMAT      | varchar(10)         | YES  |     | &lt;null&gt;  |       |
+| TABLE_ROWS      | bigint(21) unsigned | YES  |     | &lt;null&gt;  |       |
+| AVG_ROW_LENGTH  | bigint(21) unsigned | YES  |     | &lt;null&gt;  |       |
+| DATA_LENGTH     | bigint(21) unsigned | YES  |     | &lt;null&gt;  |       |
+| MAX_DATA_LENGTH | bigint(21) unsigned | YES  |     | &lt;null&gt;  |       |
+| INDEX_LENGTH    | bigint(21) unsigned | YES  |     | &lt;null&gt;  |       |
+| DATA_FREE       | bigint(21) unsigned | YES  |     | &lt;null&gt;  |       |
+| AUTO_INCREMENT  | bigint(21) unsigned | YES  |     | &lt;null&gt;  |       |
+| CREATE_TIME     | datetime            | YES  |     | &lt;null&gt;  |       |
+| UPDATE_TIME     | datetime            | YES  |     | &lt;null&gt;  |       |
+| CHECK_TIME      | datetime            | YES  |     | &lt;null&gt;  |       |
+| TABLE_COLLATION | varchar(32)         | YES  |     | &lt;null&gt;  |       |
+| CHECKSUM        | bigint(21) unsigned | YES  |     | &lt;null&gt;  |       |
+| CREATE_OPTIONS  | varchar(255)        | YES  |     | &lt;null&gt;  |       |
+| TABLE_COMMENT   | varchar(2048)       | NO   |     |         |       |
++-----------------+---------------------+------+-----+---------+-------+
+21 rows in set
+Time: 0.026s
+</code></pre>
+
                 </section>
             </article>
 
