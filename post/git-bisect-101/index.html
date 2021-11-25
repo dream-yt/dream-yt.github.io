@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.79.0" />
 		<title>git bisect を使う &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,60 +83,38 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#始める">始める</a>
-<ul>
-<li><a href="#チェックアウトされたコードでうごく場合">チェックアウトされたコードでうごく場合</a></li>
-<li><a href="#動かない場合">動かない場合</a></li>
-</ul></li>
-<li><a href="#終わり">終わり</a></li>
-<li><a href="#参考">参考</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#始める">始める</a>
+      <ul>
+        <li><a href="#チェックアウトされたコードでうごく場合">チェックアウトされたコードでうごく場合</a></li>
+        <li><a href="#動かない場合">動かない場合</a></li>
+      </ul>
+    </li>
+    <li><a href="#終わり">終わり</a></li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p>たくさんコミットしてて、気がついたら関係なさそうなUIが動かなくなっていた場合など、
+                    <p>たくさんコミットしてて、気がついたら関係なさそうなUIが動かなくなっていた場合など、
 どのコミットが原因で動かなくなったかを割り出すのに git bisect が便利。</p>
-
 <h2 id="始める">始める</h2>
-
 <p>以下のコミットで bisectモードに入れる。叩いたらすぐに真ん中のコミットがチェックアウトされる。</p>
-
 <pre><code>git bisect start &lt;うごかないHASH&gt; &lt;うごくHASH&gt;
-</code></pre>
-
-<h3 id="チェックアウトされたコードでうごく場合">チェックアウトされたコードでうごく場合</h3>
-
+</code></pre><h3 id="チェックアウトされたコードでうごく場合">チェックアウトされたコードでうごく場合</h3>
 <p>動作確認したらgood/badをやると次の二分探索先のハッシュがチェックアウトされる</p>
-
 <pre><code>git bisect good
-</code></pre>
-
-<h3 id="動かない場合">動かない場合</h3>
-
+</code></pre><h3 id="動かない場合">動かない場合</h3>
 <pre><code>git bisect bad
-</code></pre>
-
-<h2 id="終わり">終わり</h2>
-
+</code></pre><h2 id="終わり">終わり</h2>
 <p>途中で分かったり、abortしたくなった場合は reset</p>
-
 <pre><code>git bisect reset
-</code></pre>
-
-<h2 id="参考">参考</h2>
-
+</code></pre><h2 id="参考">参考</h2>
 <ul>
 <li><a href="https://qiita.com/usamik26/items/cce867b3b139ea5568a6">git bisect で問題箇所を特定する - Qiita</a></li>
 </ul>
-
 <p>本来だとテストスクリプトとかを登録して使うが、テストがあるときはgit bisectは使わないで済むことが多い。</p>
 
                 </section>

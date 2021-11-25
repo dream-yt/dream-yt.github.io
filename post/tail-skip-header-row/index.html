@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.79.0" />
 		<title>tail コマンドで1行目をスキップする &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -81,26 +81,24 @@
                 </header>
                 
                   
+                    <div id="toc">
+                      <nav id="TableOfContents"></nav>
+                    </div>
+                  
                 
                 <section id="post-body">
                     <p>こんなファイルがあるとして、ヘッダ行の <code>id</code> だけ取り除きたいという場合。</p>
-
-<pre><code class="language-console">$ cat /tmp/_
+<pre><code class="language-console" data-lang="console">$ cat /tmp/_
 id
 1
 2
 3
-</code></pre>
-
-<p>tail コマンドでできる。</p>
-
-<pre><code class="language-console">$ cat /tmp/_ | tail -n +2
+</code></pre><p>tail コマンドでできる。</p>
+<pre><code class="language-console" data-lang="console">$ cat /tmp/_ | tail -n +2
 1
 2
 3
-</code></pre>
-
-<p>tailコマンドは <code>-n</code> オプションに <code>+{{数}}</code> という引数を渡してあげると「N行目以降を表示する」というモードになる。</p>
+</code></pre><p>tailコマンドは <code>-n</code> オプションに <code>+{{数}}</code> という引数を渡してあげると「N行目以降を表示する」というモードになる。</p>
 
                 </section>
             </article>

@@ -24,7 +24,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.79.0" />
 		<title>sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -72,6 +72,21 @@
 
     <section id="wrapper" class="home">
         <ul id="post-list">
+    
+    
+        
+            <li>
+                <aside class="dates">Jan 18</aside>
+                <a href='https://dream-yt.github.io/post/lsof-101-proc/'>
+                    lsofでプロセスが開いてるfdを一覧する
+                    
+                        
+                            <h2>ほとんどコンテナとかFaasでの作業になるとこういうのはどんどん忘れていく。 たとえば iTerm のプロセスが触ってるファイルディスクリプタを見たい場合</h2>
+                        
+                    
+                </a>
+            </li>
+        
     
     
         
@@ -201,22 +216,7 @@
                     GitHub Action で実行中のブランチ名とリビジョンを出す
                     
                         
-                            <h2>こんな感じで出力できる。 - name: Show Revision run: | echo -e &#34;Branch: ${GITHUB_REF##*/}&#34; echo -e &#34;Revision: ${GITHUB_SHA:0:8}&#34; 参考 git - Getting current branch and commit hash in GitHub action - Stack Overflow</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Dec 27</aside>
-                <a href='https://dream-yt.github.io/post/act-workflow_dispatch-event/'>
-                    workflow_dispatch イベントを act でローカルで実行する場合
-                    
-                        
-                            <h2>myjob という workflow_dispatch イベントで定義した job を act で実行したい場合。 .act/stg.event.json というファイルを作成する { &#34;event&#34;: &#34;workflow_dispatch&#34;, &#34;inputs&#34;: { &#34;stage&#34;: &#34;stg&#34; } } --eventpath で実行するイベントを指定 $ act --job myjob --eventpath .act/stg.event.json 参考 how</h2>
+                            <h2>こんな感じで出力できる。 - name: Show Revision run: |echo -e &#34;Branch: ${GITHUB_REF##*/}&#34; echo -e &#34;Revision: ${GITHUB_SHA:0:8}&#34; 参考 git - Getting current branch and commit hash in GitHub action - Stack Overflow</h2>
                         
                     
                 </a>

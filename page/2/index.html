@@ -24,7 +24,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.79.0" />
 		<title>sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -72,6 +72,21 @@
 
     <section id="wrapper" class="home">
         <ul id="post-list">
+    
+    
+        
+            <li>
+                <aside class="dates">Aug 23</aside>
+                <a href='https://dream-yt.github.io/post/make-pdf-grayscale/'>
+                    PDFを白黒にする
+                    
+                        
+                            <h2>印刷でいちいち白黒を設定するのが面倒で調べた。 ghostscript で以下のようにオプションをわたしてあげたらキレイにモノクロになった。 $ gs \ -sDEVICE=pdfwrite \ -sProcessColorModel=DeviceGray \ -sColorConversionStrategy=Gray \ -dOverrideICC \ -o</h2>
+                        
+                    
+                </a>
+            </li>
+        
     
     
         
@@ -202,21 +217,6 @@
                     
                         
                             <h2>なんかすごいやりかたばかり出てくる。 Is there an elegant zip to interleave two lists in Perl 5? - Stack Overflow たぶんいちばんわかりやすいのはこれ。 my @a = (...); my @b = (...); my %c = map {$a[$_] =&gt; $b[$_]} (0..$#a); ツッコ</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jul 8</aside>
-                <a href='https://dream-yt.github.io/post/bigquery-schema-txt2json/'>
-                    BigQueryのSchemaをCSV形式からJSON形式に変換する
-                    
-                        
-                            <h2>BigQueryのスキーマ表現をCSV形式からJSON形式に変換する。 ちなみにCSV形式はこんなもの id:integer,order_id:float,detail:string JSONはperlで生成する $ cat ./schema.txt \ |</h2>
                         
                     
                 </a>
