@@ -76,6 +76,21 @@
     
         
             <li>
+                <aside class="dates">Dec 13</aside>
+                <a href='https://dream-yt.github.io/post/apache-bench-request-header/'>
+                    apache bench でリクエストに指定のヘッダをつける
+                    
+                        
+                            <h2>たとえば Authorization ヘッダだとこんな感じでつけられる。 $ ab -n 10 -c 1 -H &#34;Authorization: Bearer xxxxxxxx&#34; &#34;https://example.com/test&#34; ヘッダ -H オプションで設定できる。 -H attribute Add Arbitrary header line, eg. &#39;Accept-Encoding: gzip&#39; その他 そのほか最低この2</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
                 <aside class="dates">Dec 8</aside>
                 <a href='https://dream-yt.github.io/post/group-by-year-month-mysql/'>
                     MySQLで月毎にGROUP BYする
@@ -202,21 +217,6 @@
                     
                         
                             <h2>nodejs で BigQuery に insert するとき、1行でも不正な行があると全体が失敗する。そしてどの行がなぜ失敗したのかを確認するのにはちょっと工夫が必要である。 まず、不</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Aug 27</aside>
-                <a href='https://dream-yt.github.io/post/jest-mock-node-package-and-simulate-click/'>
-                    jest でパッケージをモックしながら react-test-utils でクリックイベントをテストする
-                    
-                        
-                            <h2>こんな実装になった。 import React from &#34;react&#34;; import ReactDOM from &#34;react-dom&#34;; import { act, Simulate } from &#34;react-dom/test-utils&#34;; import { Button } from &#34;./Button&#34;; const fn = jest.fn(); jest.mock(&#34;mocked-packagejs&#34;, () =&gt; (...args: any) =&gt; { fn(...args); }); test(&#34;basic&#34;, async () =&gt; { const container = document.createElement(&#34;div&#34;); document.body.appendChild(container); act(() =&gt; ReactDOM.render(&lt;Button /&gt;, container)); const button = container.querySelector(&#34;button&#34;)!; await act(async () =&gt; Simulate.click(button)); const args</h2>
                         
                     
                 </a>

@@ -6,7 +6,16 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 08 Dec 2021 15:28:24 +0900</lastBuildDate><atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 13 Dec 2021 17:59:21 +0900</lastBuildDate><atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>apache bench でリクエストに指定のヘッダをつける</title>
+      <link>https://dream-yt.github.io/post/apache-bench-request-header/</link>
+      <pubDate>Mon, 13 Dec 2021 17:59:21 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/apache-bench-request-header/</guid>
+      <description>たとえば Authorization ヘッダだとこんな感じでつけられる。 $ ab -n 10 -c 1 -H &amp;#34;Authorization: Bearer xxxxxxxx&amp;#34; &amp;#34;https://example.com/test&amp;#34; ヘッダ -H オプションで設定できる。 -H attribute Add Arbitrary header line, eg. &#39;Accept-Encoding: gzip&#39; その他 そのほか最低この2</description>
+    </item>
+    
     <item>
       <title>MySQLで月毎にGROUP BYする</title>
       <link>https://dream-yt.github.io/post/group-by-year-month-mysql/</link>
