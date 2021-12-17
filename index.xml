@@ -6,7 +6,16 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 15 Dec 2021 15:29:21 +0900</lastBuildDate><atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 17 Dec 2021 18:25:13 +0900</lastBuildDate><atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>capture-website-cli を使って redash のスクリーンショットを撮る  📸</title>
+      <link>https://dream-yt.github.io/post/redash-screenshot-with-capture-website-cli/</link>
+      <pubDate>Fri, 17 Dec 2021 18:25:13 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/redash-screenshot-with-capture-website-cli/</guid>
+      <description>Hosted Redash が EOL になってしまった。 Hosted Redash End of Life それはしょうがないのだが、グラフのスクリーンショットのPNGが返ってくるエンドポイントがセルフホストの Redash</description>
+    </item>
+    
     <item>
       <title>Google Analytics 4 でページ表示速度を計測する</title>
       <link>https://dream-yt.github.io/post/setup-google-analytics4-and-bigquery/</link>

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="https://dream-yt.github.io/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="capture-website-cli を使って redash のスクリーンショットを撮る  📸"/>
+  <meta name="twitter:description" content="Hosted Redash が EOL になってしまった。 Hosted Redash End of Life それはしょうがないのだが、グラフのスクリーンショットのPNGが返ってくるエンドポイントがセルフホストの Redash"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@site_author"/>
+  
+
+
+
+		
+		<meta name="author" content="site_author">
+		<meta name="description" content="Site Description">
+		<meta name="generator" content="Hugo 0.79.0" />
+		<title>capture-website-cli を使って redash のスクリーンショットを撮る  📸 &middot; sacre</title>
+		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/font-awesome.min.css">
+		
+
+		
+		<link href="https://dream-yt.github.io/index.xml" rel="alternate" type="application/rss+xml" title="sacre" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='https://dream-yt.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://dream-yt.github.io/posts'>Archive</a>
+	<a href='https://dream-yt.github.io/tags'>Tags</a>
+	<a href='https://dream-yt.github.io/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="https://dream-yt.github.io/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        capture-website-cli を使って redash のスクリーンショットを撮る  📸
+                    </h1>
+                    <h2 class="headline">
+                    Dec 17, 2021 18:25
+                    · 273 words
+                    · 1 minute read
+                      <span class="tags">
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents"></nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    <p>Hosted Redash が EOL になってしまった。</p>
+<ul>
+<li><a href="https://redash.io/help/faq/eol">Hosted Redash End of Life</a></li>
+</ul>
+<p>それはしょうがないのだが、グラフのスクリーンショットのPNGが返ってくるエンドポイントがセルフホストの Redash にはなくなってしまっていて、それの代替を探さないと不便だった。</p>
+<p>puppeteer を使ってスクリーンショットをとってくれるツールをみつけたので試してみる。</p>
+<ul>
+<li><a href="https://github.com/sindresorhus/capture-website-cli">sindresorhus/capture-website-cli: Capture screenshots of websites from the command-line</a></li>
+</ul>
+<p>なかなか気の利いたオプションが渡せるので、とりあえず同等の画像を取得してくれるような設定を書いてみた。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">export URL<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;https://redash.....api_key=xxxxxx&#39;</span>
+npx capture-website <span style="color:#e6db74">&#34;</span>$URL<span style="color:#e6db74">&#34;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --output<span style="color:#f92672">=</span>$HOME/Desktop/screenshot.png <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --scale-factor<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --width<span style="color:#f92672">=</span><span style="color:#ae81ff">800</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --height<span style="color:#f92672">=</span><span style="color:#ae81ff">500</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --debug <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --overwrite <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --remove-elements<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;.modebar&#39;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --remove-elements<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;.hidden-print&#39;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --remove-elements<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;.btn-group&#39;</span>
+</code></pre></div><p>オプションは↑で、本家でやってることと大体一緒になっている。</p>
+<ul>
+<li><a href="https://github.com/getredash/snap/blob/master/snap-reference/src/hide-elements.js">getredash/snap: Microservice to take snapshots (images/PDF) of Redash visualizations and dashboards.</a></li>
+</ul>
+<p>けっこうちゃんと撮れる。</p>
+<p><img src="https://user-images.githubusercontent.com/5309672/146524725-067e1c24-1e33-47a6-bff0-8a8f52a9bbee.png" alt="image"></p>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fredash-screenshot-with-capture-website-cli%2f - capture-website-cli%20%e3%82%92%e4%bd%bf%e3%81%a3%e3%81%a6%20redash%20%e3%81%ae%e3%82%b9%e3%82%af%e3%83%aa%e3%83%bc%e3%83%b3%e3%82%b7%e3%83%a7%e3%83%83%e3%83%88%e3%82%92%e6%92%ae%e3%82%8b%20%20%f0%9f%93%b8 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'your_disqus_short_name'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/dream-yt/sacre">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://twitter.com/FUTABA_SACRE">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2021 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="https://dream-yt.github.io/js/jquery-3.3.1.min.js"></script>
+<script src="https://dream-yt.github.io/js/main.js"></script>
+<script src="https://dream-yt.github.io/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+
+
+
+
+    </body>
+</html>
