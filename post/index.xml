@@ -6,7 +6,16 @@
     <description>Recent content in Posts on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Fri, 17 Dec 2021 18:25:13 +0900</lastBuildDate><atom:link href="https://dream-yt.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 22 Dec 2021 12:03:30 +0900</lastBuildDate><atom:link href="https://dream-yt.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Cloud Function (非Firebase) に TypeScript のコードをデプロイする</title>
+      <link>https://dream-yt.github.io/post/cloudfunction-typescript-deploy-notfirebase/</link>
+      <pubDate>Wed, 22 Dec 2021 12:03:30 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/cloudfunction-typescript-deploy-notfirebase/</guid>
+      <description>デプロイの要件はひととおりドキュメントに書いてあるので、それを満たすように tsconfig やデプロイスクリプトを作ることになる。 Cloud Functions のデプロイ | Google Cloud Functions に関</description>
+    </item>
+    
     <item>
       <title>capture-website-cli を使って redash のスクリーンショットを撮る  📸</title>
       <link>https://dream-yt.github.io/post/redash-screenshot-with-capture-website-cli/</link>
