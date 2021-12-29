@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>bigqueryのtransfer_configの実行履歴の確認の仕方 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -99,17 +99,17 @@
                 <section id="post-body">
                     <h3 id="transfer_config">transfer_config</h3>
 <p>設定されているtransfer_configを一覧</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ bq --format<span style="color:#f92672">=</span>json ls --transfer_config --transfer_location<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;us&#39;</span> | jq .
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ bq --format<span style="color:#f92672">=</span>json ls --transfer_config --transfer_location<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;us&#39;</span> | jq .
 </code></pre></div><h3 id="transfer_run">transfer_run</h3>
 <p><code>name</code> を引数に渡してtransfer_runを一覧</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ bq --format<span style="color:#f92672">=</span>json ls --transfer_run --transfer_location<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;us&#39;</span> <span style="color:#ae81ff">\
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ bq --format<span style="color:#f92672">=</span>json ls --transfer_run --transfer_location<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;us&#39;</span> <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>    projects/987573330809/locations/us/transferConfigs/5c5aff8c-0000-285b-bf15-089e08324cf4
 </code></pre></div><h3 id="summary">summary</h3>
 <p>実行履歴の成否だけ見たい場合はこんな感じ</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">bq --format<span style="color:#f92672">=</span>json ls --transfer_run --transfer_location<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;us&#39;</span> <span style="color:#ae81ff">\
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">bq --format<span style="color:#f92672">=</span>json ls --transfer_run --transfer_location<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;us&#39;</span> <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>    projects/987573330809/locations/us/transferConfigs/5c5aff8c-0000-285b-bf15-089e08324cf4 <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>    | jq <span style="color:#e6db74">&#39;.[] | { runTime, endTime, state }&#39;</span>
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
   <span style="color:#f92672">&#34;runTime&#34;</span>: <span style="color:#e6db74">&#34;2019-02-23T03:00:00Z&#34;</span>,
   <span style="color:#f92672">&#34;endTime&#34;</span>: <span style="color:#e6db74">&#34;2019-02-23T03:03:01.601951Z&#34;</span>,
   <span style="color:#f92672">&#34;state&#34;</span>: <span style="color:#e6db74">&#34;SUCCEEDED&#34;</span>

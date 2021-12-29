@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>IAM権限を絞ったuserでserverlessを使う &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -122,7 +122,7 @@
 <li>こんなpolicyを書いたら sls deploy は通った</li>
 <li>その他権限を渡したくないものがあったらDenyで弾いてもらう</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">Version</span>: <span style="color:#e6db74">&#39;2012-10-17&#39;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">Version</span>: <span style="color:#e6db74">&#39;2012-10-17&#39;</span>
 <span style="color:#f92672">Statement</span>:
 - <span style="color:#f92672">Sid</span>: <span style="color:#ae81ff">AllowLambdaAPIGateway</span>
   <span style="color:#f92672">Effect</span>: <span style="color:#ae81ff">Allow</span>
@@ -172,15 +172,15 @@
 <li><code>DeleteStack</code> 権限がないのでremoveはできない。期待通りの挙動</li>
 <li><code>--aws-profile cr-slsdeploy</code> の部分は awscliのprofileを使うオプション</li>
 </ul>
-<pre><code class="language-console" data-lang="console">$ serverless remove --verbose --aws-profile cr-slsdeploy --stage dev
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">$ serverless remove --verbose --aws-profile cr-slsdeploy --stage dev
 Serverless: Getting all objects in S3 bucket...
 Serverless: Removing objects in S3 bucket...
 Serverless: Removing Stack...
-
-  Serverless Error ---------------------------------------
-
-  User: arn:aws:iam::836859347283:user/slsdeploy is not authorized to perform: cloudformation:DeleteStack on resource: arn:aws:cloudformation:us-east-1:1234567890:stack/testslsdeploypolicy-dev/0876f250-fd1e-11e9-94f2-0a583df6bf38
-</code></pre>
+<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  Serverless Error ---------------------------------------
+<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  User: arn:aws:iam::836859347283:user/slsdeploy is not authorized to perform: cloudformation:DeleteStack on resource: arn:aws:cloudformation:us-east-1:1234567890:stack/testslsdeploypolicy-dev/0876f250-fd1e-11e9-94f2-0a583df6bf38
+</code></pre></div>
                 </section>
             </article>
 

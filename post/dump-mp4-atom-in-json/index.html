@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>mp4dumpでmp4ファイルのメタデータ(atom)をJSONで取得する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -92,8 +92,8 @@
                 
                 <section id="post-body">
                     <p>mp4dumpを使うとJSON形式で取得できる</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ mp4dump ./test.mp4 --format json &gt; /tmp/_
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#960050;background-color:#1e0010">$</span> <span style="color:#960050;background-color:#1e0010">mp</span><span style="color:#ae81ff">4</span><span style="color:#960050;background-color:#1e0010">dump</span> <span style="color:#960050;background-color:#1e0010">./test.mp</span><span style="color:#ae81ff">4</span> <span style="color:#960050;background-color:#1e0010">--format</span> <span style="color:#960050;background-color:#1e0010">json</span> <span style="color:#960050;background-color:#1e0010">|</span> <span style="color:#960050;background-color:#1e0010">jq</span> <span style="color:#960050;background-color:#1e0010">.</span> <span style="color:#960050;background-color:#1e0010">|</span> <span style="color:#960050;background-color:#1e0010">head</span> <span style="color:#ae81ff">-30</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ mp4dump ./test.mp4 --format json &gt; /tmp/_
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#960050;background-color:#1e0010">$</span> <span style="color:#960050;background-color:#1e0010">mp</span><span style="color:#ae81ff">4</span><span style="color:#960050;background-color:#1e0010">dump</span> <span style="color:#960050;background-color:#1e0010">./test.mp</span><span style="color:#ae81ff">4</span> <span style="color:#960050;background-color:#1e0010">--format</span> <span style="color:#960050;background-color:#1e0010">json</span> <span style="color:#960050;background-color:#1e0010">|</span> <span style="color:#960050;background-color:#1e0010">jq</span> <span style="color:#960050;background-color:#1e0010">.</span> <span style="color:#960050;background-color:#1e0010">|</span> <span style="color:#960050;background-color:#1e0010">head</span> <span style="color:#ae81ff">-30</span>
 [
   {
     <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;ftyp&#34;</span>,
@@ -127,9 +127,9 @@
             
   <span style="color:#960050;background-color:#1e0010">...</span>
 </code></pre></div><p>インストールはbrewでできる</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ brew install bento4
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ brew install bento4
 </code></pre></div><p>JSONをnodejsで処理するならこんな感じ</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">#!/usr/bin/env node
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">#!/usr/bin/env node
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">execFileSync</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;child_process&#39;</span>);
 <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">nodeExecutable</span>, <span style="color:#a6e22e">thisScriptPath</span>, <span style="color:#a6e22e">filename</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">process</span>.<span style="color:#a6e22e">argv</span>;
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">stdout</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">execFileSync</span>(<span style="color:#e6db74">&#39;/usr/local/bin/mp4dump&#39;</span>, [<span style="color:#a6e22e">filename</span>, <span style="color:#e6db74">&#39;--format&#39;</span>, <span style="color:#e6db74">&#39;json&#39;</span>]);

@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>iCloudドライブを使うようになった &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -98,7 +98,7 @@
                 
                 <section id="post-body">
                     <p>最近iCloudドライブをちゃんと使っている。もともとは新しいMacをプロビジョニングするための設定ファイルを入れていたのみだが、以下のリンクを貼ってからけっこう色々なファイルを置くようになった。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ln -s <span style="color:#e6db74">&#34;~/Library/Mobile Documents/com~apple~CloudDocs&#34;</span> ~/iCloudDrive
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ln -s <span style="color:#e6db74">&#34;~/Library/Mobile Documents/com~apple~CloudDocs&#34;</span> ~/iCloudDrive
 </code></pre></div><p>最近は子供ができたりコロナだったりで、仕事をするMacが4つある状態になっていた。</p>
 <ul>
 <li>会社の MacBook Pro (2020)</li>
@@ -136,7 +136,7 @@
 <h2 id="スクリプトも">スクリプトも</h2>
 <p>最近は dotfiles や TIL, TODO管理などもiCloud配下に移行しようとしたのでこんなスクリプトを書いた。</p>
 <h4 id="move-and-symlink-under-iclouddrivesh">move-and-symlink-under-iclouddrive.sh</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/usr/bin/env bash
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/usr/bin/env bash
 </span><span style="color:#75715e"></span>set -eux
 
 readonly iclouddir<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$HOME<span style="color:#e6db74">/iCloudDrive&#34;</span>

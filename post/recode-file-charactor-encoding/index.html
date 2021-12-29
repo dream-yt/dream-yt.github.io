@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>recodeコマンドでファイルの文字/改行コードを変更する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -102,11 +102,11 @@
 <li>複数ファイルを引数に取ることができる</li>
 </ul>
 <p>たとえばディレクトリ配下のcsvファイルをすべて {UTF16 =&gt; UTF-8} と変更したい場合は下記の1行で済む</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ recode UTF-16..UTF-8 <span style="color:#e6db74">&#34;</span>$f<span style="color:#e6db74">&#34;</span> <span style="color:#66d9ef">$(</span>ls -1 ./*.csv<span style="color:#66d9ef">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ recode UTF-16..UTF-8 <span style="color:#e6db74">&#34;</span>$f<span style="color:#e6db74">&#34;</span> <span style="color:#66d9ef">$(</span>ls -1 ./*.csv<span style="color:#66d9ef">)</span>
 </code></pre></div><h2 id="対応している変換方式">対応している変換方式</h2>
 <p>対応している変換方式は <code>--list</code> で出てくる</p>
 <p>base64なども変換できるようだ</p>
-<pre><code>$ recode --list | head
+<pre tabindex="0"><code>$ recode --list | head
 /21-Permutation swabytes
 /4321-Permutation
 /Base64 64 b64
@@ -119,7 +119,7 @@
 /Hexadecimal-2 x2
 </code></pre><h3 id="bash">bash</h3>
 <p>インストールはmacならbrewで入る</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">brew install recode
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">brew install recode
 </code></pre></div>
                 </section>
             </article>

@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>AWSのアクセストークンが昨日どんなAPIコールを行なったか確認する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -94,7 +94,7 @@
                 
                 <section id="post-body">
                     <p>cloudtrailのlookup-eventsで昨日の分をすべてとる</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ aws cloudtrail lookup-events <span style="color:#ae81ff">\
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ aws cloudtrail lookup-events <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>  --lookup-attributes AttributeKey<span style="color:#f92672">=</span>AccessKeyId,AttributeValue<span style="color:#f92672">=</span>xxxxxxxx <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>  --start-time <span style="color:#66d9ef">$(</span>date -v -2d -u +<span style="color:#e6db74">&#34;%Y-%m-%dT%H:%M:%SZ&#34;</span><span style="color:#66d9ef">)</span> <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>  --end-time <span style="color:#66d9ef">$(</span>date -v -1d -u +<span style="color:#e6db74">&#34;%Y-%m-%dT%H:%M:%SZ&#34;</span><span style="color:#66d9ef">)</span> <span style="color:#ae81ff">\
@@ -104,7 +104,7 @@
 <li>EventSourceやEventNameなどでどのAPIが叩かれたかわかる</li>
 <li>EventTimeで時間もわかる</li>
 </ul>
-<pre><code>{
+<pre tabindex="0"><code>{
   &quot;EventId&quot;: &quot;7615c6ad-xxxx-4f42-baa4-d4f14d240d96&quot;,
   &quot;EventName&quot;: &quot;GetQueryExecution&quot;,
   &quot;ReadOnly&quot;: &quot;true&quot;,
@@ -118,7 +118,7 @@
 </code></pre><h2 id="cloudtrailevent">CloudTrailEvent</h2>
 <p>どんな感じでAPIを叩いたかも <code>CloudTrailEvent</code> で見られる</p>
 <p>下記の例だとGetQueryExecutionの叩かれ方がrequestParametersなどをみればわかる</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#960050;background-color:#1e0010">$</span> <span style="color:#960050;background-color:#1e0010">cat</span> <span style="color:#960050;background-color:#1e0010">/tmp/_</span> <span style="color:#960050;background-color:#1e0010">|</span> <span style="color:#960050;background-color:#1e0010">jq</span> <span style="color:#960050;background-color:#1e0010">-r</span> <span style="color:#960050;background-color:#1e0010">.Events</span>[<span style="color:#ae81ff">0</span>]<span style="color:#960050;background-color:#1e0010">.CloudTrailEvent</span> <span style="color:#960050;background-color:#1e0010">|</span> <span style="color:#960050;background-color:#1e0010">jq</span> <span style="color:#960050;background-color:#1e0010">.</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#960050;background-color:#1e0010">$</span> <span style="color:#960050;background-color:#1e0010">cat</span> <span style="color:#960050;background-color:#1e0010">/tmp/_</span> <span style="color:#960050;background-color:#1e0010">|</span> <span style="color:#960050;background-color:#1e0010">jq</span> <span style="color:#960050;background-color:#1e0010">-r</span> <span style="color:#960050;background-color:#1e0010">.Events</span>[<span style="color:#ae81ff">0</span>]<span style="color:#960050;background-color:#1e0010">.CloudTrailEvent</span> <span style="color:#960050;background-color:#1e0010">|</span> <span style="color:#960050;background-color:#1e0010">jq</span> <span style="color:#960050;background-color:#1e0010">.</span>
 {
   <span style="color:#f92672">&#34;eventVersion&#34;</span>: <span style="color:#e6db74">&#34;1.06&#34;</span>,
   <span style="color:#f92672">&#34;userIdentity&#34;</span>: {
@@ -147,7 +147,7 @@
 </code></pre></div><h2 id="jqを使ってtsvに整形">jqを使ってtsvに整形</h2>
 <p>大体の場合、どのAPIがどれくらいの頻度で叩かれてるかが見られればよいので、jqで以下のように整形すれば良い感じに見られる</p>
 <p><code>.EventTime|.+32400|todate</code> でUNIXエポックをJSTに変換している</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cat /tmp/_ | jq -r <span style="color:#e6db74">&#39;.Events[] | [(.EventTime|.+32400|todate),.EventSource,.EventName] | @tsv&#39;</span> | head
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cat /tmp/_ | jq -r <span style="color:#e6db74">&#39;.Events[] | [(.EventTime|.+32400|todate),.EventSource,.EventName] | @tsv&#39;</span> | head
 2019-06-09T10:11:06Z	athena.amazonaws.com	GetQueryExecution
 2019-06-09T10:11:06Z	athena.amazonaws.com	GetQueryExecution
 2019-06-09T10:11:05Z	athena.amazonaws.com	GetQueryExecution

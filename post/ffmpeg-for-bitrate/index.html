@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>macで動画のビットレートを変更したい &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -97,9 +97,9 @@
                 
                 <section id="post-body">
                     <p>ffmpegを使う</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ brew install ffmpeg
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ brew install ffmpeg
 </code></pre></div><p>こんな感じで使う</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ ffmpeg -i ./inputfile.mp4 -b:v 2M -bufsize 10M ./outfile.mp4
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ ffmpeg -i ./inputfile.mp4 -b:v 2M -bufsize 10M ./outfile.mp4
 </code></pre></div><ul>
 <li><code>-b:v 2M</code>
 <ul>
@@ -117,8 +117,8 @@
 <h3 id="ffprobe">ffprobe</h3>
 <p>ffmpegを入れるとffprobeというコマンドも使えるようになる</p>
 <p>これは動画の詳細な情報を見るのに便利</p>
-<pre><code class="language-console" data-lang="console">$ ffprobe ./outfile.mp4 -hide_banner
-Input #0, mov,mp4,m4a,3gp,3g2,mj2, from './outfile.mp4':
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">$ ffprobe ./outfile.mp4 -hide_banner
+Input #0, mov,mp4,m4a,3gp,3g2,mj2, from &#39;./outfile.mp4&#39;:
   Metadata:
     major_brand     : isom
     minor_version   : 512
@@ -131,7 +131,7 @@ Input #0, mov,mp4,m4a,3gp,3g2,mj2, from './outfile.mp4':
     Stream #0:1(jpn): Audio: aac (LC) (mp4a / 0x6134706D), 48000 Hz, stereo, fltp, 130 kb/s (default)
     Metadata:
       handler_name    : SoundHandler
-</code></pre><ul>
+</code></pre></div><ul>
 <li><code>-hide_banner</code>
 <ul>
 <li>デフォルトだとライセンスの表示などが出力されるのでそれの抑制</li>

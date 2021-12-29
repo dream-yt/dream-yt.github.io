@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>WithingsAPIのトークンのを取得 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -106,13 +106,13 @@
 <ul>
 <li><a href="https://account.withings.com/partner/dashboard_oauth2">dashboard_oauth2</a></li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">export CLIENT_ID<span style="color:#f92672">=</span>xxxx
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">export CLIENT_ID<span style="color:#f92672">=</span>xxxx
 export CONSUMER_SECRET<span style="color:#f92672">=</span>xxxxxxxx
 export REDIRECT_URL<span style="color:#f92672">=</span>http://localhost:8000
 export SCOPE<span style="color:#f92672">=</span>user.info,user.metrics,user.activity,user.sleepevents
 export STATE<span style="color:#f92672">=</span>sakamoto  <span style="color:#75715e"># リクエストが重複しないようにするためのなんでもいい文字列</span>
 </code></pre></div><p>ブラウザで開いて <code>アプリを許可する</code></p>
-<pre><code>open &quot;https://account.withings.com/oauth2_user/authorize2?response_type=code&amp;client_id=$CLIENT_ID&amp;state=$STATE&amp;scope=$SCOPE&amp;redirect_uri=$REDIRECT_URL&quot;
+<pre tabindex="0"><code>open &quot;https://account.withings.com/oauth2_user/authorize2?response_type=code&amp;client_id=$CLIENT_ID&amp;state=$STATE&amp;scope=$SCOPE&amp;redirect_uri=$REDIRECT_URL&quot;
 </code></pre><p><code>REDIRECT_URL</code> で定義したURLへリダイレクトされる<br>
 そのクエリパラメータに <code>code</code> が入っている</p>
 <blockquote>
@@ -120,14 +120,14 @@ export STATE<span style="color:#f92672">=</span>sakamoto  <span style="color:#75
 </blockquote>
 <h3 id="トークンの取得-1">トークンの取得</h3>
 <p>POSTしたらJSONが返ってくる</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">export CODE<span style="color:#f92672">=</span>xxxxxxxxxxxx
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">export CODE<span style="color:#f92672">=</span>xxxxxxxxxxxx
 curl https://account.withings.com/oauth2/token <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>  -d <span style="color:#e6db74">&#39;grant_type=authorization_code&#39;</span> <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>  -d <span style="color:#e6db74">&#34;client_id=</span>$CLIENT_ID<span style="color:#e6db74">&#34;</span> <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>  -d <span style="color:#e6db74">&#34;client_secret=</span>$CONSUMER_SECRET<span style="color:#e6db74">&#34;</span> <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>  -d <span style="color:#e6db74">&#34;code=</span>$CODE<span style="color:#e6db74">&#34;</span> <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>  -d <span style="color:#e6db74">&#34;redirect_uri=</span>$REDIRECT_URL<span style="color:#e6db74">&#34;</span>
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
   <span style="color:#f92672">&#34;access_token&#34;</span>: <span style="color:#e6db74">&#34;xxxxxxxxxx&#34;</span>,
   <span style="color:#f92672">&#34;expires_in&#34;</span>: <span style="color:#ae81ff">10800</span>,
   <span style="color:#f92672">&#34;token_type&#34;</span>: <span style="color:#e6db74">&#34;Bearer&#34;</span>,
@@ -138,13 +138,13 @@ curl https://account.withings.com/oauth2/token <span style="color:#ae81ff">\
 </code></pre></div><h3 id="トークンの更新">トークンの更新</h3>
 <p>トークンは3時間で使えなくなる<br>
 refresh_tokenを使って新しいのをゲットする</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">curl https://account.withings.com/oauth2/token <span style="color:#ae81ff">\
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">curl https://account.withings.com/oauth2/token <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>  -d <span style="color:#e6db74">&#39;grant_type=refresh_token&#39;</span> <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>  -d <span style="color:#e6db74">&#34;client_id=</span>$CLIENT_ID<span style="color:#e6db74">&#34;</span> <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>  -d <span style="color:#e6db74">&#34;client_secret=</span>$CONSUMER_SECRET<span style="color:#e6db74">&#34;</span> <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>  -d <span style="color:#e6db74">&#34;refresh_token=</span>$REFRESH_TOKEN<span style="color:#e6db74">&#34;</span>
 </code></pre></div><p>こんなスクリプトを書いてなんとかした</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/usr/bin/env bash
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/usr/bin/env bash
 </span><span style="color:#75715e"></span><span style="color:#75715e"># usage: $ direnv exec bin/refresh-token.sh</span>
 set -eux
 cd <span style="color:#66d9ef">$(</span>dirname $0<span style="color:#66d9ef">)</span>/../

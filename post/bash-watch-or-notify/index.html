@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>watchで出力が変化したら通知が欲しい &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -125,7 +125,7 @@
 <p><img src="https://user-images.githubusercontent.com/5309672/67363240-e4e3f900-f5a7-11e9-8823-11bbccb3d3d9.png" alt="貼り付けた画像_2019_10_23_15_14"></p>
 <h2 id="watch側のコマンド">watch側のコマンド</h2>
 <p>60ごとにコマンドを実行して結果を監視したい場合はこんな感じ</p>
-<pre><code>$ watch --chgexit --interval 60 {{ コマンド }} &amp;&amp; perl -E 'say &quot;\007&quot;'
+<pre tabindex="0"><code>$ watch --chgexit --interval 60 {{ コマンド }} &amp;&amp; perl -E 'say &quot;\007&quot;'
 </code></pre><h4 id="--chgexit"><code>--chgexit</code></h4>
 <p>出力が変化したらwatchコマンドを終了する</p>
 <h4 id="--interval-60"><code>--interval 60</code></h4>
@@ -136,8 +136,8 @@
 <h2 id="動作確認">動作確認</h2>
 <p>macのitermで beep/chgexit がどんな感じになるか確認する</p>
 <p>watchでlsファイルさせて、途中でみてるファイルに書き込みを行う</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ watch --chgexit --interval <span style="color:#ae81ff">4</span> <span style="color:#e6db74">&#34;ls -laGh /tmp/_&#34;</span> <span style="color:#f92672">&amp;&amp;</span> perl -E <span style="color:#e6db74">&#39;say &#34;\007&#34;&#39;</span>
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ echo <span style="color:#e6db74">&#34;hello&#34;</span> &gt;&gt; /tmp/_
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ watch --chgexit --interval <span style="color:#ae81ff">4</span> <span style="color:#e6db74">&#34;ls -laGh /tmp/_&#34;</span> <span style="color:#f92672">&amp;&amp;</span> perl -E <span style="color:#e6db74">&#39;say &#34;\007&#34;&#39;</span>
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ echo <span style="color:#e6db74">&#34;hello&#34;</span> &gt;&gt; /tmp/_
 </code></pre></div><p>こんな感じで通知が得られる</p>
 <p><img src="https://user-images.githubusercontent.com/5309672/67362812-e3fe9780-f5a6-11e9-8de8-3dca447cd663.png" alt="image"></p>
 

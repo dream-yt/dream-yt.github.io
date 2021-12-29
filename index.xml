@@ -6,7 +6,16 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Fri, 24 Dec 2021 17:07:37 +0900</lastBuildDate><atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 29 Dec 2021 14:49:59 +0900</lastBuildDate><atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Gcs Streaming Unzip DecodeCp932 ParseCsv Upload</title>
+      <link>https://dream-yt.github.io/post/gcs-streaming-unzip-decodecp932-parsecsv-upload/</link>
+      <pubDate>Wed, 29 Dec 2021 14:49:59 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/gcs-streaming-unzip-decodecp932-parsecsv-upload/</guid>
+      <description>こんな要件のデータ連携があるとする。 要件 先方がGCPのCloudStorage(S3みたいなやつ)にファイルを置いてくれる 数GBくらいのSh</description>
+    </item>
+    
     <item>
       <title>GCP Cloud Shell 上のコードを VS Code の Remote-SSH で触れるようにする</title>
       <link>https://dream-yt.github.io/post/gcp-cloudshell-vscode-remotessh/</link>
@@ -211,7 +220,7 @@
       <pubDate>Fri, 23 Jul 2021 23:51:53 +0900</pubDate>
       
       <guid>https://dream-yt.github.io/post/p-map-err-require-esm/</guid>
-      <description>p-map でエラーが出るようになった。 ⚠ Error [ERR_REQUIRE_ESM]: Must use import to load ES Module: /Users//node_modules/p-map/index.js require() of ES modules is not supported. require() of /Users//node_modules/p-map/index.js from /Users//lib/job/scrape-work-status/worker.js is an ES module file as it is a .js file whose nearest parent package.json contains &amp;quot;type&amp;quot;: &amp;quot;module&amp;quot; which defines all .js files in that package scope as ES modules. Instead rename</description>
+      <description>p-map でエラーが出るようになった。 ⚠ Error [ERR_REQUIRE_ESM]: Must use import to load ES Module: /Users//node_modules/p-map/index.js require() of ES modules is not supported. require() of /Users//node_modules/p-map/index.js from /Users//lib/job/scrape-work-status/worker.js is an ES module file as it is a .js file whose nearest parent package.json contains &amp;#34;type&amp;#34;: &amp;#34;module&amp;#34; which defines all .js files in that package scope as ES modules. Instead rename</description>
     </item>
     
     <item>
@@ -895,7 +904,7 @@
       <pubDate>Fri, 15 Jan 2021 12:14:13 +0900</pubDate>
       
       <guid>https://dream-yt.github.io/post/perl-string-interpolation-expression/</guid>
-      <description>array (@) interpolation というものが使える Perlの文字列補間 - Wikipedia 例 文字列内に &amp;quot;baz&amp;quot; x 5 という式を埋め込みたい場合 $ perl -E &#39;say qq(hello! @{[&amp;quot;baz&amp;quot; x 5]} bye!)&#39; hello! bazbazbazbazbaz bye!</description>
+      <description>array (@) interpolation というものが使える Perlの文字列補間 - Wikipedia 例 文字列内に &amp;quot;baz&amp;quot; x 5 という式を埋め込みたい場合 $ perl -E &amp;#39;say qq(hello! @{[&amp;#34;baz&amp;#34; x 5]} bye!)&amp;#39; hello! bazbazbazbazbaz bye!</description>
     </item>
     
     <item>
@@ -1813,7 +1822,7 @@
       <pubDate>Sun, 29 Mar 2020 20:45:55 +0900</pubDate>
       
       <guid>https://dream-yt.github.io/post/contribute-rsshub-memo/</guid>
-      <description>DIYgod/RSSHub: 🍰 Everything is RSSible まず先にfetch $ git remote add upstream ssh://git@github.com/DIYgod/RSSHub.git $ git fetch upstream 開発者向けのドキュメント Join Us | RSSHub 開発用のコマンド 使うのはこのへん $ yarn dev $ yarn docs:dev $ cat package.json | jq .scripts { &amp;quot;start&amp;quot;:</description>
+      <description>DIYgod/RSSHub: 🍰 Everything is RSSible まず先にfetch $ git remote add upstream ssh://git@github.com/DIYgod/RSSHub.git $ git fetch upstream 開発者向けのドキュメント Join Us | RSSHub 開発用のコマンド 使うのはこのへん $ yarn dev $ yarn docs:dev $ cat package.json | jq .scripts { &amp;#34;start&amp;#34;:</description>
     </item>
     
     <item>
@@ -2002,7 +2011,7 @@
       <pubDate>Fri, 17 Jan 2020 11:35:48 +0900</pubDate>
       
       <guid>https://dream-yt.github.io/post/git-grep-target-file-extension/</guid>
-      <description>こんな感じでできる $ git grep cache -- &#39;*.java&#39; git grepでは -- 以降が対象パスの指定となっているので、そこにglobを書くと探索するファイルを指定できる &amp;ndash; …​</description>
+      <description>こんな感じでできる $ git grep cache -- &amp;#39;*.java&amp;#39; git grepでは -- 以降が対象パスの指定となっているので、そこにglobを書くと探索するファイルを指定できる &amp;ndash; …​</description>
     </item>
     
     <item>
@@ -2740,7 +2749,7 @@
       <pubDate>Mon, 25 Mar 2019 16:56:27 +0900</pubDate>
       
       <guid>https://dream-yt.github.io/post/random-string-gen-pwgen/</guid>
-      <description>pwgenを使うのが便利 $ pwgen --symbols --secure 12 1 `lJ+b9$&amp;quot;J}Cv pwgenはデフォルトだと覚えやすい感じで生成してくれるので、その辺をオプションでさらにランダムにして</description>
+      <description>pwgenを使うのが便利 $ pwgen --symbols --secure 12 1 `lJ+b9$&amp;#34;J}Cv pwgenはデフォルトだと覚えやすい感じで生成してくれるので、その辺をオプションでさらにランダムにして</description>
     </item>
     
     <item>

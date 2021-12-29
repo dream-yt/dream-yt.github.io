@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>perlのstrict/utf8フラグについて &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -111,38 +111,38 @@
                     <p>なんとなく知識では知っていたけど試したことがなかったのでメモ</p>
 <p>perlにはstrictフラグというものがあって、
 構文エラーにならないけど変な式を書いてるとエラーにしてくれる仕組みがある</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl"><span style="color:#75715e">#!/usr/bin/env perl</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl"><span style="color:#75715e">#!/usr/bin/env perl</span>
 <span style="color:#66d9ef">use</span> strict;
 </code></pre></div><ul>
 <li><a href="https://perldoc.jp/docs/perl/strict.pod">strict - 安全ではない構文を制限する Perl プラグマ - perldoc.jp</a></li>
 </ul>
 <h2 id="strict">strict</h2>
 <h3 id="use-strict">use strict</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl"><span style="color:#66d9ef">use</span> strict;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl"><span style="color:#66d9ef">use</span> strict;
 $r <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
 </code></pre></div><p><code>my</code> をつけないで変数宣言をしているのでstrictモードだとエラーになる</p>
-<pre><code class="language-console" data-lang="console">$ carton exec perl -Ilib -It/lib ,/checkstrict.pl
-Global symbol &quot;$r&quot; requires explicit package name at ,/checkstrict.pl line 7.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">$ carton exec perl -Ilib -It/lib ,/checkstrict.pl
+Global symbol &#34;$r&#34; requires explicit package name at ,/checkstrict.pl line 7.
 Execution of ,/checkstrict.pl aborted due to compilation errors.
-</code></pre><h3 id="no-strict-vars">no strict &ldquo;vars&rdquo;</h3>
+</code></pre></div><h3 id="no-strict-vars">no strict &ldquo;vars&rdquo;</h3>
 <ul>
 <li><code>no strict</code> でフラグは無効化できる</li>
 <li>これはブロック内のみの無効化となる</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl"><span style="color:#66d9ef">use</span> strict;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl"><span style="color:#66d9ef">use</span> strict;
 <span style="color:#66d9ef">no</span> strict <span style="color:#e6db74">&#34;vars&#34;</span>;
 $r <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
 </code></pre></div><p>strictフラグが降りてるのでこれはOK</p>
 <h3 id="blockの中だけ-no-strict">blockの中だけ no strict</h3>
 <p>ドキュメントに書いてある通りの挙動</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl"><span style="color:#66d9ef">use</span> strict;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl"><span style="color:#66d9ef">use</span> strict;
 
 {
   <span style="color:#66d9ef">no</span> strict <span style="color:#e6db74">&#34;vars&#34;</span>;
   $s <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
 }
 </code></pre></div><p>ブロックの外は引き続きダメ</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl"><span style="color:#66d9ef">use</span> strict;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl"><span style="color:#66d9ef">use</span> strict;
 
 {
   <span style="color:#66d9ef">no</span> strict <span style="color:#e6db74">&#34;vars&#34;</span>;
@@ -150,15 +150,15 @@ $r <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
 }
 
 $r <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
-</code></pre></div><pre><code class="language-console" data-lang="console">$ carton exec perl -Ilib -It/lib ,/checkstrict.pl
-Global symbol &quot;$r&quot; requires explicit package name at ,/checkstrict.pl line 13.
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">$ carton exec perl -Ilib -It/lib ,/checkstrict.pl
+Global symbol &#34;$r&#34; requires explicit package name at ,/checkstrict.pl line 13.
 Execution of ,/checkstrict.pl aborted due to compilation errors.
-</code></pre><h3 id="use-strict-してる別ファイルのモジュールをuseしたとき"><code>use strict</code> してる別ファイルのモジュールをuseしたとき</h3>
+</code></pre></div><h3 id="use-strict-してる別ファイルのモジュールをuseしたとき"><code>use strict</code> してる別ファイルのモジュールをuseしたとき</h3>
 <p><code>t/Utils.pm</code> という以下のようなファイルを作って、それをuseした場合</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl"><span style="color:#66d9ef">package</span> t::Utils;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl"><span style="color:#66d9ef">package</span> t::Utils;
 <span style="color:#66d9ef">use</span> strict;
 <span style="color:#ae81ff">1</span>
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl"><span style="color:#66d9ef">use</span> t::Utils;
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl"><span style="color:#66d9ef">use</span> t::Utils;
 $r <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
 </code></pre></div><p>これはstrictフラグがたっておらず、エラーにならない
 (ただし、同じファイルでパッケージ違いの場合はエラーになる)</p>
@@ -166,13 +166,13 @@ $r <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
 <p>utf8も同様の挙動</p>
 <p>次のように書くと <code>utf8 flag on</code> が表示される
 (utf8フラグがオンだと全角スペースが <code>\s</code> 正規表現でひっかかる)</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl"><span style="color:#66d9ef">use</span> utf8;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl"><span style="color:#66d9ef">use</span> utf8;
 <span style="color:#66d9ef">my</span> $zenkaku_space <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;　&#34;</span>;
 <span style="color:#66d9ef">print</span> <span style="color:#e6db74">&#34;utf8 flag on\n&#34;</span> <span style="color:#66d9ef">if</span> $zenkaku_space <span style="color:#f92672">=~</span><span style="color:#e6db74"> /\s/</span>;
-</code></pre></div><pre><code class="language-console" data-lang="console">utf8 flag on
-</code></pre><h3 id="no-utf8">no utf8</h3>
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">utf8 flag on
+</code></pre></div><h3 id="no-utf8">no utf8</h3>
 <p><code>no utf8</code> すると表示されない (フラグがオフになる)</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl"><span style="color:#66d9ef">use</span> utf8;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl"><span style="color:#66d9ef">use</span> utf8;
 <span style="color:#66d9ef">no</span> utf8;
 
 <span style="color:#66d9ef">my</span> $zenkaku_space <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;　&#34;</span>;
@@ -181,23 +181,23 @@ $r <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
 <p><code>no utf8</code> はstrict同様ブロック内だけ</p>
 <p>ちょっとはまったが、代入した行でフラグがどうなってるかが大事
 (フラグが立ってるところで代入された全角スペースは <code>\s</code> がひっかかる)</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl"><span style="color:#66d9ef">use</span> utf8;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl"><span style="color:#66d9ef">use</span> utf8;
 <span style="color:#66d9ef">my</span> $zenkaku_space;
 {
   <span style="color:#66d9ef">no</span> utf8;
   <span style="color:#66d9ef">print</span> <span style="color:#e6db74">&#34;utf8 flag on\n&#34;</span> <span style="color:#66d9ef">if</span> <span style="color:#e6db74">&#34;　&#34;</span> <span style="color:#f92672">=~</span><span style="color:#e6db74"> /\s/</span>;
 }
 <span style="color:#66d9ef">print</span> <span style="color:#e6db74">&#34;still utf8 flag on\n&#34;</span> <span style="color:#66d9ef">if</span> <span style="color:#e6db74">&#34;　&#34;</span> <span style="color:#f92672">=~</span><span style="color:#e6db74"> /\s/</span>;
-</code></pre></div><pre><code class="language-console" data-lang="console">$ carton exec perl ,/checkstrict.pl
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">$ carton exec perl ,/checkstrict.pl
 still utf8 flag on
-</code></pre><h3 id="別ファイル">別ファイル</h3>
+</code></pre></div><h3 id="別ファイル">別ファイル</h3>
 <p>strictと同様
 <code>use utf8</code> している別ファイルをuseしてもフラグはたたない</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl"><span style="color:#66d9ef">use</span> t::Utils;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl"><span style="color:#66d9ef">use</span> t::Utils;
 <span style="color:#66d9ef">print</span> <span style="color:#e6db74">&#34;utf8 flag on\n&#34;</span> <span style="color:#66d9ef">if</span> <span style="color:#e6db74">&#34;　&#34;</span> <span style="color:#f92672">=~</span><span style="color:#e6db74"> /\s/</span>;
 </code></pre></div><h2 id="その他">その他</h2>
 <p>ちなみに、ライブラリを書いていて、useされたときにuseした側にフラグを立てたい場合はこんな風に書く</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl"><span style="color:#66d9ef">use</span> strict;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl"><span style="color:#66d9ef">use</span> strict;
 <span style="color:#66d9ef">use</span> utf8;
 
 <span style="color:#66d9ef">sub</span> <span style="color:#a6e22e">import</span> {

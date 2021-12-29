@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>dockerイメージの、レイヤーとサイズの関係をみる &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -93,7 +93,7 @@
                 <section id="post-body">
                     <p>docker history を使うとみられる</p>
 <h2 id="例">例</h2>
-<pre><code>$ docker history --no-trunc --format=&quot;{{.Size}}\t{{.CreatedBy}}&quot; perl:5.20.0
+<pre tabindex="0"><code>$ docker history --no-trunc --format=&quot;{{.Size}}\t{{.CreatedBy}}&quot; perl:5.20.0
 0B	/bin/sh -c #(nop) CMD [perl5.20.0 -de0]
 0B	/bin/sh -c #(nop) WORKDIR /root
 6.55MB	/bin/sh -c curl -LO https://raw.githubusercontent.com/miyagawa/cpanminus/master/cpanm         &amp;&amp; chmod +x cpanm         &amp;&amp; ./cpanm App::cpanminus         &amp;&amp; rm ./cpanm

@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>react-admin ですこし複雑なデータをPOSTしたい場合 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -92,7 +92,7 @@
                 
                 <section id="post-body">
                     <p>たとえば、こんな感じのネストした要素があるJSONをPOSTしたい場合。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
     <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">123</span>,
     <span style="color:#f92672">&#34;name&#34;</span>: {
         <span style="color:#f92672">&#34;first&#34;</span>: <span style="color:#e6db74">&#34;yoshida&#34;</span>,
@@ -100,7 +100,7 @@
     }
 }
 </code></pre></div><p>こんな感じで、ドット区切りでsourceを定義すればよい。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx">&lt;<span style="color:#f92672">SimpleForm</span>&gt;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx">&lt;<span style="color:#f92672">SimpleForm</span>&gt;
     &lt;<span style="color:#f92672">TextInput</span> <span style="color:#a6e22e">source</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;id&#34;</span>/&gt;
     &lt;<span style="color:#f92672">TextInput</span> <span style="color:#a6e22e">source</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;name.first&#34;</span>/&gt;
     &lt;<span style="color:#f92672">TextInput</span> <span style="color:#a6e22e">source</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;name.last&#34;</span>/&gt;
@@ -112,7 +112,7 @@
 </ul>
 <p>FormData を引数とする関数を定義できて、これがPOST直前に呼ばれるようにできる。
 この関数はPromiseを返すこともできるとのこと。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-tsx" data-lang="tsx"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">UserCreate</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">props</span>) <span style="color:#f92672">=&gt;</span> {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-tsx" data-lang="tsx"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">UserCreate</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">props</span>) <span style="color:#f92672">=&gt;</span> {
     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">transform</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">data</span> <span style="color:#f92672">=&gt;</span> ({
         ...<span style="color:#a6e22e">data</span>,
         <span style="color:#a6e22e">fullName</span><span style="color:#f92672">:</span> <span style="color:#e6db74">`</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">firstName</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> </span><span style="color:#e6db74">${</span><span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">lastName</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>

@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>npmパッケージング関連コマンド &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -104,13 +104,13 @@
 </ul>
 <h2 id="npm-set">npm set</h2>
 <p>author 情報の更新/設定</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ npm set init.author.url https://twitter.com/sakamoto_akira_
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ npm set init.author.url https://twitter.com/sakamoto_akira_
 $ npm set init.author.email mild7caloriemategreentea@gmail.com
 $ npm set init.author.name sakamoto_akira_
 $ npm adduser
 </code></pre></div><h2 id="npm-version">npm version</h2>
 <p>package.json の version を上げてくれる</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ npm version patch
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ npm version patch
 $ npm version minor
 $ npm version major
 </code></pre></div><ul>
@@ -118,7 +118,7 @@ $ npm version major
 </ul>
 <h2 id="npm-publish">npm publish</h2>
 <p>パッケージの公開</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git push origin tags/v<span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>cat ./package.json | jq -r .version<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git push origin tags/v<span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>cat ./package.json | jq -r .version<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
 $ npm publish ./
 </code></pre></div>
                 </section>

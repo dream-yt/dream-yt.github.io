@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>runtime-only build of Vue where the template compiler is not available &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -99,7 +99,7 @@
 <p>templateをコンパイル済みのjsコードを用意するか、<code>compiler-included build</code> のvueを使うかが逃げ道として提示されている</p>
 <p><code>compiler-included build</code> のvueを使うほうが楽そうだ。jestでテストを走らせているので、そのランタイムで<code>compiler-included build</code> のvueが使われるようにする</p>
 <p>具体的には jest.config.js にて moduleNameMapper に以下の設定を入れる</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">// commonjsのプロジェクトなので `vue.common.dev.js`
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">// commonjsのプロジェクトなので `vue.common.dev.js`
 </span><span style="color:#75715e"></span><span style="color:#a6e22e">moduleNameMapper</span> <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#39;^vue$&#39;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;vue/dist/vue.common.dev.js&#39;</span>}
 </code></pre></div><h2 id="参考">参考</h2>
 <ul>

@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>Prisma の NestJS へのつなぎ込み &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -99,12 +99,12 @@
                   
                 
                 <section id="post-body">
-                    <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ yarn add prisma @prisma/client
+                    <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ yarn add prisma @prisma/client
 $ npx prisma init <span style="color:#75715e"># TODO CI/本番など実行環境ごとに .env を切り替える方法が欲しい</span>
 </code></pre></div><h2 id="スキーマの編集">スキーマの編集</h2>
-<pre><code>$ code prisma/schema.prisma
+<pre tabindex="0"><code>$ code prisma/schema.prisma
 </code></pre><p>まずは sqlite で動作させる。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">generator</span> <span style="color:#a6e22e">client</span> {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">generator</span> <span style="color:#a6e22e">client</span> {
   <span style="color:#a6e22e">provider</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;prisma-client-js&#34;</span>
 }
 
@@ -133,12 +133,12 @@ $ npx prisma init <span style="color:#75715e"># TODO CI/本番など実行環境
 </blockquote>
 <h2 id="migrate--generate">migrate &amp; generate</h2>
 <p>モデルを定義したらmigrate。ここでsqliteファイルにテーブルが生成される。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ npx prisma migrate dev --name create-table-denylist
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ npx prisma migrate dev --name create-table-denylist
 </code></pre></div><p>generate すると scheme の定義内容をもとにjsランタイムのソースコードが node_modules 配下に生成される (ちゃんと型付で import できるようになる)</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ npx prisma generate
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ npx prisma generate
 </code></pre></div><h2 id="gitignore">.gitignore</h2>
 <p>sqlite なのでデータベースファイルをignoreする</p>
-<pre><code># prisma
+<pre tabindex="0"><code># prisma
 prisma/*.db
 prisma/*.db-journal
 </code></pre><h2 id="nestjsのサービスにする">NestJSのサービスにする</h2>
@@ -146,10 +146,10 @@ prisma/*.db-journal
 <ul>
 <li><a href="https://docs.nestjs.com/recipes/prisma">Prisma | NestJS - A progressive Node.js framework</a></li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ npx nest generate service prisma
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ npx nest generate service prisma
 $ code src/prisma/prisma.service.ts
 </code></pre></div><h3 id="prismaservicets">prisma.service.ts</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Injectable</span>, <span style="color:#a6e22e">OnModuleInit</span>, <span style="color:#a6e22e">OnModuleDestroy</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;@nestjs/common&#39;</span>;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Injectable</span>, <span style="color:#a6e22e">OnModuleInit</span>, <span style="color:#a6e22e">OnModuleDestroy</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;@nestjs/common&#39;</span>;
 <span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">PrismaClient</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;@prisma/client&#39;</span>;
 
 <span style="color:#66d9ef">@Injectable</span>()
@@ -165,13 +165,13 @@ $ code src/prisma/prisma.service.ts
   }
 }
 </code></pre></div><p>module.ts の定義。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-diff" data-lang="diff"> @Module({
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-diff" data-lang="diff"> @Module({
 <span style="color:#a6e22e">+  imports: [PrismaService],
 </span><span style="color:#a6e22e"></span>   controllers: [DenylistController],
    providers: [DenylistService],
  })
 </code></pre></div><p>service.ts では constructor に定義すれば this から使える。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-diff" data-lang="diff"><span style="color:#f92672">-  create(createDenylistDto: CreateDenylistDto) {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-diff" data-lang="diff"><span style="color:#f92672">-  create(createDenylistDto: CreateDenylistDto) {
 </span><span style="color:#f92672">-    return &#39;This action adds a new Denylist&#39;;
 </span><span style="color:#f92672"></span><span style="color:#a6e22e">+  constructor(private prisma: PrismaService) {}
 </span><span style="color:#a6e22e">+

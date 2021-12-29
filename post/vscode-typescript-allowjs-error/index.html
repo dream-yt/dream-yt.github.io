@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>Cannot write file ... because it would overwrite input file. &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -103,16 +103,16 @@
 </blockquote>
 <p>ファイルがすでに存在しているので書き出せないとのこと</p>
 <p>確かにコンパイルし直そうとすると同じエラーが出る</p>
-<pre><code class="language-console" data-lang="console">$ $(npm bin)/tsc
-error TS5055: Cannot write file '..../handler.js' because it would overwrite input file.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">$ <span style="color:#66d9ef">$(</span>npm bin<span style="color:#66d9ef">)</span>/tsc
+error TS5055: Cannot write file &#39;..../handler.js&#39; because it would overwrite input file.
 ...
-</code></pre><h3 id="原因">原因</h3>
+</code></pre></div><h3 id="原因">原因</h3>
 <p><code>allowJs</code> オプションがたっていると出てしまうもののようだ
 おそらくこのオプションがたっているtscには、typescriptの成果物としてのjsファイルと、ソースコードのjsファイルの区別がつかなくなってしまうため掲題のようなエラーを吐くのだろう</p>
 <h3 id="解決">解決</h3>
 <p>警告になっているファイルたちを消したら警告はなくなった</p>
-<pre><code class="language-console" data-lang="console">$ rm -rf ./build
-</code></pre><p>おそらく出力先のディレクトリと、ソースコードのディレクトリをきちんと別なものを指定するのが正しいが、VSCodeの警告を止めるだけならこれでよかった</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">$ rm -rf ./build
+</code></pre></div><p>おそらく出力先のディレクトリと、ソースコードのディレクトリをきちんと別なものを指定するのが正しいが、VSCodeの警告を止めるだけならこれでよかった</p>
 <h3 id="参考">参考</h3>
 <ul>
 <li><a href="https://stackoverflow.com/questions/42609768/typescript-error-cannot-write-file-because-it-would-overwrite-input-file">visual studio - Typescript error &ldquo;Cannot write file &hellip; because it would overwrite input file.&rdquo; - Stack Overflow</a></li>

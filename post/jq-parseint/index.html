@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>jq で parseInt &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -105,7 +105,7 @@
 <li><code>jq -s .</code> でまた配列に戻している</li>
 <li>sponge コマンドを使って元のファイルに書き出し</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cat /tmp/_.json <span style="color:#ae81ff">\
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cat /tmp/_.json <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>  | jq <span style="color:#e6db74">&#39;.[] 
 </span><span style="color:#e6db74">    | select(.id|test(&#34;^5&#34;)) 
 </span><span style="color:#e6db74">    | select((.ranking|tonumber) &lt;= 3)&#39;</span> <span style="color:#ae81ff">\

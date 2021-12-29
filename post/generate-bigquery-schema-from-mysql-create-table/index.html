@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>MySQL の CREATE TABLE から BigQuery のスキーマ(json)を生成する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -92,25 +92,25 @@
 <li><a href="https://github.com/shinichi-takii/ddlparse">shinichi-takii/ddlparse: DDL parase and Convert to BigQuery JSON schema and DDL statements</a></li>
 </ul>
 <p>コードはこれだけでよい</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> sys
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> sys
 <span style="color:#f92672">from</span> ddlparse <span style="color:#f92672">import</span> DdlParse
 
 sql <span style="color:#f92672">=</span> sys<span style="color:#f92672">.</span>stdin<span style="color:#f92672">.</span>read()
 table <span style="color:#f92672">=</span> DdlParse()<span style="color:#f92672">.</span>parse(sql)
-<span style="color:#66d9ef">print</span>(table<span style="color:#f92672">.</span>to_bigquery_fields())
+print(table<span style="color:#f92672">.</span>to_bigquery_fields())
 </code></pre></div><p>こんな感じで生成される</p>
-<pre><code class="language-console" data-lang="console">$ cat /tmp/__.sql | python ./generate-bigquery-schema-from-mysql-create-table.py  | jq . | head
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">$ cat /tmp/__.sql | python ./generate-bigquery-schema-from-mysql-create-table.py  | jq . | head
 [
   {
-    &quot;name&quot;: &quot;id&quot;,
-    &quot;type&quot;: &quot;INTEGER&quot;,
-    &quot;mode&quot;: &quot;REQUIRED&quot;
+    &#34;name&#34;: &#34;id&#34;,
+    &#34;type&#34;: &#34;INTEGER&#34;,
+    &#34;mode&#34;: &#34;REQUIRED&#34;
   },
   {
-    &quot;name&quot;: &quot;name&quot;,
-    &quot;type&quot;: &quot;string&quot;,
-    &quot;mode&quot;: &quot;REQUIRED&quot;
-</code></pre>
+    &#34;name&#34;: &#34;name&#34;,
+    &#34;type&#34;: &#34;string&#34;,
+    &#34;mode&#34;: &#34;REQUIRED&#34;
+</code></pre></div>
                 </section>
             </article>
 

@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>firebaseでスケジュール(cron)実行 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -113,7 +113,7 @@
 </blockquote>
 <h2 id="サンプルコード">サンプルコード</h2>
 <p>こんな感じで日本時間の17時に毎分動く関数が設定できる</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">as</span> <span style="color:#a6e22e">functions</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;firebase-functions&#39;</span>;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">as</span> <span style="color:#a6e22e">functions</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;firebase-functions&#39;</span>;
 
 <span style="color:#a6e22e">exports</span>.<span style="color:#a6e22e">scheduledFunction</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">functions</span>
   .<span style="color:#a6e22e">region</span>(<span style="color:#e6db74">&#39;asia-northeast1&#39;</span>)
@@ -125,7 +125,7 @@
   });
 </code></pre></div><h4 id="余談consoledirについて">余談(console.dirについて)</h4>
 <p>実行時のログを見るのにはこんなコマンドを使う</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ firebase functions:log --token <span style="color:#e6db74">&#34;</span>$FIREBASE_TOKEN<span style="color:#e6db74">&#34;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ firebase functions:log --token <span style="color:#e6db74">&#34;</span>$FIREBASE_TOKEN<span style="color:#e6db74">&#34;</span>
 </code></pre></div><p>なお、<code>console.dir</code> を使うとログは見られなかった</p>
 <p>CloudFunction で後から見れるログを吐くには <code>console.log</code>, <code>console.error</code> のどちらかを使う必要があった</p>
 <ul>

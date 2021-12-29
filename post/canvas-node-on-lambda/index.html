@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>node-canvasをlambdaで動かす &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -116,7 +116,7 @@
 <ul>
 <li><a href="https://gist.github.com/jakelazaroff/29e3e6d81c6cba1c6a8a10c09324c888">node-canvas error | gist.github.com/jakelazaroff</a></li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dockerfile" data-lang="dockerfile"><span style="color:#66d9ef">FROM</span><span style="color:#e6db74"> amazonlinux:latest</span><span style="color:#960050;background-color:#1e0010">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dockerfile" data-lang="dockerfile"><span style="color:#66d9ef">FROM</span><span style="color:#e6db74"> amazonlinux:latest</span><span style="color:#960050;background-color:#1e0010">
 </span><span style="color:#960050;background-color:#1e0010">
 </span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> curl --silent --location https://rpm.nodesource.com/setup_8.x | bash -<span style="color:#960050;background-color:#1e0010">
 </span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> yum install -y nodejs zip<span style="color:#960050;background-color:#1e0010">
@@ -132,12 +132,12 @@
 </span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">CMD</span> [<span style="color:#e6db74">&#34;install&#34;</span>]<span style="color:#960050;background-color:#1e0010">
 </span></code></pre></div><p>なお、nodeのversionを10系にするとuuidがstatic linkされてないとのことで動かなかった</p>
 <h3 id="docker-build">docker build</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ docker build -t lambda-build .
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ docker build -t lambda-build .
 </code></pre></div><h2 id="docker-run--v">docker run -v</h2>
 <p>buildディレクトリを作成して、そこに作ってもらう</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ mkdir build
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ mkdir build
 $ docker run -v <span style="color:#66d9ef">$(</span>pwd<span style="color:#66d9ef">)</span>/build/node_modules:/build/node_modules lambda-build
-</code></pre></div><pre><code class="language-console" data-lang="console">$ ll ./build/node_modules/ | head
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">$ ll ./build/node_modules/ | head
 total 32
 drwxr-xr-x  75 sakamossan  staff   2.3K  6 22 12:30 .
 drwxr-xr-x   4 sakamossan  staff   128B  6 22 12:31 ..
@@ -148,8 +148,8 @@ drwxr-xr-x   6 sakamossan  staff   192B  6 22 12:30 ansi-regex
 drwxr-xr-x   6 sakamossan  staff   192B  6 22 12:30 aproba
 drwxr-xr-x  11 sakamossan  staff   352B  6 22 12:30 are-we-there-yet
 drwxr-xr-x   7 sakamossan  staff   224B  6 22 12:30 balanced-match
-</code></pre><h2 id="zip-して-lambda-にアップロード">zip して lambda にアップロード</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cd ./build
+</code></pre></div><h2 id="zip-して-lambda-にアップロード">zip して lambda にアップロード</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cd ./build
 $ cp ../handler.js .
 $ zip ~/Desktop/function.zip -r *
 $ aws lambda update-function-code <span style="color:#ae81ff">\
@@ -157,12 +157,12 @@ $ aws lambda update-function-code <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>    --zip-file fileb://~/Desktop/function.zip
 </code></pre></div><p>アップロードの部分はawscliでなく、serverlessを使った方がよさそう
 serverless deploy には zipファイルを指定できるようだ</p>
-<pre><code>$ serverless deploy --help  | grep package
+<pre tabindex="0"><code>$ serverless deploy --help  | grep package
     --package / -p ..................... Path of the deployment package
 </code></pre><h2 id="動作確認">動作確認</h2>
 <p>requireしたcanvasオブジェクトをJSONにしたものを返すとこんな感じ</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ serverless invoke --function ChartEndpoint | jq -r .body | jq .
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ serverless invoke --function ChartEndpoint | jq -r .body | jq .
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
   <span style="color:#f92672">&#34;canvas&#34;</span>: {
     <span style="color:#f92672">&#34;backends&#34;</span>: {},
     <span style="color:#f92672">&#34;version&#34;</span>: <span style="color:#e6db74">&#34;2.5.0&#34;</span>,

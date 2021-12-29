@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>raspberry-piに固定IPを設定する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -101,23 +101,23 @@
                 
                 <section id="post-body">
                     <p>結論としてはこんなコマンドでとりあえず固定IPを払い出せる</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">echo <span style="color:#e6db74">&#39;interface eth0&#39;</span> | tee -a /etc/dhcpcd.conf
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">echo <span style="color:#e6db74">&#39;interface eth0&#39;</span> | tee -a /etc/dhcpcd.conf
 echo <span style="color:#e6db74">&#39;static ip_address=192.168.111.90/24&#39;</span> | tee -a /etc/dhcpcd.conf
 echo <span style="color:#e6db74">&#39;static routers=192.168.111.1&#39;</span> | tee -a /etc/dhcpcd.conf
 echo <span style="color:#e6db74">&#39;staitc domain_name_servers=192.168.111.1&#39;</span> | tee -a /etc/dhcpcd.conf
 </code></pre></div><p>以下、それぞれの項目についてメモ</p>
 <h3 id="設定するinterfaceの宣言">設定するinterfaceの宣言</h3>
 <p>デフォルトの設定を参考にしている</p>
-<pre><code class="language-console" data-lang="console">pi@raspberrypi:~ $ grep -A7 Example /etc/dhcpcd.conf
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">pi@raspberrypi:~ $ grep -A7 Example /etc/dhcpcd.conf
 # Example static IP configuration:
 #interface eth0
-#static ip_address=192.168.0.10/24
-#static ip6_address=fd51:42f8:caae:d92e::ff/64
-#static routers=192.168.0.1
-#static domain_name_servers=192.168.0.1 8.8.8.8 fd51:42f8:caae:d92e::1
-
-# It is possible to fall back to a static IP if DHCP fails:
-</code></pre><blockquote>
+#static ip_address<span style="color:#f92672">=</span>192.168.0.10/24
+#static ip6_address<span style="color:#f92672">=</span>fd51:42f8:caae:d92e::ff/64
+#static routers<span style="color:#f92672">=</span>192.168.0.1
+#static domain_name_servers<span style="color:#f92672">=</span>192.168.0.1 8.8.8.8 fd51:42f8:caae:d92e::1
+<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span># It is possible to fall back to a static IP <span style="color:#66d9ef">if</span> DHCP fails:
+</code></pre></div><blockquote>
 <p>interface eth0</p>
 </blockquote>
 <h3 id="払い出す固定ipアドレスの設定">払い出す固定IPアドレスの設定</h3>
@@ -133,10 +133,10 @@ echo <span style="color:#e6db74">&#39;staitc domain_name_servers=192.168.111.1&#
 <li>ipコマンドで確認</li>
 <li><code>default via 192.168.111.1</code> の部分がルータのIP</li>
 </ul>
-<pre><code class="language-console" data-lang="console">pi@raspberrypi:~ $ ip route
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">pi@raspberrypi:~ $ ip route
 default via 192.168.111.1 dev eth0 src 192.168.111.116 metric 202
 192.168.111.0/24 dev eth0 proto kernel scope link src 192.168.111.116 metric 202
-</code></pre><blockquote>
+</code></pre></div><blockquote>
 <p>static routers=192.168.111.1</p>
 </blockquote>
 <h3 id="dnsサーバの設定">DNSサーバの設定</h3>
@@ -146,7 +146,7 @@ default via 192.168.111.1 dev eth0 src 192.168.111.116 metric 202
 </blockquote>
 <h2 id="解決済み-dnsの設定が変">[解決済み] DNSの設定が変?</h2>
 <p>最初、<code>staitc domain_name_servers=8.8.8.8</code> という設定をしたところ、名前解決がうまくいかなくなっていた</p>
-<pre><code>pi@raspberrypi:~ $ curl google.com
+<pre tabindex="0"><code>pi@raspberrypi:~ $ curl google.com
 curl: (6) Could not resolve host: google.com
 </code></pre><ul>
 <li>domain_name_serversの設定がよくなくて <code>/etc/resolv.conf</code> がダメになったのかもしれない</li>

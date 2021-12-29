@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>Google Analytics 4 でページ表示速度を計測する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -163,7 +163,7 @@
 <p>今回はサイトの表示速度が計測したいので、ページの DomContentLoaded イベントなどを追うようにする。</p>
 <p>カスタムイベントは gtag 関数に色々引数を渡して発火させる。</p>
 <p>このように gtag 関数を呼ぶと <code>google-analytics.com</code> にビーコンが飛んで計測される様子を Chrome開発ツールでみることができる。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">gtag</span>(<span style="color:#e6db74">&#39;event&#39;</span>, <span style="color:#e6db74">&#39;timing_complete&#39;</span>, { <span style="color:#a6e22e">value</span> });
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">gtag</span>(<span style="color:#e6db74">&#39;event&#39;</span>, <span style="color:#e6db74">&#39;timing_complete&#39;</span>, { <span style="color:#a6e22e">value</span> });
 </code></pre></div><p>ここでいう第二引数の <code>timing_complete</code> がコンソールから設定する event_name となるので、イベントを作成するときはそれを念頭におくとよい。</p>
 <h4 id="chrome-analytics-debugger-を入れる">Chrome Analytics Debugger を入れる</h4>
 <p>これを入れる。</p>
@@ -175,14 +175,14 @@
 <p>GA4 の DebugView のタブを開いた状態で、Chrome開発ツールからイベントを発火させてみる。
 DebugView で見るためには <code>debug_mode: true</code> の指定が必要なのでこれをつける。</p>
 <p>こんなコードを仕込んで、GA4 にちゃんとイベントが届いているかを確認する。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">gtag</span>(){window.<span style="color:#a6e22e">dataLayer</span>.<span style="color:#a6e22e">push</span>(<span style="color:#a6e22e">arguments</span>);}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">gtag</span>(){window.<span style="color:#a6e22e">dataLayer</span>.<span style="color:#a6e22e">push</span>(<span style="color:#a6e22e">arguments</span>);}
 <span style="color:#a6e22e">gtag</span>(<span style="color:#e6db74">&#39;js&#39;</span>, <span style="color:#66d9ef">new</span> Date()); 
 <span style="color:#a6e22e">gtag</span>(<span style="color:#e6db74">&#39;config&#39;</span>, <span style="color:#e6db74">&#39;G-J15XXXXX&#39;</span>);
 <span style="color:#a6e22e">gtag</span>(<span style="color:#e6db74">&#39;event&#39;</span>, <span style="color:#e6db74">&#39;timing_complete&#39;</span>, { <span style="color:#a6e22e">value</span>, <span style="color:#a6e22e">debug_mode</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span> });
 </code></pre></div><h4 id="bigquery-で確認">BigQuery で確認</h4>
 <p>BigQuery の連携設定を1日1回にしていたので、計測結果を BigQuery で見るのは1日待った。</p>
 <p>こんなクエリで今回追加した <code>timing_complete</code> イベントの内容が確認できた。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> event_date,
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> event_date,
     event_timestamp,
     event_name
 <span style="color:#66d9ef">FROM</span> <span style="color:#f92672">`</span>myproj.analytics_813456732.events_20211214<span style="color:#f92672">`</span>

@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>Unicodeスカラー値と、対になっていないサロゲートコードポイントについてメモ &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -107,11 +107,11 @@
 <blockquote>
 <p>文字セットは16進数にU+をつけて U+0000～U+10FFFF で表します。これをUnicodeスカラ値といいます。</p>
 </blockquote>
-<pre><code class="language-console" data-lang="console">$ node -p '&quot;\u{1F466}&quot;'
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">$ node -p <span style="color:#e6db74">&#39;&#34;\u{1F466}&#34;&#39;</span>
 👦
-$ node -p '&quot;\u{1F466}\u{1F3FE}&quot;'
+$ node -p <span style="color:#e6db74">&#39;&#34;\u{1F466}\u{1F3FE}&#34;&#39;</span>
 👦🏾
-</code></pre><p><code>U+4E00</code> といった表現はutf8など、エンコーディングの世界の表記ではなく文字集合であるUnicodeの世界の表現である。このリテラルはUnicodeの符号位置を示すためのものである。jsで使える <code>\u{1F466}</code> といったリテラルは符号位置をASCIIで入力したものである。</p>
+</code></pre></div><p><code>U+4E00</code> といった表現はutf8など、エンコーディングの世界の表記ではなく文字集合であるUnicodeの世界の表現である。このリテラルはUnicodeの符号位置を示すためのものである。jsで使える <code>\u{1F466}</code> といったリテラルは符号位置をASCIIで入力したものである。</p>
 <ul>
 <li><a href="https://seiai.ed.jp/sys/text/csd/cf14/c14a070.html#:~:text=%E7%A7%81%E7%94%A8%E9%9D%A2-,Unicode%E3%82%B9%E3%82%AB%E3%83%A9%E5%80%A4,U%2BFFFF%20%E3%81%A8%E8%A1%A8%E3%81%97%E3%81%BE%E3%81%99%E3%80%82">Unicode</a></li>
 </ul>

@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>Lambdaでcallbackを呼んでるのにタイムアウト扱いになる場合 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -97,7 +97,7 @@
                 <section id="post-body">
                     <p>lambdaはcallbackが呼ばれても、イベントループが残っていたらプロセスを待機させてしまう。使用しているライブラリがコネクションをポーリングしていたりすると、そのイベントループが延々残ってしまってプロセスが終了せず、その結果callbackを時間内に呼んでるのにタイムアウトエラーになってしまう状態が発生する</p>
 <p>そういう場合は<code>callbackWaitsForEmptyEventLoop</code>を<code>false</code>にすればよい</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">f</span> (
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">f</span> (
   <span style="color:#a6e22e">event</span>: <span style="color:#66d9ef">APIGatewayEvent</span>,
   <span style="color:#a6e22e">context</span>: <span style="color:#66d9ef">Context</span>,
   <span style="color:#a6e22e">callback</span>: <span style="color:#66d9ef">Callback</span>,

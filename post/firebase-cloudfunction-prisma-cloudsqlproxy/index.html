@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>FirebaseCloudfunction上でPrismaを動かしてCloudSQLProxy経由でデータベースに接続する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -120,7 +120,7 @@
 <p>もともと強いアクセス権限を持っているサービスアカウントだが、そもそもプロジェクトで有効になっていないAPIにはアクセスできないため、それを有効にする必要がある。</p>
 <h2 id="prisma-でプロキシを使う">Prisma でプロキシを使う</h2>
 <p>Prisma でこのプロキシ経由で MySQL と接続する場合、設定は以下のようになる。</p>
-<pre><code>DATABASE_URL=mysql://username:password@localhost/dbname?socket=/cloudsql/projname-123456:asia-northeast1:dbname
+<pre tabindex="0"><code>DATABASE_URL=mysql://username:password@localhost/dbname?socket=/cloudsql/projname-123456:asia-northeast1:dbname
 </code></pre><p>socket のパス名は以下の通り。</p>
 <blockquote>
 <p>正しく構成されたら、パス /cloudsql/INSTANCE_CONNECTION_NAME で環境のファイルシステムからアクセスされる Cloud SQL インスタンスの Unix ドメイン ソケットにサービスを接続できます。</p>

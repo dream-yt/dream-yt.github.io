@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>package.jsonの古いファイルをいっぺんに更新する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -94,15 +94,15 @@
                 
                 <section id="post-body">
                     <h2 id="古いパッケージの一覧">古いパッケージの一覧</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ npm outdated
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ npm outdated
 </code></pre></div><p>こんな感じの出力が得られる</p>
-<pre><code>$ npm outdated
+<pre tabindex="0"><code>$ npm outdated
 Package             Current  Wanted  Latest  Location
 firebase-functions    2.3.1   2.3.1   3.1.0  project_name
 firebase-tools       6.12.0  6.12.0   7.1.0  project_name
 </code></pre><h2 id="いっぺんに更新する">いっぺんに更新する</h2>
 <p>以下のようなワンライナーで全部最新のに更新できる</p>
-<pre><code>$ npm outdated | grep -v ^Package | awk '{print $1}' | xargs -I{} yarn add {}@latest
+<pre tabindex="0"><code>$ npm outdated | grep -v ^Package | awk '{print $1}' | xargs -I{} yarn add {}@latest
 </code></pre><h2 id="その他">その他</h2>
 <p><code>npm-check-updates</code> というコマンドをインストールすると
 この辺りをよしなにやってくれるようだ (けどインストールするのも手間なのでワンライナーでなんとかしてしまった)</p>

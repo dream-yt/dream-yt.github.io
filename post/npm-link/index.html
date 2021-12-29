@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>開発中のパッケージをrequireできる npm link を使う &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -100,11 +100,11 @@
                 <section id="post-body">
                     <p>npmパッケージを開発するとき、いちいちnpmにアップロードしてそれを使う側でinstallしてなどとやってられないので npm link という仕組みがある</p>
 <p>たとえば <code>api-client</code> パッケージというのがあり、それを <code>service</code> パッケージで使いたい場合は以下のような手順になる</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># api-clientのディレクトリに移動して npm link</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># api-clientのディレクトリに移動して npm link</span>
 $ cd api-clilent
 $ npm link
 ...
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># serviceディレクトリに移動して npm link api-clilent</span>
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># serviceディレクトリに移動して npm link api-clilent</span>
 $ cd service
 $ npm link api-clilent
 ...
@@ -118,7 +118,7 @@ $ npm link api-clilent
 </ul>
 <h2 id="npm-unlink">npm unlink</h2>
 <p>貼ったシンボリックリンクを消したい場合は npm unlink で消すことができる</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cd service
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cd service
 $ npm unlink api-clilent
 $ cd ./../api-clilent
 $ npm unlink

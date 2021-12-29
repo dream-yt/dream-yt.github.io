@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>vscodeからdockerコンテナ内でperl -wcして文法チェック &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -101,18 +101,18 @@
 </ul>
 <h2 id="設定">設定</h2>
 <p>設定項目もこれくらいで済む</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#e6db74">&#34;docker-linter.perl.enable&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#66d9ef">true</span><span style="color:#960050;background-color:#1e0010">,</span>
-<span style="color:#e6db74">&#34;docker-linter.perl.machine&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#e6db74">&#34;&#34;</span><span style="color:#960050;background-color:#1e0010">,</span>  <span style="color:#960050;background-color:#1e0010">//</span> <span style="color:#e6db74">&#34;default&#34;</span><span style="color:#960050;background-color:#1e0010">だとdocker-machineを使おうとする</span>
-<span style="color:#e6db74">&#34;docker-linter.perl.container&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#e6db74">&#34;app_app_1&#34;</span><span style="color:#960050;background-color:#1e0010">,</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#e6db74">&#34;docker-linter.perl.enable&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#66d9ef">true</span><span style="color:#960050;background-color:#1e0010">,</span>
+<span style="color:#e6db74">&#34;docker-linter.perl.machine&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#e6db74">&#34;&#34;</span><span style="color:#960050;background-color:#1e0010">,</span>  <span style="color:#75715e">// &#34;default&#34;だとdocker-machineを使おうとする
+</span><span style="color:#75715e"></span><span style="color:#e6db74">&#34;docker-linter.perl.container&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#e6db74">&#34;app_app_1&#34;</span><span style="color:#960050;background-color:#1e0010">,</span>
 <span style="color:#e6db74">&#34;docker-linter.perl.command&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#e6db74">&#34;carton exec perl -wc -Ilib -It/lib &#34;</span>
 </code></pre></div><h4 id="docker-linterperlcontainer"><code>docker-linter.perl.container</code></h4>
 <p><code>docker ps</code> した、端っこの <code>NAMES</code> カラムを指定する</p>
-<pre><code>$ docker ps | perl -aF'\s+' -nlE 'say $F[-1]'
+<pre tabindex="0"><code>$ docker ps | perl -aF'\s+' -nlE 'say $F[-1]'
 </code></pre><h4 id="docker-linterperlcommand"><code>docker-linter.perl.command</code></h4>
 <p>lint用のコマンドを渡す
 プロジェクトごとに依存先などは違うはずなので個別で設定するもの</p>
 <p><code>docker exec</code> に渡してlintする場合と同じようなものを渡せば良い</p>
-<pre><code>$ carton exec perl -wc -Ilib -It/lib
+<pre tabindex="0"><code>$ carton exec perl -wc -Ilib -It/lib
 </code></pre><hr>
 <p>サンプルの設定があって、参考になった</p>
 <ul>

@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>htmlではaタグはネストできない &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -104,12 +104,12 @@
                     <p>htmlではaタグがネストできない。できないと言うか、そういうコードを書くとブラウザがDOM構造をネストのない形に勝手に変更する。警告はでない。</p>
 <h2 id="たとえば">たとえば</h2>
 <p>aタグの中にaタグが入ってる形</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">a</span>&gt;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">a</span>&gt;
     &lt;<span style="color:#f92672">p</span>&gt;テストテスト&lt;/<span style="color:#f92672">p</span>&gt;
     &lt;<span style="color:#f92672">a</span>&gt;リンク&lt;/<span style="color:#f92672">a</span>&gt;
 &lt;/<span style="color:#f92672">a</span>&gt;
 </code></pre></div><p>↑のコードを書くと、ブラウザはこれを↓のようにDOMツリーにする</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">a</span>&gt;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">a</span>&gt;
     &lt;<span style="color:#f92672">p</span>&gt;テストテスト&lt;/<span style="color:#f92672">p</span>&gt;
 &lt;/<span style="color:#f92672">a</span>&gt;
 &lt;<span style="color:#f92672">a</span>&gt;リンク&lt;/<span style="color:#f92672">a</span>&gt;
@@ -128,7 +128,7 @@
 <h2 id="対処法">対処法</h2>
 <p>objectタグでaタグを囲うと、書いた通りのDOMツリーになる
 が、これは明らかなハックなのでやらないで済むならしないほうがよい</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">a</span>&gt;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">a</span>&gt;
     &lt;<span style="color:#f92672">p</span>&gt;テストテスト&lt;/<span style="color:#f92672">p</span>&gt;
     &lt;<span style="color:#f92672">object</span>&gt;
         &lt;<span style="color:#f92672">a</span>&gt;リンク&lt;/<span style="color:#f92672">a</span>&gt;

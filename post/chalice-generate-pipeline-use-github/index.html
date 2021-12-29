@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>Chalice の generate pipeline を試す (コードはGitHub) &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -107,9 +107,9 @@
 <li><a href="https://github.com/settings/tokens">Personal Access Tokens</a></li>
 </ul>
 <p>トークンをこんな感じのJSONに格納して、AWS Secrets Manager に置く。</p>
-<pre><code>$ cat /tmp/secrets.json
+<pre tabindex="0"><code>$ cat /tmp/secrets.json
 {&quot;OAuthToken&quot;: &quot;xxxxxxxx&quot;}
-</code></pre><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ aws secretsmanager create-secret --name GithubRepoAccess <span style="color:#ae81ff">\
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ aws secretsmanager create-secret --name GithubRepoAccess <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>  --description <span style="color:#e6db74">&#34;Token for Github Repo Access&#34;</span> <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>  --secret-string file:///tmp/secrets.json
 </code></pre></div><ul>
@@ -117,20 +117,20 @@
 </ul>
 <h2 id="設定ファイルの生成">設定ファイルの生成</h2>
 <p><code>chalice generate-pipeline</code> でパイプラインをつくるためのcloudformationテンプレートを生成する。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ chalice generate-pipeline <span style="color:#ae81ff">\
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ chalice generate-pipeline <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>    --pipeline-version v2 <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>    --source github <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>    --buildspec-file buildspec.yml <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>    pipeline.json
 </code></pre></div><p>自分の場合はjsonだとコメントがつけられなくて不便だったのでyamlに変換した。</p>
-<pre><code>cat ./pipeline.json | yq -y . | tee ./pipeline.yaml
+<pre tabindex="0"><code>cat ./pipeline.json | yq -y . | tee ./pipeline.yaml
 rm ./pipeline.json
 </code></pre><ul>
 <li><a href="https://github.com/mikefarah/yq">mikefarah/yq: yq is a portable command-line YAML processor</a></li>
 </ul>
 <h2 id="cloudformation-deploy">cloudformation deploy</h2>
 <p>cloudformationのテンプレートを適用する。</p>
-<pre><code>aws cloudformation deploy \
+<pre tabindex="0"><code>aws cloudformation deploy \
     --template-file pipeline.json \
     --capabilities CAPABILITY_IAM \
     --stack-name {{ }} \
@@ -146,7 +146,7 @@ rm ./pipeline.json
 </ul>
 <h3 id="オプション">オプション</h3>
 <p>自動生成されるpipeline.yamlに用意されているオプションは以下の通り</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#ae81ff">$ cat ./pipeline.yaml | yq -y .Parameters</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#ae81ff">$ cat ./pipeline.yaml | yq -y .Parameters</span>
 <span style="color:#f92672">ApplicationName</span>:
   <span style="color:#f92672">Default</span>: <span style="color:#ae81ff">sandbox</span>
   <span style="color:#f92672">Type</span>: <span style="color:#ae81ff">String</span>

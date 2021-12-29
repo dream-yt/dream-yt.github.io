@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>jqで変形 (オブジェクト =&gt; 配列 =&gt; オブジェクト) &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -109,14 +109,14 @@
                 
                 <section id="post-body">
                     <p>こんなデータ構造のjsonがあるとして</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
   <span style="color:#f92672">&#34;APP1&#34;</span>: { <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;旧App&#34;</span>, <span style="color:#f92672">&#34;monId&#34;</span>: <span style="color:#ae81ff">277013</span> },
   <span style="color:#f92672">&#34;APP2&#34;</span>: { <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;App&#34;</span>, <span style="color:#f92672">&#34;monId&#34;</span>: <span style="color:#ae81ff">241736</span> },
   <span style="color:#f92672">&#34;DB&#34;</span>: { <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;Database&#34;</span>, <span style="color:#f92672">&#34;monId&#34;</span>: <span style="color:#ae81ff">234737</span> },
   <span style="color:#f92672">&#34;S&#34;</span>: { <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;Static&#34;</span>, <span style="color:#f92672">&#34;monId&#34;</span>: <span style="color:#ae81ff">221738</span> }
 }
 </code></pre></div><p>この形式にjqで変換したい</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
   <span style="color:#f92672">&#34;277013&#34;</span>: <span style="color:#e6db74">&#34;旧App&#34;</span>,
   <span style="color:#f92672">&#34;241736&#34;</span>: <span style="color:#e6db74">&#34;App&#34;</span>,
   <span style="color:#f92672">&#34;234737&#34;</span>: <span style="color:#e6db74">&#34;Database&#34;</span>,
@@ -130,7 +130,7 @@
 </ul>
 <h1 id="jqで変換">jqで変換</h1>
 <p>スクリプトはこんな感じ</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">pbpaste | jq <span style="color:#e6db74">&#39;. 
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">pbpaste | jq <span style="color:#e6db74">&#39;. 
 </span><span style="color:#e6db74">  | to_entries 
 </span><span style="color:#e6db74">  | map({ (.value.monId|tostring): (.value.name) }) 
 </span><span style="color:#e6db74">  | add &#39;</span>
@@ -143,12 +143,12 @@
 <p>オブジェクトから配列に変換してくれる</p>
 <h3 id="例">例</h3>
 <p>この形を</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">{
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">{
   <span style="color:#e6db74">&#34;APP1&#34;</span><span style="color:#f92672">:</span> { <span style="color:#e6db74">&#34;name&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;旧App&#34;</span>, <span style="color:#e6db74">&#34;monId&#34;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">277013</span> },
   <span style="color:#e6db74">&#34;APP2&#34;</span><span style="color:#f92672">:</span> { <span style="color:#e6db74">&#34;name&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;App&#34;</span>, <span style="color:#e6db74">&#34;monId&#34;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">241736</span> }
 }
 </code></pre></div><p>こうしてくれる</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">$</span> <span style="color:#a6e22e">pbpaste</span> <span style="color:#f92672">|</span> <span style="color:#a6e22e">jq</span> <span style="color:#e6db74">&#39;. | to_entries&#39;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">$</span> <span style="color:#a6e22e">pbpaste</span> <span style="color:#f92672">|</span> <span style="color:#a6e22e">jq</span> <span style="color:#e6db74">&#39;. | to_entries&#39;</span>
 [
   {
     <span style="color:#e6db74">&#34;key&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;APP1&#34;</span>,
@@ -175,11 +175,11 @@
 </li>
 </ul>
 <h4 id="add-の例">add の例</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">[
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">[
   {<span style="color:#e6db74">&#34;a&#34;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>},
   {<span style="color:#e6db74">&#34;b&#34;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">2</span>}
 ]
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">$</span> <span style="color:#a6e22e">pbpaste</span> <span style="color:#f92672">|</span> <span style="color:#a6e22e">jq</span> <span style="color:#e6db74">&#39;. | add&#39;</span>
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">$</span> <span style="color:#a6e22e">pbpaste</span> <span style="color:#f92672">|</span> <span style="color:#a6e22e">jq</span> <span style="color:#e6db74">&#39;. | add&#39;</span>
 {
   <span style="color:#e6db74">&#34;a&#34;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>,
   <span style="color:#e6db74">&#34;b&#34;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">2</span>

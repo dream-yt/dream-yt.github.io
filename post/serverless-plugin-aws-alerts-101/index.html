@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>serverless-plugin-aws-alertsでエラーを監視 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -128,7 +128,7 @@
 <li><a href="https://github.com/ACloudGuru/serverless-plugin-aws-alerts#default-definitions">serverless-plugin-aws-alerts#default-definitions</a></li>
 </ul>
 <p>ただ、デフォルトだと Duration や Invocation, Throttle など色々な状態を監視するAlarmができてしまうので、エラーだけ監視したいという場合は以下のような塩梅になる</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">custom</span>:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">custom</span>:
   <span style="color:#75715e"># serverless-plugin-aws-alerts用の項目</span>
   <span style="color:#f92672">alerts</span>:
     <span style="color:#75715e"># どのstageでアラート用のリソースを作成するか [&#34;prod&#34;, &#34;dev&#34;] とかでもよい</span>

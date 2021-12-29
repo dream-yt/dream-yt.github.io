@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>typescript で express を watch しながら開発する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -93,7 +93,7 @@
                 <section id="post-body">
                     <p>nodemon と ts-node を使えばできる</p>
 <p>たとえば <code>src/index.tsx</code> が express アプリなら以下のコマンドになる</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">nodemon -r ts-node/register ./src/index.tsx
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">nodemon -r ts-node/register ./src/index.tsx
 </code></pre></div><ul>
 <li><code>nodemon</code>
 <ul>
@@ -107,7 +107,7 @@
 </li>
 </ul>
 <p>なお、  nodemon.json を置いておくと設定ができる</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
   <span style="color:#f92672">&#34;ignore&#34;</span>: [
     <span style="color:#e6db74">&#34;.git&#34;</span>,
     <span style="color:#e6db74">&#34;node_modules&#34;</span>,

@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>CloudLogging で監査ログを除外する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -97,7 +97,7 @@
 </ul>
 <p>BigQuery の監査ログが邪魔で除外したかった(コンソールの操作でテーブル名を間違えたときとかにもエラーログが出ていた)ので、CloudLogging のクエリでこの監査ログをexcludeした</p>
 <p>こんな条件を入れればよい</p>
-<pre><code>NOT protoPayload.@type=&quot;type.googleapis.com/google.cloud.audit.AuditLog&quot;
+<pre tabindex="0"><code>NOT protoPayload.@type=&quot;type.googleapis.com/google.cloud.audit.AuditLog&quot;
 </code></pre><p>ドキュメントにはこう書いてある</p>
 <blockquote>
 <p>これは監査ログエントリなのか？ 次の 2 つのことから、監査ログエントリであることがわかります。

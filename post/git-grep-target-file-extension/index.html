@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>git grepで探すファイルの拡張子を指定 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -96,15 +96,15 @@
                 
                 <section id="post-body">
                     <p>こんな感じでできる</p>
-<pre><code class="language-console" data-lang="console">$ git grep cache -- '*.java'
-</code></pre><p>git grepでは <code>--</code> 以降が対象パスの指定となっているので、そこにglobを書くと探索するファイルを指定できる</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">$ git grep cache -- <span style="color:#e6db74">&#39;*.java&#39;</span>
+</code></pre></div><p>git grepでは <code>--</code> 以降が対象パスの指定となっているので、そこにglobを書くと探索するファイルを指定できる</p>
 <blockquote>
 <p>&ndash; <!-- raw HTML omitted -->…​
 Signals the end of options; the rest of the parameters are <!-- raw HTML omitted --> limiters.</p>
 </blockquote>
 <p>ちなみにexcludeするときは以下のように書くようだ</p>
-<pre><code class="language-console" data-lang="console">$ git grep solution -- :^Documentation
-</code></pre><blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">$ git grep solution -- :^Documentation
+</code></pre></div><blockquote>
 <p>Looks for solution, excluding files in Documentation.</p>
 </blockquote>
 <h3 id="参考">参考</h3>

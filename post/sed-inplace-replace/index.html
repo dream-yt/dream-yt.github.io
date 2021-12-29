@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>sedでファイル内の特定文字列を正規表現で書き換えたい/消したい時 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -93,7 +93,7 @@
                 
                 <section id="post-body">
                     <h2 id="書き換えたい時">書き換えたい時</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sed -i <span style="color:#e6db74">&#34;&#34;</span> -e <span style="color:#e6db74">&#39;s/http:\/\/dynamodb:8000/http:\/\/localhost:7800/&#39;</span> path/to/targetfile
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sed -i <span style="color:#e6db74">&#34;&#34;</span> -e <span style="color:#e6db74">&#39;s/http:\/\/dynamodb:8000/http:\/\/localhost:7800/&#39;</span> path/to/targetfile
 </code></pre></div><ul>
 <li><code>-i</code> オプション
 <ul>
@@ -103,7 +103,7 @@
 </li>
 </ul>
 <h2 id="消したい時">消したい時</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sed -i<span style="color:#e6db74">&#34;&#34;</span> -e <span style="color:#e6db74">&#39;/192.168.88.19/d&#39;</span>  ~/.ssh/known_hosts
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sed -i<span style="color:#e6db74">&#34;&#34;</span> -e <span style="color:#e6db74">&#39;/192.168.88.19/d&#39;</span>  ~/.ssh/known_hosts
 </code></pre></div><ul>
 <li><code>/d</code> オプション
 <ul>

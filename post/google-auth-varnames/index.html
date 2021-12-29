@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>Google のAPIを叩く時の認証処理周りの変数名について &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -109,7 +109,7 @@
 <li>GoogleのUIからダウンロードするファイル</li>
 <li>json形式で秘密鍵とかが入っている</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
   <span style="color:#f92672">&#34;installed&#34;</span>: {
     <span style="color:#f92672">&#34;client_id&#34;</span>: <span style="color:#e6db74">&#34;0000000000-4m2rmmkhsd4n6pp4o5oj0957ot89f1m3.apps.googleusercontent.com&#34;</span>,
     <span style="color:#f92672">&#34;project_id&#34;</span>: <span style="color:#e6db74">&#34;app-2343219&#34;</span>,
@@ -125,7 +125,7 @@
 }
 </code></pre></div><h4 id="token">token</h4>
 <p>oauthで取得する認証情報で、JWTのこと</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
   <span style="color:#f92672">&#34;access_token&#34;</span>: <span style="color:#e6db74">&#34;ya29.GlvVBG-Gxf3XcW5cSoshNle1jm93dlxxxxxxxxxs3o-EEP&#34;</span>,
   <span style="color:#f92672">&#34;refresh_token&#34;</span>: <span style="color:#e6db74">&#34;xxxxx3j2lTxxxxxxxxx_Ic&#34;</span>,
   <span style="color:#f92672">&#34;token_type&#34;</span>: <span style="color:#e6db74">&#34;Bearer&#34;</span>,

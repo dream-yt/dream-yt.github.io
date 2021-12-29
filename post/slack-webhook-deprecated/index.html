@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>最近払い出した Slackの Incoming Webhooks で通知チャンネルを変更する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -124,7 +124,7 @@
 <h3 id="その他">その他</h3>
 <p>もう使えないパラメータをわたしてたら、
 レスポンスのボディになんらか警告を出して欲しいですよね</p>
-<pre><code>$ curl -X POST -H 'Content-type: application/json' --data '
+<pre tabindex="0"><code>$ curl -X POST -H 'Content-type: application/json' --data '
     {&quot;channel&quot;: &quot;alert&quot;, &quot;icon_emoji&quot;: &quot;:t-rex:&quot;, &quot;username&quot;: &quot;mossan&quot;, &quot;text&quot;: &quot;test&quot;}
 ' https://hooks.slack.com/services/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
 ok

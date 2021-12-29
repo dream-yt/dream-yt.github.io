@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>perlでmysqlに接続してデータを入れる &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -93,7 +93,7 @@
                 <section id="post-body">
                     <p><code>SQL::Maker::Plugin::InsertMulti</code> を使ってテストデータをmysqlに入れたい場合に困ったのでメモ。
 macOSで普通にやると <code>DBD::mysql</code> が入らないのだが、これは環境変数から設定してなんとかする。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cat <span style="color:#e6db74">&lt;&lt;__CPANFILE &gt; ./cpanfile
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cat <span style="color:#e6db74">&lt;&lt;__CPANFILE &gt; ./cpanfile
 </span><span style="color:#e6db74">requires &#34;DBI&#34;;
 </span><span style="color:#e6db74">requires &#34;SQL::Maker&#34;;
 </span><span style="color:#e6db74">requires &#34;SQL::Maker::Plugin::InsertMulti&#34;;
@@ -103,7 +103,7 @@ macOSで普通にやると <code>DBD::mysql</code> が入らないのだが、�
 $ PATH<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>brew --prefix mysql-client<span style="color:#66d9ef">)</span><span style="color:#e6db74">/bin:</span>$PATH<span style="color:#e6db74">&#34;</span>
 $ export LIBRARY_PATH<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>brew --prefix openssl<span style="color:#66d9ef">)</span>/lib:$LIBRARY_PATH
 $ carton install
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl"><span style="color:#75715e">#!/usr/bin/env perl</span>
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl"><span style="color:#75715e">#!/usr/bin/env perl</span>
 <span style="color:#66d9ef">use</span> strict;
 <span style="color:#66d9ef">use</span> warnings;
 <span style="color:#66d9ef">use</span> DBI;

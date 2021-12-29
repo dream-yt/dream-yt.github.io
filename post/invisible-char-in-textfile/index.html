@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>テキストに不可視な文字が入っている場合の対処 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -97,14 +97,14 @@
 </li>
 </ul>
 <p>こういう場合はテキストをodコマンドにかけると隠れてる文字がわかる</p>
-<pre><code class="language-console" data-lang="console">$ cat /tmp/_
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">$ cat /tmp/_
 え信じられない
-# catだと見えないが \b が隠れてることがわかる
+# catだと見えないが <span style="color:#ae81ff">\b</span> が隠れてることがわかる
 $ cat /tmp/_ | od -c
 0000000   え  **  **  っ  **  **  \b  信  **  **  じ  **  **  ら  **  **
 0000020   れ  **  **  な  **  **  い  **  **  \n
 0000032
-</code></pre><p>odコマンドは<code>-c</code>オプションをつけると分かりやすい</p>
+</code></pre></div><p>odコマンドは<code>-c</code>オプションをつけると分かりやすい</p>
 <blockquote>
 <p>-c Output C-style escaped characters.  Equivalent to -t c.</p>
 </blockquote>

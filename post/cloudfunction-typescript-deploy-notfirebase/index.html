@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>Cloud Function (非Firebase) に TypeScript のコードをデプロイする &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -113,7 +113,7 @@
 <li>package.json</li>
 </ul>
 <p>index.js に関数を実装して、それが <code>module.exports</code> なり <code>export</code> されていれば、その処理がイベント発生時に実行される。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">myFunc</span> <span style="color:#f92672">=</span> () <span style="color:#f92672">=&gt;</span> {...};
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">myFunc</span> <span style="color:#f92672">=</span> () <span style="color:#f92672">=&gt;</span> {...};
 </code></pre></div><h2 id="依存パッケージ">依存パッケージ</h2>
 <p>package.json に書いてある依存パッケージはGCP側がインストールしてくれる。</p>
 <blockquote>
@@ -147,13 +147,13 @@
 <li>httpエンドポイントをつくるときは <code>functions-framework</code> の型定義が便利。</li>
 <li><code>export const {{関数名}}</code> とすれば、それを gcloud が拾ってくれる。</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">import</span> <span style="color:#66d9ef">type</span> { <span style="color:#a6e22e">HttpFunction</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;@google-cloud/functions-framework/build/src/functions&#39;</span>;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">import</span> <span style="color:#66d9ef">type</span> { <span style="color:#a6e22e">HttpFunction</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;@google-cloud/functions-framework/build/src/functions&#39;</span>;
 <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">sendSlack</span>: <span style="color:#66d9ef">HttpFunction</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">req</span>, <span style="color:#a6e22e">res</span>) <span style="color:#f92672">=&gt;</span> {...};
 </code></pre></div><h2 id="packagejson">./package.json</h2>
 <ul>
 <li>先述のESMの設定などはここに。他には依存パッケージが書いてあればよい。</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">{
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">{
   <span style="color:#e6db74">&#34;type&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;module&#34;</span>,
   <span style="color:#e6db74">&#34;dependencies&#34;</span><span style="color:#f92672">:</span> {
     <span style="color:#e6db74">&#34;nodemailer&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;^6.7.2&#34;</span>
@@ -161,16 +161,16 @@
 }
 </code></pre></div><h2 id="tsconfigjson">tsconfig.json</h2>
 <p>必要そうなところだけ抜粋。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
   <span style="color:#f92672">&#34;compilerOptions&#34;</span>: {
-    <span style="color:#960050;background-color:#1e0010">//</span> <span style="color:#960050;background-color:#1e0010">ESMでハマるのが面倒だったのでjsはcommonjsで出力</span>
-    <span style="color:#f92672">&#34;module&#34;</span>: <span style="color:#e6db74">&#34;commonjs&#34;</span>,  
-    <span style="color:#960050;background-color:#1e0010">//</span> <span style="color:#960050;background-color:#1e0010">ここで指定した</span> <span style="color:#960050;background-color:#1e0010">ディレクトリの中身を</span> <span style="color:#960050;background-color:#1e0010">Cloud</span> <span style="color:#960050;background-color:#1e0010">Function</span> <span style="color:#960050;background-color:#1e0010">にアップロードする</span>
-    <span style="color:#f92672">&#34;outDir&#34;</span>: <span style="color:#e6db74">&#34;./dist&#34;</span>,
+    <span style="color:#75715e">// ESMでハマるのが面倒だったのでjsはcommonjsで出力
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">&#34;module&#34;</span>: <span style="color:#e6db74">&#34;commonjs&#34;</span>,  
+    <span style="color:#75715e">// ここで指定した ディレクトリの中身を Cloud Function にアップロードする
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">&#34;outDir&#34;</span>: <span style="color:#e6db74">&#34;./dist&#34;</span>,
   },
 }
 </code></pre></div><h2 id="deploysh">./deploy.sh</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/usr/bin/env bash
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/usr/bin/env bash
 </span><span style="color:#75715e"></span>set -euxo pipefail
 cd <span style="color:#66d9ef">$(</span>dirname $0<span style="color:#66d9ef">)</span>
 

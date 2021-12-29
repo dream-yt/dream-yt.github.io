@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>MacOS の du コマンドで iCloud Drive を掃除する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -98,15 +98,15 @@
 <p>5GBに近づくとmacOSから警告が出るが、どのディレクトリ、どのファイルが容量を食っているかを手動で調べるのはなかなか辛いのでCLIで調べることにする。</p>
 <h2 id="コマンド">コマンド</h2>
 <p>こんなコマンドでiCloudドライブ配下のディレクトリが、容量が多い順で表示できる。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ du -m -d <span style="color:#ae81ff">2</span> ~/iCloudDrive/ | sort -nr | head -30
-</code></pre></div><pre><code>2255	/Users/myuser/iCloudDrive/
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ du -m -d <span style="color:#ae81ff">2</span> ~/iCloudDrive/ | sort -nr | head -30
+</code></pre></div><pre tabindex="0"><code>2255	/Users/myuser/iCloudDrive/
 1335	/Users/myuser/iCloudDrive//pdf
 420	    /Users/myuser/iCloudDrive//MyMusic
 383	    /Users/myuser/iCloudDrive/,
 370	    /Users/myuser/iCloudDrive//,/mysqldump
 ...
 </code></pre><p>なお、iCloudドライブには以下のコマンドでsymlinkを作っている。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ ln -s <span style="color:#e6db74">&#34;~/Library/Mobile Documents/com~apple~CloudDocs&#34;</span> ~/iCloudDrive
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ ln -s <span style="color:#e6db74">&#34;~/Library/Mobile Documents/com~apple~CloudDocs&#34;</span> ~/iCloudDrive
 </code></pre></div><h2 id="オプション">オプション</h2>
 <p>duコマンドのオプションはこれをつかっている</p>
 <ul>

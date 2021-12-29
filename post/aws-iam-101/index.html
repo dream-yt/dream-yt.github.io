@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>AWS、LambdaまわりのIAM入門 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -189,7 +189,7 @@
 たとえば SNS から Lambda を呼び出す時は SNS にリソースポリシーが必要</p>
 <h4 id="例">例</h4>
 <p><code>aws lambda add-permission</code> コマンドで作成できる</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">aws lambda add-permission --function-name MyFunc <span style="color:#ae81ff">\
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">aws lambda add-permission --function-name MyFunc <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>  --statement-id testtest <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>  --action lambda:InvokeFunction <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>  --principal sns.amazonaws.com <span style="color:#ae81ff">\

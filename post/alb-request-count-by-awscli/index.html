@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>ALBの直近1時間のリクエスト数をawscliで取得する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -97,7 +97,7 @@
                 
                 <section id="post-body">
                     <p>以下のコマンドで取得できる</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">aws cloudwatch --profile mossan get-metric-statistics <span style="color:#ae81ff">\
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">aws cloudwatch --profile mossan get-metric-statistics <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>    --namespace <span style="color:#e6db74">&#39;AWS/ApplicationELB&#39;</span> <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>    --metric-name <span style="color:#e6db74">&#39;RequestCount&#39;</span> <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>    --dimensions <span style="color:#e6db74">&#39;Name=LoadBalancer,Value=app/sakamoto-alb/xxxxxxxxx&#39;</span> <span style="color:#ae81ff">\

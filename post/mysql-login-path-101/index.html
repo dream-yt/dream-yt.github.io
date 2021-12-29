@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>mysqlのパスワードをいちいち入力しないで済む mysql_config_editor &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -99,9 +99,9 @@
 パスワードを取り出しやすいところに置いておく必要がある運用よりも安全だと考えられる。</p>
 <h2 id="使いかた">使いかた</h2>
 <p>まず接続情報を登録する。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mysql_config_editor set -G $NAME -h $MYSQL_HOST -u $USER -p
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mysql_config_editor set -G $NAME -h $MYSQL_HOST -u $USER -p
 </code></pre></div><p><code>$NAME</code> はログインする時に使う接続情報につける名前</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ mycli --login-path<span style="color:#f92672">=</span>$NAME
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ mycli --login-path<span style="color:#f92672">=</span>$NAME
 </code></pre></div><p>mycliでも使えるのが便利。</p>
 <h4 id="参考">参考</h4>
 <ul>

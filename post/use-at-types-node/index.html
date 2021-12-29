@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>@types/nodeを使う &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -101,15 +101,15 @@ fsなどnodeのデフォルトのモジュールで型の補完がきくよう�
 <p>Simply, the major version and minor version tagged in the semver string of @types/node is exactly corresponding to the node&rsquo;s version.</p>
 </blockquote>
 <p>index.d.ts を見てもそんなことが書いてある</p>
-<pre><code class="language-console" data-lang="console">$ head -3 ./node_modules/@types/node/index.d.ts
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">$ head -3 ./node_modules/@types/node/index.d.ts
 // Type definitions for Node.js 10.14
 // Project: http://nodejs.org/
 // Definitions by: Microsoft TypeScript &lt;https://github.com/Microsoft&gt;
-</code></pre><p>なのでnodeのバージョンと近いものを入れておく<br>
+</code></pre></div><p>なのでnodeのバージョンと近いものを入れておく<br>
 (バージョンによっては@types/nodeがなかったりする)</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ node --version
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ node --version
 v10.15.0
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ yarn add --dev @types/node@10.14.21
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ yarn add --dev @types/node@10.14.21
 </code></pre></div><h2 id="参考">参考</h2>
 <ul>
 <li><a href="https://stackoverflow.com/questions/42035263/relationship-between-the-version-of-node-js-and-the-version-of-types-node">typescript - Relationship between the version of node.js and the version of @types/node - Stack Overflow</a></li>

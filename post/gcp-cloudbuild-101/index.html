@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>GCPのCloud Build入門 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -126,7 +126,7 @@ GCPのcloudbuildはdockerイメージを使ってビルドを実施していく<
 <p>Cloud Build では設定したリポジトリのコードがすべてカレントディレクトリにある状態で処理が開始される</p>
 <h2 id="cloudbuildyamlの例">cloudbuild.yamlの例</h2>
 <p>cloudbuild.yamlは以下のような形式になる</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">steps</span>:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">steps</span>:
 - <span style="color:#f92672">name</span>: <span style="color:#e6db74">&#39;gcr.io/cloud-builders/git&#39;</span>
   <span style="color:#f92672">args</span>: [<span style="color:#e6db74">&#39;clone&#39;</span>, <span style="color:#e6db74">&#39;https://github.com/GoogleCloudPlatform/cloud-builders&#39;</span>]
   <span style="color:#f92672">env</span>: [<span style="color:#e6db74">&#39;PROJECT_ROOT=hello&#39;</span>]

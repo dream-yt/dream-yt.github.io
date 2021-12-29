@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>terraformでroute53の管理 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -99,20 +99,20 @@
 <p>awsのコンソールから諸々設定をしたものを、terraformをつかってコード管理できるようにしていく場合の作業</p>
 <h2 id="前準備">前準備</h2>
 <p>まず最初に目当てのディレクトリでterraform initを叩く</p>
-<pre><code class="language-console" data-lang="console">$ terraform init
-</code></pre><p>適当なtfファイル(main.tfなど)を作成してproviderを記述</p>
-<pre><code>provider &quot;aws&quot; {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">$ terraform init
+</code></pre></div><p>適当なtfファイル(main.tfなど)を作成してproviderを記述</p>
+<pre tabindex="0"><code>provider &quot;aws&quot; {
   region     = &quot;ap-northeast-1&quot;
   access_key = &quot;xxxxxxxxx&quot;
   secret_key = &quot;xxxxxxxxxxxxxxx&quot;
 }
 </code></pre><p>そのtfファイルに、空のリソースを定義しておく必要がある</p>
-<pre><code># mydomain.comならこんな感じ
+<pre tabindex="0"><code># mydomain.comならこんな感じ
 resource &quot;aws_route53_zone&quot; &quot;mydomain&quot; {}
 </code></pre><h2 id="import">import</h2>
 <p>awsのコンソールなどからIDを持ってきて、それを引数にimportをたたく</p>
-<pre><code class="language-console" data-lang="console">$ terraform import aws_route53_zone.mydomain Z1W0SAOSERTYU
-</code></pre><p>recordをimportするときは若干特殊なID指定になる</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">$ terraform import aws_route53_zone.mydomain Z1W0SAOSERTYU
+</code></pre></div><p>recordをimportするときは若干特殊なID指定になる</p>
 <blockquote>
 <p>Route53 Records can be imported using ID of the record. The ID is made up as ZONEID_RECORDNAME_TYPE_SET-IDENTIFIER</p>
 </blockquote>
@@ -121,14 +121,14 @@ resource &quot;aws_route53_zone&quot; &quot;mydomain&quot; {}
 <li><code>Z4KAPRWWNC7JR_dev.example.com_NS_dev</code></li>
 </ul>
 <p><a href="https://www.terraform.io/docs/providers/aws/r/route53_record.html#import">AWS: aws_route53_record - Terraform by HashiCorp</a></p>
-<pre><code class="language-console" data-lang="console">$ terraform import aws_route53_record.www--mydomain QT9WXXXXXXXX_www.mydomain.com_A
-</code></pre><h2 id="plan">plan</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">$ terraform import aws_route53_record.www--mydomain QT9WXXXXXXXX_www.mydomain.com_A
+</code></pre></div><h2 id="plan">plan</h2>
 <p>importしたあと、show/planを叩いて差分を確認、その通りにエディタで埋めていく</p>
-<pre><code class="language-console" data-lang="console">$ terraform plan
-</code></pre><h2 id="その他">その他</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">$ terraform plan
+</code></pre></div><h2 id="その他">その他</h2>
 <p>間違えて自分で作成していないnsレコードをterraform-importした場合は <code>terraform state rm</code> で消し込む</p>
-<pre><code class="language-console" data-lang="console">$ terraform state rm aws_route53_record.mydomain-ns
-</code></pre><ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">$ terraform state rm aws_route53_record.mydomain-ns
+</code></pre></div><ul>
 <li><a href="https://www.terraform.io/docs/commands/state/rm.html">Command: state rm - Terraform by HashiCorp</a></li>
 </ul>
 

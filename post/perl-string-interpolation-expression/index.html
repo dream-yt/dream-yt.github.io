@@ -14,7 +14,7 @@
   
   
   <meta name="twitter:title" content="perlで文字列内に式を埋め込みたい時"/>
-  <meta name="twitter:description" content="array (@) interpolation というものが使える Perlの文字列補間 - Wikipedia 例 文字列内に &quot;baz&quot; x 5 という式を埋め込みたい場合 $ perl -E &#39;say qq(hello! @{[&quot;baz&quot; x 5]} bye!)&#39; hello! bazbazbazbazbaz bye!"/>
+  <meta name="twitter:description" content="array (@) interpolation というものが使える Perlの文字列補間 - Wikipedia 例 文字列内に &quot;baz&quot; x 5 という式を埋め込みたい場合 $ perl -E &#39;say qq(hello! @{[&#34;baz&#34; x 5]} bye!)&#39; hello! bazbazbazbazbaz bye!"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>perlで文字列内に式を埋め込みたい時 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -97,9 +97,9 @@
 </ul>
 <h2 id="例">例</h2>
 <p>文字列内に <code>&quot;baz&quot; x 5</code> という式を埋め込みたい場合</p>
-<pre><code class="language-console" data-lang="console">$ perl -E 'say qq(hello! @{[&quot;baz&quot; x 5]} bye!)'
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">$ perl -E <span style="color:#e6db74">&#39;say qq(hello! @{[&#34;baz&#34; x 5]} bye!)&#39;</span>
 hello! bazbazbazbazbaz bye!
-</code></pre>
+</code></pre></div>
                 </section>
             </article>
 

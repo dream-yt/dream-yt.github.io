@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>CloudBuild で CloudRun のデプロイをする。ブランチ名によってはstagingにデプロイされるようにする。 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -99,12 +99,12 @@
 </ul>
 <h2 id="トリガー">トリガー</h2>
 <p>GitHub に push したら処理を動かすように Trigger を設定したい場合はこんなコマンドで登録する。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ gcloud beta builds triggers create github  ...
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ gcloud beta builds triggers create github  ...
 <span style="color:#75715e"># どんなオプションが渡せるかはhelpで出てくる</span>
 $ gcloud beta builds triggers create github --help
 </code></pre></div><p>GCPのUIでトリガーをつくったときはこうすれば yaml で定義をみられる。</p>
-<pre><code>$ gcloud beta builds triggers list
-</code></pre><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">createTime</span>: <span style="color:#e6db74">&#39;2020-05-06T13:01:33.647678872Z&#39;</span>
+<pre tabindex="0"><code>$ gcloud beta builds triggers list
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">createTime</span>: <span style="color:#e6db74">&#39;2020-05-06T13:01:33.647678872Z&#39;</span>
 <span style="color:#f92672">description</span>: <span style="color:#ae81ff">master ブランチへの push</span>
 <span style="color:#f92672">filename</span>: <span style="color:#ae81ff">site/www/cloudbuild.yaml</span>
 <span style="color:#f92672">github</span>:
@@ -125,7 +125,7 @@ $ gcloud beta builds triggers create github --help
 <li><code>site/www/cloudbuild.yaml</code> に記述されているビルドステップを実行する</li>
 </ul>
 <p>もう1つトリガーを作る。そちらはこんな設定をしている。(一部抜粋)</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">...
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">...
 <span style="color:#f92672">github</span>:
   <span style="color:#f92672">push</span>:
     <span style="color:#f92672">branch</span>: <span style="color:#ae81ff">^canary/</span>
@@ -135,7 +135,7 @@ $ gcloud beta builds triggers create github --help
 </code></pre></div><p>これはつまり、<code>canary/</code> という名前で始まるブランチが push されたら、 canary のアプリがデプロイされるという設定になっている。</p>
 <h2 id="cloudbuildyaml">cloudbuild.yaml</h2>
 <p>トリガーによって何が実行されるべきかを書くのが cloudbuild.yaml</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">steps</span>:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">steps</span>:
   - <span style="color:#f92672">name</span>: <span style="color:#e6db74">&#39;gcr.io/cloud-builders/docker&#39;</span>
     <span style="color:#f92672">id</span>: <span style="color:#e6db74">&#39;docker-pull&#39;</span>
     <span style="color:#75715e"># $PROJECT_ID はCloudbuild組み込みの環境変数</span>

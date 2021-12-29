@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>dockerコンテナ内でstraceを使う &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -106,14 +106,14 @@
 <blockquote>
 <p>If you are using secconf, there are a couple of things you can pass to docker run to loosen up this security policy. To allow strace specifically, you enable the system call that it relies upon to get its information (ptrace):</p>
 </blockquote>
-<pre><code>--cap-add SYS_PTRACE
+<pre tabindex="0"><code>--cap-add SYS_PTRACE
 </code></pre><h4 id="security-opt">security-opt</h4>
 <p>ほかにもシステムコールを制御する仕組みがあるようだ
 オルタナティブとして以下のようなオブションの渡し方があるようだ</p>
 <blockquote>
 <p>This whole paradigm is in fact documented but none of my original searches turned up these pages. In addition to disabling ptrace, there are a slew of other system level commands that you may (or may not) need that aren’t on the docker whitelist of allowed system calls. The list of calls can be adjusted very granularly by feeding docker a json file defining your security options. Or if you are feeling up for it, you can re-enable all of them in one fell swoop with this option to docker run:</p>
 </blockquote>
-<pre><code>--security-opt seccomp:unconfined
+<pre tabindex="0"><code>--security-opt seccomp:unconfined
 </code></pre><p>このオプションをつけなくても動くかどうかは確認しておいた方がよさそう</p>
 
                 </section>

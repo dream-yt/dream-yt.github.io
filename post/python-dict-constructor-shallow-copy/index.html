@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>pythonで辞書をdict()したときの値のコピーのされかたがshallow-copyなのを確認 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -89,7 +89,7 @@
                 <section id="post-body">
                     <p>pythonで <code>dict()</code> を呼ぶとdict-likeな値をdictにキャストできる。
 もとの辞書の値がコピーされているのだが、shallow copyなのかどうなのかを確認した。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">d1 <span style="color:#f92672">=</span> {<span style="color:#ae81ff">1</span>: <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>: {<span style="color:#ae81ff">4</span>: <span style="color:#ae81ff">5</span>}}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">d1 <span style="color:#f92672">=</span> {<span style="color:#ae81ff">1</span>: <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>: {<span style="color:#ae81ff">4</span>: <span style="color:#ae81ff">5</span>}}
 d2 <span style="color:#f92672">=</span> dict(d1)
 <span style="color:#66d9ef">assert</span> d1 <span style="color:#f92672">==</span> d2  <span style="color:#75715e"># 等価</span>
 

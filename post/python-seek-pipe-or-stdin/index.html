@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>pipeされた標準入力がseekできなかった話 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -96,21 +96,21 @@
                 
                 <section id="post-body">
                     <p>こんなコードを書こうとした。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#66d9ef">if</span> filepath <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;-&#39;</span>:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#66d9ef">if</span> filepath <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;-&#39;</span>:
     fo <span style="color:#f92672">=</span> sys<span style="color:#f92672">.</span>stdin
 <span style="color:#66d9ef">else</span>:
     fo <span style="color:#f92672">=</span> open(filepath, mode<span style="color:#f92672">=</span>read_mode)
 </code></pre></div><p>ファイルパスの引数に <code>-</code> を渡したら標準入力の内容を使うというもの。</p>
 <p>標準入力のシノニムとして <code>-</code> を使うコードは python の fileinput や awscli, gsutil にもあったものなのでいいかなと思ったのだが、後続の処理で <code>fo.seek(0)</code> が呼ばれてエラーになることがわかった。</p>
-<pre><code class="language-console" data-lang="console"># pipeすると fo.seek(0) で IOError: [Errno 29] Illegal seek になる
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console"># pipeすると fo.seek<span style="color:#f92672">(</span>0<span style="color:#f92672">)</span> で IOError: <span style="color:#f92672">[</span>Errno 29<span style="color:#f92672">]</span> Illegal seek になる
 $ cat /tmp/_.csv | ./csv2sqlite.py - /tmp/_.sqlite3
 Traceback (most recent call last):
-  File &quot;./csv2sqlite.py&quot;, line 210, in &lt;module&gt;
+  File &#34;./csv2sqlite.py&#34;, line 210, in &lt;module&gt;
     convert(args.csv_file, args.sqlite_db_file, args.table_name, args.headers, compression, args.types)
-  File &quot;./csv2sqlite.py&quot;, line 47, in convert
+  File &#34;./csv2sqlite.py&#34;, line 47, in convert
     fo.seek(0)
 IOError: [Errno 29] Illegal seek
-</code></pre><p>pythonのstdinが抽象化してくれていると勝手に思っていたが、調べてみるとpipeやsocket由来の標準入力はseekできないルールがちゃんとあり、そのルールに抵触しているのでエラーになっているようだった。</p>
+</code></pre></div><p>pythonのstdinが抽象化してくれていると勝手に思っていたが、調べてみるとpipeやsocket由来の標準入力はseekできないルールがちゃんとあり、そのルールに抵触しているのでエラーになっているようだった。</p>
 <blockquote>
 <p>If it&rsquo;s a terminal or a pipe or a socket, no. If it&rsquo;s a file, yes (usually).</p>
 </blockquote>
@@ -125,8 +125,8 @@ IOError: [Errno 29] Illegal seek
 <li><a href="https://linux.die.net/man/2/lseek">lseek(2): reposition read/write file offset - Linux man page</a></li>
 </ul>
 <h3 id="ファイル由来の標準入力だとseekできる">ファイル由来の標準入力だとseekできる</h3>
-<pre><code class="language-console" data-lang="console">$ ./csv2sqlite.py - /tmp/_.sqlite3 &lt; /tmp/_.csv
-</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">$ ./csv2sqlite.py - /tmp/_.sqlite3 &lt; /tmp/_.csv
+</code></pre></div>
                 </section>
             </article>
 

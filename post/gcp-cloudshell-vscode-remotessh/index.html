@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>GCP Cloud Shell 上のコードを VS Code の Remote-SSH で触れるようにする &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -104,10 +104,10 @@
 <li><code>cloud-shell</code> コマンドでログイン</li>
 <li>ここでssh鍵などがローカル側に生成される。生成された鍵は後で使う。</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ gcloud cloud-shell ssh
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ gcloud cloud-shell ssh
 </code></pre></div><h2 id="コードのclone">コードのclone</h2>
 <p>プロジェクトのコードを Cloud Shell 上で触りたかったので、GitHub から <code>git clone</code> するためのトークンを払い出す。GitHub はURLにBasic認証みたいな細工をするとhttpsプロトコルでcloneができる。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git clone https://<span style="color:#e6db74">${</span>GITHUB_USER<span style="color:#e6db74">}</span>:<span style="color:#e6db74">${</span>GITHUB_TOKEN<span style="color:#e6db74">}</span>@github.com/<span style="color:#e6db74">${</span>REPOSITORY<span style="color:#e6db74">}</span> .
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git clone https://<span style="color:#e6db74">${</span>GITHUB_USER<span style="color:#e6db74">}</span>:<span style="color:#e6db74">${</span>GITHUB_TOKEN<span style="color:#e6db74">}</span>@github.com/<span style="color:#e6db74">${</span>REPOSITORY<span style="color:#e6db74">}</span> .
 <span style="color:#75715e"># commitするのにこの辺の設定が必要。</span>
 $ git config --local user.name xxxxxxxxx
 $ git config --local user.email xxxx@xxx.xx
@@ -117,7 +117,7 @@ $ git config --local user.email xxxx@xxx.xx
 </ul>
 <h2 id="sshconfig">.ssh/config</h2>
 <p>VS Code の Remote-SSH のために <code>$ ssh cloudshell_proj</code> でつながるような設定を仕込む。</p>
-<pre><code>Host cloudshell_proj
+<pre tabindex="0"><code>Host cloudshell_proj
     ProxyCommand gcloud cloud-shell ssh --ssh-flag='-W localhost:22'
     User sakamossan
     IdentityFile ~/.ssh/google_compute_engine

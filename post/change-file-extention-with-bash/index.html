@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>bashでファイルの拡張子を一括変更する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -94,7 +94,7 @@
                 
                 <section id="post-body">
                     <p>たとえばsrc配下のjsファイルをぜんぶtsファイルに変更したい場合は以下のように書ける</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ find ./src -name <span style="color:#e6db74">&#39;*.js&#39;</span> -type f <span style="color:#ae81ff">\
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ find ./src -name <span style="color:#e6db74">&#39;*.js&#39;</span> -type f <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>  | perl -wnlE <span style="color:#e6db74">&#39;/(\S+).js/ and say &#34;$1.js $1.ts&#34;&#39;</span> <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>  | xargs -n2 mv
 </code></pre></div><h2 id="動作">動作</h2>
@@ -118,7 +118,7 @@
 </li>
 </ul>
 <p><code>xargs -n2</code> は以下のように書いてある</p>
-<pre><code>-n number
+<pre tabindex="0"><code>-n number
         Set the maximum number of arguments taken from standard input for each invocation of utility.  An invocation of utility will use less than number standard input arguments if
         the number of bytes accumulated (see the -s option) exceeds the specified size or there are fewer than number arguments remaining for the last invocation of utility.  The
         current default value for number is 5000.
@@ -140,9 +140,9 @@
 <ul>
 <li><a href="https://metacpan.org/pod/File::Rename">File::Rename - Perl extension for renaming multiple files - metacpan.org</a></li>
 </ul>
-<pre><code>cat /usr/bin/rename
+<pre tabindex="0"><code>cat /usr/bin/rename
 </code></pre><p>作者はLarry Wall</p>
-<pre><code>=head1 AUTHOR
+<pre tabindex="0"><code>=head1 AUTHOR
 
 Larry Wall
 </code></pre>

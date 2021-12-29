@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>psコマンドでメモリ使用量, CPU使用量でソートする &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -94,13 +94,13 @@
                     <p><code>--sort</code> オプションがある</p>
 <h2 id="例">例</h2>
 <p><code>-%mem</code> は降順、メモリ使用量という意味</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">root@92b0f68c3eb3:/# ps aux --sort -%mem | head
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">root@92b0f68c3eb3:/# ps aux --sort -%mem | head
 USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
 root         <span style="color:#ae81ff">1</span>  0.0  0.1  <span style="color:#ae81ff">18240</span>  <span style="color:#ae81ff">3236</span> pts/0    Ss   00:20   0:00 /bin/bash
 root        <span style="color:#ae81ff">20</span>  0.0  0.1  <span style="color:#ae81ff">34424</span>  <span style="color:#ae81ff">2780</span> pts/0    R+   00:22   0:00 ps aux --sort -%mem
 root        <span style="color:#ae81ff">21</span>  0.0  0.0   <span style="color:#ae81ff">4384</span>   <span style="color:#ae81ff">668</span> pts/0    S+   00:22   0:00 head
 </code></pre></div><p><code>%cpu</code> にするとCPU使用率</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">root@92b0f68c3eb3:/# ps aux --sort -%cpu
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">root@92b0f68c3eb3:/# ps aux --sort -%cpu
 USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
 root        <span style="color:#ae81ff">24</span>  <span style="color:#ae81ff">108</span>  0.1  <span style="color:#ae81ff">16088</span>  <span style="color:#ae81ff">3768</span> pts/0    R    00:22   0:06 perl -E <span style="color:#66d9ef">while</span> <span style="color:#f92672">(</span>1<span style="color:#f92672">)</span> <span style="color:#f92672">{}</span>
 root         <span style="color:#ae81ff">1</span>  0.0  0.1  <span style="color:#ae81ff">18240</span>  <span style="color:#ae81ff">3236</span> pts/0    Ss   00:20   0:00 /bin/bash

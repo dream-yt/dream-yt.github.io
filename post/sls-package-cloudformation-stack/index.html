@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>serverless deploy で生成されるリソースを事前に確認する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -97,7 +97,7 @@
                 <section id="post-body">
                     <p>serverlessのプラグインを使うと色々なリソースを勝手に作ってくれたりして便利だが、実行するまでプラグインのyaml設定が思い通りになっているか分からなくて、dryrunみたいなことがしたい場合がある。が、slsコマンドにdryrunオプションはない</p>
 <p>代わりに<code>serverless package</code>コマンドがあるので、これを使うと生成されるcloudformationのjsonを見ることが出来るのでこれを使う</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ serverless package --package ~/Desktop <span style="color:#f92672">&amp;&amp;</span> <span style="color:#ae81ff">\
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ serverless package --package ~/Desktop <span style="color:#f92672">&amp;&amp;</span> <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>    cat ~/Desktop/cloudformation-template-update-stack.json <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>    | yq -y . | pbcopy  <span style="color:#75715e"># jsonは見にくいのでyamlに整形する</span>
 </code></pre></div><h3 id="参考">参考</h3>

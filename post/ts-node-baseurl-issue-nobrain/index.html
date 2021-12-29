@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>ts-node で型定義にパスが通らないときに力ずくで通す方法ともう少しマシな方法 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -102,7 +102,7 @@
 <li><a href="https://github.com/TypeStrong/ts-node/issues/138">tsconfig.json/paths not working with ts-node · Issue #138 · TypeStrong/ts-node</a></li>
 </ul>
 <p>これは mackerel パッケージの型定義がないので実行に失敗したときのログ。 <code>tsconfig.json#baseUrl:&quot;src&quot;</code> として <code>./src/@types/index.d.ts</code> に型定義を置いているので tsc だとコンパイルは通るが ts-node だと通らない。</p>
-<pre><code>$ npx ts-node index.ts
+<pre tabindex="0"><code>$ npx ts-node index.ts
 
 /Users/myuser/.ghq/github.com/myuser/app/node_modules/ts-node/src/index.ts:434
     return new TSError(diagnosticText, diagnosticCodes)
@@ -114,7 +114,7 @@ job/scrape-work-status/manager.ts(2,42): error TS7016: Could not find a declarat
     at createTSError (/Users/myuser/.ghq/github.com/myuser/app/node_modules/ts-node/src/index.ts:434:12)
 </code></pre><h2 id="力ずくで通す">力ずくで通す</h2>
 <p>とりあえず実行したかったので index.d.ts を node_modules 配下に撒いて動くようにした。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cp ./src/@types/index.d.ts ./node_modules/mackerel/
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cp ./src/@types/index.d.ts ./node_modules/mackerel/
 </code></pre></div><h2 id="もうすこしマシな方法">もうすこしマシな方法</h2>
 <p><code>tsconfig-paths</code> というパッケージがあり、これは <code>tsconfig.json#path</code> に指定したものはなんとかしてくれるので、これを使っている人もいるようだった。こっちだと node_modules に妙なことをする必要はない。</p>
 <ul>

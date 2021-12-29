@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>PostgreSQLで特定期間の日数/時間数などを数える &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -102,24 +102,24 @@
 <h1 id="date型の場合">date型の場合</h1>
 <p>そのまま引き算すると整数で日数が出る</p>
 <p>例</p>
-<pre><code>select cast('2019-01-01' as date) - cast('2018-12-01' as date)
-</code></pre><pre><code>31
+<pre tabindex="0"><code>select cast('2019-01-01' as date) - cast('2018-12-01' as date)
+</code></pre><pre tabindex="0"><code>31
 </code></pre><h1 id="timestamp型の場合">timestamp型の場合</h1>
 <p>そのまま引き算するとinterval型で日数（や時間数）が出る。
 ぴったり期間がぴったりXX日じゃなく、XX日とX時間、みたいなときは時間数も出る。</p>
 <p>例</p>
-<pre><code>select cast('2019-01-01 00:00:00' as timestamp) - cast('2018-12-01 12:00:00' as timestamp)
-</code></pre><pre><code>30 days, 12:00:00
+<pre tabindex="0"><code>select cast('2019-01-01 00:00:00' as timestamp) - cast('2018-12-01 12:00:00' as timestamp)
+</code></pre><pre tabindex="0"><code>30 days, 12:00:00
 </code></pre><h2 id="日数を出したい場合1-epoch-from-で秒数から割り戻す">日数を出したい場合1: epoch from で秒数から割り戻す</h2>
 <p>秒での引き算に直した後、日数に割り戻して小数点以下を切り捨てる。</p>
 <p>例</p>
-<pre><code>select trunc((extract(epoch from cast('2019-01-01 00:00:00' as timestamp)) - extract(epoch from cast('2018-12-01 12:00:00' as timestamp))) / 60 / 60 / 24)
-</code></pre><pre><code>30.00
+<pre tabindex="0"><code>select trunc((extract(epoch from cast('2019-01-01 00:00:00' as timestamp)) - extract(epoch from cast('2018-12-01 12:00:00' as timestamp))) / 60 / 60 / 24)
+</code></pre><pre tabindex="0"><code>30.00
 </code></pre><h2 id="日数を出したい場合2-extract-で日数だけを取り出す">日数を出したい場合2: extract で日数だけを取り出す</h2>
 <p>interval型から、日数のみ取り出す。</p>
 <p>例</p>
-<pre><code>select extract('day' from (cast('2019-01-01 00:00:00' as timestamp) - cast('2018-12-01 12:00:00' as timestamp)))
-</code></pre><pre><code>30.00
+<pre tabindex="0"><code>select extract('day' from (cast('2019-01-01 00:00:00' as timestamp) - cast('2018-12-01 12:00:00' as timestamp)))
+</code></pre><pre tabindex="0"><code>30.00
 </code></pre><h1 id="参考">参考</h1>
 <ul>
 <li><a href="http://m6u.hatenablog.com/entry/2017/01/12/115633">http://m6u.hatenablog.com/entry/2017/01/12/115633</a></li>

@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>jq での変形例 (keys[]でのオブジェクト=&gt;オブジェクト編)  &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -92,7 +92,7 @@
                 
                 <section id="post-body">
                     <p>こんなjsonがあって</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
   <span style="color:#f92672">&#34;xxxxxx&#34;</span>: {
     <span style="color:#f92672">&#34;_name&#34;</span>: <span style="color:#e6db74">&#34;トーマス&#34;</span>,
     <span style="color:#f92672">&#34;children&#34;</span>: [
@@ -121,7 +121,7 @@
   }
 }
 </code></pre></div><p>こう変換したい (children配下のcodeの配列にしたい)</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
   <span style="color:#f92672">&#34;xxxxxx&#34;</span>: [
     <span style="color:#e6db74">&#34;41080&#34;</span>,
     <span style="color:#e6db74">&#34;41081&#34;</span>,
@@ -135,7 +135,7 @@
 }
 </code></pre></div><h2 id="jq">.jq</h2>
 <p>この変換はこんな感じのjqスクリプトで出来る</p>
-<pre><code>keys[] as $k | { ($k): [.[$k].children[].code] }
+<pre tabindex="0"><code>keys[] as $k | { ($k): [.[$k].children[].code] }
 </code></pre><p>注意点といえるのは次の二つ</p>
 <ul>
 <li><code>keys[] as $k | </code>

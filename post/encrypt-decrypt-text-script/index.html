@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>文字列をopensslで暗号化/復号するbashスクリプト &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -96,7 +96,7 @@
                     <p>セキュリティ的にあんまり褒められたものではないが、
 気持ち平文で保存したくないデータを手元に置いとくのとかには便利。</p>
 <p>処理のコア部分はこんな感じになった。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">read -sp <span style="color:#e6db74">&#34;enter password: &#34;</span> password
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">read -sp <span style="color:#e6db74">&#34;enter password: &#34;</span> password
 
 <span style="color:#66d9ef">function</span> encrypt <span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
     openssl aes-256-cbc -e <span style="color:#ae81ff">\
@@ -115,7 +115,7 @@
 <li><code>$password</code> は read コマンドで取得する</li>
 </ul>
 <h2 id="readコマンド">readコマンド</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">read -sp <span style="color:#e6db74">&#34;enter password: &#34;</span> password
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">read -sp <span style="color:#e6db74">&#34;enter password: &#34;</span> password
 </code></pre></div><ul>
 <li><code>-p</code> プロンプトで入力した文字列を password 変数に入れてくれる</li>
 <li><code>-s</code> プロンプトで入力してる文字を表示しないように</li>

@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>DiskへのWriteが重そうな処理を特定する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -103,7 +103,7 @@
 <li>目星をつけたプロセスを走らせる</li>
 </ul>
 <p>ioしている容量が見れるようになる</p>
-<pre><code>$ dstat --top-io -d 5
+<pre tabindex="0"><code>$ dstat --top-io -d 5
 ----most-expensive---- -dsk/total-
      i/o process      | read  writ
 bash       3681B  230B| 182k 4174k
@@ -128,8 +128,8 @@ mysqld     1038k   26M|   0    37M
 mysqld     1510k   37M|   0    69M
 </code></pre><h3 id="どんなwriteをしているか">どんなwriteをしているか</h3>
 <p>straceでとっておいて、あとからgrepする</p>
-<pre><code>$ sudo strace -f -p {{ pid }} -o /tmp/strace.log
-</code></pre><pre><code>$ grep 'write' mysql.strace.log | less
+<pre tabindex="0"><code>$ sudo strace -f -p {{ pid }} -o /tmp/strace.log
+</code></pre><pre tabindex="0"><code>$ grep 'write' mysql.strace.log | less
 13047 write(1, &quot;/usr/bin/mysql_install_db\n&quot;, 26 &lt;unfinished ...&gt;
 12879 write(3, &quot;[mysqld]\ndatadir=/tmp/z6B56Iok0v&quot;..., 158) = 158
 13054 &lt;... write resumed&gt; )             = 159

@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>CloudFunction で CloudBuild をトリガーする  &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -92,7 +92,7 @@
                 
                 <section id="post-body">
                     <p>まずgcloudで既存のトリガーの一覧を確認しておく</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#ae81ff">$ gcloud beta builds triggers list</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#ae81ff">$ gcloud beta builds triggers list</span>
 ---
 <span style="color:#f92672">createTime</span>: <span style="color:#e6db74">&#39;2020-05-06T13:01:33.647678872Z&#39;</span>
 <span style="color:#f92672">description</span>: <span style="color:#ae81ff">master ブランチへの push</span>
@@ -112,7 +112,7 @@
 <li><a href="https://github.com/googleapis/nodejs-cloudbuild">googleapis/nodejs-cloudbuild: Cloud Build API client for Node.js</a></li>
 </ul>
 <p>こんな感じでビルドをトリガーできる</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">CloudBuildClient</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;@google-cloud/cloudbuild&#39;</span>;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">CloudBuildClient</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;@google-cloud/cloudbuild&#39;</span>;
 
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">projectId</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;testproject-531612&#39;</span>;
 <span style="color:#75715e">// gcloudで調べたidを入れる

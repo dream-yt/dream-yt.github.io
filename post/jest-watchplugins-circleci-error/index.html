@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>circleci上でjest-watch-typeaheadがロードできずエラーになる場合 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -109,7 +109,7 @@
 </ul>
 <h3 id="こんなエラー">こんなエラー</h3>
 <p>circleci上でこんな感じにてテストが落ちる</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/bash -eo pipefail
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/bash -eo pipefail
 </span><span style="color:#75715e"></span>cd ./functions/viewer/client <span style="color:#f92672">&amp;&amp;</span> <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span><span style="color:#66d9ef">$(</span>npm bin<span style="color:#66d9ef">)</span>/jest
 ● Validation Error:
@@ -128,7 +128,7 @@
 <h2 id="対応">対応</h2>
 <p>watchPluginsはパスを探すときnode_modules配下を探してくれるので、
 node_modules配下の相対パスを記述すれば読んでくれた</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
   <span style="color:#f92672">&#34;jest&#34;</span>: {
     <span style="color:#f92672">&#34;watchPlugins&#34;</span>: [
       <span style="color:#e6db74">&#34;jest-watch-typeahead/filename&#34;</span>,

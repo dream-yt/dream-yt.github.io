@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>Next の Link コンポーネントで Warning: Function components cannot be given refs &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -92,7 +92,7 @@
                 
                 <section id="post-body">
                     <p><code>next/link</code> の <code>Link</code> コンポーネントは、children に関数コンポーネントを入れると警告が出る</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">Link</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;next/link&#34;</span>;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">Link</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;next/link&#34;</span>;
 
 &lt;<span style="color:#f92672">Link</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/&#34;</span>&gt;
   &lt;<span style="color:#f92672">MyButton</span> /&gt;
@@ -109,11 +109,11 @@
 <li><a href="https://github.com/vercel/next.js/issues/7915">Next 9 - Using functional components as child of <!-- raw HTML omitted --> causes ref-warnings · Issue #7915 · vercel/next.js</a></li>
 </ul>
 <p>修正する方法の 1 つはメッセージ通りに <code>React.forwardRef</code> を使う方法。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">CustomComponent</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">React</span>.<span style="color:#a6e22e">forwardRef</span>(<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">CustomComponent</span>(<span style="color:#a6e22e">props</span>, <span style="color:#a6e22e">ref</span>) {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">CustomComponent</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">React</span>.<span style="color:#a6e22e">forwardRef</span>(<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">CustomComponent</span>(<span style="color:#a6e22e">props</span>, <span style="color:#a6e22e">ref</span>) {
   <span style="color:#66d9ef">return</span> &lt;<span style="color:#f92672">div</span> /&gt;;
 });
 </code></pre></div><p>とりあえず警告をでないようにしたいなら一番手軽なのは Fragment で囲ってしまうという方法がある、ただしこれだと Link が子要素に Click イベントが渡せなくなってしまうのでそういう子要素のときは使えない。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx">&lt;<span style="color:#f92672">Link</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/&#34;</span>&gt;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx">&lt;<span style="color:#f92672">Link</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/&#34;</span>&gt;
   &lt;&gt;
     &lt;<span style="color:#f92672">MyButton</span> /&gt;
   &lt;/&gt;

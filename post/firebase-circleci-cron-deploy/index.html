@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>circleciのcronトリガーでfirebase/hostingをアップデートする &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -108,7 +108,7 @@
 <li><code>.circleci/config.yaml</code> にこんなworkflowを書く</li>
 <li>この設定で <code>yarn install &amp;&amp; yarn run release</code> が毎日2時になったら実行される</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">workflows</span>:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">workflows</span>:
   <span style="color:#f92672">daily</span>:
     <span style="color:#f92672">jobs</span>:
       - <span style="color:#ae81ff">update</span>
@@ -136,7 +136,7 @@
           <span style="color:#f92672">working_directory</span>: <span style="color:#ae81ff">functions/example.com</span>
 </code></pre></div><h2 id="firebaseへのデプロイ">firebaseへのデプロイ</h2>
 <p><code>yarn run release</code> をしている package.json はこんな感じ</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">  <span style="color:#e6db74">&#34;scripts&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">  <span style="color:#e6db74">&#34;scripts&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> {
     <span style="color:#f92672">&#34;build&#34;</span>: <span style="color:#e6db74">&#34;gatsby build&#34;</span>,
     <span style="color:#f92672">&#34;deploy:ci&#34;</span>: <span style="color:#e6db74">&#34;firebase deploy --token &#39;xxxxxxxxxxxxxxxxxxxx&#39;&#34;</span>,
     <span style="color:#f92672">&#34;release&#34;</span>: <span style="color:#e6db74">&#34;yarn run build &amp;&amp; yarn run deploy:ci&#34;</span>,
@@ -144,7 +144,7 @@
 </code></pre></div><h4 id="firebase-deploy---token"><code>firebase deploy --token</code></h4>
 <p>firebase は ci上でデプロイをするためのトークンを発行することができる<br>
 こんなコマンドで払い出すことができる (実行するとブラウザが立ち上がって認証画面に行く)</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ npx firebase login:ci
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ npx firebase login:ci
 </code></pre></div><h2 id="参考">参考</h2>
 <ul>
 <li><a href="https://circleci.com/blog/automatically-deploy-a-gatsby-site-to-firebase-hosting/">Firebase Hosting - Deploying to Firebase Hosting - Deploying a Gatsby site | CircleCI</a></li>

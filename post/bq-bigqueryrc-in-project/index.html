@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>プロジェクトの.bigqueryrcの設定 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -111,11 +111,11 @@
 </ul>
 <h3 id="プロジェクト-bigqueryrc-ファイルを設定をする">プロジェクト .bigqueryrc ファイルを設定をする</h3>
 <p>direnvをつかって BIGQUERYRC 環境変数を設定する</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">export BIGQUERYRC<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>git rev-parse --show-toplevel<span style="color:#66d9ef">)</span>/.bigqueryrc
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">export BIGQUERYRC<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>git rev-parse --show-toplevel<span style="color:#66d9ef">)</span>/.bigqueryrc
 </code></pre></div><p><code>git rev-parse --show-toplevel</code> で リポジトリのトップレベルのパスが取得できる</p>
 <h3 id="bigqueryrc-ファイルの例">.bigqueryrc ファイルの例</h3>
 <p>サブコマンドごとに <code>[サブコマンド名]</code> で区切って記述する</p>
-<pre><code>[query]
+<pre tabindex="0"><code>[query]
 --max_rows=2147483647
 --maximum_bytes_billed=200000000
 --use_legacy_sql=false

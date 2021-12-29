@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>TypeScriptで外部スクリプトからロードされたグローバル変数のエラーを無視する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -99,13 +99,13 @@
 <li><a href="https://chrome.google.com/webstore/detail/copy-as-markdown/fkeaekngjflipcockcnpobkpbbfbhmdn?hl=ja">Copy as Markdown - Chrome ウェブストア</a></li>
 </ul>
 <p>なのでこのように外部jsファイルとして読み込むことになっている</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://www.gstatic.com/charts/loader.js&#34;</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt; 
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://www.gstatic.com/charts/loader.js&#34;</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt; 
 </code></pre></div><p>これはTypeScriptでは知らないグローバル変数として怒られる</p>
 <blockquote>
 <p>Cannot find name &lsquo;google&rsquo;.ts(2304)</p>
 </blockquote>
 <p>このエラーは以下の宣言で無視することができる</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">declare</span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">google</span>;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">declare</span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">google</span>;
 </code></pre></div><h2 id="宿題">宿題</h2>
 <p>型定義もあるようなので、型定義をつかって解決する方がよい</p>
 <ul>

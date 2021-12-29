@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>lambda/typescriptでexpressを使う &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -109,7 +109,7 @@
 <ul>
 <li>expressのappを生成して、ルーティングを設定</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">APIGatewayEvent</span>, <span style="color:#a6e22e">Callback</span>, <span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">Handler</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;aws-lambda&#39;</span>;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">APIGatewayEvent</span>, <span style="color:#a6e22e">Callback</span>, <span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">Handler</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;aws-lambda&#39;</span>;
 <span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">as</span> <span style="color:#a6e22e">awsServerlessExpress</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;aws-serverless-express&#39;</span>;
 <span style="color:#66d9ef">import</span> <span style="color:#a6e22e">Express</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;express&#39;</span>;
 
@@ -133,14 +133,14 @@
 <h3 id="deps">deps</h3>
 <p>この辺をインストールする必要がある</p>
 <h5 id="devdependencies">devDependencies</h5>
-<pre><code>    &quot;@types/aws-lambda&quot;: &quot;^8.10.19&quot;,
+<pre tabindex="0"><code>    &quot;@types/aws-lambda&quot;: &quot;^8.10.19&quot;,
     &quot;@types/express&quot;: &quot;^4.16.1&quot;,
 </code></pre><h5 id="dependencies">dependencies</h5>
-<pre><code>    &quot;aws-serverless-express&quot;: &quot;^3.3.5&quot;,
+<pre tabindex="0"><code>    &quot;aws-serverless-express&quot;: &quot;^3.3.5&quot;,
     &quot;express&quot;: &quot;^4.16.4&quot;
 </code></pre><h2 id="serverlessyaml">serverless.yaml</h2>
 <p>serverless frameworkの方の設定はpath/methodの設定を以下のようにしておく</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">functions</span>:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">functions</span>:
   <span style="color:#f92672">WebAPI</span>:
     <span style="color:#f92672">handler</span>: <span style="color:#ae81ff">handler.webapi</span>
     <span style="color:#f92672">events</span>:

@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>MySQLで最初にユーザとデータベースを作成する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -99,10 +99,10 @@
                     <p>アプリを作り始めるときにやる手順。MySQL8での作業。</p>
 <h2 id="データベースの作成">データベースの作成</h2>
 <p><code>COLLATE</code> は、<code>utf8mb4_bin</code> が一番厳密な区別(全角/半角の区別など)を行ってくれるのでまずそれを検討し、アプリの要件によっては <code>utf8mb4_ja_0900_as_cs</code> など少し親切なものを使う。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">DATABASE</span> myapp <span style="color:#66d9ef">DEFAULT</span> CHARACTER <span style="color:#66d9ef">SET</span> utf8mb4 <span style="color:#66d9ef">COLLATE</span> utf8mb4_bin;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">DATABASE</span> myapp <span style="color:#66d9ef">DEFAULT</span> CHARACTER <span style="color:#66d9ef">SET</span> utf8mb4 <span style="color:#66d9ef">COLLATE</span> utf8mb4_bin;
 </code></pre></div><h2 id="ユーザの作成">ユーザの作成</h2>
 <p>いったん権限はすべてつけて作成してしまう。一通り作業がひと段落したらアプリごとの要件によって棚卸し。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">user</span> <span style="color:#e6db74">&#39;myappadmin&#39;</span> <span style="color:#f92672">@</span><span style="color:#e6db74">&#39;localhost&#39;</span> IDENTIFIED <span style="color:#66d9ef">by</span> <span style="color:#e6db74">&#39;xxxxxxxxxxxxxxxxx&#39;</span>;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">user</span> <span style="color:#e6db74">&#39;myappadmin&#39;</span> <span style="color:#f92672">@</span><span style="color:#e6db74">&#39;localhost&#39;</span> IDENTIFIED <span style="color:#66d9ef">by</span> <span style="color:#e6db74">&#39;xxxxxxxxxxxxxxxxx&#39;</span>;
 <span style="color:#66d9ef">GRANT</span> <span style="color:#66d9ef">ALL</span> <span style="color:#66d9ef">ON</span> myapp.<span style="color:#f92672">*</span> <span style="color:#66d9ef">TO</span> <span style="color:#e6db74">&#39;myappadmin&#39;</span> <span style="color:#f92672">@</span><span style="color:#e6db74">&#39;localhost&#39;</span> <span style="color:#66d9ef">WITH</span> <span style="color:#66d9ef">GRANT</span> <span style="color:#66d9ef">OPTION</span>;
 </code></pre></div><p>なお、 <code>FLUSH PRIVILEGES</code> は権限管理専用のステートメントを使っていれば不要なんだそうだ。</p>
 <ul>

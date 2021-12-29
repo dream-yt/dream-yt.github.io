@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>vercel をはじめてつかったときのメモ &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -125,17 +125,17 @@
 <p>なのでビルドスクリプトで amazonlinux2 にないコマンドを発行するとエラーになる</p>
 <h2 id="cli">CLI</h2>
 <p>install は npm から</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ yarn global add vercel
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ yarn global add vercel
 </code></pre></div><h3 id="login">login</h3>
 <p>ログインが必要。メールアドレスを聞かれるが、これは GitHub のプライマリのメールアドレスを答える。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ vercel login
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ vercel login
 </code></pre></div><h3 id="deploy">deploy</h3>
 <p>デプロイもできるが、デプロイしたい next アプリが rootDir にない場合は root まで登ってから実行する必要がある。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cd ../../
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cd ../../
 $ vercel deploy
 </code></pre></div><h3 id="dev">dev</h3>
 <p>rootDir にいかないといけないのは vercel dev (ローカル開発用のコマンド) も同様</p>
-<pre><code>$ cd ../../
+<pre tabindex="0"><code>$ cd ../../
 $ vercel dev
 </code></pre>
                 </section>

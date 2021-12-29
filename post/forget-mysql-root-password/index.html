@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>MySQLのrootパスワードを忘れてしまった時になんとかする方法 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -104,7 +104,7 @@
 <li>mysqld_safeから<code>--init-file</code>オプション付きで起動する</li>
 </ul>
 <h3 id="コマンド">コマンド</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ echo <span style="color:#e6db74">&#34;UPDATE mysql.user SET Password=PASSWORD(&#39;fuckofftaro&#39;) WHERE User=&#39;root&#39;;&#34;</span> &gt;&gt; /tmp/myinit
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ echo <span style="color:#e6db74">&#34;UPDATE mysql.user SET Password=PASSWORD(&#39;fuckofftaro&#39;) WHERE User=&#39;root&#39;;&#34;</span> &gt;&gt; /tmp/myinit
 $ echo <span style="color:#e6db74">&#34;FLUSH PRIVILEGES;&#34;</span> &gt;&gt; /tmp/myinit
 $ mysqld_safe --init-file<span style="color:#f92672">=</span>/tmp/myinit &amp;
 mysqld_safe Logging to <span style="color:#e6db74">&#39;/usr/local/var/mysql/Mac-137.err&#39;</span>.

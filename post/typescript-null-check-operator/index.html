@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>typescriptでのnullチェック &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -103,17 +103,17 @@ undefinedとnullのどちらかであればtrueになる</p>
 <p><code>== null</code></p>
 </blockquote>
 <h2 id="例">例</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#a6e22e">$</span> <span style="color:#a6e22e">ts</span><span style="color:#f92672">-</span><span style="color:#a6e22e">node</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#a6e22e">$</span> <span style="color:#a6e22e">ts</span><span style="color:#f92672">-</span><span style="color:#a6e22e">node</span>
 <span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">v</span> <span style="color:#f92672">=</span> {<span style="color:#a6e22e">a</span>: <span style="color:#66d9ef">1</span>, <span style="color:#a6e22e">c</span>: <span style="color:#66d9ef">null</span>}
 <span style="color:#66d9ef">undefined</span>
 </code></pre></div><h3 id="イコールふたつ">イコールふたつ</h3>
 <p>nullとundefinedを区別しなくて楽</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">v</span>[<span style="color:#e6db74">&#39;b&#39;</span>] <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">v</span>[<span style="color:#e6db74">&#39;b&#39;</span>] <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span>
 <span style="color:#66d9ef">true</span>
 <span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">v</span>[<span style="color:#e6db74">&#39;c&#39;</span>] <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span>
 <span style="color:#66d9ef">true</span>
 </code></pre></div><h3 id="イコールみっつだと厳格">イコールみっつだと厳格</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">v</span>[<span style="color:#e6db74">&#39;c&#39;</span>] <span style="color:#f92672">===</span> <span style="color:#66d9ef">null</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">v</span>[<span style="color:#e6db74">&#39;c&#39;</span>] <span style="color:#f92672">===</span> <span style="color:#66d9ef">null</span>
 <span style="color:#66d9ef">true</span>
 <span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">v</span>[<span style="color:#e6db74">&#39;b&#39;</span>] <span style="color:#f92672">===</span> <span style="color:#66d9ef">null</span>
 <span style="color:#66d9ef">false</span>

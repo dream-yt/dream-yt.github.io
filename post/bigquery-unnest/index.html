@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>BigQueryで UNNEST のやりかた &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -93,7 +93,7 @@
                 <section id="post-body">
                     <p>UNNEST は配列をフラットなレコードに直すための関数</p>
 <p>こんなログデーブルがあったとして、post_arrayの配列をほぐしてフラットなレコードにしたいとする</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#f92672">+</span><span style="color:#75715e">---------------------+--------------------------+---------------------------------------------------------+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#f92672">+</span><span style="color:#75715e">---------------------+--------------------------+---------------------------------------------------------+
 </span><span style="color:#75715e"></span><span style="color:#f92672">|</span>        time         <span style="color:#f92672">|</span>  login_id      <span style="color:#f92672">|</span>                           post_array                 <span style="color:#f92672">|</span>
 <span style="color:#f92672">+</span><span style="color:#75715e">---------------------+--------------------------+---------------------------------------------------------+
 </span><span style="color:#75715e"></span><span style="color:#f92672">|</span> <span style="color:#ae81ff">2012</span><span style="color:#f92672">-</span><span style="color:#ae81ff">05</span><span style="color:#f92672">-</span><span style="color:#ae81ff">14</span> <span style="color:#ae81ff">07</span>:<span style="color:#ae81ff">30</span>:<span style="color:#ae81ff">52</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">NULL</span>           <span style="color:#f92672">|</span>                                              [<span style="color:#e6db74">&#34;122174&#34;</span>] <span style="color:#f92672">|</span>
@@ -106,7 +106,7 @@
 <span style="color:#f92672">|</span> <span style="color:#ae81ff">2012</span><span style="color:#f92672">-</span><span style="color:#ae81ff">05</span><span style="color:#f92672">-</span><span style="color:#ae81ff">02</span> <span style="color:#ae81ff">07</span>:<span style="color:#ae81ff">10</span>:<span style="color:#ae81ff">02</span> <span style="color:#f92672">|</span> foo<span style="color:#f92672">@</span>test.com   <span style="color:#f92672">|</span>                                              [<span style="color:#e6db74">&#34;126005&#34;</span>] <span style="color:#f92672">|</span>
 <span style="color:#f92672">+</span><span style="color:#75715e">---------------------+--------------------------+---------------------------------------------------------+
 </span></code></pre></div><p>こんなクエリでそれができる</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span>
   time,
   login_id,
   post_id
@@ -114,7 +114,7 @@
   <span style="color:#f92672">`</span>proj.log.post<span style="color:#f92672">`</span>,
   <span style="color:#66d9ef">UNNEST</span>(post_array) <span style="color:#66d9ef">AS</span> post_id
 </code></pre></div><p>結果はこんな感じ</p>
-<pre><code>+---------------------+------------------------------+
+<pre tabindex="0"><code>+---------------------+------------------------------+
 |        time         |      login_id  | creative_id |
 +---------------------+------------------------------+
 | 2012-06-20 02:21:52 | foo@testap.com |      113110 |

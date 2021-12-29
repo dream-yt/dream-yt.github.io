@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>prisma でアプリが使うClientのコードを生成する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -107,9 +107,9 @@
 <li><a href="https://www.prisma.io/docs/getting-started/setup-prisma/add-to-existing-project-typescript-postgres">Add to existing project (TypeScript &amp; PostgreSQL) | Prisma Docs</a></li>
 </ul>
 <h3 id="インストール">インストール</h3>
-<pre><code>npm install prisma --save-dev
+<pre tabindex="0"><code>npm install prisma --save-dev
 </code></pre><h3 id="init">init</h3>
-<pre><code>npx prisma init
+<pre tabindex="0"><code>npx prisma init
 </code></pre><ul>
 <li>prismaディレクトリが生成される</li>
 <li><code>.env</code> ファイルと <code>schema.prisma</code> ファイルの雛形が生成される</li>
@@ -117,7 +117,7 @@
 </ul>
 <h3 id="introspect">introspect</h3>
 <p><code>schema.prisma</code> ファイルのDBとのコネクション情報を管理する <code>datasource</code> の設定を埋めたら、<code>prisma introspect</code> を叩く。</p>
-<pre><code>npx prisma introspect
+<pre tabindex="0"><code>npx prisma introspect
 </code></pre><p>prismaがDBに接続して、テーブル定義を読んで <code>schema.prisma</code> ファイルを更新してくれる。</p>
 <h3 id="schemaprisma-の修正">schema.prisma の修正</h3>
 <p>自動生成された内容を人間がコードを書きやすいように修正する。たとえばカラム名を直したり、relation定義を明確にしたりといった作業。</p>
@@ -127,7 +127,7 @@
 </ul>
 <h3 id="generate">generate</h3>
 <p><code>schema.prisma</code> が修正できたら、それをもとにTypeScriptのコードを生成する。</p>
-<pre><code>npm install @prisma/client
+<pre tabindex="0"><code>npm install @prisma/client
 npx prisma generate
 </code></pre><p>コードは <code>node_modules/.prisma/client</code> に生成される。</p>
 <p><img src="https://www.prisma.io/docs/static/23697e3841e07a262f2e2eae70d11b19/a6d36/prisma-client-node-module.png" alt="prisma-client-node-module"></p>
@@ -141,7 +141,7 @@ npx prisma generate
 </ul>
 <h3 id="その他">その他</h3>
 <p><code>studio</code> コマンドで管理画面みたいなものが立ち上がって、簡単なデータ操作ができる。</p>
-<pre><code>npx prisma studio
+<pre tabindex="0"><code>npx prisma studio
 </code></pre>
                 </section>
             </article>

@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>androidの仮想デバイス(AVD)にadb rootで接続する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -97,7 +97,7 @@
                     <p>androidの <code>/data/</code> 配下など、rootでしかアクセスできない領域のデータを確認する場合に、
 adb root する必要がある</p>
 <h2 id="仮想デバイスの起動">仮想デバイスの起動</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 一覧を取得</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 一覧を取得</span>
 $ emulator -list-avds
 <span style="color:#75715e"># 起動</span>
 $ emulator -avd GoogleAPI_-_Pixel_2_XL_API_29
@@ -116,15 +116,15 @@ Google Play Intel x86 Atom System Image</p>
 </ul>
 <h2 id="接続-1">接続</h2>
 <p>adbコマンドで接続する</p>
-<pre><code class="language-console" data-lang="console">$ adb root
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">$ adb root
 restarting adbd as root
 $ adb shell
-</code></pre><pre><code class="language-console" data-lang="console">1|generic_x86:/ # ls -lah /data/user/
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">1|generic_x86:/ # ls -lah /data/user/
 total 8.0K
 drwx--x--x  2 system system 4.0K 2020-01-17 15:29 .
 drwxrwx--x 45 system system 4.0K 2020-01-17 15:29 ..
 lrwxrwxrwx  1 root   root     10 2020-01-17 15:29 0 -&gt; /data/data
-</code></pre><h2 id="参考">参考</h2>
+</code></pre></div><h2 id="参考">参考</h2>
 <ul>
 <li><a href="https://seleniumbycharan.com/2016/08/07/using-adb-to-interact-with-the-avd/">Using ADB to interact with the AVD – Automation Guide</a></li>
 </ul>

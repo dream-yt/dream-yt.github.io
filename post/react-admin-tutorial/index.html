@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>React-admin のチュートリアルを読んだメモ &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -110,7 +110,7 @@
 <p>React-admin では一覧表は管理画面によくあるテーブル形式で表示する。</p>
 <p><img src="https://raw.githubusercontent.com/sakamossan/image-bed/master/assets/9fb449a8-451f-4c30-a3d3-84bccf7785cb.png" alt=""></p>
 <h2 id="dataprovider">dataProvider</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">// in src/App.js
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">// in src/App.js
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;react&#34;</span>;
 <span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Admin</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-admin&#39;</span>;
 <span style="color:#66d9ef">import</span> <span style="color:#a6e22e">jsonServerProvider</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;ra-data-json-server&#39;</span>;
@@ -126,7 +126,7 @@
 <p>ReactAdminは基本的にはAPIにはRESTを期待していて、デフォルトで用意されているdataProviderはRESTのAPIをやりとりするためのモジュールとなっている。</p>
 <h2 id="resource">Resource</h2>
 <p>Adminコンポーネントの子要素にResourceコンポーネントを定義することで、リソースの管理画面が生成される。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-diff" data-lang="diff">import { Admin, Resource, ListGuesser } from &#39;react-admin&#39;;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-diff" data-lang="diff">import { Admin, Resource, ListGuesser } from &#39;react-admin&#39;;
 
 <span style="color:#f92672">-const App = () =&gt; &lt;Admin dataProvider={dataProvider} /&gt;;
 </span><span style="color:#f92672"></span><span style="color:#a6e22e">+const App = () =&gt; (
@@ -148,7 +148,7 @@
 <p><img src="https://raw.githubusercontent.com/sakamossan/image-bed/master/assets/bd629101-9ee3-2f06-c119-61d059190f84.png" alt=""></p>
 <h2 id="カスタムフィールド">カスタムフィールド</h2>
 <p>リスト表示で呼ばれるコンポーネントはカスタムのフィールドが簡単に作れるようになっている。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;react&#34;</span>;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;react&#34;</span>;
 
 <span style="color:#75715e">// recordは行のデータで、sourceが表示しようとしているカラム名
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">MyUrlField</span> <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">record</span> <span style="color:#f92672">=</span> {}, <span style="color:#a6e22e">source</span> }) =&gt;
@@ -160,7 +160,7 @@
 </code></pre></div><h2 id="relationships">Relationships</h2>
 <p>関連するデータを使って表示をリッチにすることができる。
 チュートリアルであげられている例は投稿(post)を一覧する画面で、post.userId をもとに user.name を表示するものだった。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#75715e">// in src/posts.js
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#75715e">// in src/posts.js
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;react&#34;</span>;
 <span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">List</span>, <span style="color:#a6e22e">Datagrid</span>, <span style="color:#a6e22e">TextField</span>, <span style="color:#a6e22e">ReferenceField</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-admin&#39;</span>;
 
@@ -183,7 +183,7 @@
 <h1 id="更新画面">更新画面</h1>
 <p><img src="https://raw.githubusercontent.com/sakamossan/image-bed/master/assets/00721a43-c6e0-76e0-d7f5-dd8c0e6a1f24.png" alt=""></p>
 <p>リソースの更新画面もGuesserを使ってまず簡単に作り始めることができる。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-diff" data-lang="diff">// in src/App.js
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-diff" data-lang="diff">// in src/App.js
 <span style="color:#f92672">-import { Admin, Resource } from &#39;react-admin&#39;;
 </span><span style="color:#f92672"></span><span style="color:#a6e22e">+import { Admin, Resource, EditGuesser } from &#39;react-admin&#39;;
 </span><span style="color:#a6e22e"></span>import { PostList } from &#39;./posts&#39;;
@@ -198,7 +198,7 @@ const App = () =&gt; (
 );
 </code></pre></div><p>更新画面のコンポーネント実装はこんな感じになる。
 (これもGuesserがconsoleにコードを吐いてくれるのでコピペするだけで済む)</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">PostEdit</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">props</span> =&gt; (
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">PostEdit</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">props</span> =&gt; (
     <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Edit</span> {...<span style="color:#a6e22e">props</span>}<span style="color:#f92672">&gt;</span>
         <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">SimpleForm</span><span style="color:#f92672">&gt;</span>
             <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">ReferenceInput</span> <span style="color:#a6e22e">source</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;userId&#34;</span> <span style="color:#a6e22e">reference</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;users&#34;</span><span style="color:#f92672">&gt;</span>
@@ -211,11 +211,11 @@ const App = () =&gt; (
     <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/Edit&gt;</span>
 );
 </code></pre></div><p>編集画面だけでなく、新規作成画面の実装はこんな感じ。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-diff" data-lang="diff">const App = () =&gt; (
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-diff" data-lang="diff">const App = () =&gt; (
 <span style="color:#f92672">-       &lt;Resource name=&#34;posts&#34; list={PostList} edit={EditGuesser} /&gt;
 </span><span style="color:#f92672"></span><span style="color:#a6e22e">+       &lt;Resource name=&#34;posts&#34; list={PostList} edit={PostEdit} create={PostCreate} /&gt;
 </span><span style="color:#a6e22e"></span>);
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">PostCreate</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">props</span> =&gt; (
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">PostCreate</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">props</span> =&gt; (
     <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Create</span> {...<span style="color:#a6e22e">props</span>}<span style="color:#f92672">&gt;</span>
         <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">SimpleForm</span><span style="color:#f92672">&gt;</span>
             <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">ReferenceInput</span> <span style="color:#a6e22e">source</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;userId&#34;</span> <span style="color:#a6e22e">reference</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;users&#34;</span><span style="color:#f92672">&gt;</span>
@@ -230,7 +230,7 @@ const App = () =&gt; (
 <p>管理画面によくある機能として一覧からフィルタする機能が追加できる。</p>
 <p><img src="https://raw.githubusercontent.com/sakamossan/image-bed/master/assets/523e7daa-8bc1-2b4b-b1ac-2ba67dde389c.png" alt=""></p>
 <p>実装側は投稿の名前などからフィルタする意外にも、ユーザをselectboxから選んでフィルタできるようになっている。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#75715e">// in src/posts.js
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#75715e">// in src/posts.js
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Filter</span>, <span style="color:#a6e22e">ReferenceInput</span>, <span style="color:#a6e22e">SelectInput</span>, <span style="color:#a6e22e">TextInput</span>, <span style="color:#a6e22e">List</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-admin&#39;</span>;
 
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">PostFilter</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">props</span>) =&gt; (
@@ -249,7 +249,7 @@ const App = () =&gt; (
 );
 </code></pre></div><h1 id="認証">認証</h1>
 <p><code>authProvider</code> を実装して <code>Admin</code> コンポーネントの引数に渡すことで認証されているときのみ一覧を表示するという挙動にすることができる。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">authProvider</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./authProvider&#39;</span>;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">authProvider</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./authProvider&#39;</span>;
 
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">App</span> <span style="color:#f92672">=</span> () =&gt; (
     <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Admin</span> <span style="color:#a6e22e">dashboard</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">Dashboard</span>} <span style="color:#a6e22e">authProvider</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">authProvider</span>} <span style="color:#a6e22e">dataProvider</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">dataProvider</span>}<span style="color:#f92672">&gt;</span>

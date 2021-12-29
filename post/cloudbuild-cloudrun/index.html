@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>cloudrun にデプロイする cloudbuild.yaml &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -104,7 +104,7 @@
 <li><code>^canary/</code> のときに変数が <code>_SERVICE=service-canary</code> となるように</li>
 </ul>
 <h3 id="cloudbuildyaml">cloudbuild.yaml</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">timeout</span>: <span style="color:#e6db74">&#39;900s&#39;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">timeout</span>: <span style="color:#e6db74">&#39;900s&#39;</span>
 <span style="color:#f92672">steps</span>:
   - <span style="color:#f92672">name</span>: <span style="color:#e6db74">&#39;gcr.io/cloud-builders/docker&#39;</span>
     <span style="color:#f92672">id</span>: <span style="color:#e6db74">&#39;docker-pull&#39;</span>

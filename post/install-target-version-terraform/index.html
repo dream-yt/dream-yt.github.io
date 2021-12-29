@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>[macOS] terraform をバージョン指定して brew でインストールする &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -92,13 +92,13 @@
                 
                 <section id="post-body">
                     <p>公式のドキュメントにしたがって <code>hashicorp/tap</code> を入れる。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ brew tap hashicorp/tap
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ brew tap hashicorp/tap
 </code></pre></div><p><code>hashicorp/tap</code> に移動して git log で目当てのバージョンのコミットハッシュを探して checkout。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cd /usr/local/Homebrew/Library/Taps/hashicorp/homebrew-tap/Formula
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cd /usr/local/Homebrew/Library/Taps/hashicorp/homebrew-tap/Formula
 $ git log terraform.rb
 $ git checkout c44c38b4e2a71317d2bf41cc83aa92a1cf039b83
 </code></pre></div><p>目当てのバージョンにできたのを確認してから brew install</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ brew install hashicorp/tap/terraform
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ brew install hashicorp/tap/terraform
 </code></pre></div><h2 id="参考">参考</h2>
 <ul>
 <li><a href="https://learn.hashicorp.com/tutorials/terraform/install-cli?in=terraform/aws-get-started">Install Terraform | Terraform - HashiCorp Learn</a></li>

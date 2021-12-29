@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>GoogleSpreadsheetのデータ(csv)をパパッとjsonにしてスクリプトから使う &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -72,7 +72,7 @@
                     </h1>
                     <h2 class="headline">
                     Nov 3, 2018 17:24
-                    · 466 words
+                    · 464 words
                     · 1 minute read
                       <span class="tags">
                       
@@ -99,11 +99,11 @@
                 <section id="post-body">
                     <p>csvjsonを使うとcsv =&gt; json が簡単に変換できる
 csvjsonはcsvkitをインストールすると入ってくる</p>
-<pre><code class="language-console" data-lang="console">$ brew install csvkit
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">$ brew install csvkit
 ...
 $ which csvjson
 /usr/local/bin/csvjson
-</code></pre><h3 id="csvでダウンロード">csvでダウンロード</h3>
+</code></pre></div><h3 id="csvでダウンロード">csvでダウンロード</h3>
 <p>Google SpreadSheetからcsv形式でダウンロード</p>
 <ul>
 <li>ファイル
@@ -118,42 +118,42 @@ $ which csvjson
 </ul>
 <p><img src="https://user-images.githubusercontent.com/5309672/47705130-f7fc0b80-dc68-11e8-90c9-1a92ea1b3a1f.png" alt="image"></p>
 <p>csvjsonはデフォルトだとa, b といったキー名のオブジェクトを配列で作ってくれる</p>
-<pre><code class="language-console" data-lang="console">$ cat ~/Downloads/テストのデータ\ -\ シート1\ \(1\).csv | csvjson -H | jq .
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">$ cat ~/Downloads/テストのデータ<span style="color:#ae81ff">\ </span>-<span style="color:#ae81ff">\ </span>シート1<span style="color:#ae81ff">\ \(</span>1<span style="color:#ae81ff">\)</span>.csv | csvjson -H | jq .
 [
   {
-    &quot;a&quot;: null,
-    &quot;b&quot;: &quot;TOKIO&quot;,
-    &quot;c&quot;: 1
+    &#34;a&#34;: null,
+    &#34;b&#34;: &#34;TOKIO&#34;,
+    &#34;c&#34;: 1
   },
   {
-    &quot;a&quot;: null,
-    &quot;b&quot;: &quot;SMAP&quot;,
-    &quot;c&quot;: 2
+    &#34;a&#34;: null,
+    &#34;b&#34;: &#34;SMAP&#34;,
+    &#34;c&#34;: 2
   },
   {
-    &quot;a&quot;: null,
-    &quot;b&quot;: &quot;嵐&quot;,
-    &quot;c&quot;: 0
+    &#34;a&#34;: null,
+    &#34;b&#34;: &#34;嵐&#34;,
+    &#34;c&#34;: 0
   }
 ]
-</code></pre><h3 id="スクリプト">スクリプト</h3>
+</code></pre></div><h3 id="スクリプト">スクリプト</h3>
 <p>あとはjsonをスクリプトで使う<br>
 perlだとjsonのdecodeはこんな感じ</p>
-<pre><code>#!/usr/bin/perl
+<pre tabindex="0"><code>#!/usr/bin/perl
 use JSON qw'decode_json';
 my $input = decode_json join(&quot;&quot;, &lt;STDIN&gt;);
 print &quot;group arrested counts: &quot; map {$_-&gt;{c}} @$input;
 </code></pre><p>パイプで繋げばスプレッドシートのデータをスクリプトで操作できる</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cat ~/Downloads/テストのデータシート1.csv | csvjson -H | ./myscript.pl
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cat ~/Downloads/テストのデータシート1.csv | csvjson -H | ./myscript.pl
 </code></pre></div><h5 id="-h"><code>-H</code></h5>
-<pre><code class="language-console" data-lang="console">$ csvjson --help | grep '\-H'
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">$ csvjson --help | grep <span style="color:#e6db74">&#39;\-H&#39;</span>
   -H, --no-header-row   Specify that the input CSV file has no header row.
-</code></pre><h3 id="もうちょっとインタラクティブに">もうちょっとインタラクティブに</h3>
+</code></pre></div><h3 id="もうちょっとインタラクティブに">もうちょっとインタラクティブに</h3>
 <p>スプレッドシートの権限をゆるくすればcurlでcsvを取ったりも出来る</p>
 <ul>
 <li><a href="https://productforums.google.com/forum/#!topic/docs/An-nZtjaupU">publish to web in csv in google sheets - Google プロダクト フォーラム</a></li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ curl -s https://docs.google.com/spreadsheets/d/xxxxxxx/export?format<span style="color:#f92672">=</span>csv <span style="color:#ae81ff">\
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ curl -s https://docs.google.com/spreadsheets/d/xxxxxxx/export?format<span style="color:#f92672">=</span>csv <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>    | csvjson -H | ./myscript.pl
 </code></pre></div>
                 </section>

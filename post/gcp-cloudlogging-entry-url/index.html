@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>LogEntry からそのログ周辺へのCloudLogging のURLを生成する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -119,7 +119,7 @@
 <p><code>insertId</code> でもそのログへのリンクが生成できるが、たぶんエラーログの場合は前後に何があったか知りたいはずなので「エラーログの発生から前後10秒」にしている</p>
 <h2 id="コード">コード</h2>
 <p>こんな感じ</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">URL</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;url&#39;</span>;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">URL</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;url&#39;</span>;
 <span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">as</span> <span style="color:#a6e22e">querystring</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;querystring&#39;</span>;
 
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">buildLogEntryUrl</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">log</span>: <span style="color:#66d9ef">LogEntry</span>, <span style="color:#a6e22e">projectId?</span>: <span style="color:#66d9ef">string</span>) <span style="color:#f92672">=&gt;</span> {

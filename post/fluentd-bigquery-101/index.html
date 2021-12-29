@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>Fluentd→Bigquery タグごとに別テーブルにinsert &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -102,7 +102,7 @@
                 
                 <section id="post-body">
                     <p>こんな設定でできる</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;source&gt;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;source&gt;</span>
   @type forward
 <span style="color:#f92672">&lt;/source&gt;</span>
 
@@ -127,7 +127,7 @@
 <span style="color:#f92672">&lt;/match&gt;</span>
 </code></pre></div><h2 id="プレースホルダー">プレースホルダー</h2>
 <p>この部分の設定で、タグごとに別テーブルへとinsertしている</p>
-<pre><code>  dataset ${tag[1]}
+<pre tabindex="0"><code>  dataset ${tag[1]}
   table ${tag[2]}
 </code></pre><p>fluentdは現在のバージョンでは <code>${tag[1]}</code> というようなプレースホルダーを設定に使うことができる</p>
 <ul>
@@ -136,16 +136,16 @@
 <p>たとえば <code>bigquery.mydataset.temperature</code> タグを渡すと、
 mydatasetというデータセットのtemperatureテーブルにデータを入れてくれる</p>
 <h2 id="time_key">time_key</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml">  <span style="color:#f92672">&lt;inject&gt;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml">  <span style="color:#f92672">&lt;inject&gt;</span>
     time_key time
 </code></pre></div><p><code>time_key time</code> という設定をいれておくと、
 時間を指定せずにメッセージを送ってもtimeカラムに送信日時が入ってくれる</p>
 <h5 id="例">例</h5>
 <p>こんなコマンドを何回か叩いたとして</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># timeカラムをメッセージに含めていない</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># timeカラムをメッセージに含めていない</span>
 echo <span style="color:#e6db74">&#34;{\&#34;value\&#34;: </span>$RANDOM<span style="color:#e6db74">}&#34;</span> | fluent-cat bigquery.mydataset.temperature
 </code></pre></div><p>これでちゃんと時間が入ってくれる</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#f92672">+</span><span style="color:#75715e">---------------------+-------+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#f92672">+</span><span style="color:#75715e">---------------------+-------+
 </span><span style="color:#75715e"></span><span style="color:#f92672">|</span>        time         <span style="color:#f92672">|</span> value <span style="color:#f92672">|</span>
 <span style="color:#f92672">+</span><span style="color:#75715e">---------------------+-------+
 </span><span style="color:#75715e"></span><span style="color:#f92672">|</span> <span style="color:#ae81ff">2019</span><span style="color:#f92672">-</span><span style="color:#ae81ff">12</span><span style="color:#f92672">-</span><span style="color:#ae81ff">28</span> <span style="color:#ae81ff">02</span>:<span style="color:#ae81ff">11</span>:<span style="color:#ae81ff">26</span> <span style="color:#f92672">|</span> <span style="color:#ae81ff">25425</span> <span style="color:#f92672">|</span>
@@ -154,7 +154,7 @@ echo <span style="color:#e6db74">&#34;{\&#34;value\&#34;: </span>$RANDOM<span st
 <span style="color:#f92672">+</span><span style="color:#75715e">---------------------+-------+
 </span></code></pre></div><h2 id="buffer-tag">buffer tag</h2>
 <p>この設定がないと</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"> <span style="color:#f92672">&lt;buffer</span> <span style="color:#960050;background-color:#1e0010">tag</span><span style="color:#f92672">&gt;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"> <span style="color:#f92672">&lt;buffer</span> <span style="color:#960050;background-color:#1e0010">tag</span><span style="color:#f92672">&gt;</span>
 </code></pre></div><p>こんなエラーが出る</p>
 <blockquote>
 <p>Parameter &lsquo;bigquery_insert: project=xxxxxx-123456/dataset=${tag[1]}/table=${tag[2]}/fetch_schema_table=/template_suffix=&rsquo; has tag placeholders, but chunk key &lsquo;tag&rsquo; is not configured</p>

@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>serverless deploy を amazonlinuxイメージで行う &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -99,7 +99,7 @@
                 <section id="post-body">
                     <p>lambdaとnodeのネイティブモジュール周りで辛いことになった時用</p>
 <h2 id="dockerfile">Dockerfile</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dockerfile" data-lang="dockerfile"><span style="color:#66d9ef">FROM</span><span style="color:#e6db74"> amazonlinux:latest</span><span style="color:#960050;background-color:#1e0010">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dockerfile" data-lang="dockerfile"><span style="color:#66d9ef">FROM</span><span style="color:#e6db74"> amazonlinux:latest</span><span style="color:#960050;background-color:#1e0010">
 </span><span style="color:#960050;background-color:#1e0010">
 </span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> curl --silent --location https://dl.yarnpkg.com/rpm/yarn.repo &gt; /etc/yum.repos.d/yarn.repo<span style="color:#960050;background-color:#1e0010">
 </span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> curl --silent --location https://rpm.nodesource.com/setup_10.x | bash<span style="color:#960050;background-color:#1e0010">
@@ -117,12 +117,12 @@
 </span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">ADD</span> . /app<span style="color:#960050;background-color:#1e0010">
 </span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">CMD</span> [<span style="color:#e6db74">&#34;/bin/bash&#34;</span>, <span style="color:#e6db74">&#34;-c&#34;</span>, <span style="color:#e6db74">&#34;node --version; yarn --version; serverless --version&#34;</span>]<span style="color:#960050;background-color:#1e0010">
 </span></code></pre></div><h2 id="dockerignore">.dockerignore</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">node_modules
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">node_modules
 .webpack
 <span style="color:#75715e"># AWSトークンなどの管理用</span>
 .envrc
 </code></pre></div><h2 id="slswsh">slsw.sh</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/bash
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/bash
 </span><span style="color:#75715e"></span>
 docker build -t sls-amzn-build .
 docker run -it <span style="color:#ae81ff">\
@@ -130,7 +130,7 @@ docker run -it <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>  --env AWS_SECRET_ACCESS_KEY<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$AWS_SECRET_ACCESS_KEY<span style="color:#e6db74">&#34;</span> <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>  sls-amzn-build:latest serverless $@
 </code></pre></div><h4 id="eg">eg</h4>
-<pre><code>slsw.sh logs --function MyFunc --stage dev
+<pre tabindex="0"><code>slsw.sh logs --function MyFunc --stage dev
 slsw.sh deploy --stage dev
 </code></pre>
                 </section>

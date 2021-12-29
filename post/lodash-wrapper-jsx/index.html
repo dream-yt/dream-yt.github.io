@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>lodashのchain/wrapperオブジェクトをjsxで使う &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -100,7 +100,7 @@
                     <p>lodashのchainに配列を渡すとlodashWrapperオブジェクトが得られる。これはlodashの便利メソッドを色々持っているArrayみたいな機能を持っている</p>
 <h3 id="使い方">使い方</h3>
 <p>こんな按配で縦に処理が並べられるのは若干見やすいような気がする。lodashWrapperのことを知らなくても何をしてるかはなんとなく想像つくし</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">_</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;lodash&#39;</span>;  <span style="color:#75715e">// `chain` メソッドでも同じことができるようだ
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">_</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;lodash&#39;</span>;  <span style="color:#75715e">// `chain` メソッドでも同じことができるようだ
 </span><span style="color:#75715e"></span>
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">_List</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">_</span>(<span style="color:#a6e22e">list</span>)
   .<span style="color:#a6e22e">map</span>(<span style="color:#a6e22e">x</span> =&gt; ({ <span style="color:#a6e22e">id</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">x</span>.<span style="color:#a6e22e">id</span> }))
@@ -109,7 +109,7 @@
 </code></pre></div><h3 id="ceveat">ceveat</h3>
 <p>jsxはlodashWrapperをハンドリング出来ないのでArrayにしてやる必要がある
 たとえばjsxでタグのリストを返すようなのに使う場合、こんな感じで最後に<code>value()</code>をつけてjs組み込みのArrayにしてやらないと展開されない</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">_List</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">_</span>(<span style="color:#a6e22e">list</span>)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">_List</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">_</span>(<span style="color:#a6e22e">list</span>)
   .<span style="color:#a6e22e">map</span>(<span style="color:#a6e22e">x</span> =&gt; ({ <span style="color:#a6e22e">id</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">x</span>.<span style="color:#a6e22e">id</span> }))
   .<span style="color:#a6e22e">uniqBy</span>(({ <span style="color:#a6e22e">id</span> }) =&gt; <span style="color:#a6e22e">id</span>)
   .<span style="color:#a6e22e">sortBy</span>(({ <span style="color:#a6e22e">id</span> }) =&gt; <span style="color:#a6e22e">id</span>)

@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>passport 入門と NestJS で使う場合のメモ &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -151,7 +151,7 @@
 <h2 id="nestjs-から使うとき">NestJS から使うとき</h2>
 <p>NestJS から使う時は、たとえば以下のような Strategy クラスを Injectable として実装して</p>
 <h4 id="authlocalstrategyts">auth/local.strategy.ts</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-tsx" data-lang="tsx"><span style="color:#66d9ef">@Injectable</span>()
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-tsx" data-lang="tsx"><span style="color:#66d9ef">@Injectable</span>()
 <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">LocalStrategy</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">PassportStrategy</span>(<span style="color:#a6e22e">Strategy</span>) {
   <span style="color:#66d9ef">constructor</span>(<span style="color:#66d9ef">private</span> <span style="color:#a6e22e">authService</span>: <span style="color:#66d9ef">AuthService</span>) {
     <span style="color:#66d9ef">super</span>();
@@ -167,11 +167,11 @@
 }
 </code></pre></div><p>それを Guard クラスとしてラップし</p>
 <h4 id="authlocal-authguardts">auth/local-auth.guard.ts</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">@Injectable</span>()
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">@Injectable</span>()
 <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">LocalAuthGuard</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">AuthGuard</span>(<span style="color:#e6db74">&#39;local&#39;</span>) {}
 </code></pre></div><h4 id="appcontrollerts">app.controller.ts</h4>
 <p>コントローラ側で <code>@UseGuards</code> して使うことになる</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">@Controller</span>()
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">@Controller</span>()
 <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">AppController</span> {
   <span style="color:#66d9ef">constructor</span>(
     <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">readonly</span> <span style="color:#a6e22e">appService</span>: <span style="color:#66d9ef">AppService</span>,

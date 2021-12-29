@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>pythonのbdistとsdistとwheelファイルについて &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -115,7 +115,7 @@
 <h4 id="whl">.whl</h4>
 <p>.whlファイルはwheel形式でパッケージされたファイルの拡張子。ファイル名の中にlinux向けx86向けcpythonなどなど、ビルドターゲットのプラットフォームの情報が書いてある。</p>
 <h5 id="例">例</h5>
-<pre><code>wrapt-1.12.1-cp38-cp38-macosx_10_15_x86_64.whl
+<pre tabindex="0"><code>wrapt-1.12.1-cp38-cp38-macosx_10_15_x86_64.whl
 </code></pre><h2 id="bdistとsdist">bdistとsdist</h2>
 <p>pythonのパッケージの配布形式は2つある。</p>
 <ul>
@@ -132,11 +132,11 @@
 </blockquote>
 <h4 id="setuppy-の引数">setup.py の引数</h4>
 <p>これらはパッケージングするときにどちらを引数でわたすかで違う。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">python setup.py sdist
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">python setup.py sdist
 python setup.py bdist_wheel
 </code></pre></div><h2 id="pip-download">pip download</h2>
 <p><code>pip download</code> を実行するとbdist(wheelファイル)か、sdist(ソースコードのtar.gzファイル)が落ちてくる。このコマンドは依存するパッケージもダウンロードする。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ pip download aws_lambda_powertools
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ pip download aws_lambda_powertools
 <span style="color:#75715e"># whlファイルが落ちてくる</span>
 $ ls -1 | head -3
 aws_lambda_powertools-1.7.0-py3-none-any.whl
@@ -150,13 +150,13 @@ future-0.18.2.tar.gz
 <li><code>https://pypi.org/pypi/{{ module name }}/json</code></li>
 </ul>
 <p>なお、tar.gz を解凍して中身を setup.py bdist_wheel するとモジュールによってはそれでwheelファイルを作ってくれる。(先述のwraptとかはそれでは作れなかった)</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ tar zxvf <span style="color:#f92672">{{</span> module name <span style="color:#f92672">}}</span>.tar.gz
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ tar zxvf <span style="color:#f92672">{{</span> module name <span style="color:#f92672">}}</span>.tar.gz
 $ cd <span style="color:#f92672">{{</span> module name <span style="color:#f92672">}}</span>
 $ python setup.py bdist_wheel
 </code></pre></div><h2 id="pip-wheel">pip wheel</h2>
 <p>今回はwheel形式で依存を管理したいという話だったのでこのコマンドを使った。</p>
 <p>これは pip download に近いが、sdist形式で配布しているモジュールの場合はビルドしてwheel形式にしておいてくれる。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ pip wheel aws-lambda-powertools
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ pip wheel aws-lambda-powertools
 ...
 <span style="color:#75715e"># ビルドしてくれる</span>
 Building wheels <span style="color:#66d9ef">for</span> collected packages: future, wrapt

@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>AWS Chalice でデプロイまで &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -96,13 +96,13 @@
 <ul>
 <li><a href="https://aws.github.io/chalice/quickstart.html">Quickstart — AWS Chalice</a></li>
 </ul>
-<pre><code class="language-console" data-lang="console">$ python3 -m venv venv38
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">$ python3 -m venv venv38
 ...
 $ code .envrc
 ...
 $ pip install --upgrade pip
 $ pip install chalice
-</code></pre><pre><code class="language-console" data-lang="console">$ chalice new-project sandbox
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">$ chalice new-project sandbox
 $ chalice deploy
 Creating deployment package.
 Creating IAM role: sandbox-dev
@@ -111,8 +111,8 @@ Creating Rest API
 Resources deployed:
   - Lambda ARN: arn:aws:lambda:ap-northeast-1:xxxxxxxx:function:sandbox-dev
   - Rest API URL: https://xxxxxxxx.execute-api.ap-northeast-1.amazonaws.com/api/
-</code></pre><h2 id="生成されるファイル">生成されるファイル</h2>
-<pre><code class="language-console" data-lang="console">$ tree -a .
+</code></pre></div><h2 id="生成されるファイル">生成されるファイル</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">$ tree -a .
 .
 ├── .chalice
 │   ├── config.json
@@ -123,9 +123,9 @@ Resources deployed:
 ├── .gitignore
 ├── app.py
 └── requirements.txt
-
-3 directories, 6 files
-</code></pre><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#960050;background-color:#1e0010">$</span> <span style="color:#960050;background-color:#1e0010">cat</span> <span style="color:#960050;background-color:#1e0010">./.chalice/config.json</span>
+<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>3 directories, 6 files
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#960050;background-color:#1e0010">$</span> <span style="color:#960050;background-color:#1e0010">cat</span> <span style="color:#960050;background-color:#1e0010">./.chalice/config.json</span>
 {
   <span style="color:#f92672">&#34;version&#34;</span>: <span style="color:#e6db74">&#34;2.0&#34;</span>,
   <span style="color:#f92672">&#34;app_name&#34;</span>: <span style="color:#e6db74">&#34;sandbox&#34;</span>,
@@ -135,7 +135,7 @@ Resources deployed:
     }
   }
 }
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#960050;background-color:#1e0010">$</span> <span style="color:#960050;background-color:#1e0010">cat</span> <span style="color:#960050;background-color:#1e0010">./.chalice/deployed/dev.json</span>
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#960050;background-color:#1e0010">$</span> <span style="color:#960050;background-color:#1e0010">cat</span> <span style="color:#960050;background-color:#1e0010">./.chalice/deployed/dev.json</span>
 {
   <span style="color:#f92672">&#34;resources&#34;</span>: [
     {

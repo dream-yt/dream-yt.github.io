@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>200が返ってこないURLを見つけるワンライナー &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -97,14 +97,14 @@
 <li>そのなかから404とかになってるURLを見つけたい場合</li>
 </ul>
 <p>以下のコマンドでダメなURLだけ表示してくれる</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cat ./urllist.txt | perl -MLWP::Simple -wnlE <span style="color:#e6db74">&#39;head($_) or say&#39;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cat ./urllist.txt | perl -MLWP::Simple -wnlE <span style="color:#e6db74">&#39;head($_) or say&#39;</span>
 </code></pre></div><h2 id="ssl">SSL</h2>
 <p>LWPの使うSSL証明書が古くなっていると以下のようなエラーとなる</p>
 <blockquote>
 <p>500 Can&rsquo;t verify SSL peers without knowing which Certificate Authorities to trust</p>
 </blockquote>
 <p>Mozilla::CAをsudoで入れればよい (入ってればLWPが勝手にそっちを使ってくれるようだ)</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo cpanm Mozilla::CA
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo cpanm Mozilla::CA
 </code></pre></div><h2 id="参考">参考</h2>
 <ul>
 <li><a href="http://perldoc.jp/docs/modules/libwww-perl-5.813/LWP/Simple.pod">LWP::Simple - LWP への簡単な手続き的インターフェース - perldoc.jp</a></li>

@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>.d.ts ファイルを自作してimportする &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -98,7 +98,7 @@
 <li><a href="http://json2ts.com/">json2ts - generate TypeScript interfaces from json</a></li>
 </ul>
 <p>こんな型定義が得られる</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">declare</span> <span style="color:#66d9ef">module</span> <span style="color:#a6e22e">Kibela</span> {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">declare</span> <span style="color:#66d9ef">module</span> <span style="color:#a6e22e">Kibela</span> {
   <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">OutgoingWebhook</span> {
     <span style="color:#a6e22e">action</span>: <span style="color:#66d9ef">string</span>;
     <span style="color:#a6e22e">blog</span>: <span style="color:#66d9ef">Blog</span>;
@@ -127,12 +127,12 @@
 <p><code>src/@types/foo.d.ts</code> といった場所にファイルを作成しておく</p>
 <p>なお、<code>tsconfig.json#baseUrl</code> に指定がないと tsc が型定義ファイルを探せないので設定が必要。
 <code>src/@types</code> 配下の定義を認識させるのなら以下のように設定する。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-diff" data-lang="diff">     &#34;noUnusedLocals&#34;: false,
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-diff" data-lang="diff">     &#34;noUnusedLocals&#34;: false,
 <span style="color:#a6e22e">+    &#34;baseUrl&#34;: &#34;./src&#34;,
 </span><span style="color:#a6e22e"></span>     &#34;outDir&#34;: &#34;lib&#34;,
 </code></pre></div><h2 id="importする">importする</h2>
 <p>こんな感じでimportすればnamespaceが使える</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">import</span> <span style="color:#e6db74">&#39;./@types/foo&#39;</span>;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">import</span> <span style="color:#e6db74">&#39;./@types/foo&#39;</span>;
 </code></pre></div><h2 id="参考">参考</h2>
 <ul>
 <li><a href="https://qiita.com/tetradice/items/b89a5dd41fcebf96379e">typeRootsの誤解 &ndash; TypeScriptで、npmからインストールしたパッケージに型定義ファイル (*.d.ts) が存在しない場合の正しい対処方法 - Qiita</a></li>

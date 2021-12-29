@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>athenaのUNIXタイムスタンプなカラムをJSTで一昨日から昨日の範囲でとる場合 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -160,13 +160,13 @@ UTCの軸で19日0:00から19日23:59の範囲を取得することになる</p>
 <h2 id="緑の範囲から黄色の範囲に絞る">緑の範囲から黄色の範囲に絞る</h2>
 <p>JSTに変換してdayでtranc(切り詰める)ことをすればよい
 athena/prestoだと下記の通りになる</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">BETWEEN</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">BETWEEN</span>
     date_trunc(<span style="color:#e6db74">&#39;day&#39;</span>, <span style="color:#66d9ef">current_timestamp</span> <span style="color:#66d9ef">AT</span> TIME <span style="color:#66d9ef">ZONE</span> <span style="color:#e6db74">&#39;Asia/Tokyo&#39;</span> <span style="color:#f92672">-</span> interval <span style="color:#e6db74">&#39;1&#39;</span> <span style="color:#66d9ef">day</span>) <span style="color:#66d9ef">AND</span>
     date_trunc(<span style="color:#e6db74">&#39;day&#39;</span>, <span style="color:#66d9ef">current_timestamp</span> <span style="color:#66d9ef">AT</span> TIME <span style="color:#66d9ef">ZONE</span> <span style="color:#e6db74">&#39;Asia/Tokyo&#39;</span> <span style="color:#f92672">-</span> interval <span style="color:#e6db74">&#39;2&#39;</span> <span style="color:#66d9ef">day</span>)
 </code></pre></div><p>日本時間の20日にクエリをかけたとして、
 日本時間での日付を指定して範囲を切り出しているので黄色い部分だけが取れる</p>
 <h2 id="例">例</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span>
     <span style="color:#f92672">*</span>
 <span style="color:#66d9ef">FROM</span>
     mydb.mytable

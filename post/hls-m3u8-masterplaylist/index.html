@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>HLSとm3u8ファイルとMaster Playlistについて &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -118,7 +118,7 @@ m3u8ファイルには、細切れの動画ファイルがそれぞれ何秒か�
 </ul>
 <h4 id="m3u8形式ファイルの例">m3u8形式ファイルの例</h4>
 <p><code>EXTINF:10</code> というのが動画の秒数を表している</p>
-<pre><code>#EXTM3U
+<pre tabindex="0"><code>#EXTM3U
 #EXT-X-PLAYLIST-TYPE:VOD
 #EXT-X-TARGETDURATION:10
 #EXTINF:10,
@@ -139,7 +139,7 @@ MasterPlaylistファイルを使うと、通信速度や処理できるファイ
 <li><a href="https://developer.apple.com/documentation/http_live_streaming/example_playlists_for_http_live_streaming/creating_a_master_playlist">Creating a Master Playlist | Apple Developer Documentation</a></li>
 </ul>
 <h4 id="masterplaylist形式の例">MasterPlaylist形式の例</h4>
-<pre><code>#EXTM3U
+<pre tabindex="0"><code>#EXTM3U
 #EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=1040000,CODECS=&quot;mp4a.40.2, avc1.4d4015&quot;
 file-640.m3u8
 #EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=640000,CODECS=&quot;mp4a.40.2, avc1.4d4015&quot;

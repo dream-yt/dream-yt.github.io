@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>nextjsのSSGでhtmlでredirect &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -101,7 +101,7 @@
 <p>301でリダイレクトできればいいのだが、サーバはSSGで生成したhtmlをサーブしているだけだし、そこまでSEO的なページランクが惜しいわけでもないのでもう meta refresh でいいかなということにした。</p>
 <h2 id="metarefreshredirect">MetaRefreshRedirect</h2>
 <p>meta refresh をしてくれる react コンポーネント次のようになった。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;react&#34;</span>;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;react&#34;</span>;
 <span style="color:#66d9ef">import</span> <span style="color:#a6e22e">Head</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;next/head&#34;</span>;
 
 <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">MetaRefreshRedirect</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">React</span>.<span style="color:#a6e22e">FC</span><span style="color:#f92672">&lt;</span>{ <span style="color:#a6e22e">url</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">string</span> }<span style="color:#f92672">&gt;</span> <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">url</span> }) =&gt; (

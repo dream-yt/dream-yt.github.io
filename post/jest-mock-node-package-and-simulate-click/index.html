@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>jest でパッケージをモックしながら react-test-utils でクリックイベントをテストする &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -93,7 +93,7 @@
                 
                 <section id="post-body">
                     <p>こんな実装になった。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">React</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#34;react&#34;</span>;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">React</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#34;react&#34;</span>;
 <span style="color:#66d9ef">import</span> <span style="color:#a6e22e">ReactDOM</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#34;react-dom&#34;</span>;
 <span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">act</span>, <span style="color:#a6e22e">Simulate</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#34;react-dom/test-utils&#34;</span>;
 <span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Button</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#34;./Button&#34;</span>;
@@ -114,7 +114,7 @@
 });
 </code></pre></div><h2 id="jestmock">jest.mock</h2>
 <p>jest.mock は import などと同じ scope に置かなくてはならない。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#a6e22e">jest</span>.<span style="color:#a6e22e">mock</span>(<span style="color:#e6db74">&#34;mocked-packagejs&#34;</span>, () <span style="color:#f92672">=&gt;</span> (...<span style="color:#a6e22e">args</span>: <span style="color:#66d9ef">any</span>) <span style="color:#f92672">=&gt;</span> {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#a6e22e">jest</span>.<span style="color:#a6e22e">mock</span>(<span style="color:#e6db74">&#34;mocked-packagejs&#34;</span>, () <span style="color:#f92672">=&gt;</span> (...<span style="color:#a6e22e">args</span>: <span style="color:#66d9ef">any</span>) <span style="color:#f92672">=&gt;</span> {
   <span style="color:#a6e22e">fn</span>(...<span style="color:#a6e22e">args</span>);
 });
 </code></pre></div><blockquote>
@@ -132,7 +132,7 @@ await してあげないと処理がタスクキューにのってるうちに�
 <p>Warning: Do not await the result of calling act(&hellip;) with sync logic, it is not a Promise.</p>
 </blockquote>
 <p>なので async もつけておく。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">await</span> <span style="color:#a6e22e">act</span>(<span style="color:#66d9ef">async</span> () <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">Simulate</span>.<span style="color:#a6e22e">click</span>(<span style="color:#a6e22e">button</span>));
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">await</span> <span style="color:#a6e22e">act</span>(<span style="color:#66d9ef">async</span> () <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">Simulate</span>.<span style="color:#a6e22e">click</span>(<span style="color:#a6e22e">button</span>));
 </code></pre></div>
                 </section>
             </article>

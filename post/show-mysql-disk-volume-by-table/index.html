@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>MySQLでテーブルごとのデータ容量とインデックスの容量を一蘭する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -92,7 +92,7 @@
                 
                 <section id="post-body">
                     <p>こんなクエリで出せる</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> <span style="color:#66d9ef">table_name</span>,
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> <span style="color:#66d9ef">table_name</span>,
     (data_length <span style="color:#f92672">+</span> index_length) <span style="color:#f92672">/</span> <span style="color:#ae81ff">1000000</span> mb,
     data_length <span style="color:#f92672">/</span> <span style="color:#ae81ff">1000000</span> data_mb,  <span style="color:#75715e">-- 実データの容量
 </span><span style="color:#75715e"></span>    index_length <span style="color:#f92672">/</span> <span style="color:#ae81ff">1000000</span> idx_mb   <span style="color:#75715e">-- インデックスデータの容量
@@ -100,7 +100,7 @@
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">WHERE</span> table_schema <span style="color:#f92672">=</span> <span style="color:#66d9ef">database</span>() <span style="color:#75715e">-- ユーザー定義のテーブルに絞る
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> data_length <span style="color:#66d9ef">DESC</span>;
 </code></pre></div><p>データベース内の合計だとこんな感じ</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> <span style="color:#66d9ef">table_name</span>,
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> <span style="color:#66d9ef">table_name</span>,
     <span style="color:#66d9ef">SUM</span>(data_length <span style="color:#f92672">+</span> index_length) <span style="color:#f92672">/</span> <span style="color:#ae81ff">1000000</span> mb,
     <span style="color:#66d9ef">SUM</span>(data_length) <span style="color:#f92672">/</span> <span style="color:#ae81ff">1000000</span> data_mb,
     <span style="color:#66d9ef">SUM</span>(index_length) <span style="color:#f92672">/</span> <span style="color:#ae81ff">1000000</span> idx_mb
@@ -109,7 +109,7 @@
 </span><span style="color:#75715e"></span>
 </code></pre></div><h2 id="information_schematables">information_schema.tables</h2>
 <p>この他にも <code>AVG_ROW_LENGTH</code> とかパッと見れるとよさそうなカラムがある</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#f92672">+</span><span style="color:#75715e">-----------------+---------------------+------+-----+---------+-------+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#f92672">+</span><span style="color:#75715e">-----------------+---------------------+------+-----+---------+-------+
 </span><span style="color:#75715e"></span><span style="color:#f92672">|</span> Field           <span style="color:#f92672">|</span> <span style="color:#66d9ef">Type</span>                <span style="color:#f92672">|</span> <span style="color:#66d9ef">Null</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">Key</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">Default</span> <span style="color:#f92672">|</span> Extra <span style="color:#f92672">|</span>
 <span style="color:#f92672">+</span><span style="color:#75715e">-----------------+---------------------+------+-----+---------+-------+
 </span><span style="color:#75715e"></span><span style="color:#f92672">|</span> TABLE_CATALOG   <span style="color:#f92672">|</span> varchar(<span style="color:#ae81ff">512</span>)        <span style="color:#f92672">|</span> <span style="color:#66d9ef">NO</span>   <span style="color:#f92672">|</span>     <span style="color:#f92672">|</span>         <span style="color:#f92672">|</span>       <span style="color:#f92672">|</span>

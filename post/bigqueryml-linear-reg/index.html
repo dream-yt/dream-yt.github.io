@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>BigQueryML で回帰分析をする &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -101,13 +101,13 @@
 もちろんユーザテーブルには登録日 ( <code>created</code> )も入っている。</p>
 <h2 id="クエリを書く">クエリを書く</h2>
 <p>2 カラムの結果を返すクエリを書く。今回は説明変数が user_id で、目的変数は created となるが、目的変数のカラム名を <code>label</code> にする必要がある。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> created <span style="color:#66d9ef">as</span> label,
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> created <span style="color:#66d9ef">as</span> label,
     user_id
 <span style="color:#66d9ef">FROM</span> <span style="color:#f92672">`</span>pjt<span style="color:#f92672">-</span><span style="color:#ae81ff">123345</span>.ds.users<span style="color:#f92672">`</span>
 <span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> label
 </code></pre></div><h2 id="create-model-する">create model する</h2>
 <p>クエリはそのまま <code>CREATE MODEL</code> を足す。今回は線系回帰を使うので <code>model_type = 'linear_reg'</code></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">CREATE</span> MODEL <span style="color:#f92672">`</span>misc.kaiki_sample<span style="color:#f92672">`</span> <span style="color:#66d9ef">OPTIONS</span>(model_type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;linear_reg&#39;</span>) <span style="color:#66d9ef">AS</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">CREATE</span> MODEL <span style="color:#f92672">`</span>misc.kaiki_sample<span style="color:#f92672">`</span> <span style="color:#66d9ef">OPTIONS</span>(model_type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;linear_reg&#39;</span>) <span style="color:#66d9ef">AS</span>
 <span style="color:#66d9ef">SELECT</span> created <span style="color:#66d9ef">as</span> label,
     user_id
 <span style="color:#66d9ef">FROM</span> <span style="color:#f92672">`</span>pjt<span style="color:#f92672">-</span><span style="color:#ae81ff">123345</span>.ds.users<span style="color:#f92672">`</span>
@@ -116,7 +116,7 @@
 <p>しばらくすると計算が終わる。モデルの <code>評価</code> タブをみると <code>決定係数</code> がみられる。</p>
 <h2 id="predict-させる">predict させる</h2>
 <p>こんなクエリでつくったモデルに predict をさせることができる。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#75715e">-- 1970-01-01 からの日数が predicted_label から返ってくるのでキャスとして Date に戻す
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#75715e">-- 1970-01-01 からの日数が predicted_label から返ってくるのでキャスとして Date に戻す
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">SELECT</span> DATE_FROM_UNIX_DATE(<span style="color:#66d9ef">CAST</span>(predicted_label <span style="color:#66d9ef">AS</span> INT64))
 <span style="color:#66d9ef">FROM</span> ML.PREDICT(
         MODEL <span style="color:#f92672">`</span>misc.kaiki_user_id__date<span style="color:#f92672">`</span>,

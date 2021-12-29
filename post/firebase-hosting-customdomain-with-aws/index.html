@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>AWSでドメインを取得してfirebase-hostingに設定する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -126,7 +126,7 @@
 </li>
 </ul>
 <h4 id="最終的にできるレコードはterraformだとこんな感じ">最終的にできるレコードはterraformだとこんな感じ</h4>
-<pre><code>resource &quot;aws_route53_record&quot; &quot;mydomain&quot; {
+<pre tabindex="0"><code>resource &quot;aws_route53_record&quot; &quot;mydomain&quot; {
     name    = &quot;mydomain.com&quot;
     records = [
         &quot;google-site-verification=xxxxxxxxxx&quot;,

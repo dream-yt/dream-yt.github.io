@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>commitを別の作業branchへ移動する方法 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -109,28 +109,28 @@
 <ul>
 <li>末尾に <code>-10</code>などいれると最新のcommitを上から10個表示するなど指定できる</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git log --oneline 
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git log --oneline 
 </code></pre></div><p><img src="/images/post/dream/GitCherryPick02.png" alt="This is a image"></p>
 <p><strong>3. branch Bに移動して移したいcommitをcherry pick する</strong></p>
 <ul>
 <li>コマンドの後にcommit IDを入力</li>
 <li>古い順に入力すること</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git cherry-pick xxxxxxx yyyyyyy zzzzzzz
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git cherry-pick xxxxxxx yyyyyyy zzzzzzz
 </code></pre></div><p><strong>4. commitがbranch Bに移動できているかlogで確認</strong></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git log --oneline 
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git log --oneline 
 </code></pre></div><p><strong>5. 必要があればbranchAのcommitを消去</strong></p>
 <ul>
 <li>下記のコマンドでできるらしい</li>
 <li>HEAD~xは任意の数値に変更</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git reset --hard HEAD~3
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git reset --hard HEAD~3
 </code></pre></div><h1 id="他のやりかた">他のやりかた</h1>
 <p>branch Bがまっさら状態だった場合、</p>
 <p><strong>1. branch Aで作業をstashにしまう</strong></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git stash
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git stash
 </code></pre></div><p><strong>2. branch Bでstashを開ける</strong></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git stash pop
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git stash pop
 </code></pre></div><p>というやり方もあるらしい。<!-- raw HTML omitted -->
 この場合、branch AとBの作業箇所が被らないことが前提となる。（コンフリクトするため）</p>
 <p>備忘のために書いたとはいえ、同じことを繰り返さない自分であってほしい。</p>

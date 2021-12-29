@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>prisma-client と MySQL を unix socket で接続する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -99,7 +99,7 @@
 <li><a href="https://www.prisma.io/docs/concepts/database-connectors/mysql">MySQL database connector (Reference) | Prisma Docs</a></li>
 </ul>
 <p>たとえばこんな設定で接続できる。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-s" data-lang="s">DATABASE_URL<span style="color:#f92672">=</span>mysql<span style="color:#f92672">://</span>root<span style="color:#f92672">:@</span>localhost<span style="color:#f92672">:</span><span style="color:#ae81ff">3306</span><span style="color:#f92672">/</span>myappdb<span style="color:#f92672">?</span>socket<span style="color:#f92672">=/</span>tmp<span style="color:#f92672">/</span>mysql.sock
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-s" data-lang="s">DATABASE_URL<span style="color:#f92672">=</span>mysql<span style="color:#f92672">://</span>root<span style="color:#f92672">:@</span>localhost<span style="color:#f92672">:</span><span style="color:#ae81ff">3306</span><span style="color:#f92672">/</span>myappdb<span style="color:#f92672">?</span>socket<span style="color:#f92672">=/</span>tmp<span style="color:#f92672">/</span>mysql.sock
 </code></pre></div><p>ホスト名は 127.0.0.1 ではなく localhost である必要がある。
 MySQL は 127.0.0.1 と指定されるとTCP接続を取ろうとするため。</p>
 <h2 id="その他">その他</h2>

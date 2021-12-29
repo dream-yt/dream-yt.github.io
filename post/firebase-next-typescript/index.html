@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>firebase上でtypescriptで書かれたnextjsを動かす &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -112,12 +112,12 @@
 <p>できればtypescriptで開発したいので、それでどのへんをいじればいいのかも確認する</p>
 <h2 id="deploy">deploy</h2>
 <p>predeployで以下のコマンドが走る</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">npm run build-public
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">npm run build-public
 npm run build-funcs
 npm run build-app
 npm run copy-deps
 </code></pre></div><p>これはそれぞれpackage.jsonでの定義がこうなっている</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># publicディレクトリには画像などの静的ファイルを置く</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># publicディレクトリには画像などの静的ファイルを置く</span>
 cpx <span style="color:#e6db74">&#34;src/public/**/*.*&#34;</span> <span style="color:#e6db74">&#34;dist/public&#34;</span> -C
 <span style="color:#75715e"># cloud function のエントリポイントになる処理をbuild</span>
 babel <span style="color:#e6db74">&#34;src/functions&#34;</span> --out-dir <span style="color:#e6db74">&#34;dist/functions&#34;</span>
@@ -150,14 +150,14 @@ cpx <span style="color:#e6db74">&#34;*{package.json,package-lock.json,yarn.lock}
 <li><code>dist/functions/index.js</code> が cloud function から参照されるファイル</li>
 <li><code>dist/functions/index.js</code> が <code>dist/functions/next</code> 配下をloadしている</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">app</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">next</span>({
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">app</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">next</span>({
   <span style="color:#a6e22e">dev</span>,
   <span style="color:#a6e22e">conf</span><span style="color:#f92672">:</span> { <span style="color:#a6e22e">distDir</span><span style="color:#f92672">:</span> <span style="color:#e6db74">`</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">path</span>.<span style="color:#a6e22e">relative</span>(<span style="color:#a6e22e">process</span>.<span style="color:#a6e22e">cwd</span>(), <span style="color:#a6e22e">__dirname</span>)<span style="color:#e6db74">}</span><span style="color:#e6db74">/next`</span> }
 })
 </code></pre></div><h3 id="cpx">cpx</h3>
 <p>cpxはrsync的なことをしてくれるコマンド
 package.jsonで使われている</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cpx <span style="color:#e6db74">&#34;src/public/**/*.*&#34;</span> <span style="color:#e6db74">&#34;dist/public&#34;</span> -C
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cpx <span style="color:#e6db74">&#34;src/public/**/*.*&#34;</span> <span style="color:#e6db74">&#34;dist/public&#34;</span> -C
 </code></pre></div><p><code>-C</code> オプションはコピーする前に<code>dist/public</code>の中身を空にするもの</p>
 <blockquote>
 <p>-C, &ndash;clean               Clean files that matches <!-- raw HTML omitted --> like pattern in
@@ -175,7 +175,7 @@ package.jsonで使われている</p>
 <blockquote>
 <p>&ldquo;default&rdquo;: &ldquo;<!-- raw HTML omitted -->&rdquo;</p>
 </blockquote>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ firebase list
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ firebase list
 ┌─────────┬───────────────────────┬─────────────┐
 │ Name    │ Project ID / Instance │ Permissions │
 ├─────────┼───────────────────────┼─────────────┤
@@ -187,7 +187,7 @@ package.jsonで使われている</p>
 <p>&ldquo;build-funcs&rdquo;: &ldquo;babel &quot;src/functions&quot; &ndash;out-dir &quot;dist/functions&quot;&rdquo;,</p>
 </blockquote>
 <p>nextがbabelを使う設定になってるようなので、ここはそのままにしてbabelでtypescriptをコンパイルする方式にした。babelの設定を書き換えている</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
   <span style="color:#f92672">&#34;presets&#34;</span>: [
     <span style="color:#e6db74">&#34;next/babel&#34;</span>,
     <span style="color:#e6db74">&#34;@babel/preset-typescript&#34;</span>
@@ -196,7 +196,7 @@ package.jsonで使われている</p>
 </code></pre></div><p>babelでtypescriptをコンパイルしているので、ビルド時の型チェックなどは提供されない</p>
 <h2 id="必要だったpackage">必要だったpackage</h2>
 <p>この辺のインストールが必要だった</p>
-<pre><code>yarn add @types/react @babel/preset-typescript --dev
+<pre tabindex="0"><code>yarn add @types/react @babel/preset-typescript --dev
 </code></pre><ul>
 <li><code>@types/react</code> はreactの型定義</li>
 <li><code>@babel/preset-typescript</code> はbabelでtsをコンパイルするためのpreset
@@ -207,7 +207,7 @@ package.jsonで使われている</p>
 </ul>
 <h2 id="ファイルのリネーム">ファイルのリネーム</h2>
 <p>こんな感じで一括リネーム</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ find ./src -name <span style="color:#e6db74">&#39;*.js&#39;</span> -type f <span style="color:#ae81ff">\
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ find ./src -name <span style="color:#e6db74">&#39;*.js&#39;</span> -type f <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>    | perl -wnlE <span style="color:#e6db74">&#39;/(\S+).js/ and say &#34;$1.js $1.tsx&#34;&#39;</span> <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>    | xargs -n2 mv
 </code></pre></div><h2 id="tsconfigjson">tsconfig.json</h2>

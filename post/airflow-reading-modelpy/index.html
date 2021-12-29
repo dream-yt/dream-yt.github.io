@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>airflow の model.py を読んだ &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -156,7 +156,7 @@
 </li>
 </ul>
 <p>カラム定義もジョブが失敗したときに知りたくなるような項目ばかり</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">duration <span style="color:#f92672">=</span> Column(Float)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">duration <span style="color:#f92672">=</span> Column(Float)
 state <span style="color:#f92672">=</span> Column(String(<span style="color:#ae81ff">20</span>))
 try_number <span style="color:#f92672">=</span> Column(Integer, default<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>)
 max_tries <span style="color:#f92672">=</span> Column(Integer)
@@ -226,10 +226,10 @@ pid <span style="color:#f92672">=</span> Column(Integer)
 <li><a href="https://github.com/databricks/incubator-airflow/blob/b87d3a49/airflow/models.py#L3870">incubator-airflow/models.py at b87d3a49054f3890cf6714e7c4920973754b810e · databricks/incubator-airflow</a></li>
 </ul>
 <p>こんなカラム定義のテーブル。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">dag_id <span style="color:#f92672">=</span> Column(String(ID_LEN), primary_key<span style="color:#f92672">=</span>True)
-state <span style="color:#f92672">=</span> Column(String(<span style="color:#ae81ff">50</span>), primary_key<span style="color:#f92672">=</span>True)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">dag_id <span style="color:#f92672">=</span> Column(String(ID_LEN), primary_key<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+state <span style="color:#f92672">=</span> Column(String(<span style="color:#ae81ff">50</span>), primary_key<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
 count <span style="color:#f92672">=</span> Column(Integer, default<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>)
-dirty <span style="color:#f92672">=</span> Column(Boolean, default<span style="color:#f92672">=</span>False)
+dirty <span style="color:#f92672">=</span> Column(Boolean, default<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>)
 </code></pre></div><p>実行中のdagを監視するため後述のDagRunと一緒に使うテーブルに見える。</p>
 <h2 id="dagrun">DagRun</h2>
 <p>スケジューラがDagを実行したときに生成するレコードとのこと。</p>

@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>React.SuspenseとsetTimeoutで最小限の非同期コンポーネントをつくる &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -92,7 +92,7 @@
                 
                 <section id="post-body">
                     <p>こんなコードで1秒後に <code>helloworld</code> と表示できるコンポーネントが作れる</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#75715e">// 「1秒以内はPromiseがthrowされて、1秒後にはundefinedが返ってくる関数」を返す関数
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#75715e">// 「1秒以内はPromiseがthrowされて、1秒後にはundefinedが返ってくる関数」を返す関数
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">delay</span> <span style="color:#f92672">=</span> () <span style="color:#f92672">=&gt;</span> {
   <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">isTimeout</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
   <span style="color:#75715e">// 1秒後にisTimeoutがTrueになる

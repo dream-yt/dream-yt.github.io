@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>jqで正規表現を使ってフィルタする &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -95,7 +95,7 @@
                     <p><code>select</code> と <code>test</code> をつかってフィルタする</p>
 <h2 id="例">例</h2>
 <p>こんなjsonがあったとして。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#960050;background-color:#1e0010">$</span> <span style="color:#960050;background-color:#1e0010">cat</span> <span style="color:#960050;background-color:#1e0010">/tmp/_</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#960050;background-color:#1e0010">$</span> <span style="color:#960050;background-color:#1e0010">cat</span> <span style="color:#960050;background-color:#1e0010">/tmp/_</span>
 {
   <span style="color:#f92672">&#34;monitors&#34;</span>: [
     {
@@ -113,7 +113,7 @@
   ]
 }
 </code></pre></div><p>たとえば monitorsオブジェクトのname属性を正規表現で絞って数値を見たいとき。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#960050;background-color:#1e0010">$</span> <span style="color:#960050;background-color:#1e0010">cat</span> <span style="color:#960050;background-color:#1e0010">/tmp/_</span> <span style="color:#960050;background-color:#1e0010">|</span> <span style="color:#960050;background-color:#1e0010">jq</span> <span style="color:#960050;background-color:#1e0010">&#39;.monitors</span>[] <span style="color:#960050;background-color:#1e0010">|</span> <span style="color:#960050;background-color:#1e0010">select(.name</span> <span style="color:#960050;background-color:#1e0010">|</span> <span style="color:#960050;background-color:#1e0010">test(</span><span style="color:#e6db74">&#34;^redis.+freeable_memory&#34;</span><span style="color:#960050;background-color:#1e0010">))&#39;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#960050;background-color:#1e0010">$</span> <span style="color:#960050;background-color:#1e0010">cat</span> <span style="color:#960050;background-color:#1e0010">/tmp/_</span> <span style="color:#960050;background-color:#1e0010">|</span> <span style="color:#960050;background-color:#1e0010">jq</span> <span style="color:#960050;background-color:#1e0010">&#39;.monitors</span>[] <span style="color:#960050;background-color:#1e0010">|</span> <span style="color:#960050;background-color:#1e0010">select(.name</span> <span style="color:#960050;background-color:#1e0010">|</span> <span style="color:#960050;background-color:#1e0010">test(</span><span style="color:#e6db74">&#34;^redis.+freeable_memory&#34;</span><span style="color:#960050;background-color:#1e0010">))&#39;</span>
 {
   <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;redis10&#34;</span>,
   <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;redis10-freeable_memory&#34;</span>

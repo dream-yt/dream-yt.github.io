@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>apache bench でリクエストに指定のヘッダをつける &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -93,13 +93,13 @@
                 
                 <section id="post-body">
                     <p>たとえば Authorization ヘッダだとこんな感じでつけられる。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ ab -n <span style="color:#ae81ff">10</span> -c <span style="color:#ae81ff">1</span> -H <span style="color:#e6db74">&#34;Authorization: Bearer xxxxxxxx&#34;</span> <span style="color:#e6db74">&#34;https://example.com/test&#34;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ ab -n <span style="color:#ae81ff">10</span> -c <span style="color:#ae81ff">1</span> -H <span style="color:#e6db74">&#34;Authorization: Bearer xxxxxxxx&#34;</span> <span style="color:#e6db74">&#34;https://example.com/test&#34;</span>
 </code></pre></div><h2 id="ヘッダ">ヘッダ</h2>
 <p><code>-H</code> オプションで設定できる。</p>
-<pre><code>    -H attribute    Add Arbitrary header line, eg. 'Accept-Encoding: gzip'
+<pre tabindex="0"><code>    -H attribute    Add Arbitrary header line, eg. 'Accept-Encoding: gzip'
 </code></pre><h2 id="その他">その他</h2>
 <p>そのほか最低この2つのオプションがわかっていれば、ざっくりとした確認はできる。</p>
-<pre><code>    -n requests     Number of requests to perform
+<pre tabindex="0"><code>    -n requests     Number of requests to perform
     -c concurrency  Number of multiple requests to make at a time
 </code></pre>
                 </section>

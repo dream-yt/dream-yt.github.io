@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>BigQuery の Scheduled Query をCLIから登録/参照 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -93,7 +93,7 @@
                 
                 <section id="post-body">
                     <p>こんなコマンドで登録できる</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ bq mk <span style="color:#ae81ff">\
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ bq mk <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>    --transfer_config <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>    --data_source<span style="color:#f92672">=</span>scheduled_query <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>    --target_dataset<span style="color:#f92672">=</span>mydataset <span style="color:#ae81ff">\
@@ -118,7 +118,7 @@
 </ul>
 <h2 id="なお">なお</h2>
 <p>作ったスケジュールクエリをCLIで取得するのはこんな感じ</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ bq --format<span style="color:#f92672">=</span>json ls --transfer_config --transfer_location<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;asia-northeast1&#39;</span> | jq .
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ bq --format<span style="color:#f92672">=</span>json ls --transfer_config --transfer_location<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;asia-northeast1&#39;</span> | jq .
 </code></pre></div>
                 </section>
             </article>

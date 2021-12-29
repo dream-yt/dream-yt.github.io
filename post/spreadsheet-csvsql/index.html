@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>csvsqlを使ってサクッとスプレッドシートからmysqlにデータを入れる &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -103,9 +103,9 @@
 </ul>
 <h3 id="csvsql">csvsql</h3>
 <p>csvsqlはcsvkitをインストールするとついてくる</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ pip install csvkit
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ pip install csvkit
 </code></pre></div><h3 id="コマンド例">コマンド例</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cat ~/Downloads/無題のスプレッドシート<span style="color:#ae81ff">\ </span>-<span style="color:#ae81ff">\ </span>シート1.csv <span style="color:#ae81ff">\
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cat ~/Downloads/無題のスプレッドシート<span style="color:#ae81ff">\ </span>-<span style="color:#ae81ff">\ </span>シート1.csv <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>  | csvsql --db mysql://root:@127.0.0.1:3306/mydb --insert --no-create --tables my_table
 </code></pre></div><p>オプションなどの説明はこのへん</p>
 <ul>

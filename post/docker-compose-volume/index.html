@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>docker-compose でデバッグ用のボリュームマウントを行う &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -101,7 +101,7 @@
 <p>Docker では <code>--mount</code> オプションでホストOSとDocker上のファイルシステムで共用できるディスクを作れるが、<code>docker-compose exec</code> コマンドにはそのようなオプションがない。(いちおう <code>docker run</code> には <code>--volume</code> オプションが存在するようだ)</p>
 <h3 id="docker-composeoverrideyml">docker-compose.override.yml</h3>
 <p>オプションで指定できないので <code>docker-compose.yml</code> で指定することになるが、複数人で開発しているプロジェクトなので個人的なデバッグ用のコードをさし挟むことはできない。 <code>docker-compose.override.yml</code> を使うことになる。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">version</span>: <span style="color:#e6db74">&#39;3&#39;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">version</span>: <span style="color:#e6db74">&#39;3&#39;</span>
 <span style="color:#f92672">services</span>:
   <span style="color:#f92672">rfp</span>:
     <span style="color:#f92672">volumes</span>:
@@ -112,15 +112,15 @@
 <h2 id="その他">その他</h2>
 <p><code>docker-compose</code> コマンドは未知のオプションをつけると、エラーを出力せず、またリターンコードも0でプロセスが終了する。
 <code>docker-compose exec</code> に <code>--mount</code> オプションをつけて実行していたときは「よくわからないがコマンドが実行されない」という状態になり少し戸惑った。</p>
-<pre><code class="language-console" data-lang="console">$ docker-compose exec \
-&gt;     --mount \
-&gt;         type=bind \
-&gt;         src=/var/tmp/audio \
-&gt;         dst=/hostos/audio \
-&gt;     app carton exec perl tools/,/_.pl
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">$ docker-compose exec <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>&gt;     --mount <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>&gt;         type<span style="color:#f92672">=</span>bind <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>&gt;         src<span style="color:#f92672">=</span>/var/tmp/audio <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>&gt;         dst<span style="color:#f92672">=</span>/hostos/audio <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>&gt;     app carton exec perl tools/,/_.pl
 $ echo $?
 0
-</code></pre><h2 id="参考">参考</h2>
+</code></pre></div><h2 id="参考">参考</h2>
 <ul>
 <li><a href="https://qiita.com/aki_55p/items/63c47214cab7bcb027e0">Docker の Volume がよくわからないから調べた - Qiita</a></li>
 </ul>

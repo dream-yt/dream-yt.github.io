@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>GoogleSpreadSheetへBigQueryからクエリできるようにする &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -98,15 +98,15 @@
                 
                 <section id="post-body">
                     <p>こんなコマンドでspreadsheetをbigqueryのテーブルのように使うことができる</p>
-<pre><code>$ bq mk --external_table_definition=[SCHEMA]@[SOURCE_FORMAT]=[GOOGLE_DRIVE_URL] \
+<pre tabindex="0"><code>$ bq mk --external_table_definition=[SCHEMA]@[SOURCE_FORMAT]=[GOOGLE_DRIVE_URL] \
     [DATASET_ID].[TABLE_NAME]
 </code></pre><p>実際の値をいれるとこんな感じ</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ export GOOGLE_SHEETS<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;https://docs.google.com/spreadsheets/d/1r--MIJGEuZSgx9KMQxyAOL9S80cZaV8BM/edit#gid=1436148405&#39;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ export GOOGLE_SHEETS<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;https://docs.google.com/spreadsheets/d/1r--MIJGEuZSgx9KMQxyAOL9S80cZaV8BM/edit#gid=1436148405&#39;</span>
 $ export TABLE_DEF<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;shop_id:string,shop_name:string,area:string,business:string,genre:string&#39;</span>
 $ bq mk --external_table_definition<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$TABLE_DEF<span style="color:#e6db74">&#34;</span>@GOOGLE_SHEETS<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$GOOGLE_SHEETS<span style="color:#e6db74">&#34;</span> <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>    log.test_shops2
 </code></pre></div><p>これだけでgoogle spreadsheetへbigqueryからクエリできるようになる</p>
-<pre><code class="language-console" data-lang="console">$ bq query &quot;select shop_id from log.test_shops2 limit 3&quot;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">$ bq query <span style="color:#e6db74">&#34;select shop_id from log.test_shops2 limit 3&#34;</span>
 Waiting on bqjob_r31a9b91bc4ce40b1_000001691e9a3eba_1 ... (1s) Current status: DONE
 +----------------+
 |    shop_id     |
@@ -115,17 +115,17 @@ Waiting on bqjob_r31a9b91bc4ce40b1_000001691e9a3eba_1 ... (1s) Current status: D
 | qqqqkin-aoerei |
 | tog-n          |
 +----------------+
-</code></pre><h3 id="ドキュメント">ドキュメント</h3>
+</code></pre></div><h3 id="ドキュメント">ドキュメント</h3>
 <ul>
 <li><a href="https://cloud.google.com/bigquery/federated-data-sources?hl=ja#creating_a_federated_table_using_google_drive">フェデレーション データソースの作成とクエリ  |  BigQuery  |  Google Cloud</a></li>
 <li><a href="https://cloud.google.com/bigquery/docs/reference/bq-cli-reference?authuser=0&amp;hl=ja#bq_mk">bq コマンドライン ツール リファレンス  |  BigQuery  |  Google Cloud</a></li>
 </ul>
 <h2 id="認証">認証?</h2>
 <p><code>gcloud auth login</code> 経由で取得したcredentialだとうまく動作しなかった</p>
-<pre><code class="language-console" data-lang="console">$ bq mk --external_table_definition=GOOGLE_SHEETS=&quot;$GOOGLE_SHEETS&quot; log.test_shops
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">$ bq mk --external_table_definition<span style="color:#f92672">=</span>GOOGLE_SHEETS<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$GOOGLE_SHEETS<span style="color:#e6db74">&#34;</span> log.test_shops
 BigQuery error in mk operation: Access Denied: BigQuery BigQuery: No OAuth token with Google Drive scope was found.
-</code></pre><p>service-accountの権限を使ってbqコマンドを叩くと期待通り動作した</p>
-<pre><code>$ gcloud auth activate-service-account mossan@project-926112.iam.gserviceaccount.com \
+</code></pre></div><p>service-accountの権限を使ってbqコマンドを叩くと期待通り動作した</p>
+<pre tabindex="0"><code>$ gcloud auth activate-service-account mossan@project-926112.iam.gserviceaccount.com \
     --key-file=./gcp/mossan-key.json
 </code></pre><p>原因が公式ドキュメントから読み解けなかったが、
 こんなことが書いてあるページを見つけた</p>
@@ -143,17 +143,17 @@ BigQuery error in mk operation: Access Denied: BigQuery BigQuery: No OAuth token
 <h2 id="カラム">カラム</h2>
 <p>カラム情報を渡さずに <code>bq mk</code> するとカラム名が適当な感じになってしまうので、
 なるべくテーブル定義はちゃんとやる必要がある</p>
-<pre><code class="language-console" data-lang="console">$ bq show log.test_shops
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">$ bq show log.test_shops
 Table project-926112:log.test_shops
-
-   Last modified             Schema               Type     Total URIs   Expiration   Labels
+<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>   Last modified             Schema               Type     Total URIs   Expiration   Labels
  ----------------- --------------------------- ---------- ------------ ------------ --------
   24 Feb 17:05:53   |- string_field_0: string   EXTERNAL   1
                     |- string_field_1: string
                     |- string_field_2: string
                     |- string_field_3: string
                     |- string_field_4: string
-</code></pre>
+</code></pre></div>
                 </section>
             </article>
 

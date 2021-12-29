@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>GCP の cloudbuild を ローカルで実行する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -107,12 +107,12 @@
 <h3 id="revision_id">REVISION_ID</h3>
 <p>cloudbuild.yaml では <code>$REVISION_ID</code> という変数が使えるようになっているが、ローカルビルドだとこれは使えない</p>
 <p><code>--substitutions</code> で渡してやれば誤魔化すことができた</p>
-<pre><code>--substitutions REVISION_ID=buildlocal
+<pre tabindex="0"><code>--substitutions REVISION_ID=buildlocal
 </code></pre><h3 id="dryrun">dryrun</h3>
 <p>デフォルトだと <code>dryrun=true</code> となっていて、cloudbuild.yaml ファイルの記述がルール通りかの構文チェックのみとなっている。実際にビルドやデプロイの処理をしたいときにはこれは <code>dryrun=false</code> とする</p>
 <h2 id="コマンド">コマンド</h2>
 <p>上記をふまえるとコマンドはこんな感じになった</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cloud-build-local <span style="color:#ae81ff">\
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cloud-build-local <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>  --dryrun<span style="color:#f92672">=</span>false <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>  --config<span style="color:#f92672">=</span>cloudbuild.yaml <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>  --substitutions REVISION_ID<span style="color:#f92672">=</span>buildlocal <span style="color:#ae81ff">\

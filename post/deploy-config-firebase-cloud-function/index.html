@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>FirebaseCloudFunctions のデプロイ設定を書くところ &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -107,7 +107,7 @@
 <li><a href="https://blog.n-t.jp/tech/nestjs-firebase-cloudfunction/">NestJS を Firebase Cloudfunction 上で動かす</a></li>
 </ul>
 <p>今回の例だとディレクト構成はこのようになっている。</p>
-<pre><code>$ tree -L 2 ../
+<pre tabindex="0"><code>$ tree -L 2 ../
 ../
 ├── firebase.json
 ├── public
@@ -124,7 +124,7 @@
 <h1 id="firebaseの設定">firebaseの設定</h1>
 <p>server ディレクトリに firebase.json は置いていないが、firebase コマンドは上位ディレクトリに firebase.json ファイルを探して、設定を読んでくれる。</p>
 <p>今回の例ではこんな設定になっている。</p>
-<pre><code>$ cat ../firebase.json | jq .functions
+<pre tabindex="0"><code>$ cat ../firebase.json | jq .functions
 {
   &quot;source&quot;: &quot;server&quot;
   &quot;predeploy&quot;: [
@@ -159,7 +159,7 @@
 </ul>
 <h2 id="nodejsのバージョンはなにを使うか">nodejsのバージョンはなにを使うか</h2>
 <p>engines という項目に設定を入れて指示する。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cat ./package.json | jq .engines
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cat ./package.json | jq .engines
 <span style="color:#f92672">{</span>
   <span style="color:#e6db74">&#34;node&#34;</span>: <span style="color:#e6db74">&#34;14&#34;</span>
 <span style="color:#f92672">}</span>
@@ -171,7 +171,7 @@
 </ul>
 <h2 id="プロセスを起動するエントリーポイントがどこか">プロセスを起動するエントリーポイントがどこか</h2>
 <p>JavaScript で書かれたプロジェクトだと index.js を参照してくれるのはわかりやすいが、TypeScript で書いている場合などトランスパイルをはさむ必要があるときは、<code>package.json#main</code> にトランスパイル後のエントリポイントが置かれる場所を指示する。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#960050;background-color:#1e0010">$</span> <span style="color:#960050;background-color:#1e0010">cat</span> <span style="color:#960050;background-color:#1e0010">./package.json</span> <span style="color:#960050;background-color:#1e0010">|</span> <span style="color:#960050;background-color:#1e0010">grep</span> <span style="color:#960050;background-color:#1e0010">-C</span><span style="color:#ae81ff">3</span> <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#e6db74">&#34;main&#34;</span><span style="color:#960050;background-color:#1e0010">&#39;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#960050;background-color:#1e0010">$</span> <span style="color:#960050;background-color:#1e0010">cat</span> <span style="color:#960050;background-color:#1e0010">./package.json</span> <span style="color:#960050;background-color:#1e0010">|</span> <span style="color:#960050;background-color:#1e0010">grep</span> <span style="color:#960050;background-color:#1e0010">-C</span><span style="color:#ae81ff">3</span> <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#e6db74">&#34;main&#34;</span><span style="color:#960050;background-color:#1e0010">&#39;</span>
   <span style="color:#e6db74">&#34;engines&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> {
     <span style="color:#f92672">&#34;node&#34;</span>: <span style="color:#e6db74">&#34;14&#34;</span>
   }<span style="color:#960050;background-color:#1e0010">,</span>

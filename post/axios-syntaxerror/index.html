@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>[jest] SyntaxError: The string did not match the expected pattern &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -97,7 +97,7 @@
 </blockquote>
 <p>これは jest ランタイムだと axios が XMLHttpRequest を使おうとしてしまうため発生するエラーだったようだ</p>
 <p>jest.config.js に <code>testEnvironment: 'node'</code> を追加すればよい</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">module</span>.<span style="color:#a6e22e">exports</span> <span style="color:#f92672">=</span> {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">module</span>.<span style="color:#a6e22e">exports</span> <span style="color:#f92672">=</span> {
   <span style="color:#a6e22e">verbose</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>,
   <span style="color:#a6e22e">testEnvironment</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;node&#39;</span>,
   ...

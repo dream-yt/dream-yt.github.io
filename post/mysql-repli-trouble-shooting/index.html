@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>MySQLでmasterにDDLを発行したらslaveがクエリを返さなくなったときの対応 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -97,17 +97,17 @@
                     <p>MySQLでマスターにカラム追加のDDLを発行したら、スレーブ側でそのカラムを追加したテーブルが読めなくなってしまった。</p>
 <h2 id="対応">対応</h2>
 <p>スレーブ側が以下のような単純なクエリでも返ってこなくなってしまった。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">select</span> id <span style="color:#66d9ef">from</span> mytable <span style="color:#66d9ef">where</span> id <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">select</span> id <span style="color:#66d9ef">from</span> mytable <span style="color:#66d9ef">where</span> id <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
 </code></pre></div><p>PK でひいても、数十秒返ってこない。ctrl+c で kill</p>
 <p>DDLがスレーブに届いているかを確認する。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">show</span> <span style="color:#66d9ef">create</span> <span style="color:#66d9ef">table</span> mytable<span style="color:#960050;background-color:#1e0010">\</span><span style="color:#66d9ef">G</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">show</span> <span style="color:#66d9ef">create</span> <span style="color:#66d9ef">table</span> mytable<span style="color:#960050;background-color:#1e0010">\</span><span style="color:#66d9ef">G</span>
 ....
   <span style="color:#f92672">`</span>rate<span style="color:#f92672">`</span> decimal(<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">2</span>) <span style="color:#66d9ef">DEFAULT</span> <span style="color:#66d9ef">NULL</span>,
   <span style="color:#f92672">`</span>is_enabled<span style="color:#f92672">`</span> tinyint(<span style="color:#ae81ff">1</span>) unsigned <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">NULL</span> <span style="color:#66d9ef">DEFAULT</span> <span style="color:#e6db74">&#39;0&#39;</span>,
 
 </code></pre></div><p>カラム追加がまだスレーブでは適用できていないようだ。</p>
 <p>processlist を見てみたところ、<code>Waiting for table metadata lock</code> で止まっているクエリが確認できた。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">show</span> processlist ;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">show</span> processlist ;
 
 <span style="color:#f92672">+</span><span style="color:#75715e">---------+----------+-----------------------+-----+---------+------+---------------------------------+----------------------------------------------------------------------------------------------------------+
 </span><span style="color:#75715e"></span><span style="color:#f92672">|</span> Id      <span style="color:#f92672">|</span> <span style="color:#66d9ef">User</span>     <span style="color:#f92672">|</span> <span style="color:#66d9ef">Host</span>                  <span style="color:#f92672">|</span> db  <span style="color:#f92672">|</span> Command <span style="color:#f92672">|</span> Time <span style="color:#f92672">|</span> <span style="color:#66d9ef">State</span>                           <span style="color:#f92672">|</span> Info                                                                                                     <span style="color:#f92672">|</span>
@@ -117,7 +117,7 @@
 <span style="color:#f92672">|</span> <span style="color:#ae81ff">3172260</span> <span style="color:#f92672">|</span> readonly <span style="color:#f92672">|</span> <span style="color:#ae81ff">10</span>.<span style="color:#ae81ff">136</span>.<span style="color:#ae81ff">1</span>.<span style="color:#ae81ff">229</span>:<span style="color:#ae81ff">48626</span>     <span style="color:#f92672">|</span> myproj <span style="color:#f92672">|</span> Query   <span style="color:#f92672">|</span> <span style="color:#ae81ff">630</span>  <span style="color:#f92672">|</span> Waiting <span style="color:#66d9ef">for</span> <span style="color:#66d9ef">table</span> metadata <span style="color:#66d9ef">lock</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">SELECT</span>.... <span style="color:#f92672">|</span>
 <span style="color:#f92672">|</span> <span style="color:#ae81ff">3172329</span> <span style="color:#f92672">|</span> readonly <span style="color:#f92672">|</span> <span style="color:#ae81ff">202</span>.<span style="color:#ae81ff">32</span>.<span style="color:#ae81ff">238</span>.<span style="color:#ae81ff">73</span>:<span style="color:#ae81ff">40228</span>  <span style="color:#f92672">|</span> myproj <span style="color:#f92672">|</span> Sleep   <span style="color:#f92672">|</span> <span style="color:#ae81ff">31</span>   <span style="color:#f92672">|</span>                                 <span style="color:#f92672">|</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">null</span><span style="color:#f92672">&gt;</span>                                                                                                   <span style="color:#f92672">|</span>
 </code></pre></div><p>これは分析用のクエリということがわかっていたので、これらをkillしたところ、その他のクエリも無事に流れるようになった。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#f92672">&gt;</span> kill <span style="color:#ae81ff">3172084</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#f92672">&gt;</span> kill <span style="color:#ae81ff">3172084</span>
 </code></pre></div><h2 id="おさらい">おさらい</h2>
 <ul>
 <li>まずスレーブがどこまでマスターに追随できているかを確認する

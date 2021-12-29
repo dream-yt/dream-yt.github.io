@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>perlでモジュール検索パスの追加に `FindBin` を使う &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -109,7 +109,7 @@
 <li>「実行しているスクリプトの所在がわかる」とも言える</li>
 </ul>
 <p><code>FindBin</code> で取得したパスを使って、モジュール読み込みパスにlib配下を追加する</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl"><span style="color:#66d9ef">use</span> FindBin;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl"><span style="color:#66d9ef">use</span> FindBin;
 <span style="color:#66d9ef">use</span> lib <span style="color:#e6db74">&#34;$FindBin::Bin/lib&#34;</span>;
 </code></pre></div><h2 id="findbinlibs-とは">FindBin::libs とは</h2>
 <blockquote>
@@ -117,32 +117,32 @@
 </blockquote>
 <p>↑で示した読み込みパスへの <code>lib</code> ディレクトリの追加ごとやってくれるパッケージ。
 探してくれるディレクトリ名はオプションで指定することができるが、デフォルトは <code>lib</code> となっている。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl"><span style="color:#75715e"># same as above with explicit defaults.</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl"><span style="color:#75715e"># same as above with explicit defaults.</span>
 <span style="color:#66d9ef">use</span> FindBin::libs <span style="color:#e6db74">qw( base=lib use=1 noexport noprint )</span>;
 </code></pre></div><h2 id="動作">動作</h2>
 <p><code>FindBin::libs</code> を使うと <code>@INC</code> がどのように変わるかを確認する</p>
 <h3 id="まず使わない場合">まず使わない場合</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl"><span style="color:#75715e">#!/usr/bin/env perl</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl"><span style="color:#75715e">#!/usr/bin/env perl</span>
 <span style="color:#66d9ef">print</span> join(<span style="color:#e6db74">&#34;\n&#34;</span>, @INC);
-</code></pre></div><pre><code class="language-console" data-lang="console">/usr/local/lib/perl5/site_perl/5.32.1/x86_64-linux-gnu
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">/usr/local/lib/perl5/site_perl/5.32.1/x86_64-linux-gnu
 /usr/local/lib/perl5/site_perl/5.32.1
 /usr/local/lib/perl5/vendor_perl/5.32.1/x86_64-linux-gnu
 /usr/local/lib/perl5/vendor_perl/5.32.1
 /usr/local/lib/perl5/5.32.1/x86_64-linux-gnu
 /usr/local/lib/perl5/5.32.1
-</code></pre><h3 id="まず使った場合">まず使った場合</h3>
+</code></pre></div><h3 id="まず使った場合">まず使った場合</h3>
 <p><code>/proj/app/tools/_.pl</code> を実行した場合</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl"><span style="color:#75715e">#!/usr/bin/env perl</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl"><span style="color:#75715e">#!/usr/bin/env perl</span>
 <span style="color:#66d9ef">use</span> FindBin::libs;
 <span style="color:#66d9ef">print</span> join(<span style="color:#e6db74">&#34;\n&#34;</span>, @INC);
-</code></pre></div><pre><code class="language-console" data-lang="console">/proj/app/lib
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">/proj/app/lib
 /usr/local/lib/perl5/site_perl/5.32.1/x86_64-linux-gnu
 /usr/local/lib/perl5/site_perl/5.32.1
 /usr/local/lib/perl5/vendor_perl/5.32.1/x86_64-linux-gnu
 /usr/local/lib/perl5/vendor_perl/5.32.1
 /usr/local/lib/perl5/5.32.1/x86_64-linux-gnu
 /usr/local/lib/perl5/5.32.1
-</code></pre><p><code>/proj/app/lib</code> というパスが <code>@INC</code> に追加されているのがわかる。</p>
+</code></pre></div><p><code>/proj/app/lib</code> というパスが <code>@INC</code> に追加されているのがわかる。</p>
 <h2 id="その他">その他</h2>
 <p>モジュールの検索パスを <code>@INC</code> に追加する方法は以下の3つがある</p>
 <ul>

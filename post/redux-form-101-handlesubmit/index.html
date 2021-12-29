@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>redux-form (handleSubmit) 入門 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -97,7 +97,7 @@
                     <h1 id="redux-form-handlesubmit-入門">redux-form (handleSubmit) 入門</h1>
 <h2 id="myformコンポーネントを定義">MyFormコンポーネントを定義</h2>
 <p>自前で実装するフォーム</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">MyForm</span> <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">handleSubmit</span> }) =&gt; (
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">MyForm</span> <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">handleSubmit</span> }) =&gt; (
   &lt;<span style="color:#f92672">form</span> <span style="color:#a6e22e">onSubmit</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">handleSubmit</span>}&gt;
     &lt;<span style="color:#f92672">div</span>&gt;
       &lt;<span style="color:#f92672">label</span> <span style="color:#a6e22e">htmlFor</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;firstName&#34;</span>&gt;<span style="color:#a6e22e">First</span> <span style="color:#a6e22e">Name</span>&lt;/<span style="color:#f92672">label</span>&gt;
@@ -135,11 +135,11 @@
 </ul>
 </li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">RDForm</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">reduxForm</span>({ <span style="color:#a6e22e">form</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;sampleIt&#39;</span> })(<span style="color:#a6e22e">MyForm</span>);
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">RDForm</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">reduxForm</span>({ <span style="color:#a6e22e">form</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;sampleIt&#39;</span> })(<span style="color:#a6e22e">MyForm</span>);
 </code></pre></div><h2 id="使うところ">使うところ</h2>
 <p>onSubmit属性に好きな関数を渡して使う
 (多くの場合はサーバ側にPOSTしたりとか)</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx">&lt;<span style="color:#f92672">RDForm</span> <span style="color:#a6e22e">onSubmit</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>} /&gt;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx">&lt;<span style="color:#f92672">RDForm</span> <span style="color:#a6e22e">onSubmit</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>} /&gt;
 </code></pre></div><p>ここの <code>RDForm#onSubmit</code> propsとして渡した関数は
 <code>MyForm#handleSubmit</code> propsとして渡ってくることになる</p>
 <p>例だと単純に <code>組み込みform#onSubmit</code> に渡している</p>

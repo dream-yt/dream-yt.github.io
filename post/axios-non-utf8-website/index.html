@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>UTF-8じゃないサイトをaxiosで取得する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -102,7 +102,7 @@
 <li><code>transformResponse</code> で <code>response.data</code> を期待する文字コードにデコードする</li>
 </ul>
 <p>自動でエンコーディングを判定してくれるchardetを使うとこんな感じになる</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">as</span> <span style="color:#a6e22e">chardet</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;chardet&#39;</span>;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">as</span> <span style="color:#a6e22e">chardet</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;chardet&#39;</span>;
 <span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">as</span> <span style="color:#a6e22e">iconv</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;iconv-lite&#39;</span>;
 
 <span style="color:#a6e22e">axios</span>.<span style="color:#a6e22e">create</span>({

@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>NestJS の認証で、一部のルートだけ認証不要でアクセスさせたい &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -116,7 +116,7 @@
 </ul>
 <h3 id="認証をしないためのデコレータ">認証をしないためのデコレータ</h3>
 <p><code>SetMetadata</code> はルートにかけるデコレータをつくるためのヘルパーである。ここで設定されたメタデータは Reflector を通してGuardの中で参照される。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">SetMetadata</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;@nestjs/common&#39;</span>;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">SetMetadata</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;@nestjs/common&#39;</span>;
 
 <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">IS_PUBLIC_KEY</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;isPublic&#39;</span>;
 <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Public</span> <span style="color:#f92672">=</span> () <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">SetMetadata</span>(<span style="color:#a6e22e">IS_PUBLIC_KEY</span>, <span style="color:#66d9ef">true</span>);
@@ -125,7 +125,7 @@
 </ul>
 <h3 id="認証処理でルートのメタデータを参照する">認証処理でルートのメタデータを参照する</h3>
 <p>Guard の canActivate を override して、Reflector からルートに設定されたコンテキストを参照する。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">@Injectable</span>()
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">@Injectable</span>()
 <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">JwtAuthGuard</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">AuthGuard</span>(<span style="color:#e6db74">&#39;jwt&#39;</span>) {
   <span style="color:#66d9ef">constructor</span>(<span style="color:#66d9ef">private</span> <span style="color:#a6e22e">reflector</span>: <span style="color:#66d9ef">Reflector</span>) {
     <span style="color:#66d9ef">super</span>();
@@ -146,10 +146,10 @@
 }
 </code></pre></div><h4 id="reflector-を-guard-に渡す">Reflector を Guard に渡す</h4>
 <p><code>JwtAuthGuard</code> のコンストラクタで <code>Reflector</code> が必要になったので引数で渡すようにする。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts">  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">reflector</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">app</span>.<span style="color:#66d9ef">get</span>(<span style="color:#a6e22e">Reflector</span>);
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts">  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">reflector</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">app</span>.<span style="color:#66d9ef">get</span>(<span style="color:#a6e22e">Reflector</span>);
   <span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">useGlobalGuards</span>(<span style="color:#66d9ef">new</span> <span style="color:#a6e22e">JwtAuthGuard</span>(<span style="color:#a6e22e">reflector</span>));
 </code></pre></div><h3 id="パブリックにしたいルートにデコレータを設定する">パブリックにしたいルートにデコレータを設定する</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Public</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;./auth/public&#39;</span>;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Public</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;./auth/public&#39;</span>;
 
 ...
 

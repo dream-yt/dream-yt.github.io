@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>BigQueryの日付分割テーブルを使う &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -119,14 +119,14 @@
 <h2 id="使い方">使い方</h2>
 <p>テーブルを作る時に <code>--time_partitioning_field</code> オプションを指定するだけでよい</p>
 <h4 id="select-insertで作ったテーブルをそうする例">select-insertで作ったテーブルをそうする例</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ bq query <span style="color:#ae81ff">\
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ bq query <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>    --destination_table grey-sort-challenge:partitioning_magic.nyc_taxi_trips_partitioned <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>    --time_partitioning_type<span style="color:#f92672">=</span>DAY <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>    --time_partitioning_field<span style="color:#f92672">=</span>pickup_datetime <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>    --use_legacy_sql<span style="color:#f92672">=</span>false <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>    <span style="color:#e6db74">&#39;select * from `grey-sort-challenge.partitioning_magic.nyc_taxi_trips`&#39;</span>
 </code></pre></div><h4 id="jsonファイルから-bq-mk-コマンドで作る例">jsonファイルから bq mk コマンドで作る例</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ bq mk --table <span style="color:#ae81ff">\
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ bq mk --table <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>     --time_partitioning_field<span style="color:#f92672">=</span>created <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>     --use_legacy_sql<span style="color:#f92672">=</span>false <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>     mylog.test <span style="color:#ae81ff">\
@@ -135,7 +135,7 @@ Table <span style="color:#e6db74">&#39;pjt-192612:mylog.test&#39;</span> success
 </code></pre></div><h4 id="bq-show">bq show</h4>
 <p>bq show すると <code>timePartitioning</code> という属性が生えている<br>
 以下の例はcreatedというカラムを日付分割パーティションカラムにして作ったテーブルの例</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ bq show --format<span style="color:#f92672">=</span>prettyjson mylog.work_status | jq .timePartitioning
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ bq show --format<span style="color:#f92672">=</span>prettyjson mylog.work_status | jq .timePartitioning
 <span style="color:#f92672">{</span>
   <span style="color:#e6db74">&#34;field&#34;</span>: <span style="color:#e6db74">&#34;created&#34;</span>,
   <span style="color:#e6db74">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;DAY&#34;</span>
@@ -143,14 +143,14 @@ Table <span style="color:#e6db74">&#39;pjt-192612:mylog.test&#39;</span> success
 </code></pre></div><p>今の所は日毎のパーティションしか切れないようだ (<code>&quot;type&quot;: &quot;DAY&quot;</code>)</p>
 <h4 id="ちゃんと減ってるか確認">ちゃんと減ってるか確認</h4>
 <p><code>--dry_run</code> オプションをつけて <code>statistics.totalBytesProcessed</code> を確認</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ bq query <span style="color:#ae81ff">\
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ bq query <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>     --format<span style="color:#f92672">=</span>prettyjson <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>     --use_legacy_sql<span style="color:#f92672">=</span>false <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>     --dry_run <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>     <span style="color:#e6db74">&#34;select distinct(created) from mylog.test where created &gt; &#39;2018-09-22&#39; order by created desc&#34;</span> <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>     | jq .statistics.totalBytesProcessed
 <span style="color:#e6db74">&#34;42065576&#34;</span>
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ bq query <span style="color:#ae81ff">\
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ bq query <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>     --format<span style="color:#f92672">=</span>prettyjson <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>     --use_legacy_sql<span style="color:#f92672">=</span>false <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>     --dry_run <span style="color:#ae81ff">\

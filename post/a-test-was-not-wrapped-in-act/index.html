@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>React Testing Library で a test was not wrapped in act をなんとかする &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -111,7 +111,7 @@ When testing, code that causes React state updates should be wrapped into act(&h
 <li><a href="https://testing-library.com/docs/dom-testing-library/api-async/#waitfor">Async Methods | Testing Library</a></li>
 </ul>
 <h3 id="例">例</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-tsx" data-lang="tsx">  <span style="color:#a6e22e">test</span>(<span style="color:#e6db74">&#34;submit call refreshWithQueryparameter&#34;</span>, <span style="color:#66d9ef">async</span> () <span style="color:#f92672">=&gt;</span> {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-tsx" data-lang="tsx">  <span style="color:#a6e22e">test</span>(<span style="color:#e6db74">&#34;submit call refreshWithQueryparameter&#34;</span>, <span style="color:#66d9ef">async</span> () <span style="color:#f92672">=&gt;</span> {
     <span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">getByText</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">rendered</span>;
     <span style="color:#75715e">// locationオブジェクトをいじるイベントをキック
 </span><span style="color:#75715e"></span>    <span style="color:#a6e22e">fireEvent</span>.<span style="color:#a6e22e">click</span>(<span style="color:#a6e22e">getByText</span>(<span style="color:#e6db74">&#39;Submit&#39;</span>))

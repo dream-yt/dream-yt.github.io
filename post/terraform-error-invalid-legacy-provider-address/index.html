@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>[terraform] Error: Invalid legacy provider address &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -100,14 +100,14 @@ You must complete the Terraform 0.13 upgrade process before upgrading to later v
 <p>これは tfstate の形式が古くなっていて、v0.14 で読めなくなってしまったということらしい。
 案内の通りに terraform を一度 v0.13 に戻す。</p>
 <p>brew で入れていたので指定したバージョンにするのは少し面倒だった</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ brew info terraform
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ brew info terraform
 $ cd /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core/Formula
 $ git log terraform.rb
 $ git checkout c67b17cb80b042825f00f1768c422a1df637ad4b terraform.rb
 $ brew unlink terraform
 $ brew install terraform
 </code></pre></div><p>v0.13だと問題なく通った</p>
-<pre><code>$ terraform init
+<pre tabindex="0"><code>$ terraform init
 $ terraform plan -out=tf-plan.out
 $ terraform apply tf-plan.out
 </code></pre><p>v0.13 で terraform apply すると、tfstate が新しい形式で更新されて v0.14 にあげてもこのエラーは出なくなるそうだ。</p>

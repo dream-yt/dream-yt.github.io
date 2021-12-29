@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.91.2" />
 		<title>BigQueryのSchemaをCSV形式からJSON形式に変換する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -93,13 +93,13 @@
                 <section id="post-body">
                     <p>BigQueryのスキーマ表現をCSV形式からJSON形式に変換する。</p>
 <p>ちなみにCSV形式はこんなもの</p>
-<pre><code>id:integer,order_id:float,detail:string
+<pre tabindex="0"><code>id:integer,order_id:float,detail:string
 </code></pre><p>JSONはperlで生成する</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cat ./schema.txt <span style="color:#ae81ff">\
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cat ./schema.txt <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>    | tr <span style="color:#e6db74">&#34;,&#34;</span> <span style="color:#e6db74">&#34;\n&#34;</span> <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>    | perl -aF<span style="color:#e6db74">&#34;:&#34;</span> -nlE <span style="color:#e6db74">&#39;say qq({&#34;name&#34;:&#34;$F[0]&#34;,&#34;type&#34;:&#34;$F[1]&#34;,&#34;mode&#34;: &#34;NULLABLE&#34;})&#39;</span>  <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>    | jq --slurp
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">[
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">[
   {
     <span style="color:#f92672">&#34;mode&#34;</span>: <span style="color:#e6db74">&#34;NULLABLE&#34;</span>,
     <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;id&#34;</span>,
