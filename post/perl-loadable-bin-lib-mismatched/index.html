@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.79.0" />
 		<title>perl の XS.c: loadable library and perl binaries are mismatched &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,38 +83,25 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#参考">参考</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#参考">参考</a></li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p>開発環境を docker-compose でやっていて、perlのバージョンをあげた時に発生。</p>
-
+                    <p>開発環境を docker-compose でやっていて、perlのバージョンをあげた時に発生。</p>
 <blockquote>
 <p>XS.c: loadable library and perl binaries are mismatched (got handshake key 0xc180000, needed 0xe180000)
 exited with code 1</p>
 </blockquote>
-
 <p>書いてある通り、perlのバージョンと入れているライブラリのバージョンが合わないので発生している。</p>
-
 <p>依存ライブラリは carton で管理しているが、carton は perl 自体のバージョンには感知しないので carton install しても carton は「すでにご指定のライブラリは入ってますよ」と言い、perl は「入ってるライブラリ(のビルド成果物)はうちのバージョンと違いますよ」となっている</p>
-
 <p>docker-compose で volume を共有しているディレクトリを消して、再度入れ直したら動くようになる。</p>
-
-<pre><code class="language-bash">$ rm -rf ./docker/app/local/*
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ rm -rf ./docker/app/local/*
 $ docker build . 
-</code></pre>
-
-<h2 id="参考">参考</h2>
-
+</code></pre></div><h2 id="参考">参考</h2>
 <ul>
 <li><a href="https://stackoverflow.com/questions/61003436/xs-c-loadable-library-and-perl-binaries-are-mismatched-got-handshake-key-0xce0">XS.c: loadable library and perl binaries are mismatched (got handshake key 0xce00080, needed 0xdb80080) - Stack Overflow</a></li>
 </ul>

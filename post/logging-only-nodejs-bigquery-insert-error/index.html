@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.79.0" />
 		<title>nodejsのBigQuery#insertに失敗したときに原因の行だけログに出す &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -72,7 +72,7 @@
                     </h1>
                     <h2 class="headline">
                     Aug 30, 2021 15:10
-                    · 331 words
+                    · 330 words
                     · 1 minute read
                       <span class="tags">
                       
@@ -83,63 +83,48 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#実装">実装</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#実装">実装</a></li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p>nodejs で BigQuery に insert するとき、1行でも不正な行があると全体が失敗する。そしてどの行がなぜ失敗したのかを確認するのにはちょっと工夫が必要である。</p>
-
+                    <p>nodejs で BigQuery に insert するとき、1行でも不正な行があると全体が失敗する。そしてどの行がなぜ失敗したのかを確認するのにはちょっと工夫が必要である。</p>
 <p>まず、不正な行があると <code>PartialFailureError</code> という例外が投げられて、これに不正な行がどれでそれがどういうふうにダメだったのかが入っている。</p>
-
 <p>ドキュメントによるとデータ構造はこうなっている。</p>
-
-<pre><code class="language-ts">e.errors (object[]):
-e.errors[].row (original row object passed to `insert`)
-e.errors[].errors[].reason
-e.errors[].errors[].message
-</code></pre>
-
-<ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">errors</span> (<span style="color:#66d9ef">object</span>[])<span style="color:#f92672">:</span>
+<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">errors</span>[].<span style="color:#a6e22e">row</span> (<span style="color:#a6e22e">original</span> <span style="color:#a6e22e">row</span> <span style="color:#66d9ef">object</span> <span style="color:#a6e22e">passed</span> <span style="color:#a6e22e">to</span> <span style="color:#e6db74">`insert`</span>)
+<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">errors</span>[].<span style="color:#a6e22e">errors</span>[].<span style="color:#a6e22e">reason</span>
+<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">errors</span>[].<span style="color:#a6e22e">errors</span>[].<span style="color:#a6e22e">message</span>
+</code></pre></div><ul>
 <li><a href="https://googleapis.dev/nodejs/bigquery/latest/Table.html#insert-examples">Table - Documentation</a></li>
 </ul>
-
 <h2 id="実装">実装</h2>
-
 <p><code>PartialFailureError</code> にはすべての行の情報が入ってしまっているので、大量のレコードを insert しようとしているときにそれをそのままログにだすと、ログも大量になってしまう。</p>
-
 <p>必要なものに絞るためこんな実装で期待通りのログを出すことができた。</p>
-
-<p>```ts
-try {
-  await bq.dataset(&ldquo;ds&rdquo;).table(&ldquo;tbl&rdquo;).insert(data);
-} catch (error) {
-  if (error.name == &lsquo;PartialFailureError&rsquo;) {
-    const invalidRowErrors = error.errors!
-      .flatMap((err: any) =&gt; {
-        if (!err.errors) {
-          return [];
-        } else {
-          return err.errors.flatMap(({ reason, message }: any) =&gt;
-            reason == &lsquo;stopped&rsquo; &amp;&amp; message == &ldquo;&rdquo;
-              ? []
-              : { row: err.row, reason, message }
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">try</span> {
+  <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">bq</span>.<span style="color:#a6e22e">dataset</span>(<span style="color:#e6db74">&#34;ds&#34;</span>).<span style="color:#a6e22e">table</span>(<span style="color:#e6db74">&#34;tbl&#34;</span>).<span style="color:#a6e22e">insert</span>(<span style="color:#a6e22e">data</span>);
+} <span style="color:#66d9ef">catch</span> (<span style="color:#a6e22e">error</span>) {
+  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">error</span>.<span style="color:#a6e22e">name</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;PartialFailureError&#39;</span>) {
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">invalidRowErrors</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">error</span>.<span style="color:#a6e22e">errors</span><span style="color:#f92672">!</span>
+      .<span style="color:#a6e22e">flatMap</span>((<span style="color:#a6e22e">err</span>: <span style="color:#66d9ef">any</span>) <span style="color:#f92672">=&gt;</span> {
+        <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">err</span>.<span style="color:#a6e22e">errors</span>) {
+          <span style="color:#66d9ef">return</span> [];
+        } <span style="color:#66d9ef">else</span> {
+          <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">err</span>.<span style="color:#a6e22e">errors</span>.<span style="color:#a6e22e">flatMap</span>(({ <span style="color:#a6e22e">reason</span>, <span style="color:#a6e22e">message</span> }<span style="color:#f92672">:</span> <span style="color:#66d9ef">any</span>) <span style="color:#f92672">=&gt;</span>
+            <span style="color:#a6e22e">reason</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;stopped&#39;</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">message</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;&#34;</span> 
+              <span style="color:#f92672">?</span> [] 
+              <span style="color:#f92672">:</span> { <span style="color:#a6e22e">row</span>: <span style="color:#66d9ef">err.row</span>, <span style="color:#a6e22e">reason</span>, <span style="color:#a6e22e">message</span> }
           )
         }
       })
-    console.error(invalidRowErrors)
-    console.error(error.stack || error.message);
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">error</span>(<span style="color:#a6e22e">invalidRowErrors</span>)
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">error</span>(<span style="color:#a6e22e">error</span>.<span style="color:#a6e22e">stack</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">error</span>.<span style="color:#a6e22e">message</span>);
   }
-}</p>
-
+}
+</code></pre></div>
                 </section>
             </article>
 

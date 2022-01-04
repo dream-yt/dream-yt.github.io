@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.79.0" />
 		<title>JavaScript heap out of memory になんとなくで対処する場合とchromeでデバッグする場合 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,29 +83,22 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#なんとなくで対処すればいい場合">なんとなくで対処すればいい場合</a></li>
-<li><a href="#原因を調べたい場合">原因を調べたい場合</a>
-<ul>
-<li><a href="#参考">参考</a></li>
-</ul></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#なんとなくで対処すればいい場合">なんとなくで対処すればいい場合</a></li>
+    <li><a href="#原因を調べたい場合">原因を調べたい場合</a>
+      <ul>
+        <li><a href="#参考">参考</a></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p>例えばwebpackの処理で以下のエラーが出た場合の話</p>
-
-<pre><code class="language-bash">$ serverless deploy --function App --stage prod
-</code></pre>
-
-<pre><code class="language-console">Serverless: Bundling with Webpack...
+                    <p>例えばwebpackの処理で以下のエラーが出た場合の話</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ serverless deploy --function App --stage prod
+</code></pre></div><pre><code class="language-console" data-lang="console">Serverless: Bundling with Webpack...
 
 ...中略...
 
@@ -117,28 +110,15 @@ FATAL ERROR: CALL_AND_RETRY_LAST Allocation failed - JavaScript heap out of memo
 
 12: v8::internal::Builtin_Impl_HandleApiCall(v8::internal::BuiltinArguments, v8::internal::Isolate*) [~/.nodebrew/node/v8.10.0/bin/node]
 13: 0x373ff9d842fd
-</code></pre>
-
-<h2 id="なんとなくで対処すればいい場合">なんとなくで対処すればいい場合</h2>
-
+</code></pre><h2 id="なんとなくで対処すればいい場合">なんとなくで対処すればいい場合</h2>
 <p>メッセージ通りにheapが足りていないのでオプションを足せば逃げられる</p>
-
-<pre><code class="language-bash">$ node --max_old_space_size=2048 serverless deploy
-</code></pre>
-
-<h2 id="原因を調べたい場合">原因を調べたい場合</h2>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ node --max_old_space_size<span style="color:#f92672">=</span><span style="color:#ae81ff">2048</span> serverless deploy
+</code></pre></div><h2 id="原因を調べたい場合">原因を調べたい場合</h2>
 <p>きちんと原因を探ろうとする場合は以下のコマンドで調べられる</p>
-
 <pre><code>$ node --max_old_space_size=512 --expose-gc --inspect serverless deploy
-</code></pre>
-
-<p>叩くとURLが表示されるので、それをchromeで開くとデバッガが起動する。ステップ実行しながらどの辺の処理でヒープが膨らんでるかを見ることが出来たり「これ落ちる寸前です」というところで止めてくれてスゴイ便利</p>
-
+</code></pre><p>叩くとURLが表示されるので、それをchromeで開くとデバッガが起動する。ステップ実行しながらどの辺の処理でヒープが膨らんでるかを見ることが出来たり「これ落ちる寸前です」というところで止めてくれてスゴイ便利</p>
 <p>ちなみに今回は <a href="https://github.com/googleapis/google-api-nodejs-client">googleapis</a> のソースマップを生成するところであれになって死んでいました</p>
-
 <h3 id="参考">参考</h3>
-
 <ul>
 <li><a href="https://tech.residebrokerage.com/debugging-node-js-memory-problems-d450787d9253">Debugging Memory Leaks and Memory Bloat in Node.js – Tech @Reside</a></li>
 </ul>

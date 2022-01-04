@@ -1,16 +1,12 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Git on sacre</title>
+    <title>git on sacre</title>
     <link>https://dream-yt.github.io/tags/git/</link>
-    <description>Recent content in Git on sacre</description>
+    <description>Recent content in git on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 28 Nov 2018 22:27:25 +0900</lastBuildDate>
-    
-	<atom:link href="https://dream-yt.github.io/tags/git/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Wed, 28 Nov 2018 22:27:25 +0900</lastBuildDate><atom:link href="https://dream-yt.github.io/tags/git/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>commitを別の作業branchへ移動する方法</title>
       <link>https://dream-yt.github.io/post/git-cherry-pick/</link>

@@ -14,7 +14,7 @@
   
   
   <meta name="twitter:title" content="GitHub Action で実行中のブランチ名とリビジョンを出す"/>
-  <meta name="twitter:description" content="こんな感じで出力できる。 - name: Show Revision run: | echo -e &quot;Branch: ${GITHUB_REF##*/}&quot; echo -e &quot;Revision: ${GITHUB_SHA:0:8}&quot; 参考 git - Getting current branch and commit hash in GitHub action - Stack Overflow"/>
+  <meta name="twitter:description" content="こんな感じで出力できる。 - name: Show Revision run: |echo -e &#34;Branch: ${GITHUB_REF##*/}&#34; echo -e &#34;Revision: ${GITHUB_SHA:0:8}&#34; 参考 git - Getting current branch and commit hash in GitHub action - Stack Overflow"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.79.0" />
 		<title>GitHub Action で実行中のブランチ名とリビジョンを出す &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -72,7 +72,7 @@
                     </h1>
                     <h2 class="headline">
                     Dec 27, 2020 23:34
-                    · 42 words
+                    · 41 words
                     · 1 minute read
                       <span class="tags">
                       
@@ -83,29 +83,20 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#参考">参考</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#参考">参考</a></li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p>こんな感じで出力できる。</p>
-
-<pre><code class="language-yaml">- name: Show Revision
-  run: |
-    echo -e &quot;Branch: ${GITHUB_REF##*/}&quot;
-    echo -e &quot;Revision: ${GITHUB_SHA:0:8}&quot;
-</code></pre>
-
-<h2 id="参考">参考</h2>
-
+                    <p>こんな感じで出力できる。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">- <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Show Revision</span>
+  <span style="color:#f92672">run</span>: |<span style="color:#e6db74">
+</span><span style="color:#e6db74">    echo -e &#34;Branch: ${GITHUB_REF##*/}&#34;
+</span><span style="color:#e6db74">    echo -e &#34;Revision: ${GITHUB_SHA:0:8}&#34;</span>    
+</code></pre></div><h2 id="参考">参考</h2>
 <ul>
 <li><a href="https://stackoverflow.com/questions/58886293/getting-current-branch-and-commit-hash-in-github-action">git - Getting current branch and commit hash in GitHub action - Stack Overflow</a></li>
 </ul>

@@ -14,7 +14,7 @@
   
   
   <meta name="twitter:title" content="apache bench でリクエストに指定のヘッダをつける"/>
-  <meta name="twitter:description" content="たとえば Authorization ヘッダだとこんな感じでつけられる。 $ ab -n 10 -c 1 -H &quot;Authorization: Bearer xxxxxxxx&quot; &quot;https://example.com/test&quot; ヘッダ -H オプションで設定できる。 -H attribute Add Arbitrary header line, eg. &#39;Accept-Encoding: gzip&#39; その他 そのほか最低この2"/>
+  <meta name="twitter:description" content="たとえば Authorization ヘッダだとこんな感じでつけられる。 $ ab -n 10 -c 1 -H &#34;Authorization: Bearer xxxxxxxx&#34; &#34;https://example.com/test&#34; ヘッダ -H オプションで設定できる。 -H attribute Add Arbitrary header line, eg. &#39;Accept-Encoding: gzip&#39; その他 そのほか最低この2"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.79.0" />
 		<title>apache bench でリクエストに指定のヘッダをつける &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,40 +83,25 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#ヘッダ">ヘッダ</a></li>
-<li><a href="#その他">その他</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#ヘッダ">ヘッダ</a></li>
+    <li><a href="#その他">その他</a></li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p>たとえば Authorization ヘッダだとこんな感じでつけられる。</p>
-
-<pre><code class="language-bash">$ ab -n 10 -c 1 -H &quot;Authorization: Bearer xxxxxxxx&quot; &quot;https://example.com/test&quot;
-</code></pre>
-
-<h2 id="ヘッダ">ヘッダ</h2>
-
+                    <p>たとえば Authorization ヘッダだとこんな感じでつけられる。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ ab -n <span style="color:#ae81ff">10</span> -c <span style="color:#ae81ff">1</span> -H <span style="color:#e6db74">&#34;Authorization: Bearer xxxxxxxx&#34;</span> <span style="color:#e6db74">&#34;https://example.com/test&#34;</span>
+</code></pre></div><h2 id="ヘッダ">ヘッダ</h2>
 <p><code>-H</code> オプションで設定できる。</p>
-
 <pre><code>    -H attribute    Add Arbitrary header line, eg. 'Accept-Encoding: gzip'
-</code></pre>
-
-<h2 id="その他">その他</h2>
-
+</code></pre><h2 id="その他">その他</h2>
 <p>そのほか最低この2つのオプションがわかっていれば、ざっくりとした確認はできる。</p>
-
 <pre><code>    -n requests     Number of requests to perform
     -c concurrency  Number of multiple requests to make at a time
 </code></pre>
-
                 </section>
             </article>
 

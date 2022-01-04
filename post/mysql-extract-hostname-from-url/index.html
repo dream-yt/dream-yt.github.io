@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.79.0" />
 		<title>MySQLで、URLからホスト部まで抜き出す &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,28 +83,18 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#参考">参考</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#参考">参考</a></li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p>ちょっとサボって <code>https://</code> などのスキーマ部も入る形</p>
-
-<pre><code class="language-sql">SELECT SUBSTRING_INDEX(SUBSTRING_INDEX(url, '/', 3), '?', 1) FROM t
-</code></pre>
-
-<h2 id="参考">参考</h2>
-
+                    <p>ちょっとサボって <code>https://</code> などのスキーマ部も入る形</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> SUBSTRING_INDEX(SUBSTRING_INDEX(url, <span style="color:#e6db74">&#39;/&#39;</span>, <span style="color:#ae81ff">3</span>), <span style="color:#e6db74">&#39;?&#39;</span>, <span style="color:#ae81ff">1</span>) <span style="color:#66d9ef">FROM</span> t
+</code></pre></div><h2 id="参考">参考</h2>
 <p>熱い議論が交わされている</p>
-
 <ul>
 <li><a href="https://stackoverflow.com/questions/9280336/mysql-query-to-extract-domains-from-urls">Mysql query to extract domains from urls - Stack Overflow</a></li>
 </ul>

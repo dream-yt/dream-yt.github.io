@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.79.0" />
 		<title>passport 入門と NestJS で使う場合のメモ &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,140 +83,110 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#strategy">Strategy</a>
-<ul>
-<li><a href="#いろいろな-strategy">いろいろな Strategy</a></li>
-</ul></li>
-<li><a href="#strategy-validate">Strategy#validate()</a></li>
-<li><a href="#nestjs-から使うとき">NestJS から使うとき</a>
-<ul>
-<li>
-<ul>
-<li><a href="#auth-local-strategy-ts">auth/local.strategy.ts</a></li>
-<li><a href="#auth-local-auth-guard-ts">auth/local-auth.guard.ts</a></li>
-<li><a href="#app-controller-ts">app.controller.ts</a></li>
-</ul></li>
-</ul></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#strategy">Strategy</a>
+      <ul>
+        <li><a href="#いろいろな-strategy">いろいろな Strategy</a></li>
+      </ul>
+    </li>
+    <li><a href="#strategyvalidate">Strategy#validate()</a></li>
+    <li><a href="#nestjs-から使うとき">NestJS から使うとき</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p>passport とは express 上で使う認証フレームワーク。NestJS は express 上に構築されているので NestJS でも passport と周辺のライブラリを利用することができる。</p>
-
+                    <p>passport とは express 上で使う認証フレームワーク。NestJS は express 上に構築されているので NestJS でも passport と周辺のライブラリを利用することができる。</p>
 <p>こちらを読んでメモ</p>
-
 <ul>
 <li><a href="https://docs.nestjs.com/security/authentication">Authentication | NestJS - A progressive Node.js framework</a></li>
 </ul>
-
 <h2 id="strategy">Strategy</h2>
-
 <ul>
 <li>passport というフレームワークでは Strategy ごとそれぞれ <code>validate()</code> メソッドを実装する必要がある
-
 <ul>
 <li>Strategy ごとにメソッドのシグネチャは異なる</li>
-</ul></li>
+</ul>
+</li>
 <li>passport フレームワーク が実装されたメソッドを適宜呼び出して認証を行う</li>
 </ul>
-
 <blockquote>
 <p>We&rsquo;ve also implemented the validate() method. For each strategy, Passport will call the verify function (implemented with the validate() method in @nestjs/passport) using an appropriate strategy-specific set of parameters. For the local-strategy, Passport expects a validate() method with the following signature: validate(username: string, password:string): any.</p>
 </blockquote>
-
 <h3 id="いろいろな-strategy">いろいろな Strategy</h3>
-
 <ul>
 <li>passport-local
-
 <ul>
 <li>POSTパラメータとしてリクエストされた username, password の2つの認証情報を検証する Strategy</li>
-</ul></li>
+</ul>
+</li>
 <li>passport-jwt
-
 <ul>
 <li>リクエストヘッダに載った JSON Web Token を認証情報として検証する Strategy</li>
 <li><a href="https://qiita.com/Naoto9282/items/8427918564400968bd2b">【JWT】 入門 - Qiita</a></li>
-</ul></li>
 </ul>
-
-<h2 id="strategy-validate">Strategy#validate()</h2>
-
+</li>
+</ul>
+<h2 id="strategyvalidate">Strategy#validate()</h2>
 <ul>
 <li><code>validate()</code> メソッドが期待通りに実装されていれば passport はフレームワークとしてその他の処理を裏側で行ってくれる</li>
 <li><code>validate()</code> メソッドで定義する必要があるのは「要求されたユーザの情報を返却すること」のみ
-
 <ul>
 <li>passport はここで返却されたユーザデータを <code>req.user</code> として生やしてくれる機能もうけもっている</li>
-</ul></li>
+</ul>
+</li>
 <li>もちろん認証エラーとなった場合は401を返す</li>
 </ul>
-
 <blockquote>
 <p>If a user is found and the credentials are valid, the user is returned so Passport can complete its tasks (e.g., creating the user property on the Request object)</p>
-
+</blockquote>
+<blockquote>
 <p>Typically, the only significant difference in the validate() method for each strategy is how you determine if a user exists and is valid.</p>
 </blockquote>
-
 <h2 id="nestjs-から使うとき">NestJS から使うとき</h2>
-
 <p>NestJS から使う時は、たとえば以下のような Strategy クラスを Injectable として実装して</p>
-
-<h4 id="auth-local-strategy-ts">auth/local.strategy.ts</h4>
-
-<pre><code class="language-tsx">@Injectable()
-export class LocalStrategy extends PassportStrategy(Strategy) {
-  constructor(private authService: AuthService) {
-    super();
+<h4 id="authlocalstrategyts">auth/local.strategy.ts</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-tsx" data-lang="tsx"><span style="color:#66d9ef">@Injectable</span>()
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">LocalStrategy</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">PassportStrategy</span>(<span style="color:#a6e22e">Strategy</span>) {
+  <span style="color:#66d9ef">constructor</span>(<span style="color:#66d9ef">private</span> <span style="color:#a6e22e">authService</span>: <span style="color:#66d9ef">AuthService</span>) {
+    <span style="color:#66d9ef">super</span>();
   }
 
-async validate(username: string, password: string): Promise&lt;any&gt; {
-    const user = await this.authService.validateUser(username, password);
-    if (!user) {
-      throw new UnauthorizedException();
+<span style="color:#66d9ef">async</span> <span style="color:#a6e22e">validate</span>(<span style="color:#a6e22e">username</span>: <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">password</span>: <span style="color:#66d9ef">string</span>)<span style="color:#f92672">:</span> <span style="color:#a6e22e">Promise</span>&lt;<span style="color:#f92672">any</span>&gt; {
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">user</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">authService</span>.<span style="color:#a6e22e">validateUser</span>(<span style="color:#a6e22e">username</span>, <span style="color:#a6e22e">password</span>);
+    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">user</span>) {
+      <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">UnauthorizedException</span>();
     }
-    return user;
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">user</span>;
   }
 }
-</code></pre>
-
-<p>それを Guard クラスとしてラップし</p>
-
-<h4 id="auth-local-auth-guard-ts">auth/local-auth.guard.ts</h4>
-
-<pre><code class="language-ts">@Injectable()
-export class LocalAuthGuard extends AuthGuard('local') {}
-</code></pre>
-
-<h4 id="app-controller-ts">app.controller.ts</h4>
-
+</code></pre></div><p>それを Guard クラスとしてラップし</p>
+<h4 id="authlocal-authguardts">auth/local-auth.guard.ts</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">@Injectable</span>()
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">LocalAuthGuard</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">AuthGuard</span>(<span style="color:#e6db74">&#39;local&#39;</span>) {}
+</code></pre></div><h4 id="appcontrollerts">app.controller.ts</h4>
 <p>コントローラ側で <code>@UseGuards</code> して使うことになる</p>
-
-<pre><code class="language-ts">@Controller()
-export class AppController {
-  constructor(
-    private readonly appService: AppService,
-    private authService: AuthService,
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">@Controller</span>()
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">AppController</span> {
+  <span style="color:#66d9ef">constructor</span>(
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">readonly</span> <span style="color:#a6e22e">appService</span>: <span style="color:#66d9ef">AppService</span>,
+    <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">authService</span>: <span style="color:#66d9ef">AuthService</span>,
   ) {}
 
-  // username/password が検証できないと401を返す
-  @UseGuards(LocalAuthGuard)
-  @Post('auth/login')
-  async login(@Request() req) {
-    // username/password が検証できたらトークンを返すエンドポイント
-    return this.authService.login(req.user);
+  <span style="color:#75715e">// username/password が検証できないと401を返す
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">@UseGuards</span>(<span style="color:#a6e22e">LocalAuthGuard</span>)
+  <span style="color:#66d9ef">@Post</span>(<span style="color:#e6db74">&#39;auth/login&#39;</span>)
+  <span style="color:#66d9ef">async</span> <span style="color:#a6e22e">login</span>(<span style="color:#66d9ef">@Request</span>() <span style="color:#a6e22e">req</span>) {
+    <span style="color:#75715e">// username/password が検証できたらトークンを返すエンドポイント
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">authService</span>.<span style="color:#a6e22e">login</span>(<span style="color:#a6e22e">req</span>.<span style="color:#a6e22e">user</span>);
   }
 }
-</code></pre>
-
+</code></pre></div>
                 </section>
             </article>
 

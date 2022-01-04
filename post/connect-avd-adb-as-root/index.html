@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.79.0" />
 		<title>androidの仮想デバイス(AVD)にadb rootで接続する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,69 +83,48 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#仮想デバイスの起動">仮想デバイスの起動</a></li>
-<li><a href="#接続">接続</a></li>
-<li><a href="#接続-1">接続</a></li>
-<li><a href="#参考">参考</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#仮想デバイスの起動">仮想デバイスの起動</a></li>
+    <li><a href="#接続">接続</a></li>
+    <li><a href="#接続-1">接続</a></li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p>androidの <code>/data/</code> 配下など、rootでしかアクセスできない領域のデータを確認する場合に、
+                    <p>androidの <code>/data/</code> 配下など、rootでしかアクセスできない領域のデータを確認する場合に、
 adb root する必要がある</p>
-
 <h2 id="仮想デバイスの起動">仮想デバイスの起動</h2>
-
-<pre><code class="language-bash"># 一覧を取得
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 一覧を取得</span>
 $ emulator -list-avds
-# 起動
+<span style="color:#75715e"># 起動</span>
 $ emulator -avd GoogleAPI_-_Pixel_2_XL_API_29
-</code></pre>
-
-<h2 id="接続">接続</h2>
-
+</code></pre></div><h2 id="接続">接続</h2>
 <p><strong>注意</strong></p>
-
 <p>OSイメージによってadb rootできないものがある
 仮想デバイスを作成するときに <code>Google Play  ~</code> というのを選ぶとrootできない</p>
-
 <blockquote>
 <p>To enable root access, use an emulator image like
-   Google APIs Intel x86 Atom System Image
+Google APIs Intel x86 Atom System Image
 not
-   Google Play Intel x86 Atom System Image</p>
+Google Play Intel x86 Atom System Image</p>
 </blockquote>
-
 <ul>
 <li><a href="https://stackoverflow.com/questions/43923996/adb-root-is-not-working-on-emulator-cannot-run-as-root-in-production-builds/45668555#45668555">android - ADB root is not working on emulator (cannot run as root in production builds) - Stack Overflow</a></li>
 </ul>
-
 <h2 id="接続-1">接続</h2>
-
 <p>adbコマンドで接続する</p>
-
-<pre><code class="language-console">$ adb root
+<pre><code class="language-console" data-lang="console">$ adb root
 restarting adbd as root
 $ adb shell
-</code></pre>
-
-<pre><code class="language-console">1|generic_x86:/ # ls -lah /data/user/
+</code></pre><pre><code class="language-console" data-lang="console">1|generic_x86:/ # ls -lah /data/user/
 total 8.0K
 drwx--x--x  2 system system 4.0K 2020-01-17 15:29 .
 drwxrwx--x 45 system system 4.0K 2020-01-17 15:29 ..
 lrwxrwxrwx  1 root   root     10 2020-01-17 15:29 0 -&gt; /data/data
-</code></pre>
-
-<h2 id="参考">参考</h2>
-
+</code></pre><h2 id="参考">参考</h2>
 <ul>
 <li><a href="https://seleniumbycharan.com/2016/08/07/using-adb-to-interact-with-the-avd/">Using ADB to interact with the AVD – Automation Guide</a></li>
 </ul>

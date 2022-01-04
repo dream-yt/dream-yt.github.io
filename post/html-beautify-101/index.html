@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.79.0" />
 		<title>htmlをフォーマットするのにhtml-beautifyを使う &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,62 +83,43 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#pup">pup</a></li>
-</ul></li>
-<li><a href="#例-out-ディレクトリ配下のhtmlをすべてフォーマットする場合">(例) ./out ディレクトリ配下のhtmlをすべてフォーマットする場合</a></li>
-<li><a href="#標準入力から整形する場合">標準入力から整形する場合</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#pup">pup</a></li>
+      </ul>
+    </li>
+    <li><a href="#例-out-ディレクトリ配下のhtmlをすべてフォーマットする場合">(例) ./out ディレクトリ配下のhtmlをすべてフォーマットする場合</a></li>
+    <li><a href="#標準入力から整形する場合">標準入力から整形する場合</a></li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p>html-beautify は html をフォーマットしてくれるCLIのツール。</p>
-
+                    <p>html-beautify は html をフォーマットしてくれるCLIのツール。</p>
 <ul>
 <li><a href="https://github.com/beautify-web/js-beautify">beautify-web/js-beautify: Beautifier for javascript</a></li>
 </ul>
-
 <p>html-beautify は js-beautify を入れると入る。</p>
-
-<pre><code class="language-bash">$ yarn add js-beautify
-</code></pre>
-
-<h3 id="pup">pup</h3>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ yarn add js-beautify
+</code></pre></div><h3 id="pup">pup</h3>
 <p>htmlを整形できるツールだと pup というものがあるが、自分の環境だとマルチバイト文字が文字化けしてしまうので今回は見送り。</p>
-
 <ul>
 <li><a href="https://github.com/ericchiang/pup">ericchiang/pup: Parsing HTML at the command line</a></li>
 </ul>
-
 <h2 id="例-out-ディレクトリ配下のhtmlをすべてフォーマットする場合">(例) ./out ディレクトリ配下のhtmlをすべてフォーマットする場合</h2>
-
 <p>いろいろオプションを渡してhtmlを生成することができる。</p>
-
-<pre><code class="language-bash">npx html-beautify \
-    --replace \
-    --indent-size=2 \
-    --wrap-line-length=200 \
-    --wrap-attributes=force-aligned \
-    ./out/*.html
-</code></pre>
-
-<h2 id="標準入力から整形する場合">標準入力から整形する場合</h2>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">npx html-beautify <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --replace <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --indent-size<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --wrap-line-length<span style="color:#f92672">=</span><span style="color:#ae81ff">200</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --wrap-attributes<span style="color:#f92672">=</span>force-aligned <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    ./out/*.html
+</code></pre></div><h2 id="標準入力から整形する場合">標準入力から整形する場合</h2>
 <p>標準入力から整形できるのも地味にうれしい。minifyされてしまったhtmlなどから展開する場合など。</p>
-
-<pre><code class="language-bash">$ pbpaste | html-beautify
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ pbpaste | html-beautify
+</code></pre></div>
                 </section>
             </article>
 

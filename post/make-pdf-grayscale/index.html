@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.79.0" />
 		<title>PDFを白黒にする &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,39 +83,28 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#参考">参考</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#参考">参考</a></li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p>印刷でいちいち白黒を設定するのが面倒で調べた。
+                    <p>印刷でいちいち白黒を設定するのが面倒で調べた。
 ghostscript で以下のようにオプションをわたしてあげたらキレイにモノクロになった。</p>
-
-<pre><code class="language-bash">$ gs \
-   -sDEVICE=pdfwrite \
-   -sProcessColorModel=DeviceGray \
-   -sColorConversionStrategy=Gray \
-   -dOverrideICC \
-   -o ./mono.pdf \
-   -f ./color.pdf
-</code></pre>
-
-<h2 id="参考">参考</h2>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ gs <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>   -sDEVICE<span style="color:#f92672">=</span>pdfwrite <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>   -sProcessColorModel<span style="color:#f92672">=</span>DeviceGray <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>   -sColorConversionStrategy<span style="color:#f92672">=</span>Gray <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>   -dOverrideICC <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>   -o ./mono.pdf <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>   -f ./color.pdf
+</code></pre></div><h2 id="参考">参考</h2>
 <ul>
 <li><a href="https://stackoverflow.com/questions/20128656/how-to-convert-a-pdf-to-grayscale-from-command-line-avoiding-to-be-rasterized">ghostscript - How to convert a PDF to grayscale from command line avoiding to be rasterized? - Stack Overflow</a></li>
 </ul>
-
 <p>ちなみに最初にimagemagickを使う方法を試したが、解像度の問題か一部がモザイクのような状態になってしまったので見送っている。</p>
-
 <ul>
 <li><a href="https://takuya-1st.hatenablog.jp/entry/2013/09/09/132400">画像を白黒化するコマンド(magick) - それマグで！</a></li>
 </ul>

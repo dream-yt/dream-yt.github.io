@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.79.0" />
 		<title>capture-website-cli を使って redash のスクリーンショットを撮る  📸 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -81,46 +81,39 @@
                 </header>
                 
                   
+                    <div id="toc">
+                      <nav id="TableOfContents"></nav>
+                    </div>
+                  
                 
                 <section id="post-body">
                     <p>Hosted Redash が EOL になってしまった。</p>
-
 <ul>
 <li><a href="https://redash.io/help/faq/eol">Hosted Redash End of Life</a></li>
 </ul>
-
 <p>それはしょうがないのだが、グラフのスクリーンショットのPNGが返ってくるエンドポイントがセルフホストの Redash にはなくなってしまっていて、それの代替を探さないと不便だった。</p>
-
 <p>puppeteer を使ってスクリーンショットをとってくれるツールをみつけたので試してみる。</p>
-
 <ul>
 <li><a href="https://github.com/sindresorhus/capture-website-cli">sindresorhus/capture-website-cli: Capture screenshots of websites from the command-line</a></li>
 </ul>
-
 <p>なかなか気の利いたオプションが渡せるので、とりあえず同等の画像を取得してくれるような設定を書いてみた。</p>
-
-<pre><code class="language-bash">export URL='https://redash.....api_key=xxxxxx'
-npx capture-website &quot;$URL&quot; \
-    --output=$HOME/Desktop/screenshot.png \
-    --scale-factor=1 \
-    --width=800 \
-    --height=500 \
-    --debug \
-    --overwrite \
-    --remove-elements='.modebar' \
-    --remove-elements='.hidden-print' \
-    --remove-elements='.btn-group'
-</code></pre>
-
-<p>オプションは↑で、本家でやってることと大体一緒になっている。</p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">export URL<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;https://redash.....api_key=xxxxxx&#39;</span>
+npx capture-website <span style="color:#e6db74">&#34;</span>$URL<span style="color:#e6db74">&#34;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --output<span style="color:#f92672">=</span>$HOME/Desktop/screenshot.png <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --scale-factor<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --width<span style="color:#f92672">=</span><span style="color:#ae81ff">800</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --height<span style="color:#f92672">=</span><span style="color:#ae81ff">500</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --debug <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --overwrite <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --remove-elements<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;.modebar&#39;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --remove-elements<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;.hidden-print&#39;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --remove-elements<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;.btn-group&#39;</span>
+</code></pre></div><p>オプションは↑で、本家でやってることと大体一緒になっている。</p>
 <ul>
 <li><a href="https://github.com/getredash/snap/blob/master/snap-reference/src/hide-elements.js">getredash/snap: Microservice to take snapshots (images/PDF) of Redash visualizations and dashboards.</a></li>
 </ul>
-
 <p>けっこうちゃんと撮れる。</p>
-
-<p><img src="https://user-images.githubusercontent.com/5309672/146524725-067e1c24-1e33-47a6-bff0-8a8f52a9bbee.png" alt="image" /></p>
+<p><img src="https://user-images.githubusercontent.com/5309672/146524725-067e1c24-1e33-47a6-bff0-8a8f52a9bbee.png" alt="image"></p>
 
                 </section>
             </article>
