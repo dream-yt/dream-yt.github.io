@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.91.2" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>psコマンドでメモリ使用量, CPU使用量でソートする &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,30 +83,42 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#例">例</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#例">例</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p><code>--sort</code> オプションがある</p>
+                    
+
+<p><code>--sort</code> オプションがある</p>
+
 <h2 id="例">例</h2>
+
 <p><code>-%mem</code> は降順、メモリ使用量という意味</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">root@92b0f68c3eb3:/# ps aux --sort -%mem | head
+
+<pre><code class="language-bash">root@92b0f68c3eb3:/# ps aux --sort -%mem | head
 USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
-root         <span style="color:#ae81ff">1</span>  0.0  0.1  <span style="color:#ae81ff">18240</span>  <span style="color:#ae81ff">3236</span> pts/0    Ss   00:20   0:00 /bin/bash
-root        <span style="color:#ae81ff">20</span>  0.0  0.1  <span style="color:#ae81ff">34424</span>  <span style="color:#ae81ff">2780</span> pts/0    R+   00:22   0:00 ps aux --sort -%mem
-root        <span style="color:#ae81ff">21</span>  0.0  0.0   <span style="color:#ae81ff">4384</span>   <span style="color:#ae81ff">668</span> pts/0    S+   00:22   0:00 head
-</code></pre></div><p><code>%cpu</code> にするとCPU使用率</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">root@92b0f68c3eb3:/# ps aux --sort -%cpu
+root         1  0.0  0.1  18240  3236 pts/0    Ss   00:20   0:00 /bin/bash
+root        20  0.0  0.1  34424  2780 pts/0    R+   00:22   0:00 ps aux --sort -%mem
+root        21  0.0  0.0   4384   668 pts/0    S+   00:22   0:00 head
+</code></pre>
+
+<p><code>%cpu</code> にするとCPU使用率</p>
+
+<pre><code class="language-bash">root@92b0f68c3eb3:/# ps aux --sort -%cpu
 USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
-root        <span style="color:#ae81ff">24</span>  <span style="color:#ae81ff">108</span>  0.1  <span style="color:#ae81ff">16088</span>  <span style="color:#ae81ff">3768</span> pts/0    R    00:22   0:06 perl -E <span style="color:#66d9ef">while</span> <span style="color:#f92672">(</span>1<span style="color:#f92672">)</span> <span style="color:#f92672">{}</span>
-root         <span style="color:#ae81ff">1</span>  0.0  0.1  <span style="color:#ae81ff">18240</span>  <span style="color:#ae81ff">3236</span> pts/0    Ss   00:20   0:00 /bin/bash
-root        <span style="color:#ae81ff">27</span>  0.0  0.1  <span style="color:#ae81ff">34424</span>  <span style="color:#ae81ff">2868</span> pts/0    R+   00:22   0:00 ps aux --sort -%cpu
-root        <span style="color:#ae81ff">28</span>  0.0  0.0   <span style="color:#ae81ff">4384</span>   <span style="color:#ae81ff">756</span> pts/0    S+   00:22   0:00 head
-</code></pre></div>
+root        24  108  0.1  16088  3768 pts/0    R    00:22   0:06 perl -E while (1) {}
+root         1  0.0  0.1  18240  3236 pts/0    Ss   00:20   0:00 /bin/bash
+root        27  0.0  0.1  34424  2868 pts/0    R+   00:22   0:00 ps aux --sort -%cpu
+root        28  0.0  0.0   4384   756 pts/0    S+   00:22   0:00 head
+</code></pre>
+
                 </section>
             </article>
 
@@ -163,7 +175,7 @@ root        <span style="color:#ae81ff">28</span>  0.0  0.0   <span style="color
     
     <p class="small">
     
-       © Copyright 2021 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+       © Copyright 2022 <i class="fa fa-heart" aria-hidden="true"></i> site_author
     
     </p>
     <p class="small">

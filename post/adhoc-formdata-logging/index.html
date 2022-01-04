@@ -14,7 +14,7 @@
   
   
   <meta name="twitter:title" content="htmlで、雑にformから送信される値を見たい"/>
-  <meta name="twitter:description" content="submitイベントを途中で止める FormDataクラスをつかう こんなコードを仕込めば値が一覧できる const form = document.querySelector(&#39;form&#39;); form.addEventListener(&#39;submit&#39;, (event) =&gt; { const formData = new FormData(form); for (let i of formData.entries()) { console.log(i.join(&#34;\t&#34;));"/>
+  <meta name="twitter:description" content="submitイベントを途中で止める FormDataクラスをつかう こんなコードを仕込めば値が一覧できる const form = document.querySelector(&#39;form&#39;); form.addEventListener(&#39;submit&#39;, (event) =&gt; { const formData = new FormData(form); for (let i of formData.entries()) { console.log(i.join(&quot;\t&quot;));"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.91.2" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>htmlで、雑にformから送信される値を見たい &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,29 +83,39 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#参考">参考</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <ul>
+                    
+
+<ul>
 <li>submitイベントを途中で止める</li>
 <li>FormDataクラスをつかう</li>
 </ul>
+
 <p>こんなコードを仕込めば値が一覧できる</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">form</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">&#39;form&#39;</span>);
-<span style="color:#a6e22e">form</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;submit&#39;</span>, (<span style="color:#a6e22e">event</span>) =&gt; {
-    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">formData</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">FormData</span>(<span style="color:#a6e22e">form</span>);
-    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#66d9ef">of</span> <span style="color:#a6e22e">formData</span>.<span style="color:#a6e22e">entries</span>()) {
-        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">i</span>.<span style="color:#a6e22e">join</span>(<span style="color:#e6db74">&#34;\t&#34;</span>));
+
+<pre><code class="language-js">const form = document.querySelector('form');
+form.addEventListener('submit', (event) =&gt; {
+    const formData = new FormData(form);
+    for (let i of formData.entries()) {
+        console.log(i.join(&quot;\t&quot;));
     }
-    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;---&#39;</span>);
-    <span style="color:#a6e22e">event</span>.<span style="color:#a6e22e">preventDefault</span>();
+    console.log('---');
+    event.preventDefault();
 });
-</code></pre></div><h2 id="参考">参考</h2>
+</code></pre>
+
+<h2 id="参考">参考</h2>
+
 <ul>
 <li><a href="https://developer.mozilla.org/ja/docs/Web/Guide/Using_FormData_Objects">FormData オブジェクトの利用 - ウェブデベロッパーガイド | MDN</a></li>
 <li><a href="https://developer.mozilla.org/ja/docs/Web/API/Event/preventDefault">Event.preventDefault() - Web API | MDN</a></li>
@@ -167,7 +177,7 @@
     
     <p class="small">
     
-       © Copyright 2021 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+       © Copyright 2022 <i class="fa fa-heart" aria-hidden="true"></i> site_author
     
     </p>
     <p class="small">

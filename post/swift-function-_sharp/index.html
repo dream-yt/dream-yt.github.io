@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.91.2" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>swiftのメソッドに出てくる _ と # &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,84 +83,113 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#前提">前提</a>
-      <ul>
-        <li><a href="#ラベル名が必要">ラベル名が必要</a></li>
-        <li><a href="#外部参照用のラベルと内部参照のラベルが設定できる">外部参照用のラベルと、内部参照のラベルが設定できる</a></li>
-      </ul>
-    </li>
-    <li><a href="#_">_</a></li>
-    <li><a href="#heading"></a></li>
-    <li><a href="#所感">所感</a></li>
-    <li><a href="#参考">参考</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#前提">前提</a>
+<ul>
+<li><a href="#ラベル名が必要">ラベル名が必要</a></li>
+<li><a href="#外部参照用のラベルと-内部参照のラベルが設定できる">外部参照用のラベルと、内部参照のラベルが設定できる</a></li>
+</ul></li>
+<li><a href="#toc_3">_</a></li>
+<li><a href="#所感">所感</a></li>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>以下のバージョンのreplで動かした</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">$ swift -v
+                    
+
+<p>以下のバージョンのreplで動かした</p>
+
+<pre><code class="language-console">$ swift -v
 Apple Swift version 4.2.1 (swiftlang-1000.11.42 clang-1000.11.45.1)
-</code></pre></div><h2 id="前提">前提</h2>
+</code></pre>
+
+<h2 id="前提">前提</h2>
+
 <h3 id="ラベル名が必要">ラベル名が必要</h3>
+
 <ul>
 <li>もともとswiftではメソッド/関数には呼ぶときに引数と一緒にラベル名も渡す必要がある</li>
 <li>渡さないとコンパイルエラーになる</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">add</span>(a: Int8, b: Int8, c: Int8) -&gt; Int8 {
-  <span style="color:#66d9ef">return</span> a <span style="color:#f92672">+</span> b <span style="color:#f92672">+</span> c;
+
+<pre><code class="language-swift">func add(a: Int8, b: Int8, c: Int8) -&gt; Int8 {
+  return a + b + c;
 }
-add(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>)  <span style="color:#75715e">// コンパイルエラー</span>
-add(a:<span style="color:#ae81ff">1</span>, b: <span style="color:#ae81ff">2</span>, c: <span style="color:#ae81ff">3</span>)  <span style="color:#75715e">// OK</span>
-</code></pre></div><h3 id="外部参照用のラベルと内部参照のラベルが設定できる">外部参照用のラベルと、内部参照のラベルが設定できる</h3>
+add(1, 2, 3)  // コンパイルエラー
+add(a:1, b: 2, c: 3)  // OK
+</code></pre>
+
+<h3 id="外部参照用のラベルと-内部参照のラベルが設定できる">外部参照用のラベルと、内部参照のラベルが設定できる</h3>
+
 <ul>
 <li>引数ラベルの前にさらにラベルを置ける</li>
 <li>関数を呼ぶ時にはこっちのラベル(外部参照用のラベル)をわたす</li>
 <li>関数の内部では内部参照のラベル(というか変数名)で処理を書く</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">add</span>(oa a: Int8, ob b: Int8) -&gt; Int8 {
-  <span style="color:#66d9ef">return</span> a <span style="color:#f92672">+</span> b;
+
+<pre><code class="language-swift">func add(oa a: Int8, ob b: Int8) -&gt; Int8 {
+  return a + b;
 }
-add(oa: <span style="color:#ae81ff">1</span>, ob: <span style="color:#ae81ff">2</span>)  <span style="color:#75715e">// OK</span>
-add(a: <span style="color:#ae81ff">1</span>, ob: <span style="color:#ae81ff">2</span>)   <span style="color:#75715e">// コンパイルエラー</span>
-</code></pre></div><h2 id="_">_</h2>
+add(oa: 1, ob: 2)  // OK
+add(a: 1, ob: 2)   // コンパイルエラー
+</code></pre>
+
+<h2 id="toc_3">_</h2>
+
 <ul>
 <li><code>_</code> をつけると呼ぶときにラベル名がいらなくなる</li>
 <li><code>_</code> は引数名の前につける</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">add</span>(<span style="color:#66d9ef">_</span> a: Int8, <span style="color:#66d9ef">_</span> b: Int8, c: Int8) -&gt; Int8 {
-  <span style="color:#66d9ef">return</span> a <span style="color:#f92672">+</span> b <span style="color:#f92672">+</span> c;
-}
-add(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, c: <span style="color:#ae81ff">3</span>)  <span style="color:#75715e">// OK</span>
-add(a: <span style="color:#ae81ff">1</span>, b: <span style="color:#ae81ff">2</span>, c: <span style="color:#ae81ff">3</span>)  <span style="color:#75715e">// 明示的にラベルをつけてもよい</span>
-add(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>)  <span style="color:#75715e">// 引数cは_つけてないから、これはコンパイルエラー</span>
-</code></pre></div><h2 id="heading"></h2>
-<p>外部参照用のラベルと内部参照用のラベルが同じでいいときにつける&hellip;</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">add</span>(#a: Int8, #b: Int8) -&gt; Int8 {
-  <span style="color:#66d9ef">return</span> a <span style="color:#f92672">+</span> b;
-}
-</code></pre></div><p>&hellip;らしいのだがswift4だとコンパイルエラーである</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift">  <span style="color:#ae81ff">5</span>&gt; <span style="color:#66d9ef">func</span> <span style="color:#a6e22e">add</span>(#a: Int8, #b: Int8) -&gt; Int8 {
-  <span style="color:#ae81ff">6.</span>   <span style="color:#66d9ef">return</span> a <span style="color:#f92672">+</span> b;
-  <span style="color:#ae81ff">7.</span> }
-error: repl.swift:<span style="color:#ae81ff">5</span>:<span style="color:#ae81ff">10</span>: error: expected parameter name followed by <span style="color:#960050;background-color:#1e0010">&#39;</span>:<span style="color:#960050;background-color:#1e0010">&#39;</span>
-<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">add</span>(#a: Int8, #b: Int8) -&gt; Int8 {
-         <span style="color:#f92672">^</span>
 
-error: repl.swift:<span style="color:#ae81ff">5</span>:<span style="color:#ae81ff">20</span>: error: expected parameter name followed by <span style="color:#960050;background-color:#1e0010">&#39;</span>:<span style="color:#960050;background-color:#1e0010">&#39;</span>
-<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">add</span>(#a: Int8, #b: Int8) -&gt; Int8 {
-</code></pre></div><p>swift5のドキュメントには引数周りの <code>#</code> についてもう書いてないみたいだ</p>
+<pre><code class="language-swift">func add(_ a: Int8, _ b: Int8, c: Int8) -&gt; Int8 {
+  return a + b + c;
+}
+add(1, 2, c: 3)  // OK
+add(a: 1, b: 2, c: 3)  // 明示的にラベルをつけてもよい
+add(1, 2, 3)  // 引数cは_つけてないから、これはコンパイルエラー
+</code></pre>
+
+<p>外部参照用のラベルと内部参照用のラベルが同じでいいときにつける&hellip;</p>
+
+<pre><code class="language-swift">func add(#a: Int8, #b: Int8) -&gt; Int8 {
+  return a + b;
+}
+</code></pre>
+
+<p>&hellip;らしいのだがswift4だとコンパイルエラーである</p>
+
+<pre><code class="language-swift">  5&gt; func add(#a: Int8, #b: Int8) -&gt; Int8 {
+  6.   return a + b;
+  7. }
+error: repl.swift:5:10: error: expected parameter name followed by ':'
+func add(#a: Int8, #b: Int8) -&gt; Int8 {
+         ^
+
+error: repl.swift:5:20: error: expected parameter name followed by ':'
+func add(#a: Int8, #b: Int8) -&gt; Int8 {
+</code></pre>
+
+<p>swift5のドキュメントには引数周りの <code>#</code> についてもう書いてないみたいだ</p>
+
 <ul>
 <li><a href="https://docs.swift.org/swift-book/LanguageGuide/Functions.html">Functions — The Swift Programming Language (Swift 5)</a></li>
 </ul>
+
 <h2 id="所感">所感</h2>
+
 <ul>
 <li><code>#selector</code> の記述が気になって調べたけど、そこはとくに納得できず</li>
 <li>検索するときは <code>site:docs.swift.org</code> つけると公式から読める</li>
 </ul>
+
 <h2 id="参考">参考</h2>
+
 <ul>
 <li><a href="https://docs.swift.org/swift-book/ReferenceManual/Expressions.html#ID547">Expressions — The Swift Programming Language (Swift 5)</a></li>
 <li><a href="https://shoken.hatenablog.com/entry/2014/06/18/151548">Swiftのfuncの引数に出てくるアンダースコアやシャープの意味について調べた - Shoken Startup Blog</a></li>
@@ -222,7 +251,7 @@ error: repl.swift:<span style="color:#ae81ff">5</span>:<span style="color:#ae81f
     
     <p class="small">
     
-       © Copyright 2021 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+       © Copyright 2022 <i class="fa fa-heart" aria-hidden="true"></i> site_author
     
     </p>
     <p class="small">

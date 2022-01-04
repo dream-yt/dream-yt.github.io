@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.91.2" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>macOSのターミナルで複数のPDFを1つにまとめる &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,33 +83,52 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#使い方">使い方</a></li>
-    <li><a href="#シンボリックリンク">シンボリックリンク</a></li>
-    <li><a href="#参考">参考</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#使い方">使い方</a></li>
+<li><a href="#シンボリックリンク">シンボリックリンク</a></li>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>macだと以下の場所に結合してくれるスクリプトが置いてある。</p>
+                    
+
+<p>macだと以下の場所に結合してくれるスクリプトが置いてある。</p>
+
 <blockquote>
 <p>/System/Library/Automator/Combine PDF Pages.action/Contents/Resources/join.py</p>
 </blockquote>
+
 <h2 id="使い方">使い方</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ PDFconcat --help
-Usage: join <span style="color:#f92672">[</span>--output &lt;file&gt;<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>--shuffle<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>--verbose<span style="color:#f92672">]</span>
-</code></pre></div><ul>
+
+<pre><code class="language-bash">$ PDFconcat --help
+Usage: join [--output &lt;file&gt;] [--shuffle] [--verbose]
+</code></pre>
+
+<ul>
 <li><code>-o</code> で出力先のパスを指定</li>
 <li>そのあとに結合したいpdfファイルのパスを列挙</li>
 </ul>
+
 <p>だいたいこんな使い方になる。</p>
-<pre tabindex="0"><code>$ PDFconcat -o ./all.pdf ./*.pdf
-</code></pre><h2 id="シンボリックリンク">シンボリックリンク</h2>
+
+<pre><code>$ PDFconcat -o ./all.pdf ./*.pdf
+</code></pre>
+
+<h2 id="シンボリックリンク">シンボリックリンク</h2>
+
 <p>シンポリックリンクを作っておくと楽。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo ln -s <span style="color:#e6db74">&#34;/System/Library/Automator/Combine PDF Pages.action/Contents/Resources/join.py&#34;</span> /usr/local/bin/PDFconcat
-</code></pre></div><h2 id="参考">参考</h2>
+
+<pre><code class="language-bash">sudo ln -s &quot;/System/Library/Automator/Combine PDF Pages.action/Contents/Resources/join.py&quot; /usr/local/bin/PDFconcat
+</code></pre>
+
+<h2 id="参考">参考</h2>
+
 <ul>
 <li><a href="https://gotofritz.net/blog/howto/joining-pdf-files-in-os-x-from-the-command-line/">Joining PDF files in OS X from the command line || Fritz Stelluto</a></li>
 </ul>
@@ -170,7 +189,7 @@ Usage: join <span style="color:#f92672">[</span>--output &lt;file&gt;<span style
     
     <p class="small">
     
-       © Copyright 2021 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+       © Copyright 2022 <i class="fa fa-heart" aria-hidden="true"></i> site_author
     
     </p>
     <p class="small">

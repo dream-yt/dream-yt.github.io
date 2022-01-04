@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.91.2" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>athena(presto)のテーブル定義に出てくるSerdeとは? &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -81,21 +81,22 @@
                 </header>
                 
                   
-                    <div id="toc">
-                      <nav id="TableOfContents"></nav>
-                    </div>
-                  
                 
                 <section id="post-body">
                     <p>athena(hive)のテーブル定義で出てくる。<code>JsonSerDe</code>みたいなもの。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">ROW</span> FORMAT SERDE <span style="color:#e6db74">&#39;org.openx.data.jsonserde.JsonSerDe&#39;</span>
-<span style="color:#66d9ef">WITH</span> SERDEPROPERTIES (
-  <span style="color:#e6db74">&#39;serialization.format&#39;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;1&#39;</span>
-) <span style="color:#66d9ef">LOCATION</span> <span style="color:#e6db74">&#39;s3://bucketistyu/data/&#39;</span>
-</code></pre></div><p>調べたらシリアライザ(SERializer) / デシリアライザ(DESerializer) の略だった。</p>
+
+<pre><code class="language-sql">ROW FORMAT SERDE 'org.openx.data.jsonserde.JsonSerDe'
+WITH SERDEPROPERTIES (
+  'serialization.format' = '1'
+) LOCATION 's3://bucketistyu/data/'
+</code></pre>
+
+<p>調べたらシリアライザ(SERializer) / デシリアライザ(DESerializer) の略だった。</p>
+
 <ul>
 <li><a href="https://ja.wikipedia.org/wiki/SerDes">SerDes - Wikipedia</a></li>
 </ul>
+
 <p>言われてみればそうだよね。と思いました。</p>
 
                 </section>
@@ -154,7 +155,7 @@
     
     <p class="small">
     
-       © Copyright 2021 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+       © Copyright 2022 <i class="fa fa-heart" aria-hidden="true"></i> site_author
     
     </p>
     <p class="small">

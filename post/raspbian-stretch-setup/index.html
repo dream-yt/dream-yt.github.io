@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.91.2" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>Raspberry-Piのヘッドレスセットアップsshまで &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,77 +83,108 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li>
-      <ul>
-        <li><a href="#osのイメージをダウンロード">OSのイメージをダウンロード</a></li>
-        <li><a href="#sdカードを初期化">SDカードを初期化</a></li>
-        <li><a href="#osのイメージを書き込み">OSのイメージを書き込み</a></li>
-        <li><a href="#起動時のsshを有効化する設定">起動時のsshを有効化する設定</a></li>
-        <li><a href="#ipアドレスを確認">IPアドレスを確認</a></li>
-        <li><a href="#sshログイン">sshログイン</a></li>
-      </ul>
-    </li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#osのイメージをダウンロード">OSのイメージをダウンロード</a></li>
+<li><a href="#sdカードを初期化">SDカードを初期化</a></li>
+<li><a href="#osのイメージを書き込み">OSのイメージを書き込み</a></li>
+<li><a href="#起動時のsshを有効化する設定">起動時のsshを有効化する設定</a></li>
+<li><a href="#ipアドレスを確認">IPアドレスを確認</a></li>
+<li><a href="#sshログイン">sshログイン</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#参考">参考</a></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <h3 id="osのイメージをダウンロード">OSのイメージをダウンロード</h3>
+                    
+
+<h3 id="osのイメージをダウンロード">OSのイメージをダウンロード</h3>
+
 <p>こちらから (Raspbianはどの機種のraspberry-piでも動くのかな)</p>
+
 <ul>
 <li><a href="https://www.raspberrypi.org/downloads/raspbian/">Download Raspbian for Raspberry Pi</a></li>
 </ul>
+
 <h3 id="sdカードを初期化">SDカードを初期化</h3>
+
 <p>Disk Utility.app を起動して目当ての外部ストレージを初期化</p>
+
 <ul>
 <li>外部ストレージを選択して消去</li>
 <li>フォーマットはMS-DOS FAT</li>
 </ul>
+
 <h3 id="osのイメージを書き込み">OSのイメージを書き込み</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo dd <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  <span style="color:#66d9ef">if</span><span style="color:#f92672">=</span>~/Downloads/2019-04-08-raspbian-stretch-lite.img <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  of<span style="color:#f92672">=</span>/dev/rdisk2 <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  bs<span style="color:#f92672">=</span>1m
-</code></pre></div><p>しばらく待つとできあがる</p>
-<pre tabindex="0"><code>1720+0 records in
+
+<pre><code class="language-bash">$ sudo dd \
+  if=~/Downloads/2019-04-08-raspbian-stretch-lite.img \
+  of=/dev/rdisk2 \
+  bs=1m
+</code></pre>
+
+<p>しばらく待つとできあがる</p>
+
+<pre><code>1720+0 records in
 1720+0 records out
 1803550720 bytes transferred in 160.982231 secs (11203415 bytes/sec)
-</code></pre><h3 id="起動時のsshを有効化する設定">起動時のsshを有効化する設定</h3>
+</code></pre>
+
+<h3 id="起動時のsshを有効化する設定">起動時のsshを有効化する設定</h3>
+
 <p>(mac上からでも)ディレクトリを作っておくと有効になるそうだ</p>
-<pre tabindex="0"><code>$ mkdir /Volumes/boot/ssh
-</code></pre><h3 id="ipアドレスを確認">IPアドレスを確認</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">$ ping raspberrypi.local
+
+<pre><code>$ mkdir /Volumes/boot/ssh
+</code></pre>
+
+<h3 id="ipアドレスを確認">IPアドレスを確認</h3>
+
+<pre><code class="language-console">$ ping raspberrypi.local
 PING raspberrypi.local (192.168.111.116): 56 data bytes
 64 bytes from 192.168.111.116: icmp_seq=0 ttl=64 time=1.213 ms
 64 bytes from 192.168.111.116: icmp_seq=1 ttl=64 time=1.045 ms
-</code></pre></div><h3 id="sshログイン">sshログイン</h3>
+</code></pre>
+
+<h3 id="sshログイン">sshログイン</h3>
+
 <p>pingで調べたIPアドレスへssh</p>
+
 <p>デフォルトでは</p>
+
 <ul>
 <li>ユーザ名は <code>pi</code></li>
 <li>パスワードは <code>raspberry</code></li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">$ ssh pi@192.168.111.116
-The authenticity of host &#39;192.168.111.116 (192.168.111.116)&#39; can&#39;t be established.
+
+<pre><code class="language-console">$ ssh pi@192.168.111.116
+The authenticity of host '192.168.111.116 (192.168.111.116)' can't be established.
 ECDSA key fingerprint is SHA256:tPzfOAbGS3F7PMuA59abZcoJAiWJHkKw7b5rwBkc.
 Are you sure you want to continue connecting (yes/no)? yes
-Warning: Permanently added &#39;192.168.111.116&#39; (ECDSA) to the list of known hosts.
-pi@192.168.111.116&#39;s password:
+Warning: Permanently added '192.168.111.116' (ECDSA) to the list of known hosts.
+pi@192.168.111.116's password:
 Linux raspberrypi 4.14.98+ #1200 Tue Feb 12 20:11:02 GMT 2019 armv6l
-<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span>The programs included with the Debian GNU/Linux system are free software;
+
+The programs included with the Debian GNU/Linux system are free software;
 the exact distribution terms for each program are described in the
 individual files in /usr/share/doc/*/copyright.
-<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span>Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
 permitted by applicable law.
-<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span>SSH is enabled and the default password for the &#39;pi&#39; user has not been changed.
-This is a security risk - please login as the &#39;pi&#39; user and type &#39;passwd&#39; to set a new password.
-<span style="color:#960050;background-color:#1e0010">
-</span></code></pre></div><h1 id="参考">参考</h1>
+
+SSH is enabled and the default password for the 'pi' user has not been changed.
+This is a security risk - please login as the 'pi' user and type 'passwd' to set a new password.
+
+</code></pre>
+
+<h1 id="参考">参考</h1>
+
 <ul>
 <li><a href="https://www.ukeyslabo.com/raspberry-pi/init-and-ssh/">Raspberry Pi - 初期設定、SSHログイン | UKey&rsquo;s Labo</a></li>
 <li><a href="https://qiita.com/petersheep/items/400dce8099b4bc24245e">Raspberry Pi 3 コンソールのみ(ヘッドレス)でRaspbianセットアップからLチカまで - Qiita</a></li>
@@ -215,7 +246,7 @@ This is a security risk - please login as the &#39;pi&#39; user and type &#39;pa
     
     <p class="small">
     
-       © Copyright 2021 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+       © Copyright 2022 <i class="fa fa-heart" aria-hidden="true"></i> site_author
     
     </p>
     <p class="small">

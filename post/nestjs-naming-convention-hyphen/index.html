@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.91.2" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>NestJS でハイフン混じりのリソースを定義するとき &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -81,38 +81,41 @@
                 </header>
                 
                   
-                    <div id="toc">
-                      <nav id="TableOfContents"></nav>
-                    </div>
-                  
                 
                 <section id="post-body">
                     <p>2単語にまたがるリソース名をつけようとするときどうするのが流儀に沿っているかわからなかったので調べたメモ。</p>
+
 <p>結論としてはnestjsらしい名前をつけようとするとこんな感じということだ。</p>
+
 <ul>
 <li>クラス/モジュール名だとパスカルケース (例: <code>UserRole</code>)</li>
 <li>ファイル名だとハイフン区切り (例: <code>user-role</code> )</li>
 </ul>
+
 <blockquote>
 <p>I found out that NestJS library used hyphen-separated user-role.service.ts file naming as its convension.</p>
 </blockquote>
+
 <ul>
 <li><a href="https://stackoverflow.com/questions/61666498/file-naming-in-nest-js">node.js - File naming in Nest.js - Stack Overflow</a></li>
 </ul>
+
 <p><code>nest generate</code> の引数に渡すときはハイフン区切りにすれば、そのクラス名はパスカルケースになってくれるのも確認した。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ npx nest generate resource user-role --dry-run
-? What transport layer <span style="color:#66d9ef">do</span> you use? REST API
+
+<pre><code class="language-bash">$ npx nest generate resource user-role --dry-run
+? What transport layer do you use? REST API
 ? Would you like to generate CRUD entry points? Yes
-CREATE src/user-role/user-role.controller.spec.ts <span style="color:#f92672">(</span><span style="color:#ae81ff">598</span> bytes<span style="color:#f92672">)</span>
-CREATE src/user-role/user-role.controller.ts <span style="color:#f92672">(</span><span style="color:#ae81ff">971</span> bytes<span style="color:#f92672">)</span>
-CREATE src/user-role/user-role.module.ts <span style="color:#f92672">(</span><span style="color:#ae81ff">270</span> bytes<span style="color:#f92672">)</span>
-CREATE src/user-role/user-role.service.spec.ts <span style="color:#f92672">(</span><span style="color:#ae81ff">475</span> bytes<span style="color:#f92672">)</span>
-CREATE src/user-role/user-role.service.ts <span style="color:#f92672">(</span><span style="color:#ae81ff">665</span> bytes<span style="color:#f92672">)</span>
-CREATE src/user-role/dto/create-user-role.dto.ts <span style="color:#f92672">(</span><span style="color:#ae81ff">34</span> bytes<span style="color:#f92672">)</span>
-CREATE src/user-role/dto/update-user-role.dto.ts <span style="color:#f92672">(</span><span style="color:#ae81ff">186</span> bytes<span style="color:#f92672">)</span>
-CREATE src/user-role/entities/user-role.entity.ts <span style="color:#f92672">(</span><span style="color:#ae81ff">25</span> bytes<span style="color:#f92672">)</span>
-UPDATE src/app.module.ts <span style="color:#f92672">(</span><span style="color:#ae81ff">421</span> bytes<span style="color:#f92672">)</span>
-</code></pre></div>
+CREATE src/user-role/user-role.controller.spec.ts (598 bytes)
+CREATE src/user-role/user-role.controller.ts (971 bytes)
+CREATE src/user-role/user-role.module.ts (270 bytes)
+CREATE src/user-role/user-role.service.spec.ts (475 bytes)
+CREATE src/user-role/user-role.service.ts (665 bytes)
+CREATE src/user-role/dto/create-user-role.dto.ts (34 bytes)
+CREATE src/user-role/dto/update-user-role.dto.ts (186 bytes)
+CREATE src/user-role/entities/user-role.entity.ts (25 bytes)
+UPDATE src/app.module.ts (421 bytes)
+</code></pre>
+
                 </section>
             </article>
 
@@ -169,7 +172,7 @@ UPDATE src/app.module.ts <span style="color:#f92672">(</span><span style="color:
     
     <p class="small">
     
-       © Copyright 2021 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+       © Copyright 2022 <i class="fa fa-heart" aria-hidden="true"></i> site_author
     
     </p>
     <p class="small">

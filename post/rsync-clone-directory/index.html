@@ -14,7 +14,7 @@
   
   
   <meta name="twitter:title" content="rsyncでディレクトリをコピーする"/>
-  <meta name="twitter:description" content="送信元ディレクトリと送信先ディレクトリを同じ状態にしたいときは下記のような指定をする $ rsync \ -e &#34;ssh -i ~/.ssh/id_rsa&#34; \ -ahv --compress --delete ./webui/public/ admin@test.jp:/www/data/ ssh鍵が指定が必要な場合は-"/>
+  <meta name="twitter:description" content="送信元ディレクトリと送信先ディレクトリを同じ状態にしたいときは下記のような指定をする $ rsync \ -e &quot;ssh -i ~/.ssh/id_rsa&quot; \ -ahv --compress --delete ./webui/public/ admin@test.jp:/www/data/ ssh鍵が指定が必要な場合は-"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.91.2" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>rsyncでディレクトリをコピーする &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,46 +83,63 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#オプション">オプション</a>
-      <ul>
-        <li><a href="#-a"><code>-a</code></a></li>
-        <li><a href="#-h"><code>-h</code></a></li>
-        <li><a href="#-v"><code>-v</code></a></li>
-      </ul>
-    </li>
-    <li><a href="#参考">参考</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#オプション">オプション</a>
+<ul>
+<li><a href="#a"><code>-a</code></a></li>
+<li><a href="#h"><code>-h</code></a></li>
+<li><a href="#v"><code>-v</code></a></li>
+</ul></li>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>送信元ディレクトリと送信先ディレクトリを同じ状態にしたいときは下記のような指定をする</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ rsync <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    -e <span style="color:#e6db74">&#34;ssh -i ~/.ssh/id_rsa&#34;</span> <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    -ahv --compress --delete ./webui/public/ admin@test.jp:/www/data/
-</code></pre></div><ul>
+                    
+
+<p>送信元ディレクトリと送信先ディレクトリを同じ状態にしたいときは下記のような指定をする</p>
+
+<pre><code class="language-bash">$ rsync \
+    -e &quot;ssh -i ~/.ssh/id_rsa&quot; \
+    -ahv --compress --delete ./webui/public/ admin@test.jp:/www/data/
+</code></pre>
+
+<ul>
 <li>ssh鍵が指定が必要な場合は<code>-e</code>オプションで接続の仕方を指定する</li>
 <li>送信元のディレクトリは最後に<code>/</code>をつける</li>
 <li>送信先はディレクトリは<code>/</code>つけない</li>
 <li><code>--dry-run</code>もつけてからだと安心</li>
 </ul>
+
 <h2 id="オプション">オプション</h2>
-<h3 id="-a"><code>-a</code></h3>
+
+<h3 id="a"><code>-a</code></h3>
+
 <p>諸々有用なオプションが全部入りのアーカイブモードになる</p>
+
 <blockquote>
 <p>-a, &ndash;archive               archive mode; equals -rlptgoD (no -H,-A,-X)</p>
 </blockquote>
-<h3 id="-h"><code>-h</code></h3>
+
+<h3 id="h"><code>-h</code></h3>
+
 <blockquote>
 <p>-h, &ndash;human-readable        output numbers in a human-readable format</p>
 </blockquote>
-<h3 id="-v"><code>-v</code></h3>
+
+<h3 id="v"><code>-v</code></h3>
+
 <blockquote>
 <p>-v, &ndash;verbose               increase verbosity</p>
 </blockquote>
+
 <h2 id="参考">参考</h2>
+
 <ul>
 <li><a href="http://qiita.com/bezeklik/items/22e791df7187958d76c1">rsyncオプション - Qiita</a></li>
 <li><a href="http://dqn.sakusakutto.jp/2011/03/rsync-ssh.html">rsync + sshで鍵ファイル認証でリモートサーバに転送する方法 · DQNEO起業日記</a></li>
@@ -184,7 +201,7 @@
     
     <p class="small">
     
-       © Copyright 2021 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+       © Copyright 2022 <i class="fa fa-heart" aria-hidden="true"></i> site_author
     
     </p>
     <p class="small">

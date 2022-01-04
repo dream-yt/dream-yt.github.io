@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.91.2" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>BigQueryでアクセスログを掘るときのtips &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,43 +83,62 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li>
-      <ul>
-        <li><a href="#時間を日本時間で表示する">時間を日本時間で表示する</a></li>
-        <li><a href="#長い文字列をスニップする">長い文字列をスニップする</a></li>
-        <li><a href="#jsonから値を取得する">JSONから値を取得する</a></li>
-      </ul>
-    </li>
-    <li><a href="#参考">参考</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#時間を日本時間で表示する">時間を日本時間で表示する</a></li>
+<li><a href="#長い文字列をスニップする">長い文字列をスニップする</a></li>
+<li><a href="#jsonから値を取得する">JSONから値を取得する</a></li>
+</ul></li>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>毎回ググるところがあるのでメモをしておく。
+                    
+
+<p>毎回ググるところがあるのでメモをしておく。
 たとえばこんなクエリでアクセス履歴を見ることが多い。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> user_id,
-  FORMAT_TIMESTAMP(<span style="color:#e6db74">&#39;%Y-%m-%d %H:%M:%S&#39;</span>, time, <span style="color:#e6db74">&#39;Asia/Tokyo&#39;</span>) <span style="color:#66d9ef">AS</span> jst,
+
+<pre><code class="language-sql">SELECT user_id,
+  FORMAT_TIMESTAMP('%Y-%m-%d %H:%M:%S', time, 'Asia/Tokyo') AS jst,
   status_code,
-  SUBSTR(url, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">50</span>) url,
-  JSON_EXTRACT(<span style="color:#66d9ef">parameters</span>, <span style="color:#e6db74">&#39;$.started_at&#39;</span>) started_at,
-  JSON_EXTRACT(<span style="color:#66d9ef">parameters</span>, <span style="color:#e6db74">&#39;$.ended_at&#39;</span>) ended_at,
-  SUBSTR(<span style="color:#66d9ef">parameters</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">50</span>) snipped_param
-<span style="color:#66d9ef">FROM</span> ds.app_access_log
-<span style="color:#66d9ef">WHERE</span> time <span style="color:#66d9ef">BETWEEN</span> <span style="color:#e6db74">&#39;2021-03-19 03:25:00&#39;</span> <span style="color:#66d9ef">AND</span> <span style="color:#e6db74">&#39;2021-03-19 03:30:00&#39;</span>
-<span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> user_id,
+  SUBSTR(url, 0, 50) url,
+  JSON_EXTRACT(parameters, '$.started_at') started_at,
+  JSON_EXTRACT(parameters, '$.ended_at') ended_at,
+  SUBSTR(parameters, 0, 50) snipped_param
+FROM ds.app_access_log
+WHERE time BETWEEN '2021-03-19 03:25:00' AND '2021-03-19 03:30:00'
+ORDER BY user_id,
   time
-</code></pre></div><h3 id="時間を日本時間で表示する">時間を日本時間で表示する</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">FORMAT_TIMESTAMP(<span style="color:#e6db74">&#39;%Y-%m-%d %H:%M:%S&#39;</span>, time, <span style="color:#e6db74">&#39;Asia/Tokyo&#39;</span>) <span style="color:#66d9ef">AS</span> jst,
-</code></pre></div><h3 id="長い文字列をスニップする">長い文字列をスニップする</h3>
+</code></pre>
+
+<h3 id="時間を日本時間で表示する">時間を日本時間で表示する</h3>
+
+<pre><code class="language-sql">FORMAT_TIMESTAMP('%Y-%m-%d %H:%M:%S', time, 'Asia/Tokyo') AS jst,
+</code></pre>
+
+<h3 id="長い文字列をスニップする">長い文字列をスニップする</h3>
+
 <p>POSTパラメータとか、全部表示すると見づらくなるので少しだけ表示しておく</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">SUBSTR(<span style="color:#66d9ef">parameters</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">50</span>) snipped_param
-</code></pre></div><h3 id="jsonから値を取得する">JSONから値を取得する</h3>
+
+<pre><code class="language-sql">SUBSTR(parameters, 0, 50) snipped_param
+</code></pre>
+
+<h3 id="jsonから値を取得する">JSONから値を取得する</h3>
+
 <p>POST/GETパラメータの中身から値を取得</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">JSON_EXTRACT(<span style="color:#66d9ef">parameters</span>, <span style="color:#e6db74">&#39;$.started_at&#39;</span>) started_at,
-</code></pre></div><h2 id="参考">参考</h2>
+
+<pre><code class="language-sql">JSON_EXTRACT(parameters, '$.started_at') started_at,
+</code></pre>
+
+<h2 id="参考">参考</h2>
+
 <ul>
 <li><a href="https://cloud.google.com/bigquery/docs/reference/standard-sql/json_functions?hl=ja">標準 SQL の JSON 関数  |  BigQuery  |  Google Cloud</a></li>
 </ul>
@@ -180,7 +199,7 @@
     
     <p class="small">
     
-       © Copyright 2021 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+       © Copyright 2022 <i class="fa fa-heart" aria-hidden="true"></i> site_author
     
     </p>
     <p class="small">

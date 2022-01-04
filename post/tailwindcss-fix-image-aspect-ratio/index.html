@@ -14,7 +14,7 @@
   
   
   <meta name="twitter:title" content="tailwindcssで画像のアス比を固定する"/>
-  <meta name="twitter:description" content="object-contain を使えばよい。 &lt;img class=&#34;object-contain&#34; src=&#34;/image.jpg&#34; /&gt; どうなっているのか css の object-fit: contain を使っている。 置換コンテンツはアスペクト比を維持したまま、要素のコンテンツボックスに収まる"/>
+  <meta name="twitter:description" content="object-contain を使えばよい。 &lt;img class=&quot;object-contain&quot; src=&quot;/image.jpg&quot; /&gt; どうなっているのか css の object-fit: contain を使っている。 置換コンテンツはアスペクト比を維持したまま、要素のコンテンツボックスに収まる"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.91.2" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>tailwindcssで画像のアス比を固定する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,27 +83,41 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#どうなっているのか">どうなっているのか</a></li>
-    <li><a href="#参考">参考</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#どうなっているのか">どうなっているのか</a></li>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p><code>object-contain</code> を使えばよい。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx">&lt;<span style="color:#f92672">img</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;object-contain&#34;</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/image.jpg&#34;</span> /&gt;
-</code></pre></div><h2 id="どうなっているのか">どうなっているのか</h2>
+                    
+
+<p><code>object-contain</code> を使えばよい。</p>
+
+<pre><code class="language-jsx">&lt;img class=&quot;object-contain&quot; src=&quot;/image.jpg&quot; /&gt;
+</code></pre>
+
+<h2 id="どうなっているのか">どうなっているのか</h2>
+
 <p>css の <code>object-fit: contain</code> を使っている。</p>
+
 <blockquote>
 <p>置換コンテンツはアスペクト比を維持したまま、要素のコンテンツボックスに収まるように拡大縮小されます。オブジェクト全体がボックス内に表示され、アスペクト比が維持されるので、オブジェクトのアスペクト比とボックスのアスペクト比が合わない場合は、レターボックス表示になります。</p>
 </blockquote>
+
 <ul>
 <li><a href="https://developer.mozilla.org/ja/docs/Web/CSS/object-fit">object-fit - CSS: カスケーディングスタイルシート | MDN</a></li>
 </ul>
+
 <p><code>object-fit</code> 知らなかった。昔は画像のアスペクト比を固定するためにiframeを使ったり四苦八苦していたこともあったようだが便利な世の中に生まれてよかった。</p>
+
 <h2 id="参考">参考</h2>
+
 <ul>
 <li><a href="https://www.swjh.io/blog/preserve-aspect-ratio-of-images-with-tailwind-css/">How to preserve Aspect Ratio of Images with Tailwind CSS — swjh.io</a></li>
 </ul>
@@ -164,7 +178,7 @@
     
     <p class="small">
     
-       © Copyright 2021 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+       © Copyright 2022 <i class="fa fa-heart" aria-hidden="true"></i> site_author
     
     </p>
     <p class="small">

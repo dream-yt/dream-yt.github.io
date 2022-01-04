@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.91.2" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>mysqlのパスワードをいちいち入力しないで済む mysql_config_editor &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,27 +83,44 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#使いかた">使いかた</a>
-      <ul>
-        <li></li>
-      </ul>
-    </li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#使いかた">使いかた</a>
+<ul>
+<li>
+<ul>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>mysql_config_editor を使えばパスワードを安全に保管することができて、毎度入力しないで済む。
+                    
+
+<p>mysql_config_editor を使えばパスワードを安全に保管することができて、毎度入力しないで済む。
 パスワードを取り出しやすいところに置いておく必要がある運用よりも安全だと考えられる。</p>
+
 <h2 id="使いかた">使いかた</h2>
+
 <p>まず接続情報を登録する。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mysql_config_editor set -G $NAME -h $MYSQL_HOST -u $USER -p
-</code></pre></div><p><code>$NAME</code> はログインする時に使う接続情報につける名前</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ mycli --login-path<span style="color:#f92672">=</span>$NAME
-</code></pre></div><p>mycliでも使えるのが便利。</p>
+
+<pre><code class="language-bash">mysql_config_editor set -G $NAME -h $MYSQL_HOST -u $USER -p
+</code></pre>
+
+<p><code>$NAME</code> はログインする時に使う接続情報につける名前</p>
+
+<pre><code class="language-bash">$ mycli --login-path=$NAME
+</code></pre>
+
+<p>mycliでも使えるのが便利。</p>
+
 <h4 id="参考">参考</h4>
+
 <ul>
 <li><a href="https://qiita.com/rmanzoku/items/0502f2c40467a596f8db">MySQLへの接続を楽にする - Qiita</a></li>
 <li><a href="https://blog.n-t.jp/tech/portforward-remote-mysql/">ポートフォワードしてリモートのMySQLに接続する</a></li>
@@ -165,7 +182,7 @@
     
     <p class="small">
     
-       © Copyright 2021 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+       © Copyright 2022 <i class="fa fa-heart" aria-hidden="true"></i> site_author
     
     </p>
     <p class="small">

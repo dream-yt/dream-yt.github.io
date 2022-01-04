@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.91.2" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>envsubstを使って環境変数だけでサクッとテンプレート出力する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,40 +83,55 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li>
-      <ul>
-        <li><a href="#インストール">インストール</a></li>
-      </ul>
-    </li>
-    <li><a href="#例">例</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#インストール">インストール</a></li>
+</ul></li>
+<li><a href="#例">例</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>gettextパッケージに入っているenvsubstコマンドを使うと、テンプレートファイルから環境変数を埋めて出力することができる</p>
+                    
+
+<p>gettextパッケージに入っているenvsubstコマンドを使うと、テンプレートファイルから環境変数を埋めて出力することができる</p>
+
 <ul>
 <li><a href="https://www.gnu.org/software/gettext/manual/html_node/envsubst-Invocation.html">GNU gettext utilities: envsubst Invocation</a></li>
 </ul>
+
 <h3 id="インストール">インストール</h3>
+
 <p>macの場合は brew で入る</p>
-<pre tabindex="0"><code>$ brew install gettext
+
+<pre><code>$ brew install gettext
 $ brew link --force gettext
-</code></pre><h2 id="例">例</h2>
+</code></pre>
+
+<h2 id="例">例</h2>
+
 <p>例えば以下のようなテンプレートファイルがあるとして</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#ae81ff">${ASSET}_status:</span>
-    <span style="color:#f92672">not_null</span>:
-        <span style="color:#f92672">ja</span>: <span style="color:#ae81ff">${ASSET_JA}のステータスを入力してください</span>
-        <span style="color:#f92672">en</span>: <span style="color:#ae81ff">Please enter the ${ASSET_EN} status</span>
-    <span style="color:#f92672">uint</span>:
-        <span style="color:#f92672">ja</span>: <span style="color:#ae81ff">${ASSET_JA}のステータスが不正です</span>
-        <span style="color:#f92672">en</span>: <span style="color:#ae81ff">Invalid ${ASSET_EN} status</span>
-    <span style="color:#f92672">in</span>:
-        <span style="color:#f92672">ja</span>: <span style="color:#ae81ff">${ASSET_JA}のステータスが不正です</span>
-</code></pre></div><p>こんな感じでenvsubstに流し込むと <code>${...}</code> の部分を環境変数で埋めた出力が得られる</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">$ ASSET<span style="color:#f92672">=</span>title ASSET_JA<span style="color:#f92672">=</span>タイトル ASSET_EN<span style="color:#f92672">=</span>Title envsubst &lt; /tmp/_.tmpl
+
+<pre><code class="language-yaml">${ASSET}_status:
+    not_null:
+        ja: ${ASSET_JA}のステータスを入力してください
+        en: Please enter the ${ASSET_EN} status
+    uint:
+        ja: ${ASSET_JA}のステータスが不正です
+        en: Invalid ${ASSET_EN} status
+    in:
+        ja: ${ASSET_JA}のステータスが不正です
+</code></pre>
+
+<p>こんな感じでenvsubstに流し込むと <code>${...}</code> の部分を環境変数で埋めた出力が得られる</p>
+
+<pre><code class="language-console">$ ASSET=title ASSET_JA=タイトル ASSET_EN=Title envsubst &lt; /tmp/_.tmpl
 title_status:
     not_null:
         ja: タイトルのステータスを入力してください
@@ -127,7 +142,8 @@ title_status:
     in:
         ja: タイトルのステータスが不正です
         en: Invalid Title status
-</code></pre></div>
+</code></pre>
+
                 </section>
             </article>
 
@@ -184,7 +200,7 @@ title_status:
     
     <p class="small">
     
-       © Copyright 2021 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+       © Copyright 2022 <i class="fa fa-heart" aria-hidden="true"></i> site_author
     
     </p>
     <p class="small">

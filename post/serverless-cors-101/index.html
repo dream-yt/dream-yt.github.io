@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.91.2" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>serverlessのcors対応 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,56 +83,79 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#preflightリクエストをさばくための設定">preflightリクエストをさばくための設定</a></li>
-    <li><a href="#本チャンのリクエストをさばくための設定">本チャンのリクエストをさばくための設定</a></li>
-    <li><a href="#認証付きのエンドポイントへの対応">認証付きのエンドポイントへの対応</a></li>
-    <li><a href="#参考">参考</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#preflightリクエストをさばくための設定">preflightリクエストをさばくための設定</a></li>
+<li><a href="#本チャンのリクエストをさばくための設定">本チャンのリクエストをさばくための設定</a></li>
+<li><a href="#認証付きのエンドポイントへの対応">認証付きのエンドポイントへの対応</a></li>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>s3に静的htmlをホスティングしてlambda/apigatewayからデータを取得する形でやろうとすると、当然s3とlambda / apigatewayのドメインが異なるのでcors対応が必要になる。serverlessのcors対応はあまりこなれていなくて何箇所かいじる必要がある。</p>
+                    
+
+<p>s3に静的htmlをホスティングしてlambda/apigatewayからデータを取得する形でやろうとすると、当然s3とlambda / apigatewayのドメインが異なるのでcors対応が必要になる。serverlessのcors対応はあまりこなれていなくて何箇所かいじる必要がある。</p>
+
 <h2 id="preflightリクエストをさばくための設定">preflightリクエストをさばくための設定</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">getProduct</span>:
-<span style="color:#f92672">handler</span>: <span style="color:#ae81ff">handler.getProduct</span>
-<span style="color:#f92672">events</span>:
-    - <span style="color:#f92672">http</span>:
-        <span style="color:#f92672">path</span>: <span style="color:#ae81ff">product/{id}</span>
-        <span style="color:#f92672">method</span>: <span style="color:#ae81ff">get</span>
-        <span style="color:#f92672">cors</span>: <span style="color:#66d9ef">true</span> <span style="color:#75715e"># &lt;-- CORS!</span>
-</code></pre></div><p>cors環境だとブラウザはサーバへのリクエストに逐次preflightリクエストを行うようになる。preflightリクエストとはブラウザがサーバのCORS設定を問い合わせるためのもので、サーバがこの問い合わせに未対応の場合、ブラウザはpreflightリクエストを403と判断して後に控えていた本チャンのリクエストをサーバに送ってくれない。</p>
+
+<pre><code class="language-yaml">getProduct:
+handler: handler.getProduct
+events:
+    - http:
+        path: product/{id}
+        method: get
+        cors: true # &lt;-- CORS!
+</code></pre>
+
+<p>cors環境だとブラウザはサーバへのリクエストに逐次preflightリクエストを行うようになる。preflightリクエストとはブラウザがサーバのCORS設定を問い合わせるためのもので、サーバがこの問い合わせに未対応の場合、ブラウザはpreflightリクエストを403と判断して後に控えていた本チャンのリクエストをサーバに送ってくれない。</p>
+
 <p>CORS設定とは主に <code>Access-Control-Allow-Origin</code> ヘッダに入ってるドメインを見て、クライアントは自分が許可されたオリジン(ドメイン)かどうかを判断するあたり。もちろん許可されたドメインでなかったら403として処理する。</p>
+
 <p><code>cors: true</code> の設定を入れると、preflightリクエストへのレスポンスをしてくれるようになる。</p>
+
 <h2 id="本チャンのリクエストをさばくための設定">本チャンのリクエストをさばくための設定</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">response</span> <span style="color:#f92672">=</span> {
-    <span style="color:#a6e22e">statusCode</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">200</span>,
-    <span style="color:#a6e22e">headers</span><span style="color:#f92672">:</span> {
-        <span style="color:#e6db74">&#39;Access-Control-Allow-Origin&#39;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;*&#39;</span>,   <span style="color:#75715e">// &lt;-- CORS!
-</span><span style="color:#75715e"></span>        <span style="color:#e6db74">&#39;Access-Control-Allow-Credentials&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>,
+
+<pre><code class="language-js">const response = {
+    statusCode: 200,
+    headers: {
+        'Access-Control-Allow-Origin': '*',   // &lt;-- CORS!
+        'Access-Control-Allow-Credentials': true,
     },
-    <span style="color:#a6e22e">body</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>({<span style="color:#a6e22e">a</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>}),
+    body: JSON.stringify({a: 1}),
 };
-<span style="color:#a6e22e">callback</span>(<span style="color:#66d9ef">null</span>, <span style="color:#a6e22e">response</span>);
-</code></pre></div><p>preflightリクエストだけでなく、すべてのレスポンスヘッダにCORS設定を入れて返す必要がある(そうしないとブラウザは403としてしまう)。そのためのレスポンスヘッダをアプリ側でも対応しないといけない。</p>
+callback(null, response);
+</code></pre>
+
+<p>preflightリクエストだけでなく、すべてのレスポンスヘッダにCORS設定を入れて返す必要がある(そうしないとブラウザは403としてしまう)。そのためのレスポンスヘッダをアプリ側でも対応しないといけない。</p>
+
 <h2 id="認証付きのエンドポイントへの対応">認証付きのエンドポイントへの対応</h2>
+
 <p>serverlessでauthorizersを使っている場合は必要な対応</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">resources</span>:
-    <span style="color:#f92672">Resources</span>:
-        <span style="color:#f92672">GatewayResponseDefault4XX</span>:
-        <span style="color:#f92672">Type</span>: <span style="color:#e6db74">&#39;AWS::ApiGateway::GatewayResponse&#39;</span>
-        <span style="color:#f92672">Properties</span>:
-            <span style="color:#f92672">ResponseParameters</span>:
-            <span style="color:#f92672">gatewayresponse.header.Access-Control-Allow-Origin</span>: <span style="color:#e6db74">&#34;&#39;*&#39;&#34;</span>
-            <span style="color:#f92672">gatewayresponse.header.Access-Control-Allow-Headers</span>: <span style="color:#e6db74">&#34;&#39;*&#39;&#34;</span>
-            <span style="color:#f92672">ResponseType</span>: <span style="color:#ae81ff">DEFAULT_4XX</span>
-            <span style="color:#f92672">RestApiId</span>:
-            <span style="color:#f92672">Ref</span>: <span style="color:#e6db74">&#39;ApiGatewayRestApi&#39;</span>
-</code></pre></div><p>serverlessで認証を設定するとAPIGateway上でjwtトークンの検証などを行ってくれるようになるが、この検証が失敗(つまり認証失敗)した場合にAPIGatewayはCORS設定が入っていないレスポンスをブラウザに返してしまう。これはブラウザ側からすると認証が失敗しているのかそれともCORS設定が未対応のサーバなのかが判断ができないため問題になる。</p>
+
+<pre><code class="language-yaml">resources:
+    Resources:
+        GatewayResponseDefault4XX:
+        Type: 'AWS::ApiGateway::GatewayResponse'
+        Properties:
+            ResponseParameters:
+            gatewayresponse.header.Access-Control-Allow-Origin: &quot;'*'&quot;
+            gatewayresponse.header.Access-Control-Allow-Headers: &quot;'*'&quot;
+            ResponseType: DEFAULT_4XX
+            RestApiId:
+            Ref: 'ApiGatewayRestApi'
+</code></pre>
+
+<p>serverlessで認証を設定するとAPIGateway上でjwtトークンの検証などを行ってくれるようになるが、この検証が失敗(つまり認証失敗)した場合にAPIGatewayはCORS設定が入っていないレスポンスをブラウザに返してしまう。これはブラウザ側からすると認証が失敗しているのかそれともCORS設定が未対応のサーバなのかが判断ができないため問題になる。</p>
+
 <p>4xx系のレスポンスの場合、ヘッダにCORS設定を入れて返すようにする必要があるのでそのための設定をCloudFormation形式で書き足しておくことになる</p>
+
 <h2 id="参考">参考</h2>
+
 <ul>
 <li><a href="https://serverless.com/blog/cors-api-gateway-survival-guide/">Your CORS and API Gateway survival guide (元ネタ)</a></li>
 <li><a href="https://qiita.com/tomoyukilabs/items/81698edd5812ff6acb34">CORSまとめ - Qiita</a></li>
@@ -194,7 +217,7 @@
     
     <p class="small">
     
-       © Copyright 2021 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+       © Copyright 2022 <i class="fa fa-heart" aria-hidden="true"></i> site_author
     
     </p>
     <p class="small">

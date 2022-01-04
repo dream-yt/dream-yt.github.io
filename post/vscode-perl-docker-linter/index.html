@@ -14,7 +14,7 @@
   
   
   <meta name="twitter:title" content="vscodeからdockerコンテナ内でperl -wcして文法チェック"/>
-  <meta name="twitter:description" content="こちらを使うと簡単に出来た henriiik/vscode-docker-linter: Lint the things in your docker containers 設定 設定項目もこれくらいで済む &#34;docker-linter.perl.enable&#34;: true, &#34;docker-linter.perl.machine&#34;: &#34;&#34;, // &#34;default&#34;だとdocker-mac"/>
+  <meta name="twitter:description" content="こちらを使うと簡単に出来た henriiik/vscode-docker-linter: Lint the things in your docker containers 設定 設定項目もこれくらいで済む &quot;docker-linter.perl.enable&quot;: true, &quot;docker-linter.perl.machine&quot;: &quot;&quot;, // &quot;default&quot;だとdocker-m"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.91.2" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>vscodeからdockerコンテナ内でperl -wcして文法チェック &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -72,7 +72,7 @@
                     </h1>
                     <h2 class="headline">
                     Dec 12, 2018 08:12
-                    · 222 words
+                    · 224 words
                     · 1 minute read
                       <span class="tags">
                       
@@ -83,38 +83,63 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#設定">設定</a>
-      <ul>
-        <li></li>
-      </ul>
-    </li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#設定">設定</a>
+<ul>
+<li>
+<ul>
+<li><a href="#docker-linter-perl-container"><code>docker-linter.perl.container</code></a></li>
+<li><a href="#docker-linter-perl-command"><code>docker-linter.perl.command</code></a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>こちらを使うと簡単に出来た</p>
+                    
+
+<p>こちらを使うと簡単に出来た</p>
+
 <ul>
 <li><a href="https://github.com/henriiik/vscode-docker-linter">henriiik/vscode-docker-linter: Lint the things in your docker containers</a></li>
 </ul>
+
 <h2 id="設定">設定</h2>
+
 <p>設定項目もこれくらいで済む</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#e6db74">&#34;docker-linter.perl.enable&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#66d9ef">true</span><span style="color:#960050;background-color:#1e0010">,</span>
-<span style="color:#e6db74">&#34;docker-linter.perl.machine&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#e6db74">&#34;&#34;</span><span style="color:#960050;background-color:#1e0010">,</span>  <span style="color:#75715e">// &#34;default&#34;だとdocker-machineを使おうとする
-</span><span style="color:#75715e"></span><span style="color:#e6db74">&#34;docker-linter.perl.container&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#e6db74">&#34;app_app_1&#34;</span><span style="color:#960050;background-color:#1e0010">,</span>
-<span style="color:#e6db74">&#34;docker-linter.perl.command&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#e6db74">&#34;carton exec perl -wc -Ilib -It/lib &#34;</span>
-</code></pre></div><h4 id="docker-linterperlcontainer"><code>docker-linter.perl.container</code></h4>
+
+<pre><code class="language-json">&quot;docker-linter.perl.enable&quot;: true,
+&quot;docker-linter.perl.machine&quot;: &quot;&quot;,  // &quot;default&quot;だとdocker-machineを使おうとする
+&quot;docker-linter.perl.container&quot;: &quot;app_app_1&quot;,
+&quot;docker-linter.perl.command&quot;: &quot;carton exec perl -wc -Ilib -It/lib &quot;
+</code></pre>
+
+<h4 id="docker-linter-perl-container"><code>docker-linter.perl.container</code></h4>
+
 <p><code>docker ps</code> した、端っこの <code>NAMES</code> カラムを指定する</p>
-<pre tabindex="0"><code>$ docker ps | perl -aF'\s+' -nlE 'say $F[-1]'
-</code></pre><h4 id="docker-linterperlcommand"><code>docker-linter.perl.command</code></h4>
+
+<pre><code>$ docker ps | perl -aF'\s+' -nlE 'say $F[-1]'
+</code></pre>
+
+<h4 id="docker-linter-perl-command"><code>docker-linter.perl.command</code></h4>
+
 <p>lint用のコマンドを渡す
 プロジェクトごとに依存先などは違うはずなので個別で設定するもの</p>
+
 <p><code>docker exec</code> に渡してlintする場合と同じようなものを渡せば良い</p>
-<pre tabindex="0"><code>$ carton exec perl -wc -Ilib -It/lib
-</code></pre><hr>
+
+<pre><code>$ carton exec perl -wc -Ilib -It/lib
+</code></pre>
+
+<hr />
+
 <p>サンプルの設定があって、参考になった</p>
+
 <ul>
 <li><a href="https://github.com/henriiik/vscode-docker-linter/blob/master/playground-perl/.vscode/settings.json">vscode-docker-linter/settings.json at master · henriiik/vscode-docker-linter</a></li>
 </ul>
@@ -175,7 +200,7 @@
     
     <p class="small">
     
-       © Copyright 2021 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+       © Copyright 2022 <i class="fa fa-heart" aria-hidden="true"></i> site_author
     
     </p>
     <p class="small">

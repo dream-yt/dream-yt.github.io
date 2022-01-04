@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.91.2" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>throttle と debounce の違い &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,30 +83,42 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#debounce">debounce</a></li>
-    <li><a href="#throttle">throttle</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#debounce">debounce</a></li>
+<li><a href="#throttle">throttle</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>こちらの説明がわかりやすかった</p>
+                    
+
+<p>こちらの説明がわかりやすかった</p>
+
 <ul>
 <li><a href="https://aloerina01.github.io/blog/2017-08-03-1">throttleとdebounce</a></li>
 <li><a href="https://qiita.com/waterada/items/986660d31bc107dbd91c#:~:text=debounce%20%E3%81%8C%E4%B8%80%E5%AE%9A%E6%99%82%E9%96%93%E6%AD%A2%E3%81%BE%E3%81%A3,%E5%AE%88%E3%82%89%E3%81%9B%E3%82%8B%E3%81%A8%E3%81%84%E3%81%86%E8%80%83%E3%81%88%E6%96%B9%E3%81%A7%E3%81%99%E3%80%82">lodash の debounce や throttle で簡単に負荷対策 - Qiita</a></li>
 </ul>
+
 <h2 id="debounce">debounce</h2>
+
 <blockquote>
 <p>連続して大量に繰り返される処理が指定時間内に何度発生しても最後の1回だけ実行するものです。 よく使われるのはresizeイベントです。「ウインドウサイズが変わったときに要素のサイズを変える」みたいなケースってありますよね。その時、ウインドウの端っこをつまんでぐりぐりとドラッグするイベントを全て取得しても意味がありません。マウスから手を話しresizeが完了したときのイベントをとれば十分です。</p>
 </blockquote>
+
 <p>debounce は一定時間動きが止まったらイベントを発火させるようにすることと言える。たとえば↑の例だとウインドウの端っこをずっとドラッグされていたらイベントは発火しない</p>
+
 <h2 id="throttle">throttle</h2>
+
 <blockquote>
 <p>連続して大量に繰り返される処理を一定感覚で間引くものです。
 よく使われるのはscrollイベントです。スクロールイベントをすべてハンドリングすると処理回数が多くなり、場合によってはスクロールがもっさりしてしまいますよね。それを防ぎます。</p>
 </blockquote>
+
 <p>throttle で「1秒に1回にスロットルする」というふうに書くと、ウインドウの端っこをずっとドラッグされているときには毎秒イベントが発火する。</p>
 
                 </section>
@@ -165,7 +177,7 @@
     
     <p class="small">
     
-       © Copyright 2021 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+       © Copyright 2022 <i class="fa fa-heart" aria-hidden="true"></i> site_author
     
     </p>
     <p class="small">

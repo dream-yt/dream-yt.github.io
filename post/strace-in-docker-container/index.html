@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.91.2" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>dockerコンテナ内でstraceを使う &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,38 +83,59 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li>
-      <ul>
-        <li></li>
-      </ul>
-    </li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#cap-add">cap-add</a></li>
+<li><a href="#security-opt">security-opt</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>docker runに起動オブションをつけないとstraceは実行できない
+                    
+
+<p>docker runに起動オブションをつけないとstraceは実行できない
 これはセキュリティの見地からdocker内では呼んで良いシステムコールが制限されているため</p>
+
 <p>以下のページで起動オプションについてのメモが記載されている</p>
+
 <ul>
 <li><a href="http://blog.johngoulah.com/2016/03/running-strace-in-docker/">» Running Strace in Docker</a></li>
 </ul>
+
 <h4 id="cap-add">cap-add</h4>
+
 <p><code>SYS_PTRACE</code> を使って良い状態にするにはこちらを指定する</p>
+
 <blockquote>
 <p>If you are using secconf, there are a couple of things you can pass to docker run to loosen up this security policy. To allow strace specifically, you enable the system call that it relies upon to get its information (ptrace):</p>
 </blockquote>
-<pre tabindex="0"><code>--cap-add SYS_PTRACE
-</code></pre><h4 id="security-opt">security-opt</h4>
+
+<pre><code>--cap-add SYS_PTRACE
+</code></pre>
+
+<h4 id="security-opt">security-opt</h4>
+
 <p>ほかにもシステムコールを制御する仕組みがあるようだ
 オルタナティブとして以下のようなオブションの渡し方があるようだ</p>
+
 <blockquote>
 <p>This whole paradigm is in fact documented but none of my original searches turned up these pages. In addition to disabling ptrace, there are a slew of other system level commands that you may (or may not) need that aren’t on the docker whitelist of allowed system calls. The list of calls can be adjusted very granularly by feeding docker a json file defining your security options. Or if you are feeling up for it, you can re-enable all of them in one fell swoop with this option to docker run:</p>
 </blockquote>
-<pre tabindex="0"><code>--security-opt seccomp:unconfined
-</code></pre><p>このオプションをつけなくても動くかどうかは確認しておいた方がよさそう</p>
+
+<pre><code>--security-opt seccomp:unconfined
+</code></pre>
+
+<p>このオプションをつけなくても動くかどうかは確認しておいた方がよさそう</p>
 
                 </section>
             </article>
@@ -172,7 +193,7 @@
     
     <p class="small">
     
-       © Copyright 2021 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+       © Copyright 2022 <i class="fa fa-heart" aria-hidden="true"></i> site_author
     
     </p>
     <p class="small">

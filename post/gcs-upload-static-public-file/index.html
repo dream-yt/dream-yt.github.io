@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.91.2" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>nodejsで Google Cloud Storage にファイルをアップロードしてCDNで配信する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -81,57 +81,60 @@
                 </header>
                 
                   
-                    <div id="toc">
-                      <nav id="TableOfContents"></nav>
-                    </div>
-                  
                 
                 <section id="post-body">
                     <p>こんな場合のスニペット</p>
+
 <ul>
 <li>データをJSON形式でアップロードしたい</li>
 <li>静的ファイルをアップロードしてCDNがわりに使うようなヘッダを付与したい
+
 <ul>
 <li>gcsはs3と違い、公開バケットをCDNキャッシュされてるような状態で配信できる</li>
+</ul></li>
 </ul>
-</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">upload</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">async</span> (<span style="color:#a6e22e">data</span>, <span style="color:#a6e22e">gcsUrl</span>) <span style="color:#f92672">=&gt;</span> {
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">storage</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Storage</span>({
-    <span style="color:#a6e22e">projectId</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;...&#39;</span>,
-    <span style="color:#75715e">// gcpのコンソールからダウンロードできるjson鍵ファイル
-</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">credentials</span>: <span style="color:#66d9ef">require</span>(<span style="color:#e6db74">&#39;cred.json&#39;</span>)
+
+<pre><code class="language-ts">const upload = async (data, gcsUrl) =&gt; {
+  const storage = new Storage({
+    projectId: '...',
+    // gcpのコンソールからダウンロードできるjson鍵ファイル
+    credentials: require('cred.json')
   });
-  <span style="color:#75715e">// gs://bucket-name/key/of/path みたいな文字列をパース
-</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">bucketName</span>, ...<span style="color:#a6e22e">keys</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">gcsUrl</span>.<span style="color:#a6e22e">replace</span>(<span style="color:#e6db74">&#39;gs://&#39;</span>, <span style="color:#e6db74">&#39;&#39;</span>).<span style="color:#a6e22e">split</span>(<span style="color:#e6db74">&#39;/&#39;</span>);
+  // gs://bucket-name/key/of/path みたいな文字列をパース
+  const [bucketName, ...keys] = gcsUrl.replace('gs://', '').split('/');
 
-  <span style="color:#75715e">// fileオブジェクトを作ってそこにデータを流し込む
-</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">file</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">storage</span>
-    .<span style="color:#a6e22e">bucket</span>(<span style="color:#a6e22e">bucketName</span>)
-    .<span style="color:#a6e22e">file</span>(<span style="color:#a6e22e">keys</span>.<span style="color:#a6e22e">join</span>(<span style="color:#e6db74">&#39;/&#39;</span>));
+  // fileオブジェクトを作ってそこにデータを流し込む
+  const file = storage
+    .bucket(bucketName)
+    .file(keys.join('/'));
 
-  <span style="color:#75715e">// `gzip: true` でアップロードすると gz圧縮された状態でアップロードされる
-</span><span style="color:#75715e"></span>  <span style="color:#75715e">// クライアントが Accept-Encoding ヘッダを送ってくる場合には Content-Encoding: gzip で返される
-</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">file</span>.<span style="color:#a6e22e">save</span>(<span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>(<span style="color:#a6e22e">data</span>), { <span style="color:#a6e22e">gzip</span>: <span style="color:#66d9ef">true</span> });
+  // `gzip: true` でアップロードすると gz圧縮された状態でアップロードされる
+  // クライアントが Accept-Encoding ヘッダを送ってくる場合には Content-Encoding: gzip で返される
+  await file.save(JSON.stringify(data), { gzip: true });
   
-  <span style="color:#75715e">// もろもろメタデータが設定できる
-</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">file</span>.<span style="color:#a6e22e">setMetadata</span>({
-    <span style="color:#a6e22e">contentType</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;application/json&#39;</span>,
-    <span style="color:#a6e22e">cacheControl</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;public, max-age=600&#39;</span>,
-    <span style="color:#a6e22e">contentLanguage</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;ja&#39;</span>
+  // もろもろメタデータが設定できる
+  await file.setMetadata({
+    contentType: 'application/json',
+    cacheControl: 'public, max-age=600',
+    contentLanguage: 'ja'
   });
 };
-</code></pre></div><p><code>file#metadata</code> はドキュメントにもほとんど記載がなく、TypeScriptの型定義ファイルでも<code>any</code>になっているのでどんな引数をとるのかがよくわからなかったが、公式のexampleにいろいろ書いてある</p>
+</code></pre>
+
+<p><code>file#metadata</code> はドキュメントにもほとんど記載がなく、TypeScriptの型定義ファイルでも<code>any</code>になっているのでどんな引数をとるのかがよくわからなかったが、公式のexampleにいろいろ書いてある</p>
+
 <p>ここの another example あたり</p>
+
 <ul>
 <li><a href="https://googleapis.dev/nodejs/storage/latest/File.html#getMetadata-examples">File - Documentation</a></li>
 </ul>
+
 <blockquote>
 <p>console.log(<code>Cache-control: ${metadata.cacheControl}</code>);
-console.log(<code>Content-type: ${metadata.contentType}</code>);
-console.log(<code>Content-disposition: ${metadata.contentDisposition}</code>);
-console.log(<code>Content-encoding: ${metadata.contentEncoding}</code>);
-console.log(<code>Content-language: ${metadata.contentLanguage}</code>);</p>
+ console.log(<code>Content-type: ${metadata.contentType}</code>);
+ console.log(<code>Content-disposition: ${metadata.contentDisposition}</code>);
+ console.log(<code>Content-encoding: ${metadata.contentEncoding}</code>);
+ console.log(<code>Content-language: ${metadata.contentLanguage}</code>);</p>
 </blockquote>
 
                 </section>
@@ -190,7 +193,7 @@ console.log(<code>Content-language: ${metadata.contentLanguage}</code>);</p>
     
     <p class="small">
     
-       © Copyright 2021 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+       © Copyright 2022 <i class="fa fa-heart" aria-hidden="true"></i> site_author
     
     </p>
     <p class="small">

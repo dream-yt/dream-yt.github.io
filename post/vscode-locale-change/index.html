@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.91.2" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>vscodeでエラーメッセージを英語にする &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,29 +83,41 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li>
-      <ul>
-        <li><a href="#参考">参考</a></li>
-      </ul>
-    </li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>表示言語の設定は設定ファイルとは別ファイル管理になっている</p>
+                    
+
+<p>表示言語の設定は設定ファイルとは別ファイル管理になっている</p>
+
 <p>以下のファイルで設定されている</p>
-<pre tabindex="0"><code>~/Library/Application\ Support/Code/User/locale.json
-</code></pre><p>localeの値をよしなに変更すれば良い</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">{
-	<span style="color:#75715e">// VS Code の表示言語を定義します。
-</span><span style="color:#75715e"></span>	<span style="color:#75715e">// サポートされている言語の一覧については、https://go.microsoft.com/fwlink/?LinkId=761051 をご覧ください。
-</span><span style="color:#75715e"></span>
-	<span style="color:#e6db74">&#34;locale&#34;</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;en&#34;</span> <span style="color:#75715e">// VS Code を再起動するまで変更は有効になりません。
-</span><span style="color:#75715e"></span>}
-</code></pre></div><h3 id="参考">参考</h3>
+
+<pre><code>~/Library/Application\ Support/Code/User/locale.json
+</code></pre>
+
+<p>localeの値をよしなに変更すれば良い</p>
+
+<pre><code class="language-js">{
+	// VS Code の表示言語を定義します。
+	// サポートされている言語の一覧については、https://go.microsoft.com/fwlink/?LinkId=761051 をご覧ください。
+
+	&quot;locale&quot;:&quot;en&quot; // VS Code を再起動するまで変更は有効になりません。
+}
+</code></pre>
+
+<h3 id="参考">参考</h3>
+
 <ul>
 <li><a href="https://code.visualstudio.com/docs/getstarted/locales">Visual Studio Code Display Language (Locale)</a></li>
 </ul>
@@ -166,7 +178,7 @@
     
     <p class="small">
     
-       © Copyright 2021 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+       © Copyright 2022 <i class="fa fa-heart" aria-hidden="true"></i> site_author
     
     </p>
     <p class="small">

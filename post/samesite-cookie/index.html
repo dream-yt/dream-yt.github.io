@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.91.2" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>SameSite Cookie とは &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,54 +83,77 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#例">例</a></li>
-    <li><a href="#設定のしかた">設定のしかた</a>
-      <ul>
-        <li><a href="#laxとstrictの違い">laxとstrictの違い</a></li>
-      </ul>
-    </li>
-    <li><a href="#用途">用途</a></li>
-    <li><a href="#対応ブラウザ">対応ブラウザ</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#例">例</a></li>
+<li><a href="#設定のしかた">設定のしかた</a>
+<ul>
+<li><a href="#laxとstrictの違い">laxとstrictの違い</a></li>
+</ul></li>
+<li><a href="#用途">用途</a></li>
+<li><a href="#対応ブラウザ">対応ブラウザ</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>こういう機能</p>
+                    
+
+<p>こういう機能</p>
+
 <blockquote>
 <p>今開いているページのドメインから、別のドメインにリクエストを送る際に、
 クッキーを送るかどうかを設定できる機能</p>
 </blockquote>
+
 <p><code>別のドメインにリクエストを送る</code> とは以下の例がある</p>
+
 <ul>
 <li>広告タグで広告サーバへリクエスト</li>
 <li>トラッキングタグでGoogleAnalyticsなどでリクエスト</li>
 <li>リンク(aタグ)で別ドメインへ遷移</li>
 </ul>
+
 <p>個人的にはリンクで遷移した場合も <code>別のドメインへのリクエスト</code> として扱うのが新しい感じ</p>
+
 <h2 id="例">例</h2>
+
 <ul>
 <li>dmm.jp が SameSiteがついたSet-Cookie しておくと</li>
 <li>ユーザが twitter.com のアクセスしているときに</li>
 <li>dmm.jp の広告にあたって、アドリクエストが発生した時</li>
 <li>dmm.jp へのリクエストにはCookieが送信されなくなる</li>
 </ul>
+
 <h2 id="設定のしかた">設定のしかた</h2>
+
 <p>Set-Cookie するときに <code>samesite={strict,lax}</code> を付与するだけ</p>
-<pre tabindex="0"><code>Set-Cookie: test=1; path=/; samesite=strict
-</code></pre><h3 id="laxとstrictの違い">laxとstrictの違い</h3>
+
+<pre><code>Set-Cookie: test=1; path=/; samesite=strict
+</code></pre>
+
+<h3 id="laxとstrictの違い">laxとstrictの違い</h3>
+
 <p>こちらが分かりやすかった</p>
+
 <ul>
 <li><a href="https://laboradian.com/same-site-cookies/">HTTP クッキーをより安全にする SameSite 属性について (Same-site Cookies) | ラボラジアン</a></li>
 </ul>
+
 <h2 id="用途">用途</h2>
+
 <p>CSRF対策になる</p>
+
 <p>銀行などのガッチリ守りたいところでは
 samesite=strictとしておくと防御力があがる</p>
+
 <h2 id="対応ブラウザ">対応ブラウザ</h2>
+
 <p>だいたい主要なブラウザでは対応済み</p>
+
 <ul>
 <li><a href="https://caniuse.com/#feat=same-site-cookie-attribute">Can I use&hellip; Support tables for HTML5, CSS3, etc</a></li>
 </ul>
@@ -191,7 +214,7 @@ samesite=strictとしておくと防御力があがる</p>
     
     <p class="small">
     
-       © Copyright 2021 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+       © Copyright 2022 <i class="fa fa-heart" aria-hidden="true"></i> site_author
     
     </p>
     <p class="small">

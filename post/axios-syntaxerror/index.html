@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.91.2" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>[jest] SyntaxError: The string did not match the expected pattern &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,25 +83,37 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#参考">参考</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>axios を使った jest のテストで以下のようなエラーが出た</p>
+                    
+
+<p>axios を使った jest のテストで以下のようなエラーが出た</p>
+
 <blockquote>
 <p>SyntaxError: The string did not match the expected pattern.</p>
 </blockquote>
+
 <p>これは jest ランタイムだと axios が XMLHttpRequest を使おうとしてしまうため発生するエラーだったようだ</p>
+
 <p>jest.config.js に <code>testEnvironment: 'node'</code> を追加すればよい</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">module</span>.<span style="color:#a6e22e">exports</span> <span style="color:#f92672">=</span> {
-  <span style="color:#a6e22e">verbose</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>,
-  <span style="color:#a6e22e">testEnvironment</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;node&#39;</span>,
+
+<pre><code class="language-js">module.exports = {
+  verbose: true,
+  testEnvironment: 'node',
   ...
-</code></pre></div><h2 id="参考">参考</h2>
+</code></pre>
+
+<h2 id="参考">参考</h2>
+
 <ul>
 <li><a href="https://github.com/axios/axios/issues/1180">detect jest and use http adapter instead of XMLhttpRequest · Issue #1180 · axios/axios</a></li>
 <li><a href="https://github.com/facebook/jest/issues/5737">Unmocking axios? I get &lsquo;the string did not match the expected pattern&rsquo; · Issue #5737 · facebook/jest</a></li>
@@ -163,7 +175,7 @@
     
     <p class="small">
     
-       © Copyright 2021 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+       © Copyright 2022 <i class="fa fa-heart" aria-hidden="true"></i> site_author
     
     </p>
     <p class="small">

@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.91.2" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>FaaSでPrisma(DBMS)を使う際のドキュメント &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,80 +83,123 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#container-reuse">Container reuse</a>
-      <ul>
-        <li></li>
-      </ul>
-    </li>
-    <li><a href="#zombie-connections">Zombie connections</a>
-      <ul>
-        <li></li>
-      </ul>
-    </li>
-    <li><a href="#database-connection-pool-exhaustion">Database connection pool exhaustion</a>
-      <ul>
-        <li></li>
-      </ul>
-    </li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#container-reuse">Container reuse</a>
+<ul>
+<li>
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#potential-solution">Potential Solution</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#zombie-connections">Zombie connections</a>
+<ul>
+<li>
+<ul>
+<li><a href="#description-1">Description</a></li>
+<li><a href="#potential-solution-1">Potential Solution</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#database-connection-pool-exhaustion">Database connection pool exhaustion</a>
+<ul>
+<li>
+<ul>
+<li><a href="#description-2">Description</a></li>
+<li><a href="#potential-solution-2">Potential Solution</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li><a href="#その他">その他</a></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <ul>
+                    
+
+<ul>
 <li><a href="https://www.prisma.io/docs/guides/deployment/deployment#serverless-faas">Deploying projects using Prisma to the cloud | Prisma Docs</a></li>
 </ul>
+
 <p>PrismaのドキュメントにはFaaSで使う場合のアドバイスがいろいろ書いてあった。
 あるあるな困りごとについてよくまとまっているのでメモ。</p>
+
 <p>たとえば 「FaaSのプロセスがいくつもコネクションを張る必要はなく、またそれをするとスパイク時にDBMS側のリソースが枯渇するのでやめましょうね」というようなことが色々と書いてあった。</p>
+
 <blockquote>
 <p>Serverless (FaaS): It&rsquo;s recommended to set the connection limit to 1 if you&rsquo;re not using an external connection pooler because each incoming request starts a short-lived Node.js process. This can cause the database connection pool to be quickly exhausted from a short spike in user traffic.</p>
 </blockquote>
+
 <h2 id="container-reuse">Container reuse</h2>
+
 <p>FaaSが呼ばれる時に、毎度コンテナが立ち上がるか再利用されるかを制御することができないという話。</p>
+
 <h4 id="description">Description</h4>
+
 <blockquote>
 <p>It is not guaranteed that subsequent nearby invocations of a function will hit the same container. AWS can choose to create a new container at any time.</p>
 </blockquote>
+
 <h4 id="potential-solution">Potential Solution</h4>
+
 <blockquote>
 <p>Code should assume the container to be stateless and create a connection only if it does not exist. Prisma Client JS already implements that logic.</p>
 </blockquote>
+
 <h2 id="zombie-connections">Zombie connections</h2>
+
 <p>FaaSの処理が終了しても、コンテナ内でプロセスとコネクションが残ってしまってDBMSのリソースを消耗させてしまうという話。</p>
+
 <h4 id="description-1">Description</h4>
+
 <blockquote>
 <p>The containers that are marked to be removed and are not being reused still keep a connection open and can stay in that state for some time (unknown and not documented from AWS), this can lead to sub-optimal utilization of the DB connections</p>
 </blockquote>
+
 <h4 id="potential-solution-1">Potential Solution</h4>
+
 <blockquote>
 <p>One potential solution is to use a lower idle connection timeout. Another solution can be to clean up the idle connections in a separate service</p>
 </blockquote>
+
 <p>タイムアウトの数値を少なくするという方法がある。</p>
+
 <h2 id="database-connection-pool-exhaustion">Database connection pool exhaustion</h2>
+
 <p>リクエストがスパイクして、FaaSのプロセスが多数同時に立ち上がるとDBMS側のリソースが枯渇するという話。</p>
+
 <h4 id="description-2">Description</h4>
+
 <blockquote>
 <p>Concurrent requests create multiple new connections to the database thereby exhausting the database&rsquo;s connection limit.</p>
 </blockquote>
+
 <h4 id="potential-solution-2">Potential Solution</h4>
+
 <blockquote>
 <p>Add a connection pooler, e.g. PgBouncer or limiting the serverless function concurrency to a number lower than the database&rsquo;s connection limit.</p>
 </blockquote>
+
 <h1 id="その他">その他</h1>
+
 <p>GCP の Cloud Function で Prisma を動かすサンプルが公開されていた。</p>
+
 <ul>
 <li><a href="https://github.com/prisma/e2e-tests/tree/dev/platforms/gcp-functions">e2e-tests/platforms/gcp-functions at dev · prisma/e2e-tests</a></li>
 </ul>
+
 <blockquote>
 <p>GCP allows deploying just the project and fetches the modules for the user. To generate the Prisma client, we use the npm postinstall hook. Using the gcp-build hook does not work, since Google regenerates node_modules after that hook is executed.</p>
 </blockquote>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">  <span style="color:#e6db74">&#34;scripts&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> {
-    <span style="color:#f92672">&#34;postinstall&#34;</span>: <span style="color:#e6db74">&#34;CI=1 &amp;&amp; PRISMA_TELEMETRY_INFORMATION=&#39;e2e-tests platforms/gcp-functions postinstall&#39; &amp;&amp; yarn prisma generate&#34;</span>
-  }<span style="color:#960050;background-color:#1e0010">,</span>
-</code></pre></div>
+
+<pre><code class="language-json">  &quot;scripts&quot;: {
+    &quot;postinstall&quot;: &quot;CI=1 &amp;&amp; PRISMA_TELEMETRY_INFORMATION='e2e-tests platforms/gcp-functions postinstall' &amp;&amp; yarn prisma generate&quot;
+  },
+</code></pre>
+
                 </section>
             </article>
 
@@ -213,7 +256,7 @@
     
     <p class="small">
     
-       © Copyright 2021 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+       © Copyright 2022 <i class="fa fa-heart" aria-hidden="true"></i> site_author
     
     </p>
     <p class="small">

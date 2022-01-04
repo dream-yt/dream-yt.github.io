@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.91.2" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>There is no document formatter for &#39;sql&#39;-files installed &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,28 +83,41 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#解決">解決</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#解決">解決</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>vscodeを使っている。SQLファイルは保存時にフォーマットされるようしているが、
+                    
+
+<p>vscodeを使っている。SQLファイルは保存時にフォーマットされるようしているが、
 ある日突然保存時フォーマットが聞かなくなった</p>
+
 <p>vscodeのコマンドパレットから <code>Document Format</code> を選択しても以下のエラーでフォーマットされない</p>
+
 <blockquote>
 <p>There is no document formatter for &lsquo;sql&rsquo;-files installed</p>
 </blockquote>
+
 <p>vscodeのsettings.jsonには以下のように設定していて、瑕疵はなさそうに思えた</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#e6db74">&#34;[sql]&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> {
-    <span style="color:#f92672">&#34;editor.formatOnSave&#34;</span>: <span style="color:#66d9ef">true</span>,
-    <span style="color:#f92672">&#34;editor.formatOnPaste&#34;</span>: <span style="color:#66d9ef">true</span>
-}<span style="color:#960050;background-color:#1e0010">,</span>
-</code></pre></div><h2 id="解決">解決</h2>
+
+<pre><code class="language-json">&quot;[sql]&quot;: {
+    &quot;editor.formatOnSave&quot;: true,
+    &quot;editor.formatOnPaste&quot;: true
+},
+</code></pre>
+
+<h2 id="解決">解決</h2>
+
 <p><code>&quot;editor.formatOnSave&quot;</code> を1回trueにして、すぐにfalseに戻したら
 件のエラーは出なくなった</p>
+
 <p>ちょっとよく分からない</p>
 
                 </section>
@@ -163,7 +176,7 @@
     
     <p class="small">
     
-       © Copyright 2021 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+       © Copyright 2022 <i class="fa fa-heart" aria-hidden="true"></i> site_author
     
     </p>
     <p class="small">

@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.91.2" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>React-admin で Input にデフォルトの値を設定する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -81,29 +81,31 @@
                 </header>
                 
                   
-                    <div id="toc">
-                      <nav id="TableOfContents"></nav>
-                    </div>
-                  
                 
                 <section id="post-body">
                     <p>ユーザが入力するテキストフィールドに、デフォルトの値を入れておきたい場合。
 ちゃんとオプションが用意されていて、 <code>initialValues</code> に関数を渡せばできるようになっている。</p>
+
 <ul>
 <li><a href="https://marmelab.com/react-admin/CreateEdit.html#default-values">React-admin - The Create and Edit Views</a></li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-tsx" data-lang="tsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">initialValues</span> <span style="color:#f92672">=</span> () <span style="color:#f92672">=&gt;</span> ({ <span style="color:#a6e22e">expireAt</span>: <span style="color:#66d9ef">new</span> Date() });
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">UserCreate</span>: <span style="color:#66d9ef">React.FC</span>&lt;<span style="color:#f92672">CreateProps</span>&gt; <span style="color:#f92672">=</span> <span style="color:#a6e22e">props</span> <span style="color:#f92672">=&gt;</span> (
-  &lt;<span style="color:#f92672">Create</span> {<span style="color:#a6e22e">...props</span>}&gt;
-      &lt;<span style="color:#f92672">SimpleForm</span> <span style="color:#a6e22e">redirect</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;list&#34;</span> <span style="color:#a6e22e">initialValues</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">initialValues</span>}&gt;
-          &lt;<span style="color:#f92672">DateInput</span> <span style="color:#a6e22e">source</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;expireAt&#34;</span> /&gt;
-      &lt;/<span style="color:#f92672">SimpleForm</span>&gt;
-  &lt;/<span style="color:#f92672">Create</span>&gt;
+
+<pre><code class="language-tsx">const initialValues = () =&gt; ({ expireAt: new Date() });
+export const UserCreate: React.FC&lt;CreateProps&gt; = props =&gt; (
+  &lt;Create {...props}&gt;
+      &lt;SimpleForm redirect=&quot;list&quot; initialValues={initialValues}&gt;
+          &lt;DateInput source=&quot;expireAt&quot; /&gt;
+      &lt;/SimpleForm&gt;
+  &lt;/Create&gt;
 );
-</code></pre></div><p>なお、フィールドごとに設定するオプションも各種コンポーネントに設定されているが、これは関数ではなく定数しか渡せないのでそんなに柔軟には設定できない。</p>
+</code></pre>
+
+<p>なお、フィールドごとに設定するオプションも各種コンポーネントに設定されているが、これは関数ではなく定数しか渡せないのでそんなに柔軟には設定できない。</p>
+
 <blockquote>
-<p>initialValue	Value to be set when the property is null or undefined</p>
+<p>initialValue  Value to be set when the property is null or undefined</p>
 </blockquote>
+
 <ul>
 <li><a href="https://marmelab.com/react-admin/Inputs.html#common-input-props">React-admin - Input Components</a></li>
 </ul>
@@ -164,7 +166,7 @@
     
     <p class="small">
     
-       © Copyright 2021 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+       © Copyright 2022 <i class="fa fa-heart" aria-hidden="true"></i> site_author
     
     </p>
     <p class="small">

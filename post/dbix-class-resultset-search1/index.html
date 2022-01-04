@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.91.2" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>perlのDBIx::Class::ResultSetでちょい手の込んだSELECTの例1 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,52 +83,60 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li>
-      <ul>
-        <li><a href="#参考">参考</a></li>
-      </ul>
-    </li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <ul>
+                    
+
+<ul>
 <li>searchメソッドはすごい色々できるので覚えきれない</li>
 <li>特に第二引数のハッシュに渡せるものがすごい色々できる</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl">$tab1_resultset<span style="color:#f92672">-&gt;</span>search(
+
+<pre><code class="language-perl">$tab1_resultset-&gt;search(
     {
-        <span style="color:#75715e"># 1つ目の引数は検索条件</span>
-        <span style="color:#e6db74">&#39;tab1.id&#39;</span> <span style="color:#f92672">=&gt;</span> $id,
-        <span style="color:#e6db74">&#39;okok.status&#39;</span> <span style="color:#f92672">=&gt;</span> STATUS_NOTYET
+        # 1つ目の引数は検索条件
+        'tab1.id' =&gt; $id,
+        'okok.status' =&gt; STATUS_NOTYET
     },
     {
-        <span style="color:#75715e"># SQLでいう射影部分 (カラム名とalias)</span>
-        <span style="color:#e6db74">&#39;+select&#39;</span> <span style="color:#f92672">=&gt;</span> [
-            <span style="color:#e6db74">&#39;tab1.name&#39;</span>,
-            <span style="color:#f92672">\</span><span style="color:#e6db74">&#39;COUNT(1)&#39;</span>,
-            <span style="color:#f92672">\</span><span style="color:#e6db74">&#39;MIN(okok.created)&#39;</span>
+        # SQLでいう射影部分 (カラム名とalias)
+        '+select' =&gt; [
+            'tab1.name',
+            \'COUNT(1)',
+            \'MIN(okok.created)'
         ],
-        <span style="color:#e6db74">&#39;+as&#39;</span> <span style="color:#f92672">=&gt;</span> [<span style="color:#e6db74">qw/
-</span><span style="color:#e6db74">            tab_name
-</span><span style="color:#e6db74">            count
-</span><span style="color:#e6db74">            earliest_created
-</span><span style="color:#e6db74">        /</span>],
-        <span style="color:#75715e"># resultsetクラスで定義したrelationの名前を書く (テーブル名そのままではない)</span>
-        join <span style="color:#f92672">=&gt;</span> [<span style="color:#e6db74">&#39;okok&#39;</span>, <span style="color:#e6db74">&#39;qr&#39;</span>],
-        <span style="color:#75715e"># 自resultsetクラスはmeで表す</span>
-        group_by <span style="color:#f92672">=&gt;</span> [<span style="color:#e6db74">&#39;me.id&#39;</span>],
-        order_by <span style="color:#f92672">=&gt;</span> [
-            <span style="color:#75715e"># 集計など、文字列をそのまま埋めたい場合はstringのrefをとる (injection注意)</span>
-            { <span style="color:#f92672">-</span>desc <span style="color:#f92672">=&gt;</span> <span style="color:#f92672">\</span><span style="color:#e6db74">&#39;MIN(DATE(qr.created))&#39;</span> },
-            { <span style="color:#f92672">-</span>desc <span style="color:#f92672">=&gt;</span> <span style="color:#f92672">\</span><span style="color:#e6db74">&#39;COUNT(1)&#39;</span> }
+        '+as' =&gt; [qw/
+            tab_name
+            count
+            earliest_created
+        /],
+        # resultsetクラスで定義したrelationの名前を書く (テーブル名そのままではない)
+        join =&gt; ['okok', 'qr'],
+        # 自resultsetクラスはmeで表す
+        group_by =&gt; ['me.id'],
+        order_by =&gt; [
+            # 集計など、文字列をそのまま埋めたい場合はstringのrefをとる (injection注意)
+            { -desc =&gt; \'MIN(DATE(qr.created))' },
+            { -desc =&gt; \'COUNT(1)' }
         ]
     }
 );
-</code></pre></div><h3 id="参考">参考</h3>
+</code></pre>
+
+<h3 id="参考">参考</h3>
+
 <ul>
 <li><a href="https://metacpan.org/pod/distribution/DBIx-Class/lib/DBIx/Class/ResultSet.pm#search_rs">DBIx::Class::ResultSet - Represents a query used for fetching a set of results. - metacpan.org</a></li>
 <li><a href="https://metacpan.org/pod/distribution/DBIx-Class/lib/DBIx/Class/Manual/Cookbook.pod#SEARCHING">DBIx::Class::Manual::Cookbook - Miscellaneous recipes - metacpan.org</a></li>
@@ -190,7 +198,7 @@
     
     <p class="small">
     
-       © Copyright 2021 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+       © Copyright 2022 <i class="fa fa-heart" aria-hidden="true"></i> site_author
     
     </p>
     <p class="small">

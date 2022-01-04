@@ -14,7 +14,7 @@
   
   
   <meta name="twitter:title" content="ALBの直近1時間のリクエスト数をawscliで取得する"/>
-  <meta name="twitter:description" content="以下のコマンドで取得できる aws cloudwatch --profile mossan get-metric-statistics \ --namespace &#39;AWS/ApplicationELB&#39; \ --metric-name &#39;RequestCount&#39; \ --dimensions &#39;Name=LoadBalancer,Value=app/sakamoto-alb/xxxxxxxxx&#39; \ --statistics &#39;Sum&#39; \ --start-time $(date -v -1H -u &#43;&#34;%Y-%m-%dT%H:%M&#34;) \ --end-time $(date -u &#43;&#34;%Y-%m-%dT%H:%M&#34;) \ --period 3600 --dimensions RequestCountのSumをどの軸でGro"/>
+  <meta name="twitter:description" content="以下のコマンドで取得できる aws cloudwatch --profile mossan get-metric-statistics \ --namespace &#39;AWS/ApplicationELB&#39; \ --metric-name &#39;RequestCount&#39; \ --dimensions &#39;Name=LoadBalancer,Value=app/sakamoto-alb/xxxxxxxxx&#39; \ --statistics &#39;Sum&#39; \ --start-time $(date -v -1H -u &#43;&quot;%Y-%m-%dT%H:%M&quot;) \ --end-time $(date -u &#43;&quot;%Y-%m-%dT%H:%M&quot;) \ --period 3600 --dimensions RequestCountのSumをどの軸でGro"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.91.2" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>ALBの直近1時間のリクエスト数をawscliで取得する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,40 +83,56 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li>
-      <ul>
-        <li></li>
-        <li><a href="#参考">参考</a></li>
-      </ul>
-    </li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#dimensions"><code>--dimensions</code></a></li>
+<li><a href="#start-time-end-time-period"><code>--start-time</code> / <code>--end-time</code> / <code>period</code></a></li>
+</ul></li>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>以下のコマンドで取得できる</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">aws cloudwatch --profile mossan get-metric-statistics <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    --namespace <span style="color:#e6db74">&#39;AWS/ApplicationELB&#39;</span> <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    --metric-name <span style="color:#e6db74">&#39;RequestCount&#39;</span> <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    --dimensions <span style="color:#e6db74">&#39;Name=LoadBalancer,Value=app/sakamoto-alb/xxxxxxxxx&#39;</span> <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    --statistics <span style="color:#e6db74">&#39;Sum&#39;</span> <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    --start-time <span style="color:#66d9ef">$(</span>date -v -1H -u +<span style="color:#e6db74">&#34;%Y-%m-%dT%H:%M&#34;</span><span style="color:#66d9ef">)</span> <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    --end-time <span style="color:#66d9ef">$(</span>date -u +<span style="color:#e6db74">&#34;%Y-%m-%dT%H:%M&#34;</span><span style="color:#66d9ef">)</span> <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    --period <span style="color:#ae81ff">3600</span>
-</code></pre></div><h4 id="--dimensions"><code>--dimensions</code></h4>
+                    
+
+<p>以下のコマンドで取得できる</p>
+
+<pre><code class="language-bash">aws cloudwatch --profile mossan get-metric-statistics \
+    --namespace 'AWS/ApplicationELB' \
+    --metric-name 'RequestCount' \
+    --dimensions 'Name=LoadBalancer,Value=app/sakamoto-alb/xxxxxxxxx' \
+    --statistics 'Sum' \
+    --start-time $(date -v -1H -u +&quot;%Y-%m-%dT%H:%M&quot;) \
+    --end-time $(date -u +&quot;%Y-%m-%dT%H:%M&quot;) \
+    --period 3600
+</code></pre>
+
+<h4 id="dimensions"><code>--dimensions</code></h4>
+
 <ul>
 <li>RequestCountのSumをどの軸でGroupByするかを指定する</li>
 <li>例だと1つのロードバランサーのアクセス数の合計</li>
 <li>ここに見たいALBのIDを入れる</li>
 </ul>
-<h4 id="--start-time----end-time--period"><code>--start-time</code> / <code>--end-time</code> / <code>period</code></h4>
+
+<h4 id="start-time-end-time-period"><code>--start-time</code> / <code>--end-time</code> / <code>period</code></h4>
+
 <ul>
 <li>start/end-timeはUTCで指定する必要がある</li>
 <li>直近1時間が欲しいので <code>period=3600</code></li>
 </ul>
+
 <h3 id="参考">参考</h3>
+
 <ul>
 <li><a href="https://docs.aws.amazon.com/cli/latest/reference/cloudwatch/get-metric-statistics.html">get-metric-statistics — AWS CLI 1.16.92 Command Reference</a></li>
 <li><a href="http://d.hatena.ne.jp/NowTom/20131122/1385050337">CloudWatchからメトリクスを取得する - NowTomの日記</a></li>
@@ -178,7 +194,7 @@
     
     <p class="small">
     
-       © Copyright 2021 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+       © Copyright 2022 <i class="fa fa-heart" aria-hidden="true"></i> site_author
     
     </p>
     <p class="small">

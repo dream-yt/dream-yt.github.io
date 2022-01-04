@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.91.2" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>サービスアカウントで認証してGoogleSpreadsheetからデータを取得 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,96 +83,132 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li>
-      <ul>
-        <li><a href="#apiライブラリのページでsheetsapiを有効化">APIライブラリのページでSheetsAPIを有効化</a></li>
-        <li><a href="#apiとサービス認証情報のページへ">APIとサービス/認証情報のページへ</a></li>
-        <li><a href="#サービスアカウントにスプレッドシートの権限を入れる">サービスアカウントにスプレッドシートの権限を入れる</a></li>
-        <li><a href="#叩いてみる">叩いてみる</a></li>
-        <li><a href="#参考">参考</a></li>
-      </ul>
-    </li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#apiライブラリのページでsheetsapiを有効化">APIライブラリのページでSheetsAPIを有効化</a></li>
+<li><a href="#apiとサービス-認証情報のページへ">APIとサービス/認証情報のページへ</a>
+<ul>
+<li><a href="#サービスアカウントを作成">サービスアカウントを作成</a></li>
+</ul></li>
+<li><a href="#サービスアカウントにスプレッドシートの権限を入れる">サービスアカウントにスプレッドシートの権限を入れる</a>
+<ul>
+<li><a href="#sheetid-とは">sheetId とは</a></li>
+</ul></li>
+<li><a href="#叩いてみる">叩いてみる</a></li>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>spreadsheetのデータを取ってくるやり方をググったらいいのが見つからなかった</p>
+                    
+
+<p>spreadsheetのデータを取ってくるやり方をググったらいいのが見つからなかった</p>
+
 <ul>
 <li>認証周りをガバガバでやってそう</li>
 <li>古い認証方式(oauth)の紹介になってそう</li>
 </ul>
+
 <p>spreadsheetはpublicにしてcsvで取得するのが一番楽だが、
 もっと権限をちゃんとしないといけない場合のフローをメモしておく</p>
+
 <ul>
 <li>gcpのプロジェクトがある前提からスタート</li>
 <li>そこにサービスアカウントを作る</li>
 <li>サービスアカウントがspreadsheetにアクセスできるようにする</li>
 </ul>
+
 <h3 id="apiライブラリのページでsheetsapiを有効化">APIライブラリのページでSheetsAPIを有効化</h3>
+
 <ul>
 <li><a href="https://console.developers.google.com/apis/library/drive.googleapis.com">https://console.developers.google.com/apis/library/drive.googleapis.com</a></li>
 </ul>
-<p><img src="https://user-images.githubusercontent.com/5309672/49325337-08fbad80-f584-11e8-8c55-739cd1b75b28.png" alt="image"></p>
-<h3 id="apiとサービス認証情報のページへ">APIとサービス/認証情報のページへ</h3>
+
+<p><img src="https://user-images.githubusercontent.com/5309672/49325337-08fbad80-f584-11e8-8c55-739cd1b75b28.png" alt="image" /></p>
+
+<h3 id="apiとサービス-認証情報のページへ">APIとサービス/認証情報のページへ</h3>
+
 <ul>
 <li><a href="https://console.developers.google.com/apis/credentials">https://console.developers.google.com/apis/credentials</a></li>
 </ul>
-<p><img src="https://user-images.githubusercontent.com/5309672/49324955-d39f9180-f57c-11e8-878f-832c5924299a.png" alt="image"></p>
+
+<p><img src="https://user-images.githubusercontent.com/5309672/49324955-d39f9180-f57c-11e8-878f-832c5924299a.png" alt="image" /></p>
+
 <h4 id="サービスアカウントを作成">サービスアカウントを作成</h4>
+
 <p><code>Select a role</code> は空でつくってよい (通知出るけどwithoutでよい)</p>
-<p><img src="https://user-images.githubusercontent.com/5309672/49325434-a60b1600-f585-11e8-94ed-bc57ab9f85ef.png" alt="image"></p>
+
+<p><img src="https://user-images.githubusercontent.com/5309672/49325434-a60b1600-f585-11e8-94ed-bc57ab9f85ef.png" alt="image" /></p>
+
 <h3 id="サービスアカウントにスプレッドシートの権限を入れる">サービスアカウントにスプレッドシートの権限を入れる</h3>
+
 <p>右上の<code>共有</code>ボタンから</p>
+
 <ul>
 <li><a href="https://console.developers.google.com/iam-admin/serviceaccounts">https://console.developers.google.com/iam-admin/serviceaccounts</a></li>
 </ul>
-<p><img src="https://user-images.githubusercontent.com/5309672/49325424-7cea8580-f585-11e8-8a0f-67eb5b3f9a9f.png" alt="image"></p>
+
+<p><img src="https://user-images.githubusercontent.com/5309672/49325424-7cea8580-f585-11e8-8a0f-67eb5b3f9a9f.png" alt="image" /></p>
+
 <h4 id="sheetid-とは">sheetId とは</h4>
+
 <ul>
 <li>こんなURLの場合は
+
 <ul>
 <li><a href="https://docs.google.com/spreadsheets/d/1HucDy33jZYDSGmXvIGDL5SOu4mv9B2mJui3Bi512345/edit#gid=0">https://docs.google.com/spreadsheets/d/1HucDy33jZYDSGmXvIGDL5SOu4mv9B2mJui3Bi512345/edit#gid=0</a></li>
-</ul>
-</li>
+</ul></li>
 <li>この部分
+
 <ul>
 <li><code>1HucDy33jZYDSGmXvIGDL5SOu4mv9B2mJui3Bi512345</code></li>
+</ul></li>
 </ul>
-</li>
-</ul>
+
 <h3 id="叩いてみる">叩いてみる</h3>
+
 <ul>
 <li><a href="https://qiita.com/howdy39/items/22068b3f768f0f9a757d">こちら</a>のコピペ</li>
 </ul>
+
 <p><code>yarn add googleapis</code> などしてから以下のコードでoneシートの右上4マスが取ってこれる</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">google</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;googleapis&#39;</span>);
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">sheets</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">google</span>.<span style="color:#a6e22e">sheets</span>(<span style="color:#e6db74">&#39;v4&#39;</span>);
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">path</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;path&#39;</span>);
 
-<span style="color:#a6e22e">execAPI</span>(<span style="color:#e6db74">&#39;1HucDy33jZYDSGmXvIGDL5SOu4mv9B2mJui3Bi512345&#39;</span>, <span style="color:#e6db74">&#39;one!A1:B2&#39;</span>);
+<pre><code class="language-js">const { google } = require('googleapis');
+const sheets = google.sheets('v4');
+const path = require('path');
 
-<span style="color:#66d9ef">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">execAPI</span>(<span style="color:#a6e22e">spreadsheetId</span>, <span style="color:#a6e22e">range</span>) {
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">auth</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">google</span>.<span style="color:#a6e22e">auth</span>.<span style="color:#a6e22e">getClient</span>({
-    <span style="color:#a6e22e">keyFile</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">path</span>.<span style="color:#a6e22e">join</span>(<span style="color:#e6db74">&#39;/Users/jibun/Documents/jibunno-612344e1408a.json&#39;</span>),
-    <span style="color:#a6e22e">scopes</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#39;https://www.googleapis.com/auth/spreadsheets&#39;</span>],
+execAPI('1HucDy33jZYDSGmXvIGDL5SOu4mv9B2mJui3Bi512345', 'one!A1:B2');
+
+async function execAPI(spreadsheetId, range) {
+  const auth = await google.auth.getClient({
+    keyFile: path.join('/Users/jibun/Documents/jibunno-612344e1408a.json'),
+    scopes: ['https://www.googleapis.com/auth/spreadsheets'],
   });
 
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">apiOptions</span> <span style="color:#f92672">=</span> {
-    <span style="color:#a6e22e">auth</span>,
-    <span style="color:#a6e22e">spreadsheetId</span>,
-    <span style="color:#a6e22e">range</span>,
+  const apiOptions = {
+    auth,
+    spreadsheetId,
+    range,
   };
 
-  <span style="color:#a6e22e">sheets</span>.<span style="color:#a6e22e">spreadsheets</span>.<span style="color:#a6e22e">values</span>.<span style="color:#a6e22e">get</span>(<span style="color:#a6e22e">apiOptions</span>, (<span style="color:#a6e22e">err</span>, <span style="color:#a6e22e">res</span>) =&gt; {
-    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">err</span>);
-    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">values</span>);
+  sheets.spreadsheets.values.get(apiOptions, (err, res) =&gt; {
+    console.log(err);
+    console.log(res.data.values);
   });
 }
-</code></pre></div><h3 id="参考">参考</h3>
+</code></pre>
+
+<h3 id="参考">参考</h3>
+
 <p>サービスアカウントとG-Suiteの権限についてはこちらが分かりやすかった</p>
+
 <ul>
 <li><a href="https://qiita.com/howdy39/items/22068b3f768f0f9a757d">スプレッドシートをWebAPI化するサービスの作り方 - Qiita</a></li>
 </ul>
@@ -233,7 +269,7 @@
     
     <p class="small">
     
-       © Copyright 2021 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+       © Copyright 2022 <i class="fa fa-heart" aria-hidden="true"></i> site_author
     
     </p>
     <p class="small">

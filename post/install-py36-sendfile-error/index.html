@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.91.2" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>Pythonのインストールで 「&#39;sendfile&#39; is invalid in C99」 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,34 +83,45 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#参考">参考</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>python3.6 を pyenv で入れようとしたら以下のエラーで入らなかった。</p>
+                    
+
+<p>python3.6 を pyenv で入れようとしたら以下のエラーで入らなかった。</p>
+
 <blockquote>
 <p>error: implicit declaration of function &lsquo;sendfile&rsquo; is invalid in C99</p>
 </blockquote>
+
 <p>もろもろビルドフラグをつける必要があった。以前にはこんな色々やらなくてよかったはずだが、何が変わったのだろう?
 もちろん事前に <code>brew</code> や <code>xcode-select --install</code> で色々いれておく必要がある。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ export LDFLAGS<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;-L/usr/local/opt/zlib/lib&#34;</span>
-$ export CPPFLAGS<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;-I/usr/local/opt/zlib/include&#34;</span>
-$ export CFLAGS<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;\
-</span><span style="color:#e6db74">    -I</span><span style="color:#66d9ef">$(</span>brew --prefix openssl<span style="color:#66d9ef">)</span><span style="color:#e6db74">/include \
-</span><span style="color:#e6db74">    -I</span><span style="color:#66d9ef">$(</span>brew --prefix bzip2<span style="color:#66d9ef">)</span><span style="color:#e6db74">/include \
-</span><span style="color:#e6db74">    -I</span><span style="color:#66d9ef">$(</span>brew --prefix readline<span style="color:#66d9ef">)</span><span style="color:#e6db74">/include \
-</span><span style="color:#e6db74">    -I</span><span style="color:#66d9ef">$(</span>xcrun --show-sdk-path<span style="color:#66d9ef">)</span><span style="color:#e6db74">/usr/include&#34;</span> <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>$ export LDFLAGS<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;\
-</span><span style="color:#e6db74">    -L</span><span style="color:#66d9ef">$(</span>brew --prefix openssl<span style="color:#66d9ef">)</span><span style="color:#e6db74">/lib \
-</span><span style="color:#e6db74">    -L</span><span style="color:#66d9ef">$(</span>brew --prefix readline<span style="color:#66d9ef">)</span><span style="color:#e6db74">/lib \
-</span><span style="color:#e6db74">    -L</span><span style="color:#66d9ef">$(</span>brew --prefix zlib<span style="color:#66d9ef">)</span><span style="color:#e6db74">/lib \
-</span><span style="color:#e6db74">    -L</span><span style="color:#66d9ef">$(</span>brew --prefix bzip2<span style="color:#66d9ef">)</span><span style="color:#e6db74">/lib&#34;</span> <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>$ pyenv install --patch 3.6.13 &lt; &lt;<span style="color:#f92672">(</span>curl -sSL https://github.com/python/cpython/commit/8ea6353.patch<span style="color:#ae81ff">\?</span>full_index<span style="color:#ae81ff">\=</span>1<span style="color:#f92672">)</span>
-</code></pre></div><h2 id="参考">参考</h2>
+
+<pre><code class="language-bash">$ export LDFLAGS=&quot;-L/usr/local/opt/zlib/lib&quot;
+$ export CPPFLAGS=&quot;-I/usr/local/opt/zlib/include&quot;
+$ export CFLAGS=&quot;\
+    -I$(brew --prefix openssl)/include \
+    -I$(brew --prefix bzip2)/include \
+    -I$(brew --prefix readline)/include \
+    -I$(xcrun --show-sdk-path)/usr/include&quot; \
+$ export LDFLAGS=&quot;\
+    -L$(brew --prefix openssl)/lib \
+    -L$(brew --prefix readline)/lib \
+    -L$(brew --prefix zlib)/lib \
+    -L$(brew --prefix bzip2)/lib&quot; \
+$ pyenv install --patch 3.6.13 &lt; &lt;(curl -sSL https://github.com/python/cpython/commit/8ea6353.patch\?full_index\=1)
+</code></pre>
+
+<h2 id="参考">参考</h2>
+
 <ul>
 <li><a href="https://github.com/pyenv/pyenv/issues/1740#issuecomment-738749988">unable to install python 3.8.0 on macox 11 · Issue #1740 · pyenv/pyenv</a></li>
 </ul>
@@ -171,7 +182,7 @@ $ export CFLAGS<span style="color:#f92672">=</span><span style="color:#e6db74">&
     
     <p class="small">
     
-       © Copyright 2021 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+       © Copyright 2022 <i class="fa fa-heart" aria-hidden="true"></i> site_author
     
     </p>
     <p class="small">

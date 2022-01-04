@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.91.2" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>元祖からforkしてきたリポジトリに元祖の最新のコードを取り込む &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,19 +83,29 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#参考">参考</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>リポジトリをまたぐときはこのようにしてpullできる</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cd github.com/myname/bar
+                    
+
+<p>リポジトリをまたぐときはこのようにしてpullできる</p>
+
+<pre><code class="language-bash">$ cd github.com/myname/bar
 $ git pull git@github.com:foo/bar.git master
-</code></pre></div><p><code>master</code> はブランチ名なので <code>main</code> などになっていたら適宜変更する。</p>
+</code></pre>
+
+<p><code>master</code> はブランチ名なので <code>main</code> などになっていたら適宜変更する。</p>
+
 <h2 id="参考">参考</h2>
+
 <ul>
 <li><a href="https://docs.github.com/ja/github/collaborating-with-pull-requests/working-with-forks/merging-an-upstream-repository-into-your-fork">上流リポジトリをフォークにマージする - GitHub Docs</a></li>
 </ul>
@@ -156,7 +166,7 @@ $ git pull git@github.com:foo/bar.git master
     
     <p class="small">
     
-       © Copyright 2021 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+       © Copyright 2022 <i class="fa fa-heart" aria-hidden="true"></i> site_author
     
     </p>
     <p class="small">

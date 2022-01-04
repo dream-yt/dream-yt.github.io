@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.91.2" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>React Testing Library で a test was not wrapped in act をなんとかする &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,43 +83,57 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li>
-      <ul>
-        <li><a href="#例">例</a></li>
-      </ul>
-    </li>
-    <li><a href="#参考">参考</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#例">例</a></li>
+</ul></li>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>Formik を使っていてこんな警告が出た。</p>
+                    
+
+<p>Formik を使っていてこんな警告が出た。</p>
+
 <blockquote>
 <p>console.error node_modules/react-dom/cjs/react-dom.development.js:530
-Warning: An update to Formik inside a test was not wrapped in act(&hellip;).
-When testing, code that causes React state updates should be wrapped into act(&hellip;):</p>
+ Warning: An update to Formik inside a test was not wrapped in act(&hellip;).
+ When testing, code that causes React state updates should be wrapped into act(&hellip;):</p>
 </blockquote>
+
 <p>コンポーネントの更新をともなうテストは act 関数のコールバック内で行うことになっているそうだ。もし、それ以外の場所でコンポーネントが更新されたとき、React は予期せぬ更新だとして上述の警告を出す。</p>
+
 <p>act 関数を使うのでもいいが、React Testing Library は waitFor という関数を提供しているので、その中でアサーションをするのであれば警告を免れることができる。また、waitFor は単純に便利なのでこれを使うと具合がいい。</p>
+
 <blockquote>
 <p>When in need to wait for any period of time you can use waitFor, to wait for your expectations to pass. Here&rsquo;s a simple example:</p>
 </blockquote>
+
 <ul>
 <li><a href="https://testing-library.com/docs/dom-testing-library/api-async/#waitfor">Async Methods | Testing Library</a></li>
 </ul>
+
 <h3 id="例">例</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-tsx" data-lang="tsx">  <span style="color:#a6e22e">test</span>(<span style="color:#e6db74">&#34;submit call refreshWithQueryparameter&#34;</span>, <span style="color:#66d9ef">async</span> () <span style="color:#f92672">=&gt;</span> {
-    <span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">getByText</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">rendered</span>;
-    <span style="color:#75715e">// locationオブジェクトをいじるイベントをキック
-</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">fireEvent</span>.<span style="color:#a6e22e">click</span>(<span style="color:#a6e22e">getByText</span>(<span style="color:#e6db74">&#39;Submit&#39;</span>))
-    <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">waitFor</span>(() <span style="color:#f92672">=&gt;</span> {
-      <span style="color:#a6e22e">expect</span>(<span style="color:#66d9ef">global</span>.<span style="color:#a6e22e">location</span>.<span style="color:#a6e22e">search</span>).<span style="color:#a6e22e">toBe</span>(<span style="color:#e6db74">&#34;OK=1&#34;</span>);
+
+<pre><code class="language-tsx">  test(&quot;submit call refreshWithQueryparameter&quot;, async () =&gt; {
+    const { getByText } = rendered;
+    // locationオブジェクトをいじるイベントをキック
+    fireEvent.click(getByText('Submit'))
+    await waitFor(() =&gt; {
+      expect(global.location.search).toBe(&quot;OK=1&quot;);
     });
   });
-</code></pre></div><h2 id="参考">参考</h2>
+</code></pre>
+
+<h2 id="参考">参考</h2>
+
 <ul>
 <li><a href="https://ja.reactjs.org/docs/test-utils.html#act">テストユーティリティ – React</a></li>
 <li><a href="https://kentcdodds.com/blog/fix-the-not-wrapped-in-act-warning">Fix the &ldquo;not wrapped in act(&hellip;)&rdquo; warning</a></li>
@@ -181,7 +195,7 @@ When testing, code that causes React state updates should be wrapped into act(&h
     
     <p class="small">
     
-       © Copyright 2021 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+       © Copyright 2022 <i class="fa fa-heart" aria-hidden="true"></i> site_author
     
     </p>
     <p class="small">

@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.91.2" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>webpackの開発用に便利なオプション &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -81,44 +81,47 @@
                 </header>
                 
                   
-                    <div id="toc">
-                      <nav id="TableOfContents"></nav>
-                    </div>
-                  
                 
                 <section id="post-body">
                     <p>1ファイルだけトランスパイルするならこんな感じ</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ npx webpack $entry --output $output <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  --progress <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  --cache<span style="color:#f92672">=</span>true <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  --display-error-details <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  --debug <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  --devtool eval-cheap-module-source-map <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  --output-pathinfo <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  --watch
-</code></pre></div><ul>
+
+<pre><code class="language-bash">$ npx webpack $entry --output $output \
+  --progress \
+  --cache=true \
+  --display-error-details \
+  --debug \
+  --devtool eval-cheap-module-source-map \
+  --output-pathinfo \
+  --watch
+</code></pre>
+
+<ul>
 <li><code>--progress</code>
+
 <ul>
 <li>動作重い時でも動いているかどうかわかるだけで便利</li>
-</ul>
-</li>
+</ul></li>
 <li><code>--cache=true</code>
+
 <ul>
 <li>import結果をキャッシュしてくれる。すごく早くなって便利</li>
-</ul>
-</li>
+</ul></li>
 <li><code>--watch</code>
+
 <ul>
 <li>もちろん便利</li>
+</ul></li>
 </ul>
-</li>
-</ul>
+
 <p><code>-d</code> をつけると以下のオプションが有効になる</p>
+
 <blockquote>
-<p>-d        <br>
+<p>-d<br />
 shortcut for &ndash;debug &ndash;devtool eval-cheap-module-source-map &ndash;output-pathinfo</p>
 </blockquote>
+
 <p>明示的に指定した方がわかりやすいので、<code>-d</code> ではなく個別に指定した</p>
+
 <p>その他、modeを適宜設定したりなどしてもよい</p>
 
                 </section>
@@ -177,7 +180,7 @@ shortcut for &ndash;debug &ndash;devtool eval-cheap-module-source-map &ndash;out
     
     <p class="small">
     
-       © Copyright 2021 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+       © Copyright 2022 <i class="fa fa-heart" aria-hidden="true"></i> site_author
     
     </p>
     <p class="small">

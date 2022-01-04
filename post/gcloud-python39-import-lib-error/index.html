@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.91.2" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>[gcloud] module &#39;importlib&#39; has no attribute &#39;util&#39; &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,16 +83,22 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#解決方法">解決方法</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#解決方法">解決方法</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>gcloudでこんなエラーがでる</p>
-<pre tabindex="0"><code>$ gcloud components update
+                    
+
+<p>gcloudでこんなエラーがでる</p>
+
+<pre><code>$ gcloud components update
 Traceback (most recent call last):
   File &quot;/Users/mossan/google-cloud-sdk/lib/gcloud.py&quot;, line 104, in &lt;module&gt;
     main()
@@ -115,18 +121,27 @@ Traceback (most recent call last):
   File &quot;/Users/mossan/google-cloud-sdk/lib/third_party/enum/__init__.py&quot;, line 26, in &lt;module&gt;
     spec = importlib.util.find_spec('enum')
 AttributeError: module 'importlib' has no attribute 'util'
-</code></pre><p>サポートフォーラムによるとPython3.9の破壊的変更でgcloudコマンドが動かなくなってるとのこと</p>
+</code></pre>
+
+<p>サポートフォーラムによるとPython3.9の破壊的変更でgcloudコマンドが動かなくなってるとのこと</p>
+
 <blockquote>
 <p>To enable gcloud to work with Python 2.7.x as well as Python 3+ a shim was introduced to enable the enum module years ago. This shim breaks with Python 3.9 because of this commit <a href="https://github.com/python/cpython/commit/7f7e706d78ab968a1221c6179dfdba714860bd12">https://github.com/python/cpython/commit/7f7e706d78ab968a1221c6179dfdba714860bd12</a>, it looks like the root cause has already been removed in commit <a href="https://github.com/python/cpython/commit/9e09849d20987c131b28bcdd252e53440d4cd1b3">https://github.com/python/cpython/commit/9e09849d20987c131b28bcdd252e53440d4cd1b3</a> which looks to be scheduled to be released in Python 3.10.</p>
 </blockquote>
+
 <ul>
 <li><a href="https://issuetracker.google.com/issues/170125513">Add support for python 3.9 [170125513] - Visible to Public - Issue Tracker</a></li>
 </ul>
+
 <h2 id="解決方法">解決方法</h2>
+
 <p>いまはgcloudをアップグレードすればなおる。</p>
+
 <p>gcloudをアップグレードするためのgcloudコマンドを動かすために <code>CLOUDSDK_PYTHON=python2</code> をつけて古いpythonを使って実行できるようにする。</p>
-<pre tabindex="0"><code>$ CLOUDSDK_PYTHON=python2 gcloud components update
+
+<pre><code>$ CLOUDSDK_PYTHON=python2 gcloud components update
 </code></pre>
+
                 </section>
             </article>
 
@@ -183,7 +198,7 @@ AttributeError: module 'importlib' has no attribute 'util'
     
     <p class="small">
     
-       © Copyright 2021 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+       © Copyright 2022 <i class="fa fa-heart" aria-hidden="true"></i> site_author
     
     </p>
     <p class="small">

@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.91.2" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>React-admin の登録/更新画面でreadonlyなフィールドをつくる &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,35 +83,44 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li>
-      <ul>
-        <li><a href="#例">例</a></li>
-      </ul>
-    </li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#例">例</a></li>
+</ul></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>Listコンポーネントで使う <code>TextField</code> などのコンポーネントを使えばよい。</p>
+                    
+
+<p>Listコンポーネントで使う <code>TextField</code> などのコンポーネントを使えばよい。</p>
+
 <blockquote>
 <p>A Field component displays a given property of a REST resource. Such components are used in the List and Show views, but you can also use them in the Edit and Create views for read-only fields.</p>
 </blockquote>
+
 <ul>
 <li><a href="https://marmelab.com/react-admin/Fields.html">React-admin - Field Components</a></li>
 </ul>
+
 <h3 id="例">例</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-tsx" data-lang="tsx">  &lt;<span style="color:#f92672">Edit</span> {<span style="color:#a6e22e">...props</span>}&gt;
-    &lt;<span style="color:#f92672">SimpleForm</span>&gt;
-      <span style="color:#75715e">// userId は readonly
-</span><span style="color:#75715e"></span>      &lt;<span style="color:#f92672">TextField</span> <span style="color:#a6e22e">source</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;userId&#34;</span> /&gt;
-      <span style="color:#75715e">// expireAt は日付データのinput
-</span><span style="color:#75715e"></span>      &lt;<span style="color:#f92672">DateInput</span> <span style="color:#a6e22e">source</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;expireAt&#34;</span> /&gt;
-    &lt;/<span style="color:#f92672">SimpleForm</span>&gt;
-  &lt;/<span style="color:#f92672">Edit</span>&gt;
-</code></pre></div>
+
+<pre><code class="language-tsx">  &lt;Edit {...props}&gt;
+    &lt;SimpleForm&gt;
+      // userId は readonly
+      &lt;TextField source=&quot;userId&quot; /&gt;
+      // expireAt は日付データのinput
+      &lt;DateInput source=&quot;expireAt&quot; /&gt;
+    &lt;/SimpleForm&gt;
+  &lt;/Edit&gt;
+</code></pre>
+
                 </section>
             </article>
 
@@ -168,7 +177,7 @@
     
     <p class="small">
     
-       © Copyright 2021 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+       © Copyright 2022 <i class="fa fa-heart" aria-hidden="true"></i> site_author
     
     </p>
     <p class="small">

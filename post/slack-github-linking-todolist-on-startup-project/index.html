@@ -13,8 +13,8 @@
     
   
   
-  <meta name="twitter:title" content="GoogleSpreadsheetのデータ(csv)をパパッとjsonにしてスクリプトから使う"/>
-  <meta name="twitter:description" content="csvjsonを使うとcsv =&gt; json が簡単に変換できる csvjsonはcsvkitをインストールすると入ってくる $ brew install csvkit ... $ which csvjson /usr/local/bin/csvjson csvでダウン"/>
+  <meta name="twitter:title" content="SlackとGitHub連携TODOリスト(新規プロジェクト作成時)"/>
+  <meta name="twitter:description" content="毎回ググったりしているのでリスト化。 GitHub リポジトリを作成 GitHub内の Slack アプリに、つくったリポジトリへのアクセスを許可 Installed GitHub Apps Slack Slackのワ"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -30,7 +30,7 @@
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
 		<meta name="generator" content="Hugo 0.51" />
-		<title>GoogleSpreadsheetのデータ(csv)をパパッとjsonにしてスクリプトから使う &middot; sacre</title>
+		<title>SlackとGitHub連携TODOリスト(新規プロジェクト作成時) &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
@@ -68,11 +68,11 @@
             <article>
                 <header>
                     <h1>
-                        GoogleSpreadsheetのデータ(csv)をパパッとjsonにしてスクリプトから使う
+                        SlackとGitHub連携TODOリスト(新規プロジェクト作成時)
                     </h1>
                     <h2 class="headline">
-                    Nov 3, 2018 17:24
-                    · 466 words
+                    Jan 4, 2022 11:23
+                    · 144 words
                     · 1 minute read
                       <span class="tags">
                       
@@ -86,18 +86,8 @@
 <ul>
 <li>
 <ul>
-<li>
-<ul>
-<li><a href="#csvでダウンロード">csvでダウンロード</a></li>
-<li><a href="#スクリプト">スクリプト</a>
-<ul>
-<li>
-<ul>
-<li><a href="#h"><code>-H</code></a></li>
-</ul></li>
-</ul></li>
-<li><a href="#もうちょっとインタラクティブに">もうちょっとインタラクティブに</a></li>
-</ul></li>
+<li><a href="#github">GitHub</a></li>
+<li><a href="#slack">Slack</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -107,94 +97,51 @@
                 <section id="post-body">
                     
 
-<p>csvjsonを使うとcsv =&gt; json が簡単に変換できる
-csvjsonはcsvkitをインストールすると入ってくる</p>
+<p>毎回ググったりしているのでリスト化。</p>
 
-<pre><code class="language-console">$ brew install csvkit
-...
-$ which csvjson
-/usr/local/bin/csvjson
-</code></pre>
+<h2 id="github">GitHub</h2>
 
-<h3 id="csvでダウンロード">csvでダウンロード</h3>
-
-<p>Google SpreadSheetからcsv形式でダウンロード</p>
+<ul class="task-list">
+<li><label><input type="checkbox" disabled class="task-list-item"> リポジトリを作成</label></li>
+<li><label><input type="checkbox" disabled class="task-list-item"> GitHub内の Slack アプリに、つくったリポジトリへのアクセスを許可
 
 <ul>
-<li>ファイル
-
-<ul>
-<li>形式を指定してダウンロード
-
-<ul>
-<li>カンマ区切りの値</li>
-</ul></li>
-</ul></li>
+<li><a href="https://github.com/settings/installations">Installed GitHub Apps</a></li>
+</ul></label></li>
 </ul>
 
-<p><img src="https://user-images.githubusercontent.com/5309672/47705130-f7fc0b80-dc68-11e8-90c9-1a92ea1b3a1f.png" alt="image" /></p>
+<h2 id="slack">Slack</h2>
 
-<p>csvjsonはデフォルトだとa, b といったキー名のオブジェクトを配列で作ってくれる</p>
-
-<pre><code class="language-console">$ cat ~/Downloads/テストのデータ\ -\ シート1\ \(1\).csv | csvjson -H | jq .
-[
-  {
-    &quot;a&quot;: null,
-    &quot;b&quot;: &quot;TOKIO&quot;,
-    &quot;c&quot;: 1
-  },
-  {
-    &quot;a&quot;: null,
-    &quot;b&quot;: &quot;SMAP&quot;,
-    &quot;c&quot;: 2
-  },
-  {
-    &quot;a&quot;: null,
-    &quot;b&quot;: &quot;嵐&quot;,
-    &quot;c&quot;: 0
-  }
-]
-</code></pre>
-
-<h3 id="スクリプト">スクリプト</h3>
-
-<p>あとはjsonをスクリプトで使う<br />
-perlだとjsonのdecodeはこんな感じ</p>
-
-<pre><code>#!/usr/bin/perl
-use JSON qw'decode_json';
-my $input = decode_json join(&quot;&quot;, &lt;STDIN&gt;);
-print &quot;group arrested counts: &quot; map {$_-&gt;{c}} @$input;
-</code></pre>
-
-<p>パイプで繋げばスプレッドシートのデータをスクリプトで操作できる</p>
-
-<pre><code class="language-bash">$ cat ~/Downloads/テストのデータシート1.csv | csvjson -H | ./myscript.pl
-</code></pre>
-
-<h5 id="h"><code>-H</code></h5>
-
-<pre><code class="language-console">$ csvjson --help | grep '\-H'
-  -H, --no-header-row   Specify that the input CSV file has no header row.
-</code></pre>
-
-<h3 id="もうちょっとインタラクティブに">もうちょっとインタラクティブに</h3>
-
-<p>スプレッドシートの権限をゆるくすればcurlでcsvを取ったりも出来る</p>
+<ul class="task-list">
+<li><label><input type="checkbox" disabled class="task-list-item"> Slackのワークスペースの作成</label></li>
+<li><label><input type="checkbox" disabled class="task-list-item"> ブックマークURLをいくつか追加</label></li>
+<li><label><input type="checkbox" disabled class="task-list-item"> ワークスペースのアイコンの設定
 
 <ul>
-<li><a href="https://productforums.google.com/forum/#!topic/docs/An-nZtjaupU">publish to web in csv in google sheets - Google プロダクト フォーラム</a></li>
-</ul>
+<li><code>$ open xxxxxx.slack.com/customize/icon</code></li>
+</ul></label></li>
+<li><label><input type="checkbox" disabled class="task-list-item"> ワークスペースにGitHubアプリを追加
 
-<pre><code class="language-bash">$ curl -s https://docs.google.com/spreadsheets/d/xxxxxxx/export?format=csv \
-    | csvjson -H | ./myscript.pl
-</code></pre>
+<ul>
+<li><code>$ open xxxxxx.slack.com/apps/A01BP7R4KNY-github</code></li>
+</ul></label></li>
+<li><label><input type="checkbox" disabled class="task-list-item"> 認証
+
+<ul>
+<li><code>/github signin</code></li>
+</ul></label></li>
+<li><label><input type="checkbox" disabled class="task-list-item"> subscribe
+
+<ul>
+<li><code>/github subscribe {{owner}}/{{repository}}</code></li>
+</ul></label></li>
+</ul>
 
                 </section>
             </article>
 
             
-                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fgooglespreadsheet-csv-json-perl%2f - GoogleSpreadsheet%e3%81%ae%e3%83%87%e3%83%bc%e3%82%bf%28csv%29%e3%82%92%e3%83%91%e3%83%91%e3%83%83%e3%81%a8json%e3%81%ab%e3%81%97%e3%81%a6%e3%82%b9%e3%82%af%e3%83%aa%e3%83%97%e3%83%88%e3%81%8b%e3%82%89%e4%bd%bf%e3%81%86 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fslack-github-linking-todolist-on-startup-project%2f - Slack%e3%81%a8GitHub%e9%80%a3%e6%90%baTODO%e3%83%aa%e3%82%b9%e3%83%88%28%e6%96%b0%e8%a6%8f%e3%83%97%e3%83%ad%e3%82%b8%e3%82%a7%e3%82%af%e3%83%88%e4%bd%9c%e6%88%90%e6%99%82%29 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
 
 <a class="facebook" href="#" onclick="
     window.open(

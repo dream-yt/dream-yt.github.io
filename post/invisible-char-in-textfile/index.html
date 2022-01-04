@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.91.2" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>テキストに不可視な文字が入っている場合の対処 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -81,35 +81,41 @@
                 </header>
                 
                   
-                    <div id="toc">
-                      <nav id="TableOfContents"></nav>
-                    </div>
-                  
                 
                 <section id="post-body">
                     <p>不可視文字には <code>\t</code> (タブ) や <code>\f</code> (改ページ)など色々ある</p>
+
 <p>環境によってトーフが表示されたりする</p>
+
 <ul>
 <li>例
+
 <ul>
 <li>エディタでは大丈夫なのにGitHubに投稿するとトーフが表示される</li>
+</ul></li>
 </ul>
-</li>
-</ul>
+
 <p>こういう場合はテキストをodコマンドにかけると隠れてる文字がわかる</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">$ cat /tmp/_
+
+<pre><code class="language-console">$ cat /tmp/_
 え信じられない
-# catだと見えないが <span style="color:#ae81ff">\b</span> が隠れてることがわかる
+# catだと見えないが \b が隠れてることがわかる
 $ cat /tmp/_ | od -c
 0000000   え  **  **  っ  **  **  \b  信  **  **  じ  **  **  ら  **  **
 0000020   れ  **  **  な  **  **  い  **  **  \n
 0000032
-</code></pre></div><p>odコマンドは<code>-c</code>オプションをつけると分かりやすい</p>
+</code></pre>
+
+<p>odコマンドは<code>-c</code>オプションをつけると分かりやすい</p>
+
 <blockquote>
 <p>-c Output C-style escaped characters.  Equivalent to -t c.</p>
 </blockquote>
+
 <p>エスケープ文字の一覧はこちらでみられる</p>
+
 <p><code>\n</code>, <code>\t</code> はなじみがあるがバックスペースとかはパッと思い出せないので便利</p>
+
 <ul>
 <li><a href="https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B9%E3%82%B1%E3%83%BC%E3%83%97%E6%96%87%E5%AD%97">エスケープ文字 - Wikipedia</a></li>
 </ul>
@@ -170,7 +176,7 @@ $ cat /tmp/_ | od -c
     
     <p class="small">
     
-       © Copyright 2021 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+       © Copyright 2022 <i class="fa fa-heart" aria-hidden="true"></i> site_author
     
     </p>
     <p class="small">

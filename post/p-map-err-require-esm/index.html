@@ -14,7 +14,7 @@
   
   
   <meta name="twitter:title" content="p-map で Error [ERR_REQUIRE_ESM]: Must use import to load ES Module"/>
-  <meta name="twitter:description" content="p-map でエラーが出るようになった。 ⚠ Error [ERR_REQUIRE_ESM]: Must use import to load ES Module: /Users//node_modules/p-map/index.js require() of ES modules is not supported. require() of /Users//node_modules/p-map/index.js from /Users//lib/job/scrape-work-status/worker.js is an ES module file as it is a .js file whose nearest parent package.json contains &#34;type&#34;: &#34;module&#34; which defines all .js files in that package scope as ES modules. Instead rename"/>
+  <meta name="twitter:description" content="p-map でエラーが出るようになった。 ⚠ Error [ERR_REQUIRE_ESM]: Must use import to load ES Module: /Users//node_modules/p-map/index.js require() of ES modules is not supported. require() of /Users//node_modules/p-map/index.js from /Users//lib/job/scrape-work-status/worker.js is an ES module file as it is a .js file whose nearest parent package.json contains &quot;type&quot;: &quot;module&quot; which defines all .js files in that package scope as ES modules. Instead rename"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.91.2" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>p-map で Error [ERR_REQUIRE_ESM]: Must use import to load ES Module &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,40 +83,59 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#対応">対応</a></li>
-    <li><a href="#参考">参考</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#対応">対応</a></li>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p><code>p-map</code> でエラーが出るようになった。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">⚠  Error [ERR_REQUIRE_ESM]: Must use import to load ES Module: /Users//node_modules/p-map/index.js
+                    
+
+<p><code>p-map</code> でエラーが出るようになった。</p>
+
+<pre><code class="language-console">⚠  Error [ERR_REQUIRE_ESM]: Must use import to load ES Module: /Users//node_modules/p-map/index.js
 require() of ES modules is not supported.
-require() of /Users//node_modules/p-map/index.js from /Users//lib/job/scrape-work-status/worker.js is an ES module file as it is a .js file whose nearest parent package.json contains &#34;type&#34;: &#34;module&#34; which defines all .js files in that package scope as ES modules.
+require() of /Users//node_modules/p-map/index.js from /Users//lib/job/scrape-work-status/worker.js is an ES module file as it is a .js file whose nearest parent package.json contains &quot;type&quot;: &quot;module&quot; which defines all .js files in that package scope as ES modules.
 Instead rename index.js to end in .cjs, change
-</code></pre></div><p>issueになっているが、とてもそっけない</p>
+</code></pre>
+
+<p>issueになっているが、とてもそっけない</p>
+
 <ul>
 <li><a href="https://github.com/sindresorhus/p-map/issues/35">Must use import to load ES Module · Issue #35 · sindresorhus/p-map</a></li>
 </ul>
+
 <blockquote>
 <p>Please read the release notes.</p>
 </blockquote>
+
 <p>リリースノートに書いてあった。 <code>Please read this</code> とのこと。</p>
+
 <ul>
 <li><a href="https://github.com/sindresorhus/p-map/releases">Releases · sindresorhus/p-map</a></li>
 </ul>
+
 <blockquote>
 <p>Breaking
 This package is now pure ESM. Please read this.</p>
 </blockquote>
+
 <h2 id="対応">対応</h2>
+
 <p>これ自体は悪い決断ではないと思うが、パッケージの利用者にはtree-shakingとか以外には大きなメリットはない変更である。
 <code>p-map</code> はとてもシンプルなライブラリなので機能追加もなく、もうしばらく過去のバージョンにて利用を続けることにした。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">yarn add p-map@4
-</code></pre></div><h2 id="参考">参考</h2>
+
+<pre><code class="language-console">yarn add p-map@4
+</code></pre>
+
+<h2 id="参考">参考</h2>
+
 <ul>
 <li><a href="https://github.com/sindresorhus/p-map/compare/v4.0.0...v5.0.0">Comparing v4.0.0&hellip;v5.0.0 · sindresorhus/p-map</a></li>
 <li><a href="https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c">Pure ESM package</a></li>
@@ -178,7 +197,7 @@ This package is now pure ESM. Please read this.</p>
     
     <p class="small">
     
-       © Copyright 2021 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+       © Copyright 2022 <i class="fa fa-heart" aria-hidden="true"></i> site_author
     
     </p>
     <p class="small">

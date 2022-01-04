@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.91.2" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>Terraform(AWS)でDNSのTXTレコードを作成する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -81,15 +81,13 @@
                 </header>
                 
                   
-                    <div id="toc">
-                      <nav id="TableOfContents"></nav>
-                    </div>
-                  
                 
                 <section id="post-body">
                     <p>Googleのサーチコンソールの認証をDNSでしたかったのでterraformで設定した</p>
+
 <p>TXTレコードの値は <code>records</code> の中に入れる</p>
-<pre tabindex="0"><code>resource &quot;aws_route53_record&quot; &quot;b_n-t_jp__txt&quot; {
+
+<pre><code>resource &quot;aws_route53_record&quot; &quot;b_n-t_jp__txt&quot; {
   zone_id = &quot;${aws_route53_zone.n_t.zone_id}&quot;
   name = &quot;b.f-f.jp&quot;
   type = &quot;TXT&quot;
@@ -97,6 +95,7 @@
   records = [&quot;google-site-verification=xxxxxxxxxx&quot;]
 }
 </code></pre>
+
                 </section>
             </article>
 
@@ -153,7 +152,7 @@
     
     <p class="small">
     
-       © Copyright 2021 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+       © Copyright 2022 <i class="fa fa-heart" aria-hidden="true"></i> site_author
     
     </p>
     <p class="small">

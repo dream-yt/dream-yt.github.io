@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.91.2" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>ngrokを使いはじめる &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,32 +83,49 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#サインアップ">サインアップ</a></li>
-    <li><a href="#インストール認証">インストール/認証</a></li>
-    <li><a href="#外部からアクセス可能な状態にする">外部からアクセス可能な状態にする</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#サインアップ">サインアップ</a></li>
+<li><a href="#インストール-認証">インストール/認証</a></li>
+<li><a href="#外部からアクセス可能な状態にする">外部からアクセス可能な状態にする</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <h2 id="サインアップ">サインアップ</h2>
+                    
+
+<h2 id="サインアップ">サインアップ</h2>
+
 <p>アカウントをつくる必要がある
 (GitHubアカウントでサインアップできる)</p>
+
 <ul>
 <li><a href="https://ngrok.com/">ngrok - secure introspectable tunnels to localhost</a></li>
 </ul>
-<h2 id="インストール認証">インストール/認証</h2>
+
+<h2 id="インストール-認証">インストール/認証</h2>
+
 <p>サインアップするとngrokのダッシュボードにバイナリのダウンロードボタンがある
 また、トークンもすでに払い出されてるのでそれを使って認証</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">$ ./ngrok authtoken xxxxxxxx
+
+<pre><code class="language-console">$ ./ngrok authtoken xxxxxxxx
 Authtoken saved to configuration file: /Users/mossan/.ngrok2/ngrok.yml
-</code></pre></div><h2 id="外部からアクセス可能な状態にする">外部からアクセス可能な状態にする</h2>
+</code></pre>
+
+<h2 id="外部からアクセス可能な状態にする">外部からアクセス可能な状態にする</h2>
+
 <p>適当なポートにサーバをローカルでたてる</p>
-<pre tabindex="0"><code>$ python3 -m http.server --bind 127.0.0.1 8000
-</code></pre><p>そのポート番号を引数にコマンドを実行すると、 <code>ngrok.io</code> 配下にサブドメインが払い出されて、そのURLからローカルのサーバにアクセスできるようになる</p>
-<pre tabindex="0"><code>$ ./ngrok http 8000
+
+<pre><code>$ python3 -m http.server --bind 127.0.0.1 8000
+</code></pre>
+
+<p>そのポート番号を引数にコマンドを実行すると、 <code>ngrok.io</code> 配下にサブドメインが払い出されて、そのURLからローカルのサーバにアクセスできるようになる</p>
+
+<pre><code>$ ./ngrok http 8000
 ngrok by @inconshreveable                                                                                                                                                                                                     (Ctrl+C to quit)
 
 Session Status                online
@@ -120,6 +137,7 @@ Forwarding                    http://xxxx.ngrok.io -&gt; http://localhost:8000
 Forwarding                    https://xxxx.ngrok.io -&gt; http://localhost:8000
 
 </code></pre>
+
                 </section>
             </article>
 
@@ -176,7 +194,7 @@ Forwarding                    https://xxxx.ngrok.io -&gt; http://localhost:8000
     
     <p class="small">
     
-       © Copyright 2021 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+       © Copyright 2022 <i class="fa fa-heart" aria-hidden="true"></i> site_author
     
     </p>
     <p class="small">

@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.91.2" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>BigQueryのtransfer_configを表示する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -81,35 +81,37 @@
                 </header>
                 
                   
-                    <div id="toc">
-                      <nav id="TableOfContents"></nav>
-                    </div>
-                  
                 
                 <section id="post-body">
                     <p>以下の要領で表示できる</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ bq --format<span style="color:#f92672">=</span>json ls --transfer_config --transfer_location<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;us&#39;</span>
+
+<pre><code class="language-bash">$ bq --format=json ls --transfer_config --transfer_location='us'
 $ bq show --transfer_config projects/123456789/locations/us/transferConfigs/xxxxxx
-</code></pre></div><p>出力される設定はこんな感じ ( <code>--format=json</code> )</p>
+</code></pre>
+
+<p>出力される設定はこんな感じ ( <code>--format=json</code> )</p>
+
 <p><code>bq mk</code> にこの形式のjsonを食わせると設定できるのだろうか? 🤔</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#960050;background-color:#1e0010">$</span> <span style="color:#960050;background-color:#1e0010">bq</span> <span style="color:#960050;background-color:#1e0010">--format=json</span> <span style="color:#960050;background-color:#1e0010">show</span> <span style="color:#960050;background-color:#1e0010">--transfer_config</span> <span style="color:#960050;background-color:#1e0010">projects/</span><span style="color:#ae81ff">123456789</span><span style="color:#960050;background-color:#1e0010">/locations/us/transferConfigs/xxxxxxxx</span><span style="color:#ae81ff">-0000-2048</span><span style="color:#960050;background-color:#1e0010">-b</span><span style="color:#ae81ff">627-883</span><span style="color:#960050;background-color:#1e0010">d</span><span style="color:#ae81ff">24</span><span style="color:#960050;background-color:#1e0010">f</span><span style="color:#ae81ff">91</span><span style="color:#960050;background-color:#1e0010">f</span><span style="color:#ae81ff">64</span> <span style="color:#960050;background-color:#1e0010">|</span> <span style="color:#960050;background-color:#1e0010">jq</span> <span style="color:#960050;background-color:#1e0010">.</span>
+
+<pre><code class="language-json">$ bq --format=json show --transfer_config projects/123456789/locations/us/transferConfigs/xxxxxxxx-0000-2048-b627-883d24f91f64 | jq .
 {
-  <span style="color:#f92672">&#34;updateTime&#34;</span>: <span style="color:#e6db74">&#34;2019-01-29T12:48:17.520921Z&#34;</span>,
-  <span style="color:#f92672">&#34;destinationDatasetId&#34;</span>: <span style="color:#e6db74">&#34;ds_name&#34;</span>,
-  <span style="color:#f92672">&#34;displayName&#34;</span>: <span style="color:#e6db74">&#34;thit_is_name&#34;</span>,
-  <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;projects/123456789/locations/us/transferConfigs/xxxxxxxx-0000-2048-b627-883d24f91f64&#34;</span>,
-  <span style="color:#f92672">&#34;schedule&#34;</span>: <span style="color:#e6db74">&#34;every day 03:00&#34;</span>,
-  <span style="color:#f92672">&#34;datasetRegion&#34;</span>: <span style="color:#e6db74">&#34;us&#34;</span>,
-  <span style="color:#f92672">&#34;userId&#34;</span>: <span style="color:#e6db74">&#34;0294758398920876072&#34;</span>,
-  <span style="color:#f92672">&#34;scheduleOptions&#34;</span>: {},
-  <span style="color:#f92672">&#34;state&#34;</span>: <span style="color:#e6db74">&#34;SUCCEEDED&#34;</span>,
-  <span style="color:#f92672">&#34;dataSourceId&#34;</span>: <span style="color:#e6db74">&#34;scheduled_query&#34;</span>,
-  <span style="color:#f92672">&#34;nextRunTime&#34;</span>: <span style="color:#e6db74">&#34;2019-01-30T03:00:00Z&#34;</span>,
-  <span style="color:#f92672">&#34;params&#34;</span>: {
-    <span style="color:#f92672">&#34;query&#34;</span>: <span style="color:#e6db74">&#34;MERGE a.b AS girls USING ...&#34;</span>
+  &quot;updateTime&quot;: &quot;2019-01-29T12:48:17.520921Z&quot;,
+  &quot;destinationDatasetId&quot;: &quot;ds_name&quot;,
+  &quot;displayName&quot;: &quot;thit_is_name&quot;,
+  &quot;name&quot;: &quot;projects/123456789/locations/us/transferConfigs/xxxxxxxx-0000-2048-b627-883d24f91f64&quot;,
+  &quot;schedule&quot;: &quot;every day 03:00&quot;,
+  &quot;datasetRegion&quot;: &quot;us&quot;,
+  &quot;userId&quot;: &quot;0294758398920876072&quot;,
+  &quot;scheduleOptions&quot;: {},
+  &quot;state&quot;: &quot;SUCCEEDED&quot;,
+  &quot;dataSourceId&quot;: &quot;scheduled_query&quot;,
+  &quot;nextRunTime&quot;: &quot;2019-01-30T03:00:00Z&quot;,
+  &quot;params&quot;: {
+    &quot;query&quot;: &quot;MERGE a.b AS girls USING ...&quot;
   }
 }
-</code></pre></div>
+</code></pre>
+
                 </section>
             </article>
 
@@ -166,7 +168,7 @@ $ bq show --transfer_config projects/123456789/locations/us/transferConfigs/xxxx
     
     <p class="small">
     
-       © Copyright 2021 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+       © Copyright 2022 <i class="fa fa-heart" aria-hidden="true"></i> site_author
     
     </p>
     <p class="small">

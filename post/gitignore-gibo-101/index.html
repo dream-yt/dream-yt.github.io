@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.91.2" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>gitignoreを生成してくれるgiboを使う &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,36 +83,46 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#list">list</a></li>
-    <li><a href="#search">search</a></li>
-    <li><a href="#dump">dump</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#list">list</a></li>
+<li><a href="#search">search</a></li>
+<li><a href="#dump">dump</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>giboは .gitignoreファイルを生成するソフトウェア
+                    
+
+<p>giboは .gitignoreファイルを生成するソフトウェア
 <code>VSCode</code> や <code>Node</code>、 <code>Rails</code> などを引数で指定してそのプロジェクトに必要そうなgitignoreを精製してくれる</p>
+
 <ul>
 <li><a href="https://github.com/simonwhitaker/gibo">simonwhitaker/gibo: Easy access to gitignore boilerplates</a></li>
 </ul>
+
 <p>brewで入る</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">$ brew install gibo 
-</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">$ gibo help
+
+<pre><code class="language-console">$ brew install gibo 
+</code></pre>
+
+<pre><code class="language-console">$ gibo help
 gibo 2.2.4 by Simon Whitaker &lt;sw@netcetera.org&gt;
 https://github.com/simonwhitaker/gibo
-<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span>Fetches gitignore boilerplates from https://github.com/github/gitignore
-<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span>Usage:
+
+Fetches gitignore boilerplates from https://github.com/github/gitignore
+
+Usage:
     gibo [command]
-<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span>Example:
+
+Example:
     gibo dump Swift Xcode &gt;&gt; .gitignore
-<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span>Commands:
+
+Commands:
     dump BOILERPLATE...   Write boilerplate(s) to STDOUT
     help                  Display this help text
     list                  List available boilerplates
@@ -120,9 +130,13 @@ https://github.com/simonwhitaker/gibo
     search STR            Search for boilerplates with STR in the name
     update                Update list of available boilerplates
     version               Display current script version
-</code></pre></div><h2 id="list">list</h2>
+</code></pre>
+
+<h2 id="list">list</h2>
+
 <p><code>gibo list</code> で何向けのgitignoreが生成できるかの一覧がみられる</p>
-<pre tabindex="0"><code>$ gibo list
+
+<pre><code>$ gibo list
 Cloning https://github.com/github/gitignore.git to /Users/sakamossan/.gitignore-boilerplates
 Cloning into '/Users/sakamossan/.gitignore-boilerplates'...
 remote: Enumerating objects: 8935, done.
@@ -139,25 +153,38 @@ ArchLinuxPackages
 Autotools
 C++
 C
-</code></pre><p>データを <code>https://github.com/github/gitignore</code> から取得しているので、久しぶりに使う場合などは <code>gibo update</code> を叩いておくと良いようだ</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">$ gibo update
+</code></pre>
+
+<p>データを <code>https://github.com/github/gitignore</code> から取得しているので、久しぶりに使う場合などは <code>gibo update</code> を叩いておくと良いようだ</p>
+
+<pre><code class="language-console">$ gibo update
 From https://github.com/github/gitignore
  * branch            master     -&gt; FETCH_HEAD
 Already up to date.
-</code></pre></div><h2 id="search">search</h2>
+</code></pre>
+
+<h2 id="search">search</h2>
+
 <p>searchで部分一致してるboilerplateを探してくれる</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">$ gibo search code
+
+<pre><code class="language-console">$ gibo search code
 CodeIgniter
 CodeKit
 CodeSniffer
 VisualStudioCode
 Xcode
-</code></pre></div><h2 id="dump">dump</h2>
+</code></pre>
+
+<h2 id="dump">dump</h2>
+
 <p>生成するコマンドは <code>gibo dump</code>
 標準出力に出てくるのでシェルのリダイレクトなどをつかってファイルに落とす</p>
+
 <p>boilerplate は幾つ指定してもいいようだ</p>
-<pre tabindex="0"><code>$ gibo dump VisualStudioCode Node &gt;&gt; .gitignore
+
+<pre><code>$ gibo dump VisualStudioCode Node &gt;&gt; .gitignore
 </code></pre>
+
                 </section>
             </article>
 
@@ -214,7 +241,7 @@ Xcode
     
     <p class="small">
     
-       © Copyright 2021 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+       © Copyright 2022 <i class="fa fa-heart" aria-hidden="true"></i> site_author
     
     </p>
     <p class="small">

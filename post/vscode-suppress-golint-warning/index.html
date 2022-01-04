@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.91.2" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>vscodeでgolintの警告を抑制する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,25 +83,37 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#参考">参考</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>vscodeでgolangをgolintしながら書いていると、以下のようなwarningが出る。</p>
+                    
+
+<p>vscodeでgolangをgolintしながら書いていると、以下のようなwarningが出る。</p>
+
 <blockquote>
 <p>exported type Expression should have comment or be unexportedgo-lint</p>
 </blockquote>
+
 <p>publicなコードには説明が必要。というルールだが小さな関数とかだといちいちやってられないので、このwarningを抑制したい。</p>
+
 <p>こんな設定で警告が消える。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">    <span style="color:#e6db74">&#34;go.lintTool&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#e6db74">&#34;golint&#34;</span><span style="color:#960050;background-color:#1e0010">,</span>
-    <span style="color:#e6db74">&#34;go.lintFlags&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> [
-      <span style="color:#e6db74">&#34;--exclude=\&#34;\bexported \\w+ (\\S*[&#39;.]*)([a-zA-Z&#39;.*]*) should have comment or be unexported\b\&#34;&#34;</span>
-    ]<span style="color:#960050;background-color:#1e0010">,</span>
-</code></pre></div><h2 id="参考">参考</h2>
+
+<pre><code class="language-json">    &quot;go.lintTool&quot;: &quot;golint&quot;,
+    &quot;go.lintFlags&quot;: [
+      &quot;--exclude=\&quot;\bexported \\w+ (\\S*['.]*)([a-zA-Z'.*]*) should have comment or be unexported\b\&quot;&quot;
+    ],
+</code></pre>
+
+<h2 id="参考">参考</h2>
+
 <ul>
 <li>[How to disable <a href="https://github.com/golang/lint/issues/186">exported method should have comment or be unexported · Issue #186 · golang/lint</a></li>
 </ul>
@@ -162,7 +174,7 @@
     
     <p class="small">
     
-       © Copyright 2021 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+       © Copyright 2022 <i class="fa fa-heart" aria-hidden="true"></i> site_author
     
     </p>
     <p class="small">

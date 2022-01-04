@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.91.2" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>perlでjsの分割代入 (Destructuring assignment) みたいなことをする &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,24 +83,36 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#例">例</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#例">例</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>jsほどスマートじゃないが、それっぽいことはできる</p>
+                    
+
+<p>jsほどスマートじゃないが、それっぽいことはできる</p>
+
 <h2 id="例">例</h2>
+
 <p>こんなデータがあるとして</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl"><span style="color:#66d9ef">my</span> $h <span style="color:#f92672">=</span> {
-    a <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">1</span>,
-    b <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">2</span>,
+
+<pre><code class="language-perl">my $h = {
+    a =&gt; 1,
+    b =&gt; 2,
 };
-</code></pre></div><p>こうやって取り出す</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl"><span style="color:#66d9ef">my</span> ($a, $b) <span style="color:#f92672">=</span> @$h{<span style="color:#e6db74">qw/a b/</span>};
-</code></pre></div>
+</code></pre>
+
+<p>こうやって取り出す</p>
+
+<pre><code class="language-perl">my ($a, $b) = @$h{qw/a b/};
+</code></pre>
+
                 </section>
             </article>
 
@@ -157,7 +169,7 @@
     
     <p class="small">
     
-       © Copyright 2021 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+       © Copyright 2022 <i class="fa fa-heart" aria-hidden="true"></i> site_author
     
     </p>
     <p class="small">

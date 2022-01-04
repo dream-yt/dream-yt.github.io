@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.91.2" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>git で定義がいつ消されたかを log から検索する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,33 +83,45 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li>
-      <ul>
-        <li><a href="#例">例</a></li>
-      </ul>
-    </li>
-    <li><a href="#参考">参考</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#例">例</a></li>
+</ul></li>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>たとえば package.json から puppeteer を取り除いたのはいつだったかなと調べたいときがある。
+                    
+
+<p>たとえば package.json から puppeteer を取り除いたのはいつだったかなと調べたいときがある。
 もう消えてしまっている文字列は grep では探せないが、git は知っている。</p>
+
 <p><code>-S</code> オプションで探してくれる。</p>
-<pre tabindex="0"><code>$ git log -S {{ 探したい文字列 }} ./探したいファイル
-</code></pre><pre tabindex="0"><code>-S&lt;string&gt;
+
+<pre><code>$ git log -S {{ 探したい文字列 }} ./探したいファイル
+</code></pre>
+
+<pre><code>-S&lt;string&gt;
     Look for differences that change the number of occurrences of the specified string (i.e. addition/deletion) in a file. Intended for the scripter's use.
 
     It is useful when you're looking for an exact block of code (like a struct), and want to know the history of that block since it first came into being: use the feature iteratively to feed the interesting block in the preimage back
     into -S, and keep going until you get the very first version of the block.
 
     Binary files are searched as well.
-</code></pre><h3 id="例">例</h3>
+</code></pre>
+
+<h3 id="例">例</h3>
+
 <p>たとえば <code>puppeteer</code> の依存を取り除いたのはいつだったかなと探すときはこんな感じで探せる。</p>
-<pre tabindex="0"><code>$ git log -S puppeteer ./package.json
+
+<pre><code>$ git log -S puppeteer ./package.json
 commit 0f1010450322779aa3b77db6bfe36260e0e92a91
 Author: sakamossan &lt;mild7caloriemategreentea@gmail.com&gt;
 Date:   Tue Apr 28 13:49:38 2020 +0900
@@ -121,8 +133,12 @@ Author: sakamossan &lt;mild7caloriemategreentea@gmail.com&gt;
 Date:   Tue Mar 13 18:46:21 2018 +0900
 
     [#1609] add mocha
-</code></pre><p>コミットがわかればそこから git show したりチケット番号で検索したりできる。</p>
+</code></pre>
+
+<p>コミットがわかればそこから git show したりチケット番号で検索したりできる。</p>
+
 <h2 id="参考">参考</h2>
+
 <ul>
 <li><a href="https://git-scm.com/docs/git-log#Documentation/git-log.txt--Sltstringgt">Git - git-log Documentation</a></li>
 </ul>
@@ -183,7 +199,7 @@ Date:   Tue Mar 13 18:46:21 2018 +0900
     
     <p class="small">
     
-       © Copyright 2021 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+       © Copyright 2022 <i class="fa fa-heart" aria-hidden="true"></i> site_author
     
     </p>
     <p class="small">

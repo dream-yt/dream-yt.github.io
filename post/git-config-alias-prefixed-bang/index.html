@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.91.2" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>gitconfig alias の &#39;!&#39; の意味 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,34 +83,49 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li>
-      <ul>
-        <li><a href="#例">例</a></li>
-        <li><a href="#ドキュメント">ドキュメント</a></li>
-        <li><a href="#参考">参考</a></li>
-      </ul>
-    </li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#例">例</a></li>
+<li><a href="#ドキュメント">ドキュメント</a></li>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>aliasを設定する時の <code>!</code> は「以下をシェルコマンドとして扱って」という意味。</p>
+                    
+
+<p>aliasを設定する時の <code>!</code> は「以下をシェルコマンドとして扱って」という意味。</p>
+
 <h3 id="例">例</h3>
+
 <p>パイプもできる</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git config --global alias.ack <span style="color:#e6db74">&#39;! git ls-files --others --cached --exclude-standard | ack -x&#39;</span>
-</code></pre></div><p>この例はgit管理されてるファイルからackで検索するというもの</p>
+
+<pre><code class="language-bash">$ git config --global alias.ack '! git ls-files --others --cached --exclude-standard | ack -x'
+</code></pre>
+
+<p>この例はgit管理されてるファイルからackで検索するというもの</p>
+
 <h3 id="ドキュメント">ドキュメント</h3>
+
 <blockquote>
 <p>If the alias expansion is prefixed with an exclamation point, it will be treated as a shell command.</p>
 </blockquote>
+
 <ul>
 <li><a href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-alias">Git - git-config Documentation</a></li>
 </ul>
+
 <h3 id="参考">参考</h3>
+
 <p>例の元ネタ</p>
+
 <ul>
 <li><a href="https://github.com/beyondgrep/ack3/issues/330">Add <code>git ack</code> alias to docs somewhere · Issue #330 · beyondgrep/ack3</a></li>
 </ul>
@@ -171,7 +186,7 @@
     
     <p class="small">
     
-       © Copyright 2021 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+       © Copyright 2022 <i class="fa fa-heart" aria-hidden="true"></i> site_author
     
     </p>
     <p class="small">

@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.91.2" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>NestJS の認証で、一部のルートだけ認証不要でアクセスさせたい &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,82 +83,113 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#方法">方法</a>
-      <ul>
-        <li><a href="#認証をしないためのデコレータ">認証をしないためのデコレータ</a></li>
-        <li><a href="#認証処理でルートのメタデータを参照する">認証処理でルートのメタデータを参照する</a></li>
-        <li><a href="#パブリックにしたいルートにデコレータを設定する">パブリックにしたいルートにデコレータを設定する</a></li>
-      </ul>
-    </li>
-    <li><a href="#参考">参考</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#方法">方法</a>
+<ul>
+<li><a href="#認証をしないためのデコレータ">認証をしないためのデコレータ</a></li>
+<li><a href="#認証処理でルートのメタデータを参照する">認証処理でルートのメタデータを参照する</a>
+<ul>
+<li><a href="#reflector-を-guard-に渡す">Reflector を Guard に渡す</a></li>
+</ul></li>
+<li><a href="#パブリックにしたいルートにデコレータを設定する">パブリックにしたいルートにデコレータを設定する</a></li>
+</ul></li>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>こちらの続編。</p>
+                    
+
+<p>こちらの続編。</p>
+
 <ul>
 <li><a href="https://blog.n-t.jp/tech/nestjs-passport-101/">passport 入門と NestJS で使う場合のメモ</a></li>
 </ul>
+
 <p>NestJS の <code>App#useGlobalGuards</code> を使うと、すべてのルート(エンドポイント)に対して認証をかけることができる。ルートを実装するごとにいちいち依存を定義してデコレータでGuardをつけるのは面倒なのでこの機能はとても便利である。
 しかし、一部のルートだけ認証せずにアクセスさせたい場合がある。たとえば、Prometheus からアクセスされるスコアボードなどは認証をかけたくない。</p>
+
 <p>そういうときに一部のルートだけ明示的にPublicにするための方法が GitHub issue で案内されていた。</p>
+
 <ul>
 <li><a href="https://github.com/nestjs/nest/issues/964">Add exclude feature for useGlobalGuards · Issue #964 · nestjs/nest</a></li>
 </ul>
+
 <h2 id="方法">方法</h2>
+
 <ul>
 <li><code>@nestjs/common</code> の <code>SetMetadata</code> を使い、ルートがパブリックであることを明示できるデコレータを実装する</li>
 <li>認証を行うGuardの中でルートのコンテキストを参照し、もしルートがパブリックなら認証処理をせずにコントローラに処理を受け渡す実装をする</li>
 <li>認証を不要にしたいルートに件のデコレータを設定する</li>
 </ul>
-<h3 id="認証をしないためのデコレータ">認証をしないためのデコレータ</h3>
-<p><code>SetMetadata</code> はルートにかけるデコレータをつくるためのヘルパーである。ここで設定されたメタデータは Reflector を通してGuardの中で参照される。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">SetMetadata</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;@nestjs/common&#39;</span>;
 
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">IS_PUBLIC_KEY</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;isPublic&#39;</span>;
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Public</span> <span style="color:#f92672">=</span> () <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">SetMetadata</span>(<span style="color:#a6e22e">IS_PUBLIC_KEY</span>, <span style="color:#66d9ef">true</span>);
-</code></pre></div><ul>
+<h3 id="認証をしないためのデコレータ">認証をしないためのデコレータ</h3>
+
+<p><code>SetMetadata</code> はルートにかけるデコレータをつくるためのヘルパーである。ここで設定されたメタデータは Reflector を通してGuardの中で参照される。</p>
+
+<pre><code class="language-ts">import { SetMetadata } from '@nestjs/common';
+
+export const IS_PUBLIC_KEY = 'isPublic';
+export const Public = () =&gt; SetMetadata(IS_PUBLIC_KEY, true);
+</code></pre>
+
+<ul>
 <li><a href="https://docs.nestjs.com/fundamentals/execution-context#reflection-and-metadata">Execution context | NestJS - A progressive Node.js framework</a></li>
 </ul>
+
 <h3 id="認証処理でルートのメタデータを参照する">認証処理でルートのメタデータを参照する</h3>
+
 <p>Guard の canActivate を override して、Reflector からルートに設定されたコンテキストを参照する。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">@Injectable</span>()
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">JwtAuthGuard</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">AuthGuard</span>(<span style="color:#e6db74">&#39;jwt&#39;</span>) {
-  <span style="color:#66d9ef">constructor</span>(<span style="color:#66d9ef">private</span> <span style="color:#a6e22e">reflector</span>: <span style="color:#66d9ef">Reflector</span>) {
-    <span style="color:#66d9ef">super</span>();
+
+<pre><code class="language-ts">@Injectable()
+export class JwtAuthGuard extends AuthGuard('jwt') {
+  constructor(private reflector: Reflector) {
+    super();
   }
 
-  <span style="color:#75715e">// override
-</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">canActivate</span>(<span style="color:#a6e22e">context</span>: <span style="color:#66d9ef">ExecutionContext</span>) {
-    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">isPublic</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">reflector</span>.<span style="color:#a6e22e">getAllAndOverride</span>&lt;<span style="color:#f92672">boolean</span>&gt;(<span style="color:#a6e22e">IS_PUBLIC_KEY</span>, [
-      <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">getHandler</span>(),
-      <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">getClass</span>(),
+  // override
+  canActivate(context: ExecutionContext) {
+    const isPublic = this.reflector.getAllAndOverride&lt;boolean&gt;(IS_PUBLIC_KEY, [
+      context.getHandler(),
+      context.getClass(),
     ]);
-    <span style="color:#75715e">// ルートの `IS_PUBLIC_KEY` フラグがたっていたらtrueを返してしまう
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">isPublic</span>) {
-      <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>;
+    // ルートの `IS_PUBLIC_KEY` フラグがたっていたらtrueを返してしまう
+    if (isPublic) {
+      return true;
     }
-    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">super</span>.<span style="color:#a6e22e">canActivate</span>(<span style="color:#a6e22e">context</span>);
+    return super.canActivate(context);
   }
 }
-</code></pre></div><h4 id="reflector-を-guard-に渡す">Reflector を Guard に渡す</h4>
+</code></pre>
+
+<h4 id="reflector-を-guard-に渡す">Reflector を Guard に渡す</h4>
+
 <p><code>JwtAuthGuard</code> のコンストラクタで <code>Reflector</code> が必要になったので引数で渡すようにする。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts">  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">reflector</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">app</span>.<span style="color:#66d9ef">get</span>(<span style="color:#a6e22e">Reflector</span>);
-  <span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">useGlobalGuards</span>(<span style="color:#66d9ef">new</span> <span style="color:#a6e22e">JwtAuthGuard</span>(<span style="color:#a6e22e">reflector</span>));
-</code></pre></div><h3 id="パブリックにしたいルートにデコレータを設定する">パブリックにしたいルートにデコレータを設定する</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Public</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;./auth/public&#39;</span>;
+
+<pre><code class="language-ts">  const reflector = app.get(Reflector);
+  app.useGlobalGuards(new JwtAuthGuard(reflector));
+</code></pre>
+
+<h3 id="パブリックにしたいルートにデコレータを設定する">パブリックにしたいルートにデコレータを設定する</h3>
+
+<pre><code class="language-ts">import { Public } from './auth/public';
 
 ...
 
-  <span style="color:#66d9ef">@Public</span>()
-  <span style="color:#66d9ef">@Get</span>()
-  <span style="color:#a6e22e">getHello</span>()<span style="color:#f92672">:</span> <span style="color:#66d9ef">string</span> {
-    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">appService</span>.<span style="color:#a6e22e">getHello</span>();
+  @Public()
+  @Get()
+  getHello(): string {
+    return this.appService.getHello();
   }
-</code></pre></div><h2 id="参考">参考</h2>
+</code></pre>
+
+<h2 id="参考">参考</h2>
+
 <ul>
 <li><a href="https://docs.nestjs.com/security/authentication">Authentication | NestJS - A progressive Node.js framework</a></li>
 </ul>
@@ -219,7 +250,7 @@
     
     <p class="small">
     
-       © Copyright 2021 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+       © Copyright 2022 <i class="fa fa-heart" aria-hidden="true"></i> site_author
     
     </p>
     <p class="small">

@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.91.2" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>CloudBuild で CloudRun のデプロイをする。ブランチ名によってはstagingにデプロイされるようにする。 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,95 +83,121 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#トリガー">トリガー</a></li>
-    <li><a href="#cloudbuildyaml">cloudbuild.yaml</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#トリガー">トリガー</a></li>
+<li><a href="#cloudbuild-yaml">cloudbuild.yaml</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>Cloud Build には Build と Trigger の2種類のエンティティがある。</p>
+                    
+
+<p>Cloud Build には Build と Trigger の2種類のエンティティがある。</p>
+
 <ul>
 <li>Build は <code>step</code> の設定に沿って実行した実行履歴1つ分</li>
 <li>Trigger は、どういうときに Build が実行されるかを設定するもの</li>
 </ul>
+
 <h2 id="トリガー">トリガー</h2>
+
 <p>GitHub に push したら処理を動かすように Trigger を設定したい場合はこんなコマンドで登録する。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ gcloud beta builds triggers create github  ...
-<span style="color:#75715e"># どんなオプションが渡せるかはhelpで出てくる</span>
+
+<pre><code class="language-bash">$ gcloud beta builds triggers create github  ...
+# どんなオプションが渡せるかはhelpで出てくる
 $ gcloud beta builds triggers create github --help
-</code></pre></div><p>GCPのUIでトリガーをつくったときはこうすれば yaml で定義をみられる。</p>
-<pre tabindex="0"><code>$ gcloud beta builds triggers list
-</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">createTime</span>: <span style="color:#e6db74">&#39;2020-05-06T13:01:33.647678872Z&#39;</span>
-<span style="color:#f92672">description</span>: <span style="color:#ae81ff">master ブランチへの push</span>
-<span style="color:#f92672">filename</span>: <span style="color:#ae81ff">site/www/cloudbuild.yaml</span>
-<span style="color:#f92672">github</span>:
-  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">myapp</span>
-  <span style="color:#f92672">owner</span>: <span style="color:#ae81ff">githubusername</span>
-  <span style="color:#f92672">push</span>:
-    <span style="color:#f92672">branch</span>: <span style="color:#ae81ff">^master$</span>
-<span style="color:#f92672">id</span>: <span style="color:#ae81ff">xxxxxxxx-362f-44a3-b7ed-79c3c61e041a</span>
-<span style="color:#f92672">name</span>: <span style="color:#ae81ff">master-push-trigger</span>
-<span style="color:#f92672">substitutions</span>:
-  <span style="color:#f92672">_SERVICE</span>: <span style="color:#ae81ff">master</span>
-<span style="color:#f92672">tags</span>:
-- <span style="color:#ae81ff">github-default-push-trigger</span>
-</code></pre></div><p>こんな設定になっている。</p>
+</code></pre>
+
+<p>GCPのUIでトリガーをつくったときはこうすれば yaml で定義をみられる。</p>
+
+<pre><code>$ gcloud beta builds triggers list
+</code></pre>
+
+<pre><code class="language-yaml">createTime: '2020-05-06T13:01:33.647678872Z'
+description: master ブランチへの push
+filename: site/www/cloudbuild.yaml
+github:
+  name: myapp
+  owner: githubusername
+  push:
+    branch: ^master$
+id: xxxxxxxx-362f-44a3-b7ed-79c3c61e041a
+name: master-push-trigger
+substitutions:
+  _SERVICE: master
+tags:
+- github-default-push-trigger
+</code></pre>
+
+<p>こんな設定になっている。</p>
+
 <ul>
 <li><code>^master$</code> に引っかかるブランチ (master ブランチ) にpushしたとき</li>
 <li><code>_SERVICE=master</code> という変数名を埋め込んで</li>
 <li><code>site/www/cloudbuild.yaml</code> に記述されているビルドステップを実行する</li>
 </ul>
+
 <p>もう1つトリガーを作る。そちらはこんな設定をしている。(一部抜粋)</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">...
-<span style="color:#f92672">github</span>:
-  <span style="color:#f92672">push</span>:
-    <span style="color:#f92672">branch</span>: <span style="color:#ae81ff">^canary/</span>
-<span style="color:#f92672">substitutions</span>:
-  <span style="color:#f92672">_SERVICE</span>: <span style="color:#ae81ff">canary</span>
+
+<pre><code class="language-yaml">...
+github:
+  push:
+    branch: ^canary/
+substitutions:
+  _SERVICE: canary
 ...
-</code></pre></div><p>これはつまり、<code>canary/</code> という名前で始まるブランチが push されたら、 canary のアプリがデプロイされるという設定になっている。</p>
-<h2 id="cloudbuildyaml">cloudbuild.yaml</h2>
+</code></pre>
+
+<p>これはつまり、<code>canary/</code> という名前で始まるブランチが push されたら、 canary のアプリがデプロイされるという設定になっている。</p>
+
+<h2 id="cloudbuild-yaml">cloudbuild.yaml</h2>
+
 <p>トリガーによって何が実行されるべきかを書くのが cloudbuild.yaml</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">steps</span>:
-  - <span style="color:#f92672">name</span>: <span style="color:#e6db74">&#39;gcr.io/cloud-builders/docker&#39;</span>
-    <span style="color:#f92672">id</span>: <span style="color:#e6db74">&#39;docker-pull&#39;</span>
-    <span style="color:#75715e"># $PROJECT_ID はCloudbuild組み込みの環境変数</span>
-    <span style="color:#75715e"># $_SERVICE はユーザ定義の環境変数 (`_`で始まる必要がある)</span>
-    <span style="color:#f92672">args</span>: [<span style="color:#e6db74">&#39;pull&#39;</span>, <span style="color:#e6db74">&#39;asia.gcr.io/$PROJECT_ID/$_SERVICE:latest&#39;</span>]
-  - <span style="color:#f92672">name</span>: <span style="color:#e6db74">&#39;gcr.io/cloud-builders/docker&#39;</span>
-    <span style="color:#f92672">id</span>: <span style="color:#e6db74">&#39;docker-build&#39;</span>
-    <span style="color:#f92672">args</span>: [ <span style="color:#e6db74">&#39;build&#39;</span>,
-      <span style="color:#e6db74">&#39;--cache-from&#39;</span>, <span style="color:#e6db74">&#39;asia.gcr.io/$PROJECT_ID/$_SERVICE:latest&#39;</span>,
-      <span style="color:#e6db74">&#39;--tag&#39;</span>, <span style="color:#e6db74">&#39;asia.gcr.io/$PROJECT_ID/$_SERVICE:$REVISION_ID&#39;</span>,
-      <span style="color:#75715e"># リポジトリの /site/www/Dockerfile を使ってビルドする</span>
-      <span style="color:#e6db74">&#39;site/www&#39;</span>
+
+<pre><code class="language-yaml">steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    id: 'docker-pull'
+    # $PROJECT_ID はCloudbuild組み込みの環境変数
+    # $_SERVICE はユーザ定義の環境変数 (`_`で始まる必要がある)
+    args: ['pull', 'asia.gcr.io/$PROJECT_ID/$_SERVICE:latest']
+  - name: 'gcr.io/cloud-builders/docker'
+    id: 'docker-build'
+    args: [ 'build',
+      '--cache-from', 'asia.gcr.io/$PROJECT_ID/$_SERVICE:latest',
+      '--tag', 'asia.gcr.io/$PROJECT_ID/$_SERVICE:$REVISION_ID',
+      # リポジトリの /site/www/Dockerfile を使ってビルドする
+      'site/www'
     ]
-  - <span style="color:#f92672">name</span>: <span style="color:#e6db74">&#39;gcr.io/cloud-builders/docker&#39;</span>
-    <span style="color:#f92672">id</span>: <span style="color:#e6db74">&#39;docker-tag&#39;</span>
-    <span style="color:#f92672">args</span>: [<span style="color:#e6db74">&#39;tag&#39;</span>,
-      <span style="color:#e6db74">&#39;asia.gcr.io/$PROJECT_ID/$_SERVICE:$REVISION_ID&#39;</span>,
-      <span style="color:#e6db74">&#39;asia.gcr.io/$PROJECT_ID/$_SERVICE:latest&#39;</span>
+  - name: 'gcr.io/cloud-builders/docker'
+    id: 'docker-tag'
+    args: ['tag',
+      'asia.gcr.io/$PROJECT_ID/$_SERVICE:$REVISION_ID',
+      'asia.gcr.io/$PROJECT_ID/$_SERVICE:latest'
     ]
-  - <span style="color:#f92672">name</span>: <span style="color:#e6db74">&#39;gcr.io/cloud-builders/docker&#39;</span>
-    <span style="color:#f92672">id</span>: <span style="color:#e6db74">&#39;docker-push&#39;</span>
-    <span style="color:#f92672">args</span>: [<span style="color:#e6db74">&#39;push&#39;</span>, <span style="color:#e6db74">&#39;asia.gcr.io/$PROJECT_ID/$_SERVICE&#39;</span>]
-  - <span style="color:#f92672">name</span>: <span style="color:#e6db74">&#39;gcr.io/cloud-builders/gcloud&#39;</span>
-    <span style="color:#f92672">id</span>: <span style="color:#e6db74">&#39;cloudrun-deploy&#39;</span>
-    <span style="color:#75715e"># _SERVICE はユーザ定義の変数</span>
-    <span style="color:#75715e"># pushしたブランチによってデプロイ先が変わるようにトリガーに設定している</span>
-    <span style="color:#f92672">args</span>: [<span style="color:#e6db74">&#39;beta&#39;</span>, <span style="color:#e6db74">&#39;run&#39;</span>, <span style="color:#e6db74">&#39;deploy&#39;</span>, <span style="color:#e6db74">&#39;$_SERVICE&#39;</span>,
-      <span style="color:#75715e"># さきほどタグをつけたイメージからデプロイ</span>
-      <span style="color:#e6db74">&#39;--image&#39;</span>, <span style="color:#e6db74">&#39;asia.gcr.io/$PROJECT_ID/$_SERVICE:$REVISION_ID&#39;</span>,
-      <span style="color:#e6db74">&#39;--region&#39;</span>, <span style="color:#e6db74">&#39;asia-northeast1&#39;</span>,
-      <span style="color:#75715e"># anthos とかが指定できる。デフォルトも managed</span>
-      <span style="color:#e6db74">&#39;--platform&#39;</span>, <span style="color:#e6db74">&#39;managed&#39;</span>,
-      <span style="color:#75715e"># wwwに公開する場合は権限がなくてもアクセスできることを明示する</span>
-      <span style="color:#e6db74">&#39;--allow-unauthenticated&#39;</span>
+  - name: 'gcr.io/cloud-builders/docker'
+    id: 'docker-push'
+    args: ['push', 'asia.gcr.io/$PROJECT_ID/$_SERVICE']
+  - name: 'gcr.io/cloud-builders/gcloud'
+    id: 'cloudrun-deploy'
+    # _SERVICE はユーザ定義の変数
+    # pushしたブランチによってデプロイ先が変わるようにトリガーに設定している
+    args: ['beta', 'run', 'deploy', '$_SERVICE',
+      # さきほどタグをつけたイメージからデプロイ
+      '--image', 'asia.gcr.io/$PROJECT_ID/$_SERVICE:$REVISION_ID',
+      '--region', 'asia-northeast1',
+      # anthos とかが指定できる。デフォルトも managed
+      '--platform', 'managed',
+      # wwwに公開する場合は権限がなくてもアクセスできることを明示する
+      '--allow-unauthenticated'
     ]
-</code></pre></div><ul>
+</code></pre>
+
+<ul>
 <li><a href="https://cloud.google.com/build/docs/configuring-builds/substitute-variable-values?hl=ja">変数値の置換  |  Cloud Build のドキュメント  |  Google Cloud</a></li>
 </ul>
 
@@ -231,7 +257,7 @@ $ gcloud beta builds triggers create github --help
     
     <p class="small">
     
-       © Copyright 2021 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+       © Copyright 2022 <i class="fa fa-heart" aria-hidden="true"></i> site_author
     
     </p>
     <p class="small">

@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.91.2" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>SSLエラー(dh key too small)が発生した時の調査/と対応 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,39 +83,55 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li>
-      <ul>
-        <li><a href="#perl">perl</a></li>
-      </ul>
-    </li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#perl">perl</a></li>
+</ul></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>たとえばこんなエラーが出た時</p>
+                    
+
+<p>たとえばこんなエラーが出た時</p>
+
 <blockquote>
 <p>content:Cannot create SSL connection: SSL connect attempt failed error:141A318A:SSL routines:tls_process_ske_dhe:dh key too small</p>
 </blockquote>
+
 <p>見たところ先方が使っている DH鍵 が短くてconnectionが取れないということのようだ</p>
+
 <p>リクエスト先のホストをこのサイトでチェック</p>
+
 <ul>
 <li><a href="https://www.ssllabs.com/ssltest/analyze.html">SSL Server Test (Powered by Qualys SSL Labs)</a></li>
 </ul>
+
 <p>結果をこんな感じで返してくれる</p>
+
 <ul>
 <li><a href="https://www.ssllabs.com/ssltest/analyze.html?d=publisher%2dapi.spotxchange.com&amp;s=198.54.12.118">SSL Server Test: publisher-api.spotxchange.com (Powered by Qualys SSL Labs)</a></li>
 </ul>
+
 <p>cipher suite の欄を見ると <code>DH 1024 bits</code> ということで鍵が短いようだ
 (現行のOpenSSLではデフォルトで2048bitが使われる)</p>
+
 <blockquote>
 <p>TLS_DHE_RSA_WITH_AES_256_GCM_SHA384 (0x9f)   DH 1024 bits   FS   WEAK</p>
 </blockquote>
+
 <h3 id="perl">perl</h3>
+
 <p>DHを使わないようにするにはhttpsクライアントの設定おこなう</p>
+
 <p>perlのFurlモジュールだとこんな感じ</p>
+
 <blockquote>
 <p>SSL_cipher_list =&gt; &lsquo;DEFAULT:!DH&rsquo;,</p>
 </blockquote>
@@ -176,7 +192,7 @@
     
     <p class="small">
     
-       © Copyright 2021 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+       © Copyright 2022 <i class="fa fa-heart" aria-hidden="true"></i> site_author
     
     </p>
     <p class="small">

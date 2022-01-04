@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.91.2" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>ファイル名をファイルの先頭に追加する(ディレクトリ配下全部) &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,60 +83,83 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li>
-      <ul>
-        <li><a href="#ls">ls</a></li>
-        <li><a href="#xargs">xargs</a></li>
-        <li><a href="#gsed">gsed</a></li>
-      </ul>
-    </li>
-    <li><a href="#参考">参考</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#ls">ls</a></li>
+<li><a href="#xargs">xargs</a></li>
+<li><a href="#gsed">gsed</a></li>
+</ul></li>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>1ファイルだけならいいが、何百とファイルがあると手作業でやるのはかなり辛い。
+                    
+
+<p>1ファイルだけならいいが、何百とファイルがあると手作業でやるのはかなり辛い。
 今回はブログ記事のファイル全部に<a href="https://qiita.com/amay077/items/e27f9b4e2374b70a5dfb">フロントマター</a>に1項目追加したかったので、1コマンドこさえた。</p>
+
 <p>こんなコマンドでできる</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ ls -1 | xargs -I<span style="color:#f92672">{}</span> gsed -i -e <span style="color:#e6db74">&#39;1i {}&#39;</span> <span style="color:#f92672">{}</span>
-</code></pre></div><h3 id="ls">ls</h3>
+
+<pre><code class="language-bash">$ ls -1 | xargs -I{} gsed -i -e '1i {}' {}
+</code></pre>
+
+<h3 id="ls">ls</h3>
+
 <blockquote>
 <p>ls -1</p>
 </blockquote>
+
 <p>ファイル名を一覧するのに使う</p>
+
 <h3 id="xargs">xargs</h3>
+
 <blockquote>
 <p>xargs -I{}</p>
 </blockquote>
+
 <ul>
 <li>パイプされた1行に対して同じコマンドを発行する</li>
 <li>ファイル名のリストがパイプされているので、1ファイル1コマンド発行される</li>
 <li><code>{}</code> はプレースホルダ
+
 <ul>
 <li><code>{}</code> がパイプされた1行に置換されてコマンドが実行される</li>
+</ul></li>
 </ul>
-</li>
-</ul>
+
 <h3 id="gsed">gsed</h3>
+
 <p>macOSでLinux版のsedを使いたかったのでgsed。</p>
+
 <p>gsedはbrewでインストールできる。</p>
+
 <ul>
 <li><a href="https://formulae.brew.sh/formula/gnu-sed">gnu-sed — Homebrew Formulae</a></li>
 </ul>
+
 <blockquote>
 <p>-i</p>
 </blockquote>
+
 <p>ファイルを直接書き換えるという指示。
 引数に文字列を渡すとその名前のファイルを生成する。</p>
+
 <blockquote>
 <p>1i</p>
 </blockquote>
+
 <p><code>1i ~~</code> で「1行目に~~という文字列を入れる」という指示になる。
 この改行も一緒に入る。</p>
+
 <h2 id="参考">参考</h2>
+
 <ul>
 <li><a href="https://www.atmarkit.co.jp/ait/articles/1801/19/news014.html">【 xargs 】コマンド――コマンドラインを作成して実行する：Linux基本コマンドTips（176） - ＠IT</a></li>
 <li><a href="https://www.na3.jp/entry/20110310/p1">ある文字列をファイルの特定行に挿入するコマンド - 元RX-7乗りの適当な日々</a></li>
@@ -198,7 +221,7 @@
     
     <p class="small">
     
-       © Copyright 2021 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+       © Copyright 2022 <i class="fa fa-heart" aria-hidden="true"></i> site_author
     
     </p>
     <p class="small">
