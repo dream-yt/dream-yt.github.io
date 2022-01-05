@@ -6,7 +6,16 @@
     <description>Recent content in Posts on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Tue, 04 Jan 2022 16:43:26 +0900</lastBuildDate><atom:link href="https://dream-yt.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 05 Jan 2022 12:25:00 +0900</lastBuildDate><atom:link href="https://dream-yt.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>vscode-settings-sync のトークン更新手順</title>
+      <link>https://dream-yt.github.io/post/vscode-settings-sync-token-refresh-memo/</link>
+      <pubDate>Wed, 05 Jan 2022 12:25:00 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/vscode-settings-sync-token-refresh-memo/</guid>
+      <description>GitHub のトークンが expire するたびにググっていたのでメモ。 経緯 vscode の設定の同期は、vscode-settings-sync を使っている。 Settings Sync - Visual Studio Marketplace Visual Studio</description>
+    </item>
+    
     <item>
       <title>アドホックなクエリで GROUP_CONCAT を安全に使う</title>
       <link>https://dream-yt.github.io/post/adhoc-query-on-group-concat-maxlen/</link>

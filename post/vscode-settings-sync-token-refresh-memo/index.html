@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="https://dream-yt.github.io/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="vscode-settings-sync のトークン更新手順"/>
+  <meta name="twitter:description" content="GitHub のトークンが expire するたびにググっていたのでメモ。 経緯 vscode の設定の同期は、vscode-settings-sync を使っている。 Settings Sync - Visual Studio Marketplace Visual Studio"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@site_author"/>
+  
+
+
+
+		
+		<meta name="author" content="site_author">
+		<meta name="description" content="Site Description">
+		<meta name="generator" content="Hugo 0.79.0" />
+		<title>vscode-settings-sync のトークン更新手順 &middot; sacre</title>
+		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/font-awesome.min.css">
+		
+
+		
+		<link href="https://dream-yt.github.io/index.xml" rel="alternate" type="application/rss+xml" title="sacre" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='https://dream-yt.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://dream-yt.github.io/posts'>Archive</a>
+	<a href='https://dream-yt.github.io/tags'>Tags</a>
+	<a href='https://dream-yt.github.io/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="https://dream-yt.github.io/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        vscode-settings-sync のトークン更新手順
+                    </h1>
+                    <h2 class="headline">
+                    Jan 5, 2022 12:25
+                    · 314 words
+                    · 1 minute read
+                      <span class="tags">
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#経緯">経緯</a></li>
+    <li><a href="#手順">手順</a>
+      <ul>
+        <li><a href="#トークンのスコープについて">トークンのスコープについて</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    <p>GitHub のトークンが expire するたびにググっていたのでメモ。</p>
+<h2 id="経緯">経緯</h2>
+<p>vscode の設定の同期は、<code>vscode-settings-sync</code> を使っている。</p>
+<ul>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=Shan.code-settings-sync">Settings Sync - Visual Studio Marketplace</a></li>
+<li><a href="http://shanalikhan.github.io/2015/12/15/Visual-Studio-Code-Sync-Settings.html">Visual Studio Code Settings Synchronization</a></li>
+</ul>
+<p>一昨年くらいに公式から同様の拡張がでてきて旗色が悪そうだが、個人的には頑張ってほしいと思っている。設定を Gist で管理しているので他人にシェアするのが楽なのがときどき便利なので。</p>
+<h2 id="手順">手順</h2>
+<p>トークンを取得</p>
+<ul>
+<li><a href="https://github.com/settings/tokens">Personal Access Tokens</a>
+<ul>
+<li>scope は gist のみでもいけた</li>
+</ul>
+</li>
+</ul>
+<p>vscode のコマンドパレットから以下のところでトークンを入力</p>
+<ul>
+<li><code>Sync: Advanced Options</code>
+<ul>
+<li><code>Sync: Open Settings</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="トークンのスコープについて">トークンのスコープについて</h3>
+<p>GitHub で払い出すトークンの scope は <code>gist</code> だけでも動くみたいである。</p>
+<blockquote>
+<p>gist	Grants write access to gists.</p>
+</blockquote>
+<p>gist はもともとURLさえ知っていれば認証なしにだれでも見られるので、writeアクセスだけあれば大丈夫のようだ。</p>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fvscode-settings-sync-token-refresh-memo%2f - vscode-settings-sync%20%e3%81%ae%e3%83%88%e3%83%bc%e3%82%af%e3%83%b3%e6%9b%b4%e6%96%b0%e6%89%8b%e9%a0%86 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'your_disqus_short_name'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/dream-yt/sacre">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://twitter.com/FUTABA_SACRE">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2022 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="https://dream-yt.github.io/js/jquery-3.3.1.min.js"></script>
+<script src="https://dream-yt.github.io/js/main.js"></script>
+<script src="https://dream-yt.github.io/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+
+
+
+
+    </body>
+</html>
