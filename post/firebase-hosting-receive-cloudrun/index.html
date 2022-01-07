@@ -14,7 +14,7 @@
   
   
   <meta name="twitter:title" content="Firebase Hosting の一部のエンドポイントを CloudRun で受ける"/>
-  <meta name="twitter:description" content="こんな設定でできる。CloudFunctionで受けるのとほとんど一緒。 { &#34;hosting&#34;: { &#34;public&#34;: &#34;public&#34;, &#34;rewrites&#34;: [ { &#34;source&#34;: &#34;/**&#34;, &#34;run&#34;: { &#34;serviceId&#34;: &#34;myappcloudrun-servicename&#34;, &#34;region&#34;: &#34;asia-northeast1&#34; } } ] } } 参考 ホスティング動作を構成"/>
+  <meta name="twitter:description" content="こんな設定でできる。CloudFunctionで受けるのとほとんど一緒。 { &quot;hosting&quot;: { &quot;public&quot;: &quot;public&quot;, &quot;rewrites&quot;: [ { &quot;source&quot;: &quot;/**&quot;, &quot;run&quot;: { &quot;serviceId&quot;: &quot;myappcloudrun-servicename&quot;, &quot;region&quot;: &quot;asia-northeast1&quot; } } ] } } 参考 ホスティング動作を構成"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>Firebase Hosting の一部のエンドポイントを CloudRun で受ける &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,30 +83,39 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#参考">参考</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>こんな設定でできる。CloudFunctionで受けるのとほとんど一緒。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
-  <span style="color:#f92672">&#34;hosting&#34;</span>: {
-    <span style="color:#f92672">&#34;public&#34;</span>: <span style="color:#e6db74">&#34;public&#34;</span>,
-    <span style="color:#f92672">&#34;rewrites&#34;</span>: [
+                    
+
+<p>こんな設定でできる。CloudFunctionで受けるのとほとんど一緒。</p>
+
+<pre><code class="language-json">{
+  &quot;hosting&quot;: {
+    &quot;public&quot;: &quot;public&quot;,
+    &quot;rewrites&quot;: [
       {
-        <span style="color:#f92672">&#34;source&#34;</span>: <span style="color:#e6db74">&#34;/**&#34;</span>,
-        <span style="color:#f92672">&#34;run&#34;</span>: {
-          <span style="color:#f92672">&#34;serviceId&#34;</span>: <span style="color:#e6db74">&#34;myappcloudrun-servicename&#34;</span>,
-          <span style="color:#f92672">&#34;region&#34;</span>: <span style="color:#e6db74">&#34;asia-northeast1&#34;</span>
+        &quot;source&quot;: &quot;/**&quot;,
+        &quot;run&quot;: {
+          &quot;serviceId&quot;: &quot;myappcloudrun-servicename&quot;,
+          &quot;region&quot;: &quot;asia-northeast1&quot;
         }
       }
     ]
   }
 }
-</code></pre></div><h2 id="参考">参考</h2>
+</code></pre>
+
+<h2 id="参考">参考</h2>
+
 <ul>
 <li><a href="https://firebase.google.com/docs/hosting/full-config?hl=ja#direct_requests_to_a_cloud_run_container">ホスティング動作を構成する  |  Firebase</a></li>
 </ul>

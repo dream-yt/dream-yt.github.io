@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>PythonでTimezone Aware(Jst)なdatetimeを作る &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,39 +83,56 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li>
-      <ul>
-        <li></li>
-        <li><a href="#参考">参考</a></li>
-      </ul>
-    </li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#使い方">使い方</a></li>
+</ul></li>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>ググっても簡単なのが出てこなかったのでメモ</p>
+                    
+
+<p>ググっても簡単なのが出てこなかったのでメモ</p>
+
 <p>環境は python 3.6.7</p>
+
 <p>こんな定義で引数に渡した日付時間がJSTのdatetimeになる</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> pytz <span style="color:#f92672">import</span> timezone
 
-<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">jst_datetime</span>(<span style="color:#f92672">*</span>args):
-    rest <span style="color:#f92672">=</span> [<span style="color:#ae81ff">0</span>] <span style="color:#f92672">*</span> (<span style="color:#ae81ff">7</span> <span style="color:#f92672">-</span> len(args))
-    <span style="color:#66d9ef">return</span> datetime(<span style="color:#f92672">*</span>args, <span style="color:#f92672">*</span>rest, timezone(<span style="color:#e6db74">&#39;Asia/Tokyo&#39;</span>))
-</code></pre></div><h4 id="使い方">使い方</h4>
+<pre><code class="language-python">from pytz import timezone
+
+def jst_datetime(*args):
+    rest = [0] * (7 - len(args))
+    return datetime(*args, *rest, timezone('Asia/Tokyo'))
+</code></pre>
+
+<h4 id="使い方">使い方</h4>
+
 <p>datetimeと同じ</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">got <span style="color:#f92672">=</span> jst_datetime(<span style="color:#ae81ff">2019</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">0</span>)
-t<span style="color:#f92672">.</span>assertIs(got<span style="color:#f92672">.</span>hour, <span style="color:#ae81ff">2</span>)
-t<span style="color:#f92672">.</span>assertIs(got<span style="color:#f92672">.</span>day, <span style="color:#ae81ff">5</span>)
-t<span style="color:#f92672">.</span>assertEqual(str(got<span style="color:#f92672">.</span>tzinfo), <span style="color:#e6db74">&#39;Asia/Tokyo&#39;</span>)
 
-got2 <span style="color:#f92672">=</span> jst_datetime(<span style="color:#ae81ff">2019</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">2</span>)
-t<span style="color:#f92672">.</span>assertEqual(got, got2)
-got3 <span style="color:#f92672">=</span> jst_datetime(<span style="color:#ae81ff">2019</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>)
-t<span style="color:#f92672">.</span>assertEqual(got, got3)
-</code></pre></div><h3 id="参考">参考</h3>
+<pre><code class="language-python">got = jst_datetime(2019, 1, 5, 2, 0)
+t.assertIs(got.hour, 2)
+t.assertIs(got.day, 5)
+t.assertEqual(str(got.tzinfo), 'Asia/Tokyo')
+
+got2 = jst_datetime(2019, 1, 5, 2)
+t.assertEqual(got, got2)
+got3 = jst_datetime(2019, 1, 5, 2, 0, 0)
+t.assertEqual(got, got3)
+</code></pre>
+
+<h3 id="参考">参考</h3>
+
 <ul>
 <li><a href="https://docs.python.jp/3/library/datetime.html">8.1. datetime — 基本的な日付型および時間型 — Python 3.6.5 ドキュメント</a></li>
 </ul>

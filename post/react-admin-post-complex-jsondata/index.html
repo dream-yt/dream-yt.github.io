@@ -14,7 +14,7 @@
   
   
   <meta name="twitter:title" content="react-admin ですこし複雑なデータをPOSTしたい場合"/>
-  <meta name="twitter:description" content="たとえば、こんな感じのネストした要素があるJSONをPOSTしたい場合。 { &#34;id&#34;: 123, &#34;name&#34;: { &#34;first&#34;: &#34;yoshida&#34;, &#34;last&#34;: &#34;shigeru&#34; } } こんな感じで、ドット区切りでsourceを定義"/>
+  <meta name="twitter:description" content="たとえば、こんな感じのネストした要素があるJSONをPOSTしたい場合。 { &quot;id&quot;: 123, &quot;name&quot;: { &quot;first&quot;: &quot;yoshida&quot;, &quot;last&quot;: &quot;shigeru&quot; } } こんな感じで、ドット区切りでsourceを定義"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>react-admin ですこし複雑なデータをPOSTしたい場合 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -72,7 +72,7 @@
                     </h1>
                     <h2 class="headline">
                     Nov 22, 2021 17:03
-                    · 208 words
+                    · 209 words
                     · 1 minute read
                       <span class="tags">
                       
@@ -83,47 +83,63 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#もっと複雑なデータ構造をpostしたい場合">もっと複雑なデータ構造をPOSTしたい場合</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#もっと複雑なデータ構造をpostしたい場合">もっと複雑なデータ構造をPOSTしたい場合</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>たとえば、こんな感じのネストした要素があるJSONをPOSTしたい場合。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
-    <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">123</span>,
-    <span style="color:#f92672">&#34;name&#34;</span>: {
-        <span style="color:#f92672">&#34;first&#34;</span>: <span style="color:#e6db74">&#34;yoshida&#34;</span>,
-        <span style="color:#f92672">&#34;last&#34;</span>: <span style="color:#e6db74">&#34;shigeru&#34;</span>
+                    
+
+<p>たとえば、こんな感じのネストした要素があるJSONをPOSTしたい場合。</p>
+
+<pre><code class="language-json">{
+    &quot;id&quot;: 123,
+    &quot;name&quot;: {
+        &quot;first&quot;: &quot;yoshida&quot;,
+        &quot;last&quot;: &quot;shigeru&quot;
     }
 }
-</code></pre></div><p>こんな感じで、ドット区切りでsourceを定義すればよい。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx">&lt;<span style="color:#f92672">SimpleForm</span>&gt;
-    &lt;<span style="color:#f92672">TextInput</span> <span style="color:#a6e22e">source</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;id&#34;</span>/&gt;
-    &lt;<span style="color:#f92672">TextInput</span> <span style="color:#a6e22e">source</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;name.first&#34;</span>/&gt;
-    &lt;<span style="color:#f92672">TextInput</span> <span style="color:#a6e22e">source</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;name.last&#34;</span>/&gt;
-&lt;/<span style="color:#f92672">SimpleForm</span>&gt;
-</code></pre></div><h2 id="もっと複雑なデータ構造をpostしたい場合">もっと複雑なデータ構造をPOSTしたい場合</h2>
+</code></pre>
+
+<p>こんな感じで、ドット区切りでsourceを定義すればよい。</p>
+
+<pre><code class="language-jsx">&lt;SimpleForm&gt;
+    &lt;TextInput source=&quot;id&quot;/&gt;
+    &lt;TextInput source=&quot;name.first&quot;/&gt;
+    &lt;TextInput source=&quot;name.last&quot;/&gt;
+&lt;/SimpleForm&gt;
+</code></pre>
+
+<h2 id="もっと複雑なデータ構造をpostしたい場合">もっと複雑なデータ構造をPOSTしたい場合</h2>
+
 <p><code>transform</code> 属性を使う。</p>
+
 <ul>
 <li><a href="https://marmelab.com/react-admin/CreateEdit.html#transform">React-admin - The Create and Edit Views</a></li>
 </ul>
+
 <p>FormData を引数とする関数を定義できて、これがPOST直前に呼ばれるようにできる。
 この関数はPromiseを返すこともできるとのこと。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-tsx" data-lang="tsx"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">UserCreate</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">props</span>) <span style="color:#f92672">=&gt;</span> {
-    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">transform</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">data</span> <span style="color:#f92672">=&gt;</span> ({
-        ...<span style="color:#a6e22e">data</span>,
-        <span style="color:#a6e22e">fullName</span><span style="color:#f92672">:</span> <span style="color:#e6db74">`</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">firstName</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> </span><span style="color:#e6db74">${</span><span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">lastName</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>
+
+<pre><code class="language-tsx">export const UserCreate = (props) =&gt; {
+    const transform = data =&gt; ({
+        ...data,
+        fullName: `${data.firstName} ${data.lastName}`
     });
-    <span style="color:#66d9ef">return</span> (
-        &lt;<span style="color:#f92672">Create</span> {<span style="color:#a6e22e">...props</span>} <span style="color:#a6e22e">transform</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">transform</span>}&gt;
+    return (
+        &lt;Create {...props} transform={transform}&gt;
             ...
-        &lt;/<span style="color:#f92672">Create</span>&gt;
+        &lt;/Create&gt;
     );
 }
-</code></pre></div>
+</code></pre>
+
                 </section>
             </article>
 

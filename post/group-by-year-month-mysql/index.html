@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>MySQLで月毎にGROUP BYする &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,26 +83,39 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#更新されたレコードを月毎で計上">更新されたレコードを月毎で計上</a></li>
-    <li><a href="#参考">参考</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#更新されたレコードを月毎で計上">更新されたレコードを月毎で計上</a></li>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p><code>modified</code> は変更されたら更新されるカラム。
+                    
+
+<p><code>modified</code> は変更されたら更新されるカラム。
 以下のような表現で <code>202107</code> といった文字列を作ることができる。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">CONCAT(<span style="color:#66d9ef">YEAR</span>(modified), LPAD(<span style="color:#66d9ef">MONTH</span>(modified), <span style="color:#ae81ff">2</span>, <span style="color:#e6db74">&#39;0&#39;</span>))
-</code></pre></div><p><code>GROUP BY YEAR(modified), MONTH(modified)</code> でもいいが、可視化のライブラリにて使うときに1カラムの方が具合がいいので <code>LPAD</code> などを使って1カラムの文字列にしている。</p>
+
+<pre><code class="language-sql">CONCAT(YEAR(modified), LPAD(MONTH(modified), 2, '0'))
+</code></pre>
+
+<p><code>GROUP BY YEAR(modified), MONTH(modified)</code> でもいいが、可視化のライブラリにて使うときに1カラムの方が具合がいいので <code>LPAD</code> などを使って1カラムの文字列にしている。</p>
+
 <h2 id="更新されたレコードを月毎で計上">更新されたレコードを月毎で計上</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> CONCAT(<span style="color:#66d9ef">YEAR</span>(modified), LPAD(<span style="color:#66d9ef">MONTH</span>(modified), <span style="color:#ae81ff">2</span>, <span style="color:#e6db74">&#39;0&#39;</span>)),
-  <span style="color:#66d9ef">COUNT</span>(<span style="color:#ae81ff">1</span>)
-<span style="color:#66d9ef">FROM</span> t
-<span style="color:#66d9ef">GROUP</span> <span style="color:#66d9ef">BY</span> CONCAT(<span style="color:#66d9ef">YEAR</span>(modified), LPAD(<span style="color:#66d9ef">MONTH</span>(modified), <span style="color:#ae81ff">2</span>, <span style="color:#e6db74">&#39;0&#39;</span>))
-<span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> CONCAT(<span style="color:#66d9ef">YEAR</span>(modified), LPAD(<span style="color:#66d9ef">MONTH</span>(modified), <span style="color:#ae81ff">2</span>, <span style="color:#e6db74">&#39;0&#39;</span>))
-</code></pre></div><h2 id="参考">参考</h2>
+
+<pre><code class="language-sql">SELECT CONCAT(YEAR(modified), LPAD(MONTH(modified), 2, '0')),
+  COUNT(1)
+FROM t
+GROUP BY CONCAT(YEAR(modified), LPAD(MONTH(modified), 2, '0'))
+ORDER BY CONCAT(YEAR(modified), LPAD(MONTH(modified), 2, '0'))
+</code></pre>
+
+<h2 id="参考">参考</h2>
+
 <ul>
 <li><a href="https://stackoverflow.com/questions/508791/mysql-query-group-by-day-month-year">sql - MySQL Query GROUP BY day / month / year - Stack Overflow</a></li>
 <li><a href="https://dev.mysql.com/doc/refman/5.6/ja/string-functions.html">MySQL :: MySQL 5.6 リファレンスマニュアル :: 12.5 文字列関数</a></li>

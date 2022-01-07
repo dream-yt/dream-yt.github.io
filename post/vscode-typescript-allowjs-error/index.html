@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>Cannot write file ... because it would overwrite input file. &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,37 +83,55 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li>
-      <ul>
-        <li><a href="#原因">原因</a></li>
-        <li><a href="#解決">解決</a></li>
-        <li><a href="#参考">参考</a></li>
-      </ul>
-    </li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#原因">原因</a></li>
+<li><a href="#解決">解決</a></li>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>typescriptのプロジェクトで開発中VSCodeでエラーメッセージが出た</p>
+                    
+
+<p>typescriptのプロジェクトで開発中VSCodeでエラーメッセージが出た</p>
+
 <blockquote>
 <p>Error &ldquo;Cannot write file &hellip; because it would overwrite input file.&rdquo;</p>
 </blockquote>
+
 <p>ファイルがすでに存在しているので書き出せないとのこと</p>
+
 <p>確かにコンパイルし直そうとすると同じエラーが出る</p>
-<pre><code class="language-console" data-lang="console">$ $(npm bin)/tsc
+
+<pre><code class="language-console">$ $(npm bin)/tsc
 error TS5055: Cannot write file '..../handler.js' because it would overwrite input file.
 ...
-</code></pre><h3 id="原因">原因</h3>
+</code></pre>
+
+<h3 id="原因">原因</h3>
+
 <p><code>allowJs</code> オプションがたっていると出てしまうもののようだ
 おそらくこのオプションがたっているtscには、typescriptの成果物としてのjsファイルと、ソースコードのjsファイルの区別がつかなくなってしまうため掲題のようなエラーを吐くのだろう</p>
+
 <h3 id="解決">解決</h3>
+
 <p>警告になっているファイルたちを消したら警告はなくなった</p>
-<pre><code class="language-console" data-lang="console">$ rm -rf ./build
-</code></pre><p>おそらく出力先のディレクトリと、ソースコードのディレクトリをきちんと別なものを指定するのが正しいが、VSCodeの警告を止めるだけならこれでよかった</p>
+
+<pre><code class="language-console">$ rm -rf ./build
+</code></pre>
+
+<p>おそらく出力先のディレクトリと、ソースコードのディレクトリをきちんと別なものを指定するのが正しいが、VSCodeの警告を止めるだけならこれでよかった</p>
+
 <h3 id="参考">参考</h3>
+
 <ul>
 <li><a href="https://stackoverflow.com/questions/42609768/typescript-error-cannot-write-file-because-it-would-overwrite-input-file">visual studio - Typescript error &ldquo;Cannot write file &hellip; because it would overwrite input file.&rdquo; - Stack Overflow</a></li>
 <li><a href="https://github.com/Microsoft/TypeScript/issues/27436">Error &ldquo;Cannot write file &hellip; because it would overwrite input file.&rdquo; · Issue #27436 · microsoft/TypeScript</a></li>

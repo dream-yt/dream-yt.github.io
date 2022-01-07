@@ -24,7 +24,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -72,6 +72,21 @@
 
     <section id="wrapper" class="home">
         <ul id="post-list">
+    
+    
+        
+            <li>
+                <aside class="dates">Dec 8</aside>
+                <a href='https://dream-yt.github.io/post/group-by-year-month-mysql/'>
+                    MySQLで月毎にGROUP BYする
+                    
+                        
+                            <h2>modified は変更されたら更新されるカラム。 以下のような表現で 202107 といった文字列を作ることができる。 CONCAT(YEAR(modified), LPAD(MONTH(modified), 2, &#39;0&#39;)) GROUP BY YEAR(modified), MONTH(modified) でもいいが、可視化のライブラリにて使</h2>
+                        
+                    
+                </a>
+            </li>
+        
     
     
         
@@ -202,21 +217,6 @@
                     
                         
                             <h2>こんな実装になった。 import React from &#34;react&#34;; import ReactDOM from &#34;react-dom&#34;; import { act, Simulate } from &#34;react-dom/test-utils&#34;; import { Button } from &#34;./Button&#34;; const fn = jest.fn(); jest.mock(&#34;mocked-packagejs&#34;, () =&gt; (...args: any) =&gt; { fn(...args); }); test(&#34;basic&#34;, async () =&gt; { const container = document.createElement(&#34;div&#34;); document.body.appendChild(container); act(() =&gt; ReactDOM.render(&lt;Button /&gt;, container)); const button = container.querySelector(&#34;button&#34;)!; await act(async () =&gt; Simulate.click(button)); const args</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Aug 24</aside>
-                <a href='https://dream-yt.github.io/post/ts-node-baseurl-issue-nobrain/'>
-                    ts-node で型定義にパスが通らないときに力ずくで通す方法ともう少しマシな方法
-                    
-                        
-                            <h2>tsconfig.json で baseUrl を指定しているときに ts-node はそれを解決してくれない。 tsconfig.json/paths not working with ts-node · Issue #138 · TypeStrong/ts-node 型定義がないパッケージを使っていて index.d.ts などにせこせこ型定義をしている</h2>
                         
                     
                 </a>

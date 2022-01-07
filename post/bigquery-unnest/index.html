@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>BigQueryで UNNEST のやりかた &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,37 +83,50 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#参考">参考</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>UNNEST は配列をフラットなレコードに直すための関数</p>
+                    
+
+<p>UNNEST は配列をフラットなレコードに直すための関数</p>
+
 <p>こんなログデーブルがあったとして、post_arrayの配列をほぐしてフラットなレコードにしたいとする</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#f92672">+</span><span style="color:#75715e">---------------------+--------------------------+---------------------------------------------------------+
-</span><span style="color:#75715e"></span><span style="color:#f92672">|</span>        time         <span style="color:#f92672">|</span>  login_id      <span style="color:#f92672">|</span>                           post_array                 <span style="color:#f92672">|</span>
-<span style="color:#f92672">+</span><span style="color:#75715e">---------------------+--------------------------+---------------------------------------------------------+
-</span><span style="color:#75715e"></span><span style="color:#f92672">|</span> <span style="color:#ae81ff">2012</span><span style="color:#f92672">-</span><span style="color:#ae81ff">05</span><span style="color:#f92672">-</span><span style="color:#ae81ff">14</span> <span style="color:#ae81ff">07</span>:<span style="color:#ae81ff">30</span>:<span style="color:#ae81ff">52</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">NULL</span>           <span style="color:#f92672">|</span>                                              [<span style="color:#e6db74">&#34;122174&#34;</span>] <span style="color:#f92672">|</span>
-<span style="color:#f92672">|</span> <span style="color:#ae81ff">2012</span><span style="color:#f92672">-</span><span style="color:#ae81ff">06</span><span style="color:#f92672">-</span><span style="color:#ae81ff">11</span> <span style="color:#ae81ff">06</span>:<span style="color:#ae81ff">01</span>:<span style="color:#ae81ff">50</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">NULL</span>           <span style="color:#f92672">|</span>                            [<span style="color:#e6db74">&#34;122225&#34;</span>,<span style="color:#e6db74">&#34;122226&#34;</span>,<span style="color:#e6db74">&#34;122227&#34;</span>] <span style="color:#f92672">|</span>
-<span style="color:#f92672">|</span> <span style="color:#ae81ff">2012</span><span style="color:#f92672">-</span><span style="color:#ae81ff">05</span><span style="color:#f92672">-</span><span style="color:#ae81ff">02</span> <span style="color:#ae81ff">07</span>:<span style="color:#ae81ff">25</span>:<span style="color:#ae81ff">12</span> <span style="color:#f92672">|</span> bar<span style="color:#f92672">@</span>test.com   <span style="color:#f92672">|</span>                                     [<span style="color:#e6db74">&#34;126773&#34;</span>,<span style="color:#e6db74">&#34;126203&#34;</span>] <span style="color:#f92672">|</span>
-<span style="color:#f92672">|</span> <span style="color:#ae81ff">2012</span><span style="color:#f92672">-</span><span style="color:#ae81ff">05</span><span style="color:#f92672">-</span><span style="color:#ae81ff">13</span> <span style="color:#ae81ff">06</span>:<span style="color:#ae81ff">23</span>:<span style="color:#ae81ff">36</span> <span style="color:#f92672">|</span> bar<span style="color:#f92672">@</span>test.com   <span style="color:#f92672">|</span>                   [<span style="color:#e6db74">&#34;122320&#34;</span>,<span style="color:#e6db74">&#34;122322&#34;</span>,<span style="color:#e6db74">&#34;122323&#34;</span>,<span style="color:#e6db74">&#34;122326&#34;</span>] <span style="color:#f92672">|</span>
-<span style="color:#f92672">|</span> <span style="color:#ae81ff">2012</span><span style="color:#f92672">-</span><span style="color:#ae81ff">05</span><span style="color:#f92672">-</span><span style="color:#ae81ff">24</span> <span style="color:#ae81ff">05</span>:<span style="color:#ae81ff">10</span>:<span style="color:#ae81ff">44</span> <span style="color:#f92672">|</span> dummy<span style="color:#f92672">@</span>test.jp  <span style="color:#f92672">|</span> [<span style="color:#e6db74">&#34;122210&#34;</span>,<span style="color:#e6db74">&#34;122272&#34;</span>,<span style="color:#e6db74">&#34;122227&#34;</span>,<span style="color:#e6db74">&#34;122200&#34;</span>,<span style="color:#e6db74">&#34;122201&#34;</span>,<span style="color:#e6db74">&#34;122222&#34;</span>] <span style="color:#f92672">|</span>
-<span style="color:#f92672">|</span> <span style="color:#ae81ff">2012</span><span style="color:#f92672">-</span><span style="color:#ae81ff">05</span><span style="color:#f92672">-</span><span style="color:#ae81ff">22</span> <span style="color:#ae81ff">07</span>:<span style="color:#ae81ff">22</span>:<span style="color:#ae81ff">52</span> <span style="color:#f92672">|</span> dummy<span style="color:#f92672">@</span>test.jp  <span style="color:#f92672">|</span>                                              [<span style="color:#e6db74">&#34;123427&#34;</span>] <span style="color:#f92672">|</span>
-<span style="color:#f92672">|</span> <span style="color:#ae81ff">2012</span><span style="color:#f92672">-</span><span style="color:#ae81ff">06</span><span style="color:#f92672">-</span><span style="color:#ae81ff">20</span> <span style="color:#ae81ff">02</span>:<span style="color:#ae81ff">21</span>:<span style="color:#ae81ff">52</span> <span style="color:#f92672">|</span> foo<span style="color:#f92672">@</span>testap.com <span style="color:#f92672">|</span>                                              [<span style="color:#e6db74">&#34;113110&#34;</span>] <span style="color:#f92672">|</span>
-<span style="color:#f92672">|</span> <span style="color:#ae81ff">2012</span><span style="color:#f92672">-</span><span style="color:#ae81ff">05</span><span style="color:#f92672">-</span><span style="color:#ae81ff">02</span> <span style="color:#ae81ff">07</span>:<span style="color:#ae81ff">10</span>:<span style="color:#ae81ff">02</span> <span style="color:#f92672">|</span> foo<span style="color:#f92672">@</span>test.com   <span style="color:#f92672">|</span>                                              [<span style="color:#e6db74">&#34;126005&#34;</span>] <span style="color:#f92672">|</span>
-<span style="color:#f92672">+</span><span style="color:#75715e">---------------------+--------------------------+---------------------------------------------------------+
-</span></code></pre></div><p>こんなクエリでそれができる</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span>
+
+<pre><code class="language-sql">+---------------------+--------------------------+---------------------------------------------------------+
+|        time         |  login_id      |                           post_array                 |
++---------------------+--------------------------+---------------------------------------------------------+
+| 2012-05-14 07:30:52 | NULL           |                                              [&quot;122174&quot;] |
+| 2012-06-11 06:01:50 | NULL           |                            [&quot;122225&quot;,&quot;122226&quot;,&quot;122227&quot;] |
+| 2012-05-02 07:25:12 | bar@test.com   |                                     [&quot;126773&quot;,&quot;126203&quot;] |
+| 2012-05-13 06:23:36 | bar@test.com   |                   [&quot;122320&quot;,&quot;122322&quot;,&quot;122323&quot;,&quot;122326&quot;] |
+| 2012-05-24 05:10:44 | dummy@test.jp  | [&quot;122210&quot;,&quot;122272&quot;,&quot;122227&quot;,&quot;122200&quot;,&quot;122201&quot;,&quot;122222&quot;] |
+| 2012-05-22 07:22:52 | dummy@test.jp  |                                              [&quot;123427&quot;] |
+| 2012-06-20 02:21:52 | foo@testap.com |                                              [&quot;113110&quot;] |
+| 2012-05-02 07:10:02 | foo@test.com   |                                              [&quot;126005&quot;] |
++---------------------+--------------------------+---------------------------------------------------------+
+</code></pre>
+
+<p>こんなクエリでそれができる</p>
+
+<pre><code class="language-sql">SELECT
   time,
   login_id,
   post_id
-<span style="color:#66d9ef">FROM</span>
-  <span style="color:#f92672">`</span>proj.log.post<span style="color:#f92672">`</span>,
-  <span style="color:#66d9ef">UNNEST</span>(post_array) <span style="color:#66d9ef">AS</span> post_id
-</code></pre></div><p>結果はこんな感じ</p>
+FROM
+  `proj.log.post`,
+  UNNEST(post_array) AS post_id
+</code></pre>
+
+<p>結果はこんな感じ</p>
+
 <pre><code>+---------------------+------------------------------+
 |        time         |      login_id  | creative_id |
 +---------------------+------------------------------+
@@ -137,16 +150,24 @@
 | 2012-05-22 07:22:52 | dummy@test.jp  |      123427 |
 | 2012-05-02 07:10:02 | foo@test.com   |      126005 |
 +---------------------+--------------------------+---+
-</code></pre><p>FROM句の後ろに書くのがポイントなのだが、これってCROSS JOINになっちゃうんじゃないの、と思うけど結果は当該行とその行内の配列のJOINという風になる</p>
+</code></pre>
+
+<p>FROM句の後ろに書くのがポイントなのだが、これってCROSS JOINになっちゃうんじゃないの、と思うけど結果は当該行とその行内の配列のJOINという風になる</p>
+
 <p>これは相関交差結合というらしい</p>
+
 <blockquote>
 <p>これは相関交差結合です。UNNEST 演算子は、以前に FROM 句に指定したソーステーブルの各行から ARRAY の列を参照します。ソーステーブルの N 行ごとに、UNNEST は、ARRAY の行 N を ARRAY 要素を含む一連の行にフラット化し、CROSS JOIN がこの新しい行のセットをソーステーブルの単一行 N と結合します。</p>
 </blockquote>
+
 <ul>
 <li><a href="https://cloud.google.com/bigquery/docs/reference/standard-sql/arrays?hl=ja#flattening-arrays">標準 SQL での配列の操作  |  BigQuery  |  Google Cloud</a></li>
 </ul>
+
 <h2 id="参考">参考</h2>
+
 <p>SQL標準とかはどうなのかな、と思ったがpostgres,prestoにもUNNEST関数があるようだ</p>
+
 <ul>
 <li><a href="https://www.postgresql.jp/document/9.6/html/queries-table-expressions.html">7.2. テーブル式</a></li>
 </ul>

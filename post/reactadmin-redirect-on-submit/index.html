@@ -14,7 +14,7 @@
   
   
   <meta name="twitter:title" content="React-admin で登録/更新時に一覧に遷移する"/>
-  <meta name="twitter:description" content="SimpleForm に redirect というpropsがあるのでそれを渡せばよい。 list, show といった引数の他に、URLを渡せるオプションもある。 &lt;Edit {...props}&gt; &lt;SimpleForm redirect=&#34;list&#34;&gt; &lt;DateInput source=&#34;expireAt&#34; /&gt; &lt;/SimpleForm&gt; &lt;/Edit&gt; React-admin - The Create and Edit Views"/>
+  <meta name="twitter:description" content="SimpleForm に redirect というpropsがあるのでそれを渡せばよい。 list, show といった引数の他に、URLを渡せるオプションもある。 &lt;Edit {...props}&gt; &lt;SimpleForm redirect=&quot;list&quot;&gt; &lt;DateInput source=&quot;expireAt&quot; /&gt; &lt;/SimpleForm&gt; &lt;/Edit&gt; React-admin - The Create and Edit Views"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>React-admin で登録/更新時に一覧に遷移する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -81,20 +81,19 @@
                 </header>
                 
                   
-                    <div id="toc">
-                      <nav id="TableOfContents"></nav>
-                    </div>
-                  
                 
                 <section id="post-body">
                     <p><code>SimpleForm</code> に <code>redirect</code> というpropsがあるのでそれを渡せばよい。
 <code>list</code>, <code>show</code> といった引数の他に、URLを渡せるオプションもある。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-tsx" data-lang="tsx">  &lt;<span style="color:#f92672">Edit</span> {<span style="color:#a6e22e">...props</span>}&gt;
-      &lt;<span style="color:#f92672">SimpleForm</span> <span style="color:#a6e22e">redirect</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;list&#34;</span>&gt;
-          &lt;<span style="color:#f92672">DateInput</span> <span style="color:#a6e22e">source</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;expireAt&#34;</span> /&gt;
-      &lt;/<span style="color:#f92672">SimpleForm</span>&gt;
-  &lt;/<span style="color:#f92672">Edit</span>&gt;
-</code></pre></div><ul>
+
+<pre><code class="language-tsx">  &lt;Edit {...props}&gt;
+      &lt;SimpleForm redirect=&quot;list&quot;&gt;
+          &lt;DateInput source=&quot;expireAt&quot; /&gt;
+      &lt;/SimpleForm&gt;
+  &lt;/Edit&gt;
+</code></pre>
+
+<ul>
 <li><a href="https://marmelab.com/react-admin/CreateEdit.html#redirection-after-submission">React-admin - The Create and Edit Views</a></li>
 </ul>
 

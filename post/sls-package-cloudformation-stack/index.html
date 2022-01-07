@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>serverless deploy で生成されるリソースを事前に確認する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,24 +83,33 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li>
-      <ul>
-        <li><a href="#参考">参考</a></li>
-      </ul>
-    </li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>serverlessのプラグインを使うと色々なリソースを勝手に作ってくれたりして便利だが、実行するまでプラグインのyaml設定が思い通りになっているか分からなくて、dryrunみたいなことがしたい場合がある。が、slsコマンドにdryrunオプションはない</p>
+                    
+
+<p>serverlessのプラグインを使うと色々なリソースを勝手に作ってくれたりして便利だが、実行するまでプラグインのyaml設定が思い通りになっているか分からなくて、dryrunみたいなことがしたい場合がある。が、slsコマンドにdryrunオプションはない</p>
+
 <p>代わりに<code>serverless package</code>コマンドがあるので、これを使うと生成されるcloudformationのjsonを見ることが出来るのでこれを使う</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ serverless package --package ~/Desktop <span style="color:#f92672">&amp;&amp;</span> <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    cat ~/Desktop/cloudformation-template-update-stack.json <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    | yq -y . | pbcopy  <span style="color:#75715e"># jsonは見にくいのでyamlに整形する</span>
-</code></pre></div><h3 id="参考">参考</h3>
+
+<pre><code class="language-bash">$ serverless package --package ~/Desktop &amp;&amp; \
+    cat ~/Desktop/cloudformation-template-update-stack.json \
+    | yq -y . | pbcopy  # jsonは見にくいのでyamlに整形する
+</code></pre>
+
+<h3 id="参考">参考</h3>
+
 <ul>
 <li><a href="https://github.com/serverless/serverless/pull/1808">WIP: Add DRYrun support by johncmckim · Pull Request #1808 · serverless/serverless</a></li>
 <li><a href="https://github.com/serverless/serverless/issues/1884">&ndash;noDeploy -&gt; serverless package · Issue #1884 · serverless/serverless</a></li>

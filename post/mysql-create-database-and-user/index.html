@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>MySQLで最初にユーザとデータベースを作成する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,32 +83,48 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#データベースの作成">データベースの作成</a></li>
-    <li><a href="#ユーザの作成">ユーザの作成</a>
-      <ul>
-        <li><a href="#参考">参考</a></li>
-      </ul>
-    </li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#データベースの作成">データベースの作成</a></li>
+<li><a href="#ユーザの作成">ユーザの作成</a>
+<ul>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>アプリを作り始めるときにやる手順。MySQL8での作業。</p>
+                    
+
+<p>アプリを作り始めるときにやる手順。MySQL8での作業。</p>
+
 <h2 id="データベースの作成">データベースの作成</h2>
+
 <p><code>COLLATE</code> は、<code>utf8mb4_bin</code> が一番厳密な区別(全角/半角の区別など)を行ってくれるのでまずそれを検討し、アプリの要件によっては <code>utf8mb4_ja_0900_as_cs</code> など少し親切なものを使う。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">DATABASE</span> myapp <span style="color:#66d9ef">DEFAULT</span> CHARACTER <span style="color:#66d9ef">SET</span> utf8mb4 <span style="color:#66d9ef">COLLATE</span> utf8mb4_bin;
-</code></pre></div><h2 id="ユーザの作成">ユーザの作成</h2>
+
+<pre><code class="language-sql">CREATE DATABASE myapp DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;
+</code></pre>
+
+<h2 id="ユーザの作成">ユーザの作成</h2>
+
 <p>いったん権限はすべてつけて作成してしまう。一通り作業がひと段落したらアプリごとの要件によって棚卸し。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">user</span> <span style="color:#e6db74">&#39;myappadmin&#39;</span> <span style="color:#f92672">@</span><span style="color:#e6db74">&#39;localhost&#39;</span> IDENTIFIED <span style="color:#66d9ef">by</span> <span style="color:#e6db74">&#39;xxxxxxxxxxxxxxxxx&#39;</span>;
-<span style="color:#66d9ef">GRANT</span> <span style="color:#66d9ef">ALL</span> <span style="color:#66d9ef">ON</span> myapp.<span style="color:#f92672">*</span> <span style="color:#66d9ef">TO</span> <span style="color:#e6db74">&#39;myappadmin&#39;</span> <span style="color:#f92672">@</span><span style="color:#e6db74">&#39;localhost&#39;</span> <span style="color:#66d9ef">WITH</span> <span style="color:#66d9ef">GRANT</span> <span style="color:#66d9ef">OPTION</span>;
-</code></pre></div><p>なお、 <code>FLUSH PRIVILEGES</code> は権限管理専用のステートメントを使っていれば不要なんだそうだ。</p>
+
+<pre><code class="language-sql">CREATE user 'myappadmin' @'localhost' IDENTIFIED by 'xxxxxxxxxxxxxxxxx';
+GRANT ALL ON myapp.* TO 'myappadmin' @'localhost' WITH GRANT OPTION;
+</code></pre>
+
+<p>なお、 <code>FLUSH PRIVILEGES</code> は権限管理専用のステートメントを使っていれば不要なんだそうだ。</p>
+
 <ul>
 <li><a href="https://zatoima.github.io/mysql-flush-privileges.html">MySQLのFLUSH PRIVILEGESが必要なケース | my opinion is my own</a></li>
 </ul>
+
 <h3 id="参考">参考</h3>
+
 <ul>
 <li><a href="https://yoku0825.blogspot.com/2017/04/mysql-801utf8mb4ja0900ascs.html">日々の覚書: MySQL 8.0.1でutf8mb4_ja_0900_as_csが導入された</a>l</li>
 <li><a href="https://qiita.com/daichi87gi/items/f9dac6cd8acc3ad4330d">MySQLインストール時にやること（DBとユーザーの作成等） - Qiita</a></li>

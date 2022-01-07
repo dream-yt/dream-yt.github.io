@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>aws-cdkを使い始めるまでメモ &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,36 +83,54 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li>
-      <ul>
-        <li><a href="#参考">参考</a></li>
-      </ul>
-    </li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>プロジェクトを作成する</p>
+                    
+
+<p>プロジェクトを作成する</p>
+
 <p><code>app</code> ってのはサブコマンドで、「アプリ開発者として使う」という意味
 (<code>lib</code>ってのがあって、それはcdkのライブラリ作者が使うらしい)</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cdk init app --language typescript
-</code></pre></div><p>補完を効かせながら開発したいので追加</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ yarn add --dev <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    tslint prettier <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    tslint-config-prettier tslint-config-standard tslint-plugin-prettier 
+
+<pre><code class="language-bash">$ cdk init app --language typescript
+</code></pre>
+
+<p>補完を効かせながら開発したいので追加</p>
+
+<pre><code class="language-bash">$ yarn add --dev \
+    tslint prettier \
+    tslint-config-prettier tslint-config-standard tslint-plugin-prettier 
 $ code ./tslint.json
-</code></pre></div><p>使いたいAWSサービスの定義を加えて開発</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ yarn add @aws-cdk/aws-cognito
+</code></pre>
+
+<p>使いたいAWSサービスの定義を加えて開発</p>
+
+<pre><code class="language-bash">$ yarn add @aws-cdk/aws-cognito
 $ code ./bin/infra.ts
-</code></pre></div><p>cloudformationの形式のファイルを出力</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># cdk.jsonで定義された位置にjsファイルを生成</span>
+</code></pre>
+
+<p>cloudformationの形式のファイルを出力</p>
+
+<pre><code class="language-bash"># cdk.jsonで定義された位置にjsファイルを生成
 $ yarn run build
-<span style="color:#75715e"># そのjsを読んでcloudformationの形式を出力</span>
+# そのjsを読んでcloudformationの形式を出力
 $ cdk synth &gt; ./cf.yaml
-</code></pre></div><h3 id="参考">参考</h3>
+</code></pre>
+
+<h3 id="参考">参考</h3>
+
 <ul>
 <li><a href="https://github.com/awslabs/aws-cdk/tree/6495e3ccd335ce9cb4438cfc285ca2bdb921f52a/examples/cdk-examples-typescript">examples/cdk-examples-typescript · awslabs/aws-cdk</a></li>
 </ul>

@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>pythonのbdistとsdistとwheelファイルについて &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,91 +83,141 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#wheel-とは">wheel とは</a>
-      <ul>
-        <li></li>
-      </ul>
-    </li>
-    <li><a href="#bdistとsdist">bdistとsdist</a>
-      <ul>
-        <li></li>
-      </ul>
-    </li>
-    <li><a href="#pip-download">pip download</a></li>
-    <li><a href="#pip-wheel">pip wheel</a></li>
-    <li><a href="#参考">参考</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#wheel-とは">wheel とは</a>
+<ul>
+<li>
+<ul>
+<li><a href="#whl">.whl</a>
+<ul>
+<li><a href="#例">例</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li><a href="#bdistとsdist">bdistとsdist</a>
+<ul>
+<li>
+<ul>
+<li><a href="#難しそうな例">難しそうな例</a></li>
+<li><a href="#setup-py-の引数">setup.py の引数</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#pip-download">pip download</a></li>
+<li><a href="#pip-wheel">pip wheel</a></li>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>lambdaで動くpythonのアプリケーションを開発するとき、依存モジュールをrequirements.txtの記述でなく生のwheelファイルで管理したいという要望があった。そもそもそれがどういう要望かわかってないくらいwheelファイルについてわかってなかったので、wheelファイルとそのつくりかたを調べた。</p>
+                    
+
+<p>lambdaで動くpythonのアプリケーションを開発するとき、依存モジュールをrequirements.txtの記述でなく生のwheelファイルで管理したいという要望があった。そもそもそれがどういう要望かわかってないくらいwheelファイルについてわかってなかったので、wheelファイルとそのつくりかたを調べた。</p>
+
 <h2 id="wheel-とは">wheel とは</h2>
+
 <p>python標準のソフトウェアパッケージ方式。PEP427で定義されている。
 ソフトウェアをpypiに公開するときなどにお世話になる。</p>
+
 <p>wheelの他にはeggというパッケージ形式もある (eggのほうが古い形式)。</p>
+
 <ul>
 <li><a href="https://packaging.python.org/discussions/wheel-vs-egg/">Wheel vs Egg — Python Packaging User Guide</a></li>
 </ul>
+
 <p>なお、wheelは通常の文脈だとライブラリをパッケージする形式のことになるが、wheelというコマンドラインツールも存在するので文脈によっては注意。</p>
+
 <h4 id="whl">.whl</h4>
+
 <p>.whlファイルはwheel形式でパッケージされたファイルの拡張子。ファイル名の中にlinux向けx86向けcpythonなどなど、ビルドターゲットのプラットフォームの情報が書いてある。</p>
+
 <h5 id="例">例</h5>
+
 <pre><code>wrapt-1.12.1-cp38-cp38-macosx_10_15_x86_64.whl
-</code></pre><h2 id="bdistとsdist">bdistとsdist</h2>
+</code></pre>
+
+<h2 id="bdistとsdist">bdistとsdist</h2>
+
 <p>pythonのパッケージの配布形式は2つある。</p>
+
 <ul>
 <li>bdist: ビルド済みのファイルを配布すること (whl)</li>
 <li>sdist: ソースコードを配布すること (tar.gz)</li>
 </ul>
+
 <p>cエクステンションなどをつかっているライブラリはいろんな形式に対応するのが難しくてsdistになりがちなようだ。</p>
+
 <h4 id="難しそうな例">難しそうな例</h4>
+
 <ul>
 <li><a href="https://github.com/GrahamDumpleton/wrapt/issues/39#issuecomment-83987473">Distribute also in Wheel · Issue #39 · GrahamDumpleton/wrapt</a></li>
 </ul>
+
 <blockquote>
 <p>Doing Windows could be a pain as don&rsquo;t use Windows normally and rarely crank up the Windows VM. Not sure whether I am set up to create wheels on Windows and creating wheels for multiple Python versions as well as 32 bit and 64 bit variants would be a lot of effort.</p>
 </blockquote>
-<h4 id="setuppy-の引数">setup.py の引数</h4>
+
+<h4 id="setup-py-の引数">setup.py の引数</h4>
+
 <p>これらはパッケージングするときにどちらを引数でわたすかで違う。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">python setup.py sdist
+
+<pre><code class="language-bash">python setup.py sdist
 python setup.py bdist_wheel
-</code></pre></div><h2 id="pip-download">pip download</h2>
+</code></pre>
+
+<h2 id="pip-download">pip download</h2>
+
 <p><code>pip download</code> を実行するとbdist(wheelファイル)か、sdist(ソースコードのtar.gzファイル)が落ちてくる。このコマンドは依存するパッケージもダウンロードする。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ pip download aws_lambda_powertools
-<span style="color:#75715e"># whlファイルが落ちてくる</span>
+
+<pre><code class="language-bash">$ pip download aws_lambda_powertools
+# whlファイルが落ちてくる
 $ ls -1 | head -3
 aws_lambda_powertools-1.7.0-py3-none-any.whl
 aws_xray_sdk-2.6.0-py2.py3-none-any.whl
 boto3-1.16.21-py2.py3-none-any.whl
-<span style="color:#75715e"># モジュール側がsdist形式で配布している場合はtar.gzが落ちてくる</span>
+# モジュール側がsdist形式で配布している場合はtar.gzが落ちてくる
 $ ls -1 | grep future
 future-0.18.2.tar.gz
-</code></pre></div><p>なお、以下のURLで目当てのモジュールがbdistかsdistかどちらで配布をしているかがわかる</p>
+</code></pre>
+
+<p>なお、以下のURLで目当てのモジュールがbdistかsdistかどちらで配布をしているかがわかる</p>
+
 <ul>
 <li><code>https://pypi.org/pypi/{{ module name }}/json</code></li>
 </ul>
+
 <p>なお、tar.gz を解凍して中身を setup.py bdist_wheel するとモジュールによってはそれでwheelファイルを作ってくれる。(先述のwraptとかはそれでは作れなかった)</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ tar zxvf <span style="color:#f92672">{{</span> module name <span style="color:#f92672">}}</span>.tar.gz
-$ cd <span style="color:#f92672">{{</span> module name <span style="color:#f92672">}}</span>
+
+<pre><code class="language-bash">$ tar zxvf {{ module name }}.tar.gz
+$ cd {{ module name }}
 $ python setup.py bdist_wheel
-</code></pre></div><h2 id="pip-wheel">pip wheel</h2>
+</code></pre>
+
+<h2 id="pip-wheel">pip wheel</h2>
+
 <p>今回はwheel形式で依存を管理したいという話だったのでこのコマンドを使った。</p>
+
 <p>これは pip download に近いが、sdist形式で配布しているモジュールの場合はビルドしてwheel形式にしておいてくれる。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ pip wheel aws-lambda-powertools
+
+<pre><code class="language-bash">$ pip wheel aws-lambda-powertools
 ...
-<span style="color:#75715e"># ビルドしてくれる</span>
-Building wheels <span style="color:#66d9ef">for</span> collected packages: future, wrapt
-  Building wheel <span style="color:#66d9ef">for</span> future <span style="color:#f92672">(</span>setup.py<span style="color:#f92672">)</span> ... <span style="color:#66d9ef">done</span>
-  Created wheel <span style="color:#66d9ef">for</span> future: filename<span style="color:#f92672">=</span>future-0.18.2-py3-none-any.whl size<span style="color:#f92672">=</span><span style="color:#ae81ff">491059</span> sha256<span style="color:#f92672">=</span>82de079d7fbe55933a2b22cf0ec3a3066dd8b7cf5add962a1f8123ce2ad83f12
+# ビルドしてくれる
+Building wheels for collected packages: future, wrapt
+  Building wheel for future (setup.py) ... done
+  Created wheel for future: filename=future-0.18.2-py3-none-any.whl size=491059 sha256=82de079d7fbe55933a2b22cf0ec3a3066dd8b7cf5add962a1f8123ce2ad83f12
   Stored in directory: /private/tmp/docker-lambda
 ...
-<span style="color:#75715e"># wheelファイルが配置される</span>
+# wheelファイルが配置される
 $ ls -1 | grep future
 future-0.18.2-py3-none-any.whl
-</code></pre></div><h2 id="参考">参考</h2>
+</code></pre>
+
+<h2 id="参考">参考</h2>
+
 <ul>
 <li><a href="https://engineer.recruit-lifestyle.co.jp/techblog/2019-12-25-python-packaging-specs/">Python パッケージングの標準を知ろう - Tech Blog - Recruit Lifestyle Engineer</a></li>
 <li><a href="https://pip.pypa.io/en/stable/reference/pip_wheel/">pip wheel — pip 20.2.4 documentation</a></li>

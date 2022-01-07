@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>アドホックなクエリで GROUP_CONCAT を安全に使う &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,37 +83,53 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li>
-      <ul>
-        <li><a href="#罠">罠</a></li>
-        <li><a href="#設定を確認">設定を確認</a></li>
-        <li><a href="#大きい値に設定">(大きい値に)設定</a></li>
-        <li><a href="#使う">使う</a></li>
-      </ul>
-    </li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#罠">罠</a></li>
+<li><a href="#設定を確認">設定を確認</a></li>
+<li><a href="#大きい値に-設定">(大きい値に)設定</a></li>
+<li><a href="#使う">使う</a></li>
+</ul></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>データメンテナンスなどで MySQL の <code>GROUP_CONCAT</code> を使うことがあるが、この関数は要注意で使い方に罠がある。
+                    
+
+<p>データメンテナンスなどで MySQL の <code>GROUP_CONCAT</code> を使うことがあるが、この関数は要注意で使い方に罠がある。
 しかし「罠があるんだよな」ということだけ憶えていて罠を避ける方法を毎回検索していたのでメモっておく。</p>
+
 <h3 id="罠">罠</h3>
+
 <p><code>group_concat_max_len</code> という環境変数(設定)があり、これがデフォルトで1024である。
 結果文字列がこの設定値より文字数が多いと、それ以降の分は切られてしまって結果に出てこない。</p>
+
 <p>これを避けるために <code>group_concat_max_len</code> を大きい値に設定しておく必要がある。
 なお、アドホックのクエリでなくこの関数を使う場合は my.cnf に設定すること。</p>
+
 <h3 id="設定を確認">設定を確認</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SHOW</span> VARIABLES <span style="color:#66d9ef">LIKE</span> <span style="color:#e6db74">&#39;group_concat_max_len&#39;</span>;
-</code></pre></div><h3 id="大きい値に設定">(大きい値に)設定</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SET</span> group_concat_max_len <span style="color:#f92672">=</span> <span style="color:#ae81ff">10000000</span>;
-</code></pre></div><h3 id="使う">使う</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> GROUP_CONCAT(<span style="color:#66d9ef">DISTINCT</span>(order_id) <span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> order_id)
-<span style="color:#66d9ef">FROM</span> logs
-<span style="color:#66d9ef">WHERE</span> date <span style="color:#66d9ef">BETWEEN</span> <span style="color:#e6db74">&#39;2021-12-01&#39;</span> <span style="color:#66d9ef">AND</span> <span style="color:#e6db74">&#39;2021-12-31&#39;</span>
-</code></pre></div>
+
+<pre><code class="language-sql">SHOW VARIABLES LIKE 'group_concat_max_len';
+</code></pre>
+
+<h3 id="大きい値に-設定">(大きい値に)設定</h3>
+
+<pre><code class="language-sql">SET group_concat_max_len = 10000000;
+</code></pre>
+
+<h3 id="使う">使う</h3>
+
+<pre><code class="language-sql">SELECT GROUP_CONCAT(DISTINCT(order_id) ORDER BY order_id)
+FROM logs
+WHERE date BETWEEN '2021-12-01' AND '2021-12-31'
+</code></pre>
+
                 </section>
             </article>
 

@@ -13,8 +13,8 @@
     
   
   
-  <meta name="twitter:title" content="GoogleSpreadsheetのデータ(csv)をパパッとjsonにしてスクリプトから使う"/>
-  <meta name="twitter:description" content="csvjsonを使うとcsv =&gt; json が簡単に変換できる csvjsonはcsvkitをインストールすると入ってくる $ brew install csvkit ... $ which csvjson /usr/local/bin/csvjson csvでダウン"/>
+  <meta name="twitter:title" content="TypeScriptでパッケージ(JQueryDataTable)がexportしていない型を使う"/>
+  <meta name="twitter:description" content="jQueryDataTable を使っているのだが、公式の型定義はexportしている型があまりない。 DefinitelyTyped/index.d.ts at master · DefinitelyTyped/DefinitelyTyped このパッケージはオプションでいろいろな設定ができるようにな"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -30,7 +30,7 @@
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
 		<meta name="generator" content="Hugo 0.51" />
-		<title>GoogleSpreadsheetのデータ(csv)をパパッとjsonにしてスクリプトから使う &middot; sacre</title>
+		<title>TypeScriptでパッケージ(JQueryDataTable)がexportしていない型を使う &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
@@ -68,11 +68,11 @@
             <article>
                 <header>
                     <h1>
-                        GoogleSpreadsheetのデータ(csv)をパパッとjsonにしてスクリプトから使う
+                        TypeScriptでパッケージ(JQueryDataTable)がexportしていない型を使う
                     </h1>
                     <h2 class="headline">
-                    Nov 3, 2018 17:24
-                    · 466 words
+                    Jan 7, 2022 17:30
+                    · 382 words
                     · 1 minute read
                       <span class="tags">
                       
@@ -86,18 +86,8 @@
 <ul>
 <li>
 <ul>
-<li>
-<ul>
-<li><a href="#csvでダウンロード">csvでダウンロード</a></li>
-<li><a href="#スクリプト">スクリプト</a>
-<ul>
-<li>
-<ul>
-<li><a href="#h"><code>-H</code></a></li>
-</ul></li>
-</ul></li>
-<li><a href="#もうちょっとインタラクティブに">もうちょっとインタラクティブに</a></li>
-</ul></li>
+<li><a href="#やりかた">やりかた</a></li>
+<li><a href="#参考">参考</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -107,94 +97,47 @@
                 <section id="post-body">
                     
 
-<p>csvjsonを使うとcsv =&gt; json が簡単に変換できる
-csvjsonはcsvkitをインストールすると入ってくる</p>
-
-<pre><code class="language-console">$ brew install csvkit
-...
-$ which csvjson
-/usr/local/bin/csvjson
-</code></pre>
-
-<h3 id="csvでダウンロード">csvでダウンロード</h3>
-
-<p>Google SpreadSheetからcsv形式でダウンロード</p>
+<p>jQueryDataTable を使っているのだが、公式の型定義はexportしている型があまりない。</p>
 
 <ul>
-<li>ファイル
-
-<ul>
-<li>形式を指定してダウンロード
-
-<ul>
-<li>カンマ区切りの値</li>
-</ul></li>
-</ul></li>
+<li><a href="https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/datatables.net/index.d.ts">DefinitelyTyped/index.d.ts at master · DefinitelyTyped/DefinitelyTyped</a></li>
 </ul>
 
-<p><img src="https://user-images.githubusercontent.com/5309672/47705130-f7fc0b80-dc68-11e8-90c9-1a92ea1b3a1f.png" alt="image" /></p>
+<p>このパッケージはオプションでいろいろな設定ができるようになっているのだが、色々できるだけあって複雑で、そのオプションの引数の型を調べるのにドキュメントとにらめっこする羽目になっている。オプションの引数の型定義が得られればその手間もなくなって嬉しい。</p>
 
-<p>csvjsonはデフォルトだとa, b といったキー名のオブジェクトを配列で作ってくれる</p>
+<h2 id="やりかた">やりかた</h2>
 
-<pre><code class="language-console">$ cat ~/Downloads/テストのデータ\ -\ シート1\ \(1\).csv | csvjson -H | jq .
-[
-  {
-    &quot;a&quot;: null,
-    &quot;b&quot;: &quot;TOKIO&quot;,
-    &quot;c&quot;: 1
-  },
-  {
-    &quot;a&quot;: null,
-    &quot;b&quot;: &quot;SMAP&quot;,
-    &quot;c&quot;: 2
-  },
-  {
-    &quot;a&quot;: null,
-    &quot;b&quot;: &quot;嵐&quot;,
-    &quot;c&quot;: 0
-  }
-]
+<p>このようにすると、オプションの引数の型定義を取り出すことができた。</p>
+
+<pre><code class="language-ts">import jQueryDataTable from &quot;datatables.net&quot;;
+type DataTableSettings = ConstructorParameters&lt;typeof jQueryDataTable&gt;[0]
 </code></pre>
 
-<h3 id="スクリプト">スクリプト</h3>
+<p>わかりやすく分解するとこうなる。</p>
 
-<p>あとはjsonをスクリプトで使う<br />
-perlだとjsonのdecodeはこんな感じ</p>
-
-<pre><code>#!/usr/bin/perl
-use JSON qw'decode_json';
-my $input = decode_json join(&quot;&quot;, &lt;STDIN&gt;);
-print &quot;group arrested counts: &quot; map {$_-&gt;{c}} @$input;
+<pre><code class="language-ts">import jQueryDataTable from &quot;datatables.net&quot;;
+// 値であるjQueryDataTableの型を取り出す
+type DataTableConstructor = typeof jQueryDataTable;
+// jQueryDataTableはコンストラクタなので、newに対する引数を取り出す
+type DataTableConstructorParameter = ConstructorParameters&lt;DataTableConstructor&gt;;
+// ConstructorParameters は引数の型を配列で返すので、コンストラクタの1つ目の引数取り出す
+type DataTableSettings = DataTableConstructorParameter[0]
 </code></pre>
 
-<p>パイプで繋げばスプレッドシートのデータをスクリプトで操作できる</p>
-
-<pre><code class="language-bash">$ cat ~/Downloads/テストのデータシート1.csv | csvjson -H | ./myscript.pl
-</code></pre>
-
-<h5 id="h"><code>-H</code></h5>
-
-<pre><code class="language-console">$ csvjson --help | grep '\-H'
-  -H, --no-header-row   Specify that the input CSV file has no header row.
-</code></pre>
-
-<h3 id="もうちょっとインタラクティブに">もうちょっとインタラクティブに</h3>
-
-<p>スプレッドシートの権限をゆるくすればcurlでcsvを取ったりも出来る</p>
+<h2 id="参考">参考</h2>
 
 <ul>
-<li><a href="https://productforums.google.com/forum/#!topic/docs/An-nZtjaupU">publish to web in csv in google sheets - Google プロダクト フォーラム</a></li>
+<li><a href="https://github.com/Microsoft/TypeScript/blob/v3.3.1/lib/lib.es5.d.ts#L1476-L1479">TypeScript/lib.es5.d.ts at v3.3.1 · microsoft/TypeScript</a></li>
+<li><a href="https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/datatables.net/index.d.ts#L1220">DefinitelyTyped/datatables.net at master · DefinitelyTyped/DefinitelyTyped</a></li>
+<li><a href="https://stackoverflow.com/questions/46754984/typescript-how-to-use-not-exported-type-definitions">TypeScript. How to use not exported type definitions? - Stack Overflow</a></li>
+<li><a href="https://stackoverflow.com/questions/51851677/how-to-get-argument-types-from-function-in-typescript">How to get argument types from function in Typescript - Stack Overflow</a></li>
 </ul>
-
-<pre><code class="language-bash">$ curl -s https://docs.google.com/spreadsheets/d/xxxxxxx/export?format=csv \
-    | csvjson -H | ./myscript.pl
-</code></pre>
 
                 </section>
             </article>
 
             
-                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fgooglespreadsheet-csv-json-perl%2f - GoogleSpreadsheet%e3%81%ae%e3%83%87%e3%83%bc%e3%82%bf%28csv%29%e3%82%92%e3%83%91%e3%83%91%e3%83%83%e3%81%a8json%e3%81%ab%e3%81%97%e3%81%a6%e3%82%b9%e3%82%af%e3%83%aa%e3%83%97%e3%83%88%e3%81%8b%e3%82%89%e4%bd%bf%e3%81%86 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fextract-not-exported-package-type-definition%2f - TypeScript%e3%81%a7%e3%83%91%e3%83%83%e3%82%b1%e3%83%bc%e3%82%b8%28JQueryDataTable%29%e3%81%8cexport%e3%81%97%e3%81%a6%e3%81%84%e3%81%aa%e3%81%84%e5%9e%8b%e3%82%92%e4%bd%bf%e3%81%86 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
 
 <a class="facebook" href="#" onclick="
     window.open(

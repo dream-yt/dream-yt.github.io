@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>perlで文字列内に式を埋め込みたい時 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,23 +83,33 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#例">例</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#例">例</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p><code>array (@) interpolation</code> というものが使える</p>
+                    
+
+<p><code>array (@) interpolation</code> というものが使える</p>
+
 <ul>
 <li><a href="https://ja.wikipedia.org/wiki/%E6%96%87%E5%AD%97%E5%88%97%E8%A3%9C%E9%96%93#Perl">Perlの文字列補間 - Wikipedia</a></li>
 </ul>
+
 <h2 id="例">例</h2>
+
 <p>文字列内に <code>&quot;baz&quot; x 5</code> という式を埋め込みたい場合</p>
-<pre><code class="language-console" data-lang="console">$ perl -E 'say qq(hello! @{[&quot;baz&quot; x 5]} bye!)'
+
+<pre><code class="language-console">$ perl -E 'say qq(hello! @{[&quot;baz&quot; x 5]} bye!)'
 hello! bazbazbazbazbaz bye!
 </code></pre>
+
                 </section>
             </article>
 

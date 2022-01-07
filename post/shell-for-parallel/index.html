@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>bashのfor文の中身を並列処理させる &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,29 +83,44 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#参考">参考</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>こんなスクリプトがあったとして</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#66d9ef">for</span> i <span style="color:#f92672">(</span>$find ./src<span style="color:#f92672">)</span>; <span style="color:#66d9ef">do</span>
+                    
+
+<p>こんなスクリプトがあったとして</p>
+
+<pre><code class="language-sh">for i ($find ./src); do
   somecommand $i
-<span style="color:#66d9ef">done</span>
-</code></pre></div><p>forの中身 (somecommand) を並列で実行したい場合はこうすればよい</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#66d9ef">for</span> i <span style="color:#f92672">(</span>$find ./src<span style="color:#f92672">)</span>; <span style="color:#66d9ef">do</span>
+done
+</code></pre>
+
+<p>forの中身 (somecommand) を並列で実行したい場合はこうすればよい</p>
+
+<pre><code class="language-sh">for i ($find ./src); do
   somecommand $i &amp;
-<span style="color:#66d9ef">done</span>
+done
 wait
-</code></pre></div><p>いままでxargsを使ったりもしてたが、waitを使う方が分かりやすくてよい。</p>
+</code></pre>
+
+<p>いままでxargsを使ったりもしてたが、waitを使う方が分かりやすくてよい。</p>
+
 <p>ただし、ループの数が数十とかで多くなってくるとプロセスを立ち上げすぎて遅くなったりするので、そういうときは <code>xargs -P</code> でやるのがよさそうではある。</p>
+
 <h2 id="参考">参考</h2>
+
 <ul>
 <li><a href="http://itdoc.hitachi.co.jp/manuals/3021/3021313320/JPAS0399.HTM">waitコマンド（子プロセスの完了を待つ） : JP1/Advanced Shell</a></li>
 </ul>
+
 <blockquote>
 <p>pidを指定しなかった場合は，実行中のすべての子プロセスの完了を待ちます</p>
 </blockquote>

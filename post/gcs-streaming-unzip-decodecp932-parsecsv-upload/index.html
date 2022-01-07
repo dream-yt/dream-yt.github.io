@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>nodejsでGCSからStreamしながらunzipしてファイルを取り出してShift-JISのCSVファイルをJSONLine形式にしてまたGCS上に出力する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,40 +83,52 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#要件">要件</a></li>
-    <li><a href="#実装方針">実装方針</a></li>
-    <li><a href="#実装">実装</a></li>
-    <li><a href="#unzipper">unzipper</a></li>
-    <li><a href="#iconv-lite">iconv-lite</a></li>
-    <li><a href="#fast-csv">fast-csv</a></li>
-    <li><a href="#その他">その他</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#要件">要件</a></li>
+<li><a href="#実装方針">実装方針</a></li>
+<li><a href="#実装">実装</a></li>
+<li><a href="#unzipper">unzipper</a></li>
+<li><a href="#iconv-lite">iconv-lite</a></li>
+<li><a href="#fast-csv">fast-csv</a></li>
+<li><a href="#その他">その他</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>こんな要件のデータ連携があるとする。</p>
+                    
+
+<p>こんな要件のデータ連携があるとする。</p>
+
 <h2 id="要件">要件</h2>
+
 <ul>
 <li>先方がGCPのCloudStorage(S3みたいなやつ)にファイルを置いてくれる</li>
 <li>数GBくらいのShift-JISエンコードされたCSVファイル</li>
 <li>なぜか、ファイルはディレクトリに入った状態で、ディレクトリがzip圧縮されている</li>
 </ul>
+
 <p>受け取ったデータはBigQueryに入れる。</p>
+
 <ul>
 <li>CSVのヘッダ行は <code>受付番号</code> とかなので、そのままだと使えない</li>
 <li>CSVからJSONLines形式に変換してBigQueryに入れる。
+
 <ul>
 <li><a href="https://cloud.google.com/bigquery/docs/loading-data-cloud-storage-json">Cloud Storage からの JSON データの読み込み  |  BigQuery  |  Google Cloud</a></li>
 <li>gzipすると読み込み速度が極端に落ちるとのことでgzipはしない</li>
-</ul>
-</li>
+</ul></li>
 <li>その他、もらったCSVに対してバリデーションもしたい</li>
 </ul>
+
 <h2 id="実装方針">実装方針</h2>
+
 <p>サーバ管理をしたくなかったので Cloud Function を使うことにしたいが、ファイル容量が数GBあるため、いったん全部解凍はメモリが足りなくてできない。nodejsのstreamで処理をすることにした。</p>
+
 <ul>
 <li>GCS上のファイルからStreamで読み出し</li>
 <li>zipなので解凍。出てきたディレクトリから目的のファイルの内容を読み出す</li>
@@ -125,49 +137,69 @@
 <li>バリデーション処理。不正な行はログを出してスキップ</li>
 <li>GCS上のファイルへ書き出し(ここもStream)</li>
 </ul>
-<h2 id="実装">実装</h2>
-<p>こんな実装になった。ライブラリを組み合わせるだけで、自前で実装している部分はほとんどない。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">unzip</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#34;unzipper&#34;</span>;
-<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">iconv</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#34;iconv-lite&#34;</span>;
-<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">parse</span> <span style="color:#66d9ef">as</span> <span style="color:#a6e22e">parseCsv</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#34;fast-csv&#34;</span>;
 
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">fn</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">async</span> (<span style="color:#a6e22e">srcGcsFile</span>, <span style="color:#a6e22e">destGcsFile</span>, <span style="color:#a6e22e">validator</span>: <span style="color:#66d9ef">any</span>, <span style="color:#a6e22e">tranform</span>: <span style="color:#66d9ef">any</span>) <span style="color:#f92672">=&gt;</span> 
-  <span style="color:#a6e22e">srcGcsFile</span>
-    .<span style="color:#a6e22e">createReadStream</span>()
-    .<span style="color:#a6e22e">pipe</span>(<span style="color:#a6e22e">unzip</span>.<span style="color:#a6e22e">Parse</span>())
-    .<span style="color:#a6e22e">on</span>(<span style="color:#e6db74">&#34;entry&#34;</span>, <span style="color:#66d9ef">async</span> (<span style="color:#a6e22e">entry</span>) <span style="color:#f92672">=&gt;</span> {
-      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">dest</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">destGcsFile</span>.<span style="color:#a6e22e">createWriteStream</span>();
-      <span style="color:#a6e22e">entry</span>
-        .<span style="color:#a6e22e">pipe</span>(<span style="color:#a6e22e">iconv</span>.<span style="color:#a6e22e">decodeStream</span>(<span style="color:#e6db74">&#34;cp932&#34;</span>))
-        .<span style="color:#a6e22e">pipe</span>(<span style="color:#a6e22e">parseCsv</span>({ <span style="color:#a6e22e">headers</span>: <span style="color:#66d9ef">true</span> }))
-        .<span style="color:#a6e22e">on</span>(<span style="color:#e6db74">&#34;data&#34;</span>, (<span style="color:#a6e22e">data</span>: <span style="color:#66d9ef">any</span>) <span style="color:#f92672">=&gt;</span> 
-          <span style="color:#a6e22e">validator</span>(<span style="color:#a6e22e">data</span>) 
-            <span style="color:#f92672">?</span> <span style="color:#a6e22e">dest</span>.<span style="color:#a6e22e">write</span>(<span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>(<span style="color:#a6e22e">tranform</span>(<span style="color:#a6e22e">data</span>)) <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;\n&#34;</span>)
-            <span style="color:#f92672">:</span> <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">error</span>(<span style="color:#e6db74">`INVALID_ROW:</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>(<span style="color:#a6e22e">data</span>)<span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>)
+<h2 id="実装">実装</h2>
+
+<p>こんな実装になった。ライブラリを組み合わせるだけで、自前で実装している部分はほとんどない。</p>
+
+<pre><code class="language-ts">import unzip from &quot;unzipper&quot;;
+import iconv from &quot;iconv-lite&quot;;
+import { parse as parseCsv } from &quot;fast-csv&quot;;
+
+const fn = async (srcGcsFile, destGcsFile, validator: any, tranform: any) =&gt; 
+  srcGcsFile
+    .createReadStream()
+    .pipe(unzip.Parse())
+    .on(&quot;entry&quot;, async (entry) =&gt; {
+      const dest = destGcsFile.createWriteStream();
+      entry
+        .pipe(iconv.decodeStream(&quot;cp932&quot;))
+        .pipe(parseCsv({ headers: true }))
+        .on(&quot;data&quot;, (data: any) =&gt; 
+          validator(data) 
+            ? dest.write(JSON.stringify(tranform(data)) + &quot;\n&quot;)
+            : console.error(`INVALID_ROW:${JSON.stringify(data)}`)
         );
     })
-    .<span style="color:#a6e22e">promise</span>()
-</code></pre></div><h2 id="unzipper">unzipper</h2>
+    .promise()
+</code></pre>
+
+<h2 id="unzipper">unzipper</h2>
+
 <ul>
 <li><a href="https://github.com/ZJONSSON/node-unzipper#readme">ZJONSSON/node-unzipper: node.js cross-platform unzip using streams</a></li>
 </ul>
+
 <p>zipファイルをdecompressしてくれるライブラリ。</p>
+
 <p><code>unzip</code> というライブラリがあったのだが、メンテナンスされなくなったのでforkされたものである。</p>
+
 <p>zipをstreamでの読み出すのに対応しているが、そもそもzipファイルは複数ファイルを内包できる仕様になっているので、ファイルごとに<code>on('entry')</code>イベントが呼ばれるインターフェイスになっている。ファイルが複数入っているようなzipファイルの場合は<code>on('entry')</code>が何回も呼ばれる。</p>
+
 <p>本来だと <code>entry</code> オブジェクトに生えているファイル名から目当てのファイルであるかチェックしてから処理をしたり、不要なファイルでは <code>autodrain</code> を呼んで内容を破棄する必要があるようだ。今回は1ファイルしかないはずなのでそのへんのケアは不要だった。</p>
+
 <h2 id="iconv-lite">iconv-lite</h2>
+
 <ul>
 <li><a href="https://github.com/ashtuchkin/iconv-lite">ashtuchkin/iconv-lite: Convert character encodings in pure javascript.</a></li>
 </ul>
+
 <p>nodejsのビルトインの機能でstreamされる文字列をdecodeするのが面倒そうだったのでライブラリをつかっている。特別使い方に癖はなく <code>pipe</code> するだけでdecodeされる。</p>
+
 <h2 id="fast-csv">fast-csv</h2>
+
 <ul>
 <li><a href="https://github.com/C2FO/fast-csv">C2FO/fast-csv: CSV parser and formatter for node</a></li>
 </ul>
+
 <p>csvをstream処理してくれるという、今回のにぴったりなライブラリ。</p>
+
 <p><code>headers</code> オプションをつけるとヘッダ行のカラム名からオブジェクトを生成してくれる。1行パースするごとに<code>on('data')</code>イベントが呼ばれるので、そこにやりたい処理を挟めばよい。</p>
+
 <h2 id="その他">その他</h2>
+
 <p>GCSの nodejs クライアントはファイルオブジェクトに <code>createWriteStream</code> と <code>createReadStream</code> が生えているのでstreamでの読み込みと書き込みはそこからできる。</p>
+
 <ul>
 <li><a href="https://googleapis.dev/nodejs/storage/latest/File.html#createReadStream">File#createReadStream</a></li>
 <li><a href="https://googleapis.dev/nodejs/storage/latest/File.html#createWriteStream">File#createWriteStream</a></li>

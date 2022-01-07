@@ -14,7 +14,7 @@
   
   
   <meta name="twitter:title" content="alpine に gcloud をインストールする Dockerfile"/>
-  <meta name="twitter:description" content="curl, bash, python, が必要 PATHを通す (root配下にインストールされた) FROMnode:10-alpineRUN apk --no-cache add curl bash pythonRUN curl -sSL https://sdk.cloud.google.com | bashENV PATH $PATH:/root/google-cloud-s"/>
+  <meta name="twitter:description" content="curl, bash, python, が必要 PATHを通す (root配下にインストールされた) FROM node:10-alpine RUN apk --no-cache add curl bash python RUN curl -sSL https://sdk.cloud.google.com | bash ENV PATH $PATH:/root/google-cloud-sdk/bin 参考 How to install the Google Cloud SDK in a Docker Image? - Stack Overflow Push an image on google"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>alpine に gcloud をインストールする Dockerfile &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -72,7 +72,7 @@
                     </h1>
                     <h2 class="headline">
                     Feb 21, 2020 09:23
-                    · 104 words
+                    · 77 words
                     · 1 minute read
                       <span class="tags">
                       
@@ -83,24 +83,33 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#参考">参考</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <ul>
+                    
+
+<ul>
 <li>curl, bash, python, が必要</li>
 <li>PATHを通す (root配下にインストールされた)</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dockerfile" data-lang="dockerfile"><span style="color:#66d9ef">FROM</span><span style="color:#e6db74"> node:10-alpine</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> apk --no-cache add curl bash python<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> curl -sSL https://sdk.cloud.google.com | bash<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">ENV</span> PATH $PATH:/root/google-cloud-sdk/bin<span style="color:#960050;background-color:#1e0010">
-</span></code></pre></div><h2 id="参考">参考</h2>
+
+<pre><code class="language-dockerfile">FROM node:10-alpine
+
+RUN apk --no-cache add curl bash python
+RUN curl -sSL https://sdk.cloud.google.com | bash
+ENV PATH $PATH:/root/google-cloud-sdk/bin
+</code></pre>
+
+<h2 id="参考">参考</h2>
+
 <ul>
 <li><a href="https://stackoverflow.com/questions/28372328/how-to-install-the-google-cloud-sdk-in-a-docker-image">How to install the Google Cloud SDK in a Docker Image? - Stack Overflow</a></li>
 <li><a href="https://forums.docker.com/t/push-an-image-on-google-cloud/7538">Push an image on google cloud - Docker Hub - Docker Forums</a></li>

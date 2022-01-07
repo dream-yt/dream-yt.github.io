@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>perl で windows の改行文字を chomp する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,35 +83,48 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li>
-      <ul>
-        <li><a href="#こんな感じ">こんな感じ</a></li>
-      </ul>
-    </li>
-    <li><a href="#参考">参考</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#こんな感じ">こんな感じ</a></li>
+</ul></li>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>ファイル内の改行コードはOSごとに異なる。</p>
+                    
+
+<p>ファイル内の改行コードはOSごとに異なる。</p>
+
 <ul>
 <li>Windows: CR+LF （\r+\n）</li>
 <li>Linux（UNIX系OS）: LF （\n）</li>
 <li>MacOS X: LF （\n）</li>
 </ul>
+
 <p>Linux &lt;&gt; MacOS で作業をしているわりには perl の chomp で問題がないが、
 MacOS 上で windows のエクセルで生成された csv を扱い場合などはこのあたりを気にする必要がある。</p>
+
 <p>chomp は改行の区切り文字を格納する特殊文字 <code>$/</code> を参照するので、これに Windows 向けの改行文字を入れてあげればよい。</p>
+
 <h3 id="こんな感じ">こんな感じ</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl">local $/<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;\r\n&#34;</span>;
-<span style="color:#66d9ef">while</span> (<span style="color:#f92672">&lt;&gt;</span>) {
+
+<pre><code class="language-perl">local $/=&quot;\r\n&quot;;
+while (&lt;&gt;) {
     chomp;
-    <span style="color:#f92672">...</span>
-</code></pre></div><p>だいたいのページだと <code>s/\r\n//</code> の例で書いてあるが、<code>$/</code> と chomp を使うと変更箇所がちらばらなくていいんじゃないかなと思う。perlの仕様を知らないと直観的ではないのだが自分用のスクリプトなら問題ないだろう。</p>
+    ...
+</code></pre>
+
+<p>だいたいのページだと <code>s/\r\n//</code> の例で書いてあるが、<code>$/</code> と chomp を使うと変更箇所がちらばらなくていいんじゃないかなと思う。perlの仕様を知らないと直観的ではないのだが自分用のスクリプトなら問題ないだろう。</p>
+
 <h2 id="参考">参考</h2>
+
 <ul>
 <li><a href="https://www.tohoho-web.com/wwwperl1.htm">とほほのperl入門（概要編） - とほほのWWW入門</a></li>
 <li><a href="https://hacknote.jp/archives/22105/">ファイル内の改行コード変換（Perl） | ハックノート</a></li>
