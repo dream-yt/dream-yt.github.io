@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.79.0" />
 		<title>package.json の deps を深く考えずに全部upgradeする &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -81,52 +81,49 @@
                 </header>
                 
                   
+                    <div id="toc">
+                      <nav id="TableOfContents"></nav>
+                    </div>
+                  
                 
                 <section id="post-body">
                     <p>以下のコマンドでできる</p>
-
-<pre><code class="language-bash">$ npx npm-check-updates --upgrade
-</code></pre>
-
-<p>いちおうどんなアップグレードになるかは事前に確認できる</p>
-
-<pre><code class="language-bash">$ npx npm-check-updates 
-</code></pre>
-
-<p>その他のオプションもいろいろある</p>
-
-<pre><code class="language-bash">$ npx npm-check-updates --help
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ npx npm-check-updates --upgrade
+</code></pre></div><p>いちおうどんなアップグレードになるかは事前に確認できる</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ npx npm-check-updates 
+</code></pre></div><p>その他のオプションもいろいろある</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ npx npm-check-updates --help
 npx: 259個のパッケージを8.35秒でインストールしました。
-Usage: ncu [options] [filter]
+Usage: ncu <span style="color:#f92672">[</span>options<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>filter<span style="color:#f92672">]</span>
 
-[filter] is a list or regex of package names to check (all others will be ignored).
+<span style="color:#f92672">[</span>filter<span style="color:#f92672">]</span> is a list or regex of package names to check <span style="color:#f92672">(</span>all others will be ignored<span style="color:#f92672">)</span>.
 
 Options:
-  --configFilePath &lt;path&gt;      rc config file path (default: directory of `packageFile` or ./ otherwise)
-  --configFileName &lt;path&gt;      rc config file name (default: .ncurc.{json,yml,js})
-  --cwd &lt;path&gt;                 Used as current working directory for `spawn` in npm listing
-  --dep &lt;dep&gt;                  check only a specific section(s) of dependencies: prod|dev|peer|optional|bundle (comma-delimited)
-  -e, --error-level &lt;n&gt;        set the error-level. 1: exits with error code 0 if no errors occur. 2: exits with error code 0 if no packages need updating (useful for continuous integration). Default is
-                               1. (default: 1)
+  --configFilePath &lt;path&gt;      rc config file path <span style="color:#f92672">(</span>default: directory of <span style="color:#e6db74">`</span>packageFile<span style="color:#e6db74">`</span> or ./ otherwise<span style="color:#f92672">)</span>
+  --configFileName &lt;path&gt;      rc config file name <span style="color:#f92672">(</span>default: .ncurc.<span style="color:#f92672">{</span>json,yml,js<span style="color:#f92672">})</span>
+  --cwd &lt;path&gt;                 Used as current working directory <span style="color:#66d9ef">for</span> <span style="color:#e6db74">`</span>spawn<span style="color:#e6db74">`</span> in npm listing
+  --dep &lt;dep&gt;                  check only a specific section<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span> of dependencies: prod|dev|peer|optional|bundle <span style="color:#f92672">(</span>comma-delimited<span style="color:#f92672">)</span>
+  -e, --error-level &lt;n&gt;        set the error-level. 1: exits with error code <span style="color:#ae81ff">0</span> <span style="color:#66d9ef">if</span> no errors occur. 2: exits with error code <span style="color:#ae81ff">0</span> <span style="color:#66d9ef">if</span> no packages need updating <span style="color:#f92672">(</span>useful <span style="color:#66d9ef">for</span> continuous integration<span style="color:#f92672">)</span>. Default is
+                               1. <span style="color:#f92672">(</span>default: 1<span style="color:#f92672">)</span>
   --engines-node               upgrade to version which satisfies engines.node range
   -f, --filter &lt;matches&gt;       include only package names matching the given string, comma-or-space-delimited list, or /regex/
   -g, --global                 check global packages instead of in the current project
-  -i, --interactive            Enable interactive prompts for each dependency; implies -u unless one of the json options are set
+  -i, --interactive            Enable interactive prompts <span style="color:#66d9ef">for</span> each dependency; implies -u unless one of the json options are set
   -j, --jsonAll                output new package file instead of human-readable message
-  --jsonDeps                   Will return output like `jsonAll` but only lists `dependencies`, `devDependencies`, and `optionalDependencies` of the new package data.
+  --jsonDeps                   Will <span style="color:#66d9ef">return</span> output like <span style="color:#e6db74">`</span>jsonAll<span style="color:#e6db74">`</span> but only lists <span style="color:#e6db74">`</span>dependencies<span style="color:#e6db74">`</span>, <span style="color:#e6db74">`</span>devDependencies<span style="color:#e6db74">`</span>, and <span style="color:#e6db74">`</span>optionalDependencies<span style="color:#e6db74">`</span> of the new package data.
   --jsonUpgraded               output upgraded dependencies in json
-  -l, --loglevel &lt;n&gt;           what level of logs to report: silent, error, minimal, warn, info, verbose, silly (default: warn) (default: &quot;warn&quot;)
-  -m, --minimal                do not upgrade newer versions that are already satisfied by the version range according to semver
+  -l, --loglevel &lt;n&gt;           what level of logs to report: silent, error, minimal, warn, info, verbose, silly <span style="color:#f92672">(</span>default: warn<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>default: <span style="color:#e6db74">&#34;warn&#34;</span><span style="color:#f92672">)</span>
+  -m, --minimal                <span style="color:#66d9ef">do</span> not upgrade newer versions that are already satisfied by the version range according to semver
   -n, --newest                 find the newest versions available instead of the latest stable versions
-  -p, --packageManager &lt;name&gt;  npm (default) or bower (default: &quot;npm&quot;)
-  --packageData                include stringified package file (use stdin instead)
-  --packageFile &lt;filename&gt;     package file location (default: ./package.json)
-  --pre &lt;n&gt;                    Include -alpha, -beta, -rc. Default: 0. Default with --newest and --greatest: 1
+  -p, --packageManager &lt;name&gt;  npm <span style="color:#f92672">(</span>default<span style="color:#f92672">)</span> or bower <span style="color:#f92672">(</span>default: <span style="color:#e6db74">&#34;npm&#34;</span><span style="color:#f92672">)</span>
+  --packageData                include stringified package file <span style="color:#f92672">(</span>use stdin instead<span style="color:#f92672">)</span>
+  --packageFile &lt;filename&gt;     package file location <span style="color:#f92672">(</span>default: ./package.json<span style="color:#f92672">)</span>
+  --pre &lt;n&gt;                    Include -alpha, -beta, -rc. Default: 0. Default with --newest and --greatest: <span style="color:#ae81ff">1</span>
   --prefix &lt;path&gt;              Used as current working directory in bower and npm
   -r, --registry &lt;url&gt;         specify third-party npm registry
   --removeRange                remove version ranges from the final package version
-  -s, --silent                 don't output anything (--loglevel silent)
-  --semverLevel &lt;level&gt;        find the highest version within &quot;major&quot; or &quot;minor&quot;
+  -s, --silent                 don<span style="color:#960050;background-color:#1e0010">&#39;</span>t output anything <span style="color:#f92672">(</span>--loglevel silent<span style="color:#f92672">)</span>
+  --semverLevel &lt;level&gt;        find the highest version within <span style="color:#e6db74">&#34;major&#34;</span> or <span style="color:#e6db74">&#34;minor&#34;</span>
   -t, --greatest               find the highest versions available instead of the latest stable versions
   --timeout &lt;ms&gt;               a global timeout in ms
   -u, --upgrade                overwrite package file
@@ -134,8 +131,7 @@ Options:
   -v, --version                4.0.1
   -V
   -h, --help                   output usage information
-</code></pre>
-
+</code></pre></div>
                 </section>
             </article>
 

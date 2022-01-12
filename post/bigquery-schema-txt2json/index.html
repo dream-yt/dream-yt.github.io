@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.79.0" />
 		<title>BigQueryのSchemaをCSV形式からJSON形式に変換する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,55 +83,40 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#参考">参考</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#参考">参考</a></li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p>BigQueryのスキーマ表現をCSV形式からJSON形式に変換する。</p>
-
+                    <p>BigQueryのスキーマ表現をCSV形式からJSON形式に変換する。</p>
 <p>ちなみにCSV形式はこんなもの</p>
-
 <pre><code>id:integer,order_id:float,detail:string
-</code></pre>
-
-<p>JSONはperlで生成する</p>
-
-<pre><code class="language-bash">$ cat ./schema.txt \
-    | tr &quot;,&quot; &quot;\n&quot; \
-    | perl -aF&quot;:&quot; -nlE 'say qq({&quot;name&quot;:&quot;$F[0]&quot;,&quot;type&quot;:&quot;$F[1]&quot;,&quot;mode&quot;: &quot;NULLABLE&quot;})'  \
-    | jq --slurp
-</code></pre>
-
-<pre><code class="language-json">[
+</code></pre><p>JSONはperlで生成する</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cat ./schema.txt <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    | tr <span style="color:#e6db74">&#34;,&#34;</span> <span style="color:#e6db74">&#34;\n&#34;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    | perl -aF<span style="color:#e6db74">&#34;:&#34;</span> -nlE <span style="color:#e6db74">&#39;say qq({&#34;name&#34;:&#34;$F[0]&#34;,&#34;type&#34;:&#34;$F[1]&#34;,&#34;mode&#34;: &#34;NULLABLE&#34;})&#39;</span>  <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    | jq --slurp
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">[
   {
-    &quot;mode&quot;: &quot;NULLABLE&quot;,
-    &quot;name&quot;: &quot;id&quot;,
-    &quot;type&quot;: &quot;integer&quot;
+    <span style="color:#f92672">&#34;mode&#34;</span>: <span style="color:#e6db74">&#34;NULLABLE&#34;</span>,
+    <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;id&#34;</span>,
+    <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;integer&#34;</span>
   },
   {
-    &quot;mode&quot;: &quot;NULLABLE&quot;,
-    &quot;name&quot;: &quot;order_id&quot;,
-    &quot;type&quot;: &quot;float&quot;
+    <span style="color:#f92672">&#34;mode&#34;</span>: <span style="color:#e6db74">&#34;NULLABLE&#34;</span>,
+    <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;order_id&#34;</span>,
+    <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;float&#34;</span>
   },
   {
-    &quot;mode&quot;: &quot;NULLABLE&quot;,
-    &quot;name&quot;: &quot;detail&quot;,
-    &quot;type&quot;: &quot;string&quot;
+    <span style="color:#f92672">&#34;mode&#34;</span>: <span style="color:#e6db74">&#34;NULLABLE&#34;</span>,
+    <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;detail&#34;</span>,
+    <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;string&#34;</span>
   }
 ]
-</code></pre>
-
-<h2 id="参考">参考</h2>
-
+</code></pre></div><h2 id="参考">参考</h2>
 <ul>
 <li><a href="https://cloud.google.com/bigquery/docs/schemas">スキーマの指定  |  BigQuery  |  Google Cloud</a></li>
 <li><a href="https://qiita.com/eielh/items/aff045e1689be8e89972">jqで連続するオブジェクトを配列にする - Qiita</a></li>

@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.79.0" />
 		<title>Prisma でスキーマ変更を本番に反映する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,42 +83,28 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#確認">確認</a></li>
-<li><a href="#適用">適用</a></li>
-</ul></li>
-<li><a href="#参考">参考</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#確認">確認</a></li>
+        <li><a href="#適用">適用</a></li>
+      </ul>
+    </li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p><code>.env.migrate</code> というファイルに本番DBにDDLを流せる接続情報が記述されているとして。</p>
-
+                    <p><code>.env.migrate</code> というファイルに本番DBにDDLを流せる接続情報が記述されているとして。</p>
 <h3 id="確認">確認</h3>
-
 <p>どこまでマイグレーションファイルが適用されているかを確認。</p>
-
-<pre><code class="language-bash">npx dotenv -e .env.migrate -- npx prisma migrate status
-</code></pre>
-
-<h3 id="適用">適用</h3>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">npx dotenv -e .env.migrate -- npx prisma migrate status
+</code></pre></div><h3 id="適用">適用</h3>
 <p>確認した内容が問題なければ適用。</p>
-
-<pre><code class="language-bash">npx dotenv -e .env.migrate -- npx prisma migrate deploy
-</code></pre>
-
-<h2 id="参考">参考</h2>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">npx dotenv -e .env.migrate -- npx prisma migrate deploy
+</code></pre></div><h2 id="参考">参考</h2>
 <ul>
 <li><a href="https://www.prisma.io/docs/concepts/components/prisma-schema#manage-env-files-manually">Prisma schema (Reference) | Prisma Docs</a></li>
 </ul>

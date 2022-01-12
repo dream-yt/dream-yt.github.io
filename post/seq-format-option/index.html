@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.79.0" />
 		<title>seq の出力を printf 形式でフォーマットする -f オプション &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,21 +83,15 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#参考">参考</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#参考">参考</a></li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p>こんな文字列が欲しい時。</p>
-
+                    <p>こんな文字列が欲しい時。</p>
 <pre><code>2021-06-01
 2021-06-02
 2021-06-03
@@ -108,19 +102,12 @@
 2021-06-08
 2021-06-09
 2021-06-10
-</code></pre>
-
-<p>いままでは seq に xargs をパイプしたりしていたが、seq にフォーマットオプションがあることを知ったのでそれを使う。</p>
-
-<pre><code class="language-bash">for d in $(seq --format '2021-06-%02g' 10); do
+</code></pre><p>いままでは seq に xargs をパイプしたりしていたが、seq にフォーマットオプションがあることを知ったのでそれを使う。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#66d9ef">for</span> d in <span style="color:#66d9ef">$(</span>seq --format <span style="color:#e6db74">&#39;2021-06-%02g&#39;</span> 10<span style="color:#66d9ef">)</span>; <span style="color:#66d9ef">do</span>
     echo $d
-done
-</code></pre>
-
-<h2 id="参考">参考</h2>
-
+<span style="color:#66d9ef">done</span>
+</code></pre></div><h2 id="参考">参考</h2>
 <p><code>%02d</code> が使えなかったので検索したらこれが出てきた。やりとりの意味が掴めなかったが、<code>--equal-width</code> があるから不要なはず。ということなのかな。</p>
-
 <ul>
 <li><a href="https://bugzilla.redhat.com/show_bug.cgi?id=231206">231206 – seq considers format &ldquo;%02d&rdquo; illegal</a></li>
 </ul>

@@ -14,7 +14,7 @@
   
   
   <meta name="twitter:title" content="Prisma の NestJS へのつなぎ込み"/>
-  <meta name="twitter:description" content="$ yarn add prisma @prisma/client $ npx prisma init # TODO CI/本番など実行環境ごとに .env を切り替える方法が欲しい スキーマの編集 $ code prisma/schema.prisma まずは sqlite で動作させる。 generator client { provider = &quot;prisma-client-js&quot; } datasource db { provider"/>
+  <meta name="twitter:description" content="$ yarn add prisma @prisma/client $ npx prisma init # TODO CI/本番など実行環境ごとに .env を切り替える方法が欲しい スキーマの編集 $ code prisma/schema.prisma まずは sqlite で動作させる。 generator client { provider = &#34;prisma-client-js&#34; } datasource db { provider"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.79.0" />
 		<title>Prisma の NestJS へのつなぎ込み &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,143 +83,103 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#スキーマの編集">スキーマの編集</a></li>
-<li><a href="#migrate-generate">migrate &amp; generate</a></li>
-<li><a href="#gitignore">.gitignore</a></li>
-<li><a href="#nestjsのサービスにする">NestJSのサービスにする</a>
-<ul>
-<li><a href="#prisma-service-ts">prisma.service.ts</a></li>
-<li><a href="#テストが落ちる">テストが落ちる</a></li>
-</ul></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#スキーマの編集">スキーマの編集</a></li>
+    <li><a href="#migrate--generate">migrate &amp; generate</a></li>
+    <li><a href="#gitignore">.gitignore</a></li>
+    <li><a href="#nestjsのサービスにする">NestJSのサービスにする</a>
+      <ul>
+        <li><a href="#prismaservicets">prisma.service.ts</a></li>
+        <li><a href="#テストが落ちる">テストが落ちる</a></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<pre><code class="language-bash">$ yarn add prisma @prisma/client
-$ npx prisma init # TODO CI/本番など実行環境ごとに .env を切り替える方法が欲しい
-</code></pre>
-
-<h2 id="スキーマの編集">スキーマの編集</h2>
-
+                    <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ yarn add prisma @prisma/client
+$ npx prisma init <span style="color:#75715e"># TODO CI/本番など実行環境ごとに .env を切り替える方法が欲しい</span>
+</code></pre></div><h2 id="スキーマの編集">スキーマの編集</h2>
 <pre><code>$ code prisma/schema.prisma
-</code></pre>
-
-<p>まずは sqlite で動作させる。</p>
-
-<pre><code class="language-js">generator client {
-  provider = &quot;prisma-client-js&quot;
+</code></pre><p>まずは sqlite で動作させる。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">generator</span> <span style="color:#a6e22e">client</span> {
+  <span style="color:#a6e22e">provider</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;prisma-client-js&#34;</span>
 }
 
-datasource db {
-  provider = &quot;sqlite&quot;
-  url      = &quot;file:./admin.db&quot;
+<span style="color:#a6e22e">datasource</span> <span style="color:#a6e22e">db</span> {
+  <span style="color:#a6e22e">provider</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;sqlite&#34;</span>
+  <span style="color:#a6e22e">url</span>      <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;file:./admin.db&#34;</span>
 }
 
-model Denylist {
-  id String @id
-  expireAt DateTime?
-  createdAt DateTime @default(now())
+<span style="color:#a6e22e">model</span> <span style="color:#a6e22e">Denylist</span> {
+  <span style="color:#a6e22e">id</span> String <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">id</span>
+  <span style="color:#a6e22e">expireAt</span> <span style="color:#a6e22e">DateTime</span><span style="color:#f92672">?</span>
+  <span style="color:#a6e22e">createdAt</span> <span style="color:#a6e22e">DateTime</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#66d9ef">default</span>(<span style="color:#a6e22e">now</span>())
 }
-</code></pre>
-
-<ul>
+</code></pre></div><ul>
 <li><a href="https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#model-fields">Prisma schema API (Reference) | Prisma Docs</a></li>
 </ul>
-
 <p>prisma 内での model の名前の規約はこのようになっている</p>
-
 <blockquote>
 <p>Must start with a letter</p>
-
+</blockquote>
+<blockquote>
 <p>Typically spelled in camelCase</p>
-
+</blockquote>
+<blockquote>
 <p>Must adhere to the following regular expression: [A-Za-z][A-Za-z0-9_]*</p>
 </blockquote>
-
-<h2 id="migrate-generate">migrate &amp; generate</h2>
-
+<h2 id="migrate--generate">migrate &amp; generate</h2>
 <p>モデルを定義したらmigrate。ここでsqliteファイルにテーブルが生成される。</p>
-
-<pre><code class="language-bash">$ npx prisma migrate dev --name create-table-denylist
-</code></pre>
-
-<p>generate すると scheme の定義内容をもとにjsランタイムのソースコードが node_modules 配下に生成される (ちゃんと型付で import できるようになる)</p>
-
-<pre><code class="language-bash">$ npx prisma generate
-</code></pre>
-
-<h2 id="gitignore">.gitignore</h2>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ npx prisma migrate dev --name create-table-denylist
+</code></pre></div><p>generate すると scheme の定義内容をもとにjsランタイムのソースコードが node_modules 配下に生成される (ちゃんと型付で import できるようになる)</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ npx prisma generate
+</code></pre></div><h2 id="gitignore">.gitignore</h2>
 <p>sqlite なのでデータベースファイルをignoreする</p>
-
 <pre><code># prisma
 prisma/*.db
 prisma/*.db-journal
-</code></pre>
-
-<h2 id="nestjsのサービスにする">NestJSのサービスにする</h2>
-
+</code></pre><h2 id="nestjsのサービスにする">NestJSのサービスにする</h2>
 <p>公式のとおりにサービス化すればコントローラ/他サービスでも使えるようになる。</p>
-
 <ul>
 <li><a href="https://docs.nestjs.com/recipes/prisma">Prisma | NestJS - A progressive Node.js framework</a></li>
 </ul>
-
-<pre><code class="language-bash">$ npx nest generate service prisma
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ npx nest generate service prisma
 $ code src/prisma/prisma.service.ts
-</code></pre>
+</code></pre></div><h3 id="prismaservicets">prisma.service.ts</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Injectable</span>, <span style="color:#a6e22e">OnModuleInit</span>, <span style="color:#a6e22e">OnModuleDestroy</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;@nestjs/common&#39;</span>;
+<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">PrismaClient</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;@prisma/client&#39;</span>;
 
-<h3 id="prisma-service-ts">prisma.service.ts</h3>
-
-<pre><code class="language-ts">import { Injectable, OnModuleInit, OnModuleDestroy } from '@nestjs/common';
-import { PrismaClient } from '@prisma/client';
-
-@Injectable()
-export class PrismaService
-  extends PrismaClient
-  implements OnModuleInit, OnModuleDestroy {
-  async onModuleInit() {
-    await this.$connect();
+<span style="color:#66d9ef">@Injectable</span>()
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">PrismaService</span>
+  <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">PrismaClient</span>
+  <span style="color:#66d9ef">implements</span> <span style="color:#a6e22e">OnModuleInit</span>, <span style="color:#a6e22e">OnModuleDestroy</span> {
+  <span style="color:#66d9ef">async</span> <span style="color:#a6e22e">onModuleInit() {</span>
+    <span style="color:#66d9ef">await</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">$connect</span>();
   }
 
-  async onModuleDestroy() {
-    await this.$disconnect();
+  <span style="color:#66d9ef">async</span> <span style="color:#a6e22e">onModuleDestroy() {</span>
+    <span style="color:#66d9ef">await</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">$disconnect</span>();
   }
 }
-</code></pre>
-
-<p>module.ts の定義。</p>
-
-<pre><code class="language-diff"> @Module({
-+  imports: [PrismaService],
-   controllers: [DenylistController],
+</code></pre></div><p>module.ts の定義。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-diff" data-lang="diff"> @Module({
+<span style="color:#a6e22e">+  imports: [PrismaService],
+</span><span style="color:#a6e22e"></span>   controllers: [DenylistController],
    providers: [DenylistService],
  })
-</code></pre>
-
-<p>service.ts では constructor に定義すれば this から使える。</p>
-
-<pre><code class="language-diff">-  create(createDenylistDto: CreateDenylistDto) {
--    return 'This action adds a new Denylist';
-+  constructor(private prisma: PrismaService) {}
-+
-+  create(data: CreateDenylistDto) {
-+    return this.prisma.Denylist.create({data});
-   }
-</code></pre>
-
-<h3 id="テストが落ちる">テストが落ちる</h3>
-
+</code></pre></div><p>service.ts では constructor に定義すれば this から使える。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-diff" data-lang="diff"><span style="color:#f92672">-  create(createDenylistDto: CreateDenylistDto) {
+</span><span style="color:#f92672">-    return &#39;This action adds a new Denylist&#39;;
+</span><span style="color:#f92672"></span><span style="color:#a6e22e">+  constructor(private prisma: PrismaService) {}
+</span><span style="color:#a6e22e">+
+</span><span style="color:#a6e22e">+  create(data: CreateDenylistDto) {
+</span><span style="color:#a6e22e">+    return this.prisma.Denylist.create({data});
+</span><span style="color:#a6e22e"></span>   }
+</code></pre></div><h3 id="テストが落ちる">テストが落ちる</h3>
 <p>テストで依存性が解決できないというエラーになるのでそちらも直す。</p>
-
 <ul>
 <li><a href="https://mydaytodo.com/make-sure-that-the-argument-httpservice-at-index-0-nestjs/">&ldquo;make sure that the argument HttpService at index [0] is available&rdquo; NestJS error - My Day To-Do</a></li>
 </ul>

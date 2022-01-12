@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.79.0" />
 		<title>FirebaseCloudFunctions のデプロイ設定を書くところ &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,37 +83,30 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li><a href="#firebaseの設定">firebaseの設定</a>
-<ul>
-<li>
-<ul>
-<li><a href="#参考">参考</a></li>
-</ul></li>
-</ul></li>
-<li><a href="#package-json">package.json</a>
-<ul>
-<li><a href="#依存関係のインストール">依存関係のインストール</a></li>
-<li><a href="#nodejsのバージョンはなにを使うか">nodejsのバージョンはなにを使うか</a></li>
-<li><a href="#プロセスを起動するエントリーポイントがどこか">プロセスを起動するエントリーポイントがどこか</a></li>
-<li><a href="#preinstall-postinstall">preinstall / postinstall</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#参考">参考</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#依存関係のインストール">依存関係のインストール</a></li>
+    <li><a href="#nodejsのバージョンはなにを使うか">nodejsのバージョンはなにを使うか</a></li>
+    <li><a href="#プロセスを起動するエントリーポイントがどこか">プロセスを起動するエントリーポイントがどこか</a></li>
+    <li><a href="#preinstall--postinstall">preinstall / postinstall</a></li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p>こちらの実装がデプロイされる仕組みの部分についてメモ。</p>
-
+                    <p>こちらの実装がデプロイされる仕組みの部分についてメモ。</p>
 <ul>
 <li><a href="https://blog.n-t.jp/tech/nestjs-firebase-cloudfunction/">NestJS を Firebase Cloudfunction 上で動かす</a></li>
 </ul>
-
 <p>今回の例だとディレクト構成はこのようになっている。</p>
-
 <pre><code>$ tree -L 2 ../
 ../
 ├── firebase.json
@@ -127,16 +120,10 @@
     ├── src
     ├── tsconfig.json
     └── yarn.lock
-</code></pre>
-
-<p>server ディレクトリ配下に CloudFunction 用の TypeScript の実装があるという状態で、<code>server/package.json</code> にある npm-scripts を使って Firebase の function が動作するまでの仕組みをメモる。</p>
-
+</code></pre><p>server ディレクトリ配下に CloudFunction 用の TypeScript の実装があるという状態で、<code>server/package.json</code> にある npm-scripts を使って Firebase の function が動作するまでの仕組みをメモる。</p>
 <h1 id="firebaseの設定">firebaseの設定</h1>
-
 <p>server ディレクトリに firebase.json は置いていないが、firebase コマンドは上位ディレクトリに firebase.json ファイルを探して、設定を読んでくれる。</p>
-
 <p>今回の例ではこんな設定になっている。</p>
-
 <pre><code>$ cat ../firebase.json | jq .functions
 {
   &quot;source&quot;: &quot;server&quot;
@@ -145,90 +132,64 @@
     &quot;npm --prefix \&quot;$RESOURCE_DIR\&quot; run build&quot;
   ],
 }
-</code></pre>
-
-<p>fierbase のデプロイコマンドが発行された時に predeploy に記述されている処理が動いてからコードがアップロードされる。<code>\&quot;$RESOURCE_DIR\&quot;</code> の環境変数には source で定義されたディレクトリが入るようだ。なおエミュレータ起動時にはこの処理は動かないので、エミュレータ起動前にコードをビルドする処理を自前で実装して挟み込んでおく必要がある。</p>
-
+</code></pre><p>fierbase のデプロイコマンドが発行された時に predeploy に記述されている処理が動いてからコードがアップロードされる。<code>\&quot;$RESOURCE_DIR\&quot;</code> の環境変数には source で定義されたディレクトリが入るようだ。なおエミュレータ起動時にはこの処理は動かないので、エミュレータ起動前にコードをビルドする処理を自前で実装して挟み込んでおく必要がある。</p>
 <h3 id="参考">参考</h3>
-
 <ul>
 <li><a href="https://firebase.google.com/docs/cli?hl=ja#hooks">Firebase CLI リファレンス</a></li>
 <li><a href="https://firebase.google.com/docs/functions/typescript?hl=ja#using_an_existing_typescript_project">Cloud Functions に TypeScript を使用する  |  Firebase</a></li>
 </ul>
-
-<h1 id="package-json">package.json</h1>
-
+<h1 id="packagejson">package.json</h1>
 <p>firebase では package.json をみている部分がある</p>
-
 <ul>
 <li>依存関係のインストール</li>
 <li>nodejsのバージョンはなにを使うか</li>
 <li>プロセスを起動するエントリーポイントがどこか</li>
 <li>preinstall / postinstall の起動</li>
 </ul>
-
 <h2 id="依存関係のインストール">依存関係のインストール</h2>
-
 <p>firebase ではデプロイ時にFaaSランタイム上で <code>npm ci</code> (yarn.lockがあれば <code>yarn install</code> ) を発行して依存関係をインストールしてくれる</p>
-
 <blockquote>
 <p>外部の Node.js モジュールも使用できます。Node.js における依存関係は、npm で管理され、package.json というメタデータ ファイルで表現されます。Cloud Functions Node.js ランタイムは通常、npm または yarn を使用したインストールをサポートしています。</p>
-
+</blockquote>
+<blockquote>
 <p>注: package-lock.json や yarn.lock ファイルがプロジェクト内にある場合は、npm ci や yarn install を使用して依存関係がインストールされる際、そのロックファイルが優先されます。</p>
 </blockquote>
-
 <ul>
 <li><a href="https://firebase.google.com/docs/functions/handle-dependencies?hl=ja">依存関係の扱い  |  Firebase</a></li>
 </ul>
-
 <h2 id="nodejsのバージョンはなにを使うか">nodejsのバージョンはなにを使うか</h2>
-
 <p>engines という項目に設定を入れて指示する。</p>
-
-<pre><code class="language-bash">$ cat ./package.json | jq .engines
-{
-  &quot;node&quot;: &quot;14&quot;
-}
-</code></pre>
-
-<blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cat ./package.json | jq .engines
+<span style="color:#f92672">{</span>
+  <span style="color:#e6db74">&#34;node&#34;</span>: <span style="color:#e6db74">&#34;14&#34;</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><blockquote>
 <p>初期化時に functions/ ディレクトリに作成された package.json ファイルの engines フィールドにバージョンを設定します。</p>
 </blockquote>
-
 <ul>
 <li><a href="https://firebase.google.com/docs/functions/manage-functions?hl=ja#set_nodejs_version">関数のデプロイとランタイム オプションを管理する  |  Firebase</a></li>
 </ul>
-
 <h2 id="プロセスを起動するエントリーポイントがどこか">プロセスを起動するエントリーポイントがどこか</h2>
-
 <p>JavaScript で書かれたプロジェクトだと index.js を参照してくれるのはわかりやすいが、TypeScript で書いている場合などトランスパイルをはさむ必要があるときは、<code>package.json#main</code> にトランスパイル後のエントリポイントが置かれる場所を指示する。</p>
-
-<pre><code class="language-json">$ cat ./package.json | grep -C3 '&quot;main&quot;'
-  &quot;engines&quot;: {
-    &quot;node&quot;: &quot;14&quot;
-  },
-  &quot;main&quot;: &quot;dist/index.js&quot;,  &lt;&lt;&lt;
-  &quot;scripts&quot;: {
-    &quot;postinstall&quot;: &quot;prisma generate&quot;,
-    &quot;prebuild&quot;: &quot;rimraf dist&quot;,
-</code></pre>
-
-<blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#960050;background-color:#1e0010">$</span> <span style="color:#960050;background-color:#1e0010">cat</span> <span style="color:#960050;background-color:#1e0010">./package.json</span> <span style="color:#960050;background-color:#1e0010">|</span> <span style="color:#960050;background-color:#1e0010">grep</span> <span style="color:#960050;background-color:#1e0010">-C</span><span style="color:#ae81ff">3</span> <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#e6db74">&#34;main&#34;</span><span style="color:#960050;background-color:#1e0010">&#39;</span>
+  <span style="color:#e6db74">&#34;engines&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> {
+    <span style="color:#f92672">&#34;node&#34;</span>: <span style="color:#e6db74">&#34;14&#34;</span>
+  }<span style="color:#960050;background-color:#1e0010">,</span>
+  <span style="color:#e6db74">&#34;main&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#e6db74">&#34;dist/index.js&#34;</span><span style="color:#960050;background-color:#1e0010">,</span>  <span style="color:#960050;background-color:#1e0010">&lt;&lt;&lt;</span>
+  <span style="color:#e6db74">&#34;scripts&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> {
+    <span style="color:#f92672">&#34;postinstall&#34;</span>: <span style="color:#e6db74">&#34;prisma generate&#34;</span>,
+    <span style="color:#f92672">&#34;prebuild&#34;</span>: <span style="color:#e6db74">&#34;rimraf dist&#34;</span>,
+</code></pre></div><blockquote>
 <p>&ldquo;main&rdquo; を &ldquo;lib/index.js&rdquo; に設定します。</p>
 </blockquote>
-
 <ul>
 <li><a href="https://firebase.google.com/docs/functions/typescript?hl=ja#migrating_an_existing_javascript_project_to_typescript">Cloud Functions に TypeScript を使用する  |  Firebase</a></li>
 </ul>
-
-<h2 id="preinstall-postinstall">preinstall / postinstall</h2>
-
+<h2 id="preinstall--postinstall">preinstall / postinstall</h2>
 <p><code>npm ci</code> や <code>yarn install</code> を実行してくれるので、当然 npm-script の preinstall / postinstall も実行される。Firebaseのドキュメントにはわざわざ書かれていなかったが、prisma のデプロイサンプルにて公式が紹介してて知った。</p>
-
 <blockquote>
 <p>GCP allows deploying just the project and fetches the modules for the user. To generate the Prisma client, we use the npm postinstall hook.</p>
 </blockquote>
-
 <ul>
 <li><a href="https://github.com/prisma/e2e-tests/blob/5a0ac0b97ad30dd071c9e669d1a0f85074ec7d4a/platforms/gcp-functions/README.md">e2e-tests/README.md at 5a0ac0b97ad30dd071c9e669d1a0f85074ec7d4a · prisma/e2e-tests</a></li>
 </ul>

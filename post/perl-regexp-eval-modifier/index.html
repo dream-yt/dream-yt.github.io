@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.79.0" />
 		<title>perlの正規表現、e(eval)オプション &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,73 +83,49 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#注意点">注意点</a>
-<ul>
-<li>
-<ul>
-<li><a href="#eオプションで置換部分に色々処理を書こうとすると-syntax-error-になる">eオプションで置換部分に色々処理を書こうとすると、syntax error になる</a></li>
-<li><a href="#1-を使いたいときはちゃんと正規表現でキャプチャしておく"><code>$1</code> を使いたいときはちゃんと正規表現でキャプチャしておく</a></li>
-</ul></li>
-</ul></li>
-</ul></li>
-<li><a href="#参考">参考</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#注意点">注意点</a></li>
+      </ul>
+    </li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p>eオプションをつけるとマッチした箇所に好きな処理が書けて便利</p>
-
+                    <p>eオプションをつけるとマッチした箇所に好きな処理が書けて便利</p>
 <blockquote>
 <p>e  - evaluate the right-hand side as an expression</p>
 </blockquote>
-
 <p>たとえば以下はurlっぽい文字列をaタグに変換するサンプル</p>
-
-<pre><code class="language-perl">my $url2link = sub {
-    my $url = shift;
-    my $render_url = length $url &gt; 40 ? substr($url, 0, 40) . q(...) : $url;
-    qq(&lt;a target='_blank' href='$url'&gt;$render_url&lt;/a&gt;);
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl"><span style="color:#66d9ef">my</span> $url2link <span style="color:#f92672">=</span> <span style="color:#66d9ef">sub</span> {
+    <span style="color:#66d9ef">my</span> $url <span style="color:#f92672">=</span> shift;
+    <span style="color:#66d9ef">my</span> $render_url <span style="color:#f92672">=</span> length $url <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">40</span> ? substr($url, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">40</span>) <span style="color:#f92672">.</span> <span style="color:#e6db74">q(...)</span> : $url;
+    <span style="color:#e6db74">qq(&lt;a target=&#39;_blank&#39; href=&#39;$url&#39;&gt;$render_url&lt;/a&gt;)</span>;
 };
-$note =~ s/(https?:\/\/[a-zA-Z0-9.\-_\@:\/~?%&amp;;=+#',()*!]+)/$url2link-&gt;(&quot;$1&quot;)/eg;
-</code></pre>
-
-<p>サンプルについてるgオプションはglobal</p>
-
+$note <span style="color:#f92672">=~</span> <span style="color:#e6db74">s/(https?:\/\/[a-zA-Z0-9.\-_\@:\/~?%&amp;;=+#&#39;,()*!]+)/$url2link-&gt;(&#34;$1&#34;)/eg</span>;
+</code></pre></div><p>サンプルについてるgオプションはglobal</p>
 <blockquote>
 <p>g  - globally match the pattern repeatedly in the string</p>
 </blockquote>
-
 <h3 id="注意点">注意点</h3>
-
-<h5 id="eオプションで置換部分に色々処理を書こうとすると-syntax-error-になる">eオプションで置換部分に色々処理を書こうとすると、syntax error になる</h5>
-
+<h5 id="eオプションで置換部分に色々処理を書こうとするとsyntax-error-になる">eオプションで置換部分に色々処理を書こうとすると、syntax error になる</h5>
 <ul>
 <li>構文的に使えない文字があるかも?</li>
 <li>サンプルの処理は、置換部分に置くと構文エラーになるので <code>$url2link</code> を関数に切り出している</li>
 </ul>
-
 <h5 id="1-を使いたいときはちゃんと正規表現でキャプチャしておく"><code>$1</code> を使いたいときはちゃんと正規表現でキャプチャしておく</h5>
-
 <ul>
 <li><code>$&amp;</code> を使うとパフォーマンス上の問題になるので使わない
-
 <ul>
 <li><a href="http://perldoc.jp/variable/%24%26">Perlの組み込み変数 $&amp; の翻訳 - perldoc.jp</a></li>
-</ul></li>
 </ul>
-
+</li>
+</ul>
 <h2 id="参考">参考</h2>
-
 <ul>
 <li><a href="https://perldoc.perl.org/perlre.html">perlre - perldoc.perl.org</a></li>
 </ul>

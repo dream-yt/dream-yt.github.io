@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.79.0" />
 		<title>vscodeにペーストすると画像をgithubにあげてくれるvscode-extension-mardown-image-pasteが便利 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,52 +83,47 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#セットアップ">セットアップ</a></li>
-<li><a href="#使用">使用</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#セットアップ">セットアップ</a></li>
+    <li><a href="#使用">使用</a></li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p>GitHubのコメント欄に画像を貼り付けられるのと同じ操作感でvscode上から画像をアップロードできる</p>
-
+                    <p>GitHubのコメント欄に画像を貼り付けられるのと同じ操作感でvscode上から画像をアップロードできる</p>
 <p>とても便利</p>
-
 <ul>
 <li><a href="https://github.com/njleonzhang/vscode-extension-mardown-image-paste">njleonzhang/vscode-extension-mardown-image-paste: read the image from system clipborad, optimize the size, upload to CDN, and return you the CDN link.</a></li>
 </ul>
-
 <h2 id="セットアップ">セットアップ</h2>
-
 <ul>
 <li>extension(vscode-extension-mardown-image-paste)をvscodeに入れる</li>
 <li><code>$ npm install -g electron-image-ipc-server</code></li>
 <li><code>$ eiis</code>
-
 <ul>
 <li>このプロセスが動いてないとアップロードされない</li>
-</ul></li>
+</ul>
+</li>
 <li>設定
-
 <ul>
-<li>githubのアクセストークン</li>
+<li>githubのアクセストークン
+<ul>
 <li>こちらから <a href="https://github.com/settings/tokens">Personal Access Tokens</a></li>
-<li>TinyPNGのアクセストークン</li>
+</ul>
+</li>
+<li>TinyPNGのアクセストークン
+<ul>
 <li><a href="https://tinypng.com/developers">TinyPNG – Developer API</a></li>
+</ul>
+</li>
 <li>画像を配備するリポジトリをgithub上に作成</li>
 <li>githubAssetFolder, proxy は設定しないでも動作した</li>
-</ul></li>
 </ul>
-
+</li>
+</ul>
 <h2 id="使用">使用</h2>
-
 <ul>
 <li>マークダウン(.md)ファイル上で</li>
 <li>クリップボードに画像を入れておいて</li>

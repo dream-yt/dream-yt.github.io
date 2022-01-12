@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.79.0" />
 		<title>TypeScriptでパッケージ(JQueryDataTable)がexportしていない型を使う &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,49 +83,33 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#やりかた">やりかた</a></li>
-<li><a href="#参考">参考</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#やりかた">やりかた</a></li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p>jQueryDataTable を使っているのだが、公式の型定義はexportしている型があまりない。</p>
-
+                    <p>jQueryDataTable を使っているのだが、公式の型定義はexportしている型があまりない。</p>
 <ul>
 <li><a href="https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/datatables.net/index.d.ts">DefinitelyTyped/index.d.ts at master · DefinitelyTyped/DefinitelyTyped</a></li>
 </ul>
-
 <p>このパッケージはオプションでいろいろな設定ができるようになっているのだが、色々できるだけあって複雑で、そのオプションの引数の型を調べるのにドキュメントとにらめっこする羽目になっている。オプションの引数の型定義が得られればその手間もなくなって嬉しい。</p>
-
 <h2 id="やりかた">やりかた</h2>
-
 <p>このようにすると、オプションの引数の型定義を取り出すことができた。</p>
-
-<pre><code class="language-ts">import jQueryDataTable from &quot;datatables.net&quot;;
-type DataTableSettings = ConstructorParameters&lt;typeof jQueryDataTable&gt;[0]
-</code></pre>
-
-<p>わかりやすく分解するとこうなる。</p>
-
-<pre><code class="language-ts">import jQueryDataTable from &quot;datatables.net&quot;;
-// 値であるjQueryDataTableの型を取り出す
-type DataTableConstructor = typeof jQueryDataTable;
-// jQueryDataTableはコンストラクタなので、newに対する引数を取り出す
-type DataTableConstructorParameter = ConstructorParameters&lt;DataTableConstructor&gt;;
-// ConstructorParameters は引数の型を配列で返すので、コンストラクタの1つ目の引数取り出す
-type DataTableSettings = DataTableConstructorParameter[0]
-</code></pre>
-
-<h2 id="参考">参考</h2>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">jQueryDataTable</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#34;datatables.net&#34;</span>;
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">DataTableSettings</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">ConstructorParameters</span>&lt;<span style="color:#f92672">typeof</span> <span style="color:#a6e22e">jQueryDataTable</span>&gt;[<span style="color:#ae81ff">0</span>]
+</code></pre></div><p>わかりやすく分解するとこうなる。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">jQueryDataTable</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#34;datatables.net&#34;</span>;
+<span style="color:#75715e">// 値であるjQueryDataTableの型を取り出す
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">DataTableConstructor</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">typeof</span> <span style="color:#a6e22e">jQueryDataTable</span>;
+<span style="color:#75715e">// jQueryDataTableはコンストラクタなので、newに対する引数を取り出す
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">DataTableConstructorParameter</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">ConstructorParameters</span>&lt;<span style="color:#f92672">DataTableConstructor</span>&gt;;
+<span style="color:#75715e">// ConstructorParameters は引数の型を配列で返すので、コンストラクタの1つ目の引数取り出す
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">DataTableSettings</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">DataTableConstructorParameter</span>[<span style="color:#ae81ff">0</span>]
+</code></pre></div><h2 id="参考">参考</h2>
 <ul>
 <li><a href="https://github.com/Microsoft/TypeScript/blob/v3.3.1/lib/lib.es5.d.ts#L1476-L1479">TypeScript/lib.es5.d.ts at v3.3.1 · microsoft/TypeScript</a></li>
 <li><a href="https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/datatables.net/index.d.ts#L1220">DefinitelyTyped/datatables.net at master · DefinitelyTyped/DefinitelyTyped</a></li>

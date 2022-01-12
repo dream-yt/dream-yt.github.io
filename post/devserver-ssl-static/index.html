@@ -14,7 +14,7 @@
   
   
   <meta name="twitter:title" content="SSL越しにローカルの静的ファイルを閲覧したい (開発用)"/>
-  <meta name="twitter:description" content="SSLさせてくれるhttpサーバのコード こちらから拝借 simple-https-server.py import http.server import ssl server_address = (&#39;127.0.0.1&#39;, 443) httpd = http.server.HTTPServer(server_address, http.server.SimpleHTTPRequestHandler) httpd.socket = ssl.wrap_socket(httpd.socket, server_side=True, certfile=&quot;server.pem&quot;, keyfile=&quot;key.pem&quot;, ssl_version=ssl.PROTOCOL_TLS) httpd.serve_forever() 証明書を作ってserver start $ mkdir /tmp/$(pwgen) &amp;&amp; cd $_ $ pbpaste"/>
+  <meta name="twitter:description" content="SSLさせてくれるhttpサーバのコード こちらから拝借 simple-https-server.py import http.server import ssl server_address = (&#39;127.0.0.1&#39;, 443) httpd = http.server.HTTPServer(server_address, http.server.SimpleHTTPRequestHandler) httpd.socket = ssl.wrap_socket(httpd.socket, server_side=True, certfile=&#34;server.pem&#34;, keyfile=&#34;key.pem&#34;, ssl_version=ssl.PROTOCOL_TLS) httpd.serve_forever() 証明書を作ってserver start $ mkdir /tmp/$(pwgen) &amp;&amp; cd $_ $ pbpaste"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.79.0" />
 		<title>SSL越しにローカルの静的ファイルを閲覧したい (開発用) &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,72 +83,52 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#sslさせてくれるhttpサーバのコード">SSLさせてくれるhttpサーバのコード</a></li>
-<li><a href="#証明書を作ってserver-start">証明書を作ってserver start</a></li>
-<li><a href="#chromeで見る">Chromeで見る</a></li>
-</ul></li>
-<li><a href="#参考">参考</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#sslさせてくれるhttpサーバのコード">SSLさせてくれるhttpサーバのコード</a></li>
+        <li><a href="#証明書を作ってserver-start">証明書を作ってserver start</a></li>
+        <li><a href="#chromeで見る">Chromeで見る</a></li>
+      </ul>
+    </li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<h3 id="sslさせてくれるhttpサーバのコード">SSLさせてくれるhttpサーバのコード</h3>
-
+                    <h3 id="sslさせてくれるhttpサーバのコード">SSLさせてくれるhttpサーバのコード</h3>
 <p>こちらから拝借</p>
-
 <ul>
 <li><a href="https://gist.github.com/DannyHinshaw/a3ac5991d66a2fe6d97a569c6cdac534">simple-https-server.py</a></li>
 </ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> http.server
+<span style="color:#f92672">import</span> ssl
 
-<pre><code class="language-python">import http.server
-import ssl
-
-server_address = ('127.0.0.1', 443)
-httpd = http.server.HTTPServer(server_address, http.server.SimpleHTTPRequestHandler)
-httpd.socket = ssl.wrap_socket(httpd.socket,
-                               server_side=True,
-                               certfile=&quot;server.pem&quot;,
-                               keyfile=&quot;key.pem&quot;,
-                               ssl_version=ssl.PROTOCOL_TLS)
-httpd.serve_forever()
-</code></pre>
-
-<h3 id="証明書を作ってserver-start">証明書を作ってserver start</h3>
-
-<pre><code class="language-bash">$ mkdir /tmp/$(pwgen) &amp;&amp; cd $_
+server_address <span style="color:#f92672">=</span> (<span style="color:#e6db74">&#39;127.0.0.1&#39;</span>, <span style="color:#ae81ff">443</span>)
+httpd <span style="color:#f92672">=</span> http<span style="color:#f92672">.</span>server<span style="color:#f92672">.</span>HTTPServer(server_address, http<span style="color:#f92672">.</span>server<span style="color:#f92672">.</span>SimpleHTTPRequestHandler)
+httpd<span style="color:#f92672">.</span>socket <span style="color:#f92672">=</span> ssl<span style="color:#f92672">.</span>wrap_socket(httpd<span style="color:#f92672">.</span>socket,
+                               server_side<span style="color:#f92672">=</span>True,
+                               certfile<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;server.pem&#34;</span>,
+                               keyfile<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;key.pem&#34;</span>,
+                               ssl_version<span style="color:#f92672">=</span>ssl<span style="color:#f92672">.</span>PROTOCOL_TLS)
+httpd<span style="color:#f92672">.</span>serve_forever()
+</code></pre></div><h3 id="証明書を作ってserver-start">証明書を作ってserver start</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ mkdir /tmp/<span style="color:#66d9ef">$(</span>pwgen<span style="color:#66d9ef">)</span> <span style="color:#f92672">&amp;&amp;</span> cd $_
 $ pbpaste &gt; test.html
-$ openssl req -new -x509 -keyout key.pem -out server.pem -days 365 -nodes
-# 質問には全部.(blank)で答えて良い
+$ openssl req -new -x509 -keyout key.pem -out server.pem -days <span style="color:#ae81ff">365</span> -nodes
+<span style="color:#75715e"># 質問には全部.(blank)で答えて良い</span>
 $ sudo python3 https.py
-# SSL越しにみたいファイルを/tmp/$(pwgen)に入れる
-</code></pre>
-
-<h3 id="chromeで見る">Chromeで見る</h3>
-
+<span style="color:#75715e"># SSL越しにみたいファイルを/tmp/$(pwgen)に入れる</span>
+</code></pre></div><h3 id="chromeで見る">Chromeで見る</h3>
 <p>/etc/hosts をよしなに書き換えてから</p>
-
 <pre><code>127.0.0.1 example.com
-</code></pre>
-
-<p>警告を無視するオプションをつけて閲覧</p>
-
-<pre><code class="language-bash">$ /Applications/Google\ Chrome\ Canary.app/Contents/MacOS/Google\ Chrome\ Canary \
-  --ignore-certificate-errors \
-  https://example.com/test.html
-</code></pre>
-
-<h2 id="参考">参考</h2>
-
+</code></pre><p>警告を無視するオプションをつけて閲覧</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ /Applications/Google<span style="color:#ae81ff">\ </span>Chrome<span style="color:#ae81ff">\ </span>Canary.app/Contents/MacOS/Google<span style="color:#ae81ff">\ </span>Chrome<span style="color:#ae81ff">\ </span>Canary <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  --ignore-certificate-errors <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  https://example.com/test.html
+</code></pre></div><h2 id="参考">参考</h2>
 <ul>
 <li><a href="https://gist.github.com/DannyHinshaw/a3ac5991d66a2fe6d97a569c6cdac534">simple-https-server.py</a></li>
 <li><a href="https://www.technipages.com/google-chrome-bypass-your-connection-is-not-private-message">Google Chrome: Bypass “Your connection is not private” Message</a></li>

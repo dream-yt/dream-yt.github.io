@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.79.0" />
 		<title>perlでサブルーチンにモンキーパッチをあてる &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -81,19 +81,20 @@
                 </header>
                 
                   
+                    <div id="toc">
+                      <nav id="TableOfContents"></nav>
+                    </div>
+                  
                 
                 <section id="post-body">
                     <p>ライブラリ内部の挙動を一時的に変更したい時、以下のように書いてメソッドを上書きすることができる。</p>
-
-<pre><code class="language-perl">sub f {
-    # 警告の抑制
-    no warnings 'redefine';
-    # Foo::Bar クラスの roo メソッドを書き換え
-    local *Foo::Bar::roo = sub { my $self = shift; ... }
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl"><span style="color:#66d9ef">sub</span> <span style="color:#a6e22e">f</span> {
+    <span style="color:#75715e"># 警告の抑制</span>
+    <span style="color:#66d9ef">no</span> warnings <span style="color:#e6db74">&#39;redefine&#39;</span>;
+    <span style="color:#75715e"># Foo::Bar クラスの roo メソッドを書き換え</span>
+    local <span style="color:#f92672">*</span>Foo::Bar::roo <span style="color:#f92672">=</span> <span style="color:#66d9ef">sub</span> { <span style="color:#66d9ef">my</span> $self <span style="color:#f92672">=</span> shift; <span style="color:#f92672">...</span> }
 }
-</code></pre>
-
-<p>あまり褒められたやりかたでないのでデバッグ中などあくまで一時的な対処で使う。</p>
+</code></pre></div><p>あまり褒められたやりかたでないのでデバッグ中などあくまで一時的な対処で使う。</p>
 
                 </section>
             </article>

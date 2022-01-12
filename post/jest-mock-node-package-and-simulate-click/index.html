@@ -14,7 +14,7 @@
   
   
   <meta name="twitter:title" content="jest でパッケージをモックしながら react-test-utils でクリックイベントをテストする"/>
-  <meta name="twitter:description" content="こんな実装になった。 import React from &quot;react&quot;; import ReactDOM from &quot;react-dom&quot;; import { act, Simulate } from &quot;react-dom/test-utils&quot;; import { Button } from &quot;./Button&quot;; const fn = jest.fn(); jest.mock(&quot;mocked-packagejs&quot;, () =&gt; (...args: any) =&gt; { fn(...args); }); test(&quot;basic&quot;, async () =&gt; { const container = document.createElement(&quot;div&quot;); document.body.appendChild(container); act(() =&gt; ReactDOM.render(&lt;Button /&gt;, container)); const button = container.querySelector(&quot;button&quot;)!; await act(async () =&gt; Simulate.click(button)); const args"/>
+  <meta name="twitter:description" content="こんな実装になった。 import React from &#34;react&#34;; import ReactDOM from &#34;react-dom&#34;; import { act, Simulate } from &#34;react-dom/test-utils&#34;; import { Button } from &#34;./Button&#34;; const fn = jest.fn(); jest.mock(&#34;mocked-packagejs&#34;, () =&gt; (...args: any) =&gt; { fn(...args); }); test(&#34;basic&#34;, async () =&gt; { const container = document.createElement(&#34;div&#34;); document.body.appendChild(container); act(() =&gt; ReactDOM.render(&lt;Button /&gt;, container)); const button = container.querySelector(&#34;button&#34;)!; await act(async () =&gt; Simulate.click(button)); const args"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.79.0" />
 		<title>jest でパッケージをモックしながら react-test-utils でクリックイベントをテストする &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,78 +83,57 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#jest-mock">jest.mock</a></li>
-<li><a href="#simulate-click">Simulate.click</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#jestmock">jest.mock</a></li>
+    <li><a href="#simulateclick">Simulate.click</a></li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
+                    <p>こんな実装になった。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">React</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#34;react&#34;</span>;
+<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">ReactDOM</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#34;react-dom&#34;</span>;
+<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">act</span>, <span style="color:#a6e22e">Simulate</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#34;react-dom/test-utils&#34;</span>;
+<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Button</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#34;./Button&#34;</span>;
 
-<p>こんな実装になった。</p>
-
-<pre><code class="language-ts">import React from &quot;react&quot;;
-import ReactDOM from &quot;react-dom&quot;;
-import { act, Simulate } from &quot;react-dom/test-utils&quot;;
-import { Button } from &quot;./Button&quot;;
-
-const fn = jest.fn();
-jest.mock(&quot;mocked-packagejs&quot;, () =&gt; (...args: any) =&gt; {
-  fn(...args);
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">fn</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">jest</span>.<span style="color:#a6e22e">fn</span>();
+<span style="color:#a6e22e">jest</span>.<span style="color:#a6e22e">mock</span>(<span style="color:#e6db74">&#34;mocked-packagejs&#34;</span>, () <span style="color:#f92672">=&gt;</span> (...<span style="color:#a6e22e">args</span>: <span style="color:#66d9ef">any</span>) <span style="color:#f92672">=&gt;</span> {
+  <span style="color:#a6e22e">fn</span>(...<span style="color:#a6e22e">args</span>);
 });
 
-test(&quot;basic&quot;, async () =&gt; {
-  const container = document.createElement(&quot;div&quot;);
-  document.body.appendChild(container);
-  act(() =&gt; ReactDOM.render(&lt;Button /&gt;, container));
-  const button = container.querySelector(&quot;button&quot;)!;
-  await act(async () =&gt; Simulate.click(button));
-  const args = fn.mock.calls[0];
-  expect(!args).toBe(true);
+<span style="color:#a6e22e">test</span>(<span style="color:#e6db74">&#34;basic&#34;</span>, <span style="color:#66d9ef">async</span> () <span style="color:#f92672">=&gt;</span> {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">container</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">createElement</span>(<span style="color:#e6db74">&#34;div&#34;</span>);
+  document.<span style="color:#a6e22e">body</span>.<span style="color:#a6e22e">appendChild</span>(<span style="color:#a6e22e">container</span>);
+  <span style="color:#a6e22e">act</span>(() <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">ReactDOM</span>.<span style="color:#a6e22e">render</span>(&lt;<span style="color:#f92672">Button</span> /&gt;, <span style="color:#a6e22e">container</span>));
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">button</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">container</span>.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">&#34;button&#34;</span>)<span style="color:#f92672">!</span>;
+  <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">act</span>(<span style="color:#66d9ef">async</span> () <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">Simulate</span>.<span style="color:#a6e22e">click</span>(<span style="color:#a6e22e">button</span>));
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">args</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">fn</span>.<span style="color:#a6e22e">mock</span>.<span style="color:#a6e22e">calls</span>[<span style="color:#ae81ff">0</span>];
+  <span style="color:#a6e22e">expect</span>(<span style="color:#f92672">!</span><span style="color:#a6e22e">args</span>).<span style="color:#a6e22e">toBe</span>(<span style="color:#66d9ef">true</span>);
 });
-</code></pre>
-
-<h2 id="jest-mock">jest.mock</h2>
-
+</code></pre></div><h2 id="jestmock">jest.mock</h2>
 <p>jest.mock は import などと同じ scope に置かなくてはならない。</p>
-
-<pre><code class="language-ts">jest.mock(&quot;mocked-packagejs&quot;, () =&gt; (...args: any) =&gt; {
-  fn(...args);
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#a6e22e">jest</span>.<span style="color:#a6e22e">mock</span>(<span style="color:#e6db74">&#34;mocked-packagejs&#34;</span>, () <span style="color:#f92672">=&gt;</span> (...<span style="color:#a6e22e">args</span>: <span style="color:#66d9ef">any</span>) <span style="color:#f92672">=&gt;</span> {
+  <span style="color:#a6e22e">fn</span>(...<span style="color:#a6e22e">args</span>);
 });
-</code></pre>
-
-<blockquote>
+</code></pre></div><blockquote>
 <p>Note: In order to mock properly, Jest needs jest.mock(&lsquo;moduleName&rsquo;) to be in the same scope as the require/import statement.</p>
 </blockquote>
-
 <ul>
 <li><a href="https://jestjs.io/docs/manual-mocks#mocking-user-modules">Manual Mocks · Jest</a></li>
 </ul>
-
 <p>この制約があって <code>mocked-packagejs</code> が返す値をテストにて変更しながらテストを回すことができなかった。やろうとするとなんらかのオブジェクトにラップして <code>mockFn.mockReturnValue</code> とかでやる必要があるのだろう。</p>
-
-<h2 id="simulate-click">Simulate.click</h2>
-
+<h2 id="simulateclick">Simulate.click</h2>
 <p>Clickイベントなので当然のことながら処理が非同期になる。
 await してあげないと処理がタスクキューにのってるうちにテストのassertが呼ばれてしまう。</p>
-
 <p>ただし、単純に await をつけるだけだと以下の warn がでる。</p>
-
 <blockquote>
 <p>Warning: Do not await the result of calling act(&hellip;) with sync logic, it is not a Promise.</p>
 </blockquote>
-
 <p>なので async もつけておく。</p>
-
-<pre><code class="language-ts">await act(async () =&gt; Simulate.click(button));
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">await</span> <span style="color:#a6e22e">act</span>(<span style="color:#66d9ef">async</span> () <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">Simulate</span>.<span style="color:#a6e22e">click</span>(<span style="color:#a6e22e">button</span>));
+</code></pre></div>
                 </section>
             </article>
 

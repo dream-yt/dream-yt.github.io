@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.79.0" />
 		<title>perlでモジュール検索パスの追加に `FindBin` を使う &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,108 +83,75 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#まず-findbin-とは">まず <code>FindBin</code> とは</a></li>
-</ul></li>
-<li><a href="#findbin-libs-とは">FindBin::libs とは</a></li>
-<li><a href="#動作">動作</a>
-<ul>
-<li><a href="#まず使わない場合">まず使わない場合</a></li>
-<li><a href="#まず使った場合">まず使った場合</a></li>
-</ul></li>
-<li><a href="#その他">その他</a></li>
-</ul></li>
-<li><a href="#参考">参考</a></li>
-</ul>
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#まず-findbin-とは">まず <code>FindBin</code> とは</a></li>
+      </ul>
+    </li>
+    <li><a href="#findbinlibs-とは">FindBin::libs とは</a></li>
+    <li><a href="#動作">動作</a>
+      <ul>
+        <li><a href="#まず使わない場合">まず使わない場合</a></li>
+        <li><a href="#まず使った場合">まず使った場合</a></li>
+      </ul>
+    </li>
+    <li><a href="#その他">その他</a></li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<h3 id="まず-findbin-とは">まず <code>FindBin</code> とは</h3>
-
+                    <h3 id="まず-findbin-とは">まず <code>FindBin</code> とは</h3>
 <ul>
 <li><code>FindBin</code> を use したスクリプトのディレクトリ名(絶対パス)を取得してくれる</li>
 <li>「実行しているスクリプトの所在がわかる」とも言える</li>
 </ul>
-
 <p><code>FindBin</code> で取得したパスを使って、モジュール読み込みパスにlib配下を追加する</p>
-
-<pre><code class="language-perl">use FindBin;
-use lib &quot;$FindBin::Bin/lib&quot;;
-</code></pre>
-
-<h2 id="findbin-libs-とは">FindBin::libs とは</h2>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl"><span style="color:#66d9ef">use</span> FindBin;
+<span style="color:#66d9ef">use</span> lib <span style="color:#e6db74">&#34;$FindBin::Bin/lib&#34;</span>;
+</code></pre></div><h2 id="findbinlibs-とは">FindBin::libs とは</h2>
 <blockquote>
 <p>FindBin::libs - locate and a &lsquo;use lib&rsquo; or export directories based on $FindBin::Bin.</p>
 </blockquote>
-
 <p>↑で示した読み込みパスへの <code>lib</code> ディレクトリの追加ごとやってくれるパッケージ。
 探してくれるディレクトリ名はオプションで指定することができるが、デフォルトは <code>lib</code> となっている。</p>
-
-<pre><code class="language-perl"># same as above with explicit defaults.
-use FindBin::libs qw( base=lib use=1 noexport noprint );
-</code></pre>
-
-<h2 id="動作">動作</h2>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl"><span style="color:#75715e"># same as above with explicit defaults.</span>
+<span style="color:#66d9ef">use</span> FindBin::libs <span style="color:#e6db74">qw( base=lib use=1 noexport noprint )</span>;
+</code></pre></div><h2 id="動作">動作</h2>
 <p><code>FindBin::libs</code> を使うと <code>@INC</code> がどのように変わるかを確認する</p>
-
 <h3 id="まず使わない場合">まず使わない場合</h3>
-
-<pre><code class="language-perl">#!/usr/bin/env perl
-print join(&quot;\n&quot;, @INC);
-</code></pre>
-
-<pre><code class="language-console">/usr/local/lib/perl5/site_perl/5.32.1/x86_64-linux-gnu
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl"><span style="color:#75715e">#!/usr/bin/env perl</span>
+<span style="color:#66d9ef">print</span> join(<span style="color:#e6db74">&#34;\n&#34;</span>, @INC);
+</code></pre></div><pre><code class="language-console" data-lang="console">/usr/local/lib/perl5/site_perl/5.32.1/x86_64-linux-gnu
 /usr/local/lib/perl5/site_perl/5.32.1
 /usr/local/lib/perl5/vendor_perl/5.32.1/x86_64-linux-gnu
 /usr/local/lib/perl5/vendor_perl/5.32.1
 /usr/local/lib/perl5/5.32.1/x86_64-linux-gnu
 /usr/local/lib/perl5/5.32.1
-</code></pre>
-
-<h3 id="まず使った場合">まず使った場合</h3>
-
+</code></pre><h3 id="まず使った場合">まず使った場合</h3>
 <p><code>/proj/app/tools/_.pl</code> を実行した場合</p>
-
-<pre><code class="language-perl">#!/usr/bin/env perl
-use FindBin::libs;
-print join(&quot;\n&quot;, @INC);
-</code></pre>
-
-<pre><code class="language-console">/proj/app/lib
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl"><span style="color:#75715e">#!/usr/bin/env perl</span>
+<span style="color:#66d9ef">use</span> FindBin::libs;
+<span style="color:#66d9ef">print</span> join(<span style="color:#e6db74">&#34;\n&#34;</span>, @INC);
+</code></pre></div><pre><code class="language-console" data-lang="console">/proj/app/lib
 /usr/local/lib/perl5/site_perl/5.32.1/x86_64-linux-gnu
 /usr/local/lib/perl5/site_perl/5.32.1
 /usr/local/lib/perl5/vendor_perl/5.32.1/x86_64-linux-gnu
 /usr/local/lib/perl5/vendor_perl/5.32.1
 /usr/local/lib/perl5/5.32.1/x86_64-linux-gnu
 /usr/local/lib/perl5/5.32.1
-</code></pre>
-
-<p><code>/proj/app/lib</code> というパスが <code>@INC</code> に追加されているのがわかる。</p>
-
+</code></pre><p><code>/proj/app/lib</code> というパスが <code>@INC</code> に追加されているのがわかる。</p>
 <h2 id="その他">その他</h2>
-
 <p>モジュールの検索パスを <code>@INC</code> に追加する方法は以下の3つがある</p>
-
 <ul>
 <li>コード上で <code>@INC</code> を操作する</li>
 <li>perlの起動オプション <code>-I</code></li>
 <li>環境変数 <code>PERL5LIB</code></li>
 </ul>
-
 <p>意図しないパスが <code>@INC</code> に追加されている場合は環境変数 <code>PERL5LIB</code> が使われてるかもしれない。</p>
-
 <h1 id="参考">参考</h1>
-
 <ul>
 <li><a href="https://perl-users.jp/articles/advent-calendar/2010/casual/18">@INC にみる Perl のやりかたがいっぱい - Articles Advent Calendar 2010 Casual</a></li>
 <li><a href="https://metacpan.org/pod/release/LEMBARK/FindBin-libs-1.8/lib/FindBin/libs_curr.pm">FindBin::libs - locate and a &lsquo;use lib&rsquo; or export directories based on $FindBin::Bin. - metacpan.org</a></li>

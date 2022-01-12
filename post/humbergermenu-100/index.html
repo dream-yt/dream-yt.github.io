@@ -14,7 +14,7 @@
   
   
   <meta name="twitter:title" content="tailwindでハンバーガーメニューをつくる"/>
-  <meta name="twitter:description" content="途中までやったところのメモ 初めてでもわかるTailwindcss入門(2)ナビゲーションバー | アールエフェクト const Nav = () =&gt; ( &lt;header className=&quot;container mx-auto text-black&quot;&gt; &lt;nav className=&quot;flex justify-between items-center&quot;&gt; &lt;div"/>
+  <meta name="twitter:description" content="途中までやったところのメモ 初めてでもわかるTailwindcss入門(2)ナビゲーションバー | アールエフェクト const Nav = () =&gt; ( &lt;header className=&#34;container mx-auto text-black&#34;&gt; &lt;nav className=&#34;flex justify-between items-center&#34;&gt; &lt;div"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.79.0" />
 		<title>tailwindでハンバーガーメニューをつくる &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,159 +83,126 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#nav-items-center">nav. items-center</a></li>
-<li><a href="#nav-flex-justify-between">nav. flex justify-between</a></li>
-<li><a href="#li-hover-bg-gray-100-rounded">li. hover:bg-gray-100 rounded</a></li>
-<li><a href="#li-border-b">li. border-b</a></li>
-<li><a href="#ul-md-flex-md-justify-end">ul. md:flex md:justify-end</a></li>
-<li><a href="#button-md-hidden">button. md:hidden</a></li>
-<li><a href="#span-md-px-2-md-text-sm">span. md:px-2 md:text-sm</a></li>
-<li><a href="#md-block-hidden">md:block hidden</a></li>
-</ul></li>
-</ul></li>
-<li><a href="#残りtodo">残りTODO</a></li>
-</ul>
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#nav-items-center">nav. items-center</a></li>
+        <li><a href="#nav-flex-justify-between">nav. flex justify-between</a></li>
+        <li><a href="#li-hoverbg-gray-100-rounded">li. hover:bg-gray-100 rounded</a></li>
+        <li><a href="#li-border-b">li. border-b</a></li>
+        <li><a href="#ul-mdflex-mdjustify-end">ul. md:flex md:justify-end</a></li>
+        <li><a href="#button-mdhidden">button. md:hidden</a></li>
+        <li><a href="#span-mdpx-2-mdtext-sm">span. md:px-2 md:text-sm</a></li>
+        <li><a href="#mdblock-hidden">md:block hidden</a></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p>途中までやったところのメモ</p>
-
+                    <p>途中までやったところのメモ</p>
 <ul>
 <li><a href="https://reffect.co.jp/html/tailwind-for-beginners-navigation-menu">初めてでもわかるTailwindcss入門(2)ナビゲーションバー | アールエフェクト</a></li>
 </ul>
-
-<pre><code class="language-jsx">const Nav = () =&gt; (
-  &lt;header className=&quot;container mx-auto text-black&quot;&gt;
-    &lt;nav className=&quot;flex justify-between items-center&quot;&gt;
-      &lt;div className=&quot;p-3&quot;&gt;
-        &lt;Link href=&quot;/&quot;&gt;
-          &lt;img src=&quot;/image/logo.png&quot; width=&quot;250&quot; height=&quot;30&quot; /&gt;
-        &lt;/Link&gt;
-      &lt;/div&gt;
-      &lt;div&gt;
-        &lt;button className=&quot;md:hidden&quot;&gt;
-          &lt;svg className=&quot;h-6 w-6 fill-current&quot; viewBox=&quot;0 0 24 24&quot;&gt;
-            &lt;path d=&quot;M24 6h-24v-4h24v4zm0 4h-24v4h24v-4zm0 8h-24v4h24v-4z&quot; /&gt;
-          &lt;/svg&gt;
-        &lt;/button&gt;
-      &lt;/div&gt;
-      &lt;div className=&quot;md:block hidden&quot;&gt;
-        &lt;Links /&gt;
-      &lt;/div&gt;
-    &lt;/nav&gt;
-    &lt;div className=&quot;md:hidden&quot;&gt;
-      &lt;Links /&gt;
-    &lt;/div&gt;
-  &lt;/header&gt;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Nav</span> <span style="color:#f92672">=</span> () =&gt; (
+  &lt;<span style="color:#f92672">header</span> <span style="color:#a6e22e">className</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;container mx-auto text-black&#34;</span>&gt;
+    &lt;<span style="color:#f92672">nav</span> <span style="color:#a6e22e">className</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;flex justify-between items-center&#34;</span>&gt;
+      &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">className</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;p-3&#34;</span>&gt;
+        &lt;<span style="color:#f92672">Link</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/&#34;</span>&gt;
+          &lt;<span style="color:#f92672">img</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/image/logo.png&#34;</span> <span style="color:#a6e22e">width</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;250&#34;</span> <span style="color:#a6e22e">height</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;30&#34;</span> /&gt;
+        &lt;/<span style="color:#f92672">Link</span>&gt;
+      &lt;/<span style="color:#f92672">div</span>&gt;
+      &lt;<span style="color:#f92672">div</span>&gt;
+        &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">className</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;md:hidden&#34;</span>&gt;
+          &lt;<span style="color:#f92672">svg</span> <span style="color:#a6e22e">className</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;h-6 w-6 fill-current&#34;</span> <span style="color:#a6e22e">viewBox</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;0 0 24 24&#34;</span>&gt;
+            &lt;<span style="color:#f92672">path</span> <span style="color:#a6e22e">d</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;M24 6h-24v-4h24v4zm0 4h-24v4h24v-4zm0 8h-24v4h24v-4z&#34;</span> /&gt;
+          &lt;/<span style="color:#f92672">svg</span>&gt;
+        &lt;/<span style="color:#f92672">button</span>&gt;
+      &lt;/<span style="color:#f92672">div</span>&gt;
+      &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">className</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;md:block hidden&#34;</span>&gt;
+        &lt;<span style="color:#f92672">Links</span> /&gt;
+      &lt;/<span style="color:#f92672">div</span>&gt;
+    &lt;/<span style="color:#f92672">nav</span>&gt;
+    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">className</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;md:hidden&#34;</span>&gt;
+      &lt;<span style="color:#f92672">Links</span> /&gt;
+    &lt;/<span style="color:#f92672">div</span>&gt;
+  &lt;/<span style="color:#f92672">header</span>&gt;
 )
 
-const Links = () =&gt; (
-  &lt;ul className=&quot;md:flex md:justify-end&quot;&gt;
-    &lt;MenuItem url=&quot;/foo&quot;&gt;FOO&lt;/MenuItem&gt;
-    &lt;MenuItem url=&quot;/bar&quot;&gt;BAR&lt;/MenuItem&gt;
-    &lt;MenuItem url=&quot;/baz&quot;&gt;BAZ&lt;/MenuItem&gt;
-  &lt;/ul&gt;  
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Links</span> <span style="color:#f92672">=</span> () =&gt; (
+  &lt;<span style="color:#f92672">ul</span> <span style="color:#a6e22e">className</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;md:flex md:justify-end&#34;</span>&gt;
+    &lt;<span style="color:#f92672">MenuItem</span> <span style="color:#a6e22e">url</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/foo&#34;</span>&gt;<span style="color:#a6e22e">FOO</span>&lt;/<span style="color:#f92672">MenuItem</span>&gt;
+    &lt;<span style="color:#f92672">MenuItem</span> <span style="color:#a6e22e">url</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/bar&#34;</span>&gt;<span style="color:#a6e22e">BAR</span>&lt;/<span style="color:#f92672">MenuItem</span>&gt;
+    &lt;<span style="color:#f92672">MenuItem</span> <span style="color:#a6e22e">url</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/baz&#34;</span>&gt;<span style="color:#a6e22e">BAZ</span>&lt;/<span style="color:#f92672">MenuItem</span>&gt;
+  &lt;/<span style="color:#f92672">ul</span>&gt;  
 )
-const MenuItem = ({ url, children, isLast }) =&gt; (
-  &lt;li className={isLast ? &quot;&quot; : &quot;border-b&quot;}&gt;
-    &lt;span className=&quot;block px-8 py-2 my-2 hover:bg-gray-100 rounded md:px-2 md:text-xs&quot;&gt;
-      &lt;Link href={url}&gt;{children}&lt;/Link&gt;
-    &lt;/span&gt;
-  &lt;/li&gt;
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">MenuItem</span> <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">url</span>, <span style="color:#a6e22e">children</span>, <span style="color:#a6e22e">isLast</span> }) =&gt; (
+  &lt;<span style="color:#f92672">li</span> <span style="color:#a6e22e">className</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">isLast</span> <span style="color:#f92672">?</span> <span style="color:#e6db74">&#34;&#34;</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;border-b&#34;</span>}&gt;
+    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">className</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;block px-8 py-2 my-2 hover:bg-gray-100 rounded md:px-2 md:text-xs&#34;</span>&gt;
+      &lt;<span style="color:#f92672">Link</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">url</span>}&gt;{<span style="color:#a6e22e">children</span>}&lt;/<span style="color:#f92672">Link</span>&gt;
+    &lt;/<span style="color:#f92672">span</span>&gt;
+  &lt;/<span style="color:#f92672">li</span>&gt;
 );
-</code></pre>
-
-<h3 id="nav-items-center">nav. items-center</h3>
-
+</code></pre></div><h3 id="nav-items-center">nav. items-center</h3>
 <blockquote>
 <p>items-center(align-items:center;)で揃えることができます。</p>
 </blockquote>
-
 <p><code>items-center</code> はフォントの高さを揃えるために入っている</p>
-
 <h3 id="nav-flex-justify-between">nav. flex justify-between</h3>
-
 <p><code>flex justify-between</code> によって、<code>nav</code> タグの中身が縦でなく横に並ぶようになる。
 <code>justify-between</code> は端から端の範囲で要素が等間隔で並ぶ指定。</p>
-
 <blockquote>
 <p>Use justify-between to justify items along the container&rsquo;s main axis such that there is an equal amount of space between each item:</p>
 </blockquote>
-
 <ul>
 <li><a href="https://tailwindcss.com/docs/justify-content#space-between">Justify Content - Tailwind CSS</a></li>
 </ul>
-
-<h3 id="li-hover-bg-gray-100-rounded">li. hover:bg-gray-100 rounded</h3>
-
+<h3 id="li-hoverbg-gray-100-rounded">li. hover:bg-gray-100 rounded</h3>
 <ul>
 <li>リンクがホバーで色がつくように</li>
 <li>どうせなら角丸で色がつくように</li>
 </ul>
-
 <h3 id="li-border-b">li. border-b</h3>
-
 <ul>
 <li>区切り線のために下線をひく</li>
 <li>margin/paddingの外につけたいのでspanでなくliに</li>
 </ul>
-
-<h3 id="ul-md-flex-md-justify-end">ul. md:flex md:justify-end</h3>
-
+<h3 id="ul-mdflex-mdjustify-end">ul. md:flex md:justify-end</h3>
 <ul>
 <li>iPad以上の大きさの画面(PC画面)でリンクアイテムを横並びに</li>
 <li>リンクアイテムは右に寄せたいのでjustify-end</li>
 </ul>
-
-<h3 id="button-md-hidden">button. md:hidden</h3>
-
+<h3 id="button-mdhidden">button. md:hidden</h3>
 <p>ハンバーガーを非表示に。</p>
-
-<h3 id="span-md-px-2-md-text-sm">span. md:px-2 md:text-sm</h3>
-
+<h3 id="span-mdpx-2-mdtext-sm">span. md:px-2 md:text-sm</h3>
 <p>リンクアイテムの余白と文字サイズを調整</p>
-
-<h3 id="md-block-hidden">md:block hidden</h3>
-
+<h3 id="mdblock-hidden">md:block hidden</h3>
 <p>この部分</p>
-
-<pre><code class="language-jsx">    &lt;nav&gt;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx">    &lt;<span style="color:#f92672">nav</span>&gt;
       ...
-      &lt;div className=&quot;md:block hidden&quot;&gt;
-        &lt;Links /&gt;
-      &lt;/div&gt;
-    &lt;/nav&gt;
-    &lt;div className=&quot;md:hidden&quot;&gt;
-      &lt;Links /&gt;
-    &lt;/div&gt;
-</code></pre>
-
-<p>tailwindcssではメディアクエリの指定は <strong>この画面サイズより小さいとき</strong> という指定になる。</p>
-
+      &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">className</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;md:block hidden&#34;</span>&gt;
+        &lt;<span style="color:#f92672">Links</span> /&gt;
+      &lt;/<span style="color:#f92672">div</span>&gt;
+    &lt;/<span style="color:#f92672">nav</span>&gt;
+    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">className</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;md:hidden&#34;</span>&gt;
+      &lt;<span style="color:#f92672">Links</span> /&gt;
+    &lt;/<span style="color:#f92672">div</span>&gt;
+</code></pre></div><p>tailwindcssではメディアクエリの指定は <strong>この画面サイズより小さいとき</strong> という指定になる。</p>
 <ul>
 <li>上のdomはmd(iPadの)より大きい画面サイズで <code>display: block</code>
-
 <ul>
 <li>それより小さいサイズでは <code>display:none (hidden)</code></li>
-</ul></li>
+</ul>
+</li>
 <li>md(iPadの)より大きい画面サイズで <code>display: hidden</code>
-
 <ul>
 <li>それより小さいサイズではそのまま表示されている</li>
-</ul></li>
 </ul>
-
+</li>
+</ul>
 <h1 id="残りtodo">残りTODO</h1>
-
 <ul>
 <li>PC画面のときだけリンクアイテムをロゴと同じ高さにしたい</li>
 <li>ハンバーガーメニューの開閉</li>

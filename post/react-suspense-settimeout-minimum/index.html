@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.79.0" />
 		<title>React.SuspenseとsetTimeoutで最小限の非同期コンポーネントをつくる &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,59 +83,50 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#参考">参考</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#参考">参考</a></li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
+                    <p>こんなコードで1秒後に <code>helloworld</code> と表示できるコンポーネントが作れる</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#75715e">// 「1秒以内はPromiseがthrowされて、1秒後にはundefinedが返ってくる関数」を返す関数
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">delay</span> <span style="color:#f92672">=</span> () <span style="color:#f92672">=&gt;</span> {
+  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">isTimeout</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
+  <span style="color:#75715e">// 1秒後にisTimeoutがTrueになる
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">promise</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Promise</span>(<span style="color:#a6e22e">resolve</span> <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">setTimeout</span>(() <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">resolve</span>(), <span style="color:#ae81ff">1000</span>));
+  <span style="color:#a6e22e">promise</span>.<span style="color:#a6e22e">then</span>(() <span style="color:#f92672">=&gt;</span> (<span style="color:#a6e22e">isTimeout</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>));
 
-<p>こんなコードで1秒後に <code>helloworld</code> と表示できるコンポーネントが作れる</p>
-
-<pre><code class="language-ts">// 「1秒以内はPromiseがthrowされて、1秒後にはundefinedが返ってくる関数」を返す関数
-const delay = () =&gt; {
-  let isTimeout = false;
-  // 1秒後にisTimeoutがTrueになる
-  const promise = new Promise(resolve =&gt; setTimeout(() =&gt; resolve(), 1000));
-  promise.then(() =&gt; (isTimeout = true));
-
-  return () =&gt; {
-    if (isTimeout) {
-      return;
-    } else {
-      // 1秒まではいつ呼んでもPromiseがthrowされる
-      // Promiseがthrowされる限りSuspenseはfallbackを表示する
-      throw promise;
+  <span style="color:#66d9ef">return</span> () <span style="color:#f92672">=&gt;</span> {
+    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">isTimeout</span>) {
+      <span style="color:#66d9ef">return</span>;
+    } <span style="color:#66d9ef">else</span> {
+      <span style="color:#75715e">// 1秒まではいつ呼んでもPromiseがthrowされる
+</span><span style="color:#75715e"></span>      <span style="color:#75715e">// Promiseがthrowされる限りSuspenseはfallbackを表示する
+</span><span style="color:#75715e"></span>      <span style="color:#66d9ef">throw</span> <span style="color:#a6e22e">promise</span>;
     }
   };
 };
-let f;
-const Trigger = () =&gt; {
-  // このあと何回Trigger関数が呼ばれても1秒間はPromiseがthrowされる
-  f = f || delay();
-  f();
-  // 1秒後からTrigger関数は正常に終了して普通のコンポーネントが返ってくるようになる
-  return &lt;p&gt;hello world&lt;/p&gt;;
+<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">f</span>;
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Trigger</span> <span style="color:#f92672">=</span> () <span style="color:#f92672">=&gt;</span> {
+  <span style="color:#75715e">// このあと何回Trigger関数が呼ばれても1秒間はPromiseがthrowされる
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">f</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">f</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">delay</span>();
+  <span style="color:#a6e22e">f</span>();
+  <span style="color:#75715e">// 1秒後からTrigger関数は正常に終了して普通のコンポーネントが返ってくるようになる
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">return</span> &lt;<span style="color:#f92672">p</span>&gt;<span style="color:#a6e22e">hello</span> <span style="color:#a6e22e">world</span>&lt;/<span style="color:#f92672">p</span>&gt;;
 };
-const DelayedComp = () =&gt; {
-  return (
-    // throwされたPromiseはReact.Suspenseがcatchしてfallbackを表示してくれる
-    &lt;React.Suspense fallback={&lt;p&gt;loading...&lt;/p&gt;}&gt;
-      &lt;Trigger /&gt;
-    &lt;/React.Suspense&gt;
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">DelayedComp</span> <span style="color:#f92672">=</span> () <span style="color:#f92672">=&gt;</span> {
+  <span style="color:#66d9ef">return</span> (
+    <span style="color:#75715e">// throwされたPromiseはReact.Suspenseがcatchしてfallbackを表示してくれる
+</span><span style="color:#75715e"></span>    &lt;<span style="color:#f92672">React.Suspense</span> <span style="color:#a6e22e">fallback</span><span style="color:#f92672">=</span>{&lt;<span style="color:#f92672">p</span>&gt;<span style="color:#a6e22e">loading</span>...&lt;/<span style="color:#f92672">p</span>&gt;}&gt;
+      &lt;<span style="color:#f92672">Trigger</span> /&gt;
+    &lt;/<span style="color:#f92672">React.Suspense</span>&gt;
   );
 };
-ReactDOMServer.renderToString(&lt;DelayedComp /&gt;);
-</code></pre>
-
-<h2 id="参考">参考</h2>
-
+<span style="color:#a6e22e">ReactDOMServer</span>.<span style="color:#a6e22e">renderToString</span>(&lt;<span style="color:#f92672">DelayedComp</span> /&gt;);
+</code></pre></div><h2 id="参考">参考</h2>
 <ul>
 <li><a href="https://sbfl.net/blog/2020/02/10/react-suspense-async/">ReactのSuspenseで非同期処理を乗りこなす</a></li>
 <li><a href="https://ja.reactjs.org/docs/concurrent-mode-suspense.html">サスペンスを使ったデータ取得（実験的機能） – React</a></li>

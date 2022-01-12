@@ -14,7 +14,7 @@
   
   
   <meta name="twitter:title" content="Next の Link コンポーネントで Warning: Function components cannot be given refs"/>
-  <meta name="twitter:description" content="next/link の Link コンポーネントは、children に関数コンポーネントを入れると警告が出る import Link from &quot;next/link&quot;; &lt;Link href=&quot;/&quot;&gt; &lt;MyButton /&gt; &lt;/Link&gt;; Warning: Function components cannot be given refs. Attempts to access this ref will fail. Did you mean to use React.forwardRef()? Link"/>
+  <meta name="twitter:description" content="next/link の Link コンポーネントは、children に関数コンポーネントを入れると警告が出る import Link from &#34;next/link&#34;; &lt;Link href=&#34;/&#34;&gt; &lt;MyButton /&gt; &lt;/Link&gt;; Warning: Function components cannot be given refs. Attempts to access this ref will fail. Did you mean to use React.forwardRef()? Link"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.79.0" />
 		<title>Next の Link コンポーネントで Warning: Function components cannot be given refs &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,66 +83,45 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#参考">参考</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#参考">参考</a></li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
+                    <p><code>next/link</code> の <code>Link</code> コンポーネントは、children に関数コンポーネントを入れると警告が出る</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">Link</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;next/link&#34;</span>;
 
-<p><code>next/link</code> の <code>Link</code> コンポーネントは、children に関数コンポーネントを入れると警告が出る</p>
-
-<pre><code class="language-jsx">import Link from &quot;next/link&quot;;
-
-&lt;Link href=&quot;/&quot;&gt;
-  &lt;MyButton /&gt;
-&lt;/Link&gt;;
-</code></pre>
-
-<blockquote>
+&lt;<span style="color:#f92672">Link</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/&#34;</span>&gt;
+  &lt;<span style="color:#f92672">MyButton</span> /&gt;
+&lt;/<span style="color:#f92672">Link</span>&gt;;
+</code></pre></div><blockquote>
 <p>Warning: Function components cannot be given refs. Attempts to access this ref will fail. Did you mean to use React.forwardRef()?</p>
 </blockquote>
-
 <p>Link は子要素に ref を渡す実装になっているので、関数コンポーネントに ref を渡してしまって警告が出ている。</p>
-
 <ul>
 <li><a href="https://github.com/vercel/next.js/blob/55e4a3d1add44aede18f4bc9f604f59ba49cc0b0/packages/next/client/link.tsx#L279">https://github.com/vercel/next.js/blob/55e4a3d1add44aede18f4bc9f604f59ba49cc0b0/packages/next/client/link.tsx#L279</a></li>
 </ul>
-
 <p>これは仕様ということになっているが、サクッと修正できる方法が存在しない、バグのような挙動だと言われている。</p>
-
 <ul>
-<li><a href="https://github.com/vercel/next.js/issues/7915">Next 9 - Using functional components as child of <Link/> causes ref-warnings · Issue #7915 · vercel/next.js</a></li>
+<li><a href="https://github.com/vercel/next.js/issues/7915">Next 9 - Using functional components as child of <!-- raw HTML omitted --> causes ref-warnings · Issue #7915 · vercel/next.js</a></li>
 </ul>
-
 <p>修正する方法の 1 つはメッセージ通りに <code>React.forwardRef</code> を使う方法。</p>
-
-<pre><code class="language-jsx">const CustomComponent = React.forwardRef(function CustomComponent(props, ref) {
-  return &lt;div /&gt;;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">CustomComponent</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">React</span>.<span style="color:#a6e22e">forwardRef</span>(<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">CustomComponent</span>(<span style="color:#a6e22e">props</span>, <span style="color:#a6e22e">ref</span>) {
+  <span style="color:#66d9ef">return</span> &lt;<span style="color:#f92672">div</span> /&gt;;
 });
-</code></pre>
-
-<p>とりあえず警告をでないようにしたいなら一番手軽なのは Fragment で囲ってしまうという方法がある、ただしこれだと Link が子要素に Click イベントが渡せなくなってしまうのでそういう子要素のときは使えない。</p>
-
-<pre><code class="language-jsx">&lt;Link href=&quot;/&quot;&gt;
+</code></pre></div><p>とりあえず警告をでないようにしたいなら一番手軽なのは Fragment で囲ってしまうという方法がある、ただしこれだと Link が子要素に Click イベントが渡せなくなってしまうのでそういう子要素のときは使えない。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx">&lt;<span style="color:#f92672">Link</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/&#34;</span>&gt;
   &lt;&gt;
-    &lt;MyButton /&gt;
+    &lt;<span style="color:#f92672">MyButton</span> /&gt;
   &lt;/&gt;
-&lt;/Link&gt;
-</code></pre>
-
-<ul>
+&lt;/<span style="color:#f92672">Link</span>&gt;
+</code></pre></div><ul>
 <li><a href="https://github.com/vercel/next.js/issues/7915#issuecomment-514864334">https://github.com/vercel/next.js/issues/7915#issuecomment-514864334</a></li>
 </ul>
-
 <h2 id="参考">参考</h2>
-
 <ul>
 <li><a href="https://nextjs.org/docs/api-reference/next/link#if-the-child-is-a-custom-component-that-wraps-an-a-tag">next/link | Next.js</a></li>
 </ul>

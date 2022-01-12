@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="https://dream-yt.github.io/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="Cloud Function とデフォルトでついている権限についてメモ"/>
+  <meta name="twitter:description" content="ランタイムの権限 Cloud Function の関数の中での権限 リソース管理の権限 Cloud Function をビルド/デプロイなどするときの権限 ランタイムの権限 デフォルトでは CloudFunction は PROJECT_ID@appspot.gserviceaccount.com という、"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@site_author"/>
+  
+
+
+
+		
+		<meta name="author" content="site_author">
+		<meta name="description" content="Site Description">
+		<meta name="generator" content="Hugo 0.79.0" />
+		<title>Cloud Function とデフォルトでついている権限についてメモ &middot; sacre</title>
+		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/font-awesome.min.css">
+		
+
+		
+		<link href="https://dream-yt.github.io/index.xml" rel="alternate" type="application/rss+xml" title="sacre" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='https://dream-yt.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://dream-yt.github.io/posts'>Archive</a>
+	<a href='https://dream-yt.github.io/tags'>Tags</a>
+	<a href='https://dream-yt.github.io/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="https://dream-yt.github.io/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        Cloud Function とデフォルトでついている権限についてメモ
+                    </h1>
+                    <h2 class="headline">
+                    Jan 12, 2022 12:04
+                    · 754 words
+                    · 2 minute read
+                      <span class="tags">
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#ランタイムの権限">ランタイムの権限</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#リソース管理の権限">リソース管理の権限</a></li>
+    <li><a href="#ためしに">ためしに</a></li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    <ul>
+<li>ランタイムの権限
+<ul>
+<li>Cloud Function の関数の中での権限</li>
+</ul>
+</li>
+<li>リソース管理の権限
+<ul>
+<li>Cloud Function をビルド/デプロイなどするときの権限</li>
+</ul>
+</li>
+</ul>
+<h2 id="ランタイムの権限">ランタイムの権限</h2>
+<p>デフォルトでは CloudFunction は <code>PROJECT_ID@appspot.gserviceaccount.com</code> という、いろいろできる権限が与えられる。このようなGCPが自動生成してくれるIAMは <code>Google 管理サービス アカウント</code> と呼ばれる。</p>
+<blockquote>
+<p>デフォルトでは、Cloud Functions はランタイムに App Engine のデフォルトのサービス アカウント（PROJECT_<a href="mailto:ID@appspot.gserviceaccount.com">ID@appspot.gserviceaccount.com</a>）を使用します。このアカウントには、プロジェクトの編集者のロールが付与されています。このサービス アカウントのロールを変更して、実行中の関数に対する権限を制限または拡張できます。</p>
+</blockquote>
+<p>デフォルトの権限はある意味に初心者向けのスターターパックのようなものだが、厳密な権限管理やランタイムで色々なことをしようとするときには自前でつくったサービスアカウントを設定したり、またはこの <code>Google 管理サービス アカウント</code> にロールを追加することになる。</p>
+<p>このGoogle管理のサービスアカウントは編集/削除もできるようになっている。これを削除してしまったりすると色々忘れたころにややこしくなるはずなので、すくなくとも消さないほうがよいようだ。</p>
+<h5 id="消して大変だったという記事">消して大変だったという記事</h5>
+<ul>
+<li><a href="https://future-architect.github.io/articles/20190708/">GCPのIAMポリシー周りでドハマりした話 | フューチャー技術ブログ</a></li>
+</ul>
+<h2 id="リソース管理の権限">リソース管理の権限</h2>
+<p>CloudFunction をデプロイしたり削除したりするためのサービスアカウントとして <code>service-PROJECT_NUMBER@gcf-admin-robot.iam.gserviceaccount.com</code> が用意されている。このサービスアカウントをいじってしまうと、たとえばCloudBuildの権限がなかったりするとビルドできなくてデプロイできなくなる。</p>
+<h2 id="ためしに">ためしに</h2>
+<p><code>appspot.gserviceaccount.com</code> についている権限を見てみる。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ gcloud iam service-accounts list --filter appspot
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ gcloud projects get-iam-policy myproj-123456 <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --flatten<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;bindings[].members&#34;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --format<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;table(bindings.role)&#34;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --filter<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;bindings.members:myproj-123456@appspot.gserviceaccount.com&#34;</span>
+</code></pre></div><pre><code>ROLE
+roles/editor
+</code></pre><h2 id="参考">参考</h2>
+<ul>
+<li><a href="https://cloud.google.com/functions/docs/concepts/iam">IAM によるアクセス制御  |  Google Cloud Functions に関するドキュメント</a></li>
+<li><a href="https://stackoverflow.com/questions/47006062/how-do-i-list-the-roles-associated-with-a-gcp-service-account">google cloud platform - How do I list the roles associated with a gcp service account? - Stack Overflow</a></li>
+</ul>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fgcp-default-role-on-cloudfunction%2f - Cloud%20Function%20%e3%81%a8%e3%83%87%e3%83%95%e3%82%a9%e3%83%ab%e3%83%88%e3%81%a7%e3%81%a4%e3%81%84%e3%81%a6%e3%81%84%e3%82%8b%e6%a8%a9%e9%99%90%e3%81%ab%e3%81%a4%e3%81%84%e3%81%a6%e3%83%a1%e3%83%a2 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'your_disqus_short_name'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/dream-yt/sacre">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://twitter.com/FUTABA_SACRE">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2022 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="https://dream-yt.github.io/js/jquery-3.3.1.min.js"></script>
+<script src="https://dream-yt.github.io/js/main.js"></script>
+<script src="https://dream-yt.github.io/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+
+
+
+
+    </body>
+</html>

@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.79.0" />
 		<title>文字列をopensslで暗号化/復号するbashスクリプト &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,66 +83,49 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#readコマンド">readコマンド</a></li>
-<li><a href="#参考">参考</a></li>
-<li><a href="#gist">gist</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#readコマンド">readコマンド</a></li>
+    <li><a href="#参考">参考</a></li>
+    <li><a href="#gist">gist</a></li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p>セキュリティ的にあんまり褒められたものではないが、
+                    <p>セキュリティ的にあんまり褒められたものではないが、
 気持ち平文で保存したくないデータを手元に置いとくのとかには便利。</p>
-
 <p>処理のコア部分はこんな感じになった。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">read -sp <span style="color:#e6db74">&#34;enter password: &#34;</span> password
 
-<pre><code class="language-bash">read -sp &quot;enter password: &quot; password
+<span style="color:#66d9ef">function</span> encrypt <span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+    openssl aes-256-cbc -e <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>        -in &lt;<span style="color:#f92672">(</span>echo $body<span style="color:#f92672">)</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>        -pass pass:$password  <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>        | base64
+<span style="color:#f92672">}</span>
 
-function encrypt () {
-    openssl aes-256-cbc -e \
-        -in &lt;(echo $body) \
-        -pass pass:$password  \
-        | base64
-}
-
-function decrypt () {
-    openssl aes-256-cbc -d \
-        -in &lt;(echo $body | base64 -d) \
-        -pass pass:$password
-}
-</code></pre>
-
-<ul>
+<span style="color:#66d9ef">function</span> decrypt <span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+    openssl aes-256-cbc -d <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>        -in &lt;<span style="color:#f92672">(</span>echo $body | base64 -d<span style="color:#f92672">)</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>        -pass pass:$password
+<span style="color:#f92672">}</span>
+</code></pre></div><ul>
 <li><code>$body</code> は暗号化したい文字列か、復号したいbase64</li>
 <li><code>$password</code> は read コマンドで取得する</li>
 </ul>
-
 <h2 id="readコマンド">readコマンド</h2>
-
-<pre><code class="language-bash">read -sp &quot;enter password: &quot; password
-</code></pre>
-
-<ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">read -sp <span style="color:#e6db74">&#34;enter password: &#34;</span> password
+</code></pre></div><ul>
 <li><code>-p</code> プロンプトで入力した文字列を password 変数に入れてくれる</li>
 <li><code>-s</code> プロンプトで入力してる文字を表示しないように</li>
 </ul>
-
 <h2 id="参考">参考</h2>
-
 <ul>
 <li><a href="https://qiita.com/ikuwow/items/1cdb057352c06fd3d727">opensslコマンドで簡単なファイル暗号化 - Qiita</a></li>
 <li><a href="https://superuser.com/questions/724986/how-to-use-password-argument-in-via-command-line-to-openssl-for-decryption">linux - How to use password argument in via command line to openssl for decryption - Super User</a></li>
 </ul>
-
 <h2 id="gist">gist</h2>
-
 <ul>
 <li><a href="https://gist.github.com/sakamossan/91e95b39c6301d337dfd402efa71d729">文字列をopensslで暗号化/復号するbashスクリプト</a></li>
 </ul>

@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.79.0" />
 		<title>MySQLでWhere句に正規表現を使う &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,33 +83,20 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#参考">参考</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#参考">参考</a></li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p>こんな構文で正規表現で検索することができる</p>
-
-<pre><code class="language-sql">SELECT * FROM t WHERE url REGEXP 'https://.+:.+@.+'
-</code></pre>
-
-<p>ただし PCRE ではないので最低限のものしか使えない</p>
-
+                    <p>こんな構文で正規表現で検索することができる</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> t <span style="color:#66d9ef">WHERE</span> url REGEXP <span style="color:#e6db74">&#39;https://.+:.+@.+&#39;</span>
+</code></pre></div><p>ただし PCRE ではないので最低限のものしか使えない</p>
 <p>正規表現が期待通りに書けてるかのテストはこんな感じでやるとよい</p>
-
-<pre><code class="language-sql">SELECT 'a' REGEXP '^[a-d]';
-</code></pre>
-
-<h2 id="参考">参考</h2>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> <span style="color:#e6db74">&#39;a&#39;</span> REGEXP <span style="color:#e6db74">&#39;^[a-d]&#39;</span>;
+</code></pre></div><h2 id="参考">参考</h2>
 <ul>
 <li><a href="https://dev.mysql.com/doc/refman/5.6/ja/pattern-matching.html">MySQL :: MySQL 5.6 リファレンスマニュアル :: 3.3.4.7 パターンマッチング</a></li>
 <li><a href="https://dev.mysql.com/doc/refman/5.6/ja/regexp.html">MySQL :: MySQL 5.6 リファレンスマニュアル :: 12.5.2 正規表現</a></li>

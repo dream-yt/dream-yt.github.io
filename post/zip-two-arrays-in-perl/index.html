@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.79.0" />
 		<title>perlで2つの配列をzipする &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -81,23 +81,21 @@
                 </header>
                 
                   
+                    <div id="toc">
+                      <nav id="TableOfContents"></nav>
+                    </div>
+                  
                 
                 <section id="post-body">
                     <p>なんかすごいやりかたばかり出てくる。</p>
-
 <ul>
 <li><a href="https://stackoverflow.com/questions/38345/is-there-an-elegant-zip-to-interleave-two-lists-in-perl-5">Is there an elegant zip to interleave two lists in Perl 5? - Stack Overflow</a></li>
 </ul>
-
 <p>たぶんいちばんわかりやすいのはこれ。</p>
-
-<pre><code class="language-perl">my @a = (...);
-my @b = (...);
-my %c = map {$a[$_] =&gt; $b[$_]} (0..$#a);
-</code></pre>
-
-<p>ツッコまれてたけどそれは前提の問題だと思う。</p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl"><span style="color:#66d9ef">my</span> @a <span style="color:#f92672">=</span> (<span style="color:#f92672">...</span>);
+<span style="color:#66d9ef">my</span> @b <span style="color:#f92672">=</span> (<span style="color:#f92672">...</span>);
+<span style="color:#66d9ef">my</span> %c <span style="color:#f92672">=</span> map {$a[$_] <span style="color:#f92672">=&gt;</span> $b[$_]} (<span style="color:#ae81ff">0</span><span style="color:#f92672">..</span>$#a);
+</code></pre></div><p>ツッコまれてたけどそれは前提の問題だと思う。</p>
 <blockquote>
 <p>This has problems for unequally-sized arrays. – brian d foy Jan 3 &lsquo;10 at 17:47</p>
 </blockquote>

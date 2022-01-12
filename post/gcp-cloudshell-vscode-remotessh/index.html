@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.79.0" />
 		<title>GCP Cloud Shell 上のコードを VS Code の Remote-SSH で触れるようにする &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,77 +83,51 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#cloud-shell-を起動">Cloud Shell を起動</a></li>
-<li><a href="#コードのclone">コードのclone</a></li>
-<li><a href="#ssh-config">.ssh/config</a></li>
-<li><a href="#remote-ssh-の設定">Remote-SSH の設定</a></li>
-<li><a href="#参考">参考</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#cloud-shell-を起動">Cloud Shell を起動</a></li>
+    <li><a href="#コードのclone">コードのclone</a></li>
+    <li><a href="#sshconfig">.ssh/config</a></li>
+    <li><a href="#remote-ssh-の設定">Remote-SSH の設定</a></li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p>基本的にはこちらの記事のとおりにやればよかった。</p>
-
+                    <p>基本的にはこちらの記事のとおりにやればよかった。</p>
 <ul>
 <li><a href="https://qiita.com/mkizka/items/62ddf288b313323f390c">Visual Studio CodeでGoogle Cloud Shellを開く - Qiita</a></li>
 </ul>
-
 <h2 id="cloud-shell-を起動">Cloud Shell を起動</h2>
-
 <ul>
 <li><code>cloud-shell</code> コマンドでログイン</li>
 <li>ここでssh鍵などがローカル側に生成される。生成された鍵は後で使う。</li>
 </ul>
-
-<pre><code class="language-bash">$ gcloud cloud-shell ssh
-</code></pre>
-
-<h2 id="コードのclone">コードのclone</h2>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ gcloud cloud-shell ssh
+</code></pre></div><h2 id="コードのclone">コードのclone</h2>
 <p>プロジェクトのコードを Cloud Shell 上で触りたかったので、GitHub から <code>git clone</code> するためのトークンを払い出す。GitHub はURLにBasic認証みたいな細工をするとhttpsプロトコルでcloneができる。</p>
-
-<pre><code class="language-bash">$ git clone https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/${REPOSITORY} .
-# commitするのにこの辺の設定が必要。
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git clone https://<span style="color:#e6db74">${</span>GITHUB_USER<span style="color:#e6db74">}</span>:<span style="color:#e6db74">${</span>GITHUB_TOKEN<span style="color:#e6db74">}</span>@github.com/<span style="color:#e6db74">${</span>REPOSITORY<span style="color:#e6db74">}</span> .
+<span style="color:#75715e"># commitするのにこの辺の設定が必要。</span>
 $ git config --local user.name xxxxxxxxx
 $ git config --local user.email xxxx@xxx.xx
-</code></pre>
-
-<p>このあたりをちゃんとやるのだと Secret Manger を使うのがよいようだ。</p>
-
+</code></pre></div><p>このあたりをちゃんとやるのだと Secret Manger を使うのがよいようだ。</p>
 <ul>
 <li><a href="https://cloud.google.com/build/docs/access-github-from-build">SSH 認証鍵を使用してビルドから GitHub にアクセスする  |  Cloud Build のドキュメント  |  Google Cloud</a></li>
 </ul>
-
-<h2 id="ssh-config">.ssh/config</h2>
-
+<h2 id="sshconfig">.ssh/config</h2>
 <p>VS Code の Remote-SSH のために <code>$ ssh cloudshell_proj</code> でつながるような設定を仕込む。</p>
-
 <pre><code>Host cloudshell_proj
     ProxyCommand gcloud cloud-shell ssh --ssh-flag='-W localhost:22'
     User sakamossan
     IdentityFile ~/.ssh/google_compute_engine
     StrictHostKeyChecking no
-</code></pre>
-
-<h2 id="remote-ssh-の設定">Remote-SSH の設定</h2>
-
+</code></pre><h2 id="remote-ssh-の設定">Remote-SSH の設定</h2>
 <p>これができたら VS Code のコマンドパレットから <code>Remote-SSH: Connect to Host...</code> を選択して、
 接続先を入力する。 ↑のconfigだと <code>cloudshell_proj</code> と入れれば接続設定は完了。</p>
-
 <p>ただし、自分の場合だと設定後すぐには接続に失敗してしまい、ここで1回 vscode を再起動しないとちゃんと接続できなかった。</p>
-
 <h2 id="参考">参考</h2>
-
 <p>2022年は VS Code をちゃんと使うような年にしたい。</p>
-
 <ul>
 <li><a href="https://qiita.com/mkizka/items/62ddf288b313323f390c">Visual Studio CodeでGoogle Cloud Shellを開く - Qiita</a></li>
 <li><a href="https://qiita.com/passol78/items/2ad123e39efeb1a5286b">~/.ssh/configについて - Qiita</a></li>

@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.79.0" />
 		<title>nodejsのEvent Loopについておおまかなメモ &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,32 +83,27 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-<ul>
-<li><a href="#それぞれのフェーズ">それぞれのフェーズ</a>
-<ul>
-<li>
-<ul>
-<li><a href="#timers">timers</a></li>
-<li><a href="#pending-callbacks">pending callbacks</a></li>
-<li><a href="#idle-prepare">idle, prepare</a></li>
-</ul></li>
-<li><a href="#poll">poll</a>
-<ul>
-<li><a href="#check">check</a></li>
-<li><a href="#close-callbacks">close callbacks</a></li>
-</ul></li>
-</ul></li>
-<li><a href="#参考">参考</a></li>
-</ul>
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#timers">timers</a></li>
+        <li><a href="#pending-callbacks">pending callbacks</a></li>
+        <li><a href="#idle-prepare">idle, prepare</a></li>
+      </ul>
+    </li>
+    <li><a href="#poll">poll</a>
+      <ul>
+        <li><a href="#check">check</a></li>
+        <li><a href="#close-callbacks">close callbacks</a></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    
-
-<p>nodejsのイベントループは次の6個のフェーズからなる</p>
-
+                    <p>nodejsのイベントループは次の6個のフェーズからなる</p>
 <ul>
 <li>timers</li>
 <li>pending callbacks</li>
@@ -117,77 +112,50 @@
 <li>check</li>
 <li>close callbacks</li>
 </ul>
-
 <p>この6個のフェーズの1周はラウンドと呼ばれる</p>
-
 <p>それぞれのフェーズはそれぞれのキュー(実行すべき処理のリスト)をもっている</p>
-
 <p>また、それぞれフェーズごとのキューとは別に2つキューがある
 この2つのキューは各フェーズとフェーズの合間に消化される</p>
-
 <ul>
 <li>nextTickQueue
-
 <ul>
 <li><code>process.nextTick</code> で登録されたコールバックがはいるキュー</li>
-</ul></li>
+</ul>
+</li>
 <li>microTaskQueue
-
 <ul>
 <li><code>Promise</code> オブジェクトに登録されたコールバックはこのキューに入る</li>
-</ul></li>
 </ul>
-
+</li>
+</ul>
 <h1 id="それぞれのフェーズ">それぞれのフェーズ</h1>
-
 <p>どういった経路で登録されたコールバックかによって実行されるフェーズが違う</p>
-
 <h3 id="timers">timers</h3>
-
 <p><code>setTimeout</code>, <code>setInterval</code> で設定されたイベントが処理される</p>
-
 <h3 id="pending-callbacks">pending callbacks</h3>
-
 <p>IOエラーに伴うコールバックが処理される</p>
-
 <p>たとえば、<code>ECONNREFUSED</code> が返ってきてる場合などはこのフェーズで処理される</p>
-
 <h3 id="idle-prepare">idle, prepare</h3>
-
 <p>内部的な処理を行うフェーズで普段ユーザは意識しない</p>
-
 <h2 id="poll">poll</h2>
-
 <p>このフェーズはカーネルに依頼した処理のポーリングなど</p>
-
 <ul>
 <li>IOなどのポーリング (ブロックしてポーリングする)</li>
 <li>ポーリングキューの結果実行できるようになったイベントの処理</li>
 </ul>
-
 <p>ポーリングは必ずしも処理が完了するまで待つのではなく、そのときそのときでリーズナブルな待ち時間を計算してその分だけ待つことになっている (その待ち時間で結果が返ってこなかったら次のラウンドに持ち越す)</p>
-
 <p>なお、IOエラーが返ってきた場合はこのフェーズでは処理されず、次のラウンドのpending callbacksまで処理が持ち越される</p>
-
 <h3 id="check">check</h3>
-
 <p><code>setImmediate</code> で登録された処理が実行される</p>
-
 <h3 id="close-callbacks">close callbacks</h3>
-
 <p><code>close</code> イベントを処理する</p>
-
 <ul>
 <li>eg: <code>readable.on('close', () =&gt; {})</code></li>
 </ul>
-
 <p><code>close</code> はたとえば <code>socket.destroy()</code> などでも発生する</p>
-
 <h1 id="参考">参考</h1>
-
-<p>イベントループにはもっと知っておくべきことや詳細な実行順序などがある<br />
+<p>イベントループにはもっと知っておくべきことや詳細な実行順序などがある<br>
 (たとえば nextTickQueue, microTaskQueue では nextTickQueue のほうが先に処理されることなど)</p>
-
 <ul>
 <li><a href="https://nodejs.org/uk/docs/guides/event-loop-timers-and-nexttick/">The Node.js Event Loop, Timers, and process.nextTick() | Node.js</a></li>
 <li><a href="https://blog.hiroppy.me/entry/nodejs-event-loop">Node.jsでのイベントループの仕組みとタイマーについて - 技術探し</a></li>

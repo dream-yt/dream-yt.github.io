@@ -24,7 +24,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.51" />
+		<meta name="generator" content="Hugo 0.79.0" />
 		<title>sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -72,6 +72,21 @@
 
     <section id="wrapper" class="home">
         <ul id="post-list">
+    
+    
+        
+            <li>
+                <aside class="dates">Aug 27</aside>
+                <a href='https://dream-yt.github.io/post/jest-mock-node-package-and-simulate-click/'>
+                    jest でパッケージをモックしながら react-test-utils でクリックイベントをテストする
+                    
+                        
+                            <h2>こんな実装になった。 import React from &#34;react&#34;; import ReactDOM from &#34;react-dom&#34;; import { act, Simulate } from &#34;react-dom/test-utils&#34;; import { Button } from &#34;./Button&#34;; const fn = jest.fn(); jest.mock(&#34;mocked-packagejs&#34;, () =&gt; (...args: any) =&gt; { fn(...args); }); test(&#34;basic&#34;, async () =&gt; { const container = document.createElement(&#34;div&#34;); document.body.appendChild(container); act(() =&gt; ReactDOM.render(&lt;Button /&gt;, container)); const button = container.querySelector(&#34;button&#34;)!; await act(async () =&gt; Simulate.click(button)); const args</h2>
+                        
+                    
+                </a>
+            </li>
+        
     
     
         
@@ -202,21 +217,6 @@
                     
                         
                             <h2>nodejsで開発をしているとUNIXのerrnoにあたることがよくある。いろいろあるが見覚えがあるものだけメモ。 3.2.1 メッセージに出力されるエ</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jul 10</aside>
-                <a href='https://dream-yt.github.io/post/perl-chomp-windows-newline/'>
-                    perl で windows の改行文字を chomp する
-                    
-                        
-                            <h2>ファイル内の改行コードはOSごとに異なる。 Windows: CR&#43;LF （\r&#43;\n） Linux（UNIX系OS）: LF （\n） MacOS X: LF （\n） Linux &lt;&gt; MacOS で作業をしているわり</h2>
                         
                     
                 </a>
