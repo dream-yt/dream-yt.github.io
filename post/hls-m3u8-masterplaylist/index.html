@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>HLSとm3u8ファイルとMaster Playlistについて &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,41 +83,60 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#m3u8ファイルとは">m3u8ファイルとは</a>
-      <ul>
-        <li></li>
-      </ul>
-    </li>
-    <li><a href="#master-playlist-とは">Master Playlist とは</a>
-      <ul>
-        <li></li>
-      </ul>
-    </li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#m3u8ファイルとは">m3u8ファイルとは</a>
+<ul>
+<li>
+<ul>
+<li><a href="#m3u8形式ファイルの例">m3u8形式ファイルの例</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#master-playlist-とは">Master Playlist とは</a>
+<ul>
+<li>
+<ul>
+<li><a href="#masterplaylist形式の例">MasterPlaylist形式の例</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>こちらの記事の焼き直し</p>
+                    
+
+<p>こちらの記事の焼き直し</p>
+
 <ul>
 <li><a href="https://dream-yt.github.io/post/m3u8andhls/">m3u8とhls · sacre</a></li>
 </ul>
+
 <h2 id="m3u8ファイルとは">m3u8ファイルとは</h2>
+
 <p>こちらがわかりやすかった</p>
+
 <ul>
 <li><a href="https://blogs.akamai.com/jp/2013/02/-1---http-live-streaminghls.html">動画配信技術 その1 - HTTP Live Streaming(HLS) - Akamai Japan Blog</a></li>
 </ul>
+
 <p>HLSを行うためのヘッダファイルのようなもの
 HLSでは動画をtsファイルという秒単位の細かいファイルへと細切れにして配信を行う
 m3u8ファイルには、細切れの動画ファイルがそれぞれ何秒から何秒までのデータを保持しているかがまとまっている</p>
+
 <p>ライブ配信の場合にはm3u8ファイルが数秒ごとに更新されるとのこと</p>
+
 <ul>
 <li><a href="https://did2memo.net/2017/02/20/http-live-streaming/">ライブ動画配信プロトコル（HTTP Live Streaming, HLS）の概要図解メモ（AbemaTV／FRESH!）</a></li>
 </ul>
+
 <h4 id="m3u8形式ファイルの例">m3u8形式ファイルの例</h4>
+
 <p><code>EXTINF:10</code> というのが動画の秒数を表している</p>
+
 <pre><code>#EXTM3U
 #EXT-X-PLAYLIST-TYPE:VOD
 #EXT-X-TARGETDURATION:10
@@ -131,14 +150,20 @@ file-640-00003.ts
 #ZEN-AVERAGE-BANDWIDTH:1147001
 #ZEN-MAXIMUM-BANDWIDTH:1340365
 #EXT-X-ENDLIST
-</code></pre><h2 id="master-playlist-とは">Master Playlist とは</h2>
+</code></pre>
+
+<h2 id="master-playlist-とは">Master Playlist とは</h2>
+
 <p>MasterPlaylistファイルは複数のm3u8ファイルをまとめるインデックスファイルのような役割をもっている
 MasterPlaylistファイルを使うと、通信速度や処理できるファイル形式/ビットレートごとに、
 どのm3u8ファイルを参照して動画を再生すればよいかをクライアントデバイスが判断できるようになる</p>
+
 <ul>
 <li><a href="https://developer.apple.com/documentation/http_live_streaming/example_playlists_for_http_live_streaming/creating_a_master_playlist">Creating a Master Playlist | Apple Developer Documentation</a></li>
 </ul>
+
 <h4 id="masterplaylist形式の例">MasterPlaylist形式の例</h4>
+
 <pre><code>#EXTM3U
 #EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=1040000,CODECS=&quot;mp4a.40.2, avc1.4d4015&quot;
 file-640.m3u8
@@ -149,6 +174,7 @@ file-640.m3u8
 #EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=240000,CODECS=&quot;mp4a.40.2, avc1.4d4015&quot;
 file-640.m3u8
 </code></pre>
+
                 </section>
             </article>
 

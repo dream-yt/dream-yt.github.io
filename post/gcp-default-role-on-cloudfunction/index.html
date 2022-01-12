@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>Cloud Function とデフォルトでついている権限についてメモ &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,56 +83,85 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#ランタイムの権限">ランタイムの権限</a>
-      <ul>
-        <li></li>
-      </ul>
-    </li>
-    <li><a href="#リソース管理の権限">リソース管理の権限</a></li>
-    <li><a href="#ためしに">ためしに</a></li>
-    <li><a href="#参考">参考</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#ランタイムの権限">ランタイムの権限</a>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#消して大変だったという記事">消して大変だったという記事</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li><a href="#リソース管理の権限">リソース管理の権限</a></li>
+<li><a href="#ためしに">ためしに</a></li>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <ul>
+                    
+
+<ul>
 <li>ランタイムの権限
+
 <ul>
 <li>Cloud Function の関数の中での権限</li>
-</ul>
-</li>
+</ul></li>
 <li>リソース管理の権限
+
 <ul>
 <li>Cloud Function をビルド/デプロイなどするときの権限</li>
+</ul></li>
 </ul>
-</li>
-</ul>
+
 <h2 id="ランタイムの権限">ランタイムの権限</h2>
+
 <p>デフォルトでは CloudFunction は <code>PROJECT_ID@appspot.gserviceaccount.com</code> という、いろいろできる権限が与えられる。このようなGCPが自動生成してくれるIAMは <code>Google 管理サービス アカウント</code> と呼ばれる。</p>
+
 <blockquote>
-<p>デフォルトでは、Cloud Functions はランタイムに App Engine のデフォルトのサービス アカウント（PROJECT_<a href="mailto:ID@appspot.gserviceaccount.com">ID@appspot.gserviceaccount.com</a>）を使用します。このアカウントには、プロジェクトの編集者のロールが付与されています。このサービス アカウントのロールを変更して、実行中の関数に対する権限を制限または拡張できます。</p>
+<p>デフォルトでは、Cloud Functions はランタイムに App Engine のデフォルトのサービス アカウント（PROJECT_ID@appspot.gserviceaccount.com）を使用します。このアカウントには、プロジェクトの編集者のロールが付与されています。このサービス アカウントのロールを変更して、実行中の関数に対する権限を制限または拡張できます。</p>
 </blockquote>
+
 <p>デフォルトの権限はある意味に初心者向けのスターターパックのようなものだが、厳密な権限管理やランタイムで色々なことをしようとするときには自前でつくったサービスアカウントを設定したり、またはこの <code>Google 管理サービス アカウント</code> にロールを追加することになる。</p>
+
 <p>このGoogle管理のサービスアカウントは編集/削除もできるようになっている。これを削除してしまったりすると色々忘れたころにややこしくなるはずなので、すくなくとも消さないほうがよいようだ。</p>
+
 <h5 id="消して大変だったという記事">消して大変だったという記事</h5>
+
 <ul>
 <li><a href="https://future-architect.github.io/articles/20190708/">GCPのIAMポリシー周りでドハマりした話 | フューチャー技術ブログ</a></li>
 </ul>
+
 <h2 id="リソース管理の権限">リソース管理の権限</h2>
+
 <p>CloudFunction をデプロイしたり削除したりするためのサービスアカウントとして <code>service-PROJECT_NUMBER@gcf-admin-robot.iam.gserviceaccount.com</code> が用意されている。このサービスアカウントをいじってしまうと、たとえばCloudBuildの権限がなかったりするとビルドできなくてデプロイできなくなる。</p>
+
 <h2 id="ためしに">ためしに</h2>
+
 <p><code>appspot.gserviceaccount.com</code> についている権限を見てみる。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ gcloud iam service-accounts list --filter appspot
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ gcloud projects get-iam-policy myproj-123456 <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    --flatten<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;bindings[].members&#34;</span> <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    --format<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;table(bindings.role)&#34;</span> <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    --filter<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;bindings.members:myproj-123456@appspot.gserviceaccount.com&#34;</span>
-</code></pre></div><pre><code>ROLE
+
+<pre><code class="language-bash">$ gcloud iam service-accounts list --filter appspot
+</code></pre>
+
+<pre><code class="language-bash">$ gcloud projects get-iam-policy myproj-123456 \
+    --flatten=&quot;bindings[].members&quot; \
+    --format=&quot;table(bindings.role)&quot; \
+    --filter=&quot;bindings.members:myproj-123456@appspot.gserviceaccount.com&quot;
+</code></pre>
+
+<pre><code>ROLE
 roles/editor
-</code></pre><h2 id="参考">参考</h2>
+</code></pre>
+
+<h2 id="参考">参考</h2>
+
 <ul>
 <li><a href="https://cloud.google.com/functions/docs/concepts/iam">IAM によるアクセス制御  |  Google Cloud Functions に関するドキュメント</a></li>
 <li><a href="https://stackoverflow.com/questions/47006062/how-do-i-list-the-roles-associated-with-a-gcp-service-account">google cloud platform - How do I list the roles associated with a gcp service account? - Stack Overflow</a></li>

@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>SlackAPI よりチャンネルとアイコンとユーザ名を変更してポストする &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,34 +83,47 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li>
-      <ul>
-        <li><a href="#トークンの取得">トークンの取得</a></li>
-        <li><a href="#必要なスコープ">必要なスコープ</a></li>
-      </ul>
-    </li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#トークンの取得">トークンの取得</a></li>
+<li><a href="#必要なスコープ">必要なスコープ</a></li>
+</ul></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>現在、Slack は昔ながらの Webhook の方式ではチャンネルとアイコンとユーザ名をすべてデフォルトから変更してポストできなくなっている</p>
+                    
+
+<p>現在、Slack は昔ながらの Webhook の方式ではチャンネルとアイコンとユーザ名をすべてデフォルトから変更してポストできなくなっている</p>
+
 <ul>
 <li><a href="https://api.slack.com/messaging/webhooks">Sending messages using Incoming Webhooks | Slack</a></li>
 </ul>
+
 <blockquote>
 <p>You cannot override the default channel (chosen by the user who installed your app)</p>
 </blockquote>
+
 <p>各々カスタマイズしてポストするには OAuth トークンを使う方式になる</p>
+
 <h3 id="トークンの取得">トークンの取得</h3>
+
 <p>トークンの取得の仕方も昔と変わっている。管理画面のどこからトークンが取得できるかは↓の記事がわかりやすかった</p>
+
 <ul>
 <li><a href="https://qiita.com/ykhirao/items/3b19ee6a1458cfb4ba21">Slack API 推奨Tokenについて - Qiita</a></li>
 </ul>
+
 <h3 id="必要なスコープ">必要なスコープ</h3>
+
 <p>掲題の件ではこの3つの権限を持ったトークンの払い出しが必要だった</p>
+
 <ul>
 <li>chat:write</li>
 <li>chat:write.customize</li>

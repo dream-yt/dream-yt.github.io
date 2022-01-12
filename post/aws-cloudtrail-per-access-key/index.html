@@ -14,7 +14,7 @@
   
   
   <meta name="twitter:title" content="AWSのアクセストークンが昨日どんなAPIコールを行なったか確認する"/>
-  <meta name="twitter:description" content="cloudtrailのlookup-eventsで昨日の分をすべてとる $ aws cloudtrail lookup-events \ --lookup-attributes AttributeKey=AccessKeyId,AttributeValue=xxxxxxxx \ --start-time $(date -v -2d -u &#43;&#34;%Y-%m-%dT%H:%M:%SZ&#34;) \ --end-time $(date -v -1d -u &#43;&#34;%Y-%m-%dT%H:%M:%SZ&#34;) \ | tee /tmp/_ 取得できるデータ Ev"/>
+  <meta name="twitter:description" content="cloudtrailのlookup-eventsで昨日の分をすべてとる $ aws cloudtrail lookup-events \ --lookup-attributes AttributeKey=AccessKeyId,AttributeValue=xxxxxxxx \ --start-time $(date -v -2d -u &#43;&quot;%Y-%m-%dT%H:%M:%SZ&quot;) \ --end-time $(date -v -1d -u &#43;&quot;%Y-%m-%dT%H:%M:%SZ&quot;) \ | tee /tmp/_ 取得できるデータ Ev"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>AWSのアクセストークンが昨日どんなAPIコールを行なったか確認する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,27 +83,37 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#取得できるデータ">取得できるデータ</a></li>
-    <li><a href="#cloudtrailevent">CloudTrailEvent</a></li>
-    <li><a href="#jqを使ってtsvに整形">jqを使ってtsvに整形</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#取得できるデータ">取得できるデータ</a></li>
+<li><a href="#cloudtrailevent">CloudTrailEvent</a></li>
+<li><a href="#jqを使ってtsvに整形">jqを使ってtsvに整形</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>cloudtrailのlookup-eventsで昨日の分をすべてとる</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ aws cloudtrail lookup-events <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  --lookup-attributes AttributeKey<span style="color:#f92672">=</span>AccessKeyId,AttributeValue<span style="color:#f92672">=</span>xxxxxxxx <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  --start-time <span style="color:#66d9ef">$(</span>date -v -2d -u +<span style="color:#e6db74">&#34;%Y-%m-%dT%H:%M:%SZ&#34;</span><span style="color:#66d9ef">)</span> <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  --end-time <span style="color:#66d9ef">$(</span>date -v -1d -u +<span style="color:#e6db74">&#34;%Y-%m-%dT%H:%M:%SZ&#34;</span><span style="color:#66d9ef">)</span> <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  | tee /tmp/_
-</code></pre></div><h2 id="取得できるデータ">取得できるデータ</h2>
+                    
+
+<p>cloudtrailのlookup-eventsで昨日の分をすべてとる</p>
+
+<pre><code class="language-bash">$ aws cloudtrail lookup-events \
+  --lookup-attributes AttributeKey=AccessKeyId,AttributeValue=xxxxxxxx \
+  --start-time $(date -v -2d -u +&quot;%Y-%m-%dT%H:%M:%SZ&quot;) \
+  --end-time $(date -v -1d -u +&quot;%Y-%m-%dT%H:%M:%SZ&quot;) \
+  | tee /tmp/_
+</code></pre>
+
+<h2 id="取得できるデータ">取得できるデータ</h2>
+
 <ul>
 <li>EventSourceやEventNameなどでどのAPIが叩かれたかわかる</li>
 <li>EventTimeで時間もわかる</li>
 </ul>
+
 <pre><code>{
   &quot;EventId&quot;: &quot;7615c6ad-xxxx-4f42-baa4-d4f14d240d96&quot;,
   &quot;EventName&quot;: &quot;GetQueryExecution&quot;,
@@ -115,39 +125,49 @@
   &quot;Resources&quot;: [],
   &quot;CloudTrailEvent&quot;: {...}
 }
-</code></pre><h2 id="cloudtrailevent">CloudTrailEvent</h2>
+</code></pre>
+
+<h2 id="cloudtrailevent">CloudTrailEvent</h2>
+
 <p>どんな感じでAPIを叩いたかも <code>CloudTrailEvent</code> で見られる</p>
+
 <p>下記の例だとGetQueryExecutionの叩かれ方がrequestParametersなどをみればわかる</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#960050;background-color:#1e0010">$</span> <span style="color:#960050;background-color:#1e0010">cat</span> <span style="color:#960050;background-color:#1e0010">/tmp/_</span> <span style="color:#960050;background-color:#1e0010">|</span> <span style="color:#960050;background-color:#1e0010">jq</span> <span style="color:#960050;background-color:#1e0010">-r</span> <span style="color:#960050;background-color:#1e0010">.Events</span>[<span style="color:#ae81ff">0</span>]<span style="color:#960050;background-color:#1e0010">.CloudTrailEvent</span> <span style="color:#960050;background-color:#1e0010">|</span> <span style="color:#960050;background-color:#1e0010">jq</span> <span style="color:#960050;background-color:#1e0010">.</span>
+
+<pre><code class="language-json">$ cat /tmp/_ | jq -r .Events[0].CloudTrailEvent | jq .
 {
-  <span style="color:#f92672">&#34;eventVersion&#34;</span>: <span style="color:#e6db74">&#34;1.06&#34;</span>,
-  <span style="color:#f92672">&#34;userIdentity&#34;</span>: {
-    <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;IAMUser&#34;</span>,
-    <span style="color:#f92672">&#34;principalId&#34;</span>: <span style="color:#e6db74">&#34;xxxx&#34;</span>,
-    <span style="color:#f92672">&#34;arn&#34;</span>: <span style="color:#e6db74">&#34;arn:aws:iam::xxxx:user/mossan&#34;</span>,
-    <span style="color:#f92672">&#34;accountId&#34;</span>: <span style="color:#e6db74">&#34;xxxx&#34;</span>,
-    <span style="color:#f92672">&#34;accessKeyId&#34;</span>: <span style="color:#e6db74">&#34;xxxx&#34;</span>,
-    <span style="color:#f92672">&#34;userName&#34;</span>: <span style="color:#e6db74">&#34;mossan&#34;</span>
+  &quot;eventVersion&quot;: &quot;1.06&quot;,
+  &quot;userIdentity&quot;: {
+    &quot;type&quot;: &quot;IAMUser&quot;,
+    &quot;principalId&quot;: &quot;xxxx&quot;,
+    &quot;arn&quot;: &quot;arn:aws:iam::xxxx:user/mossan&quot;,
+    &quot;accountId&quot;: &quot;xxxx&quot;,
+    &quot;accessKeyId&quot;: &quot;xxxx&quot;,
+    &quot;userName&quot;: &quot;mossan&quot;
   },
-  <span style="color:#f92672">&#34;eventTime&#34;</span>: <span style="color:#e6db74">&#34;2019-06-09T01:11:06Z&#34;</span>,
-  <span style="color:#f92672">&#34;eventSource&#34;</span>: <span style="color:#e6db74">&#34;athena.amazonaws.com&#34;</span>,
-  <span style="color:#f92672">&#34;eventName&#34;</span>: <span style="color:#e6db74">&#34;GetQueryExecution&#34;</span>,
-  <span style="color:#f92672">&#34;awsRegion&#34;</span>: <span style="color:#e6db74">&#34;ap-northeast-1&#34;</span>,
-  <span style="color:#f92672">&#34;sourceIPAddress&#34;</span>: <span style="color:#e6db74">&#34;13.231.254.111&#34;</span>,
-  <span style="color:#f92672">&#34;userAgent&#34;</span>: <span style="color:#e6db74">&#34;aws-sdk-nodejs/2.320.0 linux/v8.10.0 exec-env/AWS_Lambda_nodejs8.10 callback&#34;</span>,
-  <span style="color:#f92672">&#34;requestParameters&#34;</span>: {
-    <span style="color:#f92672">&#34;queryExecutionId&#34;</span>: <span style="color:#e6db74">&#34;xxxx&#34;</span>
+  &quot;eventTime&quot;: &quot;2019-06-09T01:11:06Z&quot;,
+  &quot;eventSource&quot;: &quot;athena.amazonaws.com&quot;,
+  &quot;eventName&quot;: &quot;GetQueryExecution&quot;,
+  &quot;awsRegion&quot;: &quot;ap-northeast-1&quot;,
+  &quot;sourceIPAddress&quot;: &quot;13.231.254.111&quot;,
+  &quot;userAgent&quot;: &quot;aws-sdk-nodejs/2.320.0 linux/v8.10.0 exec-env/AWS_Lambda_nodejs8.10 callback&quot;,
+  &quot;requestParameters&quot;: {
+    &quot;queryExecutionId&quot;: &quot;xxxx&quot;
   },
-  <span style="color:#f92672">&#34;responseElements&#34;</span>: <span style="color:#66d9ef">null</span>,
-  <span style="color:#f92672">&#34;readOnly&#34;</span>: <span style="color:#66d9ef">true</span>,
-  <span style="color:#f92672">&#34;eventType&#34;</span>: <span style="color:#e6db74">&#34;AwsApiCall&#34;</span>,
-  <span style="color:#f92672">&#34;managementEvent&#34;</span>: <span style="color:#66d9ef">true</span>,
-  <span style="color:#f92672">&#34;recipientAccountId&#34;</span>: <span style="color:#e6db74">&#34;xxxx&#34;</span>
+  &quot;responseElements&quot;: null,
+  &quot;readOnly&quot;: true,
+  &quot;eventType&quot;: &quot;AwsApiCall&quot;,
+  &quot;managementEvent&quot;: true,
+  &quot;recipientAccountId&quot;: &quot;xxxx&quot;
 }
-</code></pre></div><h2 id="jqを使ってtsvに整形">jqを使ってtsvに整形</h2>
+</code></pre>
+
+<h2 id="jqを使ってtsvに整形">jqを使ってtsvに整形</h2>
+
 <p>大体の場合、どのAPIがどれくらいの頻度で叩かれてるかが見られればよいので、jqで以下のように整形すれば良い感じに見られる</p>
+
 <p><code>.EventTime|.+32400|todate</code> でUNIXエポックをJSTに変換している</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cat /tmp/_ | jq -r <span style="color:#e6db74">&#39;.Events[] | [(.EventTime|.+32400|todate),.EventSource,.EventName] | @tsv&#39;</span> | head
+
+<pre><code class="language-bash">$ cat /tmp/_ | jq -r '.Events[] | [(.EventTime|.+32400|todate),.EventSource,.EventName] | @tsv' | head
 2019-06-09T10:11:06Z	athena.amazonaws.com	GetQueryExecution
 2019-06-09T10:11:06Z	athena.amazonaws.com	GetQueryExecution
 2019-06-09T10:11:05Z	athena.amazonaws.com	GetQueryExecution
@@ -158,7 +178,8 @@
 2019-06-09T10:11:03Z	athena.amazonaws.com	GetQueryExecution
 2019-06-09T10:11:02Z	athena.amazonaws.com	GetQueryExecution
 2019-06-09T10:11:02Z	athena.amazonaws.com	GetQueryExecution
-</code></pre></div>
+</code></pre>
+
                 </section>
             </article>
 

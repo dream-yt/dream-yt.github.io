@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>dockerイメージの、レイヤーとサイズの関係をみる &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,16 +83,23 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#例">例</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#例">例</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>docker history を使うとみられる</p>
+                    
+
+<p>docker history を使うとみられる</p>
+
 <h2 id="例">例</h2>
+
 <pre><code>$ docker history --no-trunc --format=&quot;{{.Size}}\t{{.CreatedBy}}&quot; perl:5.20.0
 0B	/bin/sh -c #(nop) CMD [perl5.20.0 -de0]
 0B	/bin/sh -c #(nop) WORKDIR /root
@@ -109,13 +116,18 @@
 0B	/bin/sh -c #(nop) CMD [/bin/bash]
 90.1MB	/bin/sh -c #(nop) ADD file:29e52cbeed164d50b33063694cdb46aa56f7410c17235c4ff8a30183741d21eb in /
 0B
-</code></pre><blockquote>
+</code></pre>
+
+<blockquote>
 <p>&ndash;no-trunc</p>
 </blockquote>
+
 <p>レイヤーのコマンドなどを(省略せずに)ぜんぶ表示する</p>
+
 <blockquote>
-<p>&ndash;format=&quot;{{.Size}}\t{{.CreatedBy}}&quot;</p>
+<p>&ndash;format=&ldquo;{{.Size}}\t{{.CreatedBy}}&rdquo;</p>
 </blockquote>
+
 <p>出力項目のフォーマットを指定</p>
 
                 </section>

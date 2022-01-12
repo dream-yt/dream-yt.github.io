@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>vscode-settings-sync のトークン更新手順 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,49 +83,66 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#経緯">経緯</a></li>
-    <li><a href="#手順">手順</a>
-      <ul>
-        <li><a href="#トークンのスコープについて">トークンのスコープについて</a></li>
-      </ul>
-    </li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#経緯">経緯</a></li>
+<li><a href="#手順">手順</a>
+<ul>
+<li><a href="#トークンのスコープについて">トークンのスコープについて</a></li>
+</ul></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>GitHub のトークンが expire するたびにググっていたのでメモ。</p>
+                    
+
+<p>GitHub のトークンが expire するたびにググっていたのでメモ。</p>
+
 <h2 id="経緯">経緯</h2>
+
 <p>vscode の設定の同期は、<code>vscode-settings-sync</code> を使っている。</p>
+
 <ul>
 <li><a href="https://marketplace.visualstudio.com/items?itemName=Shan.code-settings-sync">Settings Sync - Visual Studio Marketplace</a></li>
 <li><a href="http://shanalikhan.github.io/2015/12/15/Visual-Studio-Code-Sync-Settings.html">Visual Studio Code Settings Synchronization</a></li>
 </ul>
+
 <p>一昨年くらいに公式から同様の拡張がでてきて旗色が悪そうだが、個人的には頑張ってほしいと思っている。設定を Gist で管理しているので他人にシェアするのが楽なのがときどき便利なので。</p>
+
 <h2 id="手順">手順</h2>
+
 <p>トークンを取得</p>
+
 <ul>
 <li><a href="https://github.com/settings/tokens">Personal Access Tokens</a>
+
 <ul>
 <li>scope は gist のみでもいけた</li>
+</ul></li>
 </ul>
-</li>
-</ul>
+
 <p>vscode のコマンドパレットから以下のところでトークンを入力</p>
+
 <ul>
 <li><code>Sync: Advanced Options</code>
+
 <ul>
 <li><code>Sync: Open Settings</code></li>
+</ul></li>
 </ul>
-</li>
-</ul>
+
 <h3 id="トークンのスコープについて">トークンのスコープについて</h3>
+
 <p>GitHub で払い出すトークンの scope は <code>gist</code> だけでも動くみたいである。</p>
+
 <blockquote>
-<p>gist	Grants write access to gists.</p>
+<p>gist  Grants write access to gists.</p>
 </blockquote>
+
 <p>gist はもともとURLさえ知っていれば認証なしにだれでも見られるので、writeアクセスだけあれば大丈夫のようだ。</p>
 
                 </section>

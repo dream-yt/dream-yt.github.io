@@ -29,7 +29,7 @@
 		
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
-		<meta name="generator" content="Hugo 0.79.0" />
+		<meta name="generator" content="Hugo 0.51" />
 		<title>SlackとGitHub連携TODOリスト(新規プロジェクト作成時) &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
@@ -83,50 +83,59 @@
                   
                     <div id="toc">
                       <nav id="TableOfContents">
-  <ul>
-    <li><a href="#github">GitHub</a></li>
-    <li><a href="#slack">Slack</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#github">GitHub</a></li>
+<li><a href="#slack">Slack</a></li>
+</ul></li>
+</ul>
 </nav>
                     </div>
                   
                 
                 <section id="post-body">
-                    <p>毎回ググったりしているのでリスト化。</p>
+                    
+
+<p>毎回ググったりしているのでリスト化。</p>
+
 <h2 id="github">GitHub</h2>
-<ul>
-<li><input disabled="" type="checkbox"> リポジトリを作成</li>
-<li><input disabled="" type="checkbox"> GitHub内の Slack アプリに、つくったリポジトリへのアクセスを許可
+
+<ul class="task-list">
+<li><label><input type="checkbox" disabled class="task-list-item"> リポジトリを作成</label></li>
+<li><label><input type="checkbox" disabled class="task-list-item"> GitHub内の Slack アプリに、つくったリポジトリへのアクセスを許可
+
 <ul>
 <li><a href="https://github.com/settings/installations">Installed GitHub Apps</a></li>
+</ul></label></li>
 </ul>
-</li>
-</ul>
+
 <h2 id="slack">Slack</h2>
-<ul>
-<li><input disabled="" type="checkbox"> Slackのワークスペースの作成</li>
-<li><input disabled="" type="checkbox"> ブックマークURLをいくつか追加</li>
-<li><input disabled="" type="checkbox"> ワークスペースのアイコンの設定
+
+<ul class="task-list">
+<li><label><input type="checkbox" disabled class="task-list-item"> Slackのワークスペースの作成</label></li>
+<li><label><input type="checkbox" disabled class="task-list-item"> ブックマークURLをいくつか追加</label></li>
+<li><label><input type="checkbox" disabled class="task-list-item"> ワークスペースのアイコンの設定
+
 <ul>
 <li><code>$ open xxxxxx.slack.com/customize/icon</code></li>
-</ul>
-</li>
-<li><input disabled="" type="checkbox"> ワークスペースにGitHubアプリを追加
+</ul></label></li>
+<li><label><input type="checkbox" disabled class="task-list-item"> ワークスペースにGitHubアプリを追加
+
 <ul>
 <li><code>$ open xxxxxx.slack.com/apps/A01BP7R4KNY-github</code></li>
-</ul>
-</li>
-<li><input disabled="" type="checkbox"> 認証
+</ul></label></li>
+<li><label><input type="checkbox" disabled class="task-list-item"> 認証
+
 <ul>
 <li><code>/github signin</code></li>
-</ul>
-</li>
-<li><input disabled="" type="checkbox"> subscribe
+</ul></label></li>
+<li><label><input type="checkbox" disabled class="task-list-item"> subscribe
+
 <ul>
 <li><code>/github subscribe {{owner}}/{{repository}}</code></li>
 <li><code>/github subscribe {{owner}}/{{repository}} commits:'*'</code></li>
-</ul>
-</li>
+</ul></label></li>
 </ul>
 
                 </section>

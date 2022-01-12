@@ -13,8 +13,8 @@
     
   
   
-  <meta name="twitter:title" content="GoogleSpreadsheetのデータ(csv)をパパッとjsonにしてスクリプトから使う"/>
-  <meta name="twitter:description" content="csvjsonを使うとcsv =&gt; json が簡単に変換できる csvjsonはcsvkitをインストールすると入ってくる $ brew install csvkit ... $ which csvjson /usr/local/bin/csvjson csvでダウン"/>
+  <meta name="twitter:title" content="npmパッケージの提供する型定義が不十分な時に Merging Interface で補足する"/>
+  <meta name="twitter:description" content="経緯 chart.js を React から扱うためのパッケージである react-chartjs-2 を使っている。型定義もついていて、chart.js の細かいオプションがエディタで補完できるようにな"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -30,7 +30,7 @@
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
 		<meta name="generator" content="Hugo 0.51" />
-		<title>GoogleSpreadsheetのデータ(csv)をパパッとjsonにしてスクリプトから使う &middot; sacre</title>
+		<title>npmパッケージの提供する型定義が不十分な時に Merging Interface で補足する &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
@@ -68,11 +68,11 @@
             <article>
                 <header>
                     <h1>
-                        GoogleSpreadsheetのデータ(csv)をパパッとjsonにしてスクリプトから使う
+                        npmパッケージの提供する型定義が不十分な時に Merging Interface で補足する
                     </h1>
                     <h2 class="headline">
-                    Nov 3, 2018 17:24
-                    · 466 words
+                    Jan 12, 2022 16:51
+                    · 491 words
                     · 1 minute read
                       <span class="tags">
                       
@@ -86,18 +86,11 @@
 <ul>
 <li>
 <ul>
-<li>
-<ul>
-<li><a href="#csvでダウンロード">csvでダウンロード</a></li>
-<li><a href="#スクリプト">スクリプト</a>
-<ul>
-<li>
-<ul>
-<li><a href="#h"><code>-H</code></a></li>
-</ul></li>
-</ul></li>
-<li><a href="#もうちょっとインタラクティブに">もうちょっとインタラクティブに</a></li>
-</ul></li>
+<li><a href="#経緯">経緯</a></li>
+<li><a href="#問題">問題</a></li>
+<li><a href="#対応">対応</a></li>
+<li><a href="#実装">実装</a></li>
+<li><a href="#参考">参考</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -107,94 +100,62 @@
                 <section id="post-body">
                     
 
-<p>csvjsonを使うとcsv =&gt; json が簡単に変換できる
-csvjsonはcsvkitをインストールすると入ってくる</p>
+<h2 id="経緯">経緯</h2>
 
-<pre><code class="language-console">$ brew install csvkit
-...
-$ which csvjson
-/usr/local/bin/csvjson
-</code></pre>
+<p><code>chart.js</code> を React から扱うためのパッケージである <code>react-chartjs-2</code> を使っている。型定義もついていて、<code>chart.js</code> の細かいオプションがエディタで補完できるようになる。</p>
 
-<h3 id="csvでダウンロード">csvでダウンロード</h3>
+<p>なお、<code>react-chartjs-2</code> は内部的に <code>chart.js</code> が提供する型定義をそのままユーザに提供しているので「<code>react-chartjs-2</code> のBarコンポーネントの引数の方は <code>chart.js</code> に記述されている」という状態になる。</p>
 
-<p>Google SpreadSheetからcsv形式でダウンロード</p>
+<h2 id="問題">問題</h2>
 
 <ul>
-<li>ファイル
+<li>Barコンポーネントのオプションの一部で型定義がついていないものがあった
 
 <ul>
-<li>形式を指定してダウンロード
-
-<ul>
-<li>カンマ区切りの値</li>
+<li><code>BarControllerDatasetOptions</code> に <code>column</code> などが定義されていない</li>
 </ul></li>
+<li>必要なオプションなのだが、元の型定義にないので、オプションを渡そうとすると型エラーになる
+
+<ul>
+<li><code>'column' does not exist in type 'ChartDataset&lt;&quot;bar&quot;, unknown&gt;'</code></li>
 </ul></li>
 </ul>
 
-<p><img src="https://user-images.githubusercontent.com/5309672/47705130-f7fc0b80-dc68-11e8-90c9-1a92ea1b3a1f.png" alt="image" /></p>
+<h2 id="対応">対応</h2>
 
-<p>csvjsonはデフォルトだとa, b といったキー名のオブジェクトを配列で作ってくれる</p>
+<p>本家に型定義の Pull Request を出してる間に TypeScript の Declaration Merging の機能を使ってオプションの足りないフィールドをとりあえずこちらで勝手に補う。</p>
 
-<pre><code class="language-console">$ cat ~/Downloads/テストのデータ\ -\ シート1\ \(1\).csv | csvjson -H | jq .
-[
-  {
-    &quot;a&quot;: null,
-    &quot;b&quot;: &quot;TOKIO&quot;,
-    &quot;c&quot;: 1
-  },
-  {
-    &quot;a&quot;: null,
-    &quot;b&quot;: &quot;SMAP&quot;,
-    &quot;c&quot;: 2
-  },
-  {
-    &quot;a&quot;: null,
-    &quot;b&quot;: &quot;嵐&quot;,
-    &quot;c&quot;: 0
+<h2 id="実装">実装</h2>
+
+<pre><code class="language-ts">import &quot;chart.js&quot;;
+declare module &quot;chart.js&quot; {
+  interface BarControllerDatasetOptions {
+    column: string;
+    lineTension: number;
+    fill: boolean;
   }
-]
+}
 </code></pre>
 
-<h3 id="スクリプト">スクリプト</h3>
+<p><code>import &quot;chart.js&quot;;</code> してから <code>declare module &quot;chart.js&quot;</code> とすることで、<code>chart.js</code> の型定義に対してパッチを当てることができる。<code>Module Augmentation</code> と言うそうだ。</p>
 
-<p>あとはjsonをスクリプトで使う<br />
-perlだとjsonのdecodeはこんな感じ</p>
+<blockquote>
+<p>Although JavaScript modules do not support merging, you can patch existing objects by importing and then updating them. Let’s look at a toy Observable example:
+This works fine in TypeScript too, but the compiler doesn’t know about Observable.prototype.map. You can use module augmentation to tell the compiler about it:</p>
+</blockquote>
 
-<pre><code>#!/usr/bin/perl
-use JSON qw'decode_json';
-my $input = decode_json join(&quot;&quot;, &lt;STDIN&gt;);
-print &quot;group arrested counts: &quot; map {$_-&gt;{c}} @$input;
-</code></pre>
-
-<p>パイプで繋げばスプレッドシートのデータをスクリプトで操作できる</p>
-
-<pre><code class="language-bash">$ cat ~/Downloads/テストのデータシート1.csv | csvjson -H | ./myscript.pl
-</code></pre>
-
-<h5 id="h"><code>-H</code></h5>
-
-<pre><code class="language-console">$ csvjson --help | grep '\-H'
-  -H, --no-header-row   Specify that the input CSV file has no header row.
-</code></pre>
-
-<h3 id="もうちょっとインタラクティブに">もうちょっとインタラクティブに</h3>
-
-<p>スプレッドシートの権限をゆるくすればcurlでcsvを取ったりも出来る</p>
+<h2 id="参考">参考</h2>
 
 <ul>
-<li><a href="https://productforums.google.com/forum/#!topic/docs/An-nZtjaupU">publish to web in csv in google sheets - Google プロダクト フォーラム</a></li>
+<li><a href="https://www.typescriptlang.org/docs/handbook/declaration-merging.html#merging-interfaces">merging-interfaces | TypeScript: Documentation - Declaration Merging</a></li>
+<li><a href="https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation">module-augmentation | TypeScript: Documentation - Declaration Merging</a></li>
 </ul>
-
-<pre><code class="language-bash">$ curl -s https://docs.google.com/spreadsheets/d/xxxxxxx/export?format=csv \
-    | csvjson -H | ./myscript.pl
-</code></pre>
 
                 </section>
             </article>
 
             
-                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fgooglespreadsheet-csv-json-perl%2f - GoogleSpreadsheet%e3%81%ae%e3%83%87%e3%83%bc%e3%82%bf%28csv%29%e3%82%92%e3%83%91%e3%83%91%e3%83%83%e3%81%a8json%e3%81%ab%e3%81%97%e3%81%a6%e3%82%b9%e3%82%af%e3%83%aa%e3%83%97%e3%83%88%e3%81%8b%e3%82%89%e4%bd%bf%e3%81%86 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2ftypescript-module-augmentation-on-chartjs%2f - npm%e3%83%91%e3%83%83%e3%82%b1%e3%83%bc%e3%82%b8%e3%81%ae%e6%8f%90%e4%be%9b%e3%81%99%e3%82%8b%e5%9e%8b%e5%ae%9a%e7%be%a9%e3%81%8c%e4%b8%8d%e5%8d%81%e5%88%86%e3%81%aa%e6%99%82%e3%81%ab%20Merging%20Interface%20%e3%81%a7%e8%a3%9c%e8%b6%b3%e3%81%99%e3%82%8b by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
 
 <a class="facebook" href="#" onclick="
     window.open(
