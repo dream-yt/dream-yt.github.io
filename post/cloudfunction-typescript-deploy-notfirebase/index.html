@@ -72,7 +72,7 @@
                     </h1>
                     <h2 class="headline">
                     Dec 22, 2021 12:03
-                    · 1091 words
+                    · 1235 words
                     · 3 minute read
                       <span class="tags">
                       
@@ -97,6 +97,7 @@
 <li><a href="#package-json">./package.json</a></li>
 <li><a href="#tsconfig-json">tsconfig.json</a></li>
 <li><a href="#deploy-sh">./deploy.sh</a></li>
+<li><a href="#その他">その他</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -243,6 +244,20 @@ gcloud functions deploy \
     # ランタイムを指定
     --runtime=nodejs14 \
 </code></pre>
+
+<h2 id="その他">その他</h2>
+
+<p>package.json に以下のような定義がはいっているとCloudBuild上でビルドができなくてハマる。</p>
+
+<pre><code class="language-json">  &quot;main&quot;: &quot;dist/index.js&quot;,
+</code></pre>
+
+<blockquote>
+<p>ERROR: (gcloud.functions.deploy) OperationError: code=3, message=Build failed: dist/index.js does not exist; Error ID: 9e84f42e</p>
+</blockquote>
+
+<p>この定義があると、CloudBuild は <code>dist/dist/index.js</code> を探してしまうことになるため。
+定義を削除して「index.js または function.js を探す」というデフォルトの挙動に戻してやる必要がある。</p>
 
                 </section>
             </article>

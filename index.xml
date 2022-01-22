@@ -6,10 +6,19 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 12 Jan 2022 16:51:50 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 22 Jan 2022 14:46:58 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>bashで、ディレクトリ配下のファイル名から拡張子を取り除いてforループする</title>
+      <link>https://dream-yt.github.io/post/bash-filename-strip-ext-for-loop/</link>
+      <pubDate>Sat, 22 Jan 2022 14:46:58 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/bash-filename-strip-ext-for-loop/</guid>
+      <description>こんな感じでできる。 for _ in $(ls -1 ./some-directory/*.txt | xargs basename -s=.txt); do echo $_ done ls -1 ./some-directory/*.txt ディレクトリからファイル名だけを取り出す xargs basename -s=.txt ファイル名から .txt 拡張子を取り除く</description>
+    </item>
     
     <item>
       <title>npmパッケージの提供する型定義が不十分な時に Merging Interface で補足する</title>
