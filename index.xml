@@ -6,10 +6,28 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sat, 22 Jan 2022 14:46:58 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 27 Jan 2022 16:36:24 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>CloudTaskで認証のついたCloudFunctionを実行するまで</title>
+      <link>https://dream-yt.github.io/post/cloudtask-kick-authenticated-cloudfunction/</link>
+      <pubDate>Thu, 27 Jan 2022 16:36:24 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/cloudtask-kick-authenticated-cloudfunction/</guid>
+      <description>CloudTaskは、任意の場所にhttpリクエストを投げてくれるようなサービスで、リトライやワーカーの管理(同時実行数など)が設定できる。</description>
+    </item>
+    
+    <item>
+      <title>npm install 時に npm ERR! enoent undefined ls-remote</title>
+      <link>https://dream-yt.github.io/post/npm-err-enoent-undefined-ls-remote/</link>
+      <pubDate>Thu, 27 Jan 2022 16:09:51 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/npm-err-enoent-undefined-ls-remote/</guid>
+      <description>npm install などでこういったエラーが出る場合がある。 npm ERR! enoent undefined ls-remote -h -t これは、GitHubに直接ホスティングされているパッケージの場合などに発生する者で</description>
+    </item>
     
     <item>
       <title>bashで、ディレクトリ配下のファイル名から拡張子を取り除いてforループする</title>
@@ -17,7 +35,7 @@
       <pubDate>Sat, 22 Jan 2022 14:46:58 +0900</pubDate>
       
       <guid>https://dream-yt.github.io/post/bash-filename-strip-ext-for-loop/</guid>
-      <description>こんな感じでできる。 for _ in $(ls -1 ./some-directory/*.txt | xargs basename -s=.txt); do echo $_ done ls -1 ./some-directory/*.txt ディレクトリからファイル名だけを取り出す xargs basename -s=.txt ファイル名から .txt 拡張子を取り除く</description>
+      <description>こんな感じでできる。 for _ in $(ls -1 ./some-directory/*.txt | xargs basename -s .txt); do echo $_ done ls -1 ./some-directory/*.txt ディレクトリからファイル名だけを取り出す xargs basename -s=.txt ファイル名から .txt 拡張子を取り除く</description>
     </item>
     
     <item>

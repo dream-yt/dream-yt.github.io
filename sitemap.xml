@@ -3,6 +3,16 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://dream-yt.github.io/post/cloudtask-kick-authenticated-cloudfunction/</loc>
+    <lastmod>2022-01-27T16:36:24+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://dream-yt.github.io/post/npm-err-enoent-undefined-ls-remote/</loc>
+    <lastmod>2022-01-27T16:09:51+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://dream-yt.github.io/post/bash-filename-strip-ext-for-loop/</loc>
     <lastmod>2022-01-22T14:46:58+09:00</lastmod>
   </url>
@@ -1888,7 +1898,7 @@
   
   <url>
     <loc>https://dream-yt.github.io/post/</loc>
-    <lastmod>2022-01-22T14:46:58+09:00</lastmod>
+    <lastmod>2022-01-27T16:36:24+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -1900,7 +1910,7 @@
   
   <url>
     <loc>https://dream-yt.github.io/</loc>
-    <lastmod>2022-01-22T14:46:58+09:00</lastmod>
+    <lastmod>2022-01-27T16:36:24+09:00</lastmod>
     <priority>0</priority>
   </url>
   

@@ -13,8 +13,8 @@
     
   
   
-  <meta name="twitter:title" content="bashで、ディレクトリ配下のファイル名から拡張子を取り除いてforループする"/>
-  <meta name="twitter:description" content="こんな感じでできる。 for _ in $(ls -1 ./some-directory/*.txt | xargs basename -s .txt); do echo $_ done ls -1 ./some-directory/*.txt ディレクトリからファイル名だけを取り出す xargs basename -s=.txt ファイル名から .txt 拡張子を取り除く"/>
+  <meta name="twitter:title" content="npm install 時に npm ERR! enoent undefined ls-remote"/>
+  <meta name="twitter:description" content="npm install などでこういったエラーが出る場合がある。 npm ERR! enoent undefined ls-remote -h -t これは、GitHubに直接ホスティングされているパッケージの場合などに発生する者で"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -30,7 +30,7 @@
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
 		<meta name="generator" content="Hugo 0.51" />
-		<title>bashで、ディレクトリ配下のファイル名から拡張子を取り除いてforループする &middot; sacre</title>
+		<title>npm install 時に npm ERR! enoent undefined ls-remote &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
@@ -68,11 +68,11 @@
             <article>
                 <header>
                     <h1>
-                        bashで、ディレクトリ配下のファイル名から拡張子を取り除いてforループする
+                        npm install 時に npm ERR! enoent undefined ls-remote
                     </h1>
                     <h2 class="headline">
-                    Jan 22, 2022 14:46
-                    · 67 words
+                    Jan 27, 2022 16:09
+                    · 217 words
                     · 1 minute read
                       <span class="tags">
                       
@@ -81,33 +81,42 @@
                 </header>
                 
                   
+                    <div id="toc">
+                      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul>
+</nav>
+                    </div>
+                  
                 
                 <section id="post-body">
-                    <p>こんな感じでできる。</p>
+                    
 
-<pre><code class="language-bash">for _ in $(ls -1 ./some-directory/*.txt | xargs basename -s .txt); do
-    echo $_
-done
-</code></pre>
+<p>npm install などでこういったエラーが出る場合がある。</p>
+
+<blockquote>
+<p>npm ERR! enoent undefined ls-remote -h -t</p>
+</blockquote>
+
+<p>これは、GitHubに直接ホスティングされているパッケージの場合などに発生する者で、パッケージのダウンロードにgitを使うことに起因する。システムにgitが入っていないとこのようなエラーとなる。たとえば自分の場合はCloudBuildなどCDパイプライン上で発生した(gitが入っていなかった)</p>
+
+<p>解決方法はシステムに git を入れることである。</p>
+
+<h2 id="参考">参考</h2>
 
 <ul>
-<li><code>ls -1 ./some-directory/*.txt</code>
-
-<ul>
-<li>ディレクトリからファイル名だけを取り出す</li>
-</ul></li>
-<li><code>xargs basename -s=.txt</code>
-
-<ul>
-<li>ファイル名から <code>.txt</code> 拡張子を取り除く</li>
-</ul></li>
+<li><a href="https://medium.com/anna-coding/solution-for-npm-err-enoent-undefined-ls-remote-h-t-18ab6f8274af">Solution for npm ERR! enoent undefined ls-remote -h -t | by Anna Coding | Anna Coding | Medium</a></li>
 </ul>
 
                 </section>
             </article>
 
             
-                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fbash-filename-strip-ext-for-loop%2f - bash%e3%81%a7%e3%80%81%e3%83%87%e3%82%a3%e3%83%ac%e3%82%af%e3%83%88%e3%83%aa%e9%85%8d%e4%b8%8b%e3%81%ae%e3%83%95%e3%82%a1%e3%82%a4%e3%83%ab%e5%90%8d%e3%81%8b%e3%82%89%e6%8b%a1%e5%bc%b5%e5%ad%90%e3%82%92%e5%8f%96%e3%82%8a%e9%99%a4%e3%81%84%e3%81%a6for%e3%83%ab%e3%83%bc%e3%83%97%e3%81%99%e3%82%8b by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fnpm-err-enoent-undefined-ls-remote%2f - npm%20install%20%e6%99%82%e3%81%ab%20npm%20ERR%21%20enoent%20undefined%20ls-remote by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
 
 <a class="facebook" href="#" onclick="
     window.open(

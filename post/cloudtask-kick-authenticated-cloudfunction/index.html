@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="https://dream-yt.github.io/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="CloudTaskで認証のついたCloudFunctionを実行するまで"/>
+  <meta name="twitter:description" content="CloudTaskは、任意の場所にhttpリクエストを投げてくれるようなサービスで、リトライやワーカーの管理(同時実行数など)が設定できる。"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@site_author"/>
+  
+
+
+
+		
+		<meta name="author" content="site_author">
+		<meta name="description" content="Site Description">
+		<meta name="generator" content="Hugo 0.51" />
+		<title>CloudTaskで認証のついたCloudFunctionを実行するまで &middot; sacre</title>
+		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/font-awesome.min.css">
+		
+
+		
+		<link href="https://dream-yt.github.io/index.xml" rel="alternate" type="application/rss+xml" title="sacre" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='https://dream-yt.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://dream-yt.github.io/posts'>Archive</a>
+	<a href='https://dream-yt.github.io/tags'>Tags</a>
+	<a href='https://dream-yt.github.io/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="https://dream-yt.github.io/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        CloudTaskで認証のついたCloudFunctionを実行するまで
+                    </h1>
+                    <h2 class="headline">
+                    Jan 27, 2022 16:36
+                    · 589 words
+                    · 2 minute read
+                      <span class="tags">
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#前提">前提</a></li>
+<li><a href="#cloudfunctionのリリース">CloudFunctionのリリース</a></li>
+<li><a href="#cloudtaskキューの作成">CloudTaskキューの作成</a></li>
+<li><a href="#cloudtaskキューにジョブを追加">CloudTaskキューにジョブを追加</a></li>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    
+
+<p>CloudTaskは、任意の場所にhttpリクエストを投げてくれるようなサービスで、リトライやワーカーの管理(同時実行数など)が設定できる。</p>
+
+<p>CloudFunction を CloudTask から認証付きでキックする場合はざっくり以下のような手続きとなる。</p>
+
+<ul>
+<li>まず CloudFunction をデプロイ
+
+<ul>
+<li>http エンドポイントモードでデプロイする</li>
+<li><code>--allow-unauthenticated</code> はつけない
+
+<ul>
+<li>認証が必要な関数としてデプロイする</li>
+</ul></li>
+</ul></li>
+<li>CloudTask のキューを作成
+
+<ul>
+<li>ジョブのリトライ数などはここで設定</li>
+</ul></li>
+<li>作成した CloudTask キューにジョブを追加
+
+<ul>
+<li><code>--url</code> でさきほど作ったhttpエンドポイントを叩くように設定</li>
+<li><code>--oidc-service-account-email</code> で関数の実行権限があるアカウントを指定する</li>
+</ul></li>
+</ul>
+
+<h2 id="前提">前提</h2>
+
+<p>たとえば下記のような設定で関数をデプロイして、ジョブを追加する場合。</p>
+
+<pre><code class="language-bash">export QUEUE_NAME=&quot;...&quot;
+export CLOUD_FUNCNAME=&quot;...&quot;
+export URL=&quot;https://...&quot;
+export SERVICE_ACCOUNT=&quot;...@prod-name-123456.iam.gserviceaccount.com&quot;
+</code></pre>
+
+<h2 id="cloudfunctionのリリース">CloudFunctionのリリース</h2>
+
+<pre><code class="language-bash"># CloudFunctionごとにインスタンスのスペックやタイムアウトの設定
+option=&quot;--timeout=540 --memory=1024MB &quot;
+
+# memory増やしてもCPUは比例して大きくならないかもしれない
+# https://pc.atsuhiro-me.net/entry/2021/01/10/230254
+gcloud functions deploy $CLOUD_FUNCNAME \
+    --source=./dist \
+    --entry-point=$CLOUD_FUNCNAME \
+    --trigger-http \
+    --region=asia-northeast1 \
+    --runtime=nodejs14 \
+    $option
+</code></pre>
+
+<p>リリース時に「認証不要のエンドポイントにしますか?」とプロンプトされるのでNoを選択。</p>
+
+<h2 id="cloudtaskキューの作成">CloudTaskキューの作成</h2>
+
+<ul>
+<li><a href="https://cloud.google.com/sdk/gcloud/reference/tasks/queues/create">gcloud tasks queues create  |  Cloud SDK Documentation  |  Google Cloud</a></li>
+</ul>
+
+<pre><code class="language-bash">$ gcloud tasks queues create &quot;${QUEUE_NAME}&quot; \
+    --location=asia-northeast1 \
+    --log-sampling-ratio=1.0 \
+    --max-concurrent-dispatches 36 \
+    --max-attempts=1
+</code></pre>
+
+<h2 id="cloudtaskキューにジョブを追加">CloudTaskキューにジョブを追加</h2>
+
+<ul>
+<li><a href="https://cloud.google.com/sdk/gcloud/reference/beta/tasks/create-http-task">gcloud beta tasks create-http-task  |  Cloud SDK Documentation  |  Google Cloud</a></li>
+</ul>
+
+<pre><code class="language-bash">$ gcloud tasks create-http-task \
+    --location=asia-northeast1 \
+    --queue=&quot;${QUEUE_NAME}&quot; \
+    --url=&quot;https://asia-northeast1-${URL}&quot; \
+    --header=content-type:application/json \
+    --oidc-service-account-email=&quot;${SERVICE_ACCOUNT}&quot; \
+    --body-file=&quot;/tmp/_.json&quot;
+</code></pre>
+
+<h2 id="参考">参考</h2>
+
+<ul>
+<li><a href="https://goodbyegangster.hatenablog.com/entry/2021/07/31/205847">Cloud TasksのワーカーとしてCloud Runを利用する - goodbyegangsterのブログ</a></li>
+<li><a href="https://zenn.dev/nananaoto/articles/bd1584c77e46f128a41a">Cloud Tasksを使ってみた</a></li>
+</ul>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fcloudtask-kick-authenticated-cloudfunction%2f - CloudTask%e3%81%a7%e8%aa%8d%e8%a8%bc%e3%81%ae%e3%81%a4%e3%81%84%e3%81%9fCloudFunction%e3%82%92%e5%ae%9f%e8%a1%8c%e3%81%99%e3%82%8b%e3%81%be%e3%81%a7 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'your_disqus_short_name'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/dream-yt/sacre">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://twitter.com/FUTABA_SACRE">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2022 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="https://dream-yt.github.io/js/jquery-3.3.1.min.js"></script>
+<script src="https://dream-yt.github.io/js/main.js"></script>
+<script src="https://dream-yt.github.io/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+
+
+
+
+    </body>
+</html>

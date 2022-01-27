@@ -76,12 +76,42 @@
     
         
             <li>
+                <aside class="dates">Jan 27</aside>
+                <a href='https://dream-yt.github.io/post/cloudtask-kick-authenticated-cloudfunction/'>
+                    CloudTaskで認証のついたCloudFunctionを実行するまで
+                    
+                        
+                            <h2>CloudTaskは、任意の場所にhttpリクエストを投げてくれるようなサービスで、リトライやワーカーの管理(同時実行数など)が設定できる。</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Jan 27</aside>
+                <a href='https://dream-yt.github.io/post/npm-err-enoent-undefined-ls-remote/'>
+                    npm install 時に npm ERR! enoent undefined ls-remote
+                    
+                        
+                            <h2>npm install などでこういったエラーが出る場合がある。 npm ERR! enoent undefined ls-remote -h -t これは、GitHubに直接ホスティングされているパッケージの場合などに発生する者で</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
                 <aside class="dates">Jan 22</aside>
                 <a href='https://dream-yt.github.io/post/bash-filename-strip-ext-for-loop/'>
                     bashで、ディレクトリ配下のファイル名から拡張子を取り除いてforループする
                     
                         
-                            <h2>こんな感じでできる。 for _ in $(ls -1 ./some-directory/*.txt | xargs basename -s=.txt); do echo $_ done ls -1 ./some-directory/*.txt ディレクトリからファイル名だけを取り出す xargs basename -s=.txt ファイル名から .txt 拡張子を取り除く</h2>
+                            <h2>こんな感じでできる。 for _ in $(ls -1 ./some-directory/*.txt | xargs basename -s .txt); do echo $_ done ls -1 ./some-directory/*.txt ディレクトリからファイル名だけを取り出す xargs basename -s=.txt ファイル名から .txt 拡張子を取り除く</h2>
                         
                     
                 </a>
@@ -187,36 +217,6 @@
                     
                         
                             <h2>こんな要件のデータ連携があるとする。 要件 先方がGCPのCloudStorage(S3みたいなやつ)にファイルを置いてくれる 数GBくらいのSh</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Dec 24</aside>
-                <a href='https://dream-yt.github.io/post/gcp-cloudshell-vscode-remotessh/'>
-                    GCP Cloud Shell 上のコードを VS Code の Remote-SSH で触れるようにする
-                    
-                        
-                            <h2>基本的にはこちらの記事のとおりにやればよかった。 Visual Studio CodeでGoogle Cloud Shellを開く - Qiita Cloud Shell を起動 cloud-shell コマンドでログイン ここでssh鍵</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Dec 22</aside>
-                <a href='https://dream-yt.github.io/post/cloudfunction-typescript-deploy-notfirebase/'>
-                    Cloud Function (非Firebase) に TypeScript のコードをデプロイする
-                    
-                        
-                            <h2>デプロイの要件はひととおりドキュメントに書いてあるので、それを満たすように tsconfig やデプロイスクリプトを作ることになる。 Cloud Functions のデプロイ | Google Cloud Functions に関</h2>
                         
                     
                 </a>
