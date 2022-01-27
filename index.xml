@@ -6,10 +6,37 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Thu, 27 Jan 2022 16:36:24 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 27 Jan 2022 17:44:58 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>nodejs の `google-spreadsheet` を使ってスプレッドシートを更新する</title>
+      <link>https://dream-yt.github.io/post/nodejs-modify-google-spreadsheet/</link>
+      <pubDate>Thu, 27 Jan 2022 17:44:58 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/nodejs-modify-google-spreadsheet/</guid>
+      <description>SpreadSheetとGCPの認証認可については、以前にこちらに書いた。 サービスアカウントで認証してGoogleSpreadsheetから</description>
+    </item>
+    
+    <item>
+      <title>perl の FindBin と splitで tsv ファイルを雑にパースする</title>
+      <link>https://dream-yt.github.io/post/perl-split-tsv-from-file-with-findbin/</link>
+      <pubDate>Thu, 27 Jan 2022 17:41:46 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/perl-split-tsv-from-file-with-findbin/</guid>
+      <description>こんな感じでtsvファイルを扱える。 #!/usr/bin/env perl use strict; use warnings; use FindBin; open my $fh, &#39;&amp;lt;&#39;, &amp;quot;$FindBin::Bin/_.tsv&amp;quot;; my @mapping = map { [split] } &amp;lt;$fh&amp;gt;; ... このへんをメモ $FindBin::Bin について split 関数の仕様 ファイルの読み込み open my $fh,</description>
+    </item>
+    
+    <item>
+      <title>TypeScript で error TS18028: Private identifiers are only available when targeting ECMAScript 2015 and higher</title>
+      <link>https://dream-yt.github.io/post/ts18028-private-identifiers-are-only-available/</link>
+      <pubDate>Thu, 27 Jan 2022 17:27:42 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/ts18028-private-identifiers-are-only-available/</guid>
+      <description>TypeScriptのビルド時に以下のようなエラーに遭遇した。 error TS18028: Private identifiers are only available when targeting ECMAScript 2015 and higher $ ./scripts/deploy.sh --function myfunc node_modules/cloudevents/dist/event/cloudevent.d.ts:15:5 - error TS18028: Private identifiers are only available when targeting ECMAScript 2015 and higher. 15 #private; ~~~~~~~~ Found 1 error. こ</description>
+    </item>
     
     <item>
       <title>CloudTaskで認証のついたCloudFunctionを実行するまで</title>

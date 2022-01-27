@@ -76,6 +76,51 @@
     
         
             <li>
+                <aside class="dates">Oct 28</aside>
+                <a href='https://dream-yt.github.io/post/typescript-array-element-object-typing/'>
+                    TypeScriptで、「この配列の要素がキーになってるオブジェクト」という型を定義する
+                    
+                        
+                            <h2>こんな感じでできる const columns = [&#34;id&#34;, &#34;name&#34;, &#34;created&#34;] as const; type Column = typeof columns[number]; // type Column = &#34;id&#34; | &#34;name&#34; | &#34;created&#34; type Obj = { [F in Column]: string }; typeof columns[number] がミソ What means typeof Array[number] in Typescript? - Stack Overflow</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Oct 15</aside>
+                <a href='https://dream-yt.github.io/post/turnoff-vscode-python-autoformat/'>
+                    VSCodeでワークスペースのpythonファイルだけオートフォーマットを無効にする
+                    
+                        
+                            <h2>半年に1回くらい設定してるのでメモ settingsからworkspaceの設定を開き、以下のように設定すればよい &#34;settings&#34;: { &#34;[python]&#34;: { &#34;editor.formatOnSave&#34;: false } } Turn off auto formatting for json</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Oct 13</aside>
+                <a href='https://dream-yt.github.io/post/read-usvstring-doc/'>
+                    Unicodeスカラー値と、対になっていないサロゲートコードポイントについてメモ
+                    
+                        
+                            <h2>この文章がよく分からなかったので単語について調べたときのメモ USVString - Web API | MDN USVString は、Unicode スカラー値（unicode scalar values）のすべ</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
                 <aside class="dates">Oct 13</aside>
                 <a href='https://dream-yt.github.io/post/bom-utf8-and-js/'>
                     BOMつきUTF-8とjsについて
@@ -172,51 +217,6 @@
                     
                         
                             <h2>簡単に追加できる。 準備 nextを入れる $ npm install next src/pages配下にtsxを作成 $ touch ./src/pages/index.tsx なお、nextはトップレベルではなくsrc配下にpa</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Sep 6</aside>
-                <a href='https://dream-yt.github.io/post/cookiecutter-typescript-jest-eslint/'>
-                    cookiecutterでtypescript/jest/eslintのテンプレートを作った
-                    
-                        
-                            <h2>CRAだとnodejsのスクリプトを書くときとかは使えないのでcookiecutterにいいのがないか探してみたが、ちょっと古かったり(ts</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Sep 5</aside>
-                <a href='https://dream-yt.github.io/post/replace-all-japanese-in-page/'>
-                    ページ内の全ての日本語を○△□に置き換える
-                    
-                        
-                            <h2>nodejs/express で開発をしていて、画面内の日本語をすべて記号に置き換えたい時があったのでこのようにした const replace = require(&#39;stream-replace&#39;); stream = stream .pipe(replace(/[ぁ-ん</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Sep 5</aside>
-                <a href='https://dream-yt.github.io/post/react-render-google-analytics/'>
-                    ReactでレンダリングしているページにGoogleAnalyticsを入れる&#34;
-                    
-                        
-                            <h2>なんかいろんなプラグインがnpmにあったが、自分で dangerouslySetInnerHTML で直接書いてしまうのが楽だった import React from ‘react’; export const GoogleAnalytics: React.FC = () =&gt; ( &lt;&gt; &lt;/&gt; );</h2>
                         
                     
                 </a>

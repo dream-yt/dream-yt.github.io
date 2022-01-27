@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="https://dream-yt.github.io/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="perl の FindBin と splitで tsv ファイルを雑にパースする"/>
+  <meta name="twitter:description" content="こんな感じでtsvファイルを扱える。 #!/usr/bin/env perl use strict; use warnings; use FindBin; open my $fh, &#39;&lt;&#39;, &quot;$FindBin::Bin/_.tsv&quot;; my @mapping = map { [split] } &lt;$fh&gt;; ... このへんをメモ $FindBin::Bin について split 関数の仕様 ファイルの読み込み open my $fh,"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@site_author"/>
+  
+
+
+
+		
+		<meta name="author" content="site_author">
+		<meta name="description" content="Site Description">
+		<meta name="generator" content="Hugo 0.51" />
+		<title>perl の FindBin と splitで tsv ファイルを雑にパースする &middot; sacre</title>
+		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/font-awesome.min.css">
+		
+
+		
+		<link href="https://dream-yt.github.io/index.xml" rel="alternate" type="application/rss+xml" title="sacre" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='https://dream-yt.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://dream-yt.github.io/posts'>Archive</a>
+	<a href='https://dream-yt.github.io/tags'>Tags</a>
+	<a href='https://dream-yt.github.io/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="https://dream-yt.github.io/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        perl の FindBin と splitで tsv ファイルを雑にパースする
+                    </h1>
+                    <h2 class="headline">
+                    Jan 27, 2022 17:41
+                    · 410 words
+                    · 1 minute read
+                      <span class="tags">
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#ファイルの読み込み">ファイルの読み込み</a></li>
+<li><a href="#tsvのパース">tsvのパース</a>
+<ul>
+<li>
+<ul>
+<li><a href="#split-は説明がもう少し必要"><code>[split]</code> は説明がもう少し必要</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    
+
+<p>こんな感じでtsvファイルを扱える。</p>
+
+<pre><code class="language-perl">#!/usr/bin/env perl
+use strict;
+use warnings;
+use FindBin;
+
+open my $fh, '&lt;', &quot;$FindBin::Bin/_.tsv&quot;;
+my @mapping = map { [split] } &lt;$fh&gt;;
+...
+</code></pre>
+
+<p>このへんをメモ</p>
+
+<ul>
+<li><code>$FindBin::Bin</code> について</li>
+<li><code>split</code> 関数の仕様</li>
+</ul>
+
+<h3 id="ファイルの読み込み">ファイルの読み込み</h3>
+
+<pre><code class="language-perl">open my $fh, '&lt;', &quot;$FindBin::Bin/_.tsv&quot;;
+</code></pre>
+
+<ul>
+<li><code>FindBin::Bin</code> は nodejs の <code>__dirname</code> のようなもの</li>
+<li>ファイルを読み出すため、cwdを探すときに使う</li>
+</ul>
+
+<h3 id="tsvのパース">tsvのパース</h3>
+
+<p>1行でいろいろなことをしている。</p>
+
+<pre><code class="language-perl">my @pairs = map { [split] } grep { /\S/ } &lt;$fh&gt;;
+</code></pre>
+
+<ul>
+<li><code>&lt;$fh&gt;</code>
+
+<ul>
+<li>ファイルを1行づつ読んでループ(grepに渡す配列になっている)</li>
+</ul></li>
+<li><code>grep { /\S/ }</code>
+
+<ul>
+<li>改行のみのレコードを無視する</li>
+</ul></li>
+</ul>
+
+<h5 id="split-は説明がもう少し必要"><code>[split]</code> は説明がもう少し必要</h5>
+
+<p>split は引数を与えないとこんな挙動になる。</p>
+
+<blockquote>
+<p>split emulates the default behavior of the command line tool awk when the PATTERN is either omitted or a string composed of a single space character (such as &lsquo; &rsquo; or &ldquo;\x20&rdquo;, but not e.g. / /). In this case, any leading whitespace in EXPR is removed before splitting occurs, and the PATTERN is instead treated as if it were /\s+/; in particular, this means that any contiguous whitespace (not just a single space character) is used as a separator.</p>
+</blockquote>
+
+<ul>
+<li><a href="https://perldoc.perl.org/functions/split">split - Perldoc Browser</a></li>
+</ul>
+
+<p>つまり、</p>
+
+<ul>
+<li>先頭の空白が除去されて</li>
+<li><code>/\s+/</code> で split したことになる</li>
+</ul>
+
+<p>また、EXPR も省略しているので <code>$_</code> に対して呼ばれたことになる。</p>
+
+<p>省略されたものを補うとこんな感じになる。(自分以外が読むコードならちゃんと書いたほうがよい)</p>
+
+<ul>
+<li><code>split(/\s+/, $_)</code></li>
+</ul>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fperl-split-tsv-from-file-with-findbin%2f - perl%20%e3%81%ae%20FindBin%20%e3%81%a8%20split%e3%81%a7%20tsv%20%e3%83%95%e3%82%a1%e3%82%a4%e3%83%ab%e3%82%92%e9%9b%91%e3%81%ab%e3%83%91%e3%83%bc%e3%82%b9%e3%81%99%e3%82%8b by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'your_disqus_short_name'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/dream-yt/sacre">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://twitter.com/FUTABA_SACRE">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2022 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="https://dream-yt.github.io/js/jquery-3.3.1.min.js"></script>
+<script src="https://dream-yt.github.io/js/main.js"></script>
+<script src="https://dream-yt.github.io/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+
+
+
+
+    </body>
+</html>

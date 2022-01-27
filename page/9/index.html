@@ -76,6 +76,51 @@
     
         
             <li>
+                <aside class="dates">Mar 21</aside>
+                <a href='https://dream-yt.github.io/post/get-fullpath-on-macos-commandline/'>
+                    MacOSでコマンドラインからファイルのフルパスを取得する
+                    
+                        
+                            <h2>greadlink -f が一番簡単だった $ greadlink -f ./prisma/_.sql /Users/akira/.ghq/git/you/_.sql 参考 bash で ファイルの絶対パスを得る - Qiita</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Mar 19</aside>
+                <a href='https://dream-yt.github.io/post/bigquery-log-digging-tips/'>
+                    BigQueryでアクセスログを掘るときのtips
+                    
+                        
+                            <h2>毎回ググるところがあるのでメモをしておく。 たとえばこんなクエリでアクセス履歴を見ることが多い。 SELECT user_id, FORMAT_TIMESTAMP(&#39;%Y-%m-%d %H:%M:%S&#39;, time, &#39;Asia/Tokyo&#39;) AS jst, status_code, SUBSTR(url, 0, 50) url, JSON_EXTRACT(parameters, &#39;$.started_at&#39;) started_at, JSON_EXTRACT(parameters, &#39;$.ended_at&#39;) ended_at, SUBSTR(parameters, 0, 50) snipped_param</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Mar 12</aside>
+                <a href='https://dream-yt.github.io/post/http-header-vary/'>
+                    HTTPのVaryヘッダについて
+                    
+                        
+                            <h2>Varyは中間のキャッシュサーバで活用することが期待されてるヘッダ nginx や h20 などのオリジンサーバがレスポンスヘッダに入れてキャッシュサーバを制御</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
                 <aside class="dates">Mar 10</aside>
                 <a href='https://dream-yt.github.io/post/find-and-delete-compressed-file-60min-ago/'>
                     つくられてから1時間以上経った未圧縮のファイルだけを削除する
@@ -172,51 +217,6 @@
                     
                         
                             <h2>hostコマンドの第二引数にDNSサーバを指定できる $ host -a amazon.co.jp 8.8.8.8 Using domain server: Name: 8.8.8.8 Address: 8.8.8.8#53 Aliases: amazon.co.jp has address 52.119.168.48 amazon.co.jp has address 52.119.164.121 amazon.co.jp has address 52.119.161.5 amazon.co.jp mail is handled by 10 amazon-smtp.amazon.com. IPアドレスからドメイン</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Mar 2</aside>
-                <a href='https://dream-yt.github.io/post/perl-destructuring-assignment/'>
-                    perlでjsの分割代入 (Destructuring assignment) みたいなことをする
-                    
-                        
-                            <h2>jsほどスマートじゃないが、それっぽいことはできる 例 こんなデータがあるとして my $h = { a =&gt; 1, b =&gt; 2, }; こうやって取り出す my ($a, $b) = @$h{qw/a b/};</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Mar 2</aside>
-                <a href='https://dream-yt.github.io/post/browser-download-http-header/'>
-                    CSVダウンロードのときにつけるヘッダ
-                    
-                        
-                            <h2>Content-Type: text/csv; charset=cp932 Content-Disposition: attachment;filename=your_filename.csv CSVファイルはエクセルで開かれることが多いのでエンコーディングはcp932を使う ダウンロードファイルなことを明示するために Content-Disposition を明</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Mar 1</aside>
-                <a href='https://dream-yt.github.io/post/basename-101/'>
-                    basename と末尾のスラッシュなど
-                    
-                        
-                            <h2>basenameはシェルスクリプトとかでパスからファイル名を取り出す時に使う。 文字列が / で終端してるかどうかにかからわずうまいことやってくれ</h2>
                         
                     
                 </a>
