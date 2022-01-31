@@ -76,6 +76,66 @@
     
         
             <li>
+                <aside class="dates">Jan 22</aside>
+                <a href='https://dream-yt.github.io/post/bash-filename-strip-ext-for-loop/'>
+                    bashで、ディレクトリ配下のファイル名から拡張子を取り除いてforループする
+                    
+                        
+                            <h2>こんな感じでできる。 for _ in $(ls -1 ./some-directory/*.txt | xargs basename -s .txt); do echo $_ done ls -1 ./some-directory/*.txt ディレクトリからファイル名だけを取り出す xargs basename -s=.txt ファイル名から .txt 拡張子を取り除く</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Jan 12</aside>
+                <a href='https://dream-yt.github.io/post/typescript-module-augmentation-on-chartjs/'>
+                    npmパッケージの提供する型定義が不十分な時に Merging Interface で補足する
+                    
+                        
+                            <h2>経緯 chart.js を React から扱うためのパッケージである react-chartjs-2 を使っている。型定義もついていて、chart.js の細かいオプションがエディタで補完できるようにな</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Jan 12</aside>
+                <a href='https://dream-yt.github.io/post/gcp-default-role-on-cloudfunction/'>
+                    Cloud Function とデフォルトでついている権限についてメモ
+                    
+                        
+                            <h2>ランタイムの権限 Cloud Function の関数の中での権限 リソース管理の権限 Cloud Function をビルド/デプロイなどするときの権限 ランタイムの権限 デフォルトでは CloudFunction は PROJECT_ID@appspot.gserviceaccount.com という、</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Jan 7</aside>
+                <a href='https://dream-yt.github.io/post/extract-not-exported-package-type-definition/'>
+                    TypeScriptでパッケージ(JQueryDataTable)がexportしていない型を使う
+                    
+                        
+                            <h2>jQueryDataTable を使っているのだが、公式の型定義はexportしている型があまりない。 DefinitelyTyped/index.d.ts at master · DefinitelyTyped/DefinitelyTyped このパッケージはオプションでいろいろな設定ができるようにな</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
                 <aside class="dates">Jan 5</aside>
                 <a href='https://dream-yt.github.io/post/vscode-settings-sync-token-refresh-memo/'>
                     vscode-settings-sync のトークン更新手順
@@ -157,66 +217,6 @@
                     
                         
                             <h2>デプロイの要件はひととおりドキュメントに書いてあるので、それを満たすように tsconfig やデプロイスクリプトを作ることになる。 Cloud Functions のデプロイ | Google Cloud Functions に関</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Dec 17</aside>
-                <a href='https://dream-yt.github.io/post/redash-screenshot-with-capture-website-cli/'>
-                    capture-website-cli を使って redash のスクリーンショットを撮る  📸
-                    
-                        
-                            <h2>Hosted Redash が EOL になってしまった。 Hosted Redash End of Life それはしょうがないのだが、グラフのスクリーンショットのPNGが返ってくるエンドポイントがセルフホストの Redash</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Dec 15</aside>
-                <a href='https://dream-yt.github.io/post/setup-google-analytics4-and-bigquery/'>
-                    Google Analytics 4 でページ表示速度を計測する
-                    
-                        
-                            <h2>Google Analytics はこれまでのユニバーサルアナリティクス(UA)だとページの表示時間がデフォルトで計測されていた。 しかし、Google Analytics 4 (GA4)からは</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Dec 13</aside>
-                <a href='https://dream-yt.github.io/post/apache-bench-request-header/'>
-                    apache bench でリクエストに指定のヘッダをつける
-                    
-                        
-                            <h2>たとえば Authorization ヘッダだとこんな感じでつけられる。 $ ab -n 10 -c 1 -H &#34;Authorization: Bearer xxxxxxxx&#34; &#34;https://example.com/test&#34; ヘッダ -H オプションで設定できる。 -H attribute Add Arbitrary header line, eg. &#39;Accept-Encoding: gzip&#39; その他 そのほか最低この2</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Dec 8</aside>
-                <a href='https://dream-yt.github.io/post/group-by-year-month-mysql/'>
-                    MySQLで月毎にGROUP BYする
-                    
-                        
-                            <h2>modified は変更されたら更新されるカラム。 以下のような表現で 202107 といった文字列を作ることができる。 CONCAT(YEAR(modified), LPAD(MONTH(modified), 2, &#39;0&#39;)) GROUP BY YEAR(modified), MONTH(modified) でもいいが、可視化のライブラリにて使</h2>
                         
                     
                 </a>

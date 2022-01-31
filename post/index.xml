@@ -6,10 +6,46 @@
     <description>Recent content in Posts on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sat, 29 Jan 2022 22:35:17 +0900</lastBuildDate>
+    <lastBuildDate>Mon, 31 Jan 2022 10:38:10 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>BigQuery で定義されているUDFの名前と定義を一覧するスクリプト</title>
+      <link>https://dream-yt.github.io/post/list-bigquery-udf/</link>
+      <pubDate>Mon, 31 Jan 2022 10:38:10 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/list-bigquery-udf/</guid>
+      <description>#!/usr/bin/env bash set -euo pipefail readonly TMPFILE=/tmp/_list-udf.txt bq --format=json ls --routines fn \ | jq -r &#39;.[].routineReference | &amp;quot;\(.datasetId).\(.routineId)&amp;quot;&#39; \ &amp;gt; $TMPFILE for udfid in $(cat $TMPFILE); do DEF=$(bq --format=json show --routine &amp;quot;$udfid&amp;quot; | jq -r .definitionBody) echo &amp;quot;# $udfid&amp;quot; echo &#39;```&#39; echo ${DEF} echo &#39;```&#39; echo &amp;quot;&amp;quot; done</description>
+    </item>
+    
+    <item>
+      <title>CloudFront でリクエストが多いファイルをサクッと見る</title>
+      <link>https://dream-yt.github.io/post/cloudfront-popular-object/</link>
+      <pubDate>Sun, 30 Jan 2022 14:35:06 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/cloudfront-popular-object/</guid>
+      <description>popular_urls というページがあり、CloudFront のネットワークごとに人気のオブジェクトとリクエスト量が見られる。 人気オブジェクト | CloudFront</description>
+    </item>
+    
+    <item>
+      <title>jq で CSV を JSON に変換する</title>
+      <link>https://dream-yt.github.io/post/jq-convert-csv-to-json/</link>
+      <pubDate>Sun, 30 Jan 2022 14:23:12 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/jq-convert-csv-to-json/</guid>
+      <description>こんなCSVをJSONにする。 1,foo 2,bar id,name の2カラムのCSVとみなすとこのようになる。 $ cat /tmp/_ \ | jq --raw-input &#39;split(&amp;quot;,&amp;quot;) | {id: .[0], name: .[1]}&#39; \ | jq -s { &amp;quot;id&amp;quot;: &amp;quot;1&amp;quot;, &amp;quot;name&amp;quot;: &amp;quot;foo&amp;quot; } { &amp;quot;id&amp;quot;: &amp;quot;2&amp;quot;, &amp;quot;name&amp;quot;: &amp;quot;bar&amp;quot; } --raw-input</description>
+    </item>
+    
+    <item>
+      <title>CloudStorage にある大きなCSVファイルのヘッダ行だけ読む</title>
+      <link>https://dream-yt.github.io/post/cloud-storage-peek-header-line/</link>
+      <pubDate>Sun, 30 Jan 2022 11:41:18 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/cloud-storage-peek-header-line/</guid>
+      <description>gsutil cat というサブコマンドがあり、指定したバイト数だけ読み出すことができる。 先頭から20キロバイトくらい(1行以上読めるくらいの量)を読み出して</description>
+    </item>
     
     <item>
       <title>BigQuery の 外部テーブルに GCS 使おうとして location でダメだった</title>
