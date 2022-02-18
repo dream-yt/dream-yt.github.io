@@ -76,147 +76,147 @@
     
         
             <li>
+                <aside class="dates">Apr 29</aside>
+                <a href='https://dream-yt.github.io/post/nestjs-class-transformer-pipe/'>
+                    NestJSでPOSTパラメータをクラスのインスタンスに変換して受け取る
+                    
+                        
+                            <h2>NestJS では class-transformer を使って、クライアントから渡されたデータを、jsのクラスのインスタンスにした状態で受け取ることができる。たとえば、日時のデータを文字</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Apr 28</aside>
+                <a href='https://dream-yt.github.io/post/a-test-was-not-wrapped-in-act/'>
+                    React Testing Library で a test was not wrapped in act をなんとかする
+                    
+                        
+                            <h2>Formik を使っていてこんな警告が出た。 console.error node_modules/react-dom/cjs/react-dom.development.js:530 Warning: An update to Formik inside a test was not wrapped in act(…). When testing, code that causes React state updates should be wrapped into act(…): コンポーネントの更新をともなうテストは act 関数のコール</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Apr 28</aside>
+                <a href='https://dream-yt.github.io/post/delete-all-ds_store/'>
+                    一発で.DS_Storeをすべて削除する
+                    
+                        
+                            <h2>findコマンドでできる $ find . -name &#34;.DS_Store&#34; -print -delete</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Apr 25</aside>
+                <a href='https://dream-yt.github.io/post/react-admin-cant-handle-natural-key/'>
+                    react-admin では ナチュラルキーのテーブルはうまく扱えない
+                    
+                        
+                            <h2>rails や django などのフレームワークと同様、idカラムがない(もしくはpkにナチュラルキーが設定されている)テーブルは react-admin ではうまく扱うことができない。</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Apr 24</aside>
+                <a href='https://dream-yt.github.io/post/typescript-utility-type-parameters/'>
+                    TypeScript で、関数の引数の型をtypeとして宣言したい場合
+                    
+                        
+                            <h2>Utility Type の Parameters を typeof と一緒に使えばよい。 const f = ({ a, b }) =&gt; {}; type FArg = Parameters&lt;typeof f&gt;; // type FArg = [{ a: any; b: any; }] 公式ドキュメントで紹介されている。 TypeScript: Documentation - Utility Types</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Apr 18</aside>
+                <a href='https://dream-yt.github.io/post/prisma-apply-migration/'>
+                    Prisma でスキーマ変更を本番に反映する
+                    
+                        
+                            <h2>.env.migrate というファイルに本番DBにDDLを流せる接続情報が記述されているとして。 確認 どこまでマイグレーションファイルが適用されているかを確認。 npx dotenv</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Apr 18</aside>
+                <a href='https://dream-yt.github.io/post/firebase-cloudfunction-prisma-cloudsqlproxy/'>
+                    FirebaseCloudfunction上でPrismaを動かしてCloudSQLProxy経由でデータベースに接続する
+                    
+                        
+                            <h2>CloudFunction はランタイム上から CloudSQLProxy 経由で MySQL と接続することができるようになっている。 Cloud Functions から Cloud SQL への接続 | Cloud SQL for MySQL | Google Cloud もちろん Firebase の CloudFunctions でもこの機能は使うこ</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Apr 18</aside>
+                <a href='https://dream-yt.github.io/post/firebase-cloudfunction-dot-env/'>
+                    FirebaseCloudFunction で環境変数を設定する(.env経由)
+                    
+                        
+                            <h2>Firebase CloudFunction では通常のOSの環境変数の使用は制限されている。ランタイムに変数を注入したい場合はOSの環境変数ではなく、 Firebase独特の環境変数</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Apr 17</aside>
+                <a href='https://dream-yt.github.io/post/prisma-mysql-unix-socket/'>
+                    prisma-client と MySQL を unix socket で接続する
+                    
+                        
+                            <h2>ドキュメントには「ディレクトリを指定する」という書き方になっているが、もちろん実際はファイルのフルパスを入れないとつながらない。 socket Points to a directory that</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
                 <aside class="dates">Apr 17</aside>
                 <a href='https://dream-yt.github.io/post/deploy-config-firebase-cloud-function/'>
                     FirebaseCloudFunctions のデプロイ設定を書くところ
                     
                         
                             <h2>こちらの実装がデプロイされる仕組みの部分についてメモ。 NestJS を Firebase Cloudfunction 上で動かす 今回の例だとディレクト構成はこのようになっている。 $ tree -L 2 ../ ../ ├──</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Apr 11</aside>
-                <a href='https://dream-yt.github.io/post/mysql-create-database-and-user/'>
-                    MySQLで最初にユーザとデータベースを作成する
-                    
-                        
-                            <h2>アプリを作り始めるときにやる手順。MySQL8での作業。 データベースの作成 COLLATE は、utf8mb4_bin が一番厳密な区別(全角/半角の区別など</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Apr 4</aside>
-                <a href='https://dream-yt.github.io/post/nestjs-prisma-error-to-resolve-deps/'>
-                    Nest can&#39;t resolve dependencies of the FooService
-                    
-                        
-                            <h2>NestJS のテストで以下のエラーになった。 これは新しい依存(Prisma)を Denylist モジュールに追加したときに発生した。 Nest can&#39;t resolve dependencies of the DenylistService (?). Please make sure that the argument PrismaService at index</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Apr 4</aside>
-                <a href='https://dream-yt.github.io/post/nestjs-prisma-integlation/'>
-                    Prisma の NestJS へのつなぎ込み
-                    
-                        
-                            <h2>$ yarn add prisma @prisma/client $ npx prisma init # TODO CI/本番など実行環境ごとに .env を切り替える方法が欲しい スキーマの編集 $ code prisma/schema.prisma まずは sqlite で動作させる。 generator client { provider = &#34;prisma-client-js&#34; } datasource db { provider</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Apr 4</aside>
-                <a href='https://dream-yt.github.io/post/nestjs-firebase-cloudfunction/'>
-                    NestJS を Firebase Cloudfunction 上で動かす
-                    
-                        
-                            <h2>NestJS を Firebase Cloudfunction 上で動かした時のメモ。公式のリポジトリで example とか issue を探したけどパッと出てこなかったので、野良の実装を参考にしてやっている。 fireba</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Apr 4</aside>
-                <a href='https://dream-yt.github.io/post/nestjs-naming-convention-hyphen/'>
-                    NestJS でハイフン混じりのリソースを定義するとき
-                    
-                        
-                            <h2>2単語にまたがるリソース名をつけようとするときどうするのが流儀に沿っているかわからなかったので調べたメモ。 結論としてはnestjsらしい名前</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Apr 3</aside>
-                <a href='https://dream-yt.github.io/post/nestjs-create-new-resource/'>
-                    NestJS でエンドポイント(リソース)を追加する
-                    
-                        
-                            <h2>エンドポイント新規に追加するときは generate コマンドを使う。 generate resource とすると、ひとそろい作ってくれる。 nest generate resource [resource-name] たとえば、denylist というリソースの</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Apr 3</aside>
-                <a href='https://dream-yt.github.io/post/nestjs-module-injection-101/'>
-                    NestJSのDI/モジュール周りについてメモ
-                    
-                        
-                            <h2>nestjsの特徴と嬉しい点はDIの仕組みがしっかりしているところのようだ。 どのようにDIが機能しているかについて、ドキュメントとか記事をみ</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Mar 31</aside>
-                <a href='https://dream-yt.github.io/post/react-admin-api-request/'>
-                    React-admin のAPIリクエストと認証について
-                    
-                        
-                            <h2>こちらの続き React-admin のチュートリアルを読んだメモ 管理画面の表示を認証認可で切り盛りするのはチュートリアルに書いてあったが、APIにリクエストすると</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Mar 31</aside>
-                <a href='https://dream-yt.github.io/post/react-admin-tutorial/'>
-                    React-admin のチュートリアルを読んだメモ
-                    
-                        
-                            <h2>読んだのでメモ React-admin - My First Project Tutorial 一覧画面 React-admin では一覧表は管理画面によくあるテーブル形式で表示する。 dataProvider // in src/App.js import * as React from &#34;react&#34;; import { Admin } from &#39;react-admin&#39;; import jsonServerProvider from &#39;ra-data-json-server&#39;; const dataProvider = jsonServerProvider(&#39;https://jsonplaceholder.typicode.com&#39;); const</h2>
                         
                     
                 </a>

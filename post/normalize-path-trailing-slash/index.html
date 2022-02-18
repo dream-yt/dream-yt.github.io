@@ -13,8 +13,8 @@
     
   
   
-  <meta name="twitter:title" content="Start Gcp Free Instance"/>
-  <meta name="twitter:description" content="gcpで無料のインスタンスを立ち上げてsshするまで gcpアカウントのセットアップ $ gcloud config configurations create okokng $ gcloud config set project okokng-xxxxxxxxxx $ gcloud config set account okokng@gmail.com $ gcloud auth login ブラウザが立ち"/>
+  <meta name="twitter:title" content="bash でパスの末尾に `/` がついてたら取り除く"/>
+  <meta name="twitter:description" content="引数でパスを渡してもらうときとかに、入力を正規化するために使う。 for OPT in &quot;$@&quot;; do case $OPT in &#39;--csvpath-prefix&#39;) csvpath_prefix=${2%/} shift 2 ;; esac done echo $csvpath_prefix この部分。bashの機能で変数の一部を切り"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -30,7 +30,7 @@
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
 		<meta name="generator" content="Hugo 0.51" />
-		<title>Start Gcp Free Instance &middot; sacre</title>
+		<title>bash でパスの末尾に `/` がついてたら取り除く &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
@@ -68,11 +68,11 @@
             <article>
                 <header>
                     <h1>
-                        Start Gcp Free Instance
+                        bash でパスの末尾に `/` がついてたら取り除く
                     </h1>
                     <h2 class="headline">
-                    Dec 25, 2019 00:13
-                    · 179 words
+                    Feb 18, 2022 18:57
+                    · 108 words
                     · 1 minute read
                       <span class="tags">
                       
@@ -84,15 +84,9 @@
                     <div id="toc">
                       <nav id="TableOfContents">
 <ul>
-<li><a href="#gcpで無料のインスタンスを立ち上げてsshするまで">gcpで無料のインスタンスを立ち上げてsshするまで</a>
-<ul>
 <li>
 <ul>
-<li><a href="#gcpアカウントのセットアップ">gcpアカウントのセットアップ</a></li>
-<li><a href="#インスタンスの立ち上げ">インスタンスの立ち上げ</a></li>
-<li><a href="#インスタンスへのログイン">インスタンスへのログイン</a></li>
-<li><a href="#スタートアップスクリプトのログをtail">スタートアップスクリプトのログをtail</a></li>
-</ul></li>
+<li><a href="#参考">参考</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -102,45 +96,35 @@
                 <section id="post-body">
                     
 
-<h1 id="gcpで無料のインスタンスを立ち上げてsshするまで">gcpで無料のインスタンスを立ち上げてsshするまで</h1>
+<p>引数でパスを渡してもらうときとかに、入力を正規化するために使う。</p>
 
-<h3 id="gcpアカウントのセットアップ">gcpアカウントのセットアップ</h3>
-
-<pre><code class="language-bash">$ gcloud config configurations create okokng
-$ gcloud config set project okokng-xxxxxxxxxx
-$ gcloud config set account okokng@gmail.com
-$ gcloud auth login
+<pre><code class="language-bash">for OPT in &quot;$@&quot;; do
+    case $OPT in
+        '--csvpath-prefix')
+            csvpath_prefix=${2%/}
+            shift 2
+            ;;
+    esac
+done
+echo $csvpath_prefix
 </code></pre>
 
-<p>ブラウザが立ち上がるのでログイン</p>
+<p>この部分。bashの機能で変数の一部を切り出せる、末尾に <code>/</code> がついている場合のみ取り除くことができる。</p>
 
-<h3 id="インスタンスの立ち上げ">インスタンスの立ち上げ</h3>
-
-<p>f1-microをUSリージョンで立てる分には無料</p>
-
-<pre><code class="language-bash">$ gcloud compute instances create island \
-    --image-family ubuntu-1804-lts \
-    --image-project gce-uefi-images \
-    --machine-type f1-micro \
-    --zone us-east1-b \
-    --metadata-from-file startup-script=./startup-script.sh
+<pre><code class="language-bash">csvpath_prefix=${2%/}
 </code></pre>
 
-<h3 id="インスタンスへのログイン">インスタンスへのログイン</h3>
+<h2 id="参考">参考</h2>
 
-<pre><code class="language-bash">$ gcloud compute ssh root@island --zone us-east1-b
-</code></pre>
-
-<h3 id="スタートアップスクリプトのログをtail">スタートアップスクリプトのログをtail</h3>
-
-<pre><code class="language-bash">$ tail -F /var/log/syslog
-</code></pre>
+<ul>
+<li><a href="https://www.gnu.org/software/bash/manual/html_node/Shell-Parameter-Expansion.html">Shell Parameter Expansion (Bash Reference Manual)</a></li>
+</ul>
 
                 </section>
             </article>
 
             
-                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fstart-gcp-free-instance%2f - Start%20Gcp%20Free%20Instance by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fnormalize-path-trailing-slash%2f - bash%20%e3%81%a7%e3%83%91%e3%82%b9%e3%81%ae%e6%9c%ab%e5%b0%be%e3%81%ab%20%60%2f%60%20%e3%81%8c%e3%81%a4%e3%81%84%e3%81%a6%e3%81%9f%e3%82%89%e5%8f%96%e3%82%8a%e9%99%a4%e3%81%8f by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
 
 <a class="facebook" href="#" onclick="
     window.open(

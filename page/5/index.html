@@ -76,147 +76,147 @@
     
         
             <li>
+                <aside class="dates">Aug 30</aside>
+                <a href='https://dream-yt.github.io/post/logging-only-nodejs-bigquery-insert-error/'>
+                    nodejsのBigQuery#insertに失敗したときに原因の行だけログに出す
+                    
+                        
+                            <h2>nodejs で BigQuery に insert するとき、1行でも不正な行があると全体が失敗する。そしてどの行がなぜ失敗したのかを確認するのにはちょっと工夫が必要である。 まず、不</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Aug 27</aside>
+                <a href='https://dream-yt.github.io/post/jest-mock-node-package-and-simulate-click/'>
+                    jest でパッケージをモックしながら react-test-utils でクリックイベントをテストする
+                    
+                        
+                            <h2>こんな実装になった。 import React from &#34;react&#34;; import ReactDOM from &#34;react-dom&#34;; import { act, Simulate } from &#34;react-dom/test-utils&#34;; import { Button } from &#34;./Button&#34;; const fn = jest.fn(); jest.mock(&#34;mocked-packagejs&#34;, () =&gt; (...args: any) =&gt; { fn(...args); }); test(&#34;basic&#34;, async () =&gt; { const container = document.createElement(&#34;div&#34;); document.body.appendChild(container); act(() =&gt; ReactDOM.render(&lt;Button /&gt;, container)); const button = container.querySelector(&#34;button&#34;)!; await act(async () =&gt; Simulate.click(button)); const args</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Aug 24</aside>
+                <a href='https://dream-yt.github.io/post/ts-node-baseurl-issue-nobrain/'>
+                    ts-node で型定義にパスが通らないときに力ずくで通す方法ともう少しマシな方法
+                    
+                        
+                            <h2>tsconfig.json で baseUrl を指定しているときに ts-node はそれを解決してくれない。 tsconfig.json/paths not working with ts-node · Issue #138 · TypeStrong/ts-node 型定義がないパッケージを使っていて index.d.ts などにせこせこ型定義をしている</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Aug 23</aside>
+                <a href='https://dream-yt.github.io/post/make-pdf-grayscale/'>
+                    PDFを白黒にする
+                    
+                        
+                            <h2>印刷でいちいち白黒を設定するのが面倒で調べた。 ghostscript で以下のようにオプションをわたしてあげたらキレイにモノクロになった。 $ gs \ -sDEVICE=pdfwrite \ -sProcessColorModel=DeviceGray \ -sColorConversionStrategy=Gray \ -dOverrideICC \ -o</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Aug 16</aside>
+                <a href='https://dream-yt.github.io/post/find-when-i-remove-this-definition-from-gitlog/'>
+                    git で定義がいつ消されたかを log から検索する
+                    
+                        
+                            <h2>たとえば package.json から puppeteer を取り除いたのはいつだったかなと調べたいときがある。 もう消えてしまっている文字列は grep では探せないが、git は知っている。 -S オ</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Aug 11</aside>
+                <a href='https://dream-yt.github.io/post/install-py36-sendfile-error/'>
+                    Pythonのインストールで 「&#39;sendfile&#39; is invalid in C99」
+                    
+                        
+                            <h2>python3.6 を pyenv で入れようとしたら以下のエラーで入らなかった。 error: implicit declaration of function ‘sendfile’ is invalid in C99 もろもろビルドフラグをつける必要があった。以前にはこんな色々やらなく</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Aug 6</aside>
+                <a href='https://dream-yt.github.io/post/html-beautify-101/'>
+                    htmlをフォーマットするのにhtml-beautifyを使う
+                    
+                        
+                            <h2>html-beautify は html をフォーマットしてくれるCLIのツール。 beautify-web/js-beautify: Beautifier for javascript html-beautify は js-beautify を入れると入る。 $ yarn add js-beautify pup htmlを整形できるツールだと pup というものがあるが、自</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Aug 1</aside>
+                <a href='https://dream-yt.github.io/post/my-project-d-ts-file/'>
+                    .d.ts ファイルを自作してimportする
+                    
+                        
+                            <h2>APIのTypeScriptの型定義ファイル(foobar.d.tsなど)が提供されておらず、APIレスポンスをjson2tsなどにつっこん</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Jul 30</aside>
+                <a href='https://dream-yt.github.io/post/tail-skip-header-row/'>
+                    tail コマンドで1行目をスキップする
+                    
+                        
+                            <h2>こんなファイルがあるとして、ヘッダ行の id だけ取り除きたいという場合。 $ cat /tmp/_ id 1 2 3 tail コマンドでできる。 $ cat /tmp/_ | tail -n &#43;2 1 2 3 tailコマンドは</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
                 <aside class="dates">Jul 23</aside>
                 <a href='https://dream-yt.github.io/post/p-map-err-require-esm/'>
                     p-map で Error [ERR_REQUIRE_ESM]: Must use import to load ES Module
                     
                         
                             <h2>p-map でエラーが出るようになった。 ⚠ Error [ERR_REQUIRE_ESM]: Must use import to load ES Module: /Users//node_modules/p-map/index.js require() of ES modules is not supported. require() of /Users//node_modules/p-map/index.js from /Users//lib/job/scrape-work-status/worker.js is an ES module file as it is a .js file whose nearest parent package.json contains &#34;type&#34;: &#34;module&#34; which defines all .js files in that package scope as ES modules. Instead rename</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jul 20</aside>
-                <a href='https://dream-yt.github.io/post/unix-errno-list/'>
-                    nodejsで開発をしているとあたるエラーコード
-                    
-                        
-                            <h2>nodejsで開発をしているとUNIXのerrnoにあたることがよくある。いろいろあるが見覚えがあるものだけメモ。 3.2.1 メッセージに出力されるエ</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jul 10</aside>
-                <a href='https://dream-yt.github.io/post/perl-chomp-windows-newline/'>
-                    perl で windows の改行文字を chomp する
-                    
-                        
-                            <h2>ファイル内の改行コードはOSごとに異なる。 Windows: CR&#43;LF （\r&#43;\n） Linux（UNIX系OS）: LF （\n） MacOS X: LF （\n） Linux &lt;&gt; MacOS で作業をしているわり</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jul 9</aside>
-                <a href='https://dream-yt.github.io/post/zip-two-arrays-in-perl/'>
-                    perlで2つの配列をzipする
-                    
-                        
-                            <h2>なんかすごいやりかたばかり出てくる。 Is there an elegant zip to interleave two lists in Perl 5? - Stack Overflow たぶんいちばんわかりやすいのはこれ。 my @a = (...); my @b = (...); my %c = map {$a[$_] =&gt; $b[$_]} (0..$#a); ツッコ</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jul 8</aside>
-                <a href='https://dream-yt.github.io/post/bigquery-schema-txt2json/'>
-                    BigQueryのSchemaをCSV形式からJSON形式に変換する
-                    
-                        
-                            <h2>BigQueryのスキーマ表現をCSV形式からJSON形式に変換する。 ちなみにCSV形式はこんなもの id:integer,order_id:float,detail:string JSONはperlで生成する $ cat ./schema.txt \ |</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jun 30</aside>
-                <a href='https://dream-yt.github.io/post/cors-sop-101/'>
-                    CORSやSOPについての基礎的な知識
-                    
-                        
-                            <h2>CORS(Cross-Origin Resource Sharing)や、SOP(Same-Origin Policy) については知っておくべきことは3種類。 オリジンの判定ルール オリジンが違う場合の制限 制</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jun 30</aside>
-                <a href='https://dream-yt.github.io/post/cap-theory-memo/'>
-                    CAP定理のメモ
-                    
-                        
-                            <h2>CAP定理とは有名な3つの特性があり、これらをすべて満たすDBを作ることは出来ないというもの。 一貫性 (整合性) 可用性 分断耐性 3つと書いてある</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jun 18</aside>
-                <a href='https://dream-yt.github.io/post/seq-format-option/'>
-                    seq の出力を printf 形式でフォーマットする -f オプション
-                    
-                        
-                            <h2>こんな文字列が欲しい時。 2021-06-01 2021-06-02 2021-06-03 2021-06-04 2021-06-05 2021-06-06 2021-06-07 2021-06-08 2021-06-09 2021-06-10 いままでは seq に xargs をパイプしたりしていたが、seq にフォーマットオプションがあることを知ったのでそ</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jun 8</aside>
-                <a href='https://dream-yt.github.io/post/firebase-hosting-receive-cloudrun/'>
-                    Firebase Hosting の一部のエンドポイントを CloudRun で受ける
-                    
-                        
-                            <h2>こんな設定でできる。CloudFunctionで受けるのとほとんど一緒。 { &#34;hosting&#34;: { &#34;public&#34;: &#34;public&#34;, &#34;rewrites&#34;: [ { &#34;source&#34;: &#34;/**&#34;, &#34;run&#34;: { &#34;serviceId&#34;: &#34;myappcloudrun-servicename&#34;, &#34;region&#34;: &#34;asia-northeast1&#34; } } ] } } 参考 ホスティング動作を構成</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jun 7</aside>
-                <a href='https://dream-yt.github.io/post/cloudbuild-trigger-prod-or-stg-cloudrun/'>
-                    CloudBuild で CloudRun のデプロイをする。ブランチ名によってはstagingにデプロイされるようにする。
-                    
-                        
-                            <h2>Cloud Build には Build と Trigger の2種類のエンティティがある。 Build は step の設定に沿って実行した実行履歴1つ分 Trigger は、どういうときに Build が実行されるかを設定するもの トリ</h2>
                         
                     
                 </a>

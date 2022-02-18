@@ -76,147 +76,147 @@
     
         
             <li>
+                <aside class="dates">Feb 23</aside>
+                <a href='https://dream-yt.github.io/post/express-serverless-typescript/'>
+                    lambda/typescriptでexpressを使う
+                    
+                        
+                            <h2>express普通に便利なのでawslabs謹製のツールから使う awslabs/aws-serverless-express Run serverless applications and REST APIs using your existing Node.js application framework, on top of AWS Lambda and Amazon API Gateway 使い方 expressのappを生</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Feb 14</aside>
+                <a href='https://dream-yt.github.io/post/invisible-char-in-textfile/'>
+                    テキストに不可視な文字が入っている場合の対処
+                    
+                        
+                            <h2>不可視文字には \t (タブ) や \f (改ページ)など色々ある 環境によってトーフが表示されたりする 例 エディタでは大丈夫なのにGitHubに投稿するとト</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Feb 13</aside>
+                <a href='https://dream-yt.github.io/post/ffmpeg-for-bitrate/'>
+                    macで動画のビットレートを変更したい
+                    
+                        
+                            <h2>ffmpegを使う $ brew install ffmpeg こんな感じで使う $ ffmpeg -i ./inputfile.mp4 -b:v 2M -bufsize 10M ./outfile.mp4 -b:v 2M 指定したいbitrate。KBで指定したい場合は 320K のようにKを使う -bufsize 10M どれく</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Jan 29</aside>
+                <a href='https://dream-yt.github.io/post/bigquery-show-data-transfer-service/'>
+                    BigQueryのtransfer_configを表示する
+                    
+                        
+                            <h2>以下の要領で表示できる $ bq --format=json ls --transfer_config --transfer_location=&#39;us&#39; $ bq show --transfer_config projects/123456789/locations/us/transferConfigs/xxxxxx 出力される設定はこんな感じ ( --format=json ) bq mk にこの形式のjsonを食わせると設定できるのだろうか? 🤔 $ bq</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Jan 29</aside>
+                <a href='https://dream-yt.github.io/post/bigquery-data-transfer-service/'>
+                    Bigquery Data Transfer Service について
+                    
+                        
+                            <h2>$ bq mk --table --help で今まで知らなかったオプションを見つけた --[no]transfer_config: Create transfer config. --[no]transfer_run: Creates transfer runs for a time range. アドタグやGAのデータを自動的にBigQueryに取り込める設定の</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Jan 25</aside>
+                <a href='https://dream-yt.github.io/post/git-log-deleted-file/'>
+                    特定のファイルを消したコミットを確認する
+                    
+                        
+                            <h2>以下のコマンドで確認できる $ git log --diff-filter=D -- path/to/targetfile.pl -- 以降にファイル名を渡すとそのファイルの履歴だけ見ることが出来る [--] &lt;path&gt;... Show only commits that are enough to explain how the files that match the specified paths came</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Jan 24</aside>
+                <a href='https://dream-yt.github.io/post/spreadsheet-cell-copy/'>
+                    Spreadsheetで下までコピペ
+                    
+                        
+                            <h2>同じ関数を相対参照で一番下の行までコピペしたいとき ＋マークをダブルクリックすると下まで行く その他 コピペと呼んでいるものにも2種類ある セルのコ</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Jan 23</aside>
+                <a href='https://dream-yt.github.io/post/spreadsheet-vlookup/'>
+                    VLOOKUPの使い方をメモ
+                    
+                        
+                            <h2>自分で使ったことがなかったので勉強 概要 指定した表のなかから条件にマッチした行の、指定したカラムの値を返してくれる VLOOKUP(検索キー, 範</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Jan 22</aside>
+                <a href='https://dream-yt.github.io/post/vscode-sql-formatter-stun/'>
+                    There is no document formatter for &#39;sql&#39;-files installed
+                    
+                        
+                            <h2>vscodeを使っている。SQLファイルは保存時にフォーマットされるようしているが、 ある日突然保存時フォーマットが聞かなくなった vscode</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
                 <aside class="dates">Jan 20</aside>
                 <a href='https://dream-yt.github.io/post/alb-request-count-by-awscli/'>
                     ALBの直近1時間のリクエスト数をawscliで取得する
                     
                         
                             <h2>以下のコマンドで取得できる aws cloudwatch --profile mossan get-metric-statistics \ --namespace &#39;AWS/ApplicationELB&#39; \ --metric-name &#39;RequestCount&#39; \ --dimensions &#39;Name=LoadBalancer,Value=app/sakamoto-alb/xxxxxxxxx&#39; \ --statistics &#39;Sum&#39; \ --start-time $(date -v -1H -u &#43;&#34;%Y-%m-%dT%H:%M&#34;) \ --end-time $(date -u &#43;&#34;%Y-%m-%dT%H:%M&#34;) \ --period 3600 --dimensions RequestCountのSumをどの軸でGro</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jan 20</aside>
-                <a href='https://dream-yt.github.io/post/list-alb-names/'>
-                    AWSでプロジェクトに存在するALBを一覧する
-                    
-                        
-                            <h2>aws cloudwatch list-metrics \ --namespace AWS/ApplicationELB \ --metric-name RequestCount \ | jq -r &#39;.Metrics[].Dimensions[] | select(.Name | test(&#34;LoadBalancer&#34;)) | .Value&#39; \ | sort \ | uniq jq の部分はjsonから必要な部分を抜き出すためのもの 配列を Name=LoadBalancer なオブジェクトにフィルタして</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jan 20</aside>
-                <a href='https://dream-yt.github.io/post/athena-before-yesterday-utc-jst/'>
-                    athenaのUNIXタイムスタンプなカラムをJSTで一昨日から昨日の範囲でとる場合
-                    
-                        
-                            <h2>下記の図でJSTでの18日〜19日のデータが欲しい場合のこと 前提 日本で使いたいデータなので「日本時間での一昨日から昨日」 カラムにはunixタ</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jan 12</aside>
-                <a href='https://dream-yt.github.io/post/python-jst-timezone-aware-datetime/'>
-                    PythonでTimezone Aware(Jst)なdatetimeを作る
-                    
-                        
-                            <h2>ググっても簡単なのが出てこなかったのでメモ 環境は python 3.6.7 こんな定義で引数に渡した日付時間がJSTのdatetimeになる from pytz import timezone def jst_datetime(*args): rest = [0] * (7 -</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jan 7</aside>
-                <a href='https://dream-yt.github.io/post/etc-hosts-hostile/'>
-                    hostileで/etc/hostsをテキスト管理する
-                    
-                        
-                            <h2>feross/hostile: Simple, programmatic /etc/hosts manipulation (in node.js) install インストールはyarnで入る (brewとかは用意されてなさそう) $ yarn global add hostile load hostile load コマンドで引数に渡した定義が/etc/hos</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jan 2</aside>
-                <a href='https://dream-yt.github.io/post/macmini-audioconverternew-50/'>
-                    AudioConverterNew returned -50
-                    
-                        
-                            <h2>2019-01-02 18:56:01.693434&#43;0900 MyAPP[7575:859800] [AQ] 1154: AudioConverterNew returned -50 Mac miniでAVAudioRecorderを使おうと際にすると出るwarning macbookなどには音声入力があるが、Ma</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jan 2</aside>
-                <a href='https://dream-yt.github.io/post/loguru-notifiers/'>
-                    loguruとnotifiersを使ってslack通知をする
-                    
-                        
-                            <h2>前提 slackはincomming webhookをdeprecateとしている notifiersはincomming webhookにしか対応</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jan 2</aside>
-                <a href='https://dream-yt.github.io/post/slack-webhook-deprecated/'>
-                    最近払い出した Slackの Incoming Webhooks で通知チャンネルを変更する
-                    
-                        
-                            <h2>残念 変更できないので調べたところ、 もうIncoming Webhooksでは通知チャンネルが変更できなくなっている Deprecated ドキュメントを見に行ったら</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Dec 25</aside>
-                <a href='https://dream-yt.github.io/post/vscode-locale-change/'>
-                    vscodeでエラーメッセージを英語にする
-                    
-                        
-                            <h2>表示言語の設定は設定ファイルとは別ファイル管理になっている 以下のファイルで設定されている ~/Library/Application\ Support/Code/User/locale.json localeの値をよしなに変更すれば良い { // VS Code</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Dec 16</aside>
-                <a href='https://dream-yt.github.io/post/javascript-heap-out-of-memory/'>
-                    JavaScript heap out of memory になんとなくで対処する場合とchromeでデバッグする場合
-                    
-                        
-                            <h2>例えばwebpackの処理で以下のエラーが出た場合の話 $ serverless deploy --function App --stage prod Serverless: Bundling with Webpack... ...中略... FATAL ERROR: CALL_AND_RETRY_LAST Allocation failed - JavaScript heap out of memory 1: node::Abort() [~/.nodebrew/node/v8.10.0/bin/node] 2: node::FatalException(v8::Isolate*, v8::Local&lt;v8::Value&gt;, v8::Local&lt;v8::Message&gt;) [~/.nodebrew/node/v8.10.0/bin/node] ...中略</h2>
                         
                     
                 </a>

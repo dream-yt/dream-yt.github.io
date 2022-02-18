@@ -13,8 +13,8 @@
     
   
   
-  <meta name="twitter:title" content="Start Gcp Free Instance"/>
-  <meta name="twitter:description" content="gcpで無料のインスタンスを立ち上げてsshするまで gcpアカウントのセットアップ $ gcloud config configurations create okokng $ gcloud config set project okokng-xxxxxxxxxx $ gcloud config set account okokng@gmail.com $ gcloud auth login ブラウザが立ち"/>
+  <meta name="twitter:title" content="Cloud Function の `oidc-service-account-email` が必要とするService Account のロール"/>
+  <meta name="twitter:description" content="きちんと調べずに使っていたのでメモ Cloud Function は public アクセスを許可しないで、サービスアカウントからのアクセスのみ許可する設定ができる。 具体的には --allow-unauthenticated=false とし"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -30,7 +30,7 @@
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
 		<meta name="generator" content="Hugo 0.51" />
-		<title>Start Gcp Free Instance &middot; sacre</title>
+		<title>Cloud Function の `oidc-service-account-email` が必要とするService Account のロール &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
@@ -68,11 +68,11 @@
             <article>
                 <header>
                     <h1>
-                        Start Gcp Free Instance
+                        Cloud Function の `oidc-service-account-email` が必要とするService Account のロール
                     </h1>
                     <h2 class="headline">
-                    Dec 25, 2019 00:13
-                    · 179 words
+                    Feb 15, 2022 14:02
+                    · 335 words
                     · 1 minute read
                       <span class="tags">
                       
@@ -84,15 +84,9 @@
                     <div id="toc">
                       <nav id="TableOfContents">
 <ul>
-<li><a href="#gcpで無料のインスタンスを立ち上げてsshするまで">gcpで無料のインスタンスを立ち上げてsshするまで</a>
-<ul>
 <li>
 <ul>
-<li><a href="#gcpアカウントのセットアップ">gcpアカウントのセットアップ</a></li>
-<li><a href="#インスタンスの立ち上げ">インスタンスの立ち上げ</a></li>
-<li><a href="#インスタンスへのログイン">インスタンスへのログイン</a></li>
-<li><a href="#スタートアップスクリプトのログをtail">スタートアップスクリプトのログをtail</a></li>
-</ul></li>
+<li><a href="#参考">参考</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -102,45 +96,28 @@
                 <section id="post-body">
                     
 
-<h1 id="gcpで無料のインスタンスを立ち上げてsshするまで">gcpで無料のインスタンスを立ち上げてsshするまで</h1>
+<p>きちんと調べずに使っていたのでメモ</p>
 
-<h3 id="gcpアカウントのセットアップ">gcpアカウントのセットアップ</h3>
+<p>Cloud Function は public アクセスを許可しないで、サービスアカウントからのアクセスのみ許可する設定ができる。
+具体的には <code>--allow-unauthenticated=false</code> として関数をデプロイすると認証が必要になる。</p>
 
-<pre><code class="language-bash">$ gcloud config configurations create okokng
-$ gcloud config set project okokng-xxxxxxxxxx
-$ gcloud config set account okokng@gmail.com
-$ gcloud auth login
-</code></pre>
+<p>認証が必要になっている関数にアクセスするには Open ID Connect で発行したトークンが必要になるが、Cloud Task などで関数にリクエストさせる場合は <code>--oidc-service-account-email</code> オプションなどをつけて、「どのサービスアカウントで関数にアクセスするか」を指示する必要がある。</p>
 
-<p>ブラウザが立ち上がるのでログイン</p>
+<p>もちろん指定するサービスアカウントはなんでもいいわけではなくて、<code>function.invoker</code> ロールがついている必要がある。</p>
 
-<h3 id="インスタンスの立ち上げ">インスタンスの立ち上げ</h3>
+<h2 id="参考">参考</h2>
 
-<p>f1-microをUSリージョンで立てる分には無料</p>
-
-<pre><code class="language-bash">$ gcloud compute instances create island \
-    --image-family ubuntu-1804-lts \
-    --image-project gce-uefi-images \
-    --machine-type f1-micro \
-    --zone us-east1-b \
-    --metadata-from-file startup-script=./startup-script.sh
-</code></pre>
-
-<h3 id="インスタンスへのログイン">インスタンスへのログイン</h3>
-
-<pre><code class="language-bash">$ gcloud compute ssh root@island --zone us-east1-b
-</code></pre>
-
-<h3 id="スタートアップスクリプトのログをtail">スタートアップスクリプトのログをtail</h3>
-
-<pre><code class="language-bash">$ tail -F /var/log/syslog
-</code></pre>
+<ul>
+<li><a href="https://cloud.google.com/functions/docs/reference/iam/roles#cloudfunctions.invoker">cloudfunctions.invoker | Cloud Functions IAM Roles  |  Cloud Functions Documentation  |  Google Cloud</a></li>
+<li><a href="https://cloud.google.com/tasks/docs/creating-http-target-tasks">HTTP Target タスクの作成  |  Cloud Tasks のドキュメント  |  Google Cloud</a></li>
+<li><a href="https://medium.com/google-cloud-jp/gcp-%E3%81%8B%E3%82%89%E3%81%AE-http-%E3%83%AA%E3%82%AF%E3%82%A8%E3%82%B9%E3%83%88%E3%82%92%E3%82%BB%E3%82%AD%E3%83%A5%E3%82%A2%E3%81%AB%E8%AA%8D%E8%A8%BC%E3%81%99%E3%82%8B-dda4933afcd6">GCP からの HTTP リクエストをセキュアに認証する. はじめに | by Yuki Furuyama | google-cloud-jp | Medium</a></li>
+</ul>
 
                 </section>
             </article>
 
             
-                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fstart-gcp-free-instance%2f - Start%20Gcp%20Free%20Instance by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fcloudfunction-oidc-service-account-email-requires%2f - Cloud%20Function%20%e3%81%ae%20%60oidc-service-account-email%60%20%e3%81%8c%e5%bf%85%e8%a6%81%e3%81%a8%e3%81%99%e3%82%8bService%20Account%20%e3%81%ae%e3%83%ad%e3%83%bc%e3%83%ab by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
 
 <a class="facebook" href="#" onclick="
     window.open(

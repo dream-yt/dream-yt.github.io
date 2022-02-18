@@ -13,8 +13,8 @@
     
   
   
-  <meta name="twitter:title" content="Start Gcp Free Instance"/>
-  <meta name="twitter:description" content="gcpで無料のインスタンスを立ち上げてsshするまで gcpアカウントのセットアップ $ gcloud config configurations create okokng $ gcloud config set project okokng-xxxxxxxxxx $ gcloud config set account okokng@gmail.com $ gcloud auth login ブラウザが立ち"/>
+  <meta name="twitter:title" content="BigQuery でランダムサンプリングしたテーブルを作る"/>
+  <meta name="twitter:description" content="大きいテーブルに色々クエリをかけるとお金がかかっちゃうので、ランダムで抽出したテーブルを作成するときのもの。 1%にサンプリングしたテーブルは"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -30,7 +30,7 @@
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
 		<meta name="generator" content="Hugo 0.51" />
-		<title>Start Gcp Free Instance &middot; sacre</title>
+		<title>BigQuery でランダムサンプリングしたテーブルを作る &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
@@ -68,11 +68,11 @@
             <article>
                 <header>
                     <h1>
-                        Start Gcp Free Instance
+                        BigQuery でランダムサンプリングしたテーブルを作る
                     </h1>
                     <h2 class="headline">
-                    Dec 25, 2019 00:13
-                    · 179 words
+                    Feb 1, 2022 23:19
+                    · 119 words
                     · 1 minute read
                       <span class="tags">
                       
@@ -81,66 +81,47 @@
                 </header>
                 
                   
-                    <div id="toc">
-                      <nav id="TableOfContents">
-<ul>
-<li><a href="#gcpで無料のインスタンスを立ち上げてsshするまで">gcpで無料のインスタンスを立ち上げてsshするまで</a>
-<ul>
-<li>
-<ul>
-<li><a href="#gcpアカウントのセットアップ">gcpアカウントのセットアップ</a></li>
-<li><a href="#インスタンスの立ち上げ">インスタンスの立ち上げ</a></li>
-<li><a href="#インスタンスへのログイン">インスタンスへのログイン</a></li>
-<li><a href="#スタートアップスクリプトのログをtail">スタートアップスクリプトのログをtail</a></li>
-</ul></li>
-</ul></li>
-</ul>
-</nav>
-                    </div>
-                  
                 
                 <section id="post-body">
-                    
+                    <p>大きいテーブルに色々クエリをかけるとお金がかかっちゃうので、ランダムで抽出したテーブルを作成するときのもの。</p>
 
-<h1 id="gcpで無料のインスタンスを立ち上げてsshするまで">gcpで無料のインスタンスを立ち上げてsshするまで</h1>
+<p>1%にサンプリングしたテーブルはこのように作成できる。</p>
 
-<h3 id="gcpアカウントのセットアップ">gcpアカウントのセットアップ</h3>
-
-<pre><code class="language-bash">$ gcloud config configurations create okokng
-$ gcloud config set project okokng-xxxxxxxxxx
-$ gcloud config set account okokng@gmail.com
-$ gcloud auth login
+<pre><code class="language-sql">CREATE TABLE
+  sample.logs
+AS
+  SELECT * FROM lake.logs_* WHERE RAND() &lt; 0.01
 </code></pre>
 
-<p>ブラウザが立ち上がるのでログイン</p>
+<p>無事に1%くらいになった。</p>
 
-<h3 id="インスタンスの立ち上げ">インスタンスの立ち上げ</h3>
-
-<p>f1-microをUSリージョンで立てる分には無料</p>
-
-<pre><code class="language-bash">$ gcloud compute instances create island \
-    --image-family ubuntu-1804-lts \
-    --image-project gce-uefi-images \
-    --machine-type f1-micro \
-    --zone us-east1-b \
-    --metadata-from-file startup-script=./startup-script.sh
+<pre><code class="language-sql">SELECT COUNT(1) FROM t_lake.sales_* UNION ALL
+SELECT COUNT(1) FROM sample.sales
 </code></pre>
 
-<h3 id="インスタンスへのログイン">インスタンスへのログイン</h3>
+<table>
+<thead>
+<tr>
+<th>f0_</th>
+</tr>
+</thead>
 
-<pre><code class="language-bash">$ gcloud compute ssh root@island --zone us-east1-b
-</code></pre>
+<tbody>
+<tr>
+<td>2,090,888</td>
+</tr>
 
-<h3 id="スタートアップスクリプトのログをtail">スタートアップスクリプトのログをtail</h3>
-
-<pre><code class="language-bash">$ tail -F /var/log/syslog
-</code></pre>
+<tr>
+<td>20,969</td>
+</tr>
+</tbody>
+</table>
 
                 </section>
             </article>
 
             
-                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fstart-gcp-free-instance%2f - Start%20Gcp%20Free%20Instance by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fbigquery-random-sampling-table%2f - BigQuery%20%e3%81%a7%e3%83%a9%e3%83%b3%e3%83%80%e3%83%a0%e3%82%b5%e3%83%b3%e3%83%97%e3%83%aa%e3%83%b3%e3%82%b0%e3%81%97%e3%81%9f%e3%83%86%e3%83%bc%e3%83%96%e3%83%ab%e3%82%92%e4%bd%9c%e3%82%8b by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
 
 <a class="facebook" href="#" onclick="
     window.open(

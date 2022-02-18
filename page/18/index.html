@@ -76,147 +76,147 @@
     
         
             <li>
+                <aside class="dates">Sep 16</aside>
+                <a href='https://dream-yt.github.io/post/css-flex-horizontal-card/'>
+                    flexで横並びカードのレイアウト最小限
+                    
+                        
+                            <h2>画像が左、説明文が右というレイアウトの最小限の定義 &lt;div class=&#34;card&#34;&gt; &lt;div class=&#34;card-left&#34;&gt; &lt;img src=&#34;https://thumbnail.image.rakuten.co.jp/@0_mall/book/cabinet/1989/19892000.jpg?_ex=200x200&#34; /&gt; &lt;/div&gt; &lt;div class=&#34;card-right&#34;&gt; &lt;h3&gt;{book.title}&lt;/h3&gt; &lt;p&gt;{book.itemCaption}&lt;/p&gt; &lt;/div&gt; &lt;/div&gt; .card { display: flex; /* PCで閲覧された時に横幅を絞っておく */ width: 600px; } .card-left { width: 30%;</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Sep 12</aside>
+                <a href='https://dream-yt.github.io/post/ffmpeg-cutout-mp3/'>
+                    ffmpegを使ってmp3をカットする
+                    
+                        
+                            <h2>こんな感じで切り出せる ffmpeg -ss 7 -to 00:00:12 -i ./source.mp3 ./output.mp3 -ss 切り出す開始時点の秒数 -to 切り出す終了時点。ffmpegは秒数で指定するとわかりにくいのでこの形式 -i 元</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Sep 11</aside>
+                <a href='https://dream-yt.github.io/post/generate-bigquery-schema-from-mysql-create-table/'>
+                    MySQL の CREATE TABLE から BigQuery のスキーマ(json)を生成する
+                    
+                        
+                            <h2>ddlparseというモジュールを使うと簡単だった shinichi-takii/ddlparse: DDL parase and Convert to BigQuery JSON schema and DDL statements コードはこれだけでよい import sys from ddlparse import DdlParse sql = sys.stdin.read() table = DdlParse().parse(sql) print(table.to_bigquery_fields()) こんな感じで生成さ</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Sep 6</aside>
+                <a href='https://dream-yt.github.io/post/add-next-ssg-ts/'>
+                    既存のtypescriptプロジェクトにnextjsのSSGを導入する
+                    
+                        
+                            <h2>簡単に追加できる。 準備 nextを入れる $ npm install next src/pages配下にtsxを作成 $ touch ./src/pages/index.tsx なお、nextはトップレベルではなくsrc配下にpa</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Sep 6</aside>
+                <a href='https://dream-yt.github.io/post/cookiecutter-typescript-jest-eslint/'>
+                    cookiecutterでtypescript/jest/eslintのテンプレートを作った
+                    
+                        
+                            <h2>CRAだとnodejsのスクリプトを書くときとかは使えないのでcookiecutterにいいのがないか探してみたが、ちょっと古かったり(ts</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Sep 5</aside>
+                <a href='https://dream-yt.github.io/post/replace-all-japanese-in-page/'>
+                    ページ内の全ての日本語を○△□に置き換える
+                    
+                        
+                            <h2>nodejs/express で開発をしていて、画面内の日本語をすべて記号に置き換えたい時があったのでこのようにした const replace = require(&#39;stream-replace&#39;); stream = stream .pipe(replace(/[ぁ-ん</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Sep 5</aside>
+                <a href='https://dream-yt.github.io/post/react-render-google-analytics/'>
+                    ReactでレンダリングしているページにGoogleAnalyticsを入れる&#34;
+                    
+                        
+                            <h2>なんかいろんなプラグインがnpmにあったが、自分で dangerouslySetInnerHTML で直接書いてしまうのが楽だった import React from ‘react’; export const GoogleAnalytics: React.FC = () =&gt; ( &lt;&gt; &lt;/&gt; );</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Sep 3</aside>
+                <a href='https://dream-yt.github.io/post/git-bisect-101/'>
+                    git bisect を使う
+                    
+                        
+                            <h2>たくさんコミットしてて、気がついたら関係なさそうなUIが動かなくなっていた場合など、 どのコミットが原因で動かなくなったかを割り出すのに git bisect が</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Sep 3</aside>
+                <a href='https://dream-yt.github.io/post/firebase-hosting-customdomain-with-aws/'>
+                    AWSでドメインを取得してfirebase-hostingに設定する
+                    
+                        
+                            <h2>だいたいドキュメント通りにやればできる カスタム ドメインを接続する | Firebase 手順 UIからポチポチやる場合の手順 (AWS) まずドメインを取得 (Firebase) カスタムドメイン</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
                 <aside class="dates">Aug 30</aside>
                 <a href='https://dream-yt.github.io/post/http-10-proxy/'>
                     httpリクエスト(v1.0で)のProxy
                     
                         
                             <h2>読書メモ いままで「プロキシ」というのがhttp標準の技術だってことを知らなかった。httpsの場合だとCONNECTメソッドが出てきたりする</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Aug 30</aside>
-                <a href='https://dream-yt.github.io/post/i-use-iclouddrive/'>
-                    iCloudドライブを使うようになった
-                    
-                        
-                            <h2>最近iCloudドライブをちゃんと使っている。もともとは新しいMacをプロビジョニングするための設定ファイルを入れていたのみだが、以下のリン</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Aug 29</aside>
-                <a href='https://dream-yt.github.io/post/tsc-webpack-tsloader-code-diff/'>
-                    webpack&#43;ts-loaderとtscで同じコードをトランスパイルした結果の違いをみてみる
-                    
-                        
-                            <h2>トランスパイルされる元のコードはこんな感じ index.ts import { f } from &#39;./A&#39;; console.log(&#34;this is index&#34;); f(); A.ts export const f = () =&gt; console.log(&#34;this is A.f&#34;) このコードを以下の4パターンでトランスパイルしてみて、出</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Aug 29</aside>
-                <a href='https://dream-yt.github.io/post/gitignore-gibo-101/'>
-                    gitignoreを生成してくれるgiboを使う
-                    
-                        
-                            <h2>giboは .gitignoreファイルを生成するソフトウェア VSCode や Node、 Rails などを引数で指定してそのプロジェクトに必要そうなgitignor</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Aug 28</aside>
-                <a href='https://dream-yt.github.io/post/ansible-raspbian-install-golang/'>
-                    [ansible x Raspbian] golang のインストール
-                    
-                        
-                            <h2>ansible-role-golang を使うとこのロールの設定だけで入る fubarhouse/ansible-role-golang: Installs the Go programming language and packages on Mac &amp; Linux (Ubuntu, CentOS) vars: # golang go_version: 1.13.5 GOPATH: /usr/local/lib/go GOOS: linux GOARCH: arm # ソースからインストールするためにいったんgo1.4を</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Aug 28</aside>
-                <a href='https://dream-yt.github.io/post/ansible-raspbian-install-nodejs/'>
-                    [ansible x Raspbian] nodejs のインストール
-                    
-                        
-                            <h2>ansible-role-nodejs を使うとラズパイでも簡単に入る geerlingguy/ansible-role-nodejs: Ansible Role - Node.js 一緒に npm -g install yarn もしてもらうような最小限の設定 vars: nodejs_version: &#34;12.x&#34; nodejs_npm_global_packages: - yarn roles: - ansible-role-nodejs 環境 Raspbian Buster Lite で動作 Download Raspbian for Raspberry Pi</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Aug 26</aside>
-                <a href='https://dream-yt.github.io/post/ts-migrate-101/'>
-                    ts-migrateをつかった
-                    
-                        
-                            <h2>ちょうど ts に移行する雰囲気があったので使ってみた airbnb/ts-migrate: A tool to help migrate JavaScript code quickly and conveniently to TypeScript ts-migrate がやってくれること 主な機能は以下の2つ $ ts-migrate rename js =&gt; ts のリネーム $ ts-migrate</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Aug 17</aside>
-                <a href='https://dream-yt.github.io/post/typescript-jquery-plugin-method-typing/'>
-                    TypeScriptでjQueryプラグインにて追加した関数の型定義
-                    
-                        
-                            <h2>index.d.ts ファイルを用意して以下のようにメソッドを追加すればよい interface JQuery { foo(arg: string): jQuery; } jQueryはネームスペースを切らずに型を定義しているので、グローバル</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Aug 17</aside>
-                <a href='https://dream-yt.github.io/post/typescipt-ignore-global-from-3rd-party-js/'>
-                    TypeScriptで外部スクリプトからロードされたグローバル変数のエラーを無視する
-                    
-                        
-                            <h2>GoogleChartはnpmパッケージになっておらず、またローカルにファイルを置くことが許可されていない Sorry; our terms of service do not allow you to download and save or host the google.charts.load</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Aug 17</aside>
-                <a href='https://dream-yt.github.io/post/fd-rename-js-ts-in-project/'>
-                    fdでsrc配下のjsファイルをtsに一括でrenameする
-                    
-                        
-                            <h2>fdを使うとこんな塩梅になる fd --glob &#39;*.js&#39; ./src --exec mv {//}/{/.}.js {//}/{/.}.ts --glob &#39;*.js&#39; jsファイルのみを対象にする ./src ファイルを探すパス --exec mv {//}/{/.}.js {//}/{/.}.ts 見つかったファイル1つ1つに対して処</h2>
                         
                     
                 </a>

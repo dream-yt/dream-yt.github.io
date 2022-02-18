@@ -6,10 +6,91 @@
     <description>Recent content in Posts on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Mon, 31 Jan 2022 10:38:10 +0900</lastBuildDate>
+    <lastBuildDate>Fri, 18 Feb 2022 19:11:21 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>BigQuery の CREATE TABLE の便利な機能色々</title>
+      <link>https://dream-yt.github.io/post/useful-bigquery-createtable-statement/</link>
+      <pubDate>Fri, 18 Feb 2022 19:11:21 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/useful-bigquery-createtable-statement/</guid>
+      <description>便利なところ PARTITION BY や CLUSTER BY も CREATE TABLE 文でできてしまう CREATE OR REPLACE TABLE とできる SELECT の結果から作成する場合には SELECT に WITH句が使える OPTIONS(description = &amp;quot;&amp;quot;) として、メモやタグなどが</description>
+    </item>
+    
+    <item>
+      <title>bashスクリプトのファイル名(拡張子抜き)を取得する</title>
+      <link>https://dream-yt.github.io/post/useful-bash-script-name/</link>
+      <pubDate>Fri, 18 Feb 2022 19:05:18 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/useful-bash-script-name/</guid>
+      <description>ログやtmpファイルの名前に使ったりとかして便利なので、スクリプトの雛形スニペットでは、先頭で取得しておくことにしている。 readonly scriptname=$(basename ${0%.sh})</description>
+    </item>
+    
+    <item>
+      <title>ディレクトリの中を再帰的に探して条件にあうファイルを見つける</title>
+      <link>https://dream-yt.github.io/post/walk-fs-files-with-nodejs/</link>
+      <pubDate>Fri, 18 Feb 2022 19:02:11 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/walk-fs-files-with-nodejs/</guid>
+      <description>@nodelib/fs.walk というパッケージで walk できる。が、Promise に対応していないのでラッパーを用意して使うことにした。 import type { Entry } from &amp;quot;@nodelib/fs.walk&amp;quot;; import fsp from &amp;quot;node:fs/promises&amp;quot;; import * as fsWalk from &amp;quot;@nodelib/fs.walk&amp;quot;; export type</description>
+    </item>
+    
+    <item>
+      <title>bash でパスの末尾に `/` がついてたら取り除く</title>
+      <link>https://dream-yt.github.io/post/normalize-path-trailing-slash/</link>
+      <pubDate>Fri, 18 Feb 2022 18:57:48 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/normalize-path-trailing-slash/</guid>
+      <description>引数でパスを渡してもらうときとかに、入力を正規化するために使う。 for OPT in &amp;quot;$@&amp;quot;; do case $OPT in &#39;--csvpath-prefix&#39;) csvpath_prefix=${2%/} shift 2 ;; esac done echo $csvpath_prefix この部分。bashの機能で変数の一部を切り</description>
+    </item>
+    
+    <item>
+      <title>nodejs の `google-spreadsheet` でシートの一部を更新する</title>
+      <link>https://dream-yt.github.io/post/nodejs-modify-partial-google-spreadsheet/</link>
+      <pubDate>Fri, 18 Feb 2022 18:50:43 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/nodejs-modify-partial-google-spreadsheet/</guid>
+      <description>こちらの続き。 nodejs の google-spreadsheet を使ってスプレッドシートを更新する 件のやりかたではシートを消してから新しいデータを入れていたが、シートの一部だけを更新し</description>
+    </item>
+    
+    <item>
+      <title>gcloud コマンドで使う設定をプロジェクトごとに切り替える</title>
+      <link>https://dream-yt.github.io/post/gcloud-configurations-create/</link>
+      <pubDate>Fri, 18 Feb 2022 14:01:02 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/gcloud-configurations-create/</guid>
+      <description>GCPの gcloud コマンドは、プロジェクトとアカウントを切り替えながら作業することができる プロジェクトとアカウント は configurations と呼び、ローカルに複数作ること</description>
+    </item>
+    
+    <item>
+      <title>Bqutils Fn Introduce</title>
+      <link>https://dream-yt.github.io/post/bqutils-fn-introduce/</link>
+      <pubDate>Tue, 15 Feb 2022 14:31:11 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/bqutils-fn-introduce/</guid>
+      <description>bqutil.fn という便利な関数がたくさん同梱された、データセットが公開されている。 GCP公式が作っている便利な関数群が置かれているデータセットで、日付の</description>
+    </item>
+    
+    <item>
+      <title>Cloud Function の `oidc-service-account-email` が必要とするService Account のロール</title>
+      <link>https://dream-yt.github.io/post/cloudfunction-oidc-service-account-email-requires/</link>
+      <pubDate>Tue, 15 Feb 2022 14:02:53 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/cloudfunction-oidc-service-account-email-requires/</guid>
+      <description>きちんと調べずに使っていたのでメモ Cloud Function は public アクセスを許可しないで、サービスアカウントからのアクセスのみ許可する設定ができる。 具体的には --allow-unauthenticated=false とし</description>
+    </item>
+    
+    <item>
+      <title>BigQuery でランダムサンプリングしたテーブルを作る</title>
+      <link>https://dream-yt.github.io/post/bigquery-random-sampling-table/</link>
+      <pubDate>Tue, 01 Feb 2022 23:19:06 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/bigquery-random-sampling-table/</guid>
+      <description>大きいテーブルに色々クエリをかけるとお金がかかっちゃうので、ランダムで抽出したテーブルを作成するときのもの。 1%にサンプリングしたテーブルは</description>
+    </item>
     
     <item>
       <title>BigQuery で定義されているUDFの名前と定義を一覧するスクリプト</title>
@@ -2231,7 +2312,7 @@
       <pubDate>Wed, 25 Dec 2019 00:13:24 +0900</pubDate>
       
       <guid>https://dream-yt.github.io/post/start-gcp-free-instance/</guid>
-      <description>gcpで無料のインスタンスを立ち上げてsshするまで gcpアカウントのセットアップ $ gcloud config set project penguin-xxxxxxxxxx $ gcloud config set account penguin@gmail.com $ gcloud auth login ブラウザが立ち上がるのでロ</description>
+      <description>gcpで無料のインスタンスを立ち上げてsshするまで gcpアカウントのセットアップ $ gcloud config configurations create okokng $ gcloud config set project okokng-xxxxxxxxxx $ gcloud config set account okokng@gmail.com $ gcloud auth login ブラウザが立ち</description>
     </item>
     
     <item>
