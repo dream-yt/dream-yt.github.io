@@ -6,10 +6,19 @@
     <description>Recent content in Posts on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Fri, 18 Feb 2022 19:11:21 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 23 Feb 2022 17:02:39 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>bashで{標準,エラー}出力にタイムスタンプをつける</title>
+      <link>https://dream-yt.github.io/post/print-timestamp-on-bash-script-logging/</link>
+      <pubDate>Wed, 23 Feb 2022 17:02:39 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/print-timestamp-on-bash-script-logging/</guid>
+      <description>スクリプトの先頭でこんな感じで exec をしておけばよい。 function addtimestamp() { while IFS= read -r line; do printf &#39;%s %s\n&#39; &amp;quot;[$(date +&amp;quot;%Y-%m-%d %H:%M:%S&amp;quot;)]&amp;quot; &amp;quot;$line&amp;quot;; done } readonly scriptname=$(basename ${0%.sh}) exec 1&amp;gt; &amp;gt;(addtimestamp | tee -a &amp;quot;/tmp/$scriptname-stdout.log&amp;quot;) exec 2&amp;gt; &amp;gt;(addtimestamp | tee -a &amp;quot;/tmp/$scriptname-stderr.log&amp;quot;) linux - How to add a timestamp to bash script</description>
+    </item>
     
     <item>
       <title>BigQuery の CREATE TABLE の便利な機能色々</title>
@@ -66,7 +75,7 @@
     </item>
     
     <item>
-      <title>Bqutils Fn Introduce</title>
+      <title>便利な bqutil</title>
       <link>https://dream-yt.github.io/post/bqutils-fn-introduce/</link>
       <pubDate>Tue, 15 Feb 2022 14:31:11 +0900</pubDate>
       

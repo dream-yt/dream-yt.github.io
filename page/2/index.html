@@ -76,6 +76,21 @@
     
         
             <li>
+                <aside class="dates">Jan 31</aside>
+                <a href='https://dream-yt.github.io/post/list-bigquery-udf/'>
+                    BigQuery で定義されているUDFの名前と定義を一覧するスクリプト
+                    
+                        
+                            <h2>#!/usr/bin/env bash set -euo pipefail readonly TMPFILE=/tmp/_list-udf.txt bq --format=json ls --routines fn \ | jq -r &#39;.[].routineReference | &#34;\(.datasetId).\(.routineId)&#34;&#39; \ &gt; $TMPFILE for udfid in $(cat $TMPFILE); do DEF=$(bq --format=json show --routine &#34;$udfid&#34; | jq -r .definitionBody) echo &#34;# $udfid&#34; echo &#39;```&#39; echo ${DEF} echo &#39;```&#39; echo &#34;&#34; done</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
                 <aside class="dates">Jan 30</aside>
                 <a href='https://dream-yt.github.io/post/cloudfront-popular-object/'>
                     CloudFront でリクエストが多いファイルをサクッと見る
@@ -202,21 +217,6 @@
                     
                         
                             <h2>npm install などでこういったエラーが出る場合がある。 npm ERR! enoent undefined ls-remote -h -t これは、GitHubに直接ホスティングされているパッケージの場合などに発生する者で</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jan 22</aside>
-                <a href='https://dream-yt.github.io/post/bash-filename-strip-ext-for-loop/'>
-                    bashで、ディレクトリ配下のファイル名から拡張子を取り除いてforループする
-                    
-                        
-                            <h2>こんな感じでできる。 for _ in $(ls -1 ./some-directory/*.txt | xargs basename -s .txt); do echo $_ done ls -1 ./some-directory/*.txt ディレクトリからファイル名だけを取り出す xargs basename -s=.txt ファイル名から .txt 拡張子を取り除く</h2>
                         
                     
                 </a>
