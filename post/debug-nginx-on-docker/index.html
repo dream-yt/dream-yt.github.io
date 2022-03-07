@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="https://dream-yt.github.io/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="docker を使って nginx の設定をいろいろ変更しながらデバッグする"/>
+  <meta name="twitter:description" content="とりあえず openresty のイメージが docker run できることを確認する。 $ docker run -p 8000:80 openresty/openresty:alpine $ curl -I localhost:8000 HTTP/1.1 200 OK Server: openresty/1.19.9.1 Date: Wed, 02 Mar 2022 08:48:46 GMT Content-Type: text/html Content-Length: 1097 Last-Modified: Tue, 11 Jan 2022 12:43:05 GMT Connection: keep-alive ETag: &quot;61dd7b59-449&quot; Accept-Ranges: bytes 設定ファイル"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@site_author"/>
+  
+
+
+
+		
+		<meta name="author" content="site_author">
+		<meta name="description" content="Site Description">
+		<meta name="generator" content="Hugo 0.51" />
+		<title>docker を使って nginx の設定をいろいろ変更しながらデバッグする &middot; sacre</title>
+		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/font-awesome.min.css">
+		
+
+		
+		<link href="https://dream-yt.github.io/index.xml" rel="alternate" type="application/rss+xml" title="sacre" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='https://dream-yt.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://dream-yt.github.io/posts'>Archive</a>
+	<a href='https://dream-yt.github.io/tags'>Tags</a>
+	<a href='https://dream-yt.github.io/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="https://dream-yt.github.io/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        docker を使って nginx の設定をいろいろ変更しながらデバッグする
+                    </h1>
+                    <h2 class="headline">
+                    Mar 3, 2022 17:21
+                    · 442 words
+                    · 1 minute read
+                      <span class="tags">
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#設定ファイル">設定ファイル</a></li>
+<li><a href="#volumeを作成">volumeを作成</a>
+<ul>
+<li>
+<ul>
+<li><a href="#確認">確認</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#試行錯誤する">試行錯誤する</a></li>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    
+
+<p>とりあえず openresty のイメージが docker run できることを確認する。</p>
+
+<pre><code class="language-console">$ docker run -p 8000:80 openresty/openresty:alpine
+</code></pre>
+
+<pre><code class="language-console">$ curl -I localhost:8000
+HTTP/1.1 200 OK
+Server: openresty/1.19.9.1
+Date: Wed, 02 Mar 2022 08:48:46 GMT
+Content-Type: text/html
+Content-Length: 1097
+Last-Modified: Tue, 11 Jan 2022 12:43:05 GMT
+Connection: keep-alive
+ETag: &quot;61dd7b59-449&quot;
+Accept-Ranges: bytes
+</code></pre>
+
+<h2 id="設定ファイル">設定ファイル</h2>
+
+<p>設定ファイルを追加したい場合についてはドキュメントに案内があった。</p>
+
+<ul>
+<li><a href="https://hub.docker.com/r/openresty/openresty#nginx-config-files">openresty/openresty - Docker Image | Docker Hub</a></li>
+</ul>
+
+<p>ただし、公式のとおりにやるにしても最小限の設定ファイルを用意する必要があるので、これまた公式の GitHub のデフォルト設定をもってくることにする。</p>
+
+<ul>
+<li><a href="https://github.com/openresty/docker-openresty/blob/master/nginx.conf">docker-openresty/nginx.conf at master · openresty/docker-openresty</a></li>
+</ul>
+
+<h2 id="volumeを作成">volumeを作成</h2>
+
+<p>nginx と macOS でディレクトリを共有した状態で動かす。</p>
+
+<pre><code class="language-console">$ mkdir -p /tmp/mynginx/{conf.d,log,html}
+$ curl 'https://raw.githubusercontent.com/openresty/docker-openresty/master/nginx.vh.default.conf' \
+    -o /tmp/mynginx/conf.d/default.conf
+$ echo &quot;&lt;html&gt;this is test&lt;/html&gt;&quot; &gt; /tmp/mynginx/html/test.html
+</code></pre>
+
+<p>http ディレクティブも変更して色々やりたい場合は <code>/usr/local/openresty/nginx/conf/nginx.conf</code> を書き換えるように。</p>
+
+<pre><code class="language-console">$ docker run --rm -p 8000:80 \
+    -v /tmp/mynginx/conf.d:/usr/local/openresty/nginx/conf/ \
+    -v /tmp/mynginx/log:/var/log/nginx \
+    -v /tmp/mynginx/html:/usr/local/openresty/nginx/html \
+    openresty/openresty:alpine
+</code></pre>
+
+<h4 id="確認">確認</h4>
+
+<pre><code class="language-console">$ curl localhost:8000/test.html
+&lt;html&gt;this is test&lt;/html&gt;
+</code></pre>
+
+<pre><code class="language-console">$ cat /tmp/mynginx/log/host.access.log
+172.17.0.1 - - [03/Mar/2022:03:18:57 +0000] &quot;GET /test.html HTTP/1.1&quot; 200 26 &quot;-&quot; &quot;curl/7.64.1&quot;
+</code></pre>
+
+<h2 id="試行錯誤する">試行錯誤する</h2>
+
+<p>ここまでできたら、 nginx.conf か、default.conf を変更しながら設定の動作確認ができる。</p>
+
+<h2 id="参考">参考</h2>
+
+<ul>
+<li><a href="https://hub.docker.com/r/openresty/openresty#nginx-config-files">openresty/openresty - Docker Image | Docker Hub</a></li>
+<li><a href="https://blog.n-t.jp/tech/docker-compose-volume/">docker-compose でデバッグ用のボリュームマウントを行う</a></li>
+<li><a href="https://github.com/openresty/docker-openresty">openresty/docker-openresty: Docker tooling for OpenResty</a></li>
+<li><a href="https://qiita.com/TakahiroSakoda/items/5180ff9762ebddb0bd4d">dockerで立ち上げたコンテナにログインする - Qiita</a></li>
+<li><a href="https://qiita.com/mom0tomo/items/35dfacb628df1bd3651e">dockerでコンテナが立ち上がらないときやってみること - Qiita</a></li>
+</ul>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fdebug-nginx-on-docker%2f - docker%20%e3%82%92%e4%bd%bf%e3%81%a3%e3%81%a6%20nginx%20%e3%81%ae%e8%a8%ad%e5%ae%9a%e3%82%92%e3%81%84%e3%82%8d%e3%81%84%e3%82%8d%e5%a4%89%e6%9b%b4%e3%81%97%e3%81%aa%e3%81%8c%e3%82%89%e3%83%87%e3%83%90%e3%83%83%e3%82%b0%e3%81%99%e3%82%8b by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'your_disqus_short_name'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/dream-yt/sacre">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://twitter.com/FUTABA_SACRE">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2022 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="https://dream-yt.github.io/js/jquery-3.3.1.min.js"></script>
+<script src="https://dream-yt.github.io/js/main.js"></script>
+<script src="https://dream-yt.github.io/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+
+
+
+
+    </body>
+</html>

@@ -13,8 +13,8 @@
     
   
   
-  <meta name="twitter:title" content="bashで{標準,エラー}出力にタイムスタンプをつける"/>
-  <meta name="twitter:description" content="スクリプトの先頭でこんな感じで exec をしておけばよい。 function addtimestamp() { while IFS= read -r line; do printf &#39;%s %s\n&#39; &quot;[$(date &#43;&quot;%Y-%m-%d %H:%M:%S&quot;)]&quot; &quot;$line&quot;; done } readonly scriptname=$(basename ${0%.sh}) exec 1&gt; &gt;(addtimestamp | tee -a &quot;/tmp/$scriptname-stdout.log&quot;) exec 2&gt; &gt;(addtimestamp | tee -a &quot;/tmp/$scriptname-stderr.log&quot;) 参考 linux - How to add a timestamp to"/>
+  <meta name="twitter:title" content="ネットワークの調子が悪い時、問題を切り分けるための ping の使い方"/>
+  <meta name="twitter:description" content="まずは本当にネットワークの調子が悪いのか(UIなどのせいではないのか)、適当なリモートホストに ping $ ping -c 32 8.8.8.8 --- 8.8.8.8 ping statistics --- 32 packets transmitted, 32 packets received, 0.0% packet loss round-trip min/avg/max/stddev ="/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -30,7 +30,7 @@
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
 		<meta name="generator" content="Hugo 0.51" />
-		<title>bashで{標準,エラー}出力にタイムスタンプをつける &middot; sacre</title>
+		<title>ネットワークの調子が悪い時、問題を切り分けるための ping の使い方 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
@@ -68,11 +68,11 @@
             <article>
                 <header>
                     <h1>
-                        bashで{標準,エラー}出力にタイムスタンプをつける
+                        ネットワークの調子が悪い時、問題を切り分けるための ping の使い方
                     </h1>
                     <h2 class="headline">
-                    Feb 23, 2022 17:02
-                    · 117 words
+                    Mar 4, 2022 14:14
+                    · 477 words
                     · 1 minute read
                       <span class="tags">
                       
@@ -86,10 +86,7 @@
 <ul>
 <li>
 <ul>
-<li>
-<ul>
 <li><a href="#参考">参考</a></li>
-</ul></li>
 </ul></li>
 </ul>
 </nav>
@@ -99,30 +96,64 @@
                 <section id="post-body">
                     
 
-<p>スクリプトの先頭でこんな感じで exec をしておけばよい。</p>
+<p>まずは本当にネットワークの調子が悪いのか(UIなどのせいではないのか)、適当なリモートホストに ping</p>
 
-<pre><code class="language-bash">function addtimestamp() {
-    while IFS= read -r line; do
-        printf '%s %s\n' &quot;[$(date +&quot;%Y-%m-%d %H:%M:%S&quot;)]&quot; &quot;$line&quot;;
-    done
-}
-readonly scriptname=$(basename ${0%.sh})
-exec 1&gt; &gt;(addtimestamp | tee -a &quot;/tmp/$scriptname-stdout.log&quot;)
-exec 2&gt; &gt;(addtimestamp | tee -a &quot;/tmp/$scriptname-stderr.log&quot;)
+<pre><code class="language-bash">$ ping -c 32 8.8.8.8
+--- 8.8.8.8 ping statistics ---
+32 packets transmitted, 32 packets received, 0.0% packet loss
+round-trip min/avg/max/stddev = 6.255/187.958/1937.966/389.216 ms
 </code></pre>
 
-<h3 id="参考">参考</h3>
+<p>平均して400ms弱はたしかにネットワークが遅そうである。</p>
+
+<p>つぎに <code>localhost</code> に対して ping</p>
+
+<pre><code class="language-bash">$ ping -c 32 localhost
+--- localhost ping statistics ---
+32 packets transmitted, 32 packets received, 0.0% packet loss
+round-trip min/avg/max/stddev = 0.027/0.059/0.125/0.021 ms
+</code></pre>
+
+<p>localhost には問題がなさそうだった。次はデフォルトゲートウェイ(家の Google Nest Wifi)に対して ping</p>
+
+<p>PCのWifiの調子が悪かったりする場合はここで問題を切り分けられる。</p>
+
+<pre><code class="language-bash">$ route -n get 0.0.0.0 | grep gateway
+    gateway: 192.168.86.1
+$ ping 192.168.86.1
+--- 192.168.86.1 ping statistics ---
+32 packets transmitted, 32 packets received, 0.0% packet loss
+round-trip min/avg/max/stddev = 1.383/140.177/745.062/201.180 ms
+</code></pre>
+
+<p>ルーターとの通信なのに平均で200ミリ秒ほどかかっていて怪しい。</p>
+
+<p>ためしに iPhone でテザリングして iPhone に ping してみる。</p>
+
+<pre><code>$ route -n get 0.0.0.0 | grep gateway
+    gateway: 172.20.10.1
+$ ping -c 32 172.20.10.1
+--- 172.20.10.1 ping statistics ---
+32 packets transmitted, 32 packets received, 0.0% packet loss
+round-trip min/avg/max/stddev = 3.934/15.736/41.888/8.589 ms
+</code></pre>
+
+<p>ルーター(GoogleNestWifi)よりも全然 iPhone のテザリングの方が安定している。</p>
+
+<p>ルーターを再起動してみることにした。</p>
+
+<h2 id="参考">参考</h2>
 
 <ul>
-<li><a href="https://serverfault.com/questions/310098/how-to-add-a-timestamp-to-bash-script-log">linux - How to add a timestamp to bash script log? - Server Fault</a></li>
-<li><a href="https://genzouw.com/entry/2020/01/06/120027/1845/">Bashシェルスクリプトでログ出力をシンプルに実現する方法 | ゲンゾウ用ポストイット</a></li>
+<li><a href="https://atmarkit.itmedia.co.jp/ait/articles/0402/17/news065.html">―分かっているようでホントは知らない―実践！ ネットワーク・トラブルシューティング：ネットワーク運用管理入門（4） - ＠IT</a></li>
+<li><a href="https://ytsuboi.jp/archives/182">Macでデフォルトゲートウェイの確認方法 | 日々修行</a></li>
 </ul>
 
                 </section>
             </article>
 
             
-                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fprint-timestamp-on-bash-script-logging%2f - bash%e3%81%a7%7b%e6%a8%99%e6%ba%96%2c%e3%82%a8%e3%83%a9%e3%83%bc%7d%e5%87%ba%e5%8a%9b%e3%81%ab%e3%82%bf%e3%82%a4%e3%83%a0%e3%82%b9%e3%82%bf%e3%83%b3%e3%83%97%e3%82%92%e3%81%a4%e3%81%91%e3%82%8b by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2ftrouble-shooting-network-with-ping%2f - %e3%83%8d%e3%83%83%e3%83%88%e3%83%af%e3%83%bc%e3%82%af%e3%81%ae%e8%aa%bf%e5%ad%90%e3%81%8c%e6%82%aa%e3%81%84%e6%99%82%e3%80%81%e5%95%8f%e9%a1%8c%e3%82%92%e5%88%87%e3%82%8a%e5%88%86%e3%81%91%e3%82%8b%e3%81%9f%e3%82%81%e3%81%ae%20ping%20%e3%81%ae%e4%bd%bf%e3%81%84%e6%96%b9 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
 
 <a class="facebook" href="#" onclick="
     window.open(

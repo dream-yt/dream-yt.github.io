@@ -76,6 +76,66 @@
     
         
             <li>
+                <aside class="dates">Jan 27</aside>
+                <a href='https://dream-yt.github.io/post/perl-split-tsv-from-file-with-findbin/'>
+                    perl の FindBin と splitで tsv ファイルを雑にパースする
+                    
+                        
+                            <h2>こんな感じでtsvファイルを扱える。 #!/usr/bin/env perl use strict; use warnings; use FindBin; open my $fh, &#39;&lt;&#39;, &#34;$FindBin::Bin/_.tsv&#34;; my @mapping = map { [split] } &lt;$fh&gt;; ... このへんをメモ $FindBin::Bin について split 関数の仕様 ファイルの読み込み open my $fh,</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Jan 27</aside>
+                <a href='https://dream-yt.github.io/post/ts18028-private-identifiers-are-only-available/'>
+                    TypeScript で error TS18028: Private identifiers are only available when targeting ECMAScript 2015 and higher
+                    
+                        
+                            <h2>TypeScriptのビルド時に以下のようなエラーに遭遇した。 error TS18028: Private identifiers are only available when targeting ECMAScript 2015 and higher $ ./scripts/deploy.sh --function myfunc node_modules/cloudevents/dist/event/cloudevent.d.ts:15:5 - error TS18028: Private identifiers are only available when targeting ECMAScript 2015 and higher. 15 #private; ~~~~~~~~ Found 1 error. こ</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Jan 27</aside>
+                <a href='https://dream-yt.github.io/post/cloudtask-kick-authenticated-cloudfunction/'>
+                    CloudTaskで認証のついたCloudFunctionを実行するまで
+                    
+                        
+                            <h2>CloudTaskは、任意の場所にhttpリクエストを投げてくれるようなサービスで、リトライやワーカーの管理(同時実行数など)が設定できる。</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Jan 27</aside>
+                <a href='https://dream-yt.github.io/post/npm-err-enoent-undefined-ls-remote/'>
+                    npm install 時に npm ERR! enoent undefined ls-remote
+                    
+                        
+                            <h2>npm install などでこういったエラーが出る場合がある。 npm ERR! enoent undefined ls-remote -h -t これは、GitHubに直接ホスティングされているパッケージの場合などに発生する者で</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
                 <aside class="dates">Jan 22</aside>
                 <a href='https://dream-yt.github.io/post/bash-filename-strip-ext-for-loop/'>
                     bashで、ディレクトリ配下のファイル名から拡張子を取り除いてforループする
@@ -157,66 +217,6 @@
                     
                         
                             <h2>データメンテナンスなどで MySQL の GROUP_CONCAT を使うことがあるが、この関数は要注意で使い方に罠がある。 しかし「罠があるんだよな」ということだけ憶えていて罠を</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jan 4</aside>
-                <a href='https://dream-yt.github.io/post/slack-github-linking-todolist-on-startup-project/'>
-                    SlackとGitHub連携TODOリスト(新規プロジェクト作成時)
-                    
-                        
-                            <h2>毎回ググったりしているのでリスト化。 GitHub リポジトリを作成 GitHub内の Slack アプリに、つくったリポジトリへのアクセスを許可 Installed GitHub Apps Slack Slackのワ</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Dec 29</aside>
-                <a href='https://dream-yt.github.io/post/gcs-streaming-unzip-decodecp932-parsecsv-upload/'>
-                    nodejsでGCSからStreamしながらunzipしてファイルを取り出してShift-JISのCSVファイルをJSONLine形式にしてまたGCS上に出力する
-                    
-                        
-                            <h2>こんな要件のデータ連携があるとする。 要件 先方がGCPのCloudStorage(S3みたいなやつ)にファイルを置いてくれる 数GBくらいのSh</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Dec 24</aside>
-                <a href='https://dream-yt.github.io/post/gcp-cloudshell-vscode-remotessh/'>
-                    GCP Cloud Shell 上のコードを VS Code の Remote-SSH で触れるようにする
-                    
-                        
-                            <h2>基本的にはこちらの記事のとおりにやればよかった。 Visual Studio CodeでGoogle Cloud Shellを開く - Qiita Cloud Shell を起動 cloud-shell コマンドでログイン ここでssh鍵</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Dec 22</aside>
-                <a href='https://dream-yt.github.io/post/cloudfunction-typescript-deploy-notfirebase/'>
-                    Cloud Function (非Firebase) に TypeScript のコードをデプロイする
-                    
-                        
-                            <h2>デプロイの要件はひととおりドキュメントに書いてあるので、それを満たすように tsconfig やデプロイスクリプトを作ることになる。 Cloud Functions のデプロイ | Google Cloud Functions に関</h2>
                         
                     
                 </a>

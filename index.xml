@@ -6,10 +6,46 @@
     <description>Recent content on sacre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 23 Feb 2022 17:02:39 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 06 Mar 2022 18:05:38 +0900</lastBuildDate>
     
 	<atom:link href="https://dream-yt.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>GCP のプロジェクトで Terraformer を使ってみる</title>
+      <link>https://dream-yt.github.io/post/terraformer-gcp-init/</link>
+      <pubDate>Sun, 06 Mar 2022 18:05:38 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/terraformer-gcp-init/</guid>
+      <description>インストール インストールまでは brew でできる。 terraform 自体のバージョンとの互換性をちゃんとしておいた方がよさそうなので、tfenv でサポート対象のバー</description>
+    </item>
+    
+    <item>
+      <title>ネットワークの調子が悪い時、問題を切り分けるための ping の使い方</title>
+      <link>https://dream-yt.github.io/post/trouble-shooting-network-with-ping/</link>
+      <pubDate>Fri, 04 Mar 2022 14:14:50 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/trouble-shooting-network-with-ping/</guid>
+      <description>まずは本当にネットワークの調子が悪いのか(UIなどのせいではないのか)、適当なリモートホストに ping $ ping -c 32 8.8.8.8 --- 8.8.8.8 ping statistics --- 32 packets transmitted, 32 packets received, 0.0% packet loss round-trip min/avg/max/stddev =</description>
+    </item>
+    
+    <item>
+      <title>nginx の try_files でよくやる設定の意味</title>
+      <link>https://dream-yt.github.io/post/nginx-proxy-try-files/</link>
+      <pubDate>Thu, 03 Mar 2022 18:23:26 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/nginx-proxy-try-files/</guid>
+      <description>こんな設定をした場合の挙動について。 server { try_files $uri @proxy; location @proxy { proxy_pass http://app; ... } } $uri はnginx側で設定される変数で、リクエストされたURLが入っている try_files $uri @proxy $uri</description>
+    </item>
+    
+    <item>
+      <title>docker を使って nginx の設定をいろいろ変更しながらデバッグする</title>
+      <link>https://dream-yt.github.io/post/debug-nginx-on-docker/</link>
+      <pubDate>Thu, 03 Mar 2022 17:21:48 +0900</pubDate>
+      
+      <guid>https://dream-yt.github.io/post/debug-nginx-on-docker/</guid>
+      <description>とりあえず openresty のイメージが docker run できることを確認する。 $ docker run -p 8000:80 openresty/openresty:alpine $ curl -I localhost:8000 HTTP/1.1 200 OK Server: openresty/1.19.9.1 Date: Wed, 02 Mar 2022 08:48:46 GMT Content-Type: text/html Content-Length: 1097 Last-Modified: Tue, 11 Jan 2022 12:43:05 GMT Connection: keep-alive ETag: &amp;quot;61dd7b59-449&amp;quot; Accept-Ranges: bytes 設定ファイル</description>
+    </item>
     
     <item>
       <title>bashで{標準,エラー}出力にタイムスタンプをつける</title>
@@ -17,7 +53,7 @@
       <pubDate>Wed, 23 Feb 2022 17:02:39 +0900</pubDate>
       
       <guid>https://dream-yt.github.io/post/print-timestamp-on-bash-script-logging/</guid>
-      <description>スクリプトの先頭でこんな感じで exec をしておけばよい。 function addtimestamp() { while IFS= read -r line; do printf &#39;%s %s\n&#39; &amp;quot;[$(date +&amp;quot;%Y-%m-%d %H:%M:%S&amp;quot;)]&amp;quot; &amp;quot;$line&amp;quot;; done } readonly scriptname=$(basename ${0%.sh}) exec 1&amp;gt; &amp;gt;(addtimestamp | tee -a &amp;quot;/tmp/$scriptname-stdout.log&amp;quot;) exec 2&amp;gt; &amp;gt;(addtimestamp | tee -a &amp;quot;/tmp/$scriptname-stderr.log&amp;quot;) linux - How to add a timestamp to bash script</description>
+      <description>スクリプトの先頭でこんな感じで exec をしておけばよい。 function addtimestamp() { while IFS= read -r line; do printf &#39;%s %s\n&#39; &amp;quot;[$(date +&amp;quot;%Y-%m-%d %H:%M:%S&amp;quot;)]&amp;quot; &amp;quot;$line&amp;quot;; done } readonly scriptname=$(basename ${0%.sh}) exec 1&amp;gt; &amp;gt;(addtimestamp | tee -a &amp;quot;/tmp/$scriptname-stdout.log&amp;quot;) exec 2&amp;gt; &amp;gt;(addtimestamp | tee -a &amp;quot;/tmp/$scriptname-stderr.log&amp;quot;) 参考 linux - How to add a timestamp to</description>
     </item>
     
     <item>

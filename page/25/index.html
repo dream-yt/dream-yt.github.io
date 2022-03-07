@@ -76,6 +76,66 @@
     
         
             <li>
+                <aside class="dates">Feb 21</aside>
+                <a href='https://dream-yt.github.io/post/install-gcloud-to-alpine/'>
+                    alpine に gcloud をインストールする Dockerfile
+                    
+                        
+                            <h2>curl, bash, python, が必要 PATHを通す (root配下にインストールされた) FROM node:10-alpine RUN apk --no-cache add curl bash python RUN curl -sSL https://sdk.cloud.google.com | bash ENV PATH $PATH:/root/google-cloud-sdk/bin 参考 How to install the Google Cloud SDK in a Docker Image? - Stack Overflow Push an image on google</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Feb 18</aside>
+                <a href='https://dream-yt.github.io/post/cloudrun-cloudscheduler-101/'>
+                    cloudrun/cloudscheduler入門
+                    
+                        
+                            <h2>毎日決まった時間にスクリプトを実行したい要求があったので、マネージドの環境で実行できるcloudrun/cloudschedulerを試して</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Feb 17</aside>
+                <a href='https://dream-yt.github.io/post/cloudscheduler-error-invalid_argument/'>
+                    ERROR: (gcloud.beta.scheduler.jobs.create.http) INVALID_ARGUMENT
+                    
+                        
+                            <h2>GCPのCloudSchedulerの設定で以下のようなコマンドを叩いたところエラーとなった gcloud beta scheduler jobs create http subcommandtesting-out-job \ --schedule &#34;5 * * * *&#34; \ --http-method=GET \ --uri=&#39;https://test-iujvxwvxra-an.a.run.app/test/out&#39; \ --oidc-service-account-email=&#39;xxxxxxxx@gmail.com&#39; ERROR: (gcloud.beta.scheduler.jobs.create.http) INVALID_ARGUMENT: Request</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Feb 17</aside>
+                <a href='https://dream-yt.github.io/post/cloudrun-error-permission-denied/'>
+                    ERROR: (gcloud.beta.run.deploy) PERMISSION_DENIED
+                    
+                        
+                            <h2>CloudRunのデプロイ時にこんなログが出た ERROR: (gcloud.beta.run.deploy) PERMISSION_DENIED: Permission denied on ‘locations/asia-northeast1-a’ (or it may not exist) フル権限のユーザで作業しているはずなので PERMISSION_DENIED といわれても原因がピンとこな</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
                 <aside class="dates">Feb 14</aside>
                 <a href='https://dream-yt.github.io/post/nodejs-spawn-inherit-stdout-stderr/'>
                     nodejsで標準入出力/エラーを共有した子プロセスを作る
@@ -157,66 +217,6 @@
                     
                         
                             <h2>僕のPCはbrewがopensslがアップデートするたびにこのエラーがでる。1年毎くらいに発生するので毎回発生するたびに原因と対処方法は忘れ</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jan 27</aside>
-                <a href='https://dream-yt.github.io/post/heroku-deploy-bia-git/'>
-                    herokuにデプロイ
-                    
-                        
-                            <h2>忘れるのでメモ $ brew install heroku $ heroku login # あらかじめherokuのUIでアカウントをつくっておいたアカウントでログイン $ cd ~/path/to/app # アプリをつくる $ heroku create rsshub-yahoo-jp-tv # 名</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jan 23</aside>
-                <a href='https://dream-yt.github.io/post/browserify-webpack-amd-commonjs/'>
-                    browserifyからwebpackに移行するときのエラー
-                    
-                        
-                            <h2>browserifyのcommonjsと、webpackのcommonjsの違いにハマったときの話 経緯 browserifyからwebpack</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jan 17</aside>
-                <a href='https://dream-yt.github.io/post/connect-avd-adb-as-root/'>
-                    androidの仮想デバイス(AVD)にadb rootで接続する
-                    
-                        
-                            <h2>androidの /data/ 配下など、rootでしかアクセスできない領域のデータを確認する場合に、 adb root する必要がある 仮想デバイスの起動 # 一覧を取得 $ emulator</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jan 17</aside>
-                <a href='https://dream-yt.github.io/post/git-grep-target-file-extension/'>
-                    git grepで探すファイルの拡張子を指定
-                    
-                        
-                            <h2>こんな感じでできる $ git grep cache -- &#39;*.java&#39; git grepでは -- 以降が対象パスの指定となっているので、そこにglobを書くと探索するファイルを指定できる – …​</h2>
                         
                     
                 </a>

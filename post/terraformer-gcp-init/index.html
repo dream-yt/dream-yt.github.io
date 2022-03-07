@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="https://dream-yt.github.io/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="GCP のプロジェクトで Terraformer を使ってみる"/>
+  <meta name="twitter:description" content="インストール インストールまでは brew でできる。 terraform 自体のバージョンとの互換性をちゃんとしておいた方がよさそうなので、tfenv でサポート対象のバー"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@site_author"/>
+  
+
+
+
+		
+		<meta name="author" content="site_author">
+		<meta name="description" content="Site Description">
+		<meta name="generator" content="Hugo 0.51" />
+		<title>GCP のプロジェクトで Terraformer を使ってみる &middot; sacre</title>
+		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="https://dream-yt.github.io/css/font-awesome.min.css">
+		
+
+		
+		<link href="https://dream-yt.github.io/index.xml" rel="alternate" type="application/rss+xml" title="sacre" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='https://dream-yt.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://dream-yt.github.io/posts'>Archive</a>
+	<a href='https://dream-yt.github.io/tags'>Tags</a>
+	<a href='https://dream-yt.github.io/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="https://dream-yt.github.io/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        GCP のプロジェクトで Terraformer を使ってみる
+                    </h1>
+                    <h2 class="headline">
+                    Mar 6, 2022 18:05
+                    · 894 words
+                    · 2 minute read
+                      <span class="tags">
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#インストール">インストール</a></li>
+<li><a href="#下準備">下準備</a>
+<ul>
+<li><a href="#plugin-をコピーしておく">plugin をコピーしておく</a></li>
+<li><a href="#apiを有効にする">APIを有効にする</a></li>
+</ul></li>
+<li><a href="#実行">実行</a></li>
+<li><a href="#感想">感想</a></li>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    
+
+<h2 id="インストール">インストール</h2>
+
+<p>インストールまでは brew でできる。 terraform 自体のバージョンとの互換性をちゃんとしておいた方がよさそうなので、tfenv でサポート対象のバージョンを入れておく。</p>
+
+<pre><code>$ which terraformer
+/usr/local/bin/terraformer
+$ terraform version
+Terraform v0.13.7
+</code></pre>
+
+<h2 id="下準備">下準備</h2>
+
+<p>前もって準備をすることがいくつかある。</p>
+
+<h3 id="plugin-をコピーしておく">plugin をコピーしておく</h3>
+
+<blockquote>
+<p>2022/03/06 17:15:19 open ~/.terraform.d/plugins/darwin_amd64: no such file or directory</p>
+
+<p>利用する前にディレクトリ(~/.terraform.d/plugins/{darwin,linux}_amd64/)を作成し、ここにプロバイダをインストールしておく必要があります。</p>
+</blockquote>
+
+<ul>
+<li><a href="https://qiita.com/donko_/items/a69fc28109c2b59f3831#%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB">TerraformerのためのTerraformer - Qiita</a></li>
+</ul>
+
+<p>ここから最新のプロバイダをもってきて使う</p>
+
+<ul>
+<li><a href="https://releases.hashicorp.com/terraform-provider-google/">terraform-provider-google Versions | HashiCorp Releases</a></li>
+</ul>
+
+<h3 id="apiを有効にする">APIを有効にする</h3>
+
+<p>Compute Engine を使っていない場合でも Compute Engine API を有効にしておく必要がある。有効にしていないと実行時に以下のようなエラーがでる。</p>
+
+<blockquote>
+<p>2022/03/06 17:29:48 googleapi: Error 403: Compute Engine API has not been used in project 123456789101 before or it is disabled. Enable it by visiting <a href="https://console.developers.google.com/apis/api/compute.googleapis.com/overview?project=123456789101">https://console.developers.google.com/apis/api/compute.googleapis.com/overview?project=123456789101</a> then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.</p>
+</blockquote>
+
+<h2 id="実行">実行</h2>
+
+<pre><code class="language-bash">$ terraformer import google --resources=bigQuery,gcs,logging,project,cloudFunctions,iam,pubsub --projects=$GCP_PROJECT_ID
+</code></pre>
+
+<p>以下のようにファイルが生成される。</p>
+
+<pre><code class="language-console">$ tree
+.
+└── generated
+    └── google
+        └── proj-123456
+            ├── bigQuery
+            │   └── global
+            │       ├── bigquery_dataset.tf
+            │       ├── bigquery_table.tf
+            │       ├── outputs.tf
+            │       ├── provider.tf
+            │       └── terraform.tfstate
+            ├── cloudFunctions
+            │   └── global
+            │       ├── provider.tf
+            │       └── terraform.tfstate
+            ├── gcs
+            │   └── global
+            │       ├── outputs.tf
+            │       ├── provider.tf
+            │       ├── storage_bucket.tf
+            │       ├── storage_bucket_acl.tf
+            │       ├── storage_bucket_iam_binding.tf
+            │       ├── storage_bucket_iam_policy.tf
+            │       ├── storage_default_object_acl.tf
+            │       └── terraform.tfstate
+            ├── iam
+            │   └── global
+            │       ├── outputs.tf
+            │       ├── project_iam_member.tf
+            │       ├── provider.tf
+            │       ├── service_account.tf
+            │       └── terraform.tfstate
+            ├── logging
+            │   └── global
+            │       ├── provider.tf
+            │       └── terraform.tfstate
+            ├── project
+            │   └── global
+            │       ├── outputs.tf
+            │       ├── project.tf
+            │       ├── provider.tf
+            │       └── terraform.tfstate
+            └── pubsub
+                └── global
+                    ├── provider.tf
+                    └── terraform.tfstate
+</code></pre>
+
+<h2 id="感想">感想</h2>
+
+<p>生成されるコードのリソース名などはヒューマンリーダブルではない。「terraformer import したコードをもとにして terraform 化をしていくためのツール」という話かなと思っていたので少し勘違いをしていた。</p>
+
+<pre><code class="language-console">$ head -1 ./generated/google/proj-123456/iam/global/project_iam_member.tf
+resource &quot;google_project_iam_member&quot; &quot;tfer--roles-002F-cloudbuild-002E-builds-002E-builderserviceAccount-003A-123456789101-0040-cloudbuild-002E-gserviceaccount-002E-com&quot; {
+
+</code></pre>
+
+<p>「生成されたコードをもとに tf ファイルを育てていく」という使い方ではなく、「tfファイルを実装するために参考にするコードを履くツール」のようだ。</p>
+
+<h2 id="参考">参考</h2>
+
+<ul>
+<li><a href="https://colsis.jp/blog/gcpterraform/">清掃員がGCP環境構築をTerraform化してみた｜Blog｜株式会社COLSIS（コルシス）</a></li>
+<li><a href="https://github.com/GoogleCloudPlatform/terraformer/blob/master/docs/gcp.md">terraformer/gcp.md at master · GoogleCloudPlatform/terraformer</a></li>
+<li><a href="https://dev.classmethod.jp/articles/accesse-google-cloud-with-terraform/">TerraformでGoogle Cloudを扱うためのローカル端末環境構築 | DevelopersIO</a></li>
+</ul>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fterraformer-gcp-init%2f - GCP%20%e3%81%ae%e3%83%97%e3%83%ad%e3%82%b8%e3%82%a7%e3%82%af%e3%83%88%e3%81%a7%20Terraformer%20%e3%82%92%e4%bd%bf%e3%81%a3%e3%81%a6%e3%81%bf%e3%82%8b by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'your_disqus_short_name'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/dream-yt/sacre">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://twitter.com/FUTABA_SACRE">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2022 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="https://dream-yt.github.io/js/jquery-3.3.1.min.js"></script>
+<script src="https://dream-yt.github.io/js/main.js"></script>
+<script src="https://dream-yt.github.io/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+
+
+
+
+    </body>
+</html>

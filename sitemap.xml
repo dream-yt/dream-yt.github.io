@@ -3,6 +3,26 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://dream-yt.github.io/post/terraformer-gcp-init/</loc>
+    <lastmod>2022-03-06T18:05:38+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://dream-yt.github.io/post/trouble-shooting-network-with-ping/</loc>
+    <lastmod>2022-03-04T14:14:50+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://dream-yt.github.io/post/nginx-proxy-try-files/</loc>
+    <lastmod>2022-03-03T18:23:26+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://dream-yt.github.io/post/debug-nginx-on-docker/</loc>
+    <lastmod>2022-03-03T17:21:48+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://dream-yt.github.io/post/print-timestamp-on-bash-script-logging/</loc>
     <lastmod>2022-02-23T17:02:39+09:00</lastmod>
   </url>
@@ -1988,7 +2008,7 @@
   
   <url>
     <loc>https://dream-yt.github.io/post/</loc>
-    <lastmod>2022-02-23T17:02:39+09:00</lastmod>
+    <lastmod>2022-03-06T18:05:38+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -2000,7 +2020,7 @@
   
   <url>
     <loc>https://dream-yt.github.io/</loc>
-    <lastmod>2022-02-23T17:02:39+09:00</lastmod>
+    <lastmod>2022-03-06T18:05:38+09:00</lastmod>
     <priority>0</priority>
   </url>
   

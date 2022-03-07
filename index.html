@@ -76,12 +76,72 @@
     
         
             <li>
+                <aside class="dates">Mar 6</aside>
+                <a href='https://dream-yt.github.io/post/terraformer-gcp-init/'>
+                    GCP のプロジェクトで Terraformer を使ってみる
+                    
+                        
+                            <h2>インストール インストールまでは brew でできる。 terraform 自体のバージョンとの互換性をちゃんとしておいた方がよさそうなので、tfenv でサポート対象のバー</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Mar 4</aside>
+                <a href='https://dream-yt.github.io/post/trouble-shooting-network-with-ping/'>
+                    ネットワークの調子が悪い時、問題を切り分けるための ping の使い方
+                    
+                        
+                            <h2>まずは本当にネットワークの調子が悪いのか(UIなどのせいではないのか)、適当なリモートホストに ping $ ping -c 32 8.8.8.8 --- 8.8.8.8 ping statistics --- 32 packets transmitted, 32 packets received, 0.0% packet loss round-trip min/avg/max/stddev =</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Mar 3</aside>
+                <a href='https://dream-yt.github.io/post/nginx-proxy-try-files/'>
+                    nginx の try_files でよくやる設定の意味
+                    
+                        
+                            <h2>こんな設定をした場合の挙動について。 server { try_files $uri @proxy; location @proxy { proxy_pass http://app; ... } } $uri はnginx側で設定される変数で、リクエストされたURLが入っている try_files $uri @proxy $uri</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Mar 3</aside>
+                <a href='https://dream-yt.github.io/post/debug-nginx-on-docker/'>
+                    docker を使って nginx の設定をいろいろ変更しながらデバッグする
+                    
+                        
+                            <h2>とりあえず openresty のイメージが docker run できることを確認する。 $ docker run -p 8000:80 openresty/openresty:alpine $ curl -I localhost:8000 HTTP/1.1 200 OK Server: openresty/1.19.9.1 Date: Wed, 02 Mar 2022 08:48:46 GMT Content-Type: text/html Content-Length: 1097 Last-Modified: Tue, 11 Jan 2022 12:43:05 GMT Connection: keep-alive ETag: &#34;61dd7b59-449&#34; Accept-Ranges: bytes 設定ファイル</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
                 <aside class="dates">Feb 23</aside>
                 <a href='https://dream-yt.github.io/post/print-timestamp-on-bash-script-logging/'>
                     bashで{標準,エラー}出力にタイムスタンプをつける
                     
                         
-                            <h2>スクリプトの先頭でこんな感じで exec をしておけばよい。 function addtimestamp() { while IFS= read -r line; do printf &#39;%s %s\n&#39; &#34;[$(date &#43;&#34;%Y-%m-%d %H:%M:%S&#34;)]&#34; &#34;$line&#34;; done } readonly scriptname=$(basename ${0%.sh}) exec 1&gt; &gt;(addtimestamp | tee -a &#34;/tmp/$scriptname-stdout.log&#34;) exec 2&gt; &gt;(addtimestamp | tee -a &#34;/tmp/$scriptname-stderr.log&#34;) linux - How to add a timestamp to bash script</h2>
+                            <h2>スクリプトの先頭でこんな感じで exec をしておけばよい。 function addtimestamp() { while IFS= read -r line; do printf &#39;%s %s\n&#39; &#34;[$(date &#43;&#34;%Y-%m-%d %H:%M:%S&#34;)]&#34; &#34;$line&#34;; done } readonly scriptname=$(basename ${0%.sh}) exec 1&gt; &gt;(addtimestamp | tee -a &#34;/tmp/$scriptname-stdout.log&#34;) exec 2&gt; &gt;(addtimestamp | tee -a &#34;/tmp/$scriptname-stderr.log&#34;) 参考 linux - How to add a timestamp to</h2>
                         
                     
                 </a>
@@ -157,66 +217,6 @@
                     
                         
                             <h2>こちらの続き。 nodejs の google-spreadsheet を使ってスプレッドシートを更新する 件のやりかたではシートを消してから新しいデータを入れていたが、シートの一部だけを更新し</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Feb 18</aside>
-                <a href='https://dream-yt.github.io/post/gcloud-configurations-create/'>
-                    gcloud コマンドで使う設定をプロジェクトごとに切り替える
-                    
-                        
-                            <h2>GCPの gcloud コマンドは、プロジェクトとアカウントを切り替えながら作業することができる プロジェクトとアカウント は configurations と呼び、ローカルに複数作ること</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Feb 15</aside>
-                <a href='https://dream-yt.github.io/post/bqutils-fn-introduce/'>
-                    便利な bqutil
-                    
-                        
-                            <h2>bqutil.fn という便利な関数がたくさん同梱された、データセットが公開されている。 GCP公式が作っている便利な関数群が置かれているデータセットで、日付の</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Feb 15</aside>
-                <a href='https://dream-yt.github.io/post/cloudfunction-oidc-service-account-email-requires/'>
-                    Cloud Function の `oidc-service-account-email` が必要とするService Account のロール
-                    
-                        
-                            <h2>きちんと調べずに使っていたのでメモ Cloud Function は public アクセスを許可しないで、サービスアカウントからのアクセスのみ許可する設定ができる。 具体的には --allow-unauthenticated=false とし</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Feb 1</aside>
-                <a href='https://dream-yt.github.io/post/bigquery-random-sampling-table/'>
-                    BigQuery でランダムサンプリングしたテーブルを作る
-                    
-                        
-                            <h2>大きいテーブルに色々クエリをかけるとお金がかかっちゃうので、ランダムで抽出したテーブルを作成するときのもの。 1%にサンプリングしたテーブルは</h2>
                         
                     
                 </a>

@@ -13,8 +13,8 @@
     
   
   
-  <meta name="twitter:title" content="bashで{標準,エラー}出力にタイムスタンプをつける"/>
-  <meta name="twitter:description" content="スクリプトの先頭でこんな感じで exec をしておけばよい。 function addtimestamp() { while IFS= read -r line; do printf &#39;%s %s\n&#39; &quot;[$(date &#43;&quot;%Y-%m-%d %H:%M:%S&quot;)]&quot; &quot;$line&quot;; done } readonly scriptname=$(basename ${0%.sh}) exec 1&gt; &gt;(addtimestamp | tee -a &quot;/tmp/$scriptname-stdout.log&quot;) exec 2&gt; &gt;(addtimestamp | tee -a &quot;/tmp/$scriptname-stderr.log&quot;) 参考 linux - How to add a timestamp to"/>
+  <meta name="twitter:title" content="nginx の try_files でよくやる設定の意味"/>
+  <meta name="twitter:description" content="こんな設定をした場合の挙動について。 server { try_files $uri @proxy; location @proxy { proxy_pass http://app; ... } } $uri はnginx側で設定される変数で、リクエストされたURLが入っている try_files $uri @proxy $uri"/>
   
     <meta name="twitter:site" content="@your_twitter_id"/>
   
@@ -30,7 +30,7 @@
 		<meta name="author" content="site_author">
 		<meta name="description" content="Site Description">
 		<meta name="generator" content="Hugo 0.51" />
-		<title>bashで{標準,エラー}出力にタイムスタンプをつける &middot; sacre</title>
+		<title>nginx の try_files でよくやる設定の意味 &middot; sacre</title>
 		<link rel="shortcut icon" href="https://dream-yt.github.io/images/favicon.ico">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/style.css">
 		<link rel="stylesheet" href="https://dream-yt.github.io/css/highlight.css">
@@ -68,11 +68,11 @@
             <article>
                 <header>
                     <h1>
-                        bashで{標準,エラー}出力にタイムスタンプをつける
+                        nginx の try_files でよくやる設定の意味
                     </h1>
                     <h2 class="headline">
-                    Feb 23, 2022 17:02
-                    · 117 words
+                    Mar 3, 2022 18:23
+                    · 241 words
                     · 1 minute read
                       <span class="tags">
                       
@@ -88,8 +88,9 @@
 <ul>
 <li>
 <ul>
-<li><a href="#参考">参考</a></li>
+<li><a href="#proxy">@proxy</a></li>
 </ul></li>
+<li><a href="#参考">参考</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -99,30 +100,46 @@
                 <section id="post-body">
                     
 
-<p>スクリプトの先頭でこんな感じで exec をしておけばよい。</p>
+<p>こんな設定をした場合の挙動について。</p>
 
-<pre><code class="language-bash">function addtimestamp() {
-    while IFS= read -r line; do
-        printf '%s %s\n' &quot;[$(date +&quot;%Y-%m-%d %H:%M:%S&quot;)]&quot; &quot;$line&quot;;
-    done
+<pre><code>server {
+  try_files $uri @proxy;
+  location @proxy {
+    proxy_pass http://app;
+    ...
+  }
 }
-readonly scriptname=$(basename ${0%.sh})
-exec 1&gt; &gt;(addtimestamp | tee -a &quot;/tmp/$scriptname-stdout.log&quot;)
-exec 2&gt; &gt;(addtimestamp | tee -a &quot;/tmp/$scriptname-stderr.log&quot;)
 </code></pre>
 
-<h3 id="参考">参考</h3>
+<ul>
+<li><code>$uri</code> はnginx側で設定される変数で、リクエストされたURLが入っている</li>
+<li><code>try_files $uri @proxy</code>
+
+<ol>
+<li><code>$uri</code> に静的ファイルが存在するなら、それを返す</li>
+<li>存在しないなら、<code>location @proxy</code> 配下の設定にしたがって処理する</li>
+</ol></li>
+</ul>
+
+<h3 id="proxy">@proxy</h3>
 
 <ul>
-<li><a href="https://serverfault.com/questions/310098/how-to-add-a-timestamp-to-bash-script-log">linux - How to add a timestamp to bash script log? - Server Fault</a></li>
-<li><a href="https://genzouw.com/entry/2020/01/06/120027/1845/">Bashシェルスクリプトでログ出力をシンプルに実現する方法 | ゲンゾウ用ポストイット</a></li>
+<li>なんらかの変数のように見える <code>@proxy</code> はファイルがなかった場合の internal redirect 先のことだった</li>
+<li>これは <code>location @proxy</code> という指定と組み合わせて使うと「該当の静的ファイルがなかったら <code>http://app</code> に proxy する」という設定になる</li>
+</ul>
+
+<h2 id="参考">参考</h2>
+
+<ul>
+<li><a href="http://nginx.org/en/docs/http/ngx_http_core_module.html#try_files">Module ngx_http_core_module</a></li>
+<li><a href="https://qiita.com/kaikusakari/items/cc5955a57b74d5937fd8">Nginxのtry_filesディレクティブ設定例 - Qiita</a></li>
 </ul>
 
                 </section>
             </article>
 
             
-                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fprint-timestamp-on-bash-script-logging%2f - bash%e3%81%a7%7b%e6%a8%99%e6%ba%96%2c%e3%82%a8%e3%83%a9%e3%83%bc%7d%e5%87%ba%e5%8a%9b%e3%81%ab%e3%82%bf%e3%82%a4%e3%83%a0%e3%82%b9%e3%82%bf%e3%83%b3%e3%83%97%e3%82%92%e3%81%a4%e3%81%91%e3%82%8b by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdream-yt.github.io%2fpost%2fnginx-proxy-try-files%2f - nginx%20%e3%81%ae%20try_files%20%e3%81%a7%e3%82%88%e3%81%8f%e3%82%84%e3%82%8b%e8%a8%ad%e5%ae%9a%e3%81%ae%e6%84%8f%e5%91%b3 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
 
 <a class="facebook" href="#" onclick="
     window.open(

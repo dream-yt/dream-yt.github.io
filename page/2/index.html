@@ -76,6 +76,66 @@
     
         
             <li>
+                <aside class="dates">Feb 18</aside>
+                <a href='https://dream-yt.github.io/post/gcloud-configurations-create/'>
+                    gcloud コマンドで使う設定をプロジェクトごとに切り替える
+                    
+                        
+                            <h2>GCPの gcloud コマンドは、プロジェクトとアカウントを切り替えながら作業することができる プロジェクトとアカウント は configurations と呼び、ローカルに複数作ること</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Feb 15</aside>
+                <a href='https://dream-yt.github.io/post/bqutils-fn-introduce/'>
+                    便利な bqutil
+                    
+                        
+                            <h2>bqutil.fn という便利な関数がたくさん同梱された、データセットが公開されている。 GCP公式が作っている便利な関数群が置かれているデータセットで、日付の</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Feb 15</aside>
+                <a href='https://dream-yt.github.io/post/cloudfunction-oidc-service-account-email-requires/'>
+                    Cloud Function の `oidc-service-account-email` が必要とするService Account のロール
+                    
+                        
+                            <h2>きちんと調べずに使っていたのでメモ Cloud Function は public アクセスを許可しないで、サービスアカウントからのアクセスのみ許可する設定ができる。 具体的には --allow-unauthenticated=false とし</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
+                <aside class="dates">Feb 1</aside>
+                <a href='https://dream-yt.github.io/post/bigquery-random-sampling-table/'>
+                    BigQuery でランダムサンプリングしたテーブルを作る
+                    
+                        
+                            <h2>大きいテーブルに色々クエリをかけるとお金がかかっちゃうので、ランダムで抽出したテーブルを作成するときのもの。 1%にサンプリングしたテーブルは</h2>
+                        
+                    
+                </a>
+            </li>
+        
+    
+    
+        
+            <li>
                 <aside class="dates">Jan 31</aside>
                 <a href='https://dream-yt.github.io/post/list-bigquery-udf/'>
                     BigQuery で定義されているUDFの名前と定義を一覧するスクリプト
@@ -157,66 +217,6 @@
                     
                         
                             <h2>SpreadSheetとGCPの認証認可については、以前にこちらに書いた。 サービスアカウントで認証してGoogleSpreadsheetから</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jan 27</aside>
-                <a href='https://dream-yt.github.io/post/perl-split-tsv-from-file-with-findbin/'>
-                    perl の FindBin と splitで tsv ファイルを雑にパースする
-                    
-                        
-                            <h2>こんな感じでtsvファイルを扱える。 #!/usr/bin/env perl use strict; use warnings; use FindBin; open my $fh, &#39;&lt;&#39;, &#34;$FindBin::Bin/_.tsv&#34;; my @mapping = map { [split] } &lt;$fh&gt;; ... このへんをメモ $FindBin::Bin について split 関数の仕様 ファイルの読み込み open my $fh,</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jan 27</aside>
-                <a href='https://dream-yt.github.io/post/ts18028-private-identifiers-are-only-available/'>
-                    TypeScript で error TS18028: Private identifiers are only available when targeting ECMAScript 2015 and higher
-                    
-                        
-                            <h2>TypeScriptのビルド時に以下のようなエラーに遭遇した。 error TS18028: Private identifiers are only available when targeting ECMAScript 2015 and higher $ ./scripts/deploy.sh --function myfunc node_modules/cloudevents/dist/event/cloudevent.d.ts:15:5 - error TS18028: Private identifiers are only available when targeting ECMAScript 2015 and higher. 15 #private; ~~~~~~~~ Found 1 error. こ</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jan 27</aside>
-                <a href='https://dream-yt.github.io/post/cloudtask-kick-authenticated-cloudfunction/'>
-                    CloudTaskで認証のついたCloudFunctionを実行するまで
-                    
-                        
-                            <h2>CloudTaskは、任意の場所にhttpリクエストを投げてくれるようなサービスで、リトライやワーカーの管理(同時実行数など)が設定できる。</h2>
-                        
-                    
-                </a>
-            </li>
-        
-    
-    
-        
-            <li>
-                <aside class="dates">Jan 27</aside>
-                <a href='https://dream-yt.github.io/post/npm-err-enoent-undefined-ls-remote/'>
-                    npm install 時に npm ERR! enoent undefined ls-remote
-                    
-                        
-                            <h2>npm install などでこういったエラーが出る場合がある。 npm ERR! enoent undefined ls-remote -h -t これは、GitHubに直接ホスティングされているパッケージの場合などに発生する者で</h2>
                         
                     
                 </a>
